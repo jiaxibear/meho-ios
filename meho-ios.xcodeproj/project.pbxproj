@@ -1,0 +1,593 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */; };
+		EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */; };
+		EA2FC5C423EF7AD400E258BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5C323EF7AD400E258BD /* ContentView.swift */; };
+		EA2FC5C623EF7AD600E258BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA2FC5C523EF7AD600E258BD /* Assets.xcassets */; };
+		EA2FC5C923EF7AD600E258BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA2FC5C823EF7AD600E258BD /* Preview Assets.xcassets */; };
+		EA2FC5CC23EF7AD600E258BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA2FC5CA23EF7AD600E258BD /* LaunchScreen.storyboard */; };
+		EA2FC5D723EF7AD600E258BD /* meho_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5D623EF7AD600E258BD /* meho_iosTests.swift */; };
+		EA2FC5E223EF7AD600E258BD /* meho_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5E123EF7AD600E258BD /* meho_iosUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EA2FC5D323EF7AD600E258BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA2FC5B423EF7AD400E258BD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA2FC5BB23EF7AD400E258BD;
+			remoteInfo = "meho-ios";
+		};
+		EA2FC5DE23EF7AD600E258BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA2FC5B423EF7AD400E258BD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA2FC5BB23EF7AD400E258BD;
+			remoteInfo = "meho-ios";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EA2FC5BC23EF7AD400E258BD /* meho-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "meho-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		EA2FC5C323EF7AD400E258BD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		EA2FC5C523EF7AD600E258BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EA2FC5C823EF7AD600E258BD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EA2FC5CB23EF7AD600E258BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EA2FC5CD23EF7AD600E258BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA2FC5D223EF7AD600E258BD /* meho-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "meho-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA2FC5D623EF7AD600E258BD /* meho_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = meho_iosTests.swift; sourceTree = "<group>"; };
+		EA2FC5D823EF7AD600E258BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA2FC5DD23EF7AD600E258BD /* meho-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "meho-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA2FC5E123EF7AD600E258BD /* meho_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = meho_iosUITests.swift; sourceTree = "<group>"; };
+		EA2FC5E323EF7AD600E258BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EA2FC5B923EF7AD400E258BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA2FC5CF23EF7AD600E258BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA2FC5DA23EF7AD600E258BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EA2FC5B323EF7AD400E258BD = {
+			isa = PBXGroup;
+			children = (
+				EA2FC5BE23EF7AD400E258BD /* meho-ios */,
+				EA2FC5D523EF7AD600E258BD /* meho-iosTests */,
+				EA2FC5E023EF7AD600E258BD /* meho-iosUITests */,
+				EA2FC5BD23EF7AD400E258BD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EA2FC5BD23EF7AD400E258BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA2FC5BC23EF7AD400E258BD /* meho-ios.app */,
+				EA2FC5D223EF7AD600E258BD /* meho-iosTests.xctest */,
+				EA2FC5DD23EF7AD600E258BD /* meho-iosUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EA2FC5BE23EF7AD400E258BD /* meho-ios */ = {
+			isa = PBXGroup;
+			children = (
+				EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */,
+				EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */,
+				EA2FC5C323EF7AD400E258BD /* ContentView.swift */,
+				EA2FC5C523EF7AD600E258BD /* Assets.xcassets */,
+				EA2FC5CA23EF7AD600E258BD /* LaunchScreen.storyboard */,
+				EA2FC5CD23EF7AD600E258BD /* Info.plist */,
+				EA2FC5C723EF7AD600E258BD /* Preview Content */,
+			);
+			path = "meho-ios";
+			sourceTree = "<group>";
+		};
+		EA2FC5C723EF7AD600E258BD /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				EA2FC5C823EF7AD600E258BD /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		EA2FC5D523EF7AD600E258BD /* meho-iosTests */ = {
+			isa = PBXGroup;
+			children = (
+				EA2FC5D623EF7AD600E258BD /* meho_iosTests.swift */,
+				EA2FC5D823EF7AD600E258BD /* Info.plist */,
+			);
+			path = "meho-iosTests";
+			sourceTree = "<group>";
+		};
+		EA2FC5E023EF7AD600E258BD /* meho-iosUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EA2FC5E123EF7AD600E258BD /* meho_iosUITests.swift */,
+				EA2FC5E323EF7AD600E258BD /* Info.plist */,
+			);
+			path = "meho-iosUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EA2FC5BB23EF7AD400E258BD /* meho-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA2FC5E623EF7AD600E258BD /* Build configuration list for PBXNativeTarget "meho-ios" */;
+			buildPhases = (
+				EA2FC5B823EF7AD400E258BD /* Sources */,
+				EA2FC5B923EF7AD400E258BD /* Frameworks */,
+				EA2FC5BA23EF7AD400E258BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "meho-ios";
+			productName = "meho-ios";
+			productReference = EA2FC5BC23EF7AD400E258BD /* meho-ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EA2FC5D123EF7AD600E258BD /* meho-iosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA2FC5E923EF7AD600E258BD /* Build configuration list for PBXNativeTarget "meho-iosTests" */;
+			buildPhases = (
+				EA2FC5CE23EF7AD600E258BD /* Sources */,
+				EA2FC5CF23EF7AD600E258BD /* Frameworks */,
+				EA2FC5D023EF7AD600E258BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA2FC5D423EF7AD600E258BD /* PBXTargetDependency */,
+			);
+			name = "meho-iosTests";
+			productName = "meho-iosTests";
+			productReference = EA2FC5D223EF7AD600E258BD /* meho-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EA2FC5DC23EF7AD600E258BD /* meho-iosUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA2FC5EC23EF7AD600E258BD /* Build configuration list for PBXNativeTarget "meho-iosUITests" */;
+			buildPhases = (
+				EA2FC5D923EF7AD600E258BD /* Sources */,
+				EA2FC5DA23EF7AD600E258BD /* Frameworks */,
+				EA2FC5DB23EF7AD600E258BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA2FC5DF23EF7AD600E258BD /* PBXTargetDependency */,
+			);
+			name = "meho-iosUITests";
+			productName = "meho-iosUITests";
+			productReference = EA2FC5DD23EF7AD600E258BD /* meho-iosUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EA2FC5B423EF7AD400E258BD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = Meho;
+				TargetAttributes = {
+					EA2FC5BB23EF7AD400E258BD = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					EA2FC5D123EF7AD600E258BD = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = EA2FC5BB23EF7AD400E258BD;
+					};
+					EA2FC5DC23EF7AD600E258BD = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = EA2FC5BB23EF7AD400E258BD;
+					};
+				};
+			};
+			buildConfigurationList = EA2FC5B723EF7AD400E258BD /* Build configuration list for PBXProject "meho-ios" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EA2FC5B323EF7AD400E258BD;
+			productRefGroup = EA2FC5BD23EF7AD400E258BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EA2FC5BB23EF7AD400E258BD /* meho-ios */,
+				EA2FC5D123EF7AD600E258BD /* meho-iosTests */,
+				EA2FC5DC23EF7AD600E258BD /* meho-iosUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EA2FC5BA23EF7AD400E258BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA2FC5CC23EF7AD600E258BD /* LaunchScreen.storyboard in Resources */,
+				EA2FC5C923EF7AD600E258BD /* Preview Assets.xcassets in Resources */,
+				EA2FC5C623EF7AD600E258BD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA2FC5D023EF7AD600E258BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA2FC5DB23EF7AD600E258BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EA2FC5B823EF7AD400E258BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */,
+				EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */,
+				EA2FC5C423EF7AD400E258BD /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA2FC5CE23EF7AD600E258BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA2FC5D723EF7AD600E258BD /* meho_iosTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA2FC5D923EF7AD600E258BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA2FC5E223EF7AD600E258BD /* meho_iosUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EA2FC5D423EF7AD600E258BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA2FC5BB23EF7AD400E258BD /* meho-ios */;
+			targetProxy = EA2FC5D323EF7AD600E258BD /* PBXContainerItemProxy */;
+		};
+		EA2FC5DF23EF7AD600E258BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA2FC5BB23EF7AD400E258BD /* meho-ios */;
+			targetProxy = EA2FC5DE23EF7AD600E258BD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EA2FC5CA23EF7AD600E258BD /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA2FC5CB23EF7AD600E258BD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EA2FC5E423EF7AD600E258BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EA2FC5E523EF7AD600E258BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EA2FC5E723EF7AD600E258BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "meho-ios/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Meho.meho-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EA2FC5E823EF7AD600E258BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "meho-ios/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Meho.meho-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EA2FC5EA23EF7AD600E258BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "meho-iosTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Meho.meho-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/meho-ios.app/meho-ios";
+			};
+			name = Debug;
+		};
+		EA2FC5EB23EF7AD600E258BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "meho-iosTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Meho.meho-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/meho-ios.app/meho-ios";
+			};
+			name = Release;
+		};
+		EA2FC5ED23EF7AD600E258BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "meho-iosUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Meho.meho-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "meho-ios";
+			};
+			name = Debug;
+		};
+		EA2FC5EE23EF7AD600E258BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "meho-iosUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Meho.meho-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "meho-ios";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EA2FC5B723EF7AD400E258BD /* Build configuration list for PBXProject "meho-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA2FC5E423EF7AD600E258BD /* Debug */,
+				EA2FC5E523EF7AD600E258BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA2FC5E623EF7AD600E258BD /* Build configuration list for PBXNativeTarget "meho-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA2FC5E723EF7AD600E258BD /* Debug */,
+				EA2FC5E823EF7AD600E258BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA2FC5E923EF7AD600E258BD /* Build configuration list for PBXNativeTarget "meho-iosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA2FC5EA23EF7AD600E258BD /* Debug */,
+				EA2FC5EB23EF7AD600E258BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA2FC5EC23EF7AD600E258BD /* Build configuration list for PBXNativeTarget "meho-iosUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA2FC5ED23EF7AD600E258BD /* Debug */,
+				EA2FC5EE23EF7AD600E258BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EA2FC5B423EF7AD400E258BD /* Project object */;
+}
