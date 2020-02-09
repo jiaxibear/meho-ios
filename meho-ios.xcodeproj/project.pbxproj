@@ -9,12 +9,16 @@
 /* Begin PBXBuildFile section */
 		EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */; };
 		EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */; };
-		EA2FC5C423EF7AD400E258BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5C323EF7AD400E258BD /* ContentView.swift */; };
 		EA2FC5C623EF7AD600E258BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA2FC5C523EF7AD600E258BD /* Assets.xcassets */; };
 		EA2FC5C923EF7AD600E258BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA2FC5C823EF7AD600E258BD /* Preview Assets.xcassets */; };
 		EA2FC5CC23EF7AD600E258BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA2FC5CA23EF7AD600E258BD /* LaunchScreen.storyboard */; };
 		EA2FC5D723EF7AD600E258BD /* meho_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5D623EF7AD600E258BD /* meho_iosTests.swift */; };
 		EA2FC5E223EF7AD600E258BD /* meho_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5E123EF7AD600E258BD /* meho_iosUITests.swift */; };
+		EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA223EF7D4D008EB37B /* MainViewController.swift */; };
+		EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA723EF809D008EB37B /* ProfileViewController.swift */; };
+		EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */; };
+		EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDAB23EF80E9008EB37B /* FoundationViewController.swift */; };
+		EA52FDAF23EF8116008EB37B /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDAE23EF8116008EB37B /* NewsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +42,6 @@
 		EA2FC5BC23EF7AD400E258BD /* meho-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "meho-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EA2FC5C323EF7AD400E258BD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EA2FC5C523EF7AD600E258BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EA2FC5C823EF7AD600E258BD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EA2FC5CB23EF7AD600E258BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +52,11 @@
 		EA2FC5DD23EF7AD600E258BD /* meho-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "meho-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA2FC5E123EF7AD600E258BD /* meho_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = meho_iosUITests.swift; sourceTree = "<group>"; };
 		EA2FC5E323EF7AD600E258BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA52FDA223EF7D4D008EB37B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		EA52FDA723EF809D008EB37B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		EA52FDAB23EF80E9008EB37B /* FoundationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationViewController.swift; sourceTree = "<group>"; };
+		EA52FDAE23EF8116008EB37B /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +107,9 @@
 		EA2FC5BE23EF7AD400E258BD /* meho-ios */ = {
 			isa = PBXGroup;
 			children = (
+				EA52FDA023EF7C77008EB37B /* Component */,
 				EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */,
 				EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */,
-				EA2FC5C323EF7AD400E258BD /* ContentView.swift */,
 				EA2FC5C523EF7AD600E258BD /* Assets.xcassets */,
 				EA2FC5CA23EF7AD600E258BD /* LaunchScreen.storyboard */,
 				EA2FC5CD23EF7AD600E258BD /* Info.plist */,
@@ -134,6 +142,58 @@
 				EA2FC5E323EF7AD600E258BD /* Info.plist */,
 			);
 			path = "meho-iosUITests";
+			sourceTree = "<group>";
+		};
+		EA52FDA023EF7C77008EB37B /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				EA52FDAD23EF8103008EB37B /* News */,
+				EA52FDA623EF8079008EB37B /* Foundation */,
+				EA52FDA523EF806D008EB37B /* Conversation */,
+				EA52FDA423EF7FE5008EB37B /* Profile */,
+				EA52FDA123EF7D20008EB37B /* Main */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		EA52FDA123EF7D20008EB37B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				EA52FDA223EF7D4D008EB37B /* MainViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		EA52FDA423EF7FE5008EB37B /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				EA52FDA723EF809D008EB37B /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		EA52FDA523EF806D008EB37B /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */,
+			);
+			path = Conversation;
+			sourceTree = "<group>";
+		};
+		EA52FDA623EF8079008EB37B /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				EA52FDAB23EF80E9008EB37B /* FoundationViewController.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		EA52FDAD23EF8103008EB37B /* News */ = {
+			isa = PBXGroup;
+			children = (
+				EA52FDAE23EF8116008EB37B /* NewsViewController.swift */,
+			);
+			path = News;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,9 +327,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */,
+				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,
 				EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */,
+				EA52FDAF23EF8116008EB37B /* NewsViewController.swift in Sources */,
+				EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */,
+				EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */,
 				EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */,
-				EA2FC5C423EF7AD400E258BD /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
