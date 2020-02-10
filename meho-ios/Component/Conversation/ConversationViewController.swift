@@ -24,6 +24,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let categoriesCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var categoriesCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:categoriesCollectionViewFlowLayout)
     private var categories:[Category] = []
+    private var dialogs:[Dialog] = []
     private let dataFecther = ConversationDataFetcher.init()
     
     // MARK: - Init
@@ -81,6 +82,11 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
                 DispatchQueue.main.async {
                     self.categoriesCollectionView.reloadData()
                 }
+            }
+        }
+        dataFecther.fetchDialogs { (dialogs, error) in
+            if (error == nil && dialogs != nil) {
+                self.dialogs = dialogs!
             }
         }
     }

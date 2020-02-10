@@ -13,6 +13,7 @@ class ConversationDataFetcher: NSObject {
     // MARK: - Constants
     
     private let fetchDialogsURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/talk/dialogues/"
+    private let fetchCategoriesURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/talk/dialogues/category/"
     
     // MARK: - Properties
     
@@ -21,10 +22,8 @@ class ConversationDataFetcher: NSObject {
     // MARK: - Public
     
     public func fetchCategories(completionHandler: @escaping ( Array<Category>?, Error?) -> Void) {
-        let categoriesURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/talk/dialogues/category/"
-        let categoriesURL = URL.init(string: categoriesURLString)
-        if categoriesURL != nil {
-            let dataCategoriesTask = session.dataTask(with: categoriesURL!, completionHandler: { (data, URLResponse, error) in
+        if let categoriesURL = URL.init(string: fetchCategoriesURLString) {
+            let dataCategoriesTask = session.dataTask(with: categoriesURL, completionHandler: { (data, URLResponse, error) in
                 if error != nil {
                     print("There is an error getting the response of categories")
                     completionHandler(nil, error)
@@ -42,6 +41,35 @@ class ConversationDataFetcher: NSObject {
                     }
                 } catch let JSONError as NSError {
                     print("Failed to parse categories JSON: \(JSONError.localizedDescription)")
+                    completionHandler(nil, JSONError)
+                }
+            })
+            dataCategoriesTask.resume()
+        } else {
+            completionHandler(nil, nil)
+        }
+    }
+    
+    public func fetchDialogs(completionHandler: @escaping ( Array<Dialog>?, Error?) -> Void) {
+        if let dialogsURL = URL.init(string: fetchDialogsURLString) {
+            let dataCategoriesTask = session.dataTask(with: dialogsURL, completionHandler: { (data, URLResponse, error) in
+                if error != nil {
+                    print("There is an error getting the response of dialogs")
+                    completionHandler(nil, error)
+                    return
+                }
+                if data == nil {
+                    print("The response of dialogs is empty")
+                    completionHandler(nil, nil)
+                    return
+                }
+                do {
+                    if let dialogsJSON = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                        let dialogs = self.parseDialogsJSON(dialogsJSON: dialogsJSON)
+                        completionHandler(dialogs, nil)
+                    }
+                } catch let JSONError as NSError {
+                    print("Failed to parse dialogs JSON: \(JSONError.localizedDescription)")
                     completionHandler(nil, JSONError)
                 }
             })
@@ -76,4 +104,25 @@ class ConversationDataFetcher: NSObject {
         return nil
     }
     
+    private func parseDialogsJSON(dialogsJSON: Dictionary<String, Any>) -> Array<Dialog>? {
+        if let currentDialogsJSON = dialogsJSON["results"] as? [Dictionary<String, Any>] {
+            var currentDialogs:[Dialog] = []
+            for currentDialogJSON in currentDialogsJSON {
+                var dialog = Dialog.init()
+                if let title = currentDialogJSON["title"] as? String {
+                    dialog.title = title
+                }
+                if let titleInLocalLanguage = currentDialogJSON["title_local_language"] as? String {
+                    dialog.titleInLocalLanguage = titleInLocalLanguage
+                }
+                if let coverImageURLString = currentDialogJSON["cover_image"] as? String {
+                    let coverImageURL = URL.init(string: coverImageURLString)
+                    dialog.coverImageURL = coverImageURL
+                }
+                currentDialogs.append(dialog)
+            }
+            return currentDialogs
+        }
+        return nil
+    }
 }
