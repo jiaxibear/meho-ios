@@ -16,6 +16,8 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let categoriesCollectionViewCellWidth = CGFloat(144)
     private let categoriesCollectionViewHeight = CGFloat(89)
     private let categoriesCollectionViewMargin = CGFloat(15)
+    private let conversationTabBarItemImageName = "tabbar_conv_25pt"
+    private let conversationTabBarItemSelectedImageName = "tabbar_conv_selected_25pt"
     
     // MARK: - Properties
     
@@ -28,6 +30,11 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     
     init() {
         super.init(nibName: nil, bundle: nil)
+        let conversationTabBarItemImage = UIImage.init(named: conversationTabBarItemImageName)
+        let conversationTabBarItem = UITabBarItem.init(title: nil, image: conversationTabBarItemImage, tag: 0)
+        let conversationTabBarItemSelectedImage = UIImage.init(named: conversationTabBarItemImageName)
+        conversationTabBarItem.selectedImage = conversationTabBarItemSelectedImage
+        self.tabBarItem = conversationTabBarItem
     }
     
     @available(*, unavailable)

@@ -21,6 +21,7 @@
 		EA52FDAF23EF8116008EB37B /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDAE23EF8116008EB37B /* NewsViewController.swift */; };
 		EA52FDB623EFE6B8008EB37B /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDB523EFE6B8008EB37B /* Category.swift */; };
 		EA52FDB823EFF416008EB37B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDB723EFF416008EB37B /* CategoryCollectionViewCell.swift */; };
+		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		EA52FDAE23EF8116008EB37B /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		EA52FDB523EFE6B8008EB37B /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		EA52FDB723EFF416008EB37B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 		EA2FC5BE23EF7AD400E258BD /* meho-ios */ = {
 			isa = PBXGroup;
 			children = (
+				EA7B730B23F0DBB10031093B /* Resources */,
 				EA52FDB423EFAA5A008EB37B /* Library */,
 				EA52FDA023EF7C77008EB37B /* Component */,
 				EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */,
@@ -208,6 +211,22 @@
 			children = (
 			);
 			path = Library;
+			sourceTree = "<group>";
+		};
+		EA7B730B23F0DBB10031093B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EA7B730C23F0DBC40031093B /* Images */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		EA7B730C23F0DBC40031093B /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				EA7B730D23F0DBDA0031093B /* Images.xcassets */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA2FC5CC23EF7AD600E258BD /* LaunchScreen.storyboard in Resources */,
+				EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */,
 				EA2FC5C923EF7AD600E258BD /* Preview Assets.xcassets in Resources */,
 				EA2FC5C623EF7AD600E258BD /* Assets.xcassets in Resources */,
 			);
