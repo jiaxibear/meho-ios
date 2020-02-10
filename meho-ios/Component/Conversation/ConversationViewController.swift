@@ -21,10 +21,10 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: - Properties
     
-    private let session = URLSession(configuration: .default)
     private let categoriesCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var categoriesCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:categoriesCollectionViewFlowLayout)
     private var categories:[Category] = []
+    private let dataFecther = ConversationDataFetcher.init()
     
     // MARK: - Init
     
@@ -75,7 +75,14 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         categoriesCollectionView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         categoriesCollectionView.heightAnchor.constraint(equalToConstant: categoriesCollectionViewHeight).isActive = true
         
-        self.fetchCategories()
+        dataFecther.fetchCategories { (categories, error) in
+            if (error == nil && categories != nil) {
+                self.categories = categories!
+                DispatchQueue.main.async {
+                    self.categoriesCollectionView.reloadData()
+                }
+            }
+        }
     }
     
     // MARK: - UICollectionViewDataSource
@@ -88,62 +95,5 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         let category = categories[indexPath.item]
         cell.setCategory(category: category)
         return cell
-    }
-    
-    // MARK: - Private
-    
-    private func fetchCategories() {
-        let categoriesURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/talk/dialogues/category/"
-        let categoriesURL = URL.init(string: categoriesURLString)
-        if categoriesURL != nil {
-            let dataCategoriesTask = session.dataTask(with: categoriesURL!, completionHandler: { (Data, URLResponse, Error) in
-                if Error != nil {
-                    print("There is an error getting the response of categories")
-                    return
-                }
-                if Data == nil {
-                    print("The response of categories is empty")
-                    return
-                }
-                do {
-                    if let categoriesJSON = try JSONSerialization.jsonObject(with: Data!, options: []) as? [String: Any] {
-                        if let currentCategories = self.parseCurrentCategoriesJSON(categoriesJSON: categoriesJSON) {
-                            self.categories = currentCategories
-                        }
-                        DispatchQueue.main.async {
-                            self.categoriesCollectionView.reloadData()
-                        }
-                    }
-                } catch let error as NSError {
-                    print("Failed to parse categories JSON: \(error.localizedDescription)")
-                }
-            })
-            dataCategoriesTask.resume()
-        }
-    }
-    
-    private func parseCurrentCategoriesJSON(categoriesJSON: Dictionary<String, Any>) -> Array<Category>? {
-        if let currentCategoriesJSON = categoriesJSON["results"] as? [Dictionary<String, Any>] {
-            var currentCategories:[Category] = []
-            for currentCategoryJSON in currentCategoriesJSON {
-                var category = Category.init()
-                if let title = currentCategoryJSON["name"] as? String {
-                    category.title = title
-                }
-                if let identifier = currentCategoryJSON["id"] as? Int {
-                    category.identifier = identifier
-                }
-                if let coverImageIdentifier = currentCategoryJSON["cover_image_id"] as? String {
-                    category.coverImageIdentifier = coverImageIdentifier
-                }
-                if let coverImageURLString = currentCategoryJSON["cover_image"] as? String {
-                    let coverImageURL = URL.init(string: coverImageURLString)
-                    category.coverImageURL = coverImageURL
-                }
-                currentCategories.append(category)
-            }
-            return currentCategories
-        }
-        return nil
     }
 }
