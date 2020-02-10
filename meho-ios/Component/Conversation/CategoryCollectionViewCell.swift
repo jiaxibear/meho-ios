@@ -9,7 +9,8 @@
 import UIKit
 import Foundation
 
-class CategoryCollectionViewCell: UICollectionViewCell {
+class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
+    
     // MARK: - Constants
     private let titleLabelFontSize = CGFloat(16)
     private let coverImageViewCornerRadius = CGFloat(5)
@@ -18,7 +19,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
     private let coverImageSession = URLSession.init(configuration: .default)
-    private let coverImageView = UIImageView.init(frame: .zero)
+    private let coverImageView = WebImageView.init(frame: .zero)
     private let coverImageShadowView = UIView.init(frame: .zero)
     
     // MARK: - Init
@@ -34,6 +35,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
         coverImageView.layer.cornerRadius = coverImageViewCornerRadius
         coverImageView.clipsToBounds = true
+        coverImageView.delegate = self
         self.contentView.addSubview(coverImageView)
         
         // Sets up the cover image shadow view
@@ -72,6 +74,11 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         fatalError("Use init")
     }
     
+    // MARK - WebImageViewDelegate
+    func webImageViewDidSetImage(webImageView: WebImageView) {
+        self.contentView.isHidden = false
+    }
+    
     // MARK: - Public
     public func setCategory(category: Category) {
         // Sets the text for the title label.
@@ -80,23 +87,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         
         // Downloads the image.
         if let coverImageURL = category.coverImageURL {
-            let coverImageDataTask = coverImageSession.dataTask(with: coverImageURL, completionHandler: { (Data, URLResponse, Error) in
-                if Error != nil {
-                    print("There is an error getting the cover image")
-                    return
-                }
-                if Data == nil {
-                    print("The cover image is empty")
-                    return
-                }
-                if let coverImage = UIImage(data: Data!) {
-                    DispatchQueue.main.async {
-                        self.coverImageView.image = coverImage
-                        self.contentView.isHidden = false
-                    }
-                }
-            })
-            coverImageDataTask.resume()
+            coverImageView.imageURL = coverImageURL
         }
     }
 }

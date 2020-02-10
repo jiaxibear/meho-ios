@@ -24,6 +24,7 @@
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
+		EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CD23F12080003C8548 /* WebImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
+		EAB7C4CD23F12080003C8548 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +217,7 @@
 		EA52FDB423EFAA5A008EB37B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				EAB7C4CC23F12056003C8548 /* UI */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -233,6 +236,14 @@
 				EA7B730D23F0DBDA0031093B /* Images.xcassets */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		EAB7C4CC23F12056003C8548 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				EAB7C4CD23F12080003C8548 /* WebImageView.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */,
+				EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */,
 				EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */,
 				EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */,
 				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,
