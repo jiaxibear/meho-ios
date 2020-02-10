@@ -14,7 +14,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     
     private let categoryCellReuseIdentifier = "Categories"
     private let categoriesCollectionViewCellWidth = CGFloat(144)
-    private let categoriesCollectionViewHeight = CGFloat(89)
+    private let categoriesCollectionViewHeight = CGFloat(105)
     private let categoriesCollectionViewMargin = CGFloat(15)
     private let conversationTabBarItemImageName = "tabbar_conv_25pt"
     private let conversationTabBarItemSelectedImageName = "tabbar_conv_selected_25pt"
@@ -60,6 +60,8 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         
         // Sets up the categories collection view.
         categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        categoriesCollectionView.showsHorizontalScrollIndicator = false
+        categoriesCollectionView.showsVerticalScrollIndicator = false
         categoriesCollectionView.backgroundColor = .white
         categoriesCollectionView.dataSource = self
         categoriesCollectionView.delegate = self

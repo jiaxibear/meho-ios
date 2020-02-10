@@ -10,10 +10,16 @@ import UIKit
 import Foundation
 
 class CategoryCollectionViewCell: UICollectionViewCell {
+    // MARK: - Constants
+    private let titleLabelFontSize = CGFloat(16)
+    private let coverImageViewCornerRadius = CGFloat(5)
+    private let coverImageShadowViewAlpha = CGFloat(0.5)
+    
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
     private let coverImageSession = URLSession.init(configuration: .default)
     private let coverImageView = UIImageView.init(frame: .zero)
+    private let coverImageShadowView = UIView.init(frame: .zero)
     
     // MARK: - Init
     @available(*, unavailable)
@@ -26,12 +32,23 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         
         // Sets up cover image view.
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
+        coverImageView.layer.cornerRadius = coverImageViewCornerRadius
+        coverImageView.clipsToBounds = true
         self.contentView.addSubview(coverImageView)
+        
+        // Sets up the cover image shadow view
+        coverImageShadowView.backgroundColor = .darkGray
+        coverImageShadowView.alpha = coverImageShadowViewAlpha
+        coverImageShadowView.translatesAutoresizingMaskIntoConstraints = false
+        coverImageShadowView.layer.cornerRadius = coverImageViewCornerRadius
+        coverImageShadowView.clipsToBounds = true
+        self.contentView.addSubview(coverImageShadowView)
         
         // Sets up title label.
         titleLabel.numberOfLines = 1
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = .white
+        titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabelFontSize)
         self.contentView.addSubview(titleLabel)
         
         // Sets up constraints
@@ -42,6 +59,12 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         coverImageView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         coverImageView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         coverImageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        coverImageShadowView.topAnchor.constraint(equalTo: coverImageView.topAnchor).isActive = true
+        coverImageShadowView.trailingAnchor.constraint(equalTo: coverImageView.trailingAnchor).isActive = true
+        coverImageShadowView.bottomAnchor.constraint(equalTo: coverImageView.bottomAnchor).isActive = true
+        coverImageShadowView.leadingAnchor.constraint(equalTo: coverImageView.leadingAnchor).isActive = true
+        
+        self.contentView.isHidden = true
     }
     
     @available(*, unavailable)
@@ -69,6 +92,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
                 if let coverImage = UIImage(data: Data!) {
                     DispatchQueue.main.async {
                         self.coverImageView.image = coverImage
+                        self.contentView.isHidden = false
                     }
                 }
             })
