@@ -21,7 +21,7 @@ class MainViewController: UITabBarController {
         self.viewControllers = [newsViewController, conversationViewController, foundationViewController, profileViewController]
         
         // Sets appearance of the tab bar.
-        self.tabBarController?.tabBar.barTintColor = .white
+        self.tabBar.barTintColor = .white
     }
 
 }
