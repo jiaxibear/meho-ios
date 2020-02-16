@@ -18,14 +18,13 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
-    private let coverImageSession = URLSession.init(configuration: .default)
     private let coverImageView = WebImageView.init(frame: .zero)
     private let coverImageShadowView = UIView.init(frame: .zero)
     
     // MARK: - Init
     @available(*, unavailable)
     init() {
-        fatalError("Use init")
+        fatalError("Use init(frame: CGRect)")
     }
     
     override init(frame: CGRect) {

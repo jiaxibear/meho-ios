@@ -8,14 +8,16 @@
 
 import UIKit
 
-class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    
+class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
     // MARK: - Constants
-    
+
     private let categoryCellReuseIdentifier = "Categories"
+    private let dialogCellReuseIdentifier = "Dialogs"
     private let categoriesCollectionViewCellWidth = CGFloat(144)
     private let categoriesCollectionViewHeight = CGFloat(105)
-    private let categoriesCollectionViewMargin = CGFloat(15)
+    private let categoriesCollectionViewToDialogsCollectionViewMargin = CGFloat(15)
+    private let dialogsCollectionViewCellHeight = CGFloat(105)
     private let conversationTabBarItemImageName = "tabbar_conv_25pt"
     private let conversationTabBarItemSelectedImageName = "tabbar_conv_selected_25pt"
     
@@ -23,12 +25,14 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     
     private let categoriesCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var categoriesCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:categoriesCollectionViewFlowLayout)
+    private let dialogsCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+    private lazy var dialogsCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:dialogsCollectionViewFlowLayout)
     private var categories:[Category] = []
     private var dialogs:[Dialog] = []
     private let dataFecther = ConversationDataFetcher.init()
-    
+
     // MARK: - Init
-    
+
     init() {
         super.init(nibName: nil, bundle: nil)
         let conversationTabBarItemImage = UIImage.init(named: conversationTabBarItemImageName)
@@ -54,11 +58,11 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         super.viewDidLoad()
 
         self.view.backgroundColor = .white
-        
+        let margins = view.layoutMarginsGuide
+
         // Sets up the categories collection view flow layout.
         categoriesCollectionViewFlowLayout.scrollDirection = .horizontal
-        categoriesCollectionViewFlowLayout.itemSize = CGSize(width: categoriesCollectionViewCellWidth, height: categoriesCollectionViewHeight)
-        
+
         // Sets up the categories collection view.
         categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         categoriesCollectionView.showsHorizontalScrollIndicator = false
@@ -68,14 +72,30 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         categoriesCollectionView.delegate = self
         categoriesCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier:categoryCellReuseIdentifier)
         self.view.addSubview(categoriesCollectionView)
-        
+
+        // Sets up the dialogs collection view flow layout.
+        dialogsCollectionViewFlowLayout.scrollDirection = .vertical
+
+        // Sets up the categories collection view.
+        dialogsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        dialogsCollectionView.showsHorizontalScrollIndicator = false
+        dialogsCollectionView.showsVerticalScrollIndicator = true
+        dialogsCollectionView.backgroundColor = .white
+        dialogsCollectionView.dataSource = self
+        dialogsCollectionView.delegate = self
+        dialogsCollectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier:dialogCellReuseIdentifier)
+        self.view.addSubview(dialogsCollectionView)
+
         // Sets up layout constrainsts.
-        let margins = view.layoutMarginsGuide
-        categoriesCollectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: categoriesCollectionViewMargin).isActive = true
-        categoriesCollectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -categoriesCollectionViewMargin).isActive = true
+        categoriesCollectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        categoriesCollectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         categoriesCollectionView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         categoriesCollectionView.heightAnchor.constraint(equalToConstant: categoriesCollectionViewHeight).isActive = true
-        
+        dialogsCollectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        dialogsCollectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        dialogsCollectionView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor, constant:categoriesCollectionViewToDialogsCollectionViewMargin).isActive = true
+        dialogsCollectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+
         dataFecther.fetchCategories { (categories, error) in
             if (error == nil && categories != nil) {
                 self.categories = categories!
@@ -87,19 +107,52 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         dataFecther.fetchDialogs { (dialogs, error) in
             if (error == nil && dialogs != nil) {
                 self.dialogs = dialogs!
+                DispatchQueue.main.async {
+                    self.dialogsCollectionView.reloadData()
+                }
             }
         }
     }
-    
+
+    // MARK: - UICollectionViewDelegateFlowLayout
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == categoriesCollectionView {
+            return CGSize(width: categoriesCollectionViewCellWidth, height: categoriesCollectionViewHeight)
+        }
+        if collectionView == dialogsCollectionView {
+            let width = collectionView.frame.width - collectionView.contentInset.left - collectionView.contentInset.right
+            return CGSize(width: width, height: dialogsCollectionViewCellHeight)
+        }
+        
+        return .zero
+    }
+
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count
+        if collectionView == categoriesCollectionView {
+            return categories.count
+        }
+        if collectionView == dialogsCollectionView {
+            return dialogs.count
+        }
+        
+        return 0
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCellReuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
-        let category = categories[indexPath.item]
-        cell.setCategory(category: category)
-        return cell
+        if collectionView == categoriesCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCellReuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
+            let category = categories[indexPath.item]
+            cell.setCategory(category: category)
+            return cell
+        }
+        if collectionView == dialogsCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCellReuseIdentifier, for: indexPath) as! DialogCollectionViewCell
+            let dialog = dialogs[indexPath.item]
+            cell.setDialog(dialog: dialog)
+            return cell
+        }
+        return UICollectionViewCell.init(frame: .zero)
     }
 }
