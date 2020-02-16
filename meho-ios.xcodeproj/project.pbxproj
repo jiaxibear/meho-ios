@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F55B6EDFBC28706CFC848C2 /* Pods_meho_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A40C5A697051BB021EFB5E9C /* Pods_meho_iosTests.framework */; };
+		6D74B886C32D56360635EAC8 /* Pods_meho_ios_meho_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A456EF74653F7CB7D8C47AD7 /* Pods_meho_ios_meho_iosUITests.framework */; };
 		92183A6023F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92183A5F23F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift */; };
 		92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DEE30E23F8FF60004D91D7 /* Feature.swift */; };
+		C3C36BFDEC0BB0A708FFC789 /* Pods_meho_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7C00746FB72FA49F9B8405 /* Pods_meho_ios.framework */; };
 		EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */; };
 		EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */; };
 		EA2FC5C623EF7AD600E258BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA2FC5C523EF7AD600E258BD /* Assets.xcassets */; };
@@ -48,8 +51,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		23D21C92C96C3B02E8C84C73 /* Pods-meho-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.debug.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		2C4B88F481B22CC28E6FA7C0 /* Pods-meho-ios-meho-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios-meho-iosUITests.release.xcconfig"; path = "Target Support Files/Pods-meho-ios-meho-iosUITests/Pods-meho-ios-meho-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
+		2F61D287284A0C384EE8E152 /* Pods-meho-ios-meho-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios-meho-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-meho-ios-meho-iosUITests/Pods-meho-ios-meho-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		68E4FB07AC0350083CCFEA66 /* Pods-meho-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-iosTests.release.xcconfig"; path = "Target Support Files/Pods-meho-iosTests/Pods-meho-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		92183A5F23F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationFeatureCollectionViewCell.swift; sourceTree = "<group>"; };
 		92DEE30E23F8FF60004D91D7 /* Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
+		A40C5A697051BB021EFB5E9C /* Pods_meho_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A456EF74653F7CB7D8C47AD7 /* Pods_meho_ios_meho_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios_meho_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD7C00746FB72FA49F9B8405 /* Pods_meho_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9F2A75345FA03483A401E0E /* Pods-meho-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-meho-iosTests/Pods-meho-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EA2FC5BC23EF7AD400E258BD /* meho-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "meho-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +86,7 @@
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
 		EAB7C4CD23F12080003C8548 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogCollectionViewCell.swift; sourceTree = "<group>"; };
+		F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.release.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3C36BFDEC0BB0A708FFC789 /* Pods_meho_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F55B6EDFBC28706CFC848C2 /* Pods_meho_iosTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,12 +110,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D74B886C32D56360635EAC8 /* Pods_meho_ios_meho_iosUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C252BD4F847344155504A04 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD7C00746FB72FA49F9B8405 /* Pods_meho_ios.framework */,
+				A456EF74653F7CB7D8C47AD7 /* Pods_meho_ios_meho_iosUITests.framework */,
+				A40C5A697051BB021EFB5E9C /* Pods_meho_iosTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9D10556214FE534B87DDB421 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				23D21C92C96C3B02E8C84C73 /* Pods-meho-ios.debug.xcconfig */,
+				F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */,
+				2F61D287284A0C384EE8E152 /* Pods-meho-ios-meho-iosUITests.debug.xcconfig */,
+				2C4B88F481B22CC28E6FA7C0 /* Pods-meho-ios-meho-iosUITests.release.xcconfig */,
+				E9F2A75345FA03483A401E0E /* Pods-meho-iosTests.debug.xcconfig */,
+				68E4FB07AC0350083CCFEA66 /* Pods-meho-iosTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		EA2FC5B323EF7AD400E258BD = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +148,8 @@
 				EA2FC5D523EF7AD600E258BD /* meho-iosTests */,
 				EA2FC5E023EF7AD600E258BD /* meho-iosUITests */,
 				EA2FC5BD23EF7AD400E258BD /* Products */,
+				9D10556214FE534B87DDB421 /* Pods */,
+				6C252BD4F847344155504A04 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -262,6 +303,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA2FC5E623EF7AD600E258BD /* Build configuration list for PBXNativeTarget "meho-ios" */;
 			buildPhases = (
+				9F40990C078927CE046FF7F3 /* [CP] Check Pods Manifest.lock */,
 				EA2FC5B823EF7AD400E258BD /* Sources */,
 				EA2FC5B923EF7AD400E258BD /* Frameworks */,
 				EA2FC5BA23EF7AD400E258BD /* Resources */,
@@ -279,6 +321,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA2FC5E923EF7AD600E258BD /* Build configuration list for PBXNativeTarget "meho-iosTests" */;
 			buildPhases = (
+				FD3FD9B77C5430A3086E739D /* [CP] Check Pods Manifest.lock */,
 				EA2FC5CE23EF7AD600E258BD /* Sources */,
 				EA2FC5CF23EF7AD600E258BD /* Frameworks */,
 				EA2FC5D023EF7AD600E258BD /* Resources */,
@@ -297,6 +340,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA2FC5EC23EF7AD600E258BD /* Build configuration list for PBXNativeTarget "meho-iosUITests" */;
 			buildPhases = (
+				C720D3033F746915C298ACBD /* [CP] Check Pods Manifest.lock */,
 				EA2FC5D923EF7AD600E258BD /* Sources */,
 				EA2FC5DA23EF7AD600E258BD /* Frameworks */,
 				EA2FC5DB23EF7AD600E258BD /* Resources */,
@@ -381,6 +425,75 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9F40990C078927CE046FF7F3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-meho-ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C720D3033F746915C298ACBD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-meho-ios-meho-iosUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD3FD9B77C5430A3086E739D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-meho-iosTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EA2FC5B823EF7AD400E258BD /* Sources */ = {
@@ -564,6 +677,7 @@
 		};
 		EA2FC5E723EF7AD600E258BD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23D21C92C96C3B02E8C84C73 /* Pods-meho-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -583,6 +697,7 @@
 		};
 		EA2FC5E823EF7AD600E258BD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -602,6 +717,7 @@
 		};
 		EA2FC5EA23EF7AD600E258BD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9F2A75345FA03483A401E0E /* Pods-meho-iosTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -623,6 +739,7 @@
 		};
 		EA2FC5EB23EF7AD600E258BD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68E4FB07AC0350083CCFEA66 /* Pods-meho-iosTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -644,6 +761,7 @@
 		};
 		EA2FC5ED23EF7AD600E258BD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F61D287284A0C384EE8E152 /* Pods-meho-ios-meho-iosUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -663,6 +781,7 @@
 		};
 		EA2FC5EE23EF7AD600E258BD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C4B88F481B22CC28E6FA7C0 /* Pods-meho-ios-meho-iosUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

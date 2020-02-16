@@ -1,0 +1,6 @@
+framework module Pods_meho_ios_meho_iosUITests {
+  umbrella header "Pods-meho-ios-meho-iosUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
