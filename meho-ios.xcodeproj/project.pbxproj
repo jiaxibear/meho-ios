@@ -137,7 +137,6 @@
 				E9F2A75345FA03483A401E0E /* Pods-meho-iosTests.debug.xcconfig */,
 				68E4FB07AC0350083CCFEA66 /* Pods-meho-iosTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -166,7 +165,7 @@
 		EA2FC5BE23EF7AD400E258BD /* meho-ios */ = {
 			isa = PBXGroup;
 			children = (
-				EA7B730B23F0DBB10031093B /* Resources */,
+				EA7B730B23F0DBB10031093B /* AllResources */,
 				EA52FDB423EFAA5A008EB37B /* Library */,
 				EA52FDA023EF7C77008EB37B /* Component */,
 				EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */,
@@ -272,12 +271,12 @@
 			path = Library;
 			sourceTree = "<group>";
 		};
-		EA7B730B23F0DBB10031093B /* Resources */ = {
+		EA7B730B23F0DBB10031093B /* AllResources */ = {
 			isa = PBXGroup;
 			children = (
 				EA7B730C23F0DBC40031093B /* Images */,
 			);
-			path = Resources;
+			path = AllResources;
 			sourceTree = "<group>";
 		};
 		EA7B730C23F0DBC40031093B /* Images */ = {
