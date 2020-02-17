@@ -18,15 +18,19 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let categoriesCollectionViewHeight = CGFloat(105)
     private let categoriesCollectionViewToDialogsCollectionViewMargin = CGFloat(15)
     private let dialogsCollectionViewCellHeight = CGFloat(105)
+    private let dialogsCollectionViewLineSpacing = CGFloat(20)
+    private let grayBackgroundViewBorderWidth = CGFloat(1)
+    private let grayBackgroundViewCornerRadius = CGFloat(10)
     private let conversationTabBarItemImageName = "tabbar_conv_25pt"
     private let conversationTabBarItemSelectedImageName = "tabbar_conv_selected_25pt"
-    
+
     // MARK: - Properties
-    
+
     private let categoriesCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var categoriesCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:categoriesCollectionViewFlowLayout)
     private let dialogsCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var dialogsCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:dialogsCollectionViewFlowLayout)
+    private let grayBackgroundView = UIView.init(frame: .zero)
     private var categories:[Category] = []
     private var dialogs:[Dialog] = []
     private let dataFecther = ConversationDataFetcher.init()
@@ -41,19 +45,19 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         conversationTabBarItem.selectedImage = conversationTabBarItemSelectedImage
         self.tabBarItem = conversationTabBarItem
     }
-    
+
     @available(*, unavailable)
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         fatalError("Use init")
     }
-    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("Use init")
     }
-    
+
     // MARK: - UIViewController
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -73,28 +77,45 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         categoriesCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier:categoryCellReuseIdentifier)
         self.view.addSubview(categoriesCollectionView)
 
+        // Sets up the gray background view.
+        grayBackgroundView.backgroundColor = .backgroundGray
+        grayBackgroundView.layer.borderColor = UIColor.borderGray.cgColor
+        grayBackgroundView.layer.borderWidth = grayBackgroundViewBorderWidth
+        grayBackgroundView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        grayBackgroundView.layer.cornerRadius = grayBackgroundViewCornerRadius
+        grayBackgroundView.clipsToBounds = true
+        grayBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(grayBackgroundView)
+
         // Sets up the dialogs collection view flow layout.
         dialogsCollectionViewFlowLayout.scrollDirection = .vertical
+        dialogsCollectionViewFlowLayout.minimumLineSpacing = dialogsCollectionViewLineSpacing
 
         // Sets up the categories collection view.
         dialogsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         dialogsCollectionView.showsHorizontalScrollIndicator = false
         dialogsCollectionView.showsVerticalScrollIndicator = true
-        dialogsCollectionView.backgroundColor = .white
+        dialogsCollectionView.backgroundColor = .clear
         dialogsCollectionView.dataSource = self
         dialogsCollectionView.delegate = self
         dialogsCollectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier:dialogCellReuseIdentifier)
-        self.view.addSubview(dialogsCollectionView)
+        grayBackgroundView.addSubview(dialogsCollectionView)
 
         // Sets up layout constrainsts.
         categoriesCollectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         categoriesCollectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         categoriesCollectionView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         categoriesCollectionView.heightAnchor.constraint(equalToConstant: categoriesCollectionViewHeight).isActive = true
+
+        grayBackgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        grayBackgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        grayBackgroundView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor, constant:categoriesCollectionViewToDialogsCollectionViewMargin).isActive = true
+        grayBackgroundView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+
+        dialogsCollectionView.topAnchor.constraint(equalTo: grayBackgroundView.topAnchor).isActive = true
+        dialogsCollectionView.bottomAnchor.constraint(equalTo: grayBackgroundView.bottomAnchor).isActive = true
         dialogsCollectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         dialogsCollectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        dialogsCollectionView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor, constant:categoriesCollectionViewToDialogsCollectionViewMargin).isActive = true
-        dialogsCollectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
 
         dataFecther.fetchCategories { (categories, error) in
             if (error == nil && categories != nil) {

@@ -12,11 +12,13 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     // MARK: - Constants
     private let titleLabelFontSize = CGFloat(18)
     private let titleLabelToCoverImageViewMargin = CGFloat(38)
-    private let titleLabelTotitleInLocalLanguageLabelMargin = CGFloat(8)
+    private let titleLabelTotitleInLocalLanguageLabelMargin = CGFloat(15)
     private let titleInLocalLanguageLabelFontSize = CGFloat(15)
     private let coverImageViewCornerRadius = CGFloat(2)
     private let coverImageViewWidth = CGFloat(60)
     private let coverImageViewHeight = CGFloat(60)
+    private let coverImageTrailingMargin = CGFloat(25)
+    private let cornerRadius = CGFloat(10)
     
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
@@ -31,6 +33,9 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .white
+        self.clipsToBounds = true
+        self.layer.cornerRadius = cornerRadius
         
         // Sets up cover image view.
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,14 +48,14 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         titleLabel.numberOfLines = 1
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = .darkGray
-        titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabelFontSize)
+        titleLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: titleLabelFontSize)
         self.contentView.addSubview(titleLabel)
         
         // Sets up title in local language label.
         titleInLocalLanguageLabel.numberOfLines = 1
         titleInLocalLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
         titleInLocalLanguageLabel.textColor = .gray
-        titleInLocalLanguageLabel.font = UIFont.systemFont(ofSize: titleInLocalLanguageLabelFontSize)
+        titleInLocalLanguageLabel.font = UIFont.init(name: "AvenirNext-DemiBold", size: titleInLocalLanguageLabelFontSize)
         self.contentView.addSubview(titleInLocalLanguageLabel)
         
         // Sets up constraints
@@ -58,7 +63,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         coverImageView.widthAnchor.constraint(equalToConstant: coverImageViewWidth).isActive = true
         coverImageView.heightAnchor.constraint(equalToConstant: coverImageViewHeight).isActive = true
         coverImageView.centerYAnchor.constraint(equalTo: margins.centerYAnchor).isActive = true
-        coverImageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        coverImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant:coverImageTrailingMargin).isActive = true
         
         titleLabel.leadingAnchor.constraint(equalTo: coverImageView.trailingAnchor, constant: titleLabelToCoverImageViewMargin).isActive = true
         titleLabel.topAnchor.constraint(equalTo: coverImageView.topAnchor).isActive = true
