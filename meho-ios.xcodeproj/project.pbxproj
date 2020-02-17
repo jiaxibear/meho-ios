@@ -3,13 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4F55B6EDFBC28706CFC848C2 /* Pods_meho_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A40C5A697051BB021EFB5E9C /* Pods_meho_iosTests.framework */; };
 		6D74B886C32D56360635EAC8 /* Pods_meho_ios_meho_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A456EF74653F7CB7D8C47AD7 /* Pods_meho_ios_meho_iosUITests.framework */; };
 		92183A6023F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92183A5F23F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift */; };
+		924C53E323FA14B300B59D95 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 924C53E223FA14B300B59D95 /* amplifyconfiguration.json */; };
+		924C53E523FA14C300B59D95 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 924C53E423FA14C300B59D95 /* awsconfiguration.json */; };
 		92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DEE30E23F8FF60004D91D7 /* Feature.swift */; };
 		C3C36BFDEC0BB0A708FFC789 /* Pods_meho_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7C00746FB72FA49F9B8405 /* Pods_meho_ios.framework */; };
 		EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */; };
@@ -57,6 +59,8 @@
 		2F61D287284A0C384EE8E152 /* Pods-meho-ios-meho-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios-meho-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-meho-ios-meho-iosUITests/Pods-meho-ios-meho-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		68E4FB07AC0350083CCFEA66 /* Pods-meho-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-iosTests.release.xcconfig"; path = "Target Support Files/Pods-meho-iosTests/Pods-meho-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		92183A5F23F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationFeatureCollectionViewCell.swift; sourceTree = "<group>"; };
+		924C53E223FA14B300B59D95 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
+		924C53E423FA14C300B59D95 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		92DEE30E23F8FF60004D91D7 /* Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
 		A40C5A697051BB021EFB5E9C /* Pods_meho_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A456EF74653F7CB7D8C47AD7 /* Pods_meho_ios_meho_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios_meho_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +157,8 @@
 		EA2FC5B323EF7AD400E258BD = {
 			isa = PBXGroup;
 			children = (
+				924C53E223FA14B300B59D95 /* amplifyconfiguration.json */,
+				924C53E423FA14C300B59D95 /* awsconfiguration.json */,
 				EA2FC5BE23EF7AD400E258BD /* meho-ios */,
 				EA2FC5D523EF7AD600E258BD /* meho-iosTests */,
 				EA2FC5E023EF7AD600E258BD /* meho-iosUITests */,
@@ -317,6 +323,7 @@
 				EA2FC5B823EF7AD400E258BD /* Sources */,
 				EA2FC5B923EF7AD400E258BD /* Frameworks */,
 				EA2FC5BA23EF7AD400E258BD /* Resources */,
+				AAC25F9AFC9F67E2AEDAFA5D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -354,6 +361,7 @@
 				EA2FC5D923EF7AD600E258BD /* Sources */,
 				EA2FC5DA23EF7AD600E258BD /* Frameworks */,
 				EA2FC5DB23EF7AD600E258BD /* Resources */,
+				0BA3B7C5939AECE8A46C04CA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -415,6 +423,8 @@
 			files = (
 				EA2FC5CC23EF7AD600E258BD /* LaunchScreen.storyboard in Resources */,
 				EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */,
+				924C53E523FA14C300B59D95 /* awsconfiguration.json in Resources */,
+				924C53E323FA14B300B59D95 /* amplifyconfiguration.json in Resources */,
 				EA2FC5C923EF7AD600E258BD /* Preview Assets.xcassets in Resources */,
 				EA2FC5C623EF7AD600E258BD /* Assets.xcassets in Resources */,
 			);
@@ -437,6 +447,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0BA3B7C5939AECE8A46C04CA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-meho-ios-meho-iosUITests/Pods-meho-ios-meho-iosUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-meho-ios-meho-iosUITests/Pods-meho-ios-meho-iosUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-meho-ios-meho-iosUITests/Pods-meho-ios-meho-iosUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9F40990C078927CE046FF7F3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -457,6 +484,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AAC25F9AFC9F67E2AEDAFA5D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-meho-ios/Pods-meho-ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-meho-ios/Pods-meho-ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-meho-ios/Pods-meho-ios-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C720D3033F746915C298ACBD /* [CP] Check Pods Manifest.lock */ = {

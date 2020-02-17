@@ -1,5 +1,5 @@
 {
-    "dev": {
+    "providers": {
         "awscloudformation": {
             "AuthRoleName": "amplify-mehoios-dev-164834-authRole",
             "UnauthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-dev-164834-unauthRole",

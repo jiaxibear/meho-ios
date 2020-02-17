@@ -6,6 +6,9 @@ target 'meho-ios' do
   use_frameworks!
 
   # Pods for meho-ios
+  pod 'AWSMobileClient', '~> 2.12.1'      # Required dependency
+  pod 'AWSAuthUI', '~> 2.12.1'            # Optional dependency required to use drop-in UI
+  pod 'AWSUserPoolsSignIn', '~> 2.12.1'   # Optional dependency required to use drop-in UI
 
   target 'meho-iosTests' do
     inherit! :search_paths
