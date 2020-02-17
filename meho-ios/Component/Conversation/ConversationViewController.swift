@@ -15,8 +15,9 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let categoryCellReuseIdentifier = "Categories"
     private let dialogCellReuseIdentifier = "Dialogs"
     private let categoriesCollectionViewCellWidth = CGFloat(144)
-    private let categoriesCollectionViewHeight = CGFloat(105)
+    private let categoriesCollectionViewHeight = CGFloat(90)
     private let categoriesCollectionViewToDialogsCollectionViewMargin = CGFloat(15)
+    private let categoriesCollectionViewLineSpacing = CGFloat(16)
     private let dialogsTitleLabelFontSize = CGFloat(16)
     private let dialogsTitleLabelTopMargin = CGFloat(17)
     private let dialogsCollectionViewCellHeight = CGFloat(105)
@@ -71,6 +72,10 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
         // Sets up the categories collection view flow layout.
         categoriesCollectionViewFlowLayout.scrollDirection = .horizontal
+        categoriesCollectionViewFlowLayout.minimumLineSpacing = categoriesCollectionViewLineSpacing
+        let sectionLeadingInset = self.navigationController?.systemMinimumLayoutMargins.leading ?? 0
+        let sectionTrailingInset = self.navigationController?.systemMinimumLayoutMargins.trailing ?? 0
+        categoriesCollectionViewFlowLayout.sectionInset = UIEdgeInsets.init(top: 0, left: sectionLeadingInset, bottom: 0, right: sectionTrailingInset)
 
         // Sets up the categories collection view.
         categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -114,8 +119,8 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         grayBackgroundView.addSubview(dialogsCollectionView)
 
         // Sets up layout constrainsts.
-        categoriesCollectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        categoriesCollectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        categoriesCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        categoriesCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         categoriesCollectionView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         categoriesCollectionView.heightAnchor.constraint(equalToConstant: categoriesCollectionViewHeight).isActive = true
 
