@@ -10,6 +10,11 @@
             "StackName": "amplify-mehoios-dev-164834",
             "StackId": "arn:aws:cloudformation:us-east-2:296052403006:stack/amplify-mehoios-dev-164834/3bab9cc0-511f-11ea-923e-0696b95a38c4",
             "AmplifyAppId": "d30wqh36hv8tz0"
+        },
+        "categories": {
+            "auth": {
+                "mehoios8bf6d874": {}
+            }
         }
     }
 }

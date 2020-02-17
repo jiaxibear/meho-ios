@@ -1,15 +1,38 @@
 {
-    "providers": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-mehoios-dev-164834-authRole",
-            "UnauthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-dev-164834-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-dev-164834-authRole",
-            "Region": "us-east-2",
-            "DeploymentBucketName": "amplify-mehoios-dev-164834-deployment",
-            "UnauthRoleName": "amplify-mehoios-dev-164834-unauthRole",
-            "StackName": "amplify-mehoios-dev-164834",
-            "StackId": "arn:aws:cloudformation:us-east-2:296052403006:stack/amplify-mehoios-dev-164834/3bab9cc0-511f-11ea-923e-0696b95a38c4",
-            "AmplifyAppId": "d30wqh36hv8tz0"
-        }
-    }
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-mehoios-dev-164834-authRole",
+			"UnauthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-dev-164834-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-dev-164834-authRole",
+			"Region": "us-east-2",
+			"DeploymentBucketName": "amplify-mehoios-dev-164834-deployment",
+			"UnauthRoleName": "amplify-mehoios-dev-164834-unauthRole",
+			"StackName": "amplify-mehoios-dev-164834",
+			"StackId": "arn:aws:cloudformation:us-east-2:296052403006:stack/amplify-mehoios-dev-164834/3bab9cc0-511f-11ea-923e-0696b95a38c4",
+			"AmplifyAppId": "d30wqh36hv8tz0"
+		}
+	},
+	"auth": {
+		"mehoios8bf6d874": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false,
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-mehoios-dev-164834-deployment/amplify-cfn-templates/auth/mehoios8bf6d874-cloudformation-template.yml",
+				"logicalId": "authmehoios8bf6d874"
+			},
+			"lastPushTimeStamp": "2020-02-17T00:56:20.634Z",
+			"output": {
+				"AppClientSecret": "ctqhdl701gfe1nf264j3nrdh0detsdehcv9fgg0jnd9dblhutai",
+				"UserPoolId": "us-east-2_SbbciuClx",
+				"AppClientIDWeb": "1hasj1r5726cj933lek8h2u7h0",
+				"AppClientID": "7e6sn4473c2qt5u8r7l3bhnll8",
+				"IdentityPoolId": "us-east-2:ca6fb462-a1b1-4c84-ab8c-47f52c3c3801",
+				"IdentityPoolName": "mehoios8bf6d874_identitypool_8bf6d874__dev",
+				"UserPoolName": "mehoios8bf6d874_userpool_8bf6d874"
+			},
+			"lastPushDirHash": "gI8uQR0GlnpGA1VAvgflr4tpbqg="
+		}
+	}
 }
