@@ -17,6 +17,10 @@ extension UIColor {
         return UIColor.init(hex: "#d8d8d8")!
     }
 
+    class var textDarkGray : UIColor {
+        return UIColor.init(hex: "#1c1c1e")!
+    }
+
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 

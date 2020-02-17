@@ -47,7 +47,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         // Sets up title label.
         titleLabel.numberOfLines = 1
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = .darkGray
+        titleLabel.textColor = .textDarkGray
         titleLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: titleLabelFontSize)
         self.contentView.addSubview(titleLabel)
         

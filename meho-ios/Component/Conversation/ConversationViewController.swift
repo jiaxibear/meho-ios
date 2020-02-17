@@ -17,8 +17,11 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let categoriesCollectionViewCellWidth = CGFloat(144)
     private let categoriesCollectionViewHeight = CGFloat(105)
     private let categoriesCollectionViewToDialogsCollectionViewMargin = CGFloat(15)
+    private let dialogsTitleLabelFontSize = CGFloat(16)
+    private let dialogsTitleLabelTopMargin = CGFloat(17)
     private let dialogsCollectionViewCellHeight = CGFloat(105)
     private let dialogsCollectionViewLineSpacing = CGFloat(20)
+    private let dialogsCollectionViewTopMargin = CGFloat(23)
     private let grayBackgroundViewBorderWidth = CGFloat(1)
     private let grayBackgroundViewCornerRadius = CGFloat(10)
     private let conversationTabBarItemImageName = "tabbar_conv_25pt"
@@ -28,6 +31,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
     private let categoriesCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var categoriesCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:categoriesCollectionViewFlowLayout)
+    private let dialogsTitleLabel = UILabel.init(frame: .zero)
     private let dialogsCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var dialogsCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:dialogsCollectionViewFlowLayout)
     private let grayBackgroundView = UIView.init(frame: .zero)
@@ -62,6 +66,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         super.viewDidLoad()
 
         self.view.backgroundColor = .white
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         let margins = view.layoutMarginsGuide
 
         // Sets up the categories collection view flow layout.
@@ -86,6 +91,13 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         grayBackgroundView.clipsToBounds = true
         grayBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(grayBackgroundView)
+
+        // Sets up the dialogs title view.
+        dialogsTitleLabel.textColor = .textDarkGray
+        dialogsTitleLabel.text = NSLocalizedString("DialogsTitle", comment: "")
+        dialogsTitleLabel.font = UIFont.init(name: "AvenirNext-DemiBold", size: dialogsTitleLabelFontSize)
+        dialogsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        grayBackgroundView.addSubview(dialogsTitleLabel)
 
         // Sets up the dialogs collection view flow layout.
         dialogsCollectionViewFlowLayout.scrollDirection = .vertical
@@ -112,7 +124,10 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         grayBackgroundView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor, constant:categoriesCollectionViewToDialogsCollectionViewMargin).isActive = true
         grayBackgroundView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
 
-        dialogsCollectionView.topAnchor.constraint(equalTo: grayBackgroundView.topAnchor).isActive = true
+        dialogsTitleLabel.topAnchor.constraint(equalTo: grayBackgroundView.topAnchor, constant: dialogsTitleLabelTopMargin).isActive = true
+        dialogsTitleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+
+        dialogsCollectionView.topAnchor.constraint(equalTo: dialogsTitleLabel.bottomAnchor, constant: dialogsCollectionViewTopMargin).isActive = true
         dialogsCollectionView.bottomAnchor.constraint(equalTo: grayBackgroundView.bottomAnchor).isActive = true
         dialogsCollectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         dialogsCollectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
