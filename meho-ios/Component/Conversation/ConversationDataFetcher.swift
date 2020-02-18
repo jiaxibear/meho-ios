@@ -50,30 +50,36 @@ class ConversationDataFetcher: NSObject {
         }
     }
     
-    public func fetchDialogs(completionHandler: @escaping ( Array<Dialog>?, Error?) -> Void) {
-        if let dialogsURL = URL.init(string: fetchDialogsURLString) {
-            let dataCategoriesTask = session.dataTask(with: dialogsURL, completionHandler: { (data, URLResponse, error) in
-                if error != nil {
-                    print("There is an error getting the response of dialogs")
-                    completionHandler(nil, error)
-                    return
-                }
-                if data == nil {
-                    print("The response of dialogs is empty")
-                    completionHandler(nil, nil)
-                    return
-                }
-                do {
-                    if let dialogsJSON = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                        let dialogs = self.parseDialogsJSON(dialogsJSON: dialogsJSON)
-                        completionHandler(dialogs, nil)
+    public func fetchDialogs(category: String?, difficulty: String?, completionHandler: @escaping ( Array<Dialog>?, Error?) -> Void) {
+        if var dialogsURLComponents = URLComponents.init(string: fetchDialogsURLString) {
+            var queryItems:[URLQueryItem] = []
+            queryItems.append(URLQueryItem.init(name: "category", value: category))
+            queryItems.append(URLQueryItem.init(name: "difficulty_level", value: difficulty))
+            dialogsURLComponents.queryItems = queryItems
+            if let dialogsURL = dialogsURLComponents.url {
+                let dataCategoriesTask = session.dataTask(with: dialogsURL, completionHandler: { (data, URLResponse, error) in
+                    if error != nil {
+                        print("There is an error getting the response of dialogs")
+                        completionHandler(nil, error)
+                        return
                     }
-                } catch let JSONError as NSError {
-                    print("Failed to parse dialogs JSON: \(JSONError.localizedDescription)")
-                    completionHandler(nil, JSONError)
-                }
-            })
-            dataCategoriesTask.resume()
+                    if data == nil {
+                        print("The response of dialogs is empty")
+                        completionHandler(nil, nil)
+                        return
+                    }
+                    do {
+                        if let dialogsJSON = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                            let dialogs = self.parseDialogsJSON(dialogsJSON: dialogsJSON)
+                            completionHandler(dialogs, nil)
+                        }
+                    } catch let JSONError as NSError {
+                        print("Failed to parse dialogs JSON: \(JSONError.localizedDescription)")
+                        completionHandler(nil, JSONError)
+                    }
+                })
+                dataCategoriesTask.resume()
+            }
         }
     }
     

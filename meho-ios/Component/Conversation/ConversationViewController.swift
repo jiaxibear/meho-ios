@@ -143,14 +143,14 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
                 DispatchQueue.main.async {
                     self.categoriesCollectionView.reloadData()
                 }
-            }
-        }
-        dataFecther.fetchDialogs { (dialogs, error) in
-            if (error == nil && dialogs != nil) {
-                self.dialogs = dialogs!
-                DispatchQueue.main.async {
-                    self.dialogsCollectionView.reloadData()
-                }
+                self.dataFecther.fetchDialogs(category: categories?.first?.title, difficulty: "BEGINNER", completionHandler: { (dialogs, error) in
+                    if (error == nil && dialogs != nil) {
+                        self.dialogs = dialogs!
+                        DispatchQueue.main.async {
+                            self.dialogsCollectionView.reloadData()
+                        }
+                    }
+                })
             }
         }
     }
