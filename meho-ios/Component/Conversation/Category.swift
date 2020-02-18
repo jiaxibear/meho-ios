@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Category {
+struct Category : Equatable {
     var title = ""
     var identifier = 0
     var coverImageIdentifier = ""

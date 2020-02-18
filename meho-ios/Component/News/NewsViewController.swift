@@ -9,9 +9,9 @@
 import UIKit
 
 class NewsViewController: UIViewController {
-    
+
     // MARK: - Constants
-    
+
     private let newsTabBarItemImageName = "tabbar_news_25pt"
     private let newsTabBarItemSelectedImageName = "tabbar_news_selected_25pt"
     
@@ -24,22 +24,21 @@ class NewsViewController: UIViewController {
         newsTabBarItem.selectedImage = newsTabBarItemSelectedImage
         self.tabBarItem = newsTabBarItem
     }
-    
+
     @available(*, unavailable)
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         fatalError("Use init")
     }
-    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("Use init")
     }
-    
+
     // MARK - UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
     }
-    
 }

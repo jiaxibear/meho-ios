@@ -39,6 +39,13 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private var categories:[Category] = []
     private var dialogs:[Dialog] = []
     private let dataFecther = ConversationDataFetcher.init()
+    private var currentCategory:Category? {
+        didSet {
+            if currentCategory != oldValue {
+                self.fetchingDialogs(categoryTitle: currentCategory?.title, difficulty: "BEGINNER")
+            }
+        }
+    }
 
     // MARK: - Init
 
@@ -143,14 +150,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
                 DispatchQueue.main.async {
                     self.categoriesCollectionView.reloadData()
                 }
-                self.dataFecther.fetchDialogs(category: categories?.first?.title, difficulty: "BEGINNER", completionHandler: { (dialogs, error) in
-                    if (error == nil && dialogs != nil) {
-                        self.dialogs = dialogs!
-                        DispatchQueue.main.async {
-                            self.dialogsCollectionView.reloadData()
-                        }
-                    }
-                })
+                self.currentCategory = self.categories.first
             }
         }
     }
@@ -195,5 +195,24 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
             return cell
         }
         return UICollectionViewCell.init(frame: .zero)
+    }
+
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == categoriesCollectionView {
+            self.currentCategory = categories[indexPath.item]
+        }
+    }
+
+    // MARK: - Private
+    func fetchingDialogs(categoryTitle: String?, difficulty: String?) {
+        self.dataFecther.fetchDialogs(category: categoryTitle, difficulty: difficulty, completionHandler: { (dialogs, error) in
+            if (error == nil && dialogs != nil) {
+                self.dialogs = dialogs!
+                DispatchQueue.main.async {
+                    self.dialogsCollectionView.reloadData()
+                }
+            }
+        })
     }
 }

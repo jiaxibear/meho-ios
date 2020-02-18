@@ -9,18 +9,18 @@
 import UIKit
 
 class ConversationDataFetcher: NSObject {
-    
+
     // MARK: - Constants
-    
+
     private let fetchDialogsURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/talk/dialogues/"
     private let fetchCategoriesURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/talk/dialogues/category/"
-    
+
     // MARK: - Properties
-    
+
     private let session = URLSession(configuration: .default)
-    
+
     // MARK: - Public
-    
+
     public func fetchCategories(completionHandler: @escaping ( Array<Category>?, Error?) -> Void) {
         if let categoriesURL = URL.init(string: fetchCategoriesURLString) {
             let dataCategoriesTask = session.dataTask(with: categoriesURL, completionHandler: { (data, URLResponse, error) in
@@ -49,7 +49,7 @@ class ConversationDataFetcher: NSObject {
             completionHandler(nil, nil)
         }
     }
-    
+
     public func fetchDialogs(category: String?, difficulty: String?, completionHandler: @escaping ( Array<Dialog>?, Error?) -> Void) {
         if var dialogsURLComponents = URLComponents.init(string: fetchDialogsURLString) {
             var queryItems:[URLQueryItem] = []
@@ -82,9 +82,9 @@ class ConversationDataFetcher: NSObject {
             }
         }
     }
-    
+
     // MARK: - Private
-    
+
     private func parseCurrentCategoriesJSON(categoriesJSON: Dictionary<String, Any>) -> Array<Category>? {
         if let currentCategoriesJSON = categoriesJSON["results"] as? [Dictionary<String, Any>] {
             var currentCategories:[Category] = []
@@ -109,7 +109,7 @@ class ConversationDataFetcher: NSObject {
         }
         return nil
     }
-    
+
     private func parseDialogsJSON(dialogsJSON: Dictionary<String, Any>) -> [Dialog]? {
         if let currentDialogsJSON = dialogsJSON["results"] as? [Dictionary<String, Any>] {
             var currentDialogs:[Dialog] = []
