@@ -104,7 +104,7 @@ class ConversationDataFetcher: NSObject {
         return nil
     }
     
-    private func parseDialogsJSON(dialogsJSON: Dictionary<String, Any>) -> Array<Dialog>? {
+    private func parseDialogsJSON(dialogsJSON: Dictionary<String, Any>) -> [Dialog]? {
         if let currentDialogsJSON = dialogsJSON["results"] as? [Dictionary<String, Any>] {
             var currentDialogs:[Dialog] = []
             for currentDialogJSON in currentDialogsJSON {
@@ -118,6 +118,31 @@ class ConversationDataFetcher: NSObject {
                 if let coverImageURLString = currentDialogJSON["cover_image"] as? String {
                     let coverImageURL = URL.init(string: coverImageURLString)
                     dialog.coverImageURL = coverImageURL
+                }
+                if let chaptersJSON = currentDialogJSON["chapter"] as? [Dictionary<String, Any>] {
+                    var chapters:[Chapter] = []
+                    for chapterJSON in chaptersJSON {
+                        var chapter = Chapter.init()
+                        if let content = chapterJSON["content"] as? String {
+                            chapter.content = content
+                        }
+                        if let contentAudioURLString = chapterJSON["content_related_audio"] as? String {
+                            if let contentAudioURL = URL.init(string: contentAudioURLString) {
+                                chapter.contentAudioURL = contentAudioURL
+                            }
+                        }
+                        if let contentPinyin = chapterJSON["content_pinyin"] as? String {
+                            chapter.contentPinyin = contentPinyin
+                        }
+                        if let sequence = chapterJSON["seq_number"] as? NSNumber {
+                            chapter.sequence = sequence.intValue
+                        }
+                        if let contentInLocalLanguage = chapterJSON["content_local_language"] as? String {
+                            chapter.contentInLocalLanguage = contentInLocalLanguage
+                        }
+                        chapters.append(chapter)
+                    }
+                    dialog.chapters = chapters
                 }
                 currentDialogs.append(dialog)
             }

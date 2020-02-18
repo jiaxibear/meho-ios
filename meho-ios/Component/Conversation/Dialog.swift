@@ -12,4 +12,5 @@ struct Dialog {
     var title = ""
     var titleInLocalLanguage = ""
     var coverImageURL:URL?
+    var chapters:[Chapter] = []
 }
