@@ -10,6 +10,12 @@ target 'meho-ios' do
   pod 'AWSAuthUI', '~> 2.12.1'            # Optional dependency required to use drop-in UI
   pod 'AWSUserPoolsSignIn', '~> 2.12.1'   # Optional dependency required to use drop-in UI
 
+  # 3rd party Auth
+  pod 'AWSFacebookSignIn', '~> 2.12.0'
+  pod 'AWSGoogleSignIn', '~> 2.12.0'
+  pod 'GoogleSignIn', '~> 4.0'
+
+
   target 'meho-iosTests' do
     inherit! :search_paths
     # Pods for testing

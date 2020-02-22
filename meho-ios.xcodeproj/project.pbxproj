@@ -349,6 +349,7 @@
 				EA2FC5B923EF7AD400E258BD /* Frameworks */,
 				EA2FC5BA23EF7AD400E258BD /* Resources */,
 				AAC25F9AFC9F67E2AEDAFA5D /* [CP] Embed Pods Frameworks */,
+				DE17608541922AF4596C9677 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -387,6 +388,7 @@
 				EA2FC5DA23EF7AD600E258BD /* Frameworks */,
 				EA2FC5DB23EF7AD600E258BD /* Resources */,
 				0BA3B7C5939AECE8A46C04CA /* [CP] Embed Pods Frameworks */,
+				E2BCF439E72758FF20487FCD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -549,6 +551,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE17608541922AF4596C9677 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-meho-ios/Pods-meho-ios-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-meho-ios/Pods-meho-ios-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-meho-ios/Pods-meho-ios-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2BCF439E72758FF20487FCD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-meho-ios-meho-iosUITests/Pods-meho-ios-meho-iosUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-meho-ios-meho-iosUITests/Pods-meho-ios-meho-iosUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-meho-ios-meho-iosUITests/Pods-meho-ios-meho-iosUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD3FD9B77C5430A3086E739D /* [CP] Check Pods Manifest.lock */ = {
