@@ -6,5 +6,17 @@
   Copyright © 2020 Meho. All rights reserved.
 */
 
-/* Title for the dialogs section to indicate that the dialogs are for the user */
+/* Title for the dialogs section to indicate that the dialogs are for the user. */
 "DialogsTitle" = "For you";
+
+/* Text that indictates the difficulty level is beginner. */
+"DifficultyBeginner" = "Beginner";
+
+/* Text that indictates the difficulty level is intermediate. */
+"DifficultyIntermediate" = "Intermediate";
+
+/* Text that indictates the difficulty level is advanced. */
+"DifficultyAdvanced" = "Advanced";
+
+/* Title for the pop-up that lets user to choose the difficulty level. */
+"DifficultyLevelTitle" = "Difficulty Level";

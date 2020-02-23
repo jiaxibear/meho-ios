@@ -18,6 +18,9 @@
 		EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */; };
 		EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA01E6AA23FA356900C0B0AE /* Localizable.strings */; };
 		EA01E6AD23FBA62900C0B0AE /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6AC23FBA62900C0B0AE /* Chapter.swift */; };
+		EA01E6AF23FBC25F00C0B0AE /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6AE23FBC25F00C0B0AE /* Difficulty.swift */; };
+		EA01E6B123FBD6F000C0B0AE /* DifficultyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6B023FBD6F000C0B0AE /* DifficultyViewController.swift */; };
+		EA01E6B324020CBF00C0B0AE /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6B224020CBF00C0B0AE /* DialogViewController.swift */; };
 		EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */; };
 		EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */; };
 		EA2FC5C623EF7AD600E258BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA2FC5C523EF7AD600E258BD /* Assets.xcassets */; };
@@ -73,6 +76,9 @@
 		EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtentsion.swift; sourceTree = "<group>"; };
 		EA01E6AA23FA356900C0B0AE /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		EA01E6AC23FBA62900C0B0AE /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
+		EA01E6AE23FBC25F00C0B0AE /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
+		EA01E6B023FBD6F000C0B0AE /* DifficultyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyViewController.swift; sourceTree = "<group>"; };
+		EA01E6B224020CBF00C0B0AE /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
 		EA2FC5BC23EF7AD400E258BD /* meho-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "meho-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -281,6 +287,8 @@
 				EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */,
 				EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */,
 				EA01E6AC23FBA62900C0B0AE /* Chapter.swift */,
+				EA01E6AE23FBC25F00C0B0AE /* Difficulty.swift */,
+				EA01E6B023FBD6F000C0B0AE /* DifficultyViewController.swift */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -333,6 +341,7 @@
 			isa = PBXGroup;
 			children = (
 				EAB7C4CD23F12080003C8548 /* WebImageView.swift */,
+				EA01E6B224020CBF00C0B0AE /* DialogViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -627,13 +636,16 @@
 				EA52FDAF23EF8116008EB37B /* NewsViewController.swift in Sources */,
 				92183A6023F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift in Sources */,
 				92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */,
+				EA01E6B123FBD6F000C0B0AE /* DifficultyViewController.swift in Sources */,
 				EA52FDB823EFF416008EB37B /* CategoryCollectionViewCell.swift in Sources */,
 				EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */,
 				EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */,
 				924C53E823FA1E2600B59D95 /* SignInViewController.swift in Sources */,
 				EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */,
+				EA01E6AF23FBC25F00C0B0AE /* Difficulty.swift in Sources */,
 				EA52FDB623EFE6B8008EB37B /* Category.swift in Sources */,
 				EAB7C4D023F8C8E2003C8548 /* DialogCollectionViewCell.swift in Sources */,
+				EA01E6B324020CBF00C0B0AE /* DialogViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

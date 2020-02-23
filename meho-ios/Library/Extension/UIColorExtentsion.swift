@@ -21,6 +21,18 @@ extension UIColor {
         return UIColor.init(hex: "#1c1c1e")!
     }
 
+    class var textBlueGray : UIColor {
+        return UIColor.init(hex: "#8e8e93")!
+    }
+
+    class var wisteriaPurple : UIColor {
+        return UIColor.init(hex: "#9576cd")!
+    }
+
+    class var textCharcoalGrey : UIColor {
+        return UIColor.init(hex: "#48484a")!
+    }
+
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 

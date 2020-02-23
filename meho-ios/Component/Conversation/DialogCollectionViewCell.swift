@@ -54,7 +54,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         // Sets up title in local language label.
         titleInLocalLanguageLabel.numberOfLines = 1
         titleInLocalLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleInLocalLanguageLabel.textColor = .gray
+        titleInLocalLanguageLabel.textColor = .textBlueGray
         titleInLocalLanguageLabel.font = UIFont.init(name: "AvenirNext-DemiBold", size: titleInLocalLanguageLabelFontSize)
         self.contentView.addSubview(titleInLocalLanguageLabel)
 
