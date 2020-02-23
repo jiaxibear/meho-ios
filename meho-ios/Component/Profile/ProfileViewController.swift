@@ -46,6 +46,12 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         setupLogoutButtom()
+        let session = URLSession(configuration: .default)
+        let URLString = "https://150uu7wn8b.execute-api.us-west-2.amazonaws.com/dev/dialogue/recordUserPronounce"
+        var request = URLRequest.init(url: URL.init(string: URLString)!)
+        request.httpMethod = "POST"
+        request.httpBody = "chapter_id : 123".data(using: .utf8)
+        session.dataTask(with: request).resume()
     }
     
     

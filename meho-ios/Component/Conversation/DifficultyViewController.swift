@@ -67,7 +67,7 @@ class DifficultyViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         self.view.backgroundColor = .white
 
-        titleLabel.textColor = .textDarkGray
+        titleLabel.textColor = .darkGrayTwo
         titleLabel.font = UIFont.init(name: "SFCompactRounded-Medium", size: titleLabelFontSize)
         titleLabel.textAlignment = .center
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

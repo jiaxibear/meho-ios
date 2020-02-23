@@ -13,13 +13,17 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
 
     // MARK: - Constants
     private let titleLabelFontSize = CGFloat(16)
-    private let coverImageViewCornerRadius = CGFloat(5)
-    private let coverImageShadowViewAlpha = CGFloat(0.5)
+    private let coverImageViewHeight = CGFloat(92)
+    private let titleLabelVerticalMargin = CGFloat(12)
+    private let titleLabelLeadingMargin = CGFloat(11)
+    private let contentViewCornerRadius = CGFloat(10)
+    private let contentViewShadowRadius = CGFloat(3)
+    private let contentViewShadowSpread = CGFloat(3)
 
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
     private let coverImageView = WebImageView.init(frame: .zero)
-    private let coverImageShadowView = UIView.init(frame: .zero)
+    private var shadowLayer:CAShapeLayer?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -29,43 +33,40 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        layer.shadowColor = UIColor.paleLilac.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+        layer.masksToBounds = false
+        layer.shadowRadius = contentViewShadowRadius
+        let shadowBounds = bounds.insetBy(dx: -contentViewShadowSpread, dy: -contentViewShadowSpread)
+        layer.shadowPath = UIBezierPath(roundedRect: shadowBounds, cornerRadius: contentViewCornerRadius).cgPath
+        layer.backgroundColor = UIColor.clear.cgColor
+        contentView.layer.borderWidth = 1.0
+        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = contentViewCornerRadius
+        contentView.backgroundColor = .white
 
         // Sets up cover image view.
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
-        coverImageView.layer.cornerRadius = coverImageViewCornerRadius
-        coverImageView.clipsToBounds = true
         coverImageView.delegate = self
-        self.contentView.addSubview(coverImageView)
-
-        // Sets up the cover image shadow view
-        coverImageShadowView.backgroundColor = .darkGray
-        coverImageShadowView.alpha = coverImageShadowViewAlpha
-
-        coverImageShadowView.translatesAutoresizingMaskIntoConstraints = false
-        coverImageShadowView.layer.cornerRadius = coverImageViewCornerRadius
-        coverImageShadowView.clipsToBounds = true
-        self.contentView.addSubview(coverImageShadowView)
+        contentView.addSubview(coverImageView)
 
         // Sets up title label.
         titleLabel.numberOfLines = 1
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = .white
-        titleLabel.font = UIFont.init(name: "AvenirNext-DemiBold", size: titleLabelFontSize)
-        self.contentView.addSubview(titleLabel)
+        titleLabel.textColor = .mehoDarkGray
+        let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        titleLabel.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
+        contentView.addSubview(titleLabel)
 
         // Sets up constraints
-        let margins = self.contentView.layoutMarginsGuide
-        titleLabel.centerYAnchor.constraint(equalTo: margins.centerYAnchor).isActive = true
-        titleLabel.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
-        coverImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-        coverImageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
-        coverImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-        coverImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
-        coverImageShadowView.topAnchor.constraint(equalTo: coverImageView.topAnchor).isActive = true
-        coverImageShadowView.trailingAnchor.constraint(equalTo: coverImageView.trailingAnchor).isActive = true
-        coverImageShadowView.bottomAnchor.constraint(equalTo: coverImageView.bottomAnchor).isActive = true
-        coverImageShadowView.leadingAnchor.constraint(equalTo: coverImageView.leadingAnchor).isActive = true
-
+        coverImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        coverImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        coverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        coverImageView.heightAnchor.constraint(equalToConstant: coverImageViewHeight).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: titleLabelLeadingMargin).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: titleLabelVerticalMargin).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -titleLabelVerticalMargin).isActive = true
         self.contentView.isHidden = true
     }
 
@@ -76,7 +77,8 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
 
     // MARK - WebImageViewDelegate
     func webImageViewDidSetImage(webImageView: WebImageView) {
-        self.contentView.isHidden = false
+        contentView.isHidden = false
+        layer.shadowOpacity = 1
     }
 
     // MARK: - Public

@@ -9,28 +9,36 @@
 import UIKit
 
 extension UIColor {
-    class var backgroundGray : UIColor  {
+    class var backgroundGray: UIColor  {
         return UIColor.init(hex: "#0c000000")!
     }
 
-    class var borderGray : UIColor {
+    class var borderGray: UIColor {
         return UIColor.init(hex: "#d8d8d8")!
     }
 
-    class var textDarkGray : UIColor {
+    class var mehoDarkGray: UIColor {
+        return UIColor.init(hex: "#2c2c2e")!
+    }
+
+    class var darkGrayTwo: UIColor {
         return UIColor.init(hex: "#1c1c1e")!
     }
 
-    class var textBlueGray : UIColor {
+    class var textBlueGray: UIColor {
         return UIColor.init(hex: "#8e8e93")!
     }
 
-    class var wisteriaPurple : UIColor {
+    class var wisteriaPurple: UIColor {
         return UIColor.init(hex: "#9576cd")!
     }
 
-    class var textCharcoalGrey : UIColor {
+    class var textCharcoalGrey: UIColor {
         return UIColor.init(hex: "#48484a")!
+    }
+
+    class var paleLilac: UIColor {
+        return UIColor.init(hex: "#e5e5ea")!
     }
 
     public convenience init?(hex: String) {

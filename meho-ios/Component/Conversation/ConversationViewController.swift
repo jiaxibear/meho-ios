@@ -14,8 +14,9 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
     private let categoryCellReuseIdentifier = "Categories"
     private let dialogCellReuseIdentifier = "Dialogs"
-    private let categoriesCollectionViewCellWidth = CGFloat(144)
-    private let categoriesCollectionViewHeight = CGFloat(90)
+    private let categoriesCollectionViewCellWidth = CGFloat(165)
+    private let categoriesCollectionViewHeight = CGFloat(134)
+    private let categoriesCollectionViewHeightBuffer = CGFloat(6)
     private let categoriesCollectionViewToDialogsCollectionViewMargin = CGFloat(15)
     private let categoriesCollectionViewLineSpacing = CGFloat(16)
     private let dialogsTitleLabelFontSize = CGFloat(16)
@@ -116,7 +117,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         self.view.addSubview(grayBackgroundView)
 
         // Sets up the dialogs title view.
-        dialogsTitleLabel.textColor = .textDarkGray
+        dialogsTitleLabel.textColor = .darkGrayTwo
         dialogsTitleLabel.text = NSLocalizedString("DialogsTitle", comment: "")
         dialogsTitleLabel.font = UIFont.init(name: "AvenirNext-DemiBold", size: dialogsTitleLabelFontSize)
         dialogsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -154,7 +155,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         categoriesCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         categoriesCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         categoriesCollectionView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        categoriesCollectionView.heightAnchor.constraint(equalToConstant: categoriesCollectionViewHeight).isActive = true
+        categoriesCollectionView.heightAnchor.constraint(equalToConstant: categoriesCollectionViewHeight + categoriesCollectionViewHeightBuffer).isActive = true
 
         grayBackgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         grayBackgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
