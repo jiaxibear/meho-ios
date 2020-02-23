@@ -61,5 +61,29 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+
+    <!-- START OF 3RD PARTY PLIST ENTRIES HERE -->
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb2791276970964145</string>
+    <string>com.googleusercontent.apps.983399197555-m5b0kem8a98rp7khu0pkcofemsu37vgp</string>
+      </array>
+      </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>2791276970964145</string>
+    <key>FacebookDisplayName</key>
+    <string>meho</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-api</string>
+      <string>fbauth2</string>
+      <string>fbshareextension</string>
+    </array>
+    <!-- ... -->
 </dict>
 </plist>
