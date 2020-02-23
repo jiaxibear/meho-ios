@@ -83,6 +83,9 @@ Parameters:
   useDefault:
     Type: String
                       
+  usernameAttributes:
+    Type: CommaDelimitedList
+              
   userPoolGroupList:
     Type: CommaDelimitedList
                           
@@ -100,7 +103,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'mehoio8bf6d874_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'mehoiod9eb8428_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument: 
         Version: "2012-10-17"
         Statement: 
@@ -112,10 +115,10 @@ Resources:
               - "sts:AssumeRole"
             Condition: 
               StringEquals:
-                sts:ExternalId: mehoio8bf6d874_role_external_id
+                sts:ExternalId: mehoiod9eb8428_role_external_id
       Policies: 
         - 
-          PolicyName: mehoio8bf6d874-sns-policy
+          PolicyName: mehoiod9eb8428-sns-policy
           PolicyDocument: 
             Version: "2012-10-17"
             Statement: 
@@ -156,12 +159,14 @@ Resources:
           RequireNumbers: false
           RequireSymbols: false
           RequireUppercase: false
+      
+      UsernameAttributes: !Ref usernameAttributes
           
       MfaConfiguration: !Ref mfaConfiguration
       SmsVerificationMessage: !Ref smsVerificationMessage
       SmsConfiguration: 
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: mehoio8bf6d874_role_external_id
+        ExternalId: mehoiod9eb8428_role_external_id
     
   
   UserPoolClientWeb:
@@ -169,7 +174,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: mehoio8bf6d874_app_clientWeb
+      ClientName: mehoiod9eb8428_app_clientWeb
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -179,7 +184,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: mehoio8bf6d874_app_client
+      ClientName: mehoiod9eb8428_app_client
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
@@ -244,7 +249,7 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: mehoio8bf6d874_userpoolclient_lambda_iam_policy
+      PolicyName: mehoiod9eb8428_userpoolclient_lambda_iam_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -261,7 +266,7 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: mehoio8bf6d874_userpoolclient_lambda_log_policy
+      PolicyName: mehoiod9eb8428_userpoolclient_lambda_log_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -301,7 +306,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties: 
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'mehoios8bf6d874_identitypool_8bf6d874', !Join ['',['mehoios8bf6d874_identitypool_8bf6d874', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'mehoiosd9eb8428_identitypool_d9eb8428', !Join ['',['mehoiosd9eb8428_identitypool_d9eb8428', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient

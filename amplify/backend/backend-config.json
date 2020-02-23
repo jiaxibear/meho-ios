@@ -1,6 +1,6 @@
 {
 	"auth": {
-		"mehoios8bf6d874": {
+		"mehoiosd9eb8428": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [],

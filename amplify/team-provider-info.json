@@ -16,5 +16,41 @@
                 "mehoios8bf6d874": {}
             }
         }
+    },
+    "meho": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-mehoios-meho-171925-authRole",
+            "UnauthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-meho-171925-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-meho-171925-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-mehoios-meho-171925-deployment",
+            "UnauthRoleName": "amplify-mehoios-meho-171925-unauthRole",
+            "StackName": "amplify-mehoios-meho-171925",
+            "StackId": "arn:aws:cloudformation:us-east-2:296052403006:stack/amplify-mehoios-meho-171925/8b452f20-55da-11ea-8913-0a9bb1cea78e",
+            "AmplifyAppId": "d30wqh36hv8tz0"
+        },
+        "categories": {
+            "auth": {
+                "mehoios8bf6d874": {}
+            }
+        }
+    },
+    "mehhoo": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-mehoios-mehhoo-172756-authRole",
+            "UnauthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-mehhoo-172756-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-mehhoo-172756-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-mehoios-mehhoo-172756-deployment",
+            "UnauthRoleName": "amplify-mehoios-mehhoo-172756-unauthRole",
+            "StackName": "amplify-mehoios-mehhoo-172756",
+            "StackId": "arn:aws:cloudformation:us-west-2:296052403006:stack/amplify-mehoios-mehhoo-172756/c193a920-55db-11ea-9dec-069fde0f6b80",
+            "AmplifyAppId": "d3n3b5wox52uww"
+        },
+        "categories": {
+            "auth": {
+                "mehoiosd9eb8428": {}
+            }
+        }
     }
 }
