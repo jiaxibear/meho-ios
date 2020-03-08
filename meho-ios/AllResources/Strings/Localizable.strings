@@ -9,6 +9,9 @@
 /* Title for the header of the dialogs section to indicate that the dialogs are for the user. */
 "ForYouTitle" = "For you";
 
+/* Title for the header of the featured dialogs section to indicate that the dialogs are featured. */
+"FeaturedTitle" = "Featured";
+
 /* Title for the header of the categories section. */
 "CategoriesTitle" = "What interests you, Jackie?";
 

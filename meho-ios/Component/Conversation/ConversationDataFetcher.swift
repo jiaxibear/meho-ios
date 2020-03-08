@@ -14,6 +14,7 @@ class ConversationDataFetcher: NSObject {
 
     private let fetchDialogsURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/talk/dialogues/"
     private let fetchCategoriesURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/talk/dialogues/category/"
+    private let fetchFeaturedDialogsURLString = "https://150uu7wn8b.execute-api.us-west-2.amazonaws.com/dev/getFeaturedDialogues"
 
     // MARK: - Properties
 
@@ -50,6 +51,37 @@ class ConversationDataFetcher: NSObject {
         }
     }
 
+    public func fetchFeaturedDialogs(completionHandler: @escaping ( Array<Dialog>?, Error?) -> Void) {
+        if let fetchFeaturedDialogsURL = URL.init(string: fetchFeaturedDialogsURLString) {
+            let dataCategoriesTask = session.dataTask(with: fetchFeaturedDialogsURL, completionHandler: { (data, URLResponse, error) in
+                if error != nil {
+                    print("There is an error getting the response of featured dialogs")
+                    completionHandler(nil, error)
+                    return
+                }
+                if data == nil {
+                    print("The response of featured dialogs is empty")
+                    completionHandler(nil, nil)
+                    return
+                }
+                do {
+                    if let dialogsJSON = try JSONSerialization.jsonObject(with: data!, options: []) as? [[String: Any]] {
+                        let dialogs = self.parseDialogsJSON(dialogsJSON: dialogsJSON)
+                        completionHandler(dialogs, nil)
+                    } else {
+                        completionHandler(nil, nil)
+                    }
+                } catch let JSONError as NSError {
+                    print("Failed to parse dialogs JSON: \(JSONError.localizedDescription)")
+                    completionHandler(nil, JSONError)
+                }
+            })
+            dataCategoriesTask.resume()
+        } else {
+            completionHandler(nil, nil)
+        }
+    }
+
     public func fetchDialogs(category: String?, difficulty: String?, completionHandler: @escaping ( Array<Dialog>?, Error?) -> Void) {
         if var dialogsURLComponents = URLComponents.init(string: fetchDialogsURLString) {
             var queryItems:[URLQueryItem] = []
@@ -69,9 +101,15 @@ class ConversationDataFetcher: NSObject {
                         return
                     }
                     do {
-                        if let dialogsJSON = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                            let dialogs = self.parseDialogsJSON(dialogsJSON: dialogsJSON)
-                            completionHandler(dialogs, nil)
+                        if let resultsJSON = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                            if let dialogsJSON = resultsJSON["results"] as? [Dictionary<String, Any>] {
+                                let dialogs = self.parseDialogsJSON(dialogsJSON: dialogsJSON)
+                                completionHandler(dialogs, nil)
+                            } else {
+                                completionHandler(nil, nil)
+                            }
+                        } else {
+                            completionHandler(nil, nil)
                         }
                     } catch let JSONError as NSError {
                         print("Failed to parse dialogs JSON: \(JSONError.localizedDescription)")
@@ -110,50 +148,47 @@ class ConversationDataFetcher: NSObject {
         return nil
     }
 
-    private func parseDialogsJSON(dialogsJSON: Dictionary<String, Any>) -> [Dialog]? {
-        if let currentDialogsJSON = dialogsJSON["results"] as? [Dictionary<String, Any>] {
-            var currentDialogs:[Dialog] = []
-            for currentDialogJSON in currentDialogsJSON {
-                var dialog = Dialog.init()
-                if let title = currentDialogJSON["title"] as? String {
-                    dialog.title = title
-                }
-                if let titleInLocalLanguage = currentDialogJSON["title_local_language"] as? String {
-                    dialog.titleInLocalLanguage = titleInLocalLanguage
-                }
-                if let coverImageURLString = currentDialogJSON["cover_image"] as? String {
-                    let coverImageURL = URL.init(string: coverImageURLString)
-                    dialog.coverImageURL = coverImageURL
-                }
-                if let chaptersJSON = currentDialogJSON["chapter"] as? [Dictionary<String, Any>] {
-                    var chapters:[Chapter] = []
-                    for chapterJSON in chaptersJSON {
-                        var chapter = Chapter.init()
-                        if let content = chapterJSON["content"] as? String {
-                            chapter.content = content
-                        }
-                        if let contentAudioURLString = chapterJSON["content_related_audio"] as? String {
-                            if let contentAudioURL = URL.init(string: contentAudioURLString) {
-                                chapter.contentAudioURL = contentAudioURL
-                            }
-                        }
-                        if let contentPinyin = chapterJSON["content_pinyin"] as? String {
-                            chapter.contentPinyin = contentPinyin
-                        }
-                        if let sequence = chapterJSON["seq_number"] as? NSNumber {
-                            chapter.sequence = sequence.intValue
-                        }
-                        if let contentInLocalLanguage = chapterJSON["content_local_language"] as? String {
-                            chapter.contentInLocalLanguage = contentInLocalLanguage
-                        }
-                        chapters.append(chapter)
-                    }
-                    dialog.chapters = chapters
-                }
-                currentDialogs.append(dialog)
+    private func parseDialogsJSON(dialogsJSON: [Dictionary<String, Any>]) -> [Dialog] {
+        var dialogs:[Dialog] = []
+        for dialogJSON in dialogsJSON {
+            var dialog = Dialog.init()
+            if let title = dialogJSON["title"] as? String {
+                dialog.title = title
             }
-            return currentDialogs
+            if let titleInLocalLanguage = dialogJSON["title_local_language"] as? String {
+                dialog.titleInLocalLanguage = titleInLocalLanguage
+            }
+            if let coverImageURLString = dialogJSON["cover_image"] as? String {
+                let coverImageURL = URL.init(string: coverImageURLString)
+                dialog.coverImageURL = coverImageURL
+            }
+            if let chaptersJSON = dialogJSON["chapter"] as? [Dictionary<String, Any>] {
+                var chapters:[Chapter] = []
+                for chapterJSON in chaptersJSON {
+                    var chapter = Chapter.init()
+                    if let content = chapterJSON["content"] as? String {
+                        chapter.content = content
+                    }
+                    if let contentAudioURLString = chapterJSON["content_related_audio"] as? String {
+                        if let contentAudioURL = URL.init(string: contentAudioURLString) {
+                            chapter.contentAudioURL = contentAudioURL
+                        }
+                    }
+                    if let contentPinyin = chapterJSON["content_pinyin"] as? String {
+                        chapter.contentPinyin = contentPinyin
+                    }
+                    if let sequence = chapterJSON["seq_number"] as? NSNumber {
+                        chapter.sequence = sequence.intValue
+                    }
+                    if let contentInLocalLanguage = chapterJSON["content_local_language"] as? String {
+                        chapter.contentInLocalLanguage = contentInLocalLanguage
+                    }
+                    chapters.append(chapter)
+                }
+                dialog.chapters = chapters
+            }
+            dialogs.append(dialog)
         }
-        return nil
+        return dialogs
     }
 }

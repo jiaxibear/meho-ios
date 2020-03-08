@@ -113,10 +113,10 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
             }
         }
 
-        dataFecther.fetchDialogs(category: "Lifestyle", difficulty: "BEGINNER") { (dialogs, error) in
+        dataFecther.fetchFeaturedDialogs { (dialogs, error) in
             if (error == nil && dialogs != nil) {
                 self.dialogs = dialogs!
-                let dialogsSectionHeaderTitle = NSLocalizedString("ForYouTitle", comment: "")
+                let dialogsSectionHeaderTitle = NSLocalizedString("FeaturedTitle", comment: "")
                 self.sectionHeaderTitles.append(dialogsSectionHeaderTitle)
                 DispatchQueue.main.async {
                     self.conversationCollectionView.reloadData()
