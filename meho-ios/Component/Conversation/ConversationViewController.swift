@@ -11,56 +11,42 @@ import UIKit
 class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Constants
-
+    private let trailingLeadingMargin = CGFloat(15)
+    private let titleLabelFontSize = CGFloat(30)
+    private let titleLabelToConversationCollectionViewMargin = CGFloat(24)
+    private let headerReuseIdentifier = "Header"
     private let categoryCellReuseIdentifier = "Categories"
     private let dialogCellReuseIdentifier = "Dialogs"
-    private let categoriesCollectionViewCellWidth = CGFloat(165)
-    private let categoriesCollectionViewHeight = CGFloat(134)
-    private let categoriesCollectionViewHeightBuffer = CGFloat(6)
-    private let categoriesCollectionViewToDialogsCollectionViewMargin = CGFloat(15)
-    private let categoriesCollectionViewLineSpacing = CGFloat(16)
-    private let dialogsTitleLabelFontSize = CGFloat(16)
-    private let dialogsTitleLabelTopMargin = CGFloat(17)
-    private let dialogsCollectionViewCellHeight = CGFloat(105)
-    private let dialogsCollectionViewLineSpacing = CGFloat(20)
-    private let dialogsCollectionViewTopMargin = CGFloat(23)
-    private let grayBackgroundViewBorderWidth = CGFloat(1)
-    private let grayBackgroundViewCornerRadius = CGFloat(10)
-    private let difficultyButtonFontSize = CGFloat(12)
+    private let conversationsCollectionViewSectionTopBottomMargin = CGFloat(20)
+    private let categorieCollectionViewCellWidth = CGFloat(165)
+    private let categorieCollectionViewCellHeight = CGFloat(134)
+    private let categorieCollectionViewCellGroupSpacing = CGFloat(16)
+    private let categorieCollectionViewSectionHeaderEstimatedHeight = CGFloat(29)
+    private let dialogCollectionViewCellHeight = CGFloat(110)
+    private let dialogCollectionViewCellGroupSpacing = CGFloat(20)
     private let conversationTabBarItemImageName = "tabbar_conv_25pt"
     private let conversationTabBarItemSelectedImageName = "tabbar_conv_selected_25pt"
 
     // MARK: - Properties
     // MARK: UI
-    private let categoriesCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-    private lazy var categoriesCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:categoriesCollectionViewFlowLayout)
-    private let dialogsTitleLabel = UILabel.init(frame: .zero)
-    private let dialogsCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-    private lazy var dialogsCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:dialogsCollectionViewFlowLayout)
-    private let grayBackgroundView = UIView.init(frame: .zero)
-    private let difficultyButton = UIButton.init(frame: .zero)
+    private let titleLabel = UILabel.init(frame: .zero)
+    private lazy var conversationCollectionViewCompositionalLayout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
+      layoutEnvironment: NSCollectionLayoutEnvironment)
+        -> NSCollectionLayoutSection? in
+        if sectionIndex == 0 {
+            return self.categoriesLayoutSection()
+        } else {
+            return self.dialogsLayoutSection()
+        }
+    }
+    private lazy var conversationCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:conversationCollectionViewCompositionalLayout)
     // MARK: MODEL
     private var categories:[Category] = []
     private var dialogs:[Dialog] = []
     private let dataFecther = ConversationDataFetcher.init()
-    private var currentCategory:Category? {
-        didSet {
-            if currentCategory != oldValue {
-                self.fetchingDialogs()
-            }
-        }
-    }
-    private let allDifficulties = [Difficulty.beginner, Difficulty.intermediate, Difficulty.advanced]
-    private var currentDifficulty = Difficulty.beginner {
-        didSet {
-            if currentDifficulty != oldValue {
-                self.fetchingDialogs()
-            }
-        }
-    }
+    private var sectionHeaderTitles:[String] = []
 
     // MARK: - Init
-
     init() {
         super.init(nibName: nil, bundle: nil)
         let conversationTabBarItemImage = UIImage.init(named: conversationTabBarItemImageName)
@@ -81,144 +67,89 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     }
 
     // MARK: - UIViewController
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = .white
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        view.backgroundColor = .white
+        navigationController?.setNavigationBarHidden(true, animated: false)
         let margins = view.layoutMarginsGuide
 
-        // Sets up the categories collection view flow layout.
-        categoriesCollectionViewFlowLayout.scrollDirection = .horizontal
-        categoriesCollectionViewFlowLayout.minimumLineSpacing = categoriesCollectionViewLineSpacing
-        let sectionLeadingInset = self.navigationController?.systemMinimumLayoutMargins.leading ?? 0
-        let sectionTrailingInset = self.navigationController?.systemMinimumLayoutMargins.trailing ?? 0
-        categoriesCollectionViewFlowLayout.sectionInset = UIEdgeInsets.init(top: 0, left: sectionLeadingInset, bottom: 0, right: sectionTrailingInset)
+        // Sets up the title.
+        titleLabel.text = NSLocalizedString("ConversationTitle", comment: "")
+        titleLabel.textColor = .skyBlue
+        let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        titleLabel.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleLabel)
 
-        // Sets up the categories collection view.
-        categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        categoriesCollectionView.showsHorizontalScrollIndicator = false
-        categoriesCollectionView.showsVerticalScrollIndicator = false
-        categoriesCollectionView.backgroundColor = .white
-        categoriesCollectionView.dataSource = self
-        categoriesCollectionView.delegate = self
-        categoriesCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier:categoryCellReuseIdentifier)
-        self.view.addSubview(categoriesCollectionView)
-
-        // Sets up the gray background view.
-        grayBackgroundView.backgroundColor = .backgroundGray
-        grayBackgroundView.layer.borderColor = UIColor.borderGray.cgColor
-        grayBackgroundView.layer.borderWidth = grayBackgroundViewBorderWidth
-        grayBackgroundView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        grayBackgroundView.layer.cornerRadius = grayBackgroundViewCornerRadius
-        grayBackgroundView.clipsToBounds = true
-        grayBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(grayBackgroundView)
-
-        // Sets up the dialogs title view.
-        dialogsTitleLabel.textColor = .darkGrayTwo
-        dialogsTitleLabel.text = NSLocalizedString("DialogsTitle", comment: "")
-        dialogsTitleLabel.font = UIFont.init(name: "AvenirNext-DemiBold", size: dialogsTitleLabelFontSize)
-        dialogsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        grayBackgroundView.addSubview(dialogsTitleLabel)
-
-        // Sets up the difficulty button
-        difficultyButton.titleLabel?.font = UIFont.init(name: "AvenirNext-DemiBold", size: difficultyButtonFontSize)
-        difficultyButton.setTitle(currentDifficulty.title, for: .normal)
-        let difficultyButtonImage = UIImage.init(systemName: "arrowtriangle.down.fill")
-        difficultyButton.setImage(difficultyButtonImage, for: .normal)
-        difficultyButton.setTitleColor(.textBlueGray, for: .normal)
-        difficultyButton.translatesAutoresizingMaskIntoConstraints = false
-        difficultyButton.tintColor = .textBlueGray
-        difficultyButton.semanticContentAttribute = .forceRightToLeft
-        difficultyButton.imageView?.contentMode = .scaleAspectFit
-        difficultyButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        difficultyButton.addTarget(self, action: #selector(didTapDifficultyButton), for: .touchUpInside)
-        grayBackgroundView.addSubview(difficultyButton)
-
-        // Sets up the dialogs collection view flow layout.
-        dialogsCollectionViewFlowLayout.scrollDirection = .vertical
-        dialogsCollectionViewFlowLayout.minimumLineSpacing = dialogsCollectionViewLineSpacing
-
-        // Sets up the categories collection view.
-        dialogsCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        dialogsCollectionView.showsHorizontalScrollIndicator = false
-        dialogsCollectionView.showsVerticalScrollIndicator = true
-        dialogsCollectionView.backgroundColor = .clear
-        dialogsCollectionView.dataSource = self
-        dialogsCollectionView.delegate = self
-        dialogsCollectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier:dialogCellReuseIdentifier)
-        grayBackgroundView.addSubview(dialogsCollectionView)
+        // Sets up the collection view.
+        conversationCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        conversationCollectionView.backgroundColor = .white
+        conversationCollectionView.dataSource = self
+        conversationCollectionView.delegate = self
+        conversationCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: categoryCellReuseIdentifier)
+        conversationCollectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCellReuseIdentifier)
+        conversationCollectionView.register(ConversationHeaderCollectionReusableView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: headerReuseIdentifier)
+        view.addSubview(conversationCollectionView)
 
         // Sets up layout constrainsts.
-        categoriesCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        categoriesCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        categoriesCollectionView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        categoriesCollectionView.heightAnchor.constraint(equalToConstant: categoriesCollectionViewHeight + categoriesCollectionViewHeightBuffer).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: trailingLeadingMargin).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
 
-        grayBackgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        grayBackgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        grayBackgroundView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor, constant:categoriesCollectionViewToDialogsCollectionViewMargin).isActive = true
-        grayBackgroundView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-
-        dialogsTitleLabel.topAnchor.constraint(equalTo: grayBackgroundView.topAnchor, constant: dialogsTitleLabelTopMargin).isActive = true
-        dialogsTitleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-
-        difficultyButton.centerYAnchor.constraint(equalTo: dialogsTitleLabel.centerYAnchor).isActive = true
-        difficultyButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-
-        dialogsCollectionView.topAnchor.constraint(equalTo: dialogsTitleLabel.bottomAnchor, constant: dialogsCollectionViewTopMargin).isActive = true
-        dialogsCollectionView.bottomAnchor.constraint(equalTo: grayBackgroundView.bottomAnchor).isActive = true
-        dialogsCollectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        dialogsCollectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        conversationCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        conversationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        conversationCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: titleLabelToConversationCollectionViewMargin).isActive = true
+        conversationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         dataFecther.fetchCategories { (categories, error) in
             if (error == nil && categories != nil) {
                 self.categories = categories!
+                let categoriesSectionHeaderTitle = NSLocalizedString("CategoriesTitle", comment: "")
+                self.sectionHeaderTitles.insert(categoriesSectionHeaderTitle, at: 0)
                 DispatchQueue.main.async {
-                    self.categoriesCollectionView.reloadData()
+                    self.conversationCollectionView.reloadData()
                 }
-                self.currentCategory = self.categories.first
+            }
+        }
+
+        dataFecther.fetchDialogs(category: "Lifestyle", difficulty: "BEGINNER") { (dialogs, error) in
+            if (error == nil && dialogs != nil) {
+                self.dialogs = dialogs!
+                let dialogsSectionHeaderTitle = NSLocalizedString("ForYouTitle", comment: "")
+                self.sectionHeaderTitles.append(dialogsSectionHeaderTitle)
+                DispatchQueue.main.async {
+                    self.conversationCollectionView.reloadData()
+                }
             }
         }
     }
 
-
-    // MARK: - UICollectionViewDelegateFlowLayout
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == categoriesCollectionView {
-            return CGSize(width: categoriesCollectionViewCellWidth, height: categoriesCollectionViewHeight)
-        }
-        if collectionView == dialogsCollectionView {
-            let width = collectionView.frame.width - collectionView.contentInset.left - collectionView.contentInset.right
-            return CGSize(width: width, height: dialogsCollectionViewCellHeight)
-        }
-        
-        return .zero
-    }
-
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == categoriesCollectionView {
+        if section == 0 {
             return categories.count
         }
-        if collectionView == dialogsCollectionView {
+        if section == 1 {
             return dialogs.count
         }
         
         return 0
     }
 
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sectionHeaderTitles.count
+    }
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == categoriesCollectionView {
+        let section = indexPath.section
+        if section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCellReuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
             let category = categories[indexPath.item]
             cell.setCategory(category: category)
             return cell
         }
-        if collectionView == dialogsCollectionView {
+        if section == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCellReuseIdentifier, for: indexPath) as! DialogCollectionViewCell
             let dialog = dialogs[indexPath.item]
             cell.setDialog(dialog: dialog)
@@ -227,30 +158,54 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         return UICollectionViewCell.init(frame: .zero)
     }
 
-    // MARK: - UICollectionViewDelegate
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == categoriesCollectionView {
-            self.currentCategory = categories[indexPath.item]
-        }
-    }
-
     // MARK: - Private
     func fetchingDialogs() {
-        self.dataFecther.fetchDialogs(category: self.currentCategory?.title, difficulty: self.currentDifficulty.identifier.rawValue, completionHandler: { (dialogs, error) in
+        self.dataFecther.fetchDialogs(category: "", difficulty: "", completionHandler: { (dialogs, error) in
             if (error == nil && dialogs != nil) {
                 self.dialogs = dialogs!
                 DispatchQueue.main.async {
-                    self.dialogsCollectionView.reloadData()
+                    self.conversationCollectionView.reloadData()
                 }
             }
         })
     }
 
-    @objc func didTapDifficultyButton() {
-        let difficultyViewController = DifficultyViewController.init(allDifficulties: allDifficulties, currentDifficulty: currentDifficulty)
-        let dialogViewController = DialogViewController.init(contentViewController: difficultyViewController)
-        dialogViewController.modalPresentationStyle = .overFullScreen
-        dialogViewController.modalTransitionStyle = .crossDissolve
-        self.present(dialogViewController, animated: true, completion: nil)
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == "header" {
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: headerReuseIdentifier, for: indexPath) as! ConversationHeaderCollectionReusableView
+            headerView.setTitle(sectionHeaderTitles[indexPath.section])
+            return headerView
+        }
+
+        return UICollectionReusableView.init(frame: .zero)
+    }
+
+    func categoriesLayoutSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize.init(widthDimension: .absolute(categorieCollectionViewCellWidth), heightDimension: .absolute(categorieCollectionViewCellHeight))
+        let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(categorieCollectionViewCellWidth), heightDimension: .absolute(categorieCollectionViewCellHeight))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection.init(group: group)
+        section.orthogonalScrollingBehavior = .continuous
+        section.interGroupSpacing = categorieCollectionViewCellGroupSpacing
+        section.contentInsets = NSDirectionalEdgeInsets.init(top: conversationsCollectionViewSectionTopBottomMargin, leading: trailingLeadingMargin, bottom: conversationsCollectionViewSectionTopBottomMargin, trailing: trailingLeadingMargin)
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(categorieCollectionViewSectionHeaderEstimatedHeight))
+        let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
+        section.boundarySupplementaryItems = [headerElement]
+        return section
+    }
+
+    func dialogsLayoutSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(dialogCollectionViewCellHeight))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection.init(group: group)
+        section.interGroupSpacing = dialogCollectionViewCellGroupSpacing
+        section.contentInsets = NSDirectionalEdgeInsets.init(top: conversationsCollectionViewSectionTopBottomMargin, leading: trailingLeadingMargin, bottom: conversationsCollectionViewSectionTopBottomMargin, trailing: trailingLeadingMargin)
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(categorieCollectionViewSectionHeaderEstimatedHeight))
+        let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
+        section.boundarySupplementaryItems = [headerElement]
+        return section
     }
 }

@@ -41,6 +41,10 @@ extension UIColor {
         return UIColor.init(hex: "#e5e5ea")!
     }
 
+    class var skyBlue: UIColor {
+        return UIColor.init(hex: "#7baffa")!
+    }
+
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 

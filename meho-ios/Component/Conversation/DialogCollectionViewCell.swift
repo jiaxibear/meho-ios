@@ -14,11 +14,10 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     private let titleLabelToCoverImageViewMargin = CGFloat(38)
     private let titleLabelTotitleInLocalLanguageLabelMargin = CGFloat(15)
     private let titleInLocalLanguageLabelFontSize = CGFloat(15)
-    private let coverImageViewCornerRadius = CGFloat(2)
-    private let coverImageViewWidth = CGFloat(60)
-    private let coverImageViewHeight = CGFloat(60)
+    private let coverImageViewCornerRadius = CGFloat(4)
+    private let coverImageViewWidth = CGFloat(98)
     private let coverImageTrailingMargin = CGFloat(25)
-    private let cornerRadius = CGFloat(10)
+    private let coverImageBorderWidth = CGFloat(1)
 
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
@@ -33,37 +32,37 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .white
-        self.clipsToBounds = true
-        self.layer.cornerRadius = cornerRadius
+        backgroundColor = .white
 
         // Sets up cover image view.
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
         coverImageView.layer.cornerRadius = coverImageViewCornerRadius
+        coverImageView.layer.borderWidth = coverImageBorderWidth
+        coverImageView.layer.borderColor = UIColor.borderGray.cgColor
+
         coverImageView.clipsToBounds = true
         coverImageView.delegate = self
-        self.contentView.addSubview(coverImageView)
+        contentView.addSubview(coverImageView)
 
         // Sets up title label.
         titleLabel.numberOfLines = 1
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = .darkGrayTwo
         titleLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: titleLabelFontSize)
-        self.contentView.addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
 
         // Sets up title in local language label.
         titleInLocalLanguageLabel.numberOfLines = 1
         titleInLocalLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
         titleInLocalLanguageLabel.textColor = .textBlueGray
-        titleInLocalLanguageLabel.font = UIFont.init(name: "AvenirNext-DemiBold", size: titleInLocalLanguageLabelFontSize)
-        self.contentView.addSubview(titleInLocalLanguageLabel)
+        let titleInLocalLanguageFontDescriptor = UIFont.systemFont(ofSize: titleInLocalLanguageLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        titleInLocalLanguageLabel.font = UIFont.init(descriptor: titleInLocalLanguageFontDescriptor!, size: titleInLocalLanguageLabelFontSize)
+        contentView.addSubview(titleInLocalLanguageLabel)
 
         // Sets up constraints
-        let margins = self.contentView.layoutMarginsGuide
         coverImageView.widthAnchor.constraint(equalToConstant: coverImageViewWidth).isActive = true
-        coverImageView.heightAnchor.constraint(equalToConstant: coverImageViewHeight).isActive = true
-        coverImageView.centerYAnchor.constraint(equalTo: margins.centerYAnchor).isActive = true
-        coverImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant:coverImageTrailingMargin).isActive = true
+        coverImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
+        coverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
 
         titleLabel.leadingAnchor.constraint(equalTo: coverImageView.trailingAnchor, constant: titleLabelToCoverImageViewMargin).isActive = true
         titleLabel.topAnchor.constraint(equalTo: coverImageView.topAnchor).isActive = true
@@ -71,7 +70,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         titleInLocalLanguageLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
         titleInLocalLanguageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: titleLabelTotitleInLocalLanguageLabelMargin).isActive = true
 
-        self.contentView.isHidden = true
+        contentView.isHidden = true
     }
 
     @available(*, unavailable)

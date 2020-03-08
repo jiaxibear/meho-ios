@@ -6,8 +6,11 @@
   Copyright © 2020 Meho. All rights reserved.
 */
 
-/* Title for the dialogs section to indicate that the dialogs are for the user. */
-"DialogsTitle" = "For you";
+/* Title for the header of the dialogs section to indicate that the dialogs are for the user. */
+"ForYouTitle" = "For you";
+
+/* Title for the header of the categories section. */
+"CategoriesTitle" = "What interests you, Jackie?";
 
 /* Text that indictates the difficulty level is beginner. */
 "DifficultyBeginner" = "Beginner";
@@ -20,3 +23,6 @@
 
 /* Title for the pop-up that lets user to choose the difficulty level. */
 "DifficultyLevelTitle" = "Difficulty Level";
+
+/* Title for the converation page. */
+"ConversationTitle" = "Let's talk";
