@@ -18,11 +18,15 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     private let coverImageViewWidth = CGFloat(98)
     private let coverImageTrailingMargin = CGFloat(25)
     private let coverImageBorderWidth = CGFloat(1)
+    private let arrowImageViewWidth = CGFloat(45)
+    private let arrowImageViewHeight = CGFloat(45)
+    private let arrowImageName = "conversation_arrow_in_circle"
 
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
     private let titleInLocalLanguageLabel = UILabel.init(frame: .zero)
     private let coverImageView = WebImageView.init(frame: .zero)
+    private let arrowImageView = UIImageView.init(frame: .zero)
 
     // MARK: - Init
     @available(*, unavailable)
@@ -39,7 +43,6 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         coverImageView.layer.cornerRadius = coverImageViewCornerRadius
         coverImageView.layer.borderWidth = coverImageBorderWidth
         coverImageView.layer.borderColor = UIColor.borderGray.cgColor
-
         coverImageView.clipsToBounds = true
         coverImageView.delegate = self
         contentView.addSubview(coverImageView)
@@ -59,6 +62,12 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         titleInLocalLanguageLabel.font = UIFont.init(descriptor: titleInLocalLanguageFontDescriptor!, size: titleInLocalLanguageLabelFontSize)
         contentView.addSubview(titleInLocalLanguageLabel)
 
+        // Sets up arrow image view.
+        let arrowImage = UIImage.init(named: arrowImageName)
+        arrowImageView.image = arrowImage
+        arrowImageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(arrowImageView)
+
         // Sets up constraints
         coverImageView.widthAnchor.constraint(equalToConstant: coverImageViewWidth).isActive = true
         coverImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
@@ -69,6 +78,11 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
 
         titleInLocalLanguageLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
         titleInLocalLanguageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: titleLabelTotitleInLocalLanguageLabelMargin).isActive = true
+
+        arrowImageView.widthAnchor.constraint(equalToConstant: arrowImageViewWidth).isActive = true
+        arrowImageView.heightAnchor.constraint(equalToConstant: arrowImageViewHeight).isActive = true
+        arrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        arrowImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
 
         contentView.isHidden = true
     }
