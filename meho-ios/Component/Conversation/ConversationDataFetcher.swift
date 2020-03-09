@@ -15,6 +15,7 @@ class ConversationDataFetcher: NSObject {
     private let fetchDialogsURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/talk/dialogues/"
     private let fetchCategoriesURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/talk/dialogues/category/"
     private let fetchFeaturedDialogsURLString = "https://150uu7wn8b.execute-api.us-west-2.amazonaws.com/dev/getFeaturedDialogues"
+    private let fetchMostPopularDialogsURLString = "https://150uu7wn8b.execute-api.us-west-2.amazonaws.com/dev/getMostPopularDialogues"
 
     // MARK: - Properties
 
@@ -41,7 +42,38 @@ class ConversationDataFetcher: NSObject {
                         completionHandler(currentCategories, nil)
                     }
                 } catch let JSONError as NSError {
-                    print("Failed to parse categories JSON: \(JSONError.localizedDescription)")
+                    print("Failed to parse featured categories JSON: \(JSONError.localizedDescription)")
+                    completionHandler(nil, JSONError)
+                }
+            })
+            dataCategoriesTask.resume()
+        } else {
+            completionHandler(nil, nil)
+        }
+    }
+
+    public func fetchMostPopularDialogs(completionHandler: @escaping ( Array<Dialog>?, Error?) -> Void) {
+        if let fetchMostPopularDialogsURL = URL.init(string: fetchMostPopularDialogsURLString) {
+            let dataCategoriesTask = session.dataTask(with: fetchMostPopularDialogsURL, completionHandler: { (data, URLResponse, error) in
+                if error != nil {
+                    print("There is an error getting the response of most popular dialogs")
+                    completionHandler(nil, error)
+                    return
+                }
+                if data == nil {
+                    print("The response of most popular dialogs is empty")
+                    completionHandler(nil, nil)
+                    return
+                }
+                do {
+                    if let dialogsJSON = try JSONSerialization.jsonObject(with: data!, options: []) as? [[String: Any]] {
+                        let dialogs = self.parseDialogsJSON(dialogsJSON: dialogsJSON)
+                        completionHandler(dialogs, nil)
+                    } else {
+                        completionHandler(nil, nil)
+                    }
+                } catch let JSONError as NSError {
+                    print("Failed to parse most popular dialogs JSON: \(JSONError.localizedDescription)")
                     completionHandler(nil, JSONError)
                 }
             })

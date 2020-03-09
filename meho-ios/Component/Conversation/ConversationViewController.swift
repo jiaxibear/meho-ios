@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum ConversationSection {
+    case categories
+    case featuredDialogs
+    case mostPopluarDialogs
+}
+
 class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Constants
@@ -42,9 +48,10 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private lazy var conversationCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:conversationCollectionViewCompositionalLayout)
     // MARK: MODEL
     private var categories:[Category] = []
-    private var dialogs:[Dialog] = []
+    private var featuredDialogs:[Dialog] = []
+    private var mostPopularDialogs:[Dialog] = []
+    private var sections:[ConversationSection] = []
     private let dataFecther = ConversationDataFetcher.init()
-    private var sectionHeaderTitles:[String] = []
 
     // MARK: - Init
     init() {
@@ -105,8 +112,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         dataFecther.fetchCategories { (categories, error) in
             if (error == nil && categories != nil) {
                 self.categories = categories!
-                let categoriesSectionHeaderTitle = NSLocalizedString("CategoriesTitle", comment: "")
-                self.sectionHeaderTitles.insert(categoriesSectionHeaderTitle, at: 0)
+                self.sections.insert(.categories, at: 0)
                 DispatchQueue.main.async {
                     self.conversationCollectionView.reloadData()
                 }
@@ -115,9 +121,22 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
         dataFecther.fetchFeaturedDialogs { (dialogs, error) in
             if (error == nil && dialogs != nil) {
-                self.dialogs = dialogs!
-                let dialogsSectionHeaderTitle = NSLocalizedString("FeaturedTitle", comment: "")
-                self.sectionHeaderTitles.append(dialogsSectionHeaderTitle)
+                self.featuredDialogs = dialogs!
+                if self.sections.count == 0 {
+                    self.sections.append(.featuredDialogs)
+                } else {
+                    self.sections.insert(.featuredDialogs, at: 1)
+                }
+                DispatchQueue.main.async {
+                    self.conversationCollectionView.reloadData()
+                }
+            }
+        }
+
+        dataFecther.fetchMostPopularDialogs { (dialogs, error) in
+            if (error == nil && dialogs != nil) {
+                self.mostPopularDialogs = dialogs!
+                self.sections.append(.mostPopluarDialogs)
                 DispatchQueue.main.async {
                     self.conversationCollectionView.reloadData()
                 }
@@ -127,53 +146,48 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
+        let conversationSection = sections[section]
+        switch conversationSection {
+        case .categories:
             return categories.count
+        case .featuredDialogs:
+            return featuredDialogs.count
+        case .mostPopluarDialogs:
+            return mostPopularDialogs.count
         }
-        if section == 1 {
-            return dialogs.count
-        }
-        
-        return 0
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sectionHeaderTitles.count
+        return sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let section = indexPath.section
-        if section == 0 {
+        let conversationSection = sections[indexPath.section]
+        switch conversationSection {
+        case .categories:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCellReuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
             let category = categories[indexPath.item]
             cell.setCategory(category: category)
             return cell
-        }
-        if section == 1 {
+        case .featuredDialogs:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCellReuseIdentifier, for: indexPath) as! DialogCollectionViewCell
-            let dialog = dialogs[indexPath.item]
+            let dialog = featuredDialogs[indexPath.item]
+            cell.setDialog(dialog: dialog)
+            return cell
+        case .mostPopluarDialogs:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCellReuseIdentifier, for: indexPath) as! DialogCollectionViewCell
+            let dialog = mostPopularDialogs[indexPath.item]
             cell.setDialog(dialog: dialog)
             return cell
         }
-        return UICollectionViewCell.init(frame: .zero)
     }
 
     // MARK: - Private
-    func fetchingDialogs() {
-        self.dataFecther.fetchDialogs(category: "", difficulty: "", completionHandler: { (dialogs, error) in
-            if (error == nil && dialogs != nil) {
-                self.dialogs = dialogs!
-                DispatchQueue.main.async {
-                    self.conversationCollectionView.reloadData()
-                }
-            }
-        })
-    }
-
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == "header" {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: headerReuseIdentifier, for: indexPath) as! ConversationHeaderCollectionReusableView
-            headerView.setTitle(sectionHeaderTitles[indexPath.section])
+            let conversationSection = sections[indexPath.section]
+            headerView.setTitle(self.titleForConversationSection(conversationSection))
             return headerView
         }
 
@@ -207,5 +221,16 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
         section.boundarySupplementaryItems = [headerElement]
         return section
+    }
+
+    func titleForConversationSection(_ conversationSection : ConversationSection) -> String {
+        switch conversationSection {
+        case .categories:
+            return NSLocalizedString("CategoriesTitle", comment: "")
+        case .featuredDialogs:
+            return NSLocalizedString("FeaturedTitle", comment: "")
+        case .mostPopluarDialogs:
+            return NSLocalizedString("MostPopluarTitle", comment: "")
+        }
     }
 }
