@@ -72,6 +72,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         coverImageView.widthAnchor.constraint(equalToConstant: coverImageViewWidth).isActive = true
         coverImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
         coverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        coverImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
 
         titleLabel.leadingAnchor.constraint(equalTo: coverImageView.trailingAnchor, constant: titleLabelToCoverImageViewMargin).isActive = true
         titleLabel.topAnchor.constraint(equalTo: coverImageView.topAnchor).isActive = true

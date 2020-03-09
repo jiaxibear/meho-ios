@@ -21,13 +21,15 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let titleLabelFontSize = CGFloat(30)
     private let titleLabelToConversationCollectionViewMargin = CGFloat(24)
     private let headerReuseIdentifier = "Header"
+    private let footerReuseIdentifier = "footer"
     private let categoryCellReuseIdentifier = "Categories"
     private let dialogCellReuseIdentifier = "Dialogs"
-    private let conversationsCollectionViewSectionTopBottomMargin = CGFloat(20)
+    private let conversationsCollectionViewSectionTopBottomMargin = CGFloat(16)
     private let categorieCollectionViewCellWidth = CGFloat(165)
     private let categorieCollectionViewCellHeight = CGFloat(134)
     private let categorieCollectionViewCellGroupSpacing = CGFloat(16)
     private let categorieCollectionViewSectionHeaderEstimatedHeight = CGFloat(29)
+    private let categorieCollectionViewSectionFooterEstimatedHeight = CGFloat(52)
     private let dialogCollectionViewCellHeight = CGFloat(110)
     private let dialogCollectionViewCellGroupSpacing = CGFloat(20)
     private let conversationTabBarItemImageName = "tabbar_conv_25pt"
@@ -97,6 +99,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         conversationCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: categoryCellReuseIdentifier)
         conversationCollectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCellReuseIdentifier)
         conversationCollectionView.register(ConversationHeaderCollectionReusableView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: headerReuseIdentifier)
+        conversationCollectionView.register(SeeMoreFooterCollectionResuableView.self, forSupplementaryViewOfKind: "footer", withReuseIdentifier: footerReuseIdentifier)
         view.addSubview(conversationCollectionView)
 
         // Sets up layout constrainsts.
@@ -182,18 +185,21 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         }
     }
 
-    // MARK: - Private
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == "header" {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: headerReuseIdentifier, for: indexPath) as! ConversationHeaderCollectionReusableView
             let conversationSection = sections[indexPath.section]
             headerView.setTitle(self.titleForConversationSection(conversationSection))
             return headerView
+        } else if kind == "footer" {
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: "footer", withReuseIdentifier: footerReuseIdentifier, for: indexPath) as! SeeMoreFooterCollectionResuableView
+            return footerView
         }
 
         return UICollectionReusableView.init(frame: .zero)
     }
 
+    // MARK: - Private
     func categoriesLayoutSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize.init(widthDimension: .absolute(categorieCollectionViewCellWidth), heightDimension: .absolute(categorieCollectionViewCellHeight))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
@@ -219,7 +225,9 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         section.contentInsets = NSDirectionalEdgeInsets.init(top: conversationsCollectionViewSectionTopBottomMargin, leading: trailingLeadingMargin, bottom: conversationsCollectionViewSectionTopBottomMargin, trailing: trailingLeadingMargin)
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(categorieCollectionViewSectionHeaderEstimatedHeight))
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
-        section.boundarySupplementaryItems = [headerElement]
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(categorieCollectionViewSectionFooterEstimatedHeight))
+        let footerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: "footer", alignment: .bottom)
+        section.boundarySupplementaryItems = [headerElement, footerElement]
         return section
     }
 

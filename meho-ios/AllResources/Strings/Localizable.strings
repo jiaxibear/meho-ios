@@ -18,6 +18,9 @@
 /* Title for the header of the categories section. */
 "CategoriesTitle" = "What interests you, Jackie?";
 
+/* Title for the button that encourgaes the user to explore more content. */
+"SeeMoreButtonTitle" = "See More";
+
 /* Text that indictates the difficulty level is beginner. */
 "DifficultyBeginner" = "Beginner";
 
