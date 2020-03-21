@@ -10,6 +10,10 @@ import UIKit
 
 class MainViewController: UITabBarController {
 
+    // MARK: - Constants
+    private let backBarButtonItemImageName = "arrow.left"
+
+    // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,10 +22,16 @@ class MainViewController: UITabBarController {
         let conversationViewController = ConversationViewController.init()
         let foundationViewController = FoundationViewController.init()
         let profileViewController = ProfileViewController.init()
-        self.viewControllers = [newsViewController, conversationViewController, foundationViewController, profileViewController]
+        viewControllers = [newsViewController, conversationViewController, foundationViewController, profileViewController]
         
         // Sets appearance of the tab bar.
-        self.tabBar.barTintColor = .white
+        tabBar.barTintColor = .white
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Sets appearance of the navigation bar.
+        navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
 }

@@ -37,6 +37,7 @@
 		EA52FDB823EFF416008EB37B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDB723EFF416008EB37B /* CategoryCollectionViewCell.swift */; };
 		EA5448B92414B5B400C07D0A /* ConversationHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5448B82414B5B400C07D0A /* ConversationHeaderCollectionReusableView.swift */; };
 		EA5448BB2415D93500C07D0A /* SeeMoreFooterCollectionResuableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5448BA2415D93400C07D0A /* SeeMoreFooterCollectionResuableView.swift */; };
+		EA5448BD2423324F00C07D0A /* DialogStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5448BC2423324F00C07D0A /* DialogStreamViewController.swift */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -103,6 +104,7 @@
 		EA52FDB723EFF416008EB37B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA5448B82414B5B400C07D0A /* ConversationHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		EA5448BA2415D93400C07D0A /* SeeMoreFooterCollectionResuableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreFooterCollectionResuableView.swift; sourceTree = "<group>"; };
+		EA5448BC2423324F00C07D0A /* DialogStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogStreamViewController.swift; sourceTree = "<group>"; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				EA01E6B023FBD6F000C0B0AE /* DifficultyViewController.swift */,
 				EA5448B82414B5B400C07D0A /* ConversationHeaderCollectionReusableView.swift */,
 				EA5448BA2415D93400C07D0A /* SeeMoreFooterCollectionResuableView.swift */,
+				EA5448BC2423324F00C07D0A /* DialogStreamViewController.swift */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */,
 				EA01E6AF23FBC25F00C0B0AE /* Difficulty.swift in Sources */,
 				EA52FDB623EFE6B8008EB37B /* Category.swift in Sources */,
+				EA5448BD2423324F00C07D0A /* DialogStreamViewController.swift in Sources */,
 				EAB7C4D023F8C8E2003C8548 /* DialogCollectionViewCell.swift in Sources */,
 				EA01E6B324020CBF00C0B0AE /* DialogViewController.swift in Sources */,
 				EA5448BB2415D93500C07D0A /* SeeMoreFooterCollectionResuableView.swift in Sources */,

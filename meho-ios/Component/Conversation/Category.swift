@@ -10,7 +10,7 @@ import Foundation
 
 struct Category : Equatable {
     var title = ""
-    var identifier = 0
+    var identifier = ""
     var coverImageIdentifier = ""
     var coverImageURL:URL?
 }

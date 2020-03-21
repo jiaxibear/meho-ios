@@ -12,8 +12,10 @@ class ConversationDataFetcher: NSObject {
 
     // MARK: - Constants
 
-    private let fetchDialogsURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/talk/dialogues/"
-    private let fetchCategoriesURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/talk/dialogues/category/"
+    private let fetchDialogsURLString = "https://150uu7wn8b.execute-api.us-west-2.amazonaws.com/dev/getDialoguesByCategory"
+    private let categoryQueryItemName = "category_id"
+    private let difficultyQueryItemName = "level"
+    private let fetchCategoriesURLString = "https://150uu7wn8b.execute-api.us-west-2.amazonaws.com/dev/getAllCategories"
     private let fetchFeaturedDialogsURLString = "https://150uu7wn8b.execute-api.us-west-2.amazonaws.com/dev/getFeaturedDialogues"
     private let fetchMostPopularDialogsURLString = "https://150uu7wn8b.execute-api.us-west-2.amazonaws.com/dev/getMostPopularDialogues"
 
@@ -37,7 +39,7 @@ class ConversationDataFetcher: NSObject {
                     return
                 }
                 do {
-                    if let categoriesJSON = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                    if let categoriesJSON = try JSONSerialization.jsonObject(with: data!, options: []) as? [[String: Any]] {
                         let currentCategories = self.parseCurrentCategoriesJSON(categoriesJSON: categoriesJSON)
                         completionHandler(currentCategories, nil)
                     }
@@ -104,7 +106,7 @@ class ConversationDataFetcher: NSObject {
                         completionHandler(nil, nil)
                     }
                 } catch let JSONError as NSError {
-                    print("Failed to parse dialogs JSON: \(JSONError.localizedDescription)")
+                    print("Failed to parse featured dialogs JSON: \(JSONError.localizedDescription)")
                     completionHandler(nil, JSONError)
                 }
             })
@@ -114,11 +116,13 @@ class ConversationDataFetcher: NSObject {
         }
     }
 
-    public func fetchDialogs(category: String?, difficulty: String?, completionHandler: @escaping ( Array<Dialog>?, Error?) -> Void) {
+    public func fetchDialogs(category: String, difficulty: String?, completionHandler: @escaping ( Array<Dialog>?, Error?) -> Void) {
         if var dialogsURLComponents = URLComponents.init(string: fetchDialogsURLString) {
             var queryItems:[URLQueryItem] = []
-            queryItems.append(URLQueryItem.init(name: "category", value: category))
-            queryItems.append(URLQueryItem.init(name: "difficulty_level", value: difficulty))
+            queryItems.append(URLQueryItem.init(name: categoryQueryItemName, value: category))
+            if difficulty != nil {
+                queryItems.append(URLQueryItem.init(name: difficultyQueryItemName, value: difficulty))
+            }
             dialogsURLComponents.queryItems = queryItems
             if let dialogsURL = dialogsURLComponents.url {
                 let dataCategoriesTask = session.dataTask(with: dialogsURL, completionHandler: { (data, URLResponse, error) in
@@ -133,13 +137,9 @@ class ConversationDataFetcher: NSObject {
                         return
                     }
                     do {
-                        if let resultsJSON = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                            if let dialogsJSON = resultsJSON["results"] as? [Dictionary<String, Any>] {
-                                let dialogs = self.parseDialogsJSON(dialogsJSON: dialogsJSON)
-                                completionHandler(dialogs, nil)
-                            } else {
-                                completionHandler(nil, nil)
-                            }
+                        if let dialogsJSON = try JSONSerialization.jsonObject(with: data!, options: []) as? [[String: Any]] {
+                            let dialogs = self.parseDialogsJSON(dialogsJSON: dialogsJSON)
+                            completionHandler(dialogs, nil)
                         } else {
                             completionHandler(nil, nil)
                         }
@@ -155,29 +155,26 @@ class ConversationDataFetcher: NSObject {
 
     // MARK: - Private
 
-    private func parseCurrentCategoriesJSON(categoriesJSON: Dictionary<String, Any>) -> Array<Category>? {
-        if let currentCategoriesJSON = categoriesJSON["results"] as? [Dictionary<String, Any>] {
-            var currentCategories:[Category] = []
-            for currentCategoryJSON in currentCategoriesJSON {
-                var category = Category.init()
-                if let title = currentCategoryJSON["name"] as? String {
-                    category.title = title
-                }
-                if let identifier = currentCategoryJSON["id"] as? Int {
-                    category.identifier = identifier
-                }
-                if let coverImageIdentifier = currentCategoryJSON["cover_image_id"] as? String {
-                    category.coverImageIdentifier = coverImageIdentifier
-                }
-                if let coverImageURLString = currentCategoryJSON["cover_image"] as? String {
-                    let coverImageURL = URL.init(string: coverImageURLString)
-                    category.coverImageURL = coverImageURL
-                }
-                currentCategories.append(category)
+    private func parseCurrentCategoriesJSON(categoriesJSON: [[String: Any]]) -> Array<Category> {
+        var currentCategories:[Category] = []
+        for currentCategoryJSON in categoriesJSON {
+            var category = Category.init()
+            if let title = currentCategoryJSON["name"] as? String {
+                category.title = title
             }
-            return currentCategories
+            if let identifier = currentCategoryJSON["id"] as? String {
+                category.identifier = identifier
+            }
+            if let coverImageIdentifier = currentCategoryJSON["cover_image_id"] as? String {
+                category.coverImageIdentifier = coverImageIdentifier
+            }
+            if let coverImageURLString = currentCategoryJSON["cover_image"] as? String {
+                let coverImageURL = URL.init(string: coverImageURLString)
+                category.coverImageURL = coverImageURL
+            }
+            currentCategories.append(category)
         }
-        return nil
+        return currentCategories
     }
 
     private func parseDialogsJSON(dialogsJSON: [Dictionary<String, Any>]) -> [Dialog] {

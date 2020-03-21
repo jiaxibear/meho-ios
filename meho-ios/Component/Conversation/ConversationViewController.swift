@@ -38,16 +38,8 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: - Properties
     // MARK: UI
     private let titleLabel = UILabel.init(frame: .zero)
-    private lazy var conversationCollectionViewCompositionalLayout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
-      layoutEnvironment: NSCollectionLayoutEnvironment)
-        -> NSCollectionLayoutSection? in
-        if sectionIndex == 0 {
-            return self.categoriesLayoutSection()
-        } else {
-            return self.dialogsLayoutSection()
-        }
-    }
-    private lazy var conversationCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:conversationCollectionViewCompositionalLayout)
+    private var conversationCollectionViewCompositionalLayout: UICollectionViewCompositionalLayout?
+    private lazy var conversationCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:conversationCollectionViewCompositionalLayout!)
     // MARK: MODEL
     private var categories:[Category] = []
     private var featuredDialogs:[Dialog] = []
@@ -63,6 +55,20 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         let conversationTabBarItemSelectedImage = UIImage.init(named: conversationTabBarItemImageName)
         conversationTabBarItem.selectedImage = conversationTabBarItemSelectedImage
         self.tabBarItem = conversationTabBarItem
+
+        conversationCollectionViewCompositionalLayout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
+          layoutEnvironment: NSCollectionLayoutEnvironment)
+            -> NSCollectionLayoutSection? in
+            let conversationSection = self.sections[sectionIndex]
+            switch conversationSection {
+            case .categories:
+                return self.categoriesLayoutSection()
+            case .featuredDialogs:
+                return self.dialogsLayoutSection()
+            case .mostPopluarDialogs:
+                return self.dialogsLayoutSection()
+            }
+        }
     }
 
     @available(*, unavailable)
@@ -80,7 +86,6 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         super.viewDidLoad()
 
         view.backgroundColor = .white
-        navigationController?.setNavigationBarHidden(true, animated: false)
         let margins = view.layoutMarginsGuide
 
         // Sets up the title.
@@ -114,9 +119,9 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
         dataFecther.fetchCategories { (categories, error) in
             if (error == nil && categories != nil) {
-                self.categories = categories!
-                self.sections.insert(.categories, at: 0)
                 DispatchQueue.main.async {
+                    self.categories = categories!
+                    self.sections.insert(.categories, at: 0)
                     self.conversationCollectionView.reloadData()
                 }
             }
@@ -124,13 +129,13 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
         dataFecther.fetchFeaturedDialogs { (dialogs, error) in
             if (error == nil && dialogs != nil) {
-                self.featuredDialogs = dialogs!
-                if self.sections.count == 0 {
-                    self.sections.append(.featuredDialogs)
-                } else {
-                    self.sections.insert(.featuredDialogs, at: 1)
-                }
                 DispatchQueue.main.async {
+                    self.featuredDialogs = dialogs!
+                    if self.sections.count == 0 {
+                        self.sections.append(.featuredDialogs)
+                    } else {
+                        self.sections.insert(.featuredDialogs, at: 1)
+                    }
                     self.conversationCollectionView.reloadData()
                 }
             }
@@ -138,12 +143,27 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
         dataFecther.fetchMostPopularDialogs { (dialogs, error) in
             if (error == nil && dialogs != nil) {
-                self.mostPopularDialogs = dialogs!
-                self.sections.append(.mostPopluarDialogs)
                 DispatchQueue.main.async {
+                    self.mostPopularDialogs = dialogs!
+                    self.sections.append(.mostPopluarDialogs)
                     self.conversationCollectionView.reloadData()
                 }
             }
+        }
+    }
+
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let conversationSection = sections[indexPath.section]
+        switch conversationSection {
+        case .categories:
+            let category = categories[indexPath.item]
+            let dialogStreamViewController = DialogStreamViewController.init(category: category)
+            navigationController?.pushViewController(dialogStreamViewController, animated: true)
+        case .featuredDialogs:
+            break
+        case .mostPopluarDialogs:
+            break
         }
     }
 
@@ -175,12 +195,12 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         case .featuredDialogs:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCellReuseIdentifier, for: indexPath) as! DialogCollectionViewCell
             let dialog = featuredDialogs[indexPath.item]
-            cell.setDialog(dialog: dialog)
+            cell.setDialog(dialog)
             return cell
         case .mostPopluarDialogs:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCellReuseIdentifier, for: indexPath) as! DialogCollectionViewCell
             let dialog = mostPopularDialogs[indexPath.item]
-            cell.setDialog(dialog: dialog)
+            cell.setDialog(dialog)
             return cell
         }
     }

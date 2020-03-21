@@ -12,9 +12,20 @@ import AWSMobileClient
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    // MARK: - Constants
+    private let backBarButtonItemImageName = "arrow.left"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Sets appearance of the navigation bar.
+        let navigationBarAppearance = UINavigationBarAppearance()
+        let backBarButtonItemImage = UIImage.init(systemName: backBarButtonItemImageName)?.withTintColor(.wisteriaPurple)
+        navigationBarAppearance.setBackIndicatorImage(backBarButtonItemImage, transitionMaskImage: backBarButtonItemImage)
+        navigationBarAppearance.backgroundColor = .white
+        navigationBarAppearance.shadowColor = .white
+        let appearance = UINavigationBar.appearance()
+        appearance.standardAppearance = navigationBarAppearance
+        appearance.scrollEdgeAppearance = navigationBarAppearance
+        appearance.tintColor = .wisteriaPurple
         // Override point for customization after application launch.
         AWSMobileClient.default().initialize { (userState, error) in
             print(userState); print(error)
@@ -35,7 +46,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
 }
 

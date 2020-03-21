@@ -99,7 +99,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     }
 
     // MARK: - Public
-    public func setDialog(dialog: Dialog) {
+    public func setDialog(_ dialog: Dialog) {
         // Sets the text for the title label.
         titleLabel.text = dialog.title
         titleLabel.sizeToFit()
