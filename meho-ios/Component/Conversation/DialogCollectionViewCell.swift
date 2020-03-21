@@ -11,7 +11,7 @@ import UIKit
 class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     // MARK: - Constants
     private let titleLabelFontSize = CGFloat(18)
-    private let titleLabelToCoverImageViewMargin = CGFloat(38)
+    private let titleLabelLeadingTrailingMargin = CGFloat(15)
     private let titleLabelTotitleInLocalLanguageLabelMargin = CGFloat(15)
     private let titleInLocalLanguageLabelFontSize = CGFloat(15)
     private let coverImageViewCornerRadius = CGFloat(4)
@@ -55,7 +55,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         contentView.addSubview(titleLabel)
 
         // Sets up title in local language label.
-        titleInLocalLanguageLabel.numberOfLines = 1
+        titleInLocalLanguageLabel.numberOfLines = 2
         titleInLocalLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
         titleInLocalLanguageLabel.textColor = .textBlueGray
         let titleInLocalLanguageFontDescriptor = UIFont.systemFont(ofSize: titleInLocalLanguageLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
@@ -74,11 +74,13 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         coverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         coverImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
 
-        titleLabel.leadingAnchor.constraint(equalTo: coverImageView.trailingAnchor, constant: titleLabelToCoverImageViewMargin).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: coverImageView.trailingAnchor, constant: titleLabelLeadingTrailingMargin).isActive = true
         titleLabel.topAnchor.constraint(equalTo: coverImageView.topAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor, constant: -titleLabelLeadingTrailingMargin).isActive = true
 
         titleInLocalLanguageLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
         titleInLocalLanguageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: titleLabelTotitleInLocalLanguageLabelMargin).isActive = true
+        titleInLocalLanguageLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor).isActive = true
 
         arrowImageView.widthAnchor.constraint(equalToConstant: arrowImageViewWidth).isActive = true
         arrowImageView.heightAnchor.constraint(equalToConstant: arrowImageViewHeight).isActive = true
