@@ -13,7 +13,7 @@
 "FeaturedTitle" = "Featured";
 
 /* Title for the header of the most popular dialogs section to indicate that the dialogs are most popular. */
-"MostPopluarTitle" = "Most Popluar";
+"MostPopularTitle" = "Most Popluar";
 
 /* Title for the header of the categories section. */
 "CategoriesTitle" = "What interests you, Jackie?";

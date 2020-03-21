@@ -274,7 +274,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         case .featuredDialogs:
             return NSLocalizedString("FeaturedTitle", comment: "")
         case .mostPopluarDialogs:
-            return NSLocalizedString("MostPopluarTitle", comment: "")
+            return NSLocalizedString("MostPopularTitle", comment: "")
         }
     }
 }

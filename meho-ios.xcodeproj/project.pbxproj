@@ -38,6 +38,7 @@
 		EA5448B92414B5B400C07D0A /* ConversationHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5448B82414B5B400C07D0A /* ConversationHeaderCollectionReusableView.swift */; };
 		EA5448BB2415D93500C07D0A /* SeeMoreFooterCollectionResuableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5448BA2415D93400C07D0A /* SeeMoreFooterCollectionResuableView.swift */; };
 		EA5448BD2423324F00C07D0A /* DialogStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5448BC2423324F00C07D0A /* DialogStreamViewController.swift */; };
+		EA5448BF2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5448BE2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -105,6 +106,7 @@
 		EA5448B82414B5B400C07D0A /* ConversationHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		EA5448BA2415D93400C07D0A /* SeeMoreFooterCollectionResuableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreFooterCollectionResuableView.swift; sourceTree = "<group>"; };
 		EA5448BC2423324F00C07D0A /* DialogStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogStreamViewController.swift; sourceTree = "<group>"; };
+		EA5448BE2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogStreamHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 				EA5448B82414B5B400C07D0A /* ConversationHeaderCollectionReusableView.swift */,
 				EA5448BA2415D93400C07D0A /* SeeMoreFooterCollectionResuableView.swift */,
 				EA5448BC2423324F00C07D0A /* DialogStreamViewController.swift */,
+				EA5448BE2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -639,6 +642,7 @@
 				EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */,
 				EA01E6AD23FBA62900C0B0AE /* Chapter.swift in Sources */,
 				EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */,
+				EA5448BF2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift in Sources */,
 				EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */,
 				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,
 				EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */,
