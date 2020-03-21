@@ -8,13 +8,13 @@
 
 import UIKit
 
-enum ConversationSection {
+enum ConversationSection: Int {
     case categories
     case featuredDialogs
     case mostPopluarDialogs
 }
 
-class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SeeMoreFooterCollectionResuableViewDelegate {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
@@ -167,6 +167,19 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         }
     }
 
+    // MARK: - SeeMoreFooterCollectionResuableViewDelegate
+    func SeeMoreFooterCollectionResuableViewDidTapButton(_ view: SeeMoreFooterCollectionResuableView) {
+        var dialogStreamViewController: DialogStreamViewController?
+        if view.tag == ConversationSection.mostPopluarDialogs.rawValue {
+            dialogStreamViewController = DialogStreamViewController.init(streamType: .mostPopular)
+        } else if view.tag == ConversationSection.featuredDialogs.rawValue {
+            dialogStreamViewController = DialogStreamViewController.init(streamType: .featured)
+        }
+        if dialogStreamViewController != nil {
+            navigationController?.pushViewController(dialogStreamViewController!, animated: true)
+        }
+    }
+
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let conversationSection = sections[section]
@@ -213,6 +226,9 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
             return headerView
         } else if kind == "footer" {
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: "footer", withReuseIdentifier: footerReuseIdentifier, for: indexPath) as! SeeMoreFooterCollectionResuableView
+            let conversationSection = sections[indexPath.section]
+            footerView.tag = conversationSection.rawValue
+            footerView.delegate = self
             return footerView
         }
 

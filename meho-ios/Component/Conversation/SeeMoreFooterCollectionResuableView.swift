@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SeeMoreFooterCollectionResuableViewDelegate : AnyObject{
+    func SeeMoreFooterCollectionResuableViewDidTapButton(_ view: SeeMoreFooterCollectionResuableView)
+}
+
 class SeeMoreFooterCollectionResuableView: UICollectionReusableView {
 
     // MARK: - Constants
@@ -19,6 +23,7 @@ class SeeMoreFooterCollectionResuableView: UICollectionReusableView {
 
     // MARK: - Properties
     let seeMoreButton = UIButton.init(frame: .zero)
+    weak var delegate: SeeMoreFooterCollectionResuableViewDelegate?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -37,6 +42,7 @@ class SeeMoreFooterCollectionResuableView: UICollectionReusableView {
         let seeMoreButtonFontDescriptor = UIFont.systemFont(ofSize: seeMoreButtonFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         seeMoreButton.titleLabel?.font = UIFont.init(descriptor: seeMoreButtonFontDescriptor!, size: seeMoreButtonFontSize)
         seeMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        seeMoreButton.addTarget(self, action: #selector(didTapSeeMoreButton), for: .touchUpInside)
         addSubview(seeMoreButton)
 
         // Sets up layout constraints.
@@ -49,5 +55,14 @@ class SeeMoreFooterCollectionResuableView: UICollectionReusableView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("Use init")
+    }
+
+    // MARK: - Private
+    @objc
+    func didTapSeeMoreButton() {
+        let delegate = self.delegate
+        if delegate != nil {
+            delegate!.SeeMoreFooterCollectionResuableViewDidTapButton(self)
+        }
     }
 }

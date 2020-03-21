@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum DialogStreamType {
+    case mostPopular
+    case featured
+}
+
 class DialogStreamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Constants
@@ -20,8 +25,9 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     private let dialogsCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private let conversationDataFetcher = ConversationDataFetcher.init()
     private lazy var dialogsCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: dialogsCollectionViewFlowLayout)
-    private var category:Category
-    private var dialogs:[Dialog]
+    private var category: Category?
+    private var dialogs: [Dialog]
+    private var streamType: DialogStreamType?
 
     // MARK: - Init
     init() {
@@ -38,26 +44,60 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         fatalError("Use init")
     }
 
+    init(streamType: DialogStreamType) {
+        self.streamType = streamType
+        self.dialogs = []
+        super.init(nibName: nil, bundle: nil)
+    }
+
     init(category: Category) {
         self.category = category
         self.dialogs = []
         super.init(nibName: nil, bundle: nil)
-        dialogsCollectionViewFlowLayout.minimumLineSpacing = dialogCollectionViewCellLineSpacing
     }
 
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
-        conversationDataFetcher.fetchDialogs(category: category.identifier, difficulty: nil) { (dialogs, error) in
-            if error == nil && dialogs != nil {
-                self.dialogs = dialogs!
-                DispatchQueue.main.async {
-                    self.dialogsCollectionView.reloadData()
+        if category != nil {
+            conversationDataFetcher.fetchDialogs(category: category!.identifier, difficulty: nil) { (dialogs, error) in
+                if error == nil && dialogs != nil {
+                    self.dialogs = dialogs!
+                    DispatchQueue.main.async {
+                        self.dialogsCollectionView.reloadData()
+                    }
                 }
+            }
+        } else {
+            switch streamType {
+            case .mostPopular:
+                conversationDataFetcher.fetchMostPopularDialogs(completionHandler: { (dialogs, error) in
+                    if error == nil && dialogs != nil {
+                        self.dialogs = dialogs!
+                        DispatchQueue.main.async {
+                            self.dialogsCollectionView.reloadData()
+                        }
+                    }
+                })
+                break
+            case .featured:
+                conversationDataFetcher.fetchFeaturedDialogs(completionHandler: { (dialogs, error) in
+                    if error == nil && dialogs != nil {
+                        self.dialogs = dialogs!
+                        DispatchQueue.main.async {
+                            self.dialogsCollectionView.reloadData()
+                        }
+                    }
+                })
+                break
+            case .none:
+                break
             }
         }
 
+
+        dialogsCollectionViewFlowLayout.minimumLineSpacing = dialogCollectionViewCellLineSpacing
         dialogsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         dialogsCollectionView.backgroundColor = .white
         dialogsCollectionView.delegate = self
