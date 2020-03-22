@@ -1,0 +1,83 @@
+//
+//  CollapsedChapterCollectionViewCell.swift
+//  meho-ios
+//
+//  Created by Meho Dev on 3/21/20.
+//  Copyright © 2020 Meho. All rights reserved.
+//
+
+import UIKit
+
+class CollapsedChapterCollectionViewCell: UICollectionViewCell {
+    // MARK: - Constants
+    let contentLabelFontSize = CGFloat(24)
+    let contentPinyinLabelFontSize = CGFloat(16)
+    let contentInLocalLanguageLabelFontSize = CGFloat(16)
+    let contentLeadingTrailingMargin = CGFloat(50)
+    let contentTopBottomMargin = CGFloat(20)
+    let contentsMargin = CGFloat(12)
+
+    // MARK: - Properties
+    let contentLabel = UILabel.init(frame: .zero)
+    let contentPinyinLabel = UILabel.init(frame: .zero)
+    let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
+
+    // MARK: - Init
+    @available(*, unavailable)
+    init() {
+        fatalError("Use init(frame: CGRect)")
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        // Sets up content label.
+        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentLabel.textColor = .textBlueGray
+        contentLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: contentLabelFontSize)
+        contentLabel.numberOfLines = 0
+        contentView.addSubview(contentLabel)
+
+        // Sets up content pinyin label.
+        contentPinyinLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentPinyinLabel.textColor = .textBlueGray
+        let contentPinyinFontDescriptor = UIFont.systemFont(ofSize: contentPinyinLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        contentPinyinLabel.font = UIFont.init(descriptor: contentPinyinFontDescriptor!, size: contentPinyinLabelFontSize)
+        contentPinyinLabel.numberOfLines = 0
+        contentView.addSubview(contentPinyinLabel)
+
+        // Sets up content in local language label.
+        contentInLocalLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentInLocalLanguageLabel.textColor = .textBlueGray
+        let contentInLocalLanguageFontDescriptor = UIFont.systemFont(ofSize: contentInLocalLanguageLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        contentInLocalLanguageLabel.font = UIFont.init(descriptor: contentInLocalLanguageFontDescriptor!, size: contentInLocalLanguageLabelFontSize)
+        contentInLocalLanguageLabel.numberOfLines = 0
+        contentView.addSubview(contentInLocalLanguageLabel)
+
+        // Sets up layout constraints
+        contentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
+        contentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
+        contentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentTopBottomMargin).isActive = true
+
+        contentPinyinLabel.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
+        contentPinyinLabel.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
+        contentPinyinLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: contentsMargin).isActive = true
+
+        contentInLocalLanguageLabel.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
+        contentInLocalLanguageLabel.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
+        contentInLocalLanguageLabel.topAnchor.constraint(equalTo: contentPinyinLabel.bottomAnchor, constant: contentsMargin).isActive = true
+        contentInLocalLanguageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -contentTopBottomMargin).isActive = true
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("Use init")
+    }
+
+    // MARK: - Public
+    func setChapter(_ chapter: Chapter) {
+        contentLabel.text = chapter.content
+        contentPinyinLabel.text = chapter.contentPinyin
+        contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
+    }
+}

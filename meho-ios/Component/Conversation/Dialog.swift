@@ -9,8 +9,9 @@
 import Foundation
 
 struct Dialog {
+    var identifier = ""
     var title = ""
     var titleInLocalLanguage = ""
     var coverImageURL:URL?
-    var chapters:[Chapter] = []
+    var chapters: [Chapter] = []
 }

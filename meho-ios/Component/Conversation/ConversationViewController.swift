@@ -163,8 +163,14 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
             let dialogStreamViewController = DialogStreamViewController.init(category: category)
             navigationController?.pushViewController(dialogStreamViewController, animated: true)
         case .featuredDialogs:
+            let dialogID = featuredDialogs[indexPath.item].identifier
+            let detailedDialogViewController = DetailedDialogViewController.init(dialogID: dialogID)
+            navigationController?.pushViewController(detailedDialogViewController, animated: true)
             break
         case .mostPopluarDialogs:
+            let dialogID = mostPopularDialogs[indexPath.item].identifier
+            let detailedDialogViewController = DetailedDialogViewController.init(dialogID: dialogID)
+            navigationController?.pushViewController(detailedDialogViewController, animated: true)
             break
         }
     }
