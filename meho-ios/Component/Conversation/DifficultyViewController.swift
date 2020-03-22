@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DifficultyViewControllerDelegate {
-    func didSelectDifficulty(_ diffuclty:Difficulty)
+    func didSelectDifficulty(_ difficulty:Difficulty)
 }
 
 class DifficultyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{

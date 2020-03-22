@@ -127,7 +127,8 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
             }
         }
 
-        dataFecther.fetchFeaturedDialogs { (dialogs, error) in
+        dataFecther.fetchFeaturedDialogs(difficulty: nil, completionHandler: {
+            (dialogs, error) in
             if (error == nil && dialogs != nil) {
                 DispatchQueue.main.async {
                     self.featuredDialogs = dialogs!
@@ -139,9 +140,10 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
                     self.conversationCollectionView.reloadData()
                 }
             }
-        }
+        })
 
-        dataFecther.fetchMostPopularDialogs { (dialogs, error) in
+        dataFecther.fetchMostPopularDialogs(difficulty: nil, completionHandler: {
+            (dialogs, error) in
             if (error == nil && dialogs != nil) {
                 DispatchQueue.main.async {
                     self.mostPopularDialogs = dialogs!
@@ -149,7 +151,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
                     self.conversationCollectionView.reloadData()
                 }
             }
-        }
+        })
     }
 
     // MARK: - UICollectionViewDelegate
@@ -274,7 +276,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         case .featuredDialogs:
             return NSLocalizedString("FeaturedTitle", comment: "")
         case .mostPopluarDialogs:
-            return NSLocalizedString("MostPopularTitle", comment: "")
+            return NSLocalizedString("MostPopuluarTitle", comment: "")
         }
     }
 }

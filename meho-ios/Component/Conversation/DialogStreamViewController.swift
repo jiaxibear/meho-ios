@@ -13,7 +13,7 @@ enum DialogStreamType {
     case featured
 }
 
-class DialogStreamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DialogStreamHeaderCollectionReusableViewDelegate {
+class DialogStreamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DialogStreamHeaderCollectionReusableViewDelegate, DifficultyViewControllerDelegate {
 
     // MARK: - Constants
     private let dialogCellReuseIdentifier = "dialogCellReuseIdentifier"
@@ -65,41 +65,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
-        if category != nil {
-            conversationDataFetcher.fetchDialogs(category: category!.identifier, difficulty: difficulty.identifier.rawValue) { (dialogs, error) in
-                if error == nil && dialogs != nil {
-                    self.dialogs = dialogs!
-                    DispatchQueue.main.async {
-                        self.dialogsCollectionView.reloadData()
-                    }
-                }
-            }
-        } else {
-            switch streamType {
-            case .mostPopular:
-                conversationDataFetcher.fetchMostPopularDialogs(completionHandler: { (dialogs, error) in
-                    if error == nil && dialogs != nil {
-                        self.dialogs = dialogs!
-                        DispatchQueue.main.async {
-                            self.dialogsCollectionView.reloadData()
-                        }
-                    }
-                })
-                break
-            case .featured:
-                conversationDataFetcher.fetchFeaturedDialogs(completionHandler: { (dialogs, error) in
-                    if error == nil && dialogs != nil {
-                        self.dialogs = dialogs!
-                        DispatchQueue.main.async {
-                            self.dialogsCollectionView.reloadData()
-                        }
-                    }
-                })
-                break
-            case .none:
-                break
-            }
-        }
+        fetechDialogs()
 
         dialogsCollectionViewFlowLayout.minimumLineSpacing = dialogCollectionViewCellLineSpacing
         dialogsCollectionViewFlowLayout.sectionInset = dialogCollectionViewSectionInset
@@ -171,9 +137,58 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: - DialogStreamHeaderCollectionReusableViewDelegate
     func dialogStreamHeaderCollectionReusableViewDidTapDifficultyButton(_ view: DialogStreamHeaderCollectionReusableView) {
         let difficultyViewController = DifficultyViewController.init(allDifficulties: allDifficulties, currentDifficulty: difficulty)
+        difficultyViewController.delegate = self
         let difficultyDialogViewController = DialogViewController.init(contentViewController: difficultyViewController)
         difficultyDialogViewController.modalPresentationStyle = .overFullScreen
         difficultyDialogViewController.modalTransitionStyle = .crossDissolve
         navigationController?.present(difficultyDialogViewController, animated: true, completion: nil)
+    }
+
+    // MARK: - DifficultyViewControllerDelegate
+    func didSelectDifficulty(_ diffculty: Difficulty) {
+        self.difficulty = diffculty
+        dismiss(animated: true) {
+            self.fetechDialogs()
+        }
+    }
+
+    // MARK: - Private
+    func fetechDialogs() {
+        let difficultyString = difficulty.identifier.rawValue
+        if category != nil {
+            conversationDataFetcher.fetchDialogs(category: category!.identifier, difficulty: difficultyString) { (dialogs, error) in
+                if error == nil && dialogs != nil {
+                    self.dialogs = dialogs!
+                    DispatchQueue.main.async {
+                        self.dialogsCollectionView.reloadData()
+                    }
+                }
+            }
+        } else {
+            switch streamType {
+            case .mostPopular:
+                conversationDataFetcher.fetchMostPopularDialogs(difficulty: difficultyString, completionHandler: { (dialogs, error) in
+                    if error == nil && dialogs != nil {
+                        self.dialogs = dialogs!
+                        DispatchQueue.main.async {
+                            self.dialogsCollectionView.reloadData()
+                        }
+                    }
+                })
+                break
+            case .featured:
+                conversationDataFetcher.fetchFeaturedDialogs(difficulty: difficultyString, completionHandler: { (dialogs, error) in
+                    if error == nil && dialogs != nil {
+                        self.dialogs = dialogs!
+                        DispatchQueue.main.async {
+                            self.dialogsCollectionView.reloadData()
+                        }
+                    }
+                })
+                break
+            case .none:
+                break
+            }
+        }
     }
 }
