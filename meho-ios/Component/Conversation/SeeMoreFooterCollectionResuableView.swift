@@ -60,9 +60,6 @@ class SeeMoreFooterCollectionResuableView: UICollectionReusableView {
     // MARK: - Private
     @objc
     func didTapSeeMoreButton() {
-        let delegate = self.delegate
-        if delegate != nil {
-            delegate!.SeeMoreFooterCollectionResuableViewDidTapButton(self)
-        }
+        delegate?.SeeMoreFooterCollectionResuableViewDidTapButton(self)
     }
 }

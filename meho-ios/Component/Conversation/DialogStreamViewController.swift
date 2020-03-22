@@ -13,7 +13,7 @@ enum DialogStreamType {
     case featured
 }
 
-class DialogStreamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class DialogStreamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DialogStreamHeaderCollectionReusableViewDelegate {
 
     // MARK: - Constants
     private let dialogCellReuseIdentifier = "dialogCellReuseIdentifier"
@@ -31,7 +31,8 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     private var category: Category?
     private var dialogs: [Dialog]
     private var streamType: DialogStreamType?
-    private var difficulty: Difficulty?
+    private var difficulty = Difficulty.beginner
+    private let allDifficulties = [Difficulty.beginner, Difficulty.intermediate, Difficulty.advanced]
 
     // MARK: - Init
     init() {
@@ -65,8 +66,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
         if category != nil {
-            difficulty = .beginner
-            conversationDataFetcher.fetchDialogs(category: category!.identifier, difficulty: nil) { (dialogs, error) in
+            conversationDataFetcher.fetchDialogs(category: category!.identifier, difficulty: difficulty.identifier.rawValue) { (dialogs, error) in
                 if error == nil && dialogs != nil {
                     self.dialogs = dialogs!
                     DispatchQueue.main.async {
@@ -152,6 +152,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
                     }
                 }
                 headerView.setDifficulty(difficulty)
+                headerView.delegate = self
                 return headerView
             }
         }
@@ -165,5 +166,14 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize.init(width: 0, height: dialogCollectionViewSectionHeaderEstimatedHeight)
+    }
+
+    // MARK: - DialogStreamHeaderCollectionReusableViewDelegate
+    func dialogStreamHeaderCollectionReusableViewDidTapDifficultyButton(_ view: DialogStreamHeaderCollectionReusableView) {
+        let difficultyViewController = DifficultyViewController.init(allDifficulties: allDifficulties, currentDifficulty: difficulty)
+        let difficultyDialogViewController = DialogViewController.init(contentViewController: difficultyViewController)
+        difficultyDialogViewController.modalPresentationStyle = .overFullScreen
+        difficultyDialogViewController.modalTransitionStyle = .crossDissolve
+        navigationController?.present(difficultyDialogViewController, animated: true, completion: nil)
     }
 }

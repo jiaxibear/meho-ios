@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol DialogStreamHeaderCollectionReusableViewDelegate : AnyObject {
+    func dialogStreamHeaderCollectionReusableViewDidTapDifficultyButton(_ view: DialogStreamHeaderCollectionReusableView)
+}
+
 class DialogStreamHeaderCollectionReusableView: UICollectionReusableView {
     // MARK: - Constants
     private let titleFontSize = CGFloat(24)
@@ -16,6 +20,7 @@ class DialogStreamHeaderCollectionReusableView: UICollectionReusableView {
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
     private let difficultyButton = UIButton.init(frame: .zero)
+    weak var delegate: DialogStreamHeaderCollectionReusableViewDelegate?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -38,6 +43,7 @@ class DialogStreamHeaderCollectionReusableView: UICollectionReusableView {
         let difficultyButtonFontDescriptor = UIFont.systemFont(ofSize: difficultyButtonFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         difficultyButton.titleLabel?.font = UIFont.init(descriptor: difficultyButtonFontDescriptor!, size: difficultyButtonFontSize)
         difficultyButton.translatesAutoresizingMaskIntoConstraints = false
+        difficultyButton.addTarget(self, action: #selector(didTapDifficultyButton(_:)), for: .touchUpInside)
         self.addSubview(difficultyButton)
 
         // Sets up constraints
@@ -58,14 +64,10 @@ class DialogStreamHeaderCollectionReusableView: UICollectionReusableView {
         titleLabel.text = title
     }
 
-    public func setDifficulty(_ difficulty: Difficulty?) {
-        if difficulty != nil {
-            difficultyButton.isHidden = false
-            difficultyButton.setTitle(difficulty!.title, for: .normal)
-            difficultyButton.sizeToFit()
-        } else {
-            difficultyButton.isHidden = true
-        }
+    public func setDifficulty(_ difficulty: Difficulty) {
+        difficultyButton.isHidden = false
+        difficultyButton.setTitle(difficulty.title, for: .normal)
+        difficultyButton.sizeToFit()
     }
 
     public class func heightForTitle(_ title: String) -> CGFloat {
@@ -73,5 +75,11 @@ class DialogStreamHeaderCollectionReusableView: UICollectionReusableView {
         label.text = title
         label.sizeToFit()
         return label.frame.height
+    }
+
+    // MARK: - Private
+    @objc
+    func didTapDifficultyButton(_ button: UIButton) {
+        delegate?.dialogStreamHeaderCollectionReusableViewDidTapDifficultyButton(self)
     }
 }
