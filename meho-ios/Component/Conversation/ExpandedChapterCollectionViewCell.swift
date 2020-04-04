@@ -29,6 +29,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell {
     let recordButtonNormalImageName = "conversation_microphone_inactive"
     let listenButtonNormalImageName = "conversation_headset_inactive"
     let replayButtonNormalImageName = "conversation_play_inactive"
+    let recordButtonSelectedImageName = "conversation_microphone_active"
     let listenButtonSelectedImageName = "conversation_headset_active"
     let avatar1ImageName = "conversation_facepile1"
 
@@ -100,8 +101,11 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell {
         recordButton.translatesAutoresizingMaskIntoConstraints = false
         let recordButtonNormalImage = UIImage.init(named: recordButtonNormalImageName)
         recordButton.setImage(recordButtonNormalImage, for: .normal)
+        let recordButtonSelectedImage = UIImage.init(named: recordButtonSelectedImageName)
+        recordButton.setImage(recordButtonSelectedImage, for: .selected)
         recordButton.clipsToBounds = true
         recordButton.layer.cornerRadius = recordButtonSize / 2
+        recordButton.addTarget(self, action: #selector(didTapRecordButton), for: .touchUpInside)
         contentView.addSubview(recordButton)
 
         // Sets up the listen button.
@@ -185,6 +189,15 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell {
             player = AVPlayer.init(playerItem: playerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
             player?.play()
+        }
+    }
+
+    @objc func didTapRecordButton() {
+        listenButton.isSelected = false
+        replayButton.isSelected = false
+        recordButton.isSelected = true
+        if player?.timeControlStatus == .playing {
+            player?.pause()
         }
     }
 
