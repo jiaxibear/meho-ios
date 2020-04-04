@@ -12,6 +12,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
 
     // MARK: - Constants
     private let collapsedChapterCollectionViewCellReuseIdentifier = "collapsedChapterCollectionViewCellReuseIdentifier"
+    private let expandedChapterCollectionViewCellReuseIdentifier = "expandedChapterCollectionViewCellReuseIdentifier"
 
     // MARK: - Properties
     private let conversationDataFetcher = ConversationDataFetcher.init()
@@ -19,6 +20,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     private let dialogID: String
     private let chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: chaptersCollectionViewFlowLayout)
+    private var currentChapterIndex = 0
 
     // MARK: - Init
     init() {
@@ -58,6 +60,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         chaptersCollectionView.translatesAutoresizingMaskIntoConstraints = false
         chaptersCollectionView.backgroundColor = .white
         chaptersCollectionView.register(CollapsedChapterCollectionViewCell.self, forCellWithReuseIdentifier: collapsedChapterCollectionViewCellReuseIdentifier)
+        chaptersCollectionView.register(ExpandedChapterCollectionViewCell.self, forCellWithReuseIdentifier: expandedChapterCollectionViewCellReuseIdentifier)
         chaptersCollectionView.delegate = self
         chaptersCollectionView.dataSource = self
         view.addSubview(chaptersCollectionView)
@@ -78,12 +81,20 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if (indexPath.item == currentChapterIndex) {
+            let expandedChapterCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: expandedChapterCollectionViewCellReuseIdentifier, for: indexPath) as! ExpandedChapterCollectionViewCell
+            expandedChapterCollectionViewCell.setChapter(chapters.first!)
+            return expandedChapterCollectionViewCell
+        }
         let collapsedChapterCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: collapsedChapterCollectionViewCellReuseIdentifier, for: indexPath) as! CollapsedChapterCollectionViewCell
         collapsedChapterCollectionViewCell.setChapter(chapters[indexPath.item])
         return collapsedChapterCollectionViewCell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if (indexPath.item == currentChapterIndex) {
+            return CGSize.init(width: collectionView.bounds.width, height: 340)
+        }
         return CGSize.init(width: collectionView.bounds.width, height: 140)
     }
 }

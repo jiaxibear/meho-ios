@@ -36,6 +36,7 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
         contentLabel.textColor = .textBlueGray
         contentLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: contentLabelFontSize)
         contentLabel.numberOfLines = 0
+        contentLabel.textAlignment = .center
         contentView.addSubview(contentLabel)
 
         // Sets up content pinyin label.
@@ -44,6 +45,7 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
         let contentPinyinFontDescriptor = UIFont.systemFont(ofSize: contentPinyinLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         contentPinyinLabel.font = UIFont.init(descriptor: contentPinyinFontDescriptor!, size: contentPinyinLabelFontSize)
         contentPinyinLabel.numberOfLines = 0
+        contentPinyinLabel.textAlignment = .center
         contentView.addSubview(contentPinyinLabel)
 
         // Sets up content in local language label.
@@ -52,6 +54,7 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
         let contentInLocalLanguageFontDescriptor = UIFont.systemFont(ofSize: contentInLocalLanguageLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         contentInLocalLanguageLabel.font = UIFont.init(descriptor: contentInLocalLanguageFontDescriptor!, size: contentInLocalLanguageLabelFontSize)
         contentInLocalLanguageLabel.numberOfLines = 0
+        contentInLocalLanguageLabel.textAlignment = .center
         contentView.addSubview(contentInLocalLanguageLabel)
 
         // Sets up layout constraints
