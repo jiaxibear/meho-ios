@@ -92,9 +92,13 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width;
+        let chapter = chapters[indexPath.item]
         if (indexPath.item == currentChapterIndex) {
-            return CGSize.init(width: collectionView.bounds.width, height: 340)
+            let height = ExpandedChapterCollectionViewCell.cellHeight(with: width, chapter: chapter)
+            return CGSize.init(width: width, height: height)
         }
-        return CGSize.init(width: collectionView.bounds.width, height: 140)
+        let height = CollapsedChapterCollectionViewCell.cellHeight(with: width, chapter: chapter)
+        return CGSize.init(width: width, height: height)
     }
 }

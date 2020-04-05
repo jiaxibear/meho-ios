@@ -11,39 +11,40 @@ import AVFoundation
 
 class ExpandedChapterCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
-    let contentLabelFontSize = CGFloat(24)
-    let contentPinyinLabelFontSize = CGFloat(16)
-    let contentInLocalLanguageLabelFontSize = CGFloat(16)
-    let actionLabelFontSize = CGFloat(14)
-    let contentLeadingTrailingMargin = CGFloat(50)
-    let contentsMargin = CGFloat(12)
-    let avatarViewTopBottomMargin = CGFloat(15)
-    let avatarViewSize = CGFloat(70)
-    let actionLabelTopMargin = CGFloat(28)
-    let actionButtonTopBottomMargin = CGFloat(12)
-    let actionButtonsMargin = CGFloat(48)
-    let recordButtonSize = CGFloat(70)
-    let listenButtonSize = CGFloat(50)
-    let replayButtonSize = CGFloat(50)
-    let backgroundColorAlpha = CGFloat(0.05)
-    let recordButtonNormalImageName = "conversation_microphone_inactive"
-    let listenButtonNormalImageName = "conversation_headset_inactive"
-    let replayButtonNormalImageName = "conversation_play_inactive"
-    let recordButtonSelectedImageName = "conversation_microphone_active"
-    let listenButtonSelectedImageName = "conversation_headset_active"
-    let avatar1ImageName = "conversation_facepile1"
+    private let contentLabelFontSize = CGFloat(24)
+    private let contentPinyinLabelFontSize = CGFloat(16)
+    private let contentInLocalLanguageLabelFontSize = CGFloat(16)
+    private let actionLabelFontSize = CGFloat(14)
+    private let contentLeadingTrailingMargin = CGFloat(50)
+    private let contentsMargin = CGFloat(12)
+    private let avatarViewTopBottomMargin = CGFloat(15)
+    private let avatarViewSize = CGFloat(70)
+    private let actionLabelTopMargin = CGFloat(28)
+    private let actionButtonTopBottomMargin = CGFloat(12)
+    private let actionButtonsMargin = CGFloat(48)
+    private let recordButtonSize = CGFloat(70)
+    private let listenButtonSize = CGFloat(50)
+    private let replayButtonSize = CGFloat(50)
+    private let backgroundColorAlpha = CGFloat(0.05)
+    private let recordButtonNormalImageName = "conversation_microphone_inactive"
+    private let listenButtonNormalImageName = "conversation_headset_inactive"
+    private let replayButtonNormalImageName = "conversation_play_inactive"
+    private let recordButtonSelectedImageName = "conversation_microphone_active"
+    private let listenButtonSelectedImageName = "conversation_headset_active"
+    private let avatar1ImageName = "conversation_facepile1"
 
     // MARK: - Properties
-    let avatarView = UIImageView.init(frame: .zero)
-    let contentLabel = UILabel.init(frame: .zero)
-    let contentPinyinLabel = UILabel.init(frame: .zero)
-    let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
-    let actionLabel = UILabel.init(frame: .zero)
-    let recordButton = UIButton.init(frame: .zero)
-    let listenButton = UIButton.init(frame: .zero)
-    let replayButton = UIButton.init(frame: .zero)
-    var player: AVPlayer?
-    var audioURL: URL?
+    private let avatarView = UIImageView.init(frame: .zero)
+    private let contentLabel = UILabel.init(frame: .zero)
+    private let contentPinyinLabel = UILabel.init(frame: .zero)
+    private let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
+    private let actionLabel = UILabel.init(frame: .zero)
+    private let recordButton = UIButton.init(frame: .zero)
+    private let listenButton = UIButton.init(frame: .zero)
+    private let replayButton = UIButton.init(frame: .zero)
+    private var player: AVPlayer?
+    private var audioURL: URL?
+    private static var sizingCell = ExpandedChapterCollectionViewCell.init(frame: .zero);
 
     // MARK: - Init
     @available(*, unavailable)
@@ -171,12 +172,25 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell {
         fatalError("Use init")
     }
 
-    // MARK: - Public
+    // MARK: - Internal
     func setChapter(_ chapter: Chapter) {
         contentLabel.text = chapter.content
         contentPinyinLabel.text = chapter.contentPinyin
         contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
         audioURL = chapter.contentAudioURL
+    }
+
+    class func cellHeight(with width: CGFloat, chapter: Chapter) -> CGFloat {
+        sizingCell.contentLabel.text = chapter.content
+        sizingCell.contentPinyinLabel.text = chapter.contentPinyin
+        sizingCell.contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
+        var height = sizingCell.avatarViewSize + sizingCell.avatarViewTopBottomMargin * 2 + 2 * sizingCell.contentsMargin + sizingCell.actionLabelTopMargin + sizingCell.actionButtonTopBottomMargin * 2 + sizingCell.recordButtonSize
+        let contentWidth = width - 2 * sizingCell.contentLeadingTrailingMargin
+        height += sizingCell.contentLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height
+        height += sizingCell.contentPinyinLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height
+        height += sizingCell.contentInLocalLanguageLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height
+        height += sizingCell.actionLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height
+        return height
     }
 
     // MARK: - Private

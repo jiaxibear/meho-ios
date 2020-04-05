@@ -10,17 +10,18 @@ import UIKit
 
 class CollapsedChapterCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
-    let contentLabelFontSize = CGFloat(24)
-    let contentPinyinLabelFontSize = CGFloat(16)
-    let contentInLocalLanguageLabelFontSize = CGFloat(16)
-    let contentLeadingTrailingMargin = CGFloat(50)
-    let contentTopBottomMargin = CGFloat(20)
-    let contentsMargin = CGFloat(12)
+    private let contentLabelFontSize = CGFloat(24)
+    private let contentPinyinLabelFontSize = CGFloat(16)
+    private let contentInLocalLanguageLabelFontSize = CGFloat(16)
+    private let contentLeadingTrailingMargin = CGFloat(50)
+    private let contentTopBottomMargin = CGFloat(20)
+    private let contentsMargin = CGFloat(12)
 
     // MARK: - Properties
-    let contentLabel = UILabel.init(frame: .zero)
-    let contentPinyinLabel = UILabel.init(frame: .zero)
-    let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
+    private let contentLabel = UILabel.init(frame: .zero)
+    private let contentPinyinLabel = UILabel.init(frame: .zero)
+    private let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
+    private static var sizingCell = CollapsedChapterCollectionViewCell.init(frame: .zero);
 
     // MARK: - Init
     @available(*, unavailable)
@@ -77,10 +78,22 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
         fatalError("Use init")
     }
 
-    // MARK: - Public
+    // MARK: - Internal
     func setChapter(_ chapter: Chapter) {
         contentLabel.text = chapter.content
         contentPinyinLabel.text = chapter.contentPinyin
         contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
+    }
+
+    class func cellHeight(with width: CGFloat, chapter: Chapter) -> CGFloat {
+        sizingCell.contentLabel.text = chapter.content
+        sizingCell.contentPinyinLabel.text = chapter.contentPinyin
+        sizingCell.contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
+        var height = sizingCell.contentTopBottomMargin * 2 + sizingCell.contentsMargin * 2
+        let contentWidth = width - 2 * sizingCell.contentLeadingTrailingMargin
+        height += sizingCell.contentLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height
+        height += sizingCell.contentPinyinLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height
+        height += sizingCell.contentInLocalLanguageLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height
+        return height
     }
 }
