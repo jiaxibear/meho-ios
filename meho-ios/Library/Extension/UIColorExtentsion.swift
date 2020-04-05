@@ -45,6 +45,10 @@ extension UIColor {
         return UIColor.init(hex: "#7baffa")!
     }
 
+    class var sunYellow: UIColor {
+        return UIColor.init(hex: "#ffd52e")!
+    }
+
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 

@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class FoundationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class FoundationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     // MARK: - Constants
     private let foundationCoverTitle = "Chinese Foundations"

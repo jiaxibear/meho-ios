@@ -35,3 +35,6 @@
 
 /* Title for the converation page. */
 "ConversationTitle" = "Let's talk";
+
+/* Title for the news page. */
+"NewsTitle" = "Top Stories";
