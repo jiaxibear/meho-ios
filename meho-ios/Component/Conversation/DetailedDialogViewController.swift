@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class DetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -52,6 +53,16 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
                 self.chapters = dialog!.chapters
                 DispatchQueue.main.async {
                     self.chaptersCollectionView.reloadData()
+                    let audioSession = AVAudioSession.sharedInstance()
+                    do {
+                        try audioSession.setCategory(.playAndRecord, mode: .default)
+                        try audioSession.setActive(true)
+                        audioSession.requestRecordPermission { (allowed) in
+                            // TODO: Add UI if not allowed.
+                        }
+                    } catch {
+                        // TODO: Add UI if not allowed.
+                    }
                 }
             }
         }
@@ -83,7 +94,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if (indexPath.item == currentChapterIndex) {
             let expandedChapterCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: expandedChapterCollectionViewCellReuseIdentifier, for: indexPath) as! ExpandedChapterCollectionViewCell
-            expandedChapterCollectionViewCell.setChapter(chapters.first!)
+            expandedChapterCollectionViewCell.setChapter(chapters[currentChapterIndex])
             return expandedChapterCollectionViewCell
         }
         let collapsedChapterCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: collapsedChapterCollectionViewCellReuseIdentifier, for: indexPath) as! CollapsedChapterCollectionViewCell
@@ -100,5 +111,16 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         }
         let height = CollapsedChapterCollectionViewCell.cellHeight(with: width, chapter: chapter)
         return CGSize.init(width: width, height: height)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let chapterIndex = indexPath.item
+        if chapterIndex == currentChapterIndex {
+            return
+        }
+        let previousCurrentChapterIndex = currentChapterIndex
+        currentChapterIndex = indexPath.item
+        collectionView.reloadItems(at: [IndexPath.init(item: previousCurrentChapterIndex, section: 0), IndexPath.init(item: currentChapterIndex, section: 0)])
+        collectionView.scrollToItem(at: IndexPath.init(item: currentChapterIndex, section: 0), at: .top, animated: true)
     }
 }

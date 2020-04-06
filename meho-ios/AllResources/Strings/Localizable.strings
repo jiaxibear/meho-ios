@@ -38,3 +38,15 @@
 
 /* Title for the news page. */
 "NewsTitle" = "Top Stories";
+
+/* Text displayed when the user taps the play button in the dialog. */
+"PlayActionText" = "Playing the demo...";
+
+/* Text displayed to prompt the user to tap the record button in the dialog. */
+"RecordPromptActionText" = "Tap to record...";
+
+/* Text displayed when the user taps the record button in the dialog. */
+"RecordActionText" = "Tap again to finish recording...";
+
+/* Text displayed to prompt the user to tap the replay button in the dialog. */
+"ReplayPromptActionText" = "Tap to record...";
