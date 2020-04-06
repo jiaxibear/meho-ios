@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "tabbar_profile_selected_25pt.png",
+      "filename" : "tabbar_expression_25pt.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "tabbar_profile_selected_25pt@2x.png",
+      "filename" : "tabbar_expression_25pt@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "tabbar_profile_selected_25pt@3x.png",
+      "filename" : "tabbar_expression_25pt@3x.png",
       "scale" : "3x"
     }
   ],

@@ -53,6 +53,7 @@
 		EA5448FD2439078900C07D0A /* TAISDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5448FB2439078900C07D0A /* TAISDK.framework */; };
 		EA544904243AC6BE00C07D0A /* AudioConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA544903243AC6BE00C07D0A /* AudioConverter.m */; };
 		EA544907243ADF5200C07D0A /* ChapterScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA544906243ADF5200C07D0A /* ChapterScoreView.swift */; };
+		EA54490A243B07FD00C07D0A /* ExpressionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA544909243B07FD00C07D0A /* ExpressionViewController.swift */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -150,6 +151,7 @@
 		EA544903243AC6BE00C07D0A /* AudioConverter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioConverter.m; sourceTree = "<group>"; };
 		EA544905243AC73100C07D0A /* AudioConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioConverter.h; sourceTree = "<group>"; };
 		EA544906243ADF5200C07D0A /* ChapterScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterScoreView.swift; sourceTree = "<group>"; };
+		EA544909243B07FD00C07D0A /* ExpressionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionViewController.swift; sourceTree = "<group>"; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 		EA52FDA023EF7C77008EB37B /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				EA544908243B07E200C07D0A /* Expression */,
 				924C53E623FA1E0400B59D95 /* Auth */,
 				EA52FDAD23EF8103008EB37B /* News */,
 				EA52FDA623EF8079008EB37B /* Foundation */,
@@ -399,6 +402,14 @@
 				EA544905243AC73100C07D0A /* AudioConverter.h */,
 			);
 			path = Audio;
+			sourceTree = "<group>";
+		};
+		EA544908243B07E200C07D0A /* Expression */ = {
+			isa = PBXGroup;
+			children = (
+				EA544909243B07FD00C07D0A /* ExpressionViewController.swift */,
+			);
+			path = Expression;
 			sourceTree = "<group>";
 		};
 		EA7B730B23F0DBB10031093B /* AllResources */ = {
@@ -726,6 +737,7 @@
 				EA5448C724283D6900C07D0A /* ExpandedChapterCollectionViewCell.swift in Sources */,
 				EA01E6B123FBD6F000C0B0AE /* DifficultyViewController.swift in Sources */,
 				EA52FDB823EFF416008EB37B /* CategoryCollectionViewCell.swift in Sources */,
+				EA54490A243B07FD00C07D0A /* ExpressionViewController.swift in Sources */,
 				EA544904243AC6BE00C07D0A /* AudioConverter.m in Sources */,
 				EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */,
 				EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */,

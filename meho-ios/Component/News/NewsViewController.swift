@@ -14,7 +14,6 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     private let trailingLeadingMargin = CGFloat(15)
     private let titleLabelFontSize = CGFloat(34)
     private let newsTabBarItemImageName = "tabbar_news_25pt"
-    private let newsTabBarItemSelectedImageName = "tabbar_news_selected_25pt"
 
     private let newsCollectionViewCellHeight = CGFloat(110)
     private let newsCollectionViewCellGroupSpacing = CGFloat(20)
@@ -42,10 +41,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         super.init(nibName: nil, bundle: nil)
         let newsTabBarItemImage = UIImage.init(named: newsTabBarItemImageName)
         let newsTabBarItem = UITabBarItem.init(title: nil, image: newsTabBarItemImage, tag: 0)
-        let newsTabBarItemSelectedImage = UIImage.init(named: newsTabBarItemImageName)
-        newsTabBarItem.selectedImage = newsTabBarItemSelectedImage
-        self.tabBarItem = newsTabBarItem
-
+        tabBarItem = newsTabBarItem
     }
 
 

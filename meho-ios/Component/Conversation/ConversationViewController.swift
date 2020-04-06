@@ -33,7 +33,6 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let dialogCollectionViewCellHeight = CGFloat(110)
     private let dialogCollectionViewCellGroupSpacing = CGFloat(20)
     private let conversationTabBarItemImageName = "tabbar_conv_25pt"
-    private let conversationTabBarItemSelectedImageName = "tabbar_conv_selected_25pt"
 
     // MARK: - Properties
     // MARK: UI
@@ -52,9 +51,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         super.init(nibName: nil, bundle: nil)
         let conversationTabBarItemImage = UIImage.init(named: conversationTabBarItemImageName)
         let conversationTabBarItem = UITabBarItem.init(title: nil, image: conversationTabBarItemImage, tag: 0)
-        let conversationTabBarItemSelectedImage = UIImage.init(named: conversationTabBarItemImageName)
-        conversationTabBarItem.selectedImage = conversationTabBarItemSelectedImage
-        self.tabBarItem = conversationTabBarItem
+        tabBarItem = conversationTabBarItem
 
         conversationCollectionViewCompositionalLayout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
           layoutEnvironment: NSCollectionLayoutEnvironment)
@@ -90,7 +87,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
         // Sets up the title.
         titleLabel.text = NSLocalizedString("ConversationTitle", comment: "")
-        titleLabel.textColor = .skyBlue
+        titleLabel.textColor = .wisteriaPurple
         let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         titleLabel.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -282,7 +279,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         case .featuredDialogs:
             return NSLocalizedString("FeaturedTitle", comment: "")
         case .mostPopluarDialogs:
-            return NSLocalizedString("MostPopuluarTitle", comment: "")
+            return NSLocalizedString("MostPopularTitle", comment: "")
         }
     }
 }

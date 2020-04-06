@@ -14,7 +14,6 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     // MARK: - Constants
     private let foundationCoverTitle = "Chinese Foundations"
     private let foundationTabBarItemImageName = "tabbar_foundation_25pt"
-    private let foundationTabBarItemSelectedImageName = "tabbar_foundation_selected_25pt"
     
     private let foundationHorizontalMargin = CGFloat(15)
     private let foundationLabelTopMargin = CGFloat(22)
@@ -38,9 +37,7 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
         super.init(nibName: nil, bundle: nil)
         let foundationTabBarItemImage = UIImage.init(named: foundationTabBarItemImageName)
         let foundationTabBarItem = UITabBarItem.init(title: nil, image: foundationTabBarItemImage, tag: 0)
-        let foundationTabBarItemSelectedImage = UIImage.init(named: foundationTabBarItemImageName)
-        foundationTabBarItem.selectedImage = foundationTabBarItemSelectedImage
-        self.tabBarItem = foundationTabBarItem
+        tabBarItem = foundationTabBarItem
     }
     
     @available(*, unavailable)

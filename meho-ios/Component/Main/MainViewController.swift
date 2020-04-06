@@ -19,13 +19,14 @@ class MainViewController: UITabBarController {
 
         // Sets view controllers.
         let newsViewController = NewsViewController.init()
+        let expressionViewController = ExpressionViewController.init()
         let conversationViewController = ConversationViewController.init()
         let foundationViewController = FoundationViewController.init()
-        let profileViewController = ProfileViewController.init()
-        viewControllers = [newsViewController, conversationViewController, foundationViewController, profileViewController]
+        viewControllers = [newsViewController, expressionViewController, conversationViewController, foundationViewController]
         
         // Sets appearance of the tab bar.
         tabBar.barTintColor = .white
+        tabBar.tintColor = .wisteriaPurple
     }
 
     override func viewWillAppear(_ animated: Bool) {
