@@ -49,6 +49,10 @@ extension UIColor {
         return UIColor.init(hex: "#ffd52e")!
     }
 
+    class var coral: UIColor {
+        return UIColor.init(hex: "#ff5937")!
+    }
+    
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 

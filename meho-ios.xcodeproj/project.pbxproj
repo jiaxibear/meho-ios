@@ -21,7 +21,6 @@
 		9267EA2324385FC2009CA25D /* NewsDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267EA2224385FC2009CA25D /* NewsDataFetcher.swift */; };
 		92BAC7192439691200862571 /* NewsReasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BAC7182439691200862571 /* NewsReasonView.swift */; };
 		92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DEE30E23F8FF60004D91D7 /* Feature.swift */; };
-		C3C36BFDEC0BB0A708FFC789 /* Pods_meho_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7C00746FB72FA49F9B8405 /* Pods_meho_ios.framework */; };
 		EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */; };
 		EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA01E6AA23FA356900C0B0AE /* Localizable.strings */; };
 		EA01E6AD23FBA62900C0B0AE /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6AC23FBA62900C0B0AE /* Chapter.swift */; };
@@ -49,11 +48,12 @@
 		EA5448C1242736CD00C07D0A /* DetailedDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5448C0242736CD00C07D0A /* DetailedDialogViewController.swift */; };
 		EA5448C524273F0B00C07D0A /* CollapsedChapterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5448C424273F0B00C07D0A /* CollapsedChapterCollectionViewCell.swift */; };
 		EA5448C724283D6900C07D0A /* ExpandedChapterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5448C624283D6900C07D0A /* ExpandedChapterCollectionViewCell.swift */; };
-		EA5448FC2439078900C07D0A /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5448FA2439078900C07D0A /* lame.framework */; };
-		EA5448FD2439078900C07D0A /* TAISDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5448FB2439078900C07D0A /* TAISDK.framework */; };
 		EA544904243AC6BE00C07D0A /* AudioConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA544903243AC6BE00C07D0A /* AudioConverter.m */; };
 		EA544907243ADF5200C07D0A /* ChapterScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA544906243ADF5200C07D0A /* ChapterScoreView.swift */; };
 		EA54490A243B07FD00C07D0A /* ExpressionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA544909243B07FD00C07D0A /* ExpressionViewController.swift */; };
+		EA54490B243B0BDE00C07D0A /* TAISDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5448FB2439078900C07D0A /* TAISDK.framework */; };
+		EA54490D243B0BE000C07D0A /* Pods_meho_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7C00746FB72FA49F9B8405 /* Pods_meho_ios.framework */; };
+		EA54490F243B0BE200C07D0A /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5448FA2439078900C07D0A /* lame.framework */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -77,19 +77,6 @@
 			remoteInfo = "meho-ios";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		EA5448F4243906BB00C07D0A /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		23D21C92C96C3B02E8C84C73 /* Pods-meho-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.debug.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.debug.xcconfig"; sourceTree = "<group>"; };
@@ -165,9 +152,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3C36BFDEC0BB0A708FFC789 /* Pods_meho_ios.framework in Frameworks */,
-				EA5448FC2439078900C07D0A /* lame.framework in Frameworks */,
-				EA5448FD2439078900C07D0A /* TAISDK.framework in Frameworks */,
+				EA54490D243B0BE000C07D0A /* Pods_meho_ios.framework in Frameworks */,
+				EA54490F243B0BE200C07D0A /* lame.framework in Frameworks */,
+				EA54490B243B0BDE00C07D0A /* TAISDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,7 +438,6 @@
 				EA2FC5BA23EF7AD400E258BD /* Resources */,
 				AAC25F9AFC9F67E2AEDAFA5D /* [CP] Embed Pods Frameworks */,
 				DE17608541922AF4596C9677 /* [CP] Copy Pods Resources */,
-				EA5448F4243906BB00C07D0A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -936,7 +922,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meho.Meho;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meho.mehoios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "meho-ios/meho-ios-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -964,7 +950,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meho.Meho;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meho.mehoios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "meho-ios/meho-ios-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

@@ -36,6 +36,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let listenButtonSelectedImageName = "conversation_headset_active"
     private let replayButtonSelectedImageName = "conversation_play_active"
     private let avatar1ImageName = "conversation_facepile1"
+    private let pronAccuraryMin = Float(60)
 
     // MARK: - Properties
     private let avatarView = UIImageView.init(frame: .zero)
@@ -232,6 +233,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     func oralEvaluation(_ oralEvaluation: TAIOralEvaluation!, onEvaluateData data: TAIOralEvaluationData!, result: TAIOralEvaluationRet!, error: TAIError!) {
         if result != nil {
             scoreView.setScore(result!.suggestedScore)
+            contentLabel.attributedText = scoredContent(result: result)
         }
     }
 
@@ -349,6 +351,20 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
                 }
             })
         }
+    }
 
+    private func scoredContent(result: TAIOralEvaluationRet) -> NSAttributedString {
+        let scoredContent = NSMutableAttributedString.init()
+        if let words = result.words {
+            for (index, word) in words.enumerated() {
+                scoredContent.mutableString.append(word.word)
+                if word.pronAccuracy > pronAccuraryMin {
+                    scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
+                } else {
+                    scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.coral, range: NSRange.init(location: index, length: 1))
+                }
+            }
+        }
+        return scoredContent
     }
 }
