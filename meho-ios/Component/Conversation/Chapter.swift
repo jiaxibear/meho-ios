@@ -15,4 +15,5 @@ struct Chapter {
     var contentAudioURL:URL?
     var sequence = -1
     var role = ""
+    var identifier = ""
 }

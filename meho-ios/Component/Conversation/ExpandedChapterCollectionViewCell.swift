@@ -54,7 +54,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private var audioRecorder: AVAudioRecorder?
     private static var sizingCell = ExpandedChapterCollectionViewCell.init(frame: .zero);
     private let oralEvaluation = TAIOralEvaluation.init()
-    private let audioFileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.caf")
+    private var audioFileURL: URL?
     private var player: AVPlayer?
 
     // MARK: - Init
@@ -214,6 +214,11 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         contentInLocalLanguageLabel.text = scoredChapter.chapter.contentInLocalLanguage
         scoreView.setScore(scoredChapter.score)
         avatarView.image = RoleUtils.avatarImage(with: scoredChapter.chapter.role)
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
+        isDirectory: true)
+        let identifier = scoredChapter.chapter.identifier
+        let audioFileName = "\(identifier).caf"
+        audioFileURL = temporaryDirectoryURL.appendingPathComponent(audioFileName)
         self.scoredChapter = scoredChapter
     }
 
@@ -250,10 +255,10 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
 
     // MARK: - Private
     @objc func didTapListenButton() {
-        listenButton.isSelected = true
-        replayButton.isSelected = false
-        recordButton.isSelected = false
         if let audioURL = scoredChapter.chapter.contentAudioURL {
+            listenButton.isSelected = true
+            replayButton.isSelected = false
+            recordButton.isSelected = false
             let playerItem = AVPlayerItem.init(url: audioURL)
             player = AVPlayer.init(playerItem: playerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
@@ -264,10 +269,10 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     }
 
     @objc func didTapReplayButton() {
-        listenButton.isSelected = false
-        replayButton.isSelected = true
-        recordButton.isSelected = false
-        if audioFileURL != nil {
+        if audioFileURL != nil && FileManager.default.fileExists(atPath: audioFileURL!.path) {
+            listenButton.isSelected = false
+            replayButton.isSelected = true
+            recordButton.isSelected = false
             let playerItem = AVPlayerItem.init(url: audioFileURL!)
             player = AVPlayer.init(playerItem: playerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)

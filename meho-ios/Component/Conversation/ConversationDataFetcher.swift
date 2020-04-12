@@ -278,6 +278,9 @@ class ConversationDataFetcher: NSObject {
                 if let role = chapterJSON["role"] as? String {
                     chapter.role = role
                 }
+                if let identifier = chapterJSON["id"] as? String {
+                    chapter.identifier = identifier
+                }
                 chapters.append(chapter)
             }
             dialog.chapters = chapters
