@@ -37,7 +37,7 @@ class NewsDataFetcher: NSObject {
                         completionHandler(newsList, nil)
                     }
                 } catch let JSONError as NSError {
-                    print("Failed to parse featured categories JSON: \(JSONError.localizedDescription)")
+                    print("Failed to parse news list JSON: \(JSONError.localizedDescription)")
                     completionHandler(nil, JSONError)
                 }
             })

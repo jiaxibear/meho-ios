@@ -16,11 +16,14 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
     private let contentLeadingTrailingMargin = CGFloat(50)
     private let contentTopBottomMargin = CGFloat(20)
     private let contentsMargin = CGFloat(12)
+    private let scoreViewAlpha = CGFloat(0.5)
+    private let scoreViewTralingMargin = CGFloat(16)
 
     // MARK: - Properties
     private let contentLabel = UILabel.init(frame: .zero)
     private let contentPinyinLabel = UILabel.init(frame: .zero)
     private let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
+    private let scoreView = ChapterScoreView.init(frame: .zero)
     private static var sizingCell = CollapsedChapterCollectionViewCell.init(frame: .zero);
 
     // MARK: - Init
@@ -39,6 +42,11 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
         contentLabel.numberOfLines = 0
         contentLabel.textAlignment = .center
         contentView.addSubview(contentLabel)
+
+        // Sets up score view.
+        scoreView.translatesAutoresizingMaskIntoConstraints = false
+        scoreView.alpha = scoreViewAlpha
+        contentView.addSubview(scoreView)
 
         // Sets up content pinyin label.
         contentPinyinLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -59,6 +67,9 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(contentInLocalLanguageLabel)
 
         // Sets up layout constraints
+        scoreView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        scoreView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -scoreViewTralingMargin).isActive = true
+
         contentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
         contentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
         contentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentTopBottomMargin).isActive = true
@@ -79,10 +90,11 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - Internal
-    func setChapter(_ chapter: Chapter) {
-        contentLabel.text = chapter.content
-        contentPinyinLabel.text = chapter.contentPinyin
-        contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
+    func setScoredChapter(_ scoredChapter: ScoredChapter) {
+        contentLabel.text = scoredChapter.chapter.content
+        contentPinyinLabel.text = scoredChapter.chapter.contentPinyin
+        contentInLocalLanguageLabel.text = scoredChapter.chapter.contentInLocalLanguage
+        scoreView.setScore(scoredChapter.score)
     }
 
     class func cellHeight(with width: CGFloat, chapter: Chapter) -> CGFloat {

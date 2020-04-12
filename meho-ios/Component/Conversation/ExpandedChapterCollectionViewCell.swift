@@ -21,7 +21,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let contentsMargin = CGFloat(12)
     private let avatarViewTopBottomMargin = CGFloat(15)
     private let avatarViewSize = CGFloat(70)
-    private let scoreImageViewTralingMargin = CGFloat(16)
+    private let scoreViewTralingMargin = CGFloat(16)
     private let actionLabelTopMargin = CGFloat(28)
     private let actionButtonTopBottomMargin = CGFloat(12)
     private let actionButtonsMargin = CGFloat(48)
@@ -39,6 +39,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let pronAccuraryMin = Float(60)
 
     // MARK: - Properties
+    // MARK: UI
     private let avatarView = UIImageView.init(frame: .zero)
     private let scoreView = ChapterScoreView.init(frame: .zero)
     private let contentLabel = UILabel.init(frame: .zero)
@@ -48,12 +49,14 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let recordButton = UIButton.init(frame: .zero)
     private let listenButton = UIButton.init(frame: .zero)
     private let replayButton = UIButton.init(frame: .zero)
-    private var player: AVPlayer?
-    private var audioURL: URL?
+
+    // MARK: Model
+    private var scoredChapter: ScoredChapter!
     private var audioRecorder: AVAudioRecorder?
     private static var sizingCell = ExpandedChapterCollectionViewCell.init(frame: .zero);
     private let oralEvaluation = TAIOralEvaluation.init()
     private let audioFileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.caf")
+    private var player: AVPlayer?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -75,7 +78,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         contentView.addSubview(avatarView)
 
         scoreView.translatesAutoresizingMaskIntoConstraints = false
-        scoreView.setScore(-1)
         contentView.addSubview(scoreView)
 
         // Sets up the content label.
@@ -155,7 +157,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         avatarView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
 
         scoreView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        scoreView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -scoreImageViewTralingMargin).isActive = true
+        scoreView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -scoreViewTralingMargin).isActive = true
 
         contentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
         contentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
@@ -209,11 +211,12 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     }
 
     // MARK: - Internal
-    func setChapter(_ chapter: Chapter) {
-        contentLabel.text = chapter.content
-        contentPinyinLabel.text = chapter.contentPinyin
-        contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
-        audioURL = chapter.contentAudioURL
+    func setScoredChapter(_ scoredChapter: ScoredChapter) {
+        contentLabel.text = scoredChapter.chapter.content
+        contentPinyinLabel.text = scoredChapter.chapter.contentPinyin
+        contentInLocalLanguageLabel.text = scoredChapter.chapter.contentInLocalLanguage
+        scoreView.setScore(scoredChapter.score)
+        self.scoredChapter = scoredChapter
     }
 
     class func cellHeight(with width: CGFloat, chapter: Chapter) -> CGFloat {
@@ -232,7 +235,9 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     // MARK: - TAIOralEvaluationDelegate
     func oralEvaluation(_ oralEvaluation: TAIOralEvaluation!, onEvaluateData data: TAIOralEvaluationData!, result: TAIOralEvaluationRet!, error: TAIError!) {
         if result != nil {
-            scoreView.setScore(result!.suggestedScore)
+            let suggestedScore = result.suggestedScore
+            scoreView.setScore(suggestedScore)
+            scoredChapter.score = suggestedScore
             contentLabel.attributedText = scoredContent(result: result)
         }
     }
@@ -250,8 +255,8 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         listenButton.isSelected = true
         replayButton.isSelected = false
         recordButton.isSelected = false
-        if audioURL != nil {
-            let playerItem = AVPlayerItem.init(url: audioURL!)
+        if let audioURL = scoredChapter.chapter.contentAudioURL {
+            let playerItem = AVPlayerItem.init(url: audioURL)
             player = AVPlayer.init(playerItem: playerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
             player?.play()
@@ -260,7 +265,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         }
     }
 
-    // MARK: - Private
     @objc func didTapReplayButton() {
         listenButton.isSelected = false
         replayButton.isSelected = true

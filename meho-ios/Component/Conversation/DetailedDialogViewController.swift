@@ -17,7 +17,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
 
     // MARK: - Properties
     private let conversationDataFetcher = ConversationDataFetcher.init()
-    private var chapters: [Chapter] = []
+    private var scoredChapters: [ScoredChapter] = []
     private let dialogID: String
     private let chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: chaptersCollectionViewFlowLayout)
@@ -50,7 +50,9 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         navigationController?.setNavigationBarHidden(false, animated: false)
         conversationDataFetcher.fetchDetailedDialog(dialogID: dialogID) { (dialog, error) in
             if (dialog != nil && error == nil) {
-                self.chapters = dialog!.chapters
+                self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in
+                    return ScoredChapter.init(chapter: chapter)
+                })
                 DispatchQueue.main.async {
                     self.chaptersCollectionView.reloadData()
                     let audioSession = AVAudioSession.sharedInstance()
@@ -88,23 +90,23 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     // MARK: - UICollectionViewDataSource
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return chapters.count
+        return scoredChapters.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if (indexPath.item == currentChapterIndex) {
             let expandedChapterCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: expandedChapterCollectionViewCellReuseIdentifier, for: indexPath) as! ExpandedChapterCollectionViewCell
-            expandedChapterCollectionViewCell.setChapter(chapters[currentChapterIndex])
+            expandedChapterCollectionViewCell.setScoredChapter(scoredChapters[currentChapterIndex])
             return expandedChapterCollectionViewCell
         }
         let collapsedChapterCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: collapsedChapterCollectionViewCellReuseIdentifier, for: indexPath) as! CollapsedChapterCollectionViewCell
-        collapsedChapterCollectionViewCell.setChapter(chapters[indexPath.item])
+        collapsedChapterCollectionViewCell.setScoredChapter(scoredChapters[indexPath.item])
         return collapsedChapterCollectionViewCell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width;
-        let chapter = chapters[indexPath.item]
+        let chapter = scoredChapters[indexPath.item].chapter
         if (indexPath.item == currentChapterIndex) {
             let height = ExpandedChapterCollectionViewCell.cellHeight(with: width, chapter: chapter)
             return CGSize.init(width: width, height: height)

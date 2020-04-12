@@ -54,6 +54,7 @@
 		EA54490B243B0BDE00C07D0A /* TAISDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5448FB2439078900C07D0A /* TAISDK.framework */; };
 		EA54490D243B0BE000C07D0A /* Pods_meho_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7C00746FB72FA49F9B8405 /* Pods_meho_ios.framework */; };
 		EA54490F243B0BE200C07D0A /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5448FA2439078900C07D0A /* lame.framework */; };
+		EA5449122442A47200C07D0A /* ScoredChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5449112442A47200C07D0A /* ScoredChapter.swift */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -139,6 +140,7 @@
 		EA544905243AC73100C07D0A /* AudioConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioConverter.h; sourceTree = "<group>"; };
 		EA544906243ADF5200C07D0A /* ChapterScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterScoreView.swift; sourceTree = "<group>"; };
 		EA544909243B07FD00C07D0A /* ExpressionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionViewController.swift; sourceTree = "<group>"; };
+		EA5449112442A47200C07D0A /* ScoredChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoredChapter.swift; sourceTree = "<group>"; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				EA5448C424273F0B00C07D0A /* CollapsedChapterCollectionViewCell.swift */,
 				EA5448C624283D6900C07D0A /* ExpandedChapterCollectionViewCell.swift */,
 				EA544906243ADF5200C07D0A /* ChapterScoreView.swift */,
+				EA5449112442A47200C07D0A /* ScoredChapter.swift */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -734,6 +737,7 @@
 				9267EA1B243185E5009CA25D /* News.swift in Sources */,
 				9267EA1F2438521A009CA25D /* NewsItemSizeLCollectionViewCell.swift in Sources */,
 				EA5448C524273F0B00C07D0A /* CollapsedChapterCollectionViewCell.swift in Sources */,
+				EA5449122442A47200C07D0A /* ScoredChapter.swift in Sources */,
 				EA52FDB623EFE6B8008EB37B /* Category.swift in Sources */,
 				EA5448BD2423324F00C07D0A /* DialogStreamViewController.swift in Sources */,
 				9267EA2124385929009CA25D /* NewsItemSizeXSCollectionViewCell.swift in Sources */,
