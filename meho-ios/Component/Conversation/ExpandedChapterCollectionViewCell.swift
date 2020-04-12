@@ -35,6 +35,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let recordButtonSelectedImageName = "conversation_microphone_active"
     private let listenButtonSelectedImageName = "conversation_headset_active"
     private let replayButtonSelectedImageName = "conversation_play_active"
+    private let replayButtonDisabledImageName = "conversation_play_disabled"
     private let pronAccuraryMin = Float(60)
 
     // MARK: - Properties
@@ -142,6 +143,8 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         replayButton.setImage(replayButtonNormalImage, for: .normal)
         let replayButtonEnabledImage = UIImage.init(named: replayButtonSelectedImageName)
         replayButton.setImage(replayButtonEnabledImage, for: .selected)
+        let replayButtonDisabledImage = UIImage.init(named: replayButtonDisabledImageName)
+        replayButton.setImage(replayButtonDisabledImage, for: .disabled)
         replayButton.clipsToBounds = true
         replayButton.layer.cornerRadius = replayButtonSize / 2
         replayButton.addTarget(self, action: #selector(didTapReplayButton), for: .touchUpInside)
@@ -219,6 +222,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         let identifier = scoredChapter.chapter.identifier
         let audioFileName = "\(identifier).caf"
         audioFileURL = temporaryDirectoryURL.appendingPathComponent(audioFileName)
+        replayButton.isEnabled = FileManager.default.fileExists(atPath: audioFileURL!.path)
         self.scoredChapter = scoredChapter
     }
 
@@ -286,8 +290,11 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         if recordButton.isSelected {
             recordButton.isSelected = false
             audioRecorder?.stop()
-            self.actionLabel.isHidden = false
-            self.actionLabel.text = NSLocalizedString("ReplayPromptActionText", comment: "")
+            if audioFileURL != nil {
+                replayButton.isEnabled = FileManager.default.fileExists(atPath: audioFileURL!.path)
+            }
+            actionLabel.isHidden = false
+            actionLabel.text = NSLocalizedString("ReplayPromptActionText", comment: "")
             startEvaluation()
         } else {
             recordButton.isSelected = true
