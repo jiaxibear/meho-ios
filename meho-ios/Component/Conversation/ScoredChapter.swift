@@ -11,6 +11,7 @@ import UIKit
 class ScoredChapter: NSObject {
     let chapter:Chapter
     var score:Float
+    var scoredContent: NSAttributedString?
 
     init(chapter: Chapter) {
         self.chapter = chapter

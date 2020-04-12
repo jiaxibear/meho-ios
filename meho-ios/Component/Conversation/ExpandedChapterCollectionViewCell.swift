@@ -212,14 +212,19 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
 
     // MARK: - Internal
     func setScoredChapter(_ scoredChapter: ScoredChapter) {
-        contentLabel.text = scoredChapter.chapter.content
-        contentPinyinLabel.text = scoredChapter.chapter.contentPinyin
-        contentInLocalLanguageLabel.text = scoredChapter.chapter.contentInLocalLanguage
+        let chapter = scoredChapter.chapter
+        if let scoredContent = scoredChapter.scoredContent {
+            contentLabel.attributedText = scoredContent
+        } else {
+            contentLabel.text = chapter.content
+        }
+        contentPinyinLabel.text = chapter.contentPinyin
+        contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
         scoreView.setScore(scoredChapter.score)
-        avatarView.image = RoleUtils.avatarImage(with: scoredChapter.chapter.role)
+        avatarView.image = RoleUtils.avatarImage(with: chapter.role)
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
         isDirectory: true)
-        let identifier = scoredChapter.chapter.identifier
+        let identifier = chapter.identifier
         let audioFileName = "\(identifier).caf"
         audioFileURL = temporaryDirectoryURL.appendingPathComponent(audioFileName)
         replayButton.isEnabled = FileManager.default.fileExists(atPath: audioFileURL!.path)
@@ -245,7 +250,9 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
             let suggestedScore = result.suggestedScore
             scoreView.setScore(suggestedScore)
             scoredChapter.score = suggestedScore
-            contentLabel.attributedText = scoredContent(result: result)
+            let scoredContent = self.scoredContent(result: result)
+            contentLabel.attributedText = scoredContent
+            scoredChapter.scoredContent = scoredContent
         }
     }
 
@@ -368,14 +375,26 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     }
 
     private func scoredContent(result: TAIOralEvaluationRet) -> NSAttributedString {
-        let scoredContent = NSMutableAttributedString.init()
-        if let words = result.words {
-            for (index, word) in words.enumerated() {
-                scoredContent.mutableString.append(word.word)
-                if word.pronAccuracy > pronAccuraryMin {
+        let content = scoredChapter.chapter.content
+        let scoredContent = NSMutableAttributedString.init(string: content)
+        if let scoredWords = result.words {
+            var scoredWordsIndex = 0
+            for (index, character) in content.enumerated() {
+                if (scoredWordsIndex >= scoredWords.count) {
                     scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
                 } else {
-                    scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.coral, range: NSRange.init(location: index, length: 1))
+                    let contentWord = String(character)
+                    let scoredWord = scoredWords[scoredWordsIndex]
+                    if contentWord == scoredWord.word {
+                        if scoredWord.pronAccuracy > pronAccuraryMin {
+                            scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
+                        } else {
+                            scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.coral, range: NSRange.init(location: index, length: 1))
+                        }
+                        scoredWordsIndex = scoredWordsIndex + 1;
+                    } else {
+                        scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
+                    }
                 }
             }
         }
