@@ -14,4 +14,5 @@ struct Chapter {
     var contentInLocalLanguage = ""
     var contentAudioURL:URL?
     var sequence = -1
+    var role = ""
 }

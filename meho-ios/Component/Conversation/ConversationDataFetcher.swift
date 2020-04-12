@@ -275,6 +275,9 @@ class ConversationDataFetcher: NSObject {
                 if let contentInLocalLanguage = chapterJSON["content_local_language"] as? String {
                     chapter.contentInLocalLanguage = contentInLocalLanguage
                 }
+                if let role = chapterJSON["role"] as? String {
+                    chapter.role = role
+                }
                 chapters.append(chapter)
             }
             dialog.chapters = chapters

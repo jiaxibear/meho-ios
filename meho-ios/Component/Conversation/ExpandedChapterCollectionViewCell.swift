@@ -35,7 +35,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let recordButtonSelectedImageName = "conversation_microphone_active"
     private let listenButtonSelectedImageName = "conversation_headset_active"
     private let replayButtonSelectedImageName = "conversation_play_active"
-    private let avatar1ImageName = "conversation_facepile1"
     private let pronAccuraryMin = Float(60)
 
     // MARK: - Properties
@@ -73,8 +72,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         avatarView.clipsToBounds = true
         avatarView.layer.cornerRadius = avatarViewSize / 2
         avatarView.translatesAutoresizingMaskIntoConstraints = false
-        let avatarImage = UIImage.init(named: avatar1ImageName)
-        avatarView.image = avatarImage
         contentView.addSubview(avatarView)
 
         scoreView.translatesAutoresizingMaskIntoConstraints = false
@@ -216,6 +213,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         contentPinyinLabel.text = scoredChapter.chapter.contentPinyin
         contentInLocalLanguageLabel.text = scoredChapter.chapter.contentInLocalLanguage
         scoreView.setScore(scoredChapter.score)
+        avatarView.image = RoleUtils.avatarImage(with: scoredChapter.chapter.role)
         self.scoredChapter = scoredChapter
     }
 
