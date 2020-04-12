@@ -39,8 +39,8 @@
 /* Title for the news page. */
 "NewsTitle" = "Top Stories";
 
-/* Text displayed when the user taps the play button in the dialog. */
-"PlayActionText" = "Playing the demo...";
+/* Text displayed when the user taps the listen button in the dialog. */
+"ListenActionText" = "Playing the demo...";
 
 /* Text displayed to prompt the user to tap the record button in the dialog. */
 "RecordPromptActionText" = "Tap to record...";
@@ -49,4 +49,7 @@
 "RecordActionText" = "Tap again to finish recording...";
 
 /* Text displayed to prompt the user to tap the replay button in the dialog. */
-"ReplayPromptActionText" = "Tap to record...";
+"ReplayPromptActionText" = "Scored! Click to replay your recording...";
+
+/* Text displayed when the user taps the replay button in the dialog. */
+"ReplayActionText" = "Replaying your recording...";

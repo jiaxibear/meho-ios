@@ -110,7 +110,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         let actionLabelFontDescriptor = UIFont.systemFont(ofSize: actionLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         actionLabel.font = UIFont.init(descriptor: actionLabelFontDescriptor!, size: actionLabelFontSize)
         actionLabel.numberOfLines = 1
-        actionLabel.text = NSLocalizedString("PlayActionText", comment: "")
+        actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
         actionLabel.isHidden = true
         actionLabel.textAlignment = .center
         contentView.addSubview(actionLabel)
@@ -253,6 +253,8 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
             let scoredContent = self.scoredContent(result: result)
             contentLabel.attributedText = scoredContent
             scoredChapter.scoredContent = scoredContent
+            actionLabel.isHidden = false
+            actionLabel.text = NSLocalizedString("ReplayPromptActionText", comment: "")
         }
     }
 
@@ -274,7 +276,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
             player = AVPlayer.init(playerItem: playerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
             player?.play()
-            actionLabel.text = NSLocalizedString("PlayActionText", comment: "")
+            actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
             actionLabel.isHidden = false
         }
     }
@@ -288,6 +290,8 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
             player = AVPlayer.init(playerItem: playerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
             player?.play()
+            actionLabel.isHidden = false
+            actionLabel.text = NSLocalizedString("ReplayActionText", comment: "")
         }
     }
 
@@ -296,12 +300,11 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         replayButton.isSelected = false
         if recordButton.isSelected {
             recordButton.isSelected = false
+            actionLabel.isHidden = true
             audioRecorder?.stop()
             if audioFileURL != nil {
                 replayButton.isEnabled = FileManager.default.fileExists(atPath: audioFileURL!.path)
             }
-            actionLabel.isHidden = false
-            actionLabel.text = NSLocalizedString("ReplayPromptActionText", comment: "")
             startEvaluation()
         } else {
             recordButton.isSelected = true
