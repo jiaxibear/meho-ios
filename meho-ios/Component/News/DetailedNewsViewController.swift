@@ -63,20 +63,21 @@ class DetailedNewsViewController: UIViewController {
         self.title_en = title_en
         self.title_zh = title_zh
         singleEnNewsViewController = SingleEnglishNewsViewController.init(title_en: title_en)
-        singleZhNewsViewController = SingleChineseNewsViewController.init(title_zh: title_zh)
+        singleZhNewsViewController = SingleChineseNewsViewController.init(title_zh: title_zh, title_en: title_en)
         super.init(nibName: nil, bundle: nil)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationItem.title = "MEHO"
         view.backgroundColor = .white
 
         // Sets up SingleNewsView
         addChild(singleEnNewsViewController)
-        addChild(singleZhNewsViewController)
         singleEnNewsViewController.didMove(toParent: self)
         singleNewsView = singleEnNewsViewController.view
+        singleNewsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(singleNewsView)
 
         // Sets up the bottom bar
@@ -126,7 +127,7 @@ class DetailedNewsViewController: UIViewController {
         singleNewsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         singleNewsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         singleNewsView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        singleNewsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        singleNewsView.bottomAnchor.constraint(equalTo: bottomBarView.topAnchor).isActive = true
 
         bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -159,14 +160,27 @@ class DetailedNewsViewController: UIViewController {
     func didTapLanguageToggleButton() {
 //        let aaa = languageToggleButton.isOn
         if languageToggleButton.isOn {
+            singleNewsView.removeFromSuperview()
             singleEnNewsViewController.removeFromParent()
+            singleEnNewsViewController.didMove(toParent: nil)
+            addChild(singleZhNewsViewController)
             singleZhNewsViewController.didMove(toParent: self)
             singleNewsView = singleZhNewsViewController.view
+            view.addSubview(singleNewsView)
         } else {
+            singleNewsView.removeFromSuperview()
             singleZhNewsViewController.removeFromParent()
+            singleZhNewsViewController.didMove(toParent: nil)
+            addChild(singleEnNewsViewController)
             singleEnNewsViewController.didMove(toParent: self)
             singleNewsView = singleEnNewsViewController.view
+            view.addSubview(singleNewsView)
         }
+        singleNewsView.translatesAutoresizingMaskIntoConstraints = false
+        singleNewsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        singleNewsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        singleNewsView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        singleNewsView.bottomAnchor.constraint(equalTo: bottomBarView.topAnchor).isActive = true
     }
 
     /*
