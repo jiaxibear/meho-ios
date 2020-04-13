@@ -13,7 +13,7 @@ class DetailedNewsViewController: UIViewController {
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(22)
     private let titleLabelFontSize = CGFloat(24)
-
+    private let languageToggleLabelFontSize = CGFloat(14)
     private let bottomBarHeight = CGFloat(66)
 
     private let likeHeartMargin = CGFloat(10)
@@ -22,6 +22,9 @@ class DetailedNewsViewController: UIViewController {
     private let newsTabBarItemImageName = "tabbar_news_25pt"
     private let newsLikeHeartUnfilledImageName = "stories_heart_unfilled"
     private let newsLikeHeartFilledImageName = "stories_heart_filled"
+
+    private let languageToggleEnText = "ENG"
+    private let languageToggleZhText = "中"
 
     // MARK: - Properties
     private let newsID: String
@@ -95,7 +98,7 @@ class DetailedNewsViewController: UIViewController {
         likeButton.addTarget(self, action: #selector(didTapLikeButton), for: .touchUpInside)
         bottomBarView.addSubview(likeButton)
 
-        // Set up the lanugaue switch
+        // Set up the lanuguage switch
         languageToggleButton.translatesAutoresizingMaskIntoConstraints = false
         languageToggleButton.isOn = false
         languageToggleButton.onTintColor = .wisteriaPurple
@@ -105,6 +108,19 @@ class DetailedNewsViewController: UIViewController {
         languageToggleButton.layer.cornerRadius = 16
         languageToggleButton.addTarget(self, action: #selector(didTapLanguageToggleButton), for: .touchUpInside)
         bottomBarView.addSubview(languageToggleButton)
+
+        // Set up the language toggle text
+        languageToggleEnLabel.translatesAutoresizingMaskIntoConstraints = false
+        languageToggleEnLabel.text = languageToggleEnText
+        languageToggleEnLabel.textColor = .wisteriaPurple
+        let languageToggleEnfontDescriptor = UIFont.systemFont(ofSize: languageToggleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
+        languageToggleEnLabel.font = UIFont.init(descriptor: languageToggleEnfontDescriptor!, size: 0)
+        bottomBarView.addSubview(languageToggleEnLabel)
+        languageToggleZhLabel.translatesAutoresizingMaskIntoConstraints = false
+        languageToggleZhLabel.text = languageToggleZhText
+        languageToggleZhLabel.textColor = .wisteriaPurple
+        languageToggleZhLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: languageToggleLabelFontSize)
+        bottomBarView.addSubview(languageToggleZhLabel)
 
         // Sets up layout constrainsts.
         singleNewsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -122,9 +138,15 @@ class DetailedNewsViewController: UIViewController {
         likeButton.heightAnchor.constraint(equalToConstant: likeHeartSideLength).isActive = true
         likeButton.widthAnchor.constraint(equalToConstant: likeHeartSideLength).isActive = true
 
-        languageToggleButton.trailingAnchor.constraint(equalTo: bottomBarView.trailingAnchor, constant: -CGFloat(41)).isActive = true
-        languageToggleButton.bottomAnchor.constraint(equalTo: bottomBarView.bottomAnchor, constant: -CGFloat(15)).isActive = true
-        languageToggleButton.heightAnchor.constraint(equalToConstant: CGFloat(31)).isActive = true
+
+        languageToggleZhLabel.trailingAnchor.constraint(equalTo: bottomBarView.trailingAnchor, constant: -CGFloat(23)).isActive = true
+        languageToggleZhLabel.centerYAnchor.constraint(equalTo: bottomBarView.centerYAnchor, constant: -CGFloat(2)).isActive = true
+
+        languageToggleButton.trailingAnchor.constraint(equalTo: languageToggleZhLabel.leadingAnchor, constant: -CGFloat(3)).isActive = true
+        languageToggleButton.centerYAnchor.constraint(equalTo: likeButton.centerYAnchor).isActive = true
+
+        languageToggleEnLabel.trailingAnchor.constraint(equalTo: languageToggleButton.leadingAnchor, constant: -CGFloat(3)).isActive = true
+        languageToggleEnLabel.centerYAnchor.constraint(equalTo: likeButton.centerYAnchor).isActive = true
     }
     
     // MARK: - Private
