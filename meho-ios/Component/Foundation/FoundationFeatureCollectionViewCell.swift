@@ -11,9 +11,9 @@ import UIKit
 
 class FoundationFeatureCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
-    private let descriptionTopMargin = CGFloat(9)
-    private let descriptionHorizontalMargin = CGFloat(12)
-    private let imageCornerRadius = CGFloat(15)
+    private let descriptionTopMargin = CGFloat(13)
+    private let descriptionHorizontalMargin = CGFloat(18)
+    private let imageCornerRadius = CGFloat(10)
     
     // MARK: - Properties
     private let descriptionLabel = UILabel.init(frame: .zero)
@@ -45,12 +45,13 @@ class FoundationFeatureCollectionViewCell: UICollectionViewCell {
         featureImageView.layer.cornerRadius = imageCornerRadius
         featureImageView.clipsToBounds = true
         cellView.addSubview(featureImageView)
+        let cellLayout = cellView.layoutMarginsGuide
         
         // constraints
-        featureImageView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor).isActive = true
-        featureImageView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor).isActive = true
-        featureImageView.topAnchor.constraint(equalTo: cellView.topAnchor).isActive = true
-        featureImageView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor).isActive = true
+        featureImageView.leadingAnchor.constraint(equalTo: cellLayout.leadingAnchor).isActive = true
+        featureImageView.trailingAnchor.constraint(equalTo: cellLayout.trailingAnchor).isActive = true
+        featureImageView.topAnchor.constraint(equalTo: cellLayout.topAnchor).isActive = true
+        featureImageView.bottomAnchor.constraint(equalTo: cellLayout.bottomAnchor).isActive = true
         
     }
     
@@ -60,11 +61,12 @@ class FoundationFeatureCollectionViewCell: UICollectionViewCell {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(13))
         cellView.addSubview(descriptionLabel)
+        let cellLayout = cellView.layoutMarginsGuide
     
         // constraints
-        descriptionLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: descriptionHorizontalMargin).isActive = true
-        descriptionLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -descriptionHorizontalMargin).isActive = true
-        descriptionLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: descriptionTopMargin).isActive = true
+        descriptionLabel.leadingAnchor.constraint(equalTo: cellLayout.leadingAnchor, constant: descriptionHorizontalMargin).isActive = true
+        descriptionLabel.trailingAnchor.constraint(equalTo: cellLayout.trailingAnchor, constant: -descriptionHorizontalMargin).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: cellLayout.topAnchor, constant: descriptionTopMargin).isActive = true
         
     }
     

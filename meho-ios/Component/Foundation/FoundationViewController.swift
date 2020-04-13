@@ -12,7 +12,8 @@ import Foundation
 class FoundationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     // MARK: - Constants
-    private let foundationCoverTitle = "Chinese Foundations"
+    private let foundationCoverTitle = "Foundations"
+    private let titleLabelFontSize = CGFloat(34)
     private let foundationTabBarItemImageName = "tabbar_foundation_25pt"
     
     private let foundationHorizontalMargin = CGFloat(15)
@@ -70,7 +71,6 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     func populateFeatureList() {
         features.append(Feature.init(name: "pinyin", description: "Pin Yin - Romanized Spelling for Speaking and Typing", imageName: "foundation_feature_pinyin", textColor: .white))
         features.append(Feature.init(name: "hierglyph", description: "Xiang Xing Zi - Chinese Character Graphics", imageName: "foundation_feature_hierglyph", textColor: .black))
-        features.append(Feature.init(name: "survival", description: "Sheng Cun Han Yu - Survival Chinese", imageName: "foundation_feature_survival", textColor: .white))
     }
     
     // MARK: - Elements layout, style & constrains
@@ -78,8 +78,9 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
         let margins = self.view.layoutMarginsGuide
         titleLabel.numberOfLines = 1
         titleLabel.text = foundationCoverTitle
-        titleLabel.textColor = UIColor.init(red: 125/255, green: 162/255, blue: 255/255, alpha: 1.0)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(24))
+        titleLabel.textColor = .wisteriaPurple
+        let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        titleLabel.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(titleLabel)
         
