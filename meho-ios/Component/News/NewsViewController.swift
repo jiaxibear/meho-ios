@@ -78,6 +78,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         newsCollectionView.backgroundColor = .white
         newsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         newsCollectionView.showsVerticalScrollIndicator = false
+        newsCollectionView.contentInset = .zero
 
         // collection layout
         newsCollectionViewFlowLayout.scrollDirection = .vertical
@@ -119,19 +120,19 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        let width = collectionView.bounds.width
         let newsItem = newsList[indexPath.item]
         switch newsItem.renderType {
         case "XL":
-            return CGSize(width: 384, height: NewsItemSizeXLCollectionViewCell.cellHeight(with: 384, news: newsItem))
+            return CGSize(width: width, height: NewsItemSizeXLCollectionViewCell.cellHeight(with: width, news: newsItem))
         case "L":
-            return CGSize(width: 384, height: NewsItemSizeLCollectionViewCell.cellHeight(with: 384, news: newsItem))
+            return CGSize(width: width, height: NewsItemSizeLCollectionViewCell.cellHeight(with: width, news: newsItem))
         case "S":
-            return CGSize(width: 384, height: NewsItemSizeSCollectionViewCell.cellHeight(with: 384, news: newsItem))
+            return CGSize(width: width, height: NewsItemSizeSCollectionViewCell.cellHeight(with: width, news: newsItem))
         case "XS":
-            return CGSize(width: 384, height: NewsItemSizeXSCollectionViewCell.cellHeight(with: 384, news: newsItem))
+            return CGSize(width: width, height: NewsItemSizeXSCollectionViewCell.cellHeight(with: width, news: newsItem))
         default:
-            return CGSize(width: 384, height: 0)
+            return CGSize(width: width, height: 0)
         }
     }
 
@@ -157,5 +158,12 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         default:
             return UICollectionViewCell.init()
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let newsItem = newsList[indexPath.item]
+        let detailedNewsViewController = DetailedNewsViewController.init(newsID: newsItem.identifier, title_en: newsItem.title_en, title_zh: newsItem.title_zh)
+        navigationController?.pushViewController(detailedNewsViewController, animated: true)
+
     }
 }

@@ -10,7 +10,8 @@ import Foundation
 
 struct News {
     var identifier = ""
-    var title = ""
+    var title_en = ""
+    var title_zh = ""
     var reason = ""
     var renderType = ""
     var coverImageURL:URL?

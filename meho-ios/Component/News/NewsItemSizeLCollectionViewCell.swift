@@ -88,7 +88,7 @@ class NewsItemSizeLCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
     // MARK: - Public
     public func setNews(_ news: News) {
         // Sets the text for the title label.
-        titleLabel.text = news.title
+        titleLabel.text = news.title_en
 
         // Sets the reason text
         reasonView.setReasonText(text: news.reason)
@@ -100,7 +100,7 @@ class NewsItemSizeLCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
     }
 
     public class func cellHeight(with width: CGFloat, news: News) -> CGFloat {
-        sizingCell.titleLabel.text = news.title
+        sizingCell.titleLabel.text = news.title_en
         sizingCell.reasonView.setReasonText(text: news.reason)
         let height = sizingCell.coverImageViewHeight
             + sizingCell.elementMargin

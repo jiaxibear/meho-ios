@@ -52,7 +52,11 @@ extension UIColor {
     class var coral: UIColor {
         return UIColor.init(hex: "#ff5937")!
     }
-    
+
+    class var barShadow: UIColor {
+        return UIColor.init(hex: "#a6b3c2")!
+    }
+
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 

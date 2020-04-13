@@ -53,8 +53,11 @@ class NewsDataFetcher: NSObject {
         if let newsItemsJson = newsListJson["results"] as? [Dictionary<String, Any>] {
             for newsItemJson in newsItemsJson {
                 var news = News.init()
-                if let title = newsItemJson["title_en_US"] as? String {
-                    news.title = title
+                if let title_en = newsItemJson["title_en_US"] as? String {
+                    news.title_en = title_en
+                }
+                if let title_zh = newsItemJson["title_zh_CN"] as? String {
+                    news.title_zh = title_zh
                 }
                 if let reason = newsItemJson["why_you_should_read_this_article"] as? String {
                     news.reason = reason

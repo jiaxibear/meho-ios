@@ -90,7 +90,7 @@ class NewsItemSizeXLCollectionViewCell: UICollectionViewCell, WebImageViewDelega
     // MARK: - Public
     public func setNews(_ news: News) {
         // Sets the text for the title label.
-        titleLabel.text = news.title
+        titleLabel.text = news.title_en
 
         // Sets the reason text
         reasonView.setReasonText(text: news.reason)
