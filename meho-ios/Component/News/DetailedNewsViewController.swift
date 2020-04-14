@@ -12,26 +12,32 @@ class DetailedNewsViewController: UIViewController {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(22)
-    private let titleLabelFontSize = CGFloat(24)
+    private let reservedNewsSourceWidth = 256
+    private let reservedNewsSourceHeight = 45
+    private let sourceTitleLabelFontSize = CGFloat(18)
+    private let sourceSubTitleLabelFontSize = CGFloat(14)
     private let languageToggleLabelFontSize = CGFloat(14)
     private let bottomBarHeight = CGFloat(66)
-
     private let likeHeartMargin = CGFloat(10)
     private let likeHeartSideLength = CGFloat(50)
-
     private let newsTabBarItemImageName = "tabbar_news_25pt"
     private let newsLikeHeartUnfilledImageName = "stories_heart_unfilled"
     private let newsLikeHeartFilledImageName = "stories_heart_filled"
 
+    // TODO move to Localizeable.strings
     private let languageToggleEnText = "ENG"
     private let languageToggleZhText = "中"
+    private let sourceSubtitle = "Curated By Meho"
 
     // MARK: - Properties
-    private let newsID: String
-    private let title_en: String
-    private let title_zh: String
+    private let news: News
 
     // MARK: - UI
+    private let sourceTitleLabel = UILabel.init(frame: .zero)
+    private let sourceSubTitleLabel = UILabel.init(frame: .zero)
+    private let newsSourceNavigationView = UIView.init(frame: .zero)
+
+
     private var singleNewsView: UIView!
     private let likeButton = UIButton.init(frame: .zero)
     private let languageToggleButton = UISwitch.init(frame: .zero)
@@ -39,7 +45,8 @@ class DetailedNewsViewController: UIViewController {
     private let languageToggleZhLabel = UILabel.init(frame: .zero)
     private let bottomBarView = UIView.init(frame: .zero)
 
-    // MARK: - TEMP TESTING
+
+    // MARK: - Child Controllers
     private let singleEnNewsViewController:SingleEnglishNewsViewController
     private let singleZhNewsViewController:SingleChineseNewsViewController
 
@@ -58,21 +65,59 @@ class DetailedNewsViewController: UIViewController {
         fatalError("Use init")
     }
 
-    init(newsID: String, title_en: String, title_zh: String) {
-        self.newsID = newsID
-        self.title_en = title_en
-        self.title_zh = title_zh
-        singleEnNewsViewController = SingleEnglishNewsViewController.init(title_en: title_en)
-        singleZhNewsViewController = SingleChineseNewsViewController.init(title_zh: title_zh, title_en: title_en)
+    init(news: News) {
+        self.news = news
+        singleEnNewsViewController = SingleEnglishNewsViewController.init(news: news)
+        singleZhNewsViewController = SingleChineseNewsViewController.init(news: news)
         super.init(nibName: nil, bundle: nil)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationItem.title = "MEHO"
+        navigationItem.titleView = newsSourceNavigationView
         view.backgroundColor = .white
+        setUpNewsSourceView(newsSource: news.source)
+        setupBottomBarView() // this has to come before newsdetailview as newsdetailview has bottom constrain on barview's topanchor
+        setUpNewsDetailView()
+    }
 
+
+
+    // MARK: - UI elements setup
+    func setUpNewsSourceView(newsSource: String) {
+        let newsSourceRect:CGRect = CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: reservedNewsSourceWidth, height: reservedNewsSourceHeight))
+
+        newsSourceNavigationView.frame = newsSourceRect
+        newsSourceNavigationView.translatesAutoresizingMaskIntoConstraints = false
+        newsSourceNavigationView.backgroundColor = .white
+
+        sourceTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        sourceTitleLabel.text = newsSource
+        sourceTitleLabel.textColor = .darkGrayTwo
+        let titlefontDescriptor = UIFont.systemFont(ofSize: sourceTitleLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+        sourceTitleLabel.font = UIFont.init(descriptor: titlefontDescriptor!, size: 0)
+        newsSourceNavigationView.addSubview(sourceTitleLabel)
+
+        sourceSubTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        sourceSubTitleLabel.text = sourceSubtitle
+        sourceSubTitleLabel.textColor = .darkGrayTwo
+        let subTitlefontDescriptor = UIFont.systemFont(ofSize: sourceSubTitleLabelFontSize, weight: .thin).fontDescriptor.withDesign(.rounded)
+        sourceSubTitleLabel.font = UIFont.init(descriptor: subTitlefontDescriptor!, size: 0)
+        newsSourceNavigationView.addSubview(sourceSubTitleLabel)
+
+        // setup constraint
+        newsSourceNavigationView.widthAnchor.constraint(equalToConstant: CGFloat(reservedNewsSourceWidth)).isActive = true
+        newsSourceNavigationView.heightAnchor.constraint(equalToConstant: CGFloat(reservedNewsSourceHeight)).isActive = true
+        sourceTitleLabel.topAnchor.constraint(equalTo: newsSourceNavigationView.topAnchor).isActive = true
+        sourceTitleLabel.centerXAnchor.constraint(equalTo: newsSourceNavigationView.centerXAnchor).isActive = true
+        sourceSubTitleLabel.topAnchor.constraint(equalTo: sourceTitleLabel.bottomAnchor).isActive = true
+        sourceSubTitleLabel.centerXAnchor.constraint(equalTo: sourceTitleLabel.centerXAnchor).isActive = true
+
+    }
+
+    // setup a view controller placeholder for news details, its content is filled up by different
+    func setUpNewsDetailView() {
         // Sets up SingleNewsView
         addChild(singleEnNewsViewController)
         singleEnNewsViewController.didMove(toParent: self)
@@ -80,6 +125,15 @@ class DetailedNewsViewController: UIViewController {
         singleNewsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(singleNewsView)
 
+        // Sets up layout constrainsts.
+        singleNewsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        singleNewsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        singleNewsView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        singleNewsView.bottomAnchor.constraint(equalTo: bottomBarView.topAnchor).isActive = true
+    }
+
+    // setup the bar view for news detail page at the bottom, including like button and language toggle switch
+    func setupBottomBarView() {
         // Sets up the bottom bar
         bottomBarView.translatesAutoresizingMaskIntoConstraints = false
         bottomBarView.layer.shadowColor = UIColor.barShadow.cgColor
@@ -123,12 +177,6 @@ class DetailedNewsViewController: UIViewController {
         languageToggleZhLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: languageToggleLabelFontSize)
         bottomBarView.addSubview(languageToggleZhLabel)
 
-        // Sets up layout constrainsts.
-        singleNewsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        singleNewsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        singleNewsView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        singleNewsView.bottomAnchor.constraint(equalTo: bottomBarView.topAnchor).isActive = true
-
         bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -149,8 +197,8 @@ class DetailedNewsViewController: UIViewController {
         languageToggleEnLabel.trailingAnchor.constraint(equalTo: languageToggleButton.leadingAnchor, constant: -CGFloat(3)).isActive = true
         languageToggleEnLabel.centerYAnchor.constraint(equalTo: likeButton.centerYAnchor).isActive = true
     }
-    
-    // MARK: - Private
+
+    // MARK: - Private buttom actions
     @objc
     func didTapLikeButton() {
         likeButton.isSelected = !likeButton.isSelected
@@ -158,7 +206,6 @@ class DetailedNewsViewController: UIViewController {
 
     @objc
     func didTapLanguageToggleButton() {
-//        let aaa = languageToggleButton.isOn
         if languageToggleButton.isOn {
             singleNewsView.removeFromSuperview()
             singleEnNewsViewController.removeFromParent()

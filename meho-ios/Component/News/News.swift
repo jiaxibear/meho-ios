@@ -13,6 +13,7 @@ struct News {
     var title_en = ""
     var title_zh = ""
     var reason = ""
+    var source = ""
     var renderType = ""
     var coverImageURL:URL?
 }

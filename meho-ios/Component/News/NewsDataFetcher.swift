@@ -72,6 +72,11 @@ class NewsDataFetcher: NSObject {
                     let coverImageURL = URL.init(string: coverImageURLString)
                     news.coverImageURL = coverImageURL
                 }
+                if let sourceObj = newsItemJson["source"] as? Dictionary<String, Any> {
+                    if let sourceName = sourceObj["name"] as? String {
+                        news.source = sourceName
+                    }
+                }
                 newsList.append(news)
             }
         }

@@ -12,12 +12,11 @@ class SingleChineseNewsViewController: UIViewController {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(22)
-
+    private let titleLableTopMargin = CGFloat(8) // marked as 18 to source subtitle, adjust as no navigationbar border
     private let titleLabelFontSize = CGFloat(24)
 
     // MARK: - Properties
-    private let title_zh: String
-    private let title_en: String
+    private let news: News
 
     // MARK: - UI
     private let titleEnLabel = UILabel.init(frame: .zero)
@@ -38,9 +37,8 @@ class SingleChineseNewsViewController: UIViewController {
         fatalError("Use init")
     }
 
-    init(title_zh: String, title_en: String) {
-        self.title_zh = title_zh
-        self.title_en = title_en
+    init(news: News) {
+        self.news = news
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -48,14 +46,14 @@ class SingleChineseNewsViewController: UIViewController {
         super.viewDidLoad()
 
         // Sets up the title.
-        titleZhLabel.text = title_zh
+        titleZhLabel.text = news.title_zh
         titleZhLabel.textColor = .black
         titleZhLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: titleLabelFontSize)
         titleZhLabel.numberOfLines = 3
         titleZhLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleZhLabel)
 
-        titleEnLabel.text = title_en
+        titleEnLabel.text = news.title_en
         titleEnLabel.textColor = .black
         let languageToggleEnfontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         titleEnLabel.font = UIFont.init(descriptor: languageToggleEnfontDescriptor!, size: 0)
@@ -67,7 +65,7 @@ class SingleChineseNewsViewController: UIViewController {
         // Sets up layout constrainsts.
         titleZhLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
         titleZhLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true
-        titleZhLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        titleZhLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: titleLableTopMargin).isActive = true
 
         titleEnLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
         titleEnLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true

@@ -162,7 +162,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let newsItem = newsList[indexPath.item]
-        let detailedNewsViewController = DetailedNewsViewController.init(newsID: newsItem.identifier, title_en: newsItem.title_en, title_zh: newsItem.title_zh)
+        let detailedNewsViewController = DetailedNewsViewController.init(news: newsItem)
         navigationController?.pushViewController(detailedNewsViewController, animated: true)
 
     }
