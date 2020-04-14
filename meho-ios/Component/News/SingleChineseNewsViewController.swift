@@ -8,12 +8,14 @@
 
 import UIKit
 
-class SingleChineseNewsViewController: UIViewController {
+class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(22)
     private let titleLableTopMargin = CGFloat(8) // marked as 18 to source subtitle, adjust as no navigationbar border
     private let titleLabelFontSize = CGFloat(24)
+    private let chaptersToTitleMargin = CGFloat(18)
+
 
     // MARK: - Properties
     private let news: News
@@ -21,6 +23,14 @@ class SingleChineseNewsViewController: UIViewController {
     // MARK: - UI
     private let titleEnLabel = UILabel.init(frame: .zero)
     private let titleZhLabel = UILabel.init(frame: .zero)
+    private var chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+    private lazy var chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:chaptersCollectionViewFlowLayout)
+
+    private let newsChapterCellReuseIdentifier = "zhNewsChapterCell"
+
+    // MARK: - Datamodels
+    private let dataFecther = NewsDataFetcher.init()
+    private var zhChapters:[NewsChapter] = []
 
     // MARK: - Init
     init() {
@@ -44,7 +54,23 @@ class SingleChineseNewsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpTitleLabel()
+        setUpChapters() 
 
+        // Do any additional setup after loading the view.
+        dataFecther.fetchNewsDetail(newsID: news.identifier, completionHandler: {
+            (englishChapters, chineseChapters, error) in
+            if (error == nil && chineseChapters != nil && englishChapters != nil) {
+                DispatchQueue.main.async {
+                    self.zhChapters = chineseChapters!
+                    self.chaptersCollectionView.reloadData()
+                }
+            }
+        })
+    }
+    
+    // MARK: - Setup UI
+    func setUpTitleLabel() {
         // Sets up the title.
         titleZhLabel.text = news.title_zh
         titleZhLabel.textColor = .black
@@ -70,17 +96,50 @@ class SingleChineseNewsViewController: UIViewController {
         titleEnLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
         titleEnLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true
         titleEnLabel.topAnchor.constraint(equalTo: titleZhLabel.bottomAnchor, constant: CGFloat(5)).isActive = true
-    }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
+
+
+    func setUpChapters() {
+        chaptersCollectionView.dataSource = self
+        chaptersCollectionView.delegate = self
+        chaptersCollectionView.backgroundColor = .white
+        chaptersCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        chaptersCollectionView.showsVerticalScrollIndicator = false
+        chaptersCollectionView.contentInset = .zero
+
+        // collection layout
+        chaptersCollectionViewFlowLayout.scrollDirection = .vertical
+        chaptersCollectionViewFlowLayout.minimumLineSpacing = 18
+
+        chaptersCollectionView.register(NewsChapterCollectionViewCell.self, forCellWithReuseIdentifier:newsChapterCellReuseIdentifier)
+        view.addSubview(chaptersCollectionView)
+
+
+        // view constraints
+        chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
+        chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true
+        chaptersCollectionView.topAnchor.constraint(equalTo: titleEnLabel.bottomAnchor, constant: chaptersToTitleMargin).isActive = true
+        chaptersCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+    }
+
+    // MARK: - UICollectionViewDataSource
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return zhChapters.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width
+        let chapter = zhChapters[indexPath.item]
+        return CGSize(width: width, height: NewsChapterCollectionViewCell.cellHeight(with: width, newsChapter: chapter))
+
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let chapter = zhChapters[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsChapterCellReuseIdentifier, for: indexPath) as! NewsChapterCollectionViewCell
+        cell.setNews(chapter)
+        return cell
+    }
 
 }

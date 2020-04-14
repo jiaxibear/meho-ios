@@ -12,6 +12,7 @@ class DetailedNewsViewController: UIViewController {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(22)
+    private let newsDetailAndBottomMargin = CGFloat(4)
     private let reservedNewsSourceWidth = 256
     private let reservedNewsSourceHeight = 45
     private let sourceTitleLabelFontSize = CGFloat(18)
@@ -36,8 +37,6 @@ class DetailedNewsViewController: UIViewController {
     private let sourceTitleLabel = UILabel.init(frame: .zero)
     private let sourceSubTitleLabel = UILabel.init(frame: .zero)
     private let newsSourceNavigationView = UIView.init(frame: .zero)
-
-
     private var singleNewsView: UIView!
     private let likeButton = UIButton.init(frame: .zero)
     private let languageToggleButton = UISwitch.init(frame: .zero)
@@ -80,9 +79,8 @@ class DetailedNewsViewController: UIViewController {
         setUpNewsSourceView(newsSource: news.source)
         setupBottomBarView() // this has to come before newsdetailview as newsdetailview has bottom constrain on barview's topanchor
         setUpNewsDetailView()
+
     }
-
-
 
     // MARK: - UI elements setup
     func setUpNewsSourceView(newsSource: String) {
@@ -129,7 +127,7 @@ class DetailedNewsViewController: UIViewController {
         singleNewsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         singleNewsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         singleNewsView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        singleNewsView.bottomAnchor.constraint(equalTo: bottomBarView.topAnchor).isActive = true
+        singleNewsView.bottomAnchor.constraint(equalTo: bottomBarView.topAnchor, constant: -newsDetailAndBottomMargin).isActive = true
     }
 
     // setup the bar view for news detail page at the bottom, including like button and language toggle switch

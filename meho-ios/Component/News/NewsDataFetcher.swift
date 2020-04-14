@@ -11,12 +11,81 @@ import UIKit
 class NewsDataFetcher: NSObject {
     // MARK: - Urls
     private let fetchNewsListURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/articles/"
+    private let fetchNewsDetailURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/paragraphs/?limit=20"
 
     // MARK: - Properties
 
     private let session = URLSession(configuration: .default)
 
     // MARK: - Public
+
+    public func fetchNewsDetail(newsID: String, completionHandler: @escaping ( Array<NewsChapter>?, Array<NewsChapter>?, Error?) -> Void) {
+        if var fetchNewsDetailURLComponent = URLComponents.init(string: fetchNewsDetailURLString) {
+//            let quertItem = URLQueryItem.init(name: dialogIDQueryItemName, value: dialogID)
+//            fetchDetailedDialogURLComponent.queryItems = [quertItem]
+            // TODO replace with real fetch news by ID
+            if let fetchNewsDetailURL = fetchNewsDetailURLComponent.url {
+                let newsDetailDataTask = session.dataTask(with: fetchNewsDetailURL, completionHandler: { (data, URLResponse, error) in
+                    if error != nil {
+                        print("There is an error getting the response of the detailed dialog")
+                        completionHandler(nil, nil, error)
+                        return
+                    }
+                    if data == nil {
+                        print("The response of the detailed dialog is empty")
+                        completionHandler(nil, nil, nil)
+                        return
+                    }
+                    do {
+                        if let newsDetailJSON = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                            let (englishNewsChapters, chineseNewsChapters) = self.parseNewsDetailJSON(newsDetailJson: newsDetailJSON)
+                            completionHandler(englishNewsChapters, chineseNewsChapters, nil)
+                        }
+                    } catch let JSONError as NSError {
+                        print("Failed to parse the detailed dialog JSON: \(JSONError.localizedDescription)")
+                        completionHandler(nil, nil, JSONError)
+                    }
+                })
+                newsDetailDataTask.resume()
+            } else {
+                completionHandler(nil, nil, nil)
+            }
+        } else {
+            completionHandler(nil, nil, nil)
+        }
+    }
+
+    private func parseNewsDetailJSON(newsDetailJson: [String: Any]) -> (Array<NewsChapter>, Array<NewsChapter>) {
+
+        var englishNewsChapters:[NewsChapter] = []
+        var chineseNewsChapters:[NewsChapter] = []
+        if let newsChaptersJson = newsDetailJson["results"] as? [Dictionary<String, Any>] {
+            for newsChapterJson in newsChaptersJson {
+                var newsChapter = NewsChapter.init()
+                if let content = newsChapterJson["content"] as? String {
+                    newsChapter.content = content
+                }
+                if let language = newsChapterJson["content_type"] as? String {
+                    newsChapter.language = language
+                }
+                if let identifier = newsChapterJson["id"] as? String {
+                    newsChapter.identifier = identifier
+                }
+                if let contentImageURLString = newsChapterJson["content_image"] as? String {
+                    let contentImageURL = URL.init(string: contentImageURLString)
+                    newsChapter.contentImageURL = contentImageURL
+                }
+                if newsChapter.language == "en-US" {
+                    englishNewsChapters.append(newsChapter)
+                } else {
+                    chineseNewsChapters.append(newsChapter)
+                }
+            }
+        }
+
+        return (englishNewsChapters, chineseNewsChapters)
+    }
+
 
     public func fetchNewsList(completionHandler: @escaping ( Array<News>?, Error?) -> Void) {
         if let newsListUrl = URL.init(string: fetchNewsListURLString) {
