@@ -55,7 +55,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTitleLabel()
-        setUpChapters() 
+        setUpChapters()
 
         // Do any additional setup after loading the view.
         dataFecther.fetchNewsDetail(newsID: news.identifier, completionHandler: {
@@ -103,7 +103,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     func setUpChapters() {
         chaptersCollectionView.dataSource = self
         chaptersCollectionView.delegate = self
-        chaptersCollectionView.backgroundColor = .white
+        chaptersCollectionView.backgroundColor = .clear
         chaptersCollectionView.translatesAutoresizingMaskIntoConstraints = false
         chaptersCollectionView.showsVerticalScrollIndicator = false
         chaptersCollectionView.contentInset = .zero

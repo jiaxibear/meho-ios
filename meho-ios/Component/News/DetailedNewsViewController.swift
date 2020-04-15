@@ -24,6 +24,7 @@ class DetailedNewsViewController: UIViewController {
     private let newsTabBarItemImageName = "tabbar_news_25pt"
     private let newsLikeHeartUnfilledImageName = "stories_heart_unfilled"
     private let newsLikeHeartFilledImageName = "stories_heart_filled"
+    private let newsShareButtonImageName = "stories_share"
 
     // TODO move to Localizeable.strings
     private let languageToggleEnText = "ENG"
@@ -34,10 +35,14 @@ class DetailedNewsViewController: UIViewController {
     private let news: News
 
     // MARK: - UI
+    // navigation bar
     private let sourceTitleLabel = UILabel.init(frame: .zero)
     private let sourceSubTitleLabel = UILabel.init(frame: .zero)
     private let newsSourceNavigationView = UIView.init(frame: .zero)
+
+    // main news view
     private var singleNewsView: UIView!
+    // bottom bar
     private let likeButton = UIButton.init(frame: .zero)
     private let languageToggleButton = UISwitch.init(frame: .zero)
     private let languageToggleEnLabel = UILabel.init(frame: .zero)
@@ -73,13 +78,22 @@ class DetailedNewsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        /* Navigation bar: custom News source label, news share button on right */
+        setUpNavigationBar()
+        setupBottomBarView() // this has to come before newsdetailview as newsdetailview has bottom constrain on barview's topanchor
+        setUpInitialNewsDetailView()
+
+    }
+
+    func setUpNavigationBar() {
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationItem.titleView = newsSourceNavigationView
         view.backgroundColor = .white
-        setUpNewsSourceView(newsSource: news.source)
-        setupBottomBarView() // this has to come before newsdetailview as newsdetailview has bottom constrain on barview's topanchor
-        setUpNewsDetailView()
+        let newsShareButtonImage = UIImage.init(named: newsShareButtonImageName)
+        let newsShareButtonItem = UIBarButtonItem.init(image: newsShareButtonImage, style: .plain, target: self, action: #selector(didTapShareButton))
+        navigationItem.setRightBarButton(newsShareButtonItem, animated: true)
 
+        setUpNewsSourceView(newsSource: news.source)
     }
 
     // MARK: - UI elements setup
@@ -115,19 +129,8 @@ class DetailedNewsViewController: UIViewController {
     }
 
     // setup a view controller placeholder for news details, its content is filled up by different
-    func setUpNewsDetailView() {
-        // Sets up SingleNewsView
-        addChild(singleEnNewsViewController)
-        singleEnNewsViewController.didMove(toParent: self)
-        singleNewsView = singleEnNewsViewController.view
-        singleNewsView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(singleNewsView)
-
-        // Sets up layout constrainsts.
-        singleNewsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        singleNewsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        singleNewsView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        singleNewsView.bottomAnchor.constraint(equalTo: bottomBarView.topAnchor, constant: -newsDetailAndBottomMargin).isActive = true
+    func setUpInitialNewsDetailView() {
+        addChildNewsController(controllerToAdd: singleEnNewsViewController)
     }
 
     // setup the bar view for news detail page at the bottom, including like button and language toggle switch
@@ -203,23 +206,35 @@ class DetailedNewsViewController: UIViewController {
     }
 
     @objc
+    func didTapShareButton() {
+        let newsTitle = news.title_en
+
+        // If you want to put an image
+        let webImageView : WebImageView = WebImageView.init(frame: .zero)
+        // Downloads the image.
+        if let coverImageURL = news.coverImageURL {
+            webImageView.imageURL = coverImageURL
+        }
+
+        if let myWebsite = URL(string: "https://www.meho.com/") {//Enter link to your app here
+            let objectsToShare = [newsTitle, myWebsite, webImageView] as [Any]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+
+            //Excluded Activities
+            activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
+
+            self.present(activityVC, animated: true, completion: nil)
+        }
+    }
+
+    @objc
     func didTapLanguageToggleButton() {
         if languageToggleButton.isOn {
-            singleNewsView.removeFromSuperview()
-            singleEnNewsViewController.removeFromParent()
-            singleEnNewsViewController.didMove(toParent: nil)
-            addChild(singleZhNewsViewController)
-            singleZhNewsViewController.didMove(toParent: self)
-            singleNewsView = singleZhNewsViewController.view
-            view.addSubview(singleNewsView)
+            removeChildNewsController(controllerToRemove: singleEnNewsViewController)
+            addChildNewsController(controllerToAdd: singleZhNewsViewController)
         } else {
-            singleNewsView.removeFromSuperview()
-            singleZhNewsViewController.removeFromParent()
-            singleZhNewsViewController.didMove(toParent: nil)
-            addChild(singleEnNewsViewController)
-            singleEnNewsViewController.didMove(toParent: self)
-            singleNewsView = singleEnNewsViewController.view
-            view.addSubview(singleNewsView)
+            removeChildNewsController(controllerToRemove: singleZhNewsViewController)
+            addChildNewsController(controllerToAdd: singleEnNewsViewController)
         }
         singleNewsView.translatesAutoresizingMaskIntoConstraints = false
         singleNewsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -228,14 +243,23 @@ class DetailedNewsViewController: UIViewController {
         singleNewsView.bottomAnchor.constraint(equalTo: bottomBarView.topAnchor).isActive = true
     }
 
-    /*
-    // MARK: - Navigation
+    func addChildNewsController(controllerToAdd: UIViewController) {
+        addChild(controllerToAdd)
+        controllerToAdd.didMove(toParent: self)
+        singleNewsView = controllerToAdd.view
+        singleNewsView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(singleNewsView)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        // Sets up layout constrainsts.
+        singleNewsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        singleNewsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        singleNewsView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        singleNewsView.bottomAnchor.constraint(equalTo: bottomBarView.topAnchor, constant: -newsDetailAndBottomMargin).isActive = true
     }
-    */
 
+    func removeChildNewsController(controllerToRemove: UIViewController) {
+        singleNewsView.removeFromSuperview()
+        controllerToRemove.removeFromParent()
+        controllerToRemove.didMove(toParent: nil)
+    }
 }
