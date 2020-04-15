@@ -15,15 +15,16 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     private let foundationCoverTitle = "Foundations"
     private let titleLabelFontSize = CGFloat(34)
     private let foundationTabBarItemImageName = "tabbar_foundation_25pt"
-    
-    private let foundationHorizontalMargin = CGFloat(15)
-    private let foundationLabelTopMargin = CGFloat(22)
+
+    private let titleLabelLeadingMargin = CGFloat(15)
+    private let featuresLeadinglMargin = CGFloat(22)
+    private let foundationLabelTopMargin = CGFloat(38)
     private let featureCellReuseIdentifier = "Features"
     
     // feature colelction view related, Will tune based on actual iOS design
     private let featuresCollectionViewCellWidth = CGFloat(330)
-    private let featuresCollectionViewCellHeight = CGFloat(191)
-    private let featuresCollectionViewHeight = CGFloat(550)
+    private let featuresCollectionViewCellHeight = CGFloat(200)
+
     private let featuresCollectionViewTopMargin = CGFloat(30)
     private let featuresCollectionViewBottomMargin = CGFloat(30)
     
@@ -69,8 +70,8 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func populateFeatureList() {
-        features.append(Feature.init(name: "pinyin", description: "Pin Yin - Romanized Spelling for Speaking and Typing", imageName: "foundation_feature_pinyin", textColor: .white))
-        features.append(Feature.init(name: "hierglyph", description: "Xiang Xing Zi - Chinese Character Graphics", imageName: "foundation_feature_hierglyph", textColor: .black))
+        features.append(Feature.init(name: "Pinyin", description: "Pin Yin - Romanized Spelling for Speaking and Typing", imageName: "foundation_feature_pinyin", textColor: .white))
+        features.append(Feature.init(name: "Pictography", description: "Xiang Xing Zi - Chinese Character Graphics", imageName: "foundation_feature_pictography", textColor: .black))
     }
     
     // MARK: - Elements layout, style & constrains
@@ -84,8 +85,8 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(titleLabel)
         
-        titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: foundationHorizontalMargin).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -foundationHorizontalMargin).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: titleLabelLeadingMargin).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -titleLabelLeadingMargin).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor, constant: foundationLabelTopMargin).isActive = true
     }
     
@@ -96,16 +97,14 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
         
         // view constraints
         let margins = self.view.layoutMarginsGuide
-        featuresCollectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: foundationHorizontalMargin).isActive = true
-        featuresCollectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -foundationHorizontalMargin).isActive = true
+        featuresCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: featuresLeadinglMargin).isActive = true
+        featuresCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -featuresLeadinglMargin).isActive = true
         featuresCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: featuresCollectionViewTopMargin).isActive = true
         featuresCollectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -featuresCollectionViewBottomMargin).isActive = true
         
         // collection layout
         featuresCollectionViewFlowLayout.scrollDirection = .vertical
-        featuresCollectionViewFlowLayout.minimumInteritemSpacing = 2
         featuresCollectionViewFlowLayout.minimumLineSpacing = 30
-        featuresCollectionViewFlowLayout.itemSize = CGSize(width: featuresCollectionViewCellWidth, height: featuresCollectionViewCellHeight)
     }
     
     // MARK: - UICollectionViewDataSource
@@ -118,6 +117,23 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
         let feature = features[indexPath.item]
         cell.setFeatureCardData(feature: feature)
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width
+        return CGSize(width: width, height: featuresCollectionViewCellHeight)
+
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let foundationItem = features[indexPath.item]
+        if foundationItem.name == "Pictography" {
+            let pictographyViewController = PictographyViewController.init(featureName:foundationItem.name)
+            navigationController?.pushViewController(pictographyViewController, animated: true)
+        } else if foundationItem.name == "Pinyin" {
+            let pinyinViewController = PinyinViewController.init(featureName:foundationItem.name)
+            navigationController?.pushViewController(pinyinViewController, animated: true)
+        }
     }
 }
 

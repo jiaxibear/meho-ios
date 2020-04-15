@@ -15,6 +15,8 @@
 		924C53E823FA1E2600B59D95 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924C53E723FA1E2600B59D95 /* SignInViewController.swift */; };
 		92577B2724457ACA0097A445 /* NewsChapterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92577B2624457ACA0097A445 /* NewsChapterCollectionViewCell.swift */; };
 		92577B2924457BFD0097A445 /* NewsChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92577B2824457BFD0097A445 /* NewsChapter.swift */; };
+		92577B2B2446E8910097A445 /* PictographyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92577B2A2446E8910097A445 /* PictographyViewController.swift */; };
+		92577B2D2446F5B70097A445 /* PinyinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92577B2C2446F5B70097A445 /* PinyinViewController.swift */; };
 		9267EA1924316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267EA1824316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift */; };
 		9267EA1B243185E5009CA25D /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267EA1A243185E5009CA25D /* News.swift */; };
 		9267EA1D2431A5A2009CA25D /* NewsItemSizeSCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267EA1C2431A5A2009CA25D /* NewsItemSizeSCollectionViewCell.swift */; };
@@ -96,6 +98,8 @@
 		924C53E723FA1E2600B59D95 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		92577B2624457ACA0097A445 /* NewsChapterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsChapterCollectionViewCell.swift; sourceTree = "<group>"; };
 		92577B2824457BFD0097A445 /* NewsChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsChapter.swift; sourceTree = "<group>"; };
+		92577B2A2446E8910097A445 /* PictographyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictographyViewController.swift; sourceTree = "<group>"; };
+		92577B2C2446F5B70097A445 /* PinyinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinyinViewController.swift; sourceTree = "<group>"; };
 		9267EA1824316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemSizeXLCollectionViewCell.swift; sourceTree = "<group>"; };
 		9267EA1A243185E5009CA25D /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		9267EA1C2431A5A2009CA25D /* NewsItemSizeSCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemSizeSCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -368,6 +372,8 @@
 				EA52FDAB23EF80E9008EB37B /* FoundationViewController.swift */,
 				92183A5F23F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift */,
 				92DEE30E23F8FF60004D91D7 /* Feature.swift */,
+				92577B2A2446E8910097A445 /* PictographyViewController.swift */,
+				92577B2C2446F5B70097A445 /* PinyinViewController.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -761,10 +767,12 @@
 				EA544904243AC6BE00C07D0A /* AudioConverter.m in Sources */,
 				EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */,
 				EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */,
+				92577B2D2446F5B70097A445 /* PinyinViewController.swift in Sources */,
 				924C53E823FA1E2600B59D95 /* SignInViewController.swift in Sources */,
 				EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */,
 				EA01E6AF23FBC25F00C0B0AE /* Difficulty.swift in Sources */,
 				92BAC7192439691200862571 /* NewsReasonView.swift in Sources */,
+				92577B2B2446E8910097A445 /* PictographyViewController.swift in Sources */,
 				9267EA1B243185E5009CA25D /* News.swift in Sources */,
 				9267EA1F2438521A009CA25D /* NewsItemSizeLCollectionViewCell.swift in Sources */,
 				EA5448C524273F0B00C07D0A /* CollapsedChapterCollectionViewCell.swift in Sources */,
