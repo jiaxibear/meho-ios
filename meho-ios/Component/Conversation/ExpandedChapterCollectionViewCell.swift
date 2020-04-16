@@ -10,6 +10,27 @@ import UIKit
 import AVFoundation
 import TAISDK
 
+enum AudioPlaySpeed : Float {
+    case normal = 1.0
+    case slow = 0.75
+    case slowest = 0.5
+
+    func displayString() -> String {
+        return String(self.rawValue) + "x"
+    }
+
+    func next() -> AudioPlaySpeed {
+        switch self {
+        case .normal:
+            return .slow
+        case .slow:
+            return .slowest
+        case .slowest:
+            return .normal
+        }
+    }
+}
+
 class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluationDelegate, AVAudioRecorderDelegate {
 
     // MARK: - Constants
@@ -23,11 +44,13 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let avatarViewSize = CGFloat(70)
     private let scoreViewTralingMargin = CGFloat(16)
     private let actionLabelTopMargin = CGFloat(28)
-    private let actionButtonTopBottomMargin = CGFloat(12)
+    private let actionButtonTopBottomMargin = CGFloat(25)
     private let actionButtonsMargin = CGFloat(48)
+    private let speedButtonBottomMargin = CGFloat(2)
     private let recordButtonSize = CGFloat(70)
     private let listenButtonSize = CGFloat(50)
     private let replayButtonSize = CGFloat(50)
+    private let speedButtonFontSize = CGFloat(16)
     private let backgroundColorAlpha = CGFloat(0.05)
     private let recordButtonNormalImageName = "conversation_microphone_inactive"
     private let listenButtonNormalImageName = "conversation_headset_inactive"
@@ -49,6 +72,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let recordButton = UIButton.init(frame: .zero)
     private let listenButton = UIButton.init(frame: .zero)
     private let replayButton = UIButton.init(frame: .zero)
+    private let speedButton = UIButton.init(frame: .zero)
 
     // MARK: Model
     private var scoredChapter: ScoredChapter!
@@ -57,7 +81,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let oralEvaluation = TAIOralEvaluation.init()
     private var audioFileURL: URL?
     private var player: AVPlayer?
-
+    private var currentAudioPlaySpeed = AudioPlaySpeed.normal
     // MARK: - Init
     @available(*, unavailable)
     init() {
@@ -68,6 +92,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         super.init(frame: frame)
         backgroundColor = UIColor.skyBlue.withAlphaComponent(backgroundColorAlpha)
         oralEvaluation.delegate = self
+        currentAudioPlaySpeed = .normal
 
         // Sets up the avatar view.
         avatarView.clipsToBounds = true
@@ -150,6 +175,14 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         replayButton.addTarget(self, action: #selector(didTapReplayButton), for: .touchUpInside)
         contentView.addSubview(replayButton)
 
+        speedButton.translatesAutoresizingMaskIntoConstraints = false
+        speedButton.setTitleColor(.skyBlue, for: .normal)
+        speedButton.setTitle(AudioPlaySpeed.normal.displayString(), for: .normal)
+        let speedButtonFontDescriptor = UIFont.systemFont(ofSize: speedButtonFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        speedButton.titleLabel?.font = UIFont.init(descriptor: speedButtonFontDescriptor!, size: speedButtonFontSize)
+        speedButton.addTarget(self, action: #selector(didTapSpeedButton), for: .touchUpInside)
+        contentView.addSubview(speedButton)
+
         // Sets up layout constraints
         avatarView.widthAnchor.constraint(equalToConstant: avatarViewSize).isActive = true
         avatarView.heightAnchor.constraint(equalToConstant: avatarViewSize).isActive = true
@@ -190,6 +223,9 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         replayButton.widthAnchor.constraint(equalToConstant: replayButtonSize).isActive = true
         replayButton.heightAnchor.constraint(equalToConstant: replayButtonSize).isActive = true
         replayButton.leadingAnchor.constraint(equalTo: recordButton.trailingAnchor, constant: actionButtonsMargin).isActive = true
+
+        speedButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -speedButtonBottomMargin).isActive = true
+        speedButton.centerXAnchor.constraint(equalTo: listenButton.centerXAnchor).isActive = true
     }
 
     @available(*, unavailable)
@@ -208,6 +244,8 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         replayButton.isSelected = false
         recordButton.isSelected = false
         actionLabel.isHidden = true
+        currentAudioPlaySpeed = .normal
+        speedButton.setTitle(currentAudioPlaySpeed.displayString(), for: .normal)
     }
 
     // MARK: - Internal
@@ -280,6 +318,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
             player = AVPlayer.init(playerItem: playerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
             player?.play()
+            player?.rate = currentAudioPlaySpeed.rawValue
             actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
             actionLabel.isHidden = false
         }
@@ -318,6 +357,14 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
             actionLabel.isHidden = false
             actionLabel.text = NSLocalizedString("RecordActionText", comment: "")
             startRecording()
+        }
+    }
+
+    @objc func didTapSpeedButton() {
+        currentAudioPlaySpeed = currentAudioPlaySpeed.next()
+        speedButton.setTitle(currentAudioPlaySpeed.displayString(), for: .normal)
+        if player != nil {
+            player?.rate = currentAudioPlaySpeed.rawValue
         }
     }
 
