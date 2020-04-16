@@ -63,6 +63,7 @@
 		EA54490F243B0BE200C07D0A /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5448FA2439078900C07D0A /* lame.framework */; };
 		EA5449122442A47200C07D0A /* ScoredChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5449112442A47200C07D0A /* ScoredChapter.swift */; };
 		EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5449142442B12500C07D0A /* RoleUtils.swift */; };
+		EA544918244421FD00C07D0A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA544917244421FD00C07D0A /* StoreKit.framework */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -121,7 +122,7 @@
 		EA01E6AE23FBC25F00C0B0AE /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
 		EA01E6B023FBD6F000C0B0AE /* DifficultyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyViewController.swift; sourceTree = "<group>"; };
 		EA01E6B224020CBF00C0B0AE /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
-		EA2FC5BC23EF7AD400E258BD /* meho-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "meho-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA2FC5BC23EF7AD400E258BD /* Meho.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meho.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		EA2FC5C523EF7AD600E258BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -157,6 +158,8 @@
 		EA544909243B07FD00C07D0A /* ExpressionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionViewController.swift; sourceTree = "<group>"; };
 		EA5449112442A47200C07D0A /* ScoredChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoredChapter.swift; sourceTree = "<group>"; };
 		EA5449142442B12500C07D0A /* RoleUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleUtils.swift; sourceTree = "<group>"; };
+		EA54491624441FDF00C07D0A /* Meho.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Meho.entitlements; sourceTree = "<group>"; };
+		EA544917244421FD00C07D0A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
@@ -173,6 +176,7 @@
 				EA54490D243B0BE000C07D0A /* Pods_meho_ios.framework in Frameworks */,
 				EA54490F243B0BE200C07D0A /* lame.framework in Frameworks */,
 				EA54490B243B0BDE00C07D0A /* TAISDK.framework in Frameworks */,
+				EA544918244421FD00C07D0A /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +202,7 @@
 		6C252BD4F847344155504A04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA544917244421FD00C07D0A /* StoreKit.framework */,
 				EA5448FA2439078900C07D0A /* lame.framework */,
 				EA5448FB2439078900C07D0A /* TAISDK.framework */,
 				CD7C00746FB72FA49F9B8405 /* Pods_meho_ios.framework */,
@@ -261,7 +266,7 @@
 		EA2FC5BD23EF7AD400E258BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EA2FC5BC23EF7AD400E258BD /* meho-ios.app */,
+				EA2FC5BC23EF7AD400E258BD /* Meho.app */,
 				EA2FC5D223EF7AD600E258BD /* meho-iosTests.xctest */,
 				EA2FC5DD23EF7AD600E258BD /* meho-iosUITests.xctest */,
 			);
@@ -271,6 +276,7 @@
 		EA2FC5BE23EF7AD400E258BD /* meho-ios */ = {
 			isa = PBXGroup;
 			children = (
+				EA54491624441FDF00C07D0A /* Meho.entitlements */,
 				EA7B730B23F0DBB10031093B /* AllResources */,
 				EA52FDB423EFAA5A008EB37B /* Library */,
 				EA52FDA023EF7C77008EB37B /* Component */,
@@ -480,7 +486,7 @@
 			);
 			name = "meho-ios";
 			productName = "meho-ios";
-			productReference = EA2FC5BC23EF7AD400E258BD /* meho-ios.app */;
+			productReference = EA2FC5BC23EF7AD400E258BD /* Meho.app */;
 			productType = "com.apple.product-type.application";
 		};
 		EA2FC5D123EF7AD600E258BD /* meho-iosTests */ = {
@@ -953,9 +959,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "meho-ios/Meho.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = LW56PXHU2T;
+				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -966,8 +975,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meho.mehoios;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.meho.mehoapp;
+				PRODUCT_NAME = Meho;
 				SWIFT_OBJC_BRIDGING_HEADER = "meho-ios/meho-ios-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -981,9 +990,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "meho-ios/Meho.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = LW56PXHU2T;
+				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -994,8 +1006,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.meho.mehoios;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.meho.mehoapp;
+				PRODUCT_NAME = Meho;
 				SWIFT_OBJC_BRIDGING_HEADER = "meho-ios/meho-ios-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

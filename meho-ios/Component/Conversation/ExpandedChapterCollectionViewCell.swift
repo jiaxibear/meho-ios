@@ -381,22 +381,26 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         let content = scoredChapter.chapter.content
         let scoredContent = NSMutableAttributedString.init(string: content)
         if let scoredWords = result.words {
-            var scoredWordsIndex = 0
-            for (index, character) in content.enumerated() {
-                if (scoredWordsIndex >= scoredWords.count) {
-                    scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
-                } else {
-                    let contentWord = String(character)
-                    let scoredWord = scoredWords[scoredWordsIndex]
-                    if contentWord == scoredWord.word {
-                        if scoredWord.pronAccuracy > pronAccuraryMin {
-                            scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
-                        } else {
-                            scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.coral, range: NSRange.init(location: index, length: 1))
-                        }
-                        scoredWordsIndex = scoredWordsIndex + 1;
-                    } else {
+            if scoredWords.count == 0 {
+                scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.coral, range: NSRange.init(location: 0, length: content.count))
+            } else {
+                var scoredWordsIndex = 0
+                for (index, character) in content.enumerated() {
+                    if (scoredWordsIndex >= scoredWords.count) {
                         scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
+                    } else {
+                        let contentWord = String(character)
+                        let scoredWord = scoredWords[scoredWordsIndex]
+                        if contentWord == scoredWord.word {
+                            if scoredWord.pronAccuracy > pronAccuraryMin {
+                                scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
+                            } else {
+                                scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.coral, range: NSRange.init(location: index, length: 1))
+                            }
+                            scoredWordsIndex = scoredWordsIndex + 1;
+                        } else {
+                            scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
+                        }
                     }
                 }
             }
