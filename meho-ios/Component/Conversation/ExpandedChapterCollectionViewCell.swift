@@ -231,6 +231,10 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         self.scoredChapter = scoredChapter
     }
 
+    func playAudio() {
+        didTapListenButton()
+    }
+
     class func cellHeight(with width: CGFloat, chapter: Chapter) -> CGFloat {
         sizingCell.contentLabel.text = chapter.content
         sizingCell.contentPinyinLabel.text = chapter.contentPinyin

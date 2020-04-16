@@ -22,6 +22,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     private let chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: chaptersCollectionViewFlowLayout)
     private var currentChapterIndex = 0
+    private var hasAutoPlayedAudio = false
 
     // MARK: - Init
     init() {
@@ -124,5 +125,12 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         currentChapterIndex = indexPath.item
         collectionView.reloadItems(at: [IndexPath.init(item: previousCurrentChapterIndex, section: 0), IndexPath.init(item: currentChapterIndex, section: 0)])
         collectionView.scrollToItem(at: IndexPath.init(item: currentChapterIndex, section: 0), at: .top, animated: true)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if !hasAutoPlayedAudio && indexPath.item == 0, let expandedCell = cell as? ExpandedChapterCollectionViewCell {
+            expandedCell.playAudio()
+            hasAutoPlayedAudio = true;
+        }
     }
 }
