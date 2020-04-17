@@ -58,13 +58,6 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
         self.view.backgroundColor = .white
         setupTitleLabelUI()
         setupFeatureCollectionViewUI()
-    
-
-        // Sets up cell data
-        featuresCollectionView.dataSource = self
-        featuresCollectionView.delegate = self
-        featuresCollectionView.register(FoundationFeatureCollectionViewCell.self, forCellWithReuseIdentifier:featureCellReuseIdentifier)
-    
         populateFeatureList()
         self.featuresCollectionView.reloadData()
     }
@@ -105,6 +98,11 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
         // collection layout
         featuresCollectionViewFlowLayout.scrollDirection = .vertical
         featuresCollectionViewFlowLayout.minimumLineSpacing = 30
+
+        // Sets up cell data
+        featuresCollectionView.dataSource = self
+        featuresCollectionView.delegate = self
+        featuresCollectionView.register(FoundationFeatureCollectionViewCell.self, forCellWithReuseIdentifier:featureCellReuseIdentifier)
     }
     
     // MARK: - UICollectionViewDataSource

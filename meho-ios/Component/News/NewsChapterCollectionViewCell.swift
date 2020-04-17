@@ -20,6 +20,9 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate 
     private let textView = UILabel.init(frame: .zero)
     private let imageView = WebImageView.init(frame: .zero)
     private static var sizingCell = NewsChapterCollectionViewCell.init(frame: .zero);
+    private var imageViewHeightConstraint: NSLayoutConstraint!
+    private var imageViewToTextViewMarginConstraint: NSLayoutConstraint!
+    private var textViewBottomConstraint: NSLayoutConstraint!
 
     // MARK: - Init
     @available(*, unavailable)
@@ -32,10 +35,14 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate 
         fatalError("Use init(frame: CGRect)")
     }
 
+    override func prepareForReuse() {
+        imageView.image = nil
+        textView.text = nil
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-
 
         // Sets up content image view.
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,13 +58,16 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate 
         contentView.addSubview(textView)
 
         // Constraint
+        textView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
 
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: contentImageReservedHeight).isActive = true
-        imageView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: textAndImageMargin).isActive = true
+        imageViewHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: contentImageReservedHeight)
+        imageViewHeightConstraint.isActive = true
+        imageViewToTextViewMarginConstraint = imageView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: textAndImageMargin)
     }
 
     // MARK: - WebImageViewDelegate
@@ -77,10 +87,16 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate 
             textView.font = UIFont.init(name: "PingFangSC-Semibold", size: contentTextFontSize)
         }
 
-
         // Downloads the image.
         if let contentImageURL = newsChapter.contentImageURL {
             imageView.imageURL = contentImageURL
+            imageViewHeightConstraint.constant = contentImageReservedHeight
+            imageViewToTextViewMarginConstraint.isActive = true
+            textViewBottomConstraint.isActive = false
+        } else {
+            imageViewHeightConstraint.constant = 0
+            imageViewToTextViewMarginConstraint.isActive = false
+            textViewBottomConstraint.isActive = true
         }
     }
 
@@ -95,7 +111,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate 
         }
 
         var height = sizingCell.textView.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height
-        if let contentImageURL = newsChapter.contentImageURL {
+        if newsChapter.contentImageURL != nil {
             height += sizingCell.textAndImageMargin
             height += sizingCell.contentImageReservedHeight
         }
