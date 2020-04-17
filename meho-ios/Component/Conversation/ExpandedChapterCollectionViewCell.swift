@@ -240,6 +240,10 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
             player?.pause()
             player = nil
         }
+        contentLabel.text = nil
+        contentLabel.attributedText = nil
+        contentPinyinLabel.text = nil
+        contentInLocalLanguageLabel.text = nil
         listenButton.isSelected = false
         replayButton.isSelected = false
         recordButton.isSelected = false
@@ -254,6 +258,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         if let scoredContent = scoredChapter.scoredContent {
             contentLabel.attributedText = scoredContent
         } else {
+            contentLabel.textColor = .darkGray
             contentLabel.text = chapter.content
         }
         contentPinyinLabel.text = chapter.contentPinyin
