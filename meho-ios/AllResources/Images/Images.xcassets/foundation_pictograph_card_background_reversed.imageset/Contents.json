@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "StripeBackground2xhdpi.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "StripeBackground2xxhdpi.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "StripeBackground2xxxhdpi.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -60,8 +60,7 @@ class FoundationDataFetcher: NSObject {
                        pictograph.identifier = identifier
                    }
                    if let gifURLString = pictographJson["gif"] as? String {
-                       let gifURL = URL.init(string: gifURLString)
-                       pictograph.gifImageURL = gifURL
+                       pictograph.gifImageURL = gifURLString
                    }
                    pictographList.append(pictograph)
                }

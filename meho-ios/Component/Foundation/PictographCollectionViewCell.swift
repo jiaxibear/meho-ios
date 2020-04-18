@@ -12,9 +12,15 @@ class PictographCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
     private let descriptionTopMargin = CGFloat(13)
     private let cardCornerRadius = CGFloat(10)
+    private let gifHorizontalMarginPercent = CGFloat(0.08)
+
+    private let cardBackgroundImageName = "foundation_pictograph_card_background"
+    private let cardBackgroundReversedImageName = "foundation_pictograph_card_background_reversed"
 
     // MARK: - Properties
     private let contentEnLabel = UILabel.init(frame: .zero)
+    private let cardBackgroundImageView = UIImageView.init(frame: .zero)
+    private let gifImageView = UIImageView.init(frame: .zero)
 
     // MARK: - Init
     @available(*, unavailable)
@@ -29,10 +35,23 @@ class PictographCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .wisteriaPurple
-        contentView.layer.cornerRadius = cardCornerRadius
         // Sets up elements in the cell
+        setupBackgroundImage()
         setupContentEnLabelUI()
+        setupGifView()
+    }
+
+    private func setupBackgroundImage() {
+        cardBackgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        cardBackgroundImageView.layer.cornerRadius = cardCornerRadius
+        cardBackgroundImageView.clipsToBounds = true
+        contentView.addSubview(cardBackgroundImageView)
+
+        // constraints
+        cardBackgroundImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        cardBackgroundImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        cardBackgroundImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        cardBackgroundImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
 
     private func setupContentEnLabelUI() {
@@ -47,12 +66,32 @@ class PictographCollectionViewCell: UICollectionViewCell {
         contentEnLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentView.bounds.height * 0.25).isActive = true
     }
 
+    private func setupGifView() {
+        gifImageView.translatesAutoresizingMaskIntoConstraints = false
+        gifImageView.layer.cornerRadius = cardCornerRadius
+        gifImageView.clipsToBounds = true
+        contentView.addSubview(gifImageView)
+        let cellWidth = contentView.bounds.width
+
+        gifImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        gifImageView.widthAnchor.constraint(equalToConstant: cellWidth * (1 - 2 * gifHorizontalMarginPercent)).isActive = true
+        gifImageView.heightAnchor.constraint(equalToConstant: cellWidth * (1 - 2 * gifHorizontalMarginPercent)).isActive = true
+        gifImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -cellWidth * gifHorizontalMarginPercent).isActive = true
+    }
+
     // MARK: - Public
-    public func setPictographCardData(pictograph: Pictograph) {
+    public func setPictographCardData(pictograph: Pictograph, shouldReverse: Bool) {
         contentEnLabel.text = pictograph.content_en
         contentEnLabel.textColor = .white
         contentEnLabel.sizeToFit()
 
+        let selectedCardBackgroundImageName = shouldReverse
+            ? cardBackgroundReversedImageName : cardBackgroundImageName
+        let cardBackgroundImage = UIImage.init(named: selectedCardBackgroundImageName)
+        cardBackgroundImageView.image = cardBackgroundImage
+
+
+        gifImageView.loadGifFromUrl(url: pictograph.gifImageURL)
     }
 
     override func layoutSubviews() {

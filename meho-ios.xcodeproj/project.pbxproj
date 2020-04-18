@@ -30,6 +30,7 @@
 		92BAC71D243ADA1500862571 /* SingleEnglishNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BAC71C243ADA1500862571 /* SingleEnglishNewsViewController.swift */; };
 		92BAC71F243B12A100862571 /* SingleChineseNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BAC71E243B12A100862571 /* SingleChineseNewsViewController.swift */; };
 		92C5FE2524496E7B004A3322 /* PictographCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE2424496E7B004A3322 /* PictographCollectionViewCell.swift */; };
+		92C5FE27244B894B004A3322 /* UIGifExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE26244B894B004A3322 /* UIGifExtension.swift */; };
 		92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DEE30E23F8FF60004D91D7 /* Feature.swift */; };
 		EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */; };
 		EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA01E6AA23FA356900C0B0AE /* Localizable.strings */; };
@@ -117,6 +118,7 @@
 		92BAC71C243ADA1500862571 /* SingleEnglishNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleEnglishNewsViewController.swift; sourceTree = "<group>"; };
 		92BAC71E243B12A100862571 /* SingleChineseNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChineseNewsViewController.swift; sourceTree = "<group>"; };
 		92C5FE2424496E7B004A3322 /* PictographCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictographCollectionViewCell.swift; sourceTree = "<group>"; };
+		92C5FE26244B894B004A3322 /* UIGifExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGifExtension.swift; sourceTree = "<group>"; };
 		92DEE30E23F8FF60004D91D7 /* Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
 		A40C5A697051BB021EFB5E9C /* Pods_meho_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A456EF74653F7CB7D8C47AD7 /* Pods_meho_ios_meho_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios_meho_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -243,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */,
+				92C5FE26244B894B004A3322 /* UIGifExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -799,6 +802,7 @@
 				EA5448C1242736CD00C07D0A /* DetailedDialogViewController.swift in Sources */,
 				EAB7C4D023F8C8E2003C8548 /* DialogCollectionViewCell.swift in Sources */,
 				EA01E6B324020CBF00C0B0AE /* DialogViewController.swift in Sources */,
+				92C5FE27244B894B004A3322 /* UIGifExtension.swift in Sources */,
 				92577B2924457BFD0097A445 /* NewsChapter.swift in Sources */,
 				92577B2F2446F90E0097A445 /* Pictograph.swift in Sources */,
 				EA5448BB2415D93500C07D0A /* SeeMoreFooterCollectionResuableView.swift in Sources */,

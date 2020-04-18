@@ -12,5 +12,5 @@ struct Pictograph {
     var identifier = 0
     var content_en = ""
     var content_zh = ""
-    var gifImageURL:URL?
+    var gifImageURL = ""
 }
