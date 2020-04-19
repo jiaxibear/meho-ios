@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum PinyinSection: Int {
+    case initials
+    case finals
+}
+
 class PinyinViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Constants
@@ -17,17 +22,19 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     private let pillCornerRadius = CGFloat(10)
     private let pillBorderWidth = CGFloat(2)
     private let topLabelFontSize = CGFloat(15)
+    private let pinyinPartialsCollectionViewTopMargin = CGFloat(150)
     private let topSectionHeight = CGFloat(30)
+    private let sectionVerticalInsets = CGFloat(30)
 
-    private let initialCellReuseIdentifier = "InitialCell"
-    private let finalCellReuseIdentifier = "finalCell"
+    private let initialCellReuseIdentifier = "ReusableInitialCell"
+    private let finalCellReuseIdentifier = "ReusablefinalCell"
 
     // MARK: - Properties
     private let featureName: String
     private let navTitleLabel = UILabel.init(frame: .zero)
 
-    private let initialCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-    private lazy var initialCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:initialCollectionViewFlowLayout)
+    private let pinyinCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+    private lazy var pinyinCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:pinyinCollectionViewFlowLayout)
 
     // Top section
     private let initialLabel = UILabel.init(frame: .zero)
@@ -39,7 +46,10 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
                                      "p", "q", "r", "s", "t", "w", "x", "y", "z", "zh", "ch", "sh"]
     private var finals:[String] = ["a", "ai", "ao", "an", "ang", "e", "ei", "en", "eng", "er",
                                    "i", "ia", "ian", "iang", "iao", "ie", "iong", "iu", "in", "ing",
-                                   "o", "ou", "ong", "u", "ua"]
+                                   "o", "ou", "ong", "u", "ua", "uai", "uan", "uang", "uo", "ui"]
+    private var sections:[PinyinSection] = []
+    private var selectedInitialIdx:Int = 0
+    private var selectedFinalIdx:Int = 23
 
 
     // MARK: - Init
@@ -115,7 +125,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         plusImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         plusImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: CGFloat(20)).isActive = true
         plusImageView.heightAnchor.constraint(equalToConstant: topSectionHeight).isActive = true
-        plusImageView.widthAnchor.constraint(equalToConstant: CGFloat(32)).isActive = true
+        plusImageView.widthAnchor.constraint(equalToConstant: CGFloat(33)).isActive = true
 
         initialLabel.centerYAnchor.constraint(equalTo: plusImageView.centerYAnchor).isActive = true
         initialLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -view.bounds.width * 0.25).isActive = true
@@ -129,53 +139,102 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
 
     func setupInitialCollectionView() {
-        initialCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        initialCollectionView.backgroundColor = .white
-        view.addSubview(initialCollectionView)
+        pinyinCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        pinyinCollectionView.backgroundColor = .white
+        view.addSubview(pinyinCollectionView)
 
         // view constraints
         let viewHorizontalMargin = view.bounds.width * 0.05
-        initialCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: viewHorizontalMargin).isActive = true
-        initialCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -viewHorizontalMargin).isActive = true
-        initialCollectionView.topAnchor.constraint(equalTo: plusImageView.bottomAnchor, constant: CGFloat(200)).isActive = true
-        initialCollectionView.heightAnchor.constraint(equalToConstant: CGFloat(160)).isActive = true
+        pinyinCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: viewHorizontalMargin).isActive = true
+        pinyinCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -viewHorizontalMargin).isActive = true
+        pinyinCollectionView.topAnchor.constraint(equalTo: plusImageView.bottomAnchor, constant: pinyinPartialsCollectionViewTopMargin).isActive = true
+        pinyinCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         // collection layout
-        initialCollectionViewFlowLayout.scrollDirection = .vertical
-        initialCollectionViewFlowLayout.minimumLineSpacing = 10
-        initialCollectionViewFlowLayout.minimumInteritemSpacing = 5
+        pinyinCollectionViewFlowLayout.scrollDirection = .vertical
+        pinyinCollectionViewFlowLayout.minimumLineSpacing = 10
+        pinyinCollectionViewFlowLayout.minimumInteritemSpacing = 5
+        pinyinCollectionViewFlowLayout.sectionInset = UIEdgeInsets.init(top: sectionVerticalInsets, left: 0, bottom: 0, right: 0)
 
         // Sets up cell data
-        initialCollectionView.dataSource = self
-        initialCollectionView.delegate = self
-        initialCollectionView.register(PinyinInitialCollectionViewCell.self, forCellWithReuseIdentifier:initialCellReuseIdentifier)
+        pinyinCollectionView.dataSource = self
+        pinyinCollectionView.delegate = self
+        pinyinCollectionView.showsVerticalScrollIndicator = false
+        pinyinCollectionView.register(PinyinInitialCollectionViewCell.self, forCellWithReuseIdentifier:initialCellReuseIdentifier)
+        pinyinCollectionView.register(PinyinFinalCollectionViewCell.self, forCellWithReuseIdentifier:finalCellReuseIdentifier)
+
+        sections.insert(.initials, at: 0)
+        sections.insert(.finals, at: 1)
     }
+
 
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return initials.count
+        let pinyinSection = sections[section]
+        switch pinyinSection {
+        case .initials:
+            return initials.count
+        case .finals:
+            return finals.count
+        }
+    }
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: initialCellReuseIdentifier, for: indexPath) as! PinyinInitialCollectionViewCell
-        let initial = initials[indexPath.item]
-        cell.setCell(initial: initial)
-        return cell
+        let pinyinSection = sections[indexPath.section]
+        switch pinyinSection {
+        case .initials:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: initialCellReuseIdentifier, for: indexPath) as! PinyinInitialCollectionViewCell
+            let initial = initials[indexPath.item]
+            cell.setCell(initial: initial)
+            return cell
+        case .finals:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: finalCellReuseIdentifier, for: indexPath) as! PinyinFinalCollectionViewCell
+            let final = finals[indexPath.item]
+            cell.setCell(final: final)
+            return cell
+        }
     }
 
+
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.bounds.width / 8 * 0.9
-        let cellHeight = collectionView.bounds.height / 4 * 0.8
-        return CGSize(width: cellWidth, height: cellHeight)
+        let pinyinSection = sections[indexPath.section]
+        let idealCollectionViewWidth = collectionView.bounds.width
+        let idealCollectionViewHeight = idealCollectionViewWidth * 1.2
+        switch pinyinSection {
+        case .initials:
+            let cellWidth = idealCollectionViewWidth / 8 * 0.9
+            let cellHeight = idealCollectionViewHeight / 10 * 0.8
+            return CGSize(width: cellWidth, height: cellHeight)
+        case .finals:
+            let cellWidth = idealCollectionViewWidth / 6 * 0.9
+            let cellHeight = idealCollectionViewHeight / 10 * 0.8
+            return CGSize(width: cellWidth, height: cellHeight)
+        }
+
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        for iter in collectionView.indexPathsForVisibleItems {
-            let cell = collectionView.cellForItem(at: iter) as! PinyinInitialCollectionViewCell
-            cell.unSelectCell()
+        let pinyinSection = sections[indexPath.section]
+        switch pinyinSection {
+        case .initials:
+            let currentSelectedInitialCell = collectionView.cellForItem(at: IndexPath.init(item: selectedInitialIdx, section: 0)) as! PinyinInitialCollectionViewCell
+            currentSelectedInitialCell.unSelectCell()
+            let tappedCell = collectionView.cellForItem(at: indexPath) as! PinyinInitialCollectionViewCell
+            tappedCell.selectCell()
+            initialLabel.text = tappedCell.getCellLabel()
+            selectedInitialIdx = indexPath.item
+        case .finals:
+            let currentSelectedFinalCell = collectionView.cellForItem(at: IndexPath.init(item: selectedFinalIdx, section: 1)) as! PinyinFinalCollectionViewCell
+            currentSelectedFinalCell.unSelectCell()
+            let tappedCell = collectionView.cellForItem(at: indexPath) as! PinyinFinalCollectionViewCell
+            tappedCell.selectCell()
+            finalLabel.text = tappedCell.getCellLabel()
+            selectedFinalIdx = indexPath.item
         }
-        let tappedCell = collectionView.cellForItem(at: indexPath) as! PinyinInitialCollectionViewCell
-        tappedCell.selectCell()
-        initialLabel.text = tappedCell.getCellLabel()
     }
 }
