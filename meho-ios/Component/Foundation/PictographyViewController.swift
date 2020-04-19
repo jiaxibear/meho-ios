@@ -11,6 +11,7 @@ import UIKit
 class PictographyViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Constant
+    private let navigationHeaderText = "Pictography"
     private let cardHorizontalInsets = CGFloat(17)
     private let cardInterSpacing = CGFloat(14)
     private let pictographCellReuseIdentifier = "pictograph"
@@ -67,7 +68,7 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
     // MARK: - UI elements setup
     func setUpNavigationBar() {
         navTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        navTitleLabel.text = "Pictography"
+        navTitleLabel.text = navigationHeaderText
         navTitleLabel.textColor = .wisteriaPurple
         let navTitlefontDescriptor = UIFont.systemFont(ofSize: navTitleLabelFontSize, weight: .bold).fontDescriptor.withDesign(.rounded)
         navTitleLabel.font = UIFont.init(descriptor: navTitlefontDescriptor!, size: 0)
