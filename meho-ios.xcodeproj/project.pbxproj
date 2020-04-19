@@ -33,6 +33,7 @@
 		92C5FE27244B894B004A3322 /* UIGifExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE26244B894B004A3322 /* UIGifExtension.swift */; };
 		92C5FE29244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE28244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift */; };
 		92C5FE2B244C3E0F004A3322 /* PinyinFinalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE2A244C3E0F004A3322 /* PinyinFinalCollectionViewCell.swift */; };
+		92C5FE2D244C56AF004A3322 /* Pinyin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE2C244C56AF004A3322 /* Pinyin.swift */; };
 		92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DEE30E23F8FF60004D91D7 /* Feature.swift */; };
 		EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */; };
 		EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA01E6AA23FA356900C0B0AE /* Localizable.strings */; };
@@ -123,6 +124,7 @@
 		92C5FE26244B894B004A3322 /* UIGifExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGifExtension.swift; sourceTree = "<group>"; };
 		92C5FE28244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinyinInitialCollectionViewCell.swift; sourceTree = "<group>"; };
 		92C5FE2A244C3E0F004A3322 /* PinyinFinalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinyinFinalCollectionViewCell.swift; sourceTree = "<group>"; };
+		92C5FE2C244C56AF004A3322 /* Pinyin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pinyin.swift; sourceTree = "<group>"; };
 		92DEE30E23F8FF60004D91D7 /* Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
 		A40C5A697051BB021EFB5E9C /* Pods_meho_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A456EF74653F7CB7D8C47AD7 /* Pods_meho_ios_meho_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios_meho_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -398,6 +400,7 @@
 				92C5FE2424496E7B004A3322 /* PictographCollectionViewCell.swift */,
 				92C5FE28244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift */,
 				92C5FE2A244C3E0F004A3322 /* PinyinFinalCollectionViewCell.swift */,
+				92C5FE2C244C56AF004A3322 /* Pinyin.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -774,6 +777,7 @@
 				EA01E6AD23FBA62900C0B0AE /* Chapter.swift in Sources */,
 				EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */,
 				EA5448BF2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift in Sources */,
+				92C5FE2D244C56AF004A3322 /* Pinyin.swift in Sources */,
 				EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */,
 				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,
 				EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */,

@@ -17,6 +17,8 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     // MARK: - Constants
     private let navigationHeaderText = "拼音基础 Pinyin"
+    private let pinyinDetailReminderOneMore = "Please select one Final and one Initial"
+    private let pinyinDetailReminderNotFound = "Ops...\n this combo of Final and Initial is invalid, please try again"
     private let plusImageName = "stories_heart_filled"
     private let navTitleLabelFontSize = CGFloat(18)
     private let pillCornerRadius = CGFloat(10)
@@ -33,23 +35,29 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     private let featureName: String
     private let navTitleLabel = UILabel.init(frame: .zero)
 
-    private let pinyinCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-    private lazy var pinyinCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:pinyinCollectionViewFlowLayout)
-
     // Top section
     private let initialLabel = UILabel.init(frame: .zero)
     private let finalLabel = UILabel.init(frame: .zero)
     private let plusImageView = UIImageView.init(frame: .zero)
 
+    // Pinyin result section
+    private let detailLabel = UILabel.init(frame: .zero)
+
+    // Pinyin partial section
+    private let pinyinCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+    private lazy var pinyinCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:pinyinCollectionViewFlowLayout)
+
     // MARK: - Data
+    private let dataFetcher = FoundationDataFetcher.init()
     private var initials:[String] = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n",
                                      "p", "q", "r", "s", "t", "w", "x", "y", "z", "zh", "ch", "sh"]
     private var finals:[String] = ["a", "ai", "ao", "an", "ang", "e", "ei", "en", "eng", "er",
                                    "i", "ia", "ian", "iang", "iao", "ie", "iong", "iu", "in", "ing",
                                    "o", "ou", "ong", "u", "ua", "uai", "uan", "uang", "uo", "ui"]
     private var sections:[PinyinSection] = []
-    private var selectedInitialIdx:Int = 0
-    private var selectedFinalIdx:Int = 23
+    private let noneSelectedIdx:Int = -1
+    private var selectedInitialIdx:Int
+    private var selectedFinalIdx:Int
 
 
     // MARK: - Init
@@ -69,6 +77,8 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     init(featureName: String) {
         self.featureName = featureName
+        selectedInitialIdx = noneSelectedIdx
+        selectedFinalIdx = noneSelectedIdx
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -79,7 +89,9 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
 
         setUpNavigationBar()
         setupTopSection()
-        setupInitialCollectionView()
+        setupDetailedPinyinResult()
+        setupPinyinCollectionView()
+
     }
 
     // MARK: - UI elements setup
@@ -138,7 +150,23 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         finalLabel.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.25).isActive = true
     }
 
-    func setupInitialCollectionView() {
+    func setupDetailedPinyinResult () {
+        detailLabel.translatesAutoresizingMaskIntoConstraints = false
+        let fontDescriptor = UIFont.systemFont(ofSize: topLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
+        detailLabel.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
+        detailLabel.textColor = .wisteriaPurple
+        detailLabel.numberOfLines = 3
+        detailLabel.textAlignment = .center
+        view.addSubview(detailLabel)
+
+        let viewHorizontalMargin = view.bounds.width * 0.05
+        detailLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: viewHorizontalMargin).isActive = true
+        detailLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -viewHorizontalMargin).isActive = true
+        detailLabel.topAnchor.constraint(equalTo: plusImageView.bottomAnchor, constant: CGFloat(20)).isActive = true
+
+    }
+
+    func setupPinyinCollectionView() {
         pinyinCollectionView.translatesAutoresizingMaskIntoConstraints = false
         pinyinCollectionView.backgroundColor = .white
         view.addSubview(pinyinCollectionView)
@@ -222,19 +250,43 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         let pinyinSection = sections[indexPath.section]
         switch pinyinSection {
         case .initials:
-            let currentSelectedInitialCell = collectionView.cellForItem(at: IndexPath.init(item: selectedInitialIdx, section: 0)) as! PinyinInitialCollectionViewCell
-            currentSelectedInitialCell.unSelectCell()
+            if (selectedInitialIdx != noneSelectedIdx) {
+                let currentSelectedInitialCell = collectionView.cellForItem(at: IndexPath.init(item: selectedInitialIdx, section: 0)) as! PinyinInitialCollectionViewCell
+                currentSelectedInitialCell.unSelectCell()
+            }
             let tappedCell = collectionView.cellForItem(at: indexPath) as! PinyinInitialCollectionViewCell
             tappedCell.selectCell()
             initialLabel.text = tappedCell.getCellLabel()
             selectedInitialIdx = indexPath.item
         case .finals:
-            let currentSelectedFinalCell = collectionView.cellForItem(at: IndexPath.init(item: selectedFinalIdx, section: 1)) as! PinyinFinalCollectionViewCell
-            currentSelectedFinalCell.unSelectCell()
+            if (selectedFinalIdx != noneSelectedIdx) {
+                let currentSelectedFinalCell = collectionView.cellForItem(at: IndexPath.init(item: selectedFinalIdx, section: 1)) as! PinyinFinalCollectionViewCell
+                currentSelectedFinalCell.unSelectCell()
+            }
             let tappedCell = collectionView.cellForItem(at: indexPath) as! PinyinFinalCollectionViewCell
             tappedCell.selectCell()
             finalLabel.text = tappedCell.getCellLabel()
             selectedFinalIdx = indexPath.item
+        }
+        checkPinyinResult()
+    }
+
+    func checkPinyinResult() {
+        if (selectedFinalIdx == noneSelectedIdx || selectedInitialIdx == noneSelectedIdx) {
+            self.detailLabel.text = self.pinyinDetailReminderOneMore
+        } else if (selectedFinalIdx != noneSelectedIdx && selectedInitialIdx != noneSelectedIdx) {
+            let initial = initials[selectedInitialIdx]
+            let final = finals[selectedFinalIdx]
+            let pinyinToSearch = initial + final
+            dataFetcher.fetchDetailedPinyin(pinyin: pinyinToSearch, completionHandler: { (detailedPinyin, error) in
+                DispatchQueue.main.async {
+                    if (error == nil && detailedPinyin != nil && detailedPinyin!.identifier != -1) {
+                        self.detailLabel.text = "found something for " + pinyinToSearch + ", first tone: " + detailedPinyin!.toneOneCharacter
+                    } else {
+                        self.detailLabel.text = self.pinyinDetailReminderNotFound
+                    }
+                }
+            })
         }
     }
 }
