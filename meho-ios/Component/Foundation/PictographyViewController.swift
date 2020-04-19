@@ -66,8 +66,6 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
 
     // MARK: - UI elements setup
     func setUpNavigationBar() {
-        let newsSourceRect:CGRect = CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: 200, height: 30))
-
         navTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         navTitleLabel.text = "Pictography"
         navTitleLabel.textColor = .wisteriaPurple
@@ -92,7 +90,7 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
 
         // collection layout
         pictographCollectionViewFlowLayout.scrollDirection = .horizontal
-        pictographCollectionViewFlowLayout.minimumInteritemSpacing = 14
+        pictographCollectionViewFlowLayout.minimumInteritemSpacing = cardInterSpacing
         pictographCollectionView.contentInset = UIEdgeInsets.init(top: 0, left: cardHorizontalInsets, bottom: 0, right: cardHorizontalInsets)
 
         // Sets up cell data
@@ -119,5 +117,19 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
         let width = collectionView.bounds.width * 0.8
         let height = min(collectionView.bounds.height, 1.5 * width)
         return CGSize(width: width, height: height)
+    }
+
+    // Scroll to next cell if half of current cell is moved out of screen
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        targetContentOffset.pointee = scrollView.contentOffset
+        var indexPaths = pictographCollectionView.indexPathsForVisibleItems
+        indexPaths.sort()
+        var index = indexPaths.first!
+        let currentCell = pictographCollectionView.cellForItem(at: index)!
+        let position = pictographCollectionView.contentOffset.x - currentCell.frame.origin.x
+        if position > (currentCell.frame.size.width / 2) {
+           index.row = index.row + 1
+        }
+        pictographCollectionView.scrollToItem(at: index, at: .left, animated: true )
     }
 }
