@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
+class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate, UITextViewDelegate {
 
     // MARK: - Constant
     private let contentTextFontSize = CGFloat(18)
@@ -17,7 +17,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate 
     private let contentImageViewCornerRadius = CGFloat(8)
 
     // MARK: - Properties
-    private let textView = UILabel.init(frame: .zero)
+    private let textView = UITextView.init(frame: .zero)
     private let imageView = WebImageView.init(frame: .zero)
     private static var sizingCell = NewsChapterCollectionViewCell.init(frame: .zero);
     private var imageViewHeightConstraint: NSLayoutConstraint!
@@ -53,8 +53,12 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate 
 
         // Sets up title label.
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.numberOfLines = 0
+        textView.isEditable = false
+        textView.isScrollEnabled = false
+        textView.dataDetectorTypes = UIDataDetectorTypes.link
         textView.textColor = .textCharcoalGrey
+        textView.tintColor = .wisteriaPurple
+        textView.delegate = self
         contentView.addSubview(textView)
 
         // Constraint
@@ -119,18 +123,31 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate 
     }
 
     private class func getChapterTextWithAttribute(content: String) -> NSMutableAttributedString {
-        // Sets the text for the title label.
 
-        let attributedString = NSMutableAttributedString(string: content)
+        let htmlData = NSString(string: content).data(using: String.Encoding.unicode.rawValue)
 
-        // *** Create instance of `NSMutableParagraphStyle`
+        let options = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html]
+
+        let attributedString = try! NSMutableAttributedString(data: htmlData!, options: options, documentAttributes: nil)
+
+        // Create instance of `NSMutableParagraphStyle`
         let paragraphStyle = NSMutableParagraphStyle()
 
-        // *** set LineSpacing property in points ***
         paragraphStyle.lineSpacing = 10 // Design set line height, I only find how to set line spacing
 
-        // *** Apply attribute to string ***
+        // Add line spacing attribute to string
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
         return attributedString
     }
+
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        /* perform your own custom actions here */
+        print(URL) // prints: "tel:+33687654321"
+
+        return false // return true if you also want UIAlertController to pop up
+    }
+
+
 }
+
+
