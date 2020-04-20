@@ -41,7 +41,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     private let plusImageView = UIImageView.init(frame: .zero)
 
     // Pinyin result section
-    private let detailLabel = UILabel.init(frame: .zero)
+    private let pinyinDetailView = PinyinDetailView.init(frame: .zero)
 
     // Pinyin partial section
     private let pinyinCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
@@ -89,7 +89,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
 
         setUpNavigationBar()
         setupTopSection()
-        setupDetailedPinyinResult()
+        setupDetailedPinyinView()
         setupPinyinCollectionView()
 
     }
@@ -150,19 +150,15 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         finalLabel.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.25).isActive = true
     }
 
-    func setupDetailedPinyinResult () {
-        detailLabel.translatesAutoresizingMaskIntoConstraints = false
-        let fontDescriptor = UIFont.systemFont(ofSize: topLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
-        detailLabel.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        detailLabel.textColor = .wisteriaPurple
-        detailLabel.numberOfLines = 3
-        detailLabel.textAlignment = .center
-        view.addSubview(detailLabel)
+    func setupDetailedPinyinView() {
+        pinyinDetailView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(pinyinDetailView)
 
         let viewHorizontalMargin = view.bounds.width * 0.05
-        detailLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: viewHorizontalMargin).isActive = true
-        detailLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -viewHorizontalMargin).isActive = true
-        detailLabel.topAnchor.constraint(equalTo: plusImageView.bottomAnchor, constant: CGFloat(20)).isActive = true
+        pinyinDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: viewHorizontalMargin).isActive = true
+        pinyinDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -viewHorizontalMargin).isActive = true
+        pinyinDetailView.topAnchor.constraint(equalTo: plusImageView.bottomAnchor, constant: CGFloat(40)).isActive = true
+        pinyinDetailView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.15).isActive = true
 
     }
 
@@ -175,7 +171,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         let viewHorizontalMargin = view.bounds.width * 0.05
         pinyinCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: viewHorizontalMargin).isActive = true
         pinyinCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -viewHorizontalMargin).isActive = true
-        pinyinCollectionView.topAnchor.constraint(equalTo: plusImageView.bottomAnchor, constant: pinyinPartialsCollectionViewTopMargin).isActive = true
+        pinyinCollectionView.topAnchor.constraint(equalTo: pinyinDetailView.bottomAnchor).isActive = true
         pinyinCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         // collection layout
@@ -273,7 +269,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     func checkPinyinResult() {
         if (selectedFinalIdx == noneSelectedIdx || selectedInitialIdx == noneSelectedIdx) {
-            self.detailLabel.text = self.pinyinDetailReminderOneMore
+            self.pinyinDetailView.setNotFound(message: self.pinyinDetailReminderOneMore)
         } else if (selectedFinalIdx != noneSelectedIdx && selectedInitialIdx != noneSelectedIdx) {
             let initial = initials[selectedInitialIdx]
             let final = finals[selectedFinalIdx]
@@ -281,9 +277,9 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
             dataFetcher.fetchDetailedPinyin(pinyin: pinyinToSearch, completionHandler: { (detailedPinyin, error) in
                 DispatchQueue.main.async {
                     if (error == nil && detailedPinyin != nil && detailedPinyin!.identifier != -1) {
-                        self.detailLabel.text = "found something for " + pinyinToSearch + ", first tone: " + detailedPinyin!.toneOneCharacter
+                        self.pinyinDetailView.setFoundDetail(pinyin: detailedPinyin!)
                     } else {
-                        self.detailLabel.text = self.pinyinDetailReminderNotFound
+                        self.pinyinDetailView.setNotFound(message: self.pinyinDetailReminderNotFound)
                     }
                 }
             })

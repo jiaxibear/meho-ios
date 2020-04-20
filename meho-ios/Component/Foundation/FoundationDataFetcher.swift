@@ -117,6 +117,9 @@ class FoundationDataFetcher: NSObject {
                 if let identifier = pinyinJsonResult["id"] as? Int {
                     pinyin.identifier = identifier
                 }
+                if let pinyinroot = pinyinJsonResult["pinyin"] as? String {
+                    pinyin.pinyin = pinyinroot
+                }
                 if let one_symbol = pinyinJsonResult["one_symbol"] as? String {
                     pinyin.toneOneSymbol = one_symbol
                 }

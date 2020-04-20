@@ -34,6 +34,9 @@
 		92C5FE29244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE28244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift */; };
 		92C5FE2B244C3E0F004A3322 /* PinyinFinalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE2A244C3E0F004A3322 /* PinyinFinalCollectionViewCell.swift */; };
 		92C5FE2D244C56AF004A3322 /* Pinyin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE2C244C56AF004A3322 /* Pinyin.swift */; };
+		92C5FE2F244D1621004A3322 /* PinyinSectionHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE2E244D1621004A3322 /* PinyinSectionHeaderCollectionReusableView.swift */; };
+		92C5FE31244D2216004A3322 /* PinyinToneDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE30244D2216004A3322 /* PinyinToneDetailCollectionViewCell.swift */; };
+		92C5FE33244D4DB6004A3322 /* PinyinDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE32244D4DB6004A3322 /* PinyinDetailView.swift */; };
 		92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DEE30E23F8FF60004D91D7 /* Feature.swift */; };
 		EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */; };
 		EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA01E6AA23FA356900C0B0AE /* Localizable.strings */; };
@@ -125,6 +128,9 @@
 		92C5FE28244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinyinInitialCollectionViewCell.swift; sourceTree = "<group>"; };
 		92C5FE2A244C3E0F004A3322 /* PinyinFinalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinyinFinalCollectionViewCell.swift; sourceTree = "<group>"; };
 		92C5FE2C244C56AF004A3322 /* Pinyin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pinyin.swift; sourceTree = "<group>"; };
+		92C5FE2E244D1621004A3322 /* PinyinSectionHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinyinSectionHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		92C5FE30244D2216004A3322 /* PinyinToneDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinyinToneDetailCollectionViewCell.swift; sourceTree = "<group>"; };
+		92C5FE32244D4DB6004A3322 /* PinyinDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinyinDetailView.swift; sourceTree = "<group>"; };
 		92DEE30E23F8FF60004D91D7 /* Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
 		A40C5A697051BB021EFB5E9C /* Pods_meho_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A456EF74653F7CB7D8C47AD7 /* Pods_meho_ios_meho_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios_meho_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -401,6 +407,9 @@
 				92C5FE28244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift */,
 				92C5FE2A244C3E0F004A3322 /* PinyinFinalCollectionViewCell.swift */,
 				92C5FE2C244C56AF004A3322 /* Pinyin.swift */,
+				92C5FE2E244D1621004A3322 /* PinyinSectionHeaderCollectionReusableView.swift */,
+				92C5FE30244D2216004A3322 /* PinyinToneDetailCollectionViewCell.swift */,
+				92C5FE32244D4DB6004A3322 /* PinyinDetailView.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -768,6 +777,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */,
+				92C5FE2F244D1621004A3322 /* PinyinSectionHeaderCollectionReusableView.swift in Sources */,
+				92C5FE31244D2216004A3322 /* PinyinToneDetailCollectionViewCell.swift in Sources */,
 				EA544907243ADF5200C07D0A /* ChapterScoreView.swift in Sources */,
 				EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */,
 				EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */,
@@ -785,6 +796,7 @@
 				92183A6023F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift in Sources */,
 				92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */,
 				EA5448B92414B5B400C07D0A /* ConversationHeaderCollectionReusableView.swift in Sources */,
+				92C5FE33244D4DB6004A3322 /* PinyinDetailView.swift in Sources */,
 				92577B2724457ACA0097A445 /* NewsChapterCollectionViewCell.swift in Sources */,
 				92BAC71D243ADA1500862571 /* SingleEnglishNewsViewController.swift in Sources */,
 				92ADF89524495D22003D2D12 /* FoundationDataFetcher.swift in Sources */,

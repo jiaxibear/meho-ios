@@ -10,6 +10,7 @@ import Foundation
 
 struct Pinyin {
     var identifier = -1
+    var pinyin = ""
     var toneOneSymbol = ""
     var toneOneCharacter = ""
     var toneOnePronounceUrl:URL?
