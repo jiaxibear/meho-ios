@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NewsChapterCollectionViewCellDelegate {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(22)
@@ -139,7 +139,17 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         let chapter = zhChapters[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsChapterCellReuseIdentifier, for: indexPath) as! NewsChapterCollectionViewCell
         cell.setNews(chapter)
+        cell.setDelegate(delegate: self)
         return cell
+    }
+
+    // MARK: - NewsChapterCollectionViewCellDelegate
+    func NewsChapterCollectionViewCellDidTapVocabulary(vocabulary: Vocabulary) {
+        let vocabularyViewController = VocabularyViewController.init(vocabulary: Vocabulary.init())
+        vocabularyViewController.modalPresentationStyle = .overFullScreen
+        vocabularyViewController.modalTransitionStyle = .crossDissolve
+        navigationController?.present(vocabularyViewController, animated: true, completion: nil)
+
     }
 
 }

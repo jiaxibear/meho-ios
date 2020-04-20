@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol NewsChapterCollectionViewCellDelegate : AnyObject {
+    func NewsChapterCollectionViewCellDidTapVocabulary(vocabulary: Vocabulary)
+}
+
 class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate, UITextViewDelegate {
 
     // MARK: - Constant
@@ -23,6 +27,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
     private var imageViewHeightConstraint: NSLayoutConstraint!
     private var imageViewToTextViewMarginConstraint: NSLayoutConstraint!
     private var textViewBottomConstraint: NSLayoutConstraint!
+    private weak var delegate: NewsChapterCollectionViewCellDelegate?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -80,6 +85,10 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
     }
 
     // MARK: - Public
+    func setDelegate(delegate: NewsChapterCollectionViewCellDelegate) {
+        self.delegate = delegate
+    }
+
     public func setNews(_ newsChapter: NewsChapter) {
         let attributedContent = NewsChapterCollectionViewCell.getChapterTextWithAttribute(content: newsChapter.content)
         textView.attributedText = attributedContent
@@ -88,7 +97,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
             let contentfontDescriptor = UIFont.systemFont(ofSize: contentTextFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
             textView.font = UIFont.init(descriptor: contentfontDescriptor!, size: 0)
         } else {
-            textView.font = UIFont.init(name: "PingFangSC-Semibold", size: contentTextFontSize)
+            textView.font = UIFont.init(name: "PingFangSC-Light", size: contentTextFontSize)
         }
 
         // Downloads the image.
@@ -133,7 +142,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         // Create instance of `NSMutableParagraphStyle`
         let paragraphStyle = NSMutableParagraphStyle()
 
-        paragraphStyle.lineSpacing = 10 // Design set line height, I only find how to set line spacing
+        paragraphStyle.lineSpacing = 6 // Design set line height, I only find how to set line spacing
 
         // Add line spacing attribute to string
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
@@ -142,8 +151,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
 
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         /* perform your own custom actions here */
-        print(URL) // prints: "tel:+33687654321"
-
+        delegate?.NewsChapterCollectionViewCellDidTapVocabulary(vocabulary: Vocabulary.init())
         return false // return true if you also want UIAlertController to pop up
     }
 
