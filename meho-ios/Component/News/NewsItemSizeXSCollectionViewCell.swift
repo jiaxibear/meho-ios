@@ -17,20 +17,20 @@ class NewsItemSizeXSCollectionViewCell: UICollectionViewCell {
     private let reasonLabelFontSize = CGFloat(16)
     private let reasonLabelLeadingTrailingMargin = CGFloat(13)
 
-    private let reasonLabelAndTitleLabelMargin = CGFloat(8)
+    private let reasonLabelAndTitleLabelMargin = CGFloat(10)
     private let titleLabelAndThumbnailViewMargin = CGFloat(9)
 
 
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
-    private let reasonView = NewsReasonView.init(frame: .zero)
+    private let reasonView = NewsReasonView.init(frame: .zero, yellowBar: false, darkMode: false)
     private static var sizingCell = NewsItemSizeXSCollectionViewCell.init(frame: .zero);
 
 
     // MARK: - Init
     @available(*, unavailable)
     init() {
-        fatalError("Use init(frame: CGRect)")
+        fatalError("Use init(frame: CGRect)")       
     }
 
     @available(*, unavailable)
@@ -56,15 +56,14 @@ class NewsItemSizeXSCollectionViewCell: UICollectionViewCell {
 
 
         // Sets up constraints
-        reasonView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        reasonView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        reasonView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-
 
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: reasonView.bottomAnchor, constant: reasonLabelAndTitleLabelMargin).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
 
+        reasonView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: reasonLabelAndTitleLabelMargin).isActive = true
+        reasonView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        reasonView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
     }
 
     // MARK: - Public

@@ -10,7 +10,7 @@ import UIKit
 
 class NewsDataFetcher: NSObject {
     // MARK: - Urls
-    private let fetchNewsListURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/articles/"
+    private let fetchNewsListURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/articles/?limit=20"
     private let fetchNewsDetailURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/paragraphs/?limit=20"
 
     // MARK: - Properties

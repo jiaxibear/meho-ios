@@ -17,7 +17,7 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     private let foundationTabBarItemImageName = "tabbar_foundation_25pt"
 
     private let titleLabelLeadingMargin = CGFloat(15)
-    private let featuresLeadinglMargin = CGFloat(22)
+    private let featuresMargin = CGFloat(22)
     private let foundationLabelTopMargin = CGFloat(38)
     private let featureCellReuseIdentifier = "Features"
     
@@ -90,14 +90,14 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
         
         // view constraints
         let margins = self.view.layoutMarginsGuide
-        featuresCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: featuresLeadinglMargin).isActive = true
-        featuresCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -featuresLeadinglMargin).isActive = true
+        featuresCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: featuresMargin).isActive = true
+        featuresCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -featuresMargin).isActive = true
         featuresCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: featuresCollectionViewTopMargin).isActive = true
         featuresCollectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -featuresCollectionViewBottomMargin).isActive = true
         
         // collection layout
         featuresCollectionViewFlowLayout.scrollDirection = .vertical
-        featuresCollectionViewFlowLayout.minimumLineSpacing = 30
+        featuresCollectionViewFlowLayout.minimumLineSpacing = featuresMargin
 
         // Sets up cell data
         featuresCollectionView.dataSource = self
@@ -119,7 +119,8 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
-        return CGSize(width: width, height: featuresCollectionViewCellHeight)
+        let height = collectionView.bounds.height * 0.32
+        return CGSize(width: width, height: height)
 
     }
 

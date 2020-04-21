@@ -52,6 +52,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         // Sets up content image view.
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = contentImageViewCornerRadius
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.delegate = self
         contentView.addSubview(imageView)

@@ -19,7 +19,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     private let newsCollectionViewCellGroupSpacing = CGFloat(20)
 
     private let newsCollectionHorizontalMargin = CGFloat(15)
-    private let newsCollectionTopMargin = CGFloat(13)
+    private let newsCollectionTopMargin = CGFloat(30)
 
 
     // MARK: UI
@@ -82,7 +82,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
         // collection layout
         newsCollectionViewFlowLayout.scrollDirection = .vertical
-        newsCollectionViewFlowLayout.minimumLineSpacing = 20
+        newsCollectionViewFlowLayout.minimumLineSpacing = 30
 
         newsCollectionView.register(NewsItemSizeXLCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeXLCellReuseIdentifier)
         newsCollectionView.register(NewsItemSizeLCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeLCellReuseIdentifier)

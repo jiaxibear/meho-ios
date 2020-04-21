@@ -17,15 +17,15 @@ class NewsItemSizeSCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
     private let reasonLabelFontSize = CGFloat(16)
     static let reasonLabelLeadingTrailingMargin = CGFloat(13)
 
-    private let reasonLabelAndTitleLabelMargin = CGFloat(8)
+    private let reasonLabelAndTitleLabelMargin = CGFloat(10)
     private let titleLabelAndThumbnailViewMargin = CGFloat(9)
 
-    private let thumbnailImageSideLength = CGFloat(80)
+    private let thumbnailImageSideLength = CGFloat(120)
     private let thumbnailImageViewCornerRadius = CGFloat(8)
 
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
-    private let reasonView = NewsReasonView.init(frame: .zero)
+    private let reasonView = NewsReasonView.init(frame: .zero, yellowBar: false, darkMode: false)
     private let thumbnailImageView = WebImageView.init(frame: .zero)
     private static var sizingCell = NewsItemSizeSCollectionViewCell.init(frame: .zero);
 
@@ -47,6 +47,7 @@ class NewsItemSizeSCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
         // Sets up cover image view.
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         thumbnailImageView.layer.cornerRadius = thumbnailImageViewCornerRadius
+        thumbnailImageView.contentMode = .scaleAspectFill
         thumbnailImageView.clipsToBounds = true
         thumbnailImageView.delegate = self
         contentView.addSubview(thumbnailImageView)
@@ -65,18 +66,19 @@ class NewsItemSizeSCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
         contentView.addSubview(reasonView)
 
         // Sets up constraints
-        reasonView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        reasonView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        reasonView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
 
+        thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         thumbnailImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         thumbnailImageView.heightAnchor.constraint(equalToConstant: thumbnailImageSideLength).isActive = true
         thumbnailImageView.widthAnchor.constraint(equalToConstant: thumbnailImageSideLength).isActive = true
-        thumbnailImageView.topAnchor.constraint(equalTo: reasonView.bottomAnchor, constant: reasonLabelAndTitleLabelMargin).isActive = true
 
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: -titleLabelAndThumbnailViewMargin).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: reasonView.bottomAnchor, constant: reasonLabelAndTitleLabelMargin).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+
+        reasonView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        reasonView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: reasonLabelAndTitleLabelMargin).isActive = true
+        reasonView.trailingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: -titleLabelAndThumbnailViewMargin).isActive = true
     }
 
     // MARK - WebImageViewDelegate
@@ -101,8 +103,9 @@ class NewsItemSizeSCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
     public class func cellHeight(with width: CGFloat, news: News) -> CGFloat {
         sizingCell.titleLabel.text = news.title_en
         sizingCell.reasonView.setReasonText(text: news.reason)
-        var height = sizingCell.reasonView.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height + sizingCell.reasonLabelAndTitleLabelMargin
-        height += max(sizingCell.titleLabel.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height, sizingCell.thumbnailImageSideLength)
-        return height
+        let titleAndReasonHeight = sizingCell.reasonView.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height
+            + sizingCell.reasonLabelAndTitleLabelMargin
+            + sizingCell.titleLabel.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height
+        return max(titleAndReasonHeight, sizingCell.thumbnailImageSideLength)
     }
 }

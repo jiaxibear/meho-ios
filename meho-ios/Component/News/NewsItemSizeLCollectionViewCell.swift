@@ -14,8 +14,7 @@ class NewsItemSizeLCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
     private let titleLabelToBottomMargin = CGFloat(6)
 
     private let reasonLabelFontSize = CGFloat(16)
-    private let reasonLabelLeadingTrailingMargin = CGFloat(13)
-    private let elementMargin = CGFloat(8)
+    private let elementMargin = CGFloat(10)
 
     private let coverImageViewHeight = CGFloat(200)
     private let coverImageViewCornerRadius = CGFloat(8)
@@ -23,7 +22,7 @@ class NewsItemSizeLCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
 
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
-    private let reasonView = NewsReasonView.init(frame: .zero)
+    private let reasonView = NewsReasonView.init(frame: .zero, yellowBar: false, darkMode: false)
     private let coverImageView = WebImageView.init(frame: .zero)
     private static var sizingCell = NewsItemSizeLCollectionViewCell.init(frame: .zero);
 
@@ -45,12 +44,13 @@ class NewsItemSizeLCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
         // Sets up cover image view.
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
         coverImageView.layer.cornerRadius = coverImageViewCornerRadius
+        coverImageView.contentMode = .scaleAspectFill
         coverImageView.clipsToBounds = true
         coverImageView.delegate = self
         contentView.addSubview(coverImageView)
 
         // Sets up title label.
-        titleLabel.numberOfLines = 2
+        titleLabel.numberOfLines = 3
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = .darkGray
         let labelfontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
@@ -70,13 +70,13 @@ class NewsItemSizeLCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
         coverImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
         coverImageView.heightAnchor.constraint(equalToConstant: coverImageViewHeight).isActive = true
 
-        reasonView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        reasonView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        reasonView.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: elementMargin).isActive = true
-
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: reasonView.bottomAnchor, constant: elementMargin).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: elementMargin).isActive = true
+
+        reasonView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        reasonView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        reasonView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: elementMargin).isActive = true
 
     }
 

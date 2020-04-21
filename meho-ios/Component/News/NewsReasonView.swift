@@ -18,20 +18,29 @@ class NewsReasonView: UIView {
     // MARK: - Properties
     private let yellowView = UIView.init(frame: .zero)
     private let reasonLabel = UILabel.init(frame: .zero)
+    private var showYellowBar = true
+    private var isDarkMode = false
 
     // MARK: - Init
     @available(*, unavailable)
     init() {
-        fatalError("Use init(frame: CGRect)")
+        fatalError("Use init(frame: CGRect, yellowBar: Bool, darkMode: Bool)")
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("Use init(frame: CGRect)")
+        fatalError("Use init(frame: CGRect, yellowBar: Bool, darkMode: Bool)")
     }
 
+    @available(*, unavailable)
     override init(frame: CGRect) {
+        fatalError("Use init(frame: CGRect, yellowBar: Bool, darkMode: Bool)")
+    }
+
+    init(frame: CGRect, yellowBar: Bool, darkMode: Bool) {
         super.init(frame: frame)
+        showYellowBar = yellowBar
+        isDarkMode = darkMode
         backgroundColor = .white
 
         // Sets up yellow view.
@@ -40,15 +49,21 @@ class NewsReasonView: UIView {
         addSubview(yellowView)
 
         // Sets up reason label.
-        let reasonfontDescriptor = UIFont.systemFont(ofSize: reasonLabelFontSize, weight: .thin).fontDescriptor.withDesign(.rounded)
+        let reasonfontDescriptor = UIFont.systemFont(ofSize: reasonLabelFontSize, weight: .light).fontDescriptor.withDesign(.rounded)
         reasonLabel.font = UIFont.init(descriptor: reasonfontDescriptor!, size: reasonLabelFontSize)
         reasonLabel.textColor = .darkGrayTwo
         reasonLabel.translatesAutoresizingMaskIntoConstraints = false
-        reasonLabel.numberOfLines = 2
+        reasonLabel.numberOfLines = 3
+        if isDarkMode {
+            reasonLabel.textColor = .white
+            backgroundColor = .clear
+        }
         addSubview(reasonLabel)
 
         // Sets up constraints
-        yellowView.widthAnchor.constraint(equalToConstant: yellowViewWidth).isActive = true
+        let yellowViewWidthToUse = showYellowBar ? yellowViewWidth : 0
+        let yellowViewMarginToUse = showYellowBar ? yellowViewAndReasonLabelMargin : 0
+        yellowView.widthAnchor.constraint(equalToConstant: yellowViewWidthToUse).isActive = true
         yellowView.heightAnchor.constraint(equalTo: reasonLabel.heightAnchor).isActive = true
         yellowView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         yellowView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
@@ -56,7 +71,7 @@ class NewsReasonView: UIView {
         reasonLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: yellowViewHeight).isActive = true
         reasonLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         reasonLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        reasonLabel.leadingAnchor.constraint(equalTo: yellowView.trailingAnchor, constant: yellowViewAndReasonLabelMargin).isActive = true
+        reasonLabel.leadingAnchor.constraint(equalTo: yellowView.trailingAnchor, constant: yellowViewMarginToUse).isActive = true
     }
 
     public func setReasonText(text: String) {
@@ -65,7 +80,8 @@ class NewsReasonView: UIView {
 
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         let width = size.width
-        let reasonLabelWidth = width - yellowViewWidth - yellowViewAndReasonLabelMargin
+        let yellowViewWidthToSubtract = showYellowBar ? yellowViewWidth + yellowViewAndReasonLabelMargin : 0
+        let reasonLabelWidth = width - yellowViewWidthToSubtract
         let height = max(yellowViewHeight, reasonLabel.sizeThatFits(CGSize.init(width: reasonLabelWidth, height: size.height)).height)
         return CGSize.init(width: width, height: height)
     }
@@ -76,7 +92,8 @@ class NewsReasonView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        reasonLabel.preferredMaxLayoutWidth = bounds.size.width - yellowViewWidth - yellowViewAndReasonLabelMargin
+        let yellowViewWidthToSubtract = showYellowBar ? yellowViewWidth + yellowViewAndReasonLabelMargin : 0
+        reasonLabel.preferredMaxLayoutWidth = bounds.size.width - yellowViewWidthToSubtract
         invalidateIntrinsicContentSize()
     }
 }

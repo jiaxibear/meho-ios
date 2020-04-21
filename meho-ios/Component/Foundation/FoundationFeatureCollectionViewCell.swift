@@ -43,6 +43,7 @@ class FoundationFeatureCollectionViewCell: UICollectionViewCell {
         let cellView = self.contentView
         featureImageView.translatesAutoresizingMaskIntoConstraints = false
         featureImageView.layer.cornerRadius = imageCornerRadius
+        featureImageView.contentMode = .scaleAspectFill
         featureImageView.clipsToBounds = true
         cellView.addSubview(featureImageView)
 
