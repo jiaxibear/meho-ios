@@ -29,7 +29,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     private let newsChapterCellReuseIdentifier = "zhNewsChapterCell"
 
     // MARK: - Datamodels
-    private let dataFecther = NewsDataFetcher.init()
+    private let dataFetcher = NewsDataFetcher.init()
     private var zhChapters:[NewsChapter] = []
 
     // MARK: - Init
@@ -58,7 +58,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         setUpChapters()
 
         // Do any additional setup after loading the view.
-        dataFecther.fetchNewsDetail(newsID: news.identifier, completionHandler: {
+        dataFetcher.fetchNewsDetail(newsID: news.identifier, completionHandler: {
             (englishChapters, chineseChapters, error) in
             if (error == nil && chineseChapters != nil && englishChapters != nil) {
                 DispatchQueue.main.async {
@@ -144,12 +144,18 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     }
 
     // MARK: - NewsChapterCollectionViewCellDelegate
-    func NewsChapterCollectionViewCellDidTapVocabulary(vocabulary: Vocabulary) {
-        let vocabularyViewController = VocabularyViewController.init(vocabulary: Vocabulary.init())
-        vocabularyViewController.modalPresentationStyle = .overFullScreen
-        vocabularyViewController.modalTransitionStyle = .crossDissolve
-        navigationController?.present(vocabularyViewController, animated: true, completion: nil)
+    func NewsChapterCollectionViewCellDidTapVocabulary(vocabularyUrl: URL) {
 
+        dataFetcher.fetchVocabulary (vocabularyUrl: vocabularyUrl, completionHandler: { (vocabulary, error) in
+            DispatchQueue.main.async {
+                if (error == nil && vocabulary != nil) {
+                    let vocabularyViewController = VocabularyViewController.init(vocabulary: vocabulary!)
+                    vocabularyViewController.modalPresentationStyle = .overFullScreen
+                    vocabularyViewController.modalTransitionStyle = .crossDissolve
+                    self.navigationController?.present(vocabularyViewController, animated: true, completion: nil)
+                }
+            }
+        })
     }
 
 }

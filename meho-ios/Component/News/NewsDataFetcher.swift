@@ -152,4 +152,53 @@ class NewsDataFetcher: NSObject {
 
         return newsList
     }
+
+    public func fetchVocabulary(vocabularyUrl: URL, completionHandler: @escaping ( Vocabulary?, Error?) -> Void) {
+        let dataCategoriesTask = session.dataTask(with: vocabularyUrl, completionHandler: { (data, URLResponse, error) in
+            if error != nil {
+                print("There is an error getting the response of news list")
+                completionHandler(nil, error)
+                return
+            }
+            if data == nil {
+                print("The response of news list is empty")
+                completionHandler(nil, nil)
+                return
+            }
+            do {
+                if let vocabularyJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                    let newsList = self.parseVocabulary(vocabularyJson: vocabularyJson)
+                    completionHandler(newsList, nil)
+                }
+            } catch let JSONError as NSError {
+                print("Failed to parse news list JSON: \(JSONError.localizedDescription)")
+                completionHandler(nil, JSONError)
+            }
+        })
+        dataCategoriesTask.resume()
+
+    }
+
+    private func parseVocabulary(vocabularyJson: [String: Any]) -> Vocabulary {
+
+        var vocabulary = Vocabulary.init()
+
+        if let content_zh_pinyin = vocabularyJson["content_zh_pinyin"] as? String {
+            vocabulary.content_pinyin = content_zh_pinyin
+        }
+        if let content_zh_CN = vocabularyJson["content_zh_CN"] as? String {
+            vocabulary.content_zh = content_zh_CN
+        }
+        if let content_en_US = vocabularyJson["content_en_US"] as? String {
+            vocabulary.content_en = content_en_US
+        }
+        if let identifier = vocabularyJson["id"] as? String {
+            vocabulary.identifier = identifier
+        }
+        if let pronounceURLString = vocabularyJson["pronounce"] as? String {
+            let audioURL = URL.init(string: pronounceURLString)
+            vocabulary.audioURL = audioURL
+        }
+        return vocabulary
+    }
 }

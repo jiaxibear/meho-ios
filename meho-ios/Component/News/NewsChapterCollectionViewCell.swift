@@ -9,7 +9,7 @@
 import UIKit
 
 protocol NewsChapterCollectionViewCellDelegate : AnyObject {
-    func NewsChapterCollectionViewCellDidTapVocabulary(vocabulary: Vocabulary)
+    func NewsChapterCollectionViewCellDidTapVocabulary(vocabularyUrl: URL)
 }
 
 class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate, UITextViewDelegate {
@@ -151,7 +151,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
 
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         /* perform your own custom actions here */
-        delegate?.NewsChapterCollectionViewCellDidTapVocabulary(vocabulary: Vocabulary.init())
+        delegate?.NewsChapterCollectionViewCellDidTapVocabulary(vocabularyUrl: URL.absoluteURL)
         return false // return true if you also want UIAlertController to pop up
     }
 

@@ -81,7 +81,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
 
     func setupZhLabel() {
         vocabularyZhLabel.translatesAutoresizingMaskIntoConstraints = false
-        vocabularyZhLabel.text = "中文"
+        vocabularyZhLabel.text = vocabulary.content_zh
         vocabularyZhLabel.textColor = .black
         vocabularyZhLabel.font = UIFont.init(name: "PingFangSC-Medium", size: zhLabelFontSize)
         vocabularyZhLabel.numberOfLines = 1
