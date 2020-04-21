@@ -76,6 +76,7 @@
 		EA5449122442A47200C07D0A /* ScoredChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5449112442A47200C07D0A /* ScoredChapter.swift */; };
 		EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5449142442B12500C07D0A /* RoleUtils.swift */; };
 		EA544918244421FD00C07D0A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA544917244421FD00C07D0A /* StoreKit.framework */; };
+		EA6381E72449913B00481B8B /* AudioVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381E62449913B00481B8B /* AudioVisualizerView.swift */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -184,6 +185,7 @@
 		EA5449142442B12500C07D0A /* RoleUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleUtils.swift; sourceTree = "<group>"; };
 		EA54491624441FDF00C07D0A /* Meho.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Meho.entitlements; sourceTree = "<group>"; };
 		EA544917244421FD00C07D0A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		EA6381E62449913B00481B8B /* AudioVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVisualizerView.swift; sourceTree = "<group>"; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 				EA5448C624283D6900C07D0A /* ExpandedChapterCollectionViewCell.swift */,
 				EA544906243ADF5200C07D0A /* ChapterScoreView.swift */,
 				EA5449112442A47200C07D0A /* ScoredChapter.swift */,
+				EA6381E62449913B00481B8B /* AudioVisualizerView.swift */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -819,6 +822,7 @@
 				92577B2D2446F5B70097A445 /* PinyinViewController.swift in Sources */,
 				924C53E823FA1E2600B59D95 /* SignInViewController.swift in Sources */,
 				EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */,
+				EA6381E72449913B00481B8B /* AudioVisualizerView.swift in Sources */,
 				EA01E6AF23FBC25F00C0B0AE /* Difficulty.swift in Sources */,
 				92BAC7192439691200862571 /* NewsReasonView.swift in Sources */,
 				92C5FE2B244C3E0F004A3322 /* PinyinFinalCollectionViewCell.swift in Sources */,

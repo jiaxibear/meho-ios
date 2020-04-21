@@ -31,7 +31,7 @@ enum AudioPlaySpeed : Float {
     }
 }
 
-class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluationDelegate, AVAudioRecorderDelegate {
+class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluationDelegate, AVAudioRecorderDelegate, AudioVisualizerViewDelegte {
 
     // MARK: - Constants
     private let contentLabelFontSize = CGFloat(24)
@@ -44,7 +44,8 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let avatarViewSize = CGFloat(70)
     private let scoreViewTralingMargin = CGFloat(16)
     private let actionLabelTopMargin = CGFloat(28)
-    private let actionButtonTopBottomMargin = CGFloat(25)
+    private let actionButtonsTopMargin = CGFloat(12)
+    private let actionButtonsBottomMargin = CGFloat(25)
     private let actionButtonsMargin = CGFloat(48)
     private let speedButtonBottomMargin = CGFloat(2)
     private let recordButtonSize = CGFloat(70)
@@ -60,6 +61,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let replayButtonSelectedImageName = "conversation_play_active"
     private let replayButtonDisabledImageName = "conversation_play_disabled"
     private let pronAccuraryMin = Float(60)
+    private let audioDBLowerLimit = Float(-30)
 
     // MARK: - Properties
     // MARK: UI
@@ -69,6 +71,8 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let contentPinyinLabel = UILabel.init(frame: .zero)
     private let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
     private let actionLabel = UILabel.init(frame: .zero)
+    private let audioVisualizerView = AudioVisualizerView.init(frame: .zero)
+    private let actionButtonsContainerView = UIView.init(frame: .zero)
     private let recordButton = UIButton.init(frame: .zero)
     private let listenButton = UIButton.init(frame: .zero)
     private let replayButton = UIButton.init(frame: .zero)
@@ -82,6 +86,8 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private var audioFileURL: URL?
     private var player: AVPlayer?
     private var currentAudioPlaySpeed = AudioPlaySpeed.normal
+    private var timer: Timer?
+
     // MARK: - Init
     @available(*, unavailable)
     init() {
@@ -92,7 +98,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         super.init(frame: frame)
         backgroundColor = UIColor.skyBlue.withAlphaComponent(backgroundColorAlpha)
         oralEvaluation.delegate = self
-        currentAudioPlaySpeed = .normal
 
         // Sets up the avatar view.
         avatarView.clipsToBounds = true
@@ -140,6 +145,16 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         actionLabel.textAlignment = .center
         contentView.addSubview(actionLabel)
 
+        // Sets up the action buttons container view.
+        actionButtonsContainerView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(actionButtonsContainerView)
+
+        // Sets up the audio visualizer view.
+        audioVisualizerView.isHidden = true
+        audioVisualizerView.translatesAutoresizingMaskIntoConstraints = false
+        audioVisualizerView.delegate = self
+        contentView.addSubview(audioVisualizerView)
+
         // Sets up the record button.
         recordButton.translatesAutoresizingMaskIntoConstraints = false
         let recordButtonNormalImage = UIImage.init(named: recordButtonNormalImageName)
@@ -149,7 +164,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         recordButton.clipsToBounds = true
         recordButton.layer.cornerRadius = recordButtonSize / 2
         recordButton.addTarget(self, action: #selector(didTapRecordButton), for: .touchUpInside)
-        contentView.addSubview(recordButton)
+        actionButtonsContainerView.addSubview(recordButton)
 
         // Sets up the listen button.
         listenButton.translatesAutoresizingMaskIntoConstraints = false
@@ -160,7 +175,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         listenButton.clipsToBounds = true
         listenButton.layer.cornerRadius = listenButtonSize / 2
         listenButton.addTarget(self, action: #selector(didTapListenButton), for: .touchUpInside)
-        contentView.addSubview(listenButton)
+        actionButtonsContainerView.addSubview(listenButton)
 
         // Sets up the replay button.
         replayButton.translatesAutoresizingMaskIntoConstraints = false
@@ -173,7 +188,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         replayButton.clipsToBounds = true
         replayButton.layer.cornerRadius = replayButtonSize / 2
         replayButton.addTarget(self, action: #selector(didTapReplayButton), for: .touchUpInside)
-        contentView.addSubview(replayButton)
+        actionButtonsContainerView.addSubview(replayButton)
 
         speedButton.translatesAutoresizingMaskIntoConstraints = false
         speedButton.setTitleColor(.skyBlue, for: .normal)
@@ -181,7 +196,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         let speedButtonFontDescriptor = UIFont.systemFont(ofSize: speedButtonFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         speedButton.titleLabel?.font = UIFont.init(descriptor: speedButtonFontDescriptor!, size: speedButtonFontSize)
         speedButton.addTarget(self, action: #selector(didTapSpeedButton), for: .touchUpInside)
-        contentView.addSubview(speedButton)
+        actionButtonsContainerView.addSubview(speedButton)
 
         // Sets up layout constraints
         avatarView.widthAnchor.constraint(equalToConstant: avatarViewSize).isActive = true
@@ -208,11 +223,21 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         actionLabel.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
         actionLabel.topAnchor.constraint(equalTo: contentInLocalLanguageLabel.bottomAnchor, constant: actionLabelTopMargin).isActive = true
 
-        recordButton.topAnchor.constraint(equalTo: actionLabel.bottomAnchor, constant: actionButtonTopBottomMargin).isActive = true
-        recordButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        actionButtonsContainerView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
+        actionButtonsContainerView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
+        actionButtonsContainerView.topAnchor.constraint(equalTo: actionLabel.bottomAnchor, constant: actionButtonsTopMargin).isActive = true
+        actionButtonsContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        actionButtonsContainerView.heightAnchor.constraint(equalToConstant: recordButtonSize + actionButtonsBottomMargin).isActive = true
+
+        audioVisualizerView.topAnchor.constraint(equalTo: actionButtonsContainerView.topAnchor).isActive = true
+        audioVisualizerView.bottomAnchor.constraint(equalTo: actionButtonsContainerView.bottomAnchor).isActive = true
+        audioVisualizerView.leadingAnchor.constraint(equalTo: actionButtonsContainerView.leadingAnchor).isActive = true
+        audioVisualizerView.trailingAnchor.constraint(equalTo: actionButtonsContainerView.trailingAnchor).isActive = true
+
+        recordButton.centerXAnchor.constraint(equalTo: actionButtonsContainerView.centerXAnchor).isActive = true
         recordButton.widthAnchor.constraint(equalToConstant: recordButtonSize).isActive = true
         recordButton.heightAnchor.constraint(equalToConstant: recordButtonSize).isActive = true
-        recordButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -actionButtonTopBottomMargin).isActive = true
+        recordButton.topAnchor.constraint(equalTo: actionButtonsContainerView.topAnchor).isActive = true
 
         listenButton.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor).isActive = true
         listenButton.widthAnchor.constraint(equalToConstant: listenButtonSize).isActive = true
@@ -224,7 +249,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         replayButton.heightAnchor.constraint(equalToConstant: replayButtonSize).isActive = true
         replayButton.leadingAnchor.constraint(equalTo: recordButton.trailingAnchor, constant: actionButtonsMargin).isActive = true
 
-        speedButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -speedButtonBottomMargin).isActive = true
+        speedButton.bottomAnchor.constraint(equalTo: actionButtonsContainerView.bottomAnchor, constant: -speedButtonBottomMargin).isActive = true
         speedButton.centerXAnchor.constraint(equalTo: listenButton.centerXAnchor).isActive = true
     }
 
@@ -244,6 +269,8 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         contentLabel.attributedText = nil
         contentPinyinLabel.text = nil
         contentInLocalLanguageLabel.text = nil
+        actionButtonsContainerView.isHidden = false
+        audioVisualizerView.isHidden = true
         listenButton.isSelected = false
         replayButton.isSelected = false
         recordButton.isSelected = false
@@ -282,7 +309,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         sizingCell.contentLabel.text = chapter.content
         sizingCell.contentPinyinLabel.text = chapter.contentPinyin
         sizingCell.contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
-        var height = sizingCell.avatarViewSize + sizingCell.avatarViewTopBottomMargin * 2 + 2 * sizingCell.contentsMargin + sizingCell.actionLabelTopMargin + sizingCell.actionButtonTopBottomMargin * 2 + sizingCell.recordButtonSize
+        var height = sizingCell.avatarViewSize + sizingCell.avatarViewTopBottomMargin * 2 + 2 * sizingCell.contentsMargin + sizingCell.actionLabelTopMargin + sizingCell.actionButtonsTopMargin + sizingCell.actionButtonsBottomMargin + sizingCell.recordButtonSize
         let contentWidth = width - 2 * sizingCell.contentLeadingTrailingMargin
         height += sizingCell.contentLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height
         height += sizingCell.contentPinyinLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height
@@ -311,6 +338,21 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
 
     func onEndOfSpeech(in oralEvaluation: TAIOralEvaluation!) {
 
+    }
+
+    // MARK: - AudioVisualizerViewDelegte
+    func audioVisualizerViewDidTapInside(_ audioVisualizerView: AudioVisualizerView) {
+        actionButtonsContainerView.isHidden = false
+        audioVisualizerView.isHidden = true
+        timer?.invalidate()
+        timer = nil
+        recordButton.isSelected = false
+        actionLabel.isHidden = true
+        audioRecorder?.stop()
+        if audioFileURL != nil {
+            replayButton.isEnabled = FileManager.default.fileExists(atPath: audioFileURL!.path)
+        }
+        startEvaluation()
     }
 
     // MARK: - Private
@@ -346,23 +388,15 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     @objc func didTapRecordButton() {
         listenButton.isSelected = false
         replayButton.isSelected = false
-        if recordButton.isSelected {
-            recordButton.isSelected = false
-            actionLabel.isHidden = true
-            audioRecorder?.stop()
-            if audioFileURL != nil {
-                replayButton.isEnabled = FileManager.default.fileExists(atPath: audioFileURL!.path)
-            }
-            startEvaluation()
-        } else {
-            recordButton.isSelected = true
-            if player?.timeControlStatus == .playing {
-                player?.pause()
-            }
-            actionLabel.isHidden = false
-            actionLabel.text = NSLocalizedString("RecordActionText", comment: "")
-            startRecording()
+        recordButton.isSelected = true
+        if player?.timeControlStatus == .playing {
+            player?.pause()
         }
+        actionLabel.isHidden = false
+        actionLabel.text = NSLocalizedString("RecordActionText", comment: "")
+        startRecording()
+        actionButtonsContainerView.isHidden = true
+        audioVisualizerView.isHidden = false
     }
 
     @objc func didTapSpeedButton() {
@@ -394,7 +428,20 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
             do {
                 audioRecorder = try AVAudioRecorder(url: audioFileURL!, settings: settings)
                 audioRecorder!.delegate = self
+                audioRecorder!.isMeteringEnabled = true
                 audioRecorder!.record()
+                audioVisualizerView.prepareBanners()
+                timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true, block: { (timer) in
+                    self.audioRecorder!.updateMeters()
+                    var audioDB = self.audioRecorder!.averagePower(forChannel: 0)
+                    if audioDB > self.audioDBLowerLimit {
+                        audioDB = (audioDB - self.audioDBLowerLimit) / -self.audioDBLowerLimit
+                        self.audioVisualizerView.drawBanner(value: audioDB)
+                    } else {
+                        self.audioVisualizerView.drawBanner(value: 0)
+                    }
+                })
+                timer?.fire()
             } catch {
                 // TODO: Catch recorder error.
             }
