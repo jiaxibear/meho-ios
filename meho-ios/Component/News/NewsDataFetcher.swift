@@ -192,6 +192,9 @@ class NewsDataFetcher: NSObject {
         if let content_en_US = vocabularyJson["content_en_US"] as? String {
             vocabulary.content_en = content_en_US
         }
+        if let optional_content = vocabularyJson["optional_content"] as? String {
+            vocabulary.content_en = optional_content
+        }
         if let identifier = vocabularyJson["id"] as? String {
             vocabulary.identifier = identifier
         }

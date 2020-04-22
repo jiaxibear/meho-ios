@@ -95,7 +95,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         textView.attributedText = attributedContent
         textView.sizeToFit()
         if newsChapter.language == "en-US" {
-            let contentfontDescriptor = UIFont.systemFont(ofSize: contentTextFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+            let contentfontDescriptor = UIFont.systemFont(ofSize: contentTextFontSize, weight: .light).fontDescriptor.withDesign(.rounded)
             textView.font = UIFont.init(descriptor: contentfontDescriptor!, size: 0)
         } else {
             textView.font = UIFont.init(name: "PingFangSC-Light", size: contentTextFontSize)
@@ -118,10 +118,10 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         let attributedContent = getChapterTextWithAttribute(content: newsChapter.content)
         sizingCell.textView.attributedText = attributedContent
         if newsChapter.language == "en-US" {
-            let contentfontDescriptor = UIFont.systemFont(ofSize: sizingCell.contentTextFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+            let contentfontDescriptor = UIFont.systemFont(ofSize: sizingCell.contentTextFontSize, weight: .light).fontDescriptor.withDesign(.rounded)
             sizingCell.textView.font = UIFont.init(descriptor: contentfontDescriptor!, size: 0)
         } else {
-            sizingCell.textView.font = UIFont.init(name: "PingFangSC-Semibold", size: sizingCell.contentTextFontSize)
+            sizingCell.textView.font = UIFont.init(name: "PingFangSC-Light", size: sizingCell.contentTextFontSize)
         }
 
         var height = sizingCell.textView.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height
