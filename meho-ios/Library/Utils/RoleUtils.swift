@@ -14,8 +14,8 @@ class RoleUtils: NSObject {
     static let roleJikai = "JIKAI"
     static let roleChuhan = "CHUHAN"
     static let roleCharlie = "CHARLIE"
-    static let roleJikaiImageName = "conversation_facepile1"
-    static let roleJackieImageName = "conversation_facepile2"
+    static let roleJackieImageName = "conversation_facepile1"
+    static let roleJikaiImageName = "conversation_facepile2"
     static let roleChuhanImageName = "conversation_facepile3"
     static let roleCharlieImageName = "conversation_facepile4"
 
