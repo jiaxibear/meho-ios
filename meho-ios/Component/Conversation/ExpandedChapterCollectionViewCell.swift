@@ -362,6 +362,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
             replayButton.isSelected = false
             recordButton.isSelected = false
             let playerItem = AVPlayerItem.init(url: audioURL)
+            playerItem.audioTimePitchAlgorithm = .spectral
             player = AVPlayer.init(playerItem: playerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
             player?.play()
