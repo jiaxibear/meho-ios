@@ -19,6 +19,8 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     private let navigationHeaderText = "拼音基础 Pinyin"
     private let pinyinDetailReminderOneMore = "Please select one Final and one Initial"
     private let pinyinDetailReminderNotFound = "Ops...\n this combo of Final and Initial is invalid, please try again"
+    private let initialsDelimiterTitle = "声母 Initials"
+    private let finalsDelimiterTitle = "韵母 Finals"
     private let plusImageName = "stories_heart_filled"
     private let navTitleLabelFontSize = CGFloat(18)
     private let pillCornerRadius = CGFloat(10)
@@ -26,8 +28,10 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     private let topLabelFontSize = CGFloat(15)
     private let pinyinPartialsCollectionViewTopMargin = CGFloat(150)
     private let topSectionHeight = CGFloat(30)
-    private let sectionVerticalInsets = CGFloat(30)
+    private let sectionVerticalInsets = CGFloat(5)
+    private let pinyinSectionDelimiterHeight = CGFloat(20)
 
+    private let pinyinHeaderCellReuseIdentifier = "ReusableDelimiterHeaderCell"
     private let initialCellReuseIdentifier = "ReusableInitialCell"
     private let finalCellReuseIdentifier = "ReusablefinalCell"
 
@@ -53,7 +57,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
                                      "p", "q", "r", "s", "t", "w", "x", "y", "z", "zh", "ch", "sh"]
     private var finals:[String] = ["a", "ai", "ao", "an", "ang", "e", "ei", "en", "eng", "er",
                                    "i", "ia", "ian", "iang", "iao", "ie", "iong", "iu", "in", "ing",
-                                   "o", "ou", "ong", "u", "ua", "uai", "uan", "uang", "uo", "ui"]
+                                   "o", "ou", "ong", "u", "ua", "uai", "uan", "uang", "uo", "un", "ui"]
     private var sections:[PinyinSection] = []
     private let noneSelectedIdx:Int = -1
     private var selectedInitialIdx:Int
@@ -157,7 +161,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         let viewHorizontalMargin = view.bounds.width * 0.05
         pinyinDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: viewHorizontalMargin).isActive = true
         pinyinDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -viewHorizontalMargin).isActive = true
-        pinyinDetailView.topAnchor.constraint(equalTo: plusImageView.bottomAnchor, constant: CGFloat(40)).isActive = true
+        pinyinDetailView.topAnchor.constraint(equalTo: plusImageView.bottomAnchor, constant: CGFloat(20)).isActive = true
         pinyinDetailView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.15).isActive = true
 
     }
@@ -178,12 +182,13 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         pinyinCollectionViewFlowLayout.scrollDirection = .vertical
         pinyinCollectionViewFlowLayout.minimumLineSpacing = 10
         pinyinCollectionViewFlowLayout.minimumInteritemSpacing = 5
-        pinyinCollectionViewFlowLayout.sectionInset = UIEdgeInsets.init(top: sectionVerticalInsets, left: 0, bottom: 0, right: 0)
+        pinyinCollectionViewFlowLayout.sectionInset = UIEdgeInsets.init(top: sectionVerticalInsets, left: 0, bottom: sectionVerticalInsets, right: 0)
 
         // Sets up cell data
         pinyinCollectionView.dataSource = self
         pinyinCollectionView.delegate = self
         pinyinCollectionView.showsVerticalScrollIndicator = false
+        pinyinCollectionView.register(PinyinSectionHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: pinyinHeaderCellReuseIdentifier)
         pinyinCollectionView.register(PinyinInitialCollectionViewCell.self, forCellWithReuseIdentifier:initialCellReuseIdentifier)
         pinyinCollectionView.register(PinyinFinalCollectionViewCell.self, forCellWithReuseIdentifier:finalCellReuseIdentifier)
 
@@ -223,7 +228,29 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize.init(width: 0, height: pinyinSectionDelimiterHeight)
+    }
 
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: pinyinHeaderCellReuseIdentifier, for: indexPath) as? PinyinSectionHeaderCollectionReusableView {
+                let pinyinPartialSection = sections[indexPath.section]
+                headerView.setTitle(self.titleForPinyinSection(pinyinPartialSection))
+                return headerView
+            }
+        }
+        return UICollectionReusableView.init(frame: .zero)
+    }
+
+    func titleForPinyinSection(_ pinyinSection : PinyinSection) -> String {
+        switch pinyinSection {
+        case .initials:
+            return initialsDelimiterTitle
+        case .finals:
+            return finalsDelimiterTitle
+        }
+    }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let pinyinSection = sections[indexPath.section]

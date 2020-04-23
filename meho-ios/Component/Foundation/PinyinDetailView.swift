@@ -11,11 +11,13 @@ import UIKit
 class PinyinDetailView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Constants
+    private let delimiterName = "四声"
     private let pinyinToneDetailCellIdentifier = "pinyinToneDetailCell"
     private let messageLabelFontSize = CGFloat(20)
-    private let toneCellLineSpacing = CGFloat(10)
+    private let toneCellLineSpacing = CGFloat(0)
 
     // MARK: - Properties
+    private let delimiterView = PinyinDelimiterView.init(frame: .zero)
     private let detailNotFoundMessageLabel = UILabel.init(frame: .zero)
     private let toneDetailCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var toneDetailCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:toneDetailCollectionViewFlowLayout)
@@ -38,9 +40,22 @@ class PinyinDetailView: UIView, UICollectionViewDataSource, UICollectionViewDele
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        setupDelimiterView()
         setupDetailedPinyinNotFoundMessageLabel()
         setupDetailedPinyinCollectionView()
+    }
+
+    private func setupDelimiterView() {
+        delimiterView.translatesAutoresizingMaskIntoConstraints = false
+        delimiterView.setTitle(title: delimiterName)
+        addSubview(delimiterView)
+
+        delimiterView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        delimiterView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        delimiterView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        delimiterView.heightAnchor.constraint(equalToConstant: CGFloat(20)).isActive = true
+
+        delimiterView.isHidden = true
     }
 
     private func setupDetailedPinyinNotFoundMessageLabel () {
@@ -54,7 +69,7 @@ class PinyinDetailView: UIView, UICollectionViewDataSource, UICollectionViewDele
 
         detailNotFoundMessageLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         detailNotFoundMessageLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        detailNotFoundMessageLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        detailNotFoundMessageLabel.topAnchor.constraint(equalTo: delimiterView.bottomAnchor).isActive = true
         detailNotFoundMessageLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
         detailNotFoundMessageLabel.isHidden = true
@@ -68,7 +83,7 @@ class PinyinDetailView: UIView, UICollectionViewDataSource, UICollectionViewDele
         // view constraints
         toneDetailCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         toneDetailCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        toneDetailCollectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        toneDetailCollectionView.topAnchor.constraint(equalTo: delimiterView.bottomAnchor).isActive = true
         toneDetailCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
         // collection layout
@@ -88,13 +103,16 @@ class PinyinDetailView: UIView, UICollectionViewDataSource, UICollectionViewDele
     func setFoundDetail(pinyin: Pinyin) {
         maybePinyinDetail = pinyin
         toneDetailCollectionView.reloadData()
+
         detailNotFoundMessageLabel.isHidden = true
         toneDetailCollectionView.isHidden = false
+        delimiterView.isHidden = false
     }
 
     func setNotFound(message: String) {
         detailNotFoundMessageLabel.text = message
         detailNotFoundMessageLabel.isHidden = false
+        delimiterView.isHidden = true
         toneDetailCollectionView.isHidden = true
     }
 

@@ -13,7 +13,7 @@ class PinyinToneDetailCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
     private let cardRadius = CGFloat(10)
     private let cardBorderwidth = CGFloat(2)
-    private let labelFontSize = CGFloat(15)
+    private let labelFontSize = CGFloat(17)
     private let speakerToSymbalMargin = CGFloat(10)
     private let pronounceButtonImageName = "stories_speaker"
 
@@ -53,6 +53,7 @@ class PinyinToneDetailCollectionViewCell: UICollectionViewCell {
         symbolLabel.textColor = .textCharcoalGrey
         let labelEnFontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
         symbolLabel.font = UIFont.init(descriptor: labelEnFontDescriptor!, size: 0)
+        symbolLabel.sizeToFit()
         contentView.addSubview(symbolLabel)
 
         characterLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -60,6 +61,8 @@ class PinyinToneDetailCollectionViewCell: UICollectionViewCell {
         characterLabel.textColor = .wisteriaPurple
         characterLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: labelFontSize)
         contentView.addSubview(characterLabel)
+        characterLabel.sizeToFit()
+        characterLabel.textAlignment = .left
         characterLabel.isHidden = true
 
         prounceButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
@@ -69,12 +72,10 @@ class PinyinToneDetailCollectionViewCell: UICollectionViewCell {
         prounceButton.isHidden = true
 
         symbolLabel.leadingAnchor.constraint(equalTo: prounceButton.trailingAnchor, constant: speakerToSymbalMargin).isActive = true
-        symbolLabel.widthAnchor.constraint(equalToConstant: contentView.bounds.width / 3).isActive = true
         symbolLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         symbolLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 
         characterLabel.leadingAnchor.constraint(equalTo: symbolLabel.trailingAnchor).isActive = true
-        characterLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         characterLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         characterLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 
@@ -89,7 +90,8 @@ class PinyinToneDetailCollectionViewCell: UICollectionViewCell {
     func setDetailsFound(symbol: String, character: String, pronounceUrl: URL?) {
         isFound = true
         maybeToneAudioUrl = pronounceUrl
-        symbolLabel.text = symbol
+        symbolLabel.text = "/" + symbol + "/ "
+        symbolLabel.textColor = .textCharcoalGrey
         characterLabel.text = character
 
         prounceButton.isHidden = false
@@ -98,7 +100,8 @@ class PinyinToneDetailCollectionViewCell: UICollectionViewCell {
 
     func setDetailsNotFound(symbol: String) {
         isFound = false
-        symbolLabel.text = symbol
+        symbolLabel.text = "/" + symbol + "/ "
+        symbolLabel.textColor = .textBlueGray
 
         prounceButton.isHidden = true
         characterLabel.isHidden = true
