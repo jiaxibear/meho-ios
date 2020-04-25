@@ -122,7 +122,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let newsItem = newsList[indexPath.item]
-        switch newsItem.renderType {
+        switch chooseRenterType(news:newsItem) {
         case "XL":
             return CGSize(width: width, height: NewsItemSizeXLCollectionViewCell.cellHeight(with: width, news: newsItem))
         case "L":
@@ -138,7 +138,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let newsItem = newsList[indexPath.item]
-        switch newsItem.renderType {
+        switch chooseRenterType(news:newsItem) {
         case "XL":
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeXLCellReuseIdentifier, for: indexPath) as! NewsItemSizeXLCollectionViewCell
             cell.setNews(newsItem)
@@ -165,5 +165,10 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         let detailedNewsViewController = DetailedNewsViewController.init(news: newsItem)
         navigationController?.pushViewController(detailedNewsViewController, animated: true)
 
+    }
+
+    // rendertype is returned as one of [XS, S, L, XL], usually we respect it. S, L, XL all come with images while XS don't.  If one news is not marked XS but still does not come with image, we should still degrade to XS
+    func chooseRenterType(news: News) -> String {
+        return news.coverImageURL == nil ? "XS" : news.renderType
     }
 }
