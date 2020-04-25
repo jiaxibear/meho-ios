@@ -49,6 +49,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.navigationBar.topItem?.title = ""
         conversationDataFetcher.fetchDetailedDialog(dialogID: dialogID) { (dialog, error) in
             if (dialog != nil && error == nil) {
                 self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in

@@ -144,6 +144,13 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         navigationController?.present(difficultyDialogViewController, animated: true, completion: nil)
     }
 
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let dialogID = dialogs[indexPath.item].identifier
+        let detailedDialogViewController = DetailedDialogViewController.init(dialogID: dialogID)
+        navigationController?.pushViewController(detailedDialogViewController, animated: true)
+    }
+
     // MARK: - DifficultyViewControllerDelegate
     func didSelectDifficulty(_ diffculty: Difficulty) {
         self.difficulty = diffculty
