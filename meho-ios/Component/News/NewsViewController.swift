@@ -12,7 +12,6 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
-    private let titleLabelFontSize = CGFloat(34)
     private let newsTabBarItemImageName = "tabbar_news_25pt"
 
     private let newsCollectionViewCellHeight = CGFloat(110)
@@ -20,6 +19,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     private let newsCollectionHorizontalMargin = CGFloat(15)
     private let newsCollectionTopMargin = CGFloat(30)
+    private let newsListTitle = NSLocalizedString("NewsTitle", comment: "")
 
 
     // MARK: UI
@@ -31,6 +31,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     private let newsItemSizeLCellReuseIdentifier = "NewsItemSizeL"
     private let newsItemSizeSCellReuseIdentifier = "NewsItemSizeS"
     private let newsItemSizeXSCellReuseIdentifier = "NewsItemSizeXS"
+    private let newsListTitleHeaderCellReuseIdentifier = "NewsListTitle"
 
     // MARK: - Datamodels
     private let dataFecther = NewsDataFetcher.init()
@@ -59,18 +60,20 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .white
-        let margins = view.layoutMarginsGuide
+        setupNewsCollectionView()
 
-        // Sets up the title.
-        titleLabel.text = NSLocalizedString("NewsTitle", comment: "")
-        titleLabel.textColor = .wisteriaPurple
-        let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        titleLabel.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(titleLabel)
+        dataFecther.fetchNewsList { (newsList, error) in
+            if (error == nil && newsList != nil) {
+                DispatchQueue.main.async {
+                    self.newsList = newsList!
+                    self.newsCollectionView.reloadData()
+                }
+            }
+        }
+    }
 
+    func setupNewsCollectionView() {
         // Sets up news collection.
 
         newsCollectionView.dataSource = self
@@ -88,33 +91,32 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         newsCollectionView.register(NewsItemSizeLCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeLCellReuseIdentifier)
         newsCollectionView.register(NewsItemSizeSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeSCellReuseIdentifier)
         newsCollectionView.register(NewsItemSizeXSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeXSCellReuseIdentifier)
+        newsCollectionView.register(NewsListHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsListTitleHeaderCellReuseIdentifier)
         view.addSubview(newsCollectionView)
 
-
-
-        // Sets up layout constrainsts.
-        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: trailingLeadingMargin).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
 
         // view constraints
         newsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: newsCollectionHorizontalMargin).isActive = true
         newsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -newsCollectionHorizontalMargin).isActive = true
-        newsCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: newsCollectionTopMargin).isActive = true
-        newsCollectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-
-        dataFecther.fetchNewsList { (newsList, error) in
-            if (error == nil && newsList != nil) {
-                DispatchQueue.main.async {
-                    self.newsList = newsList!
-                    self.newsCollectionView.reloadData()
-                }
-            }
-        }
+        newsCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        newsCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
     }
 
-
     // MARK: - UICollectionViewDataSource
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsListTitleHeaderCellReuseIdentifier, for: indexPath) as? NewsListHeaderCollectionReusableView {
+                headerView.setTitle(title: newsListTitle)
+                return headerView
+            }
+        }
+        return UICollectionReusableView.init(frame: .zero)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize.init(width: 0, height: NewsListHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, title: newsListTitle))
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return newsList.count
     }

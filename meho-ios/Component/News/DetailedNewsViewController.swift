@@ -92,7 +92,6 @@ class DetailedNewsViewController: UIViewController {
         let newsShareButtonImage = UIImage.init(named: newsShareButtonImageName)
         let newsShareButtonItem = UIBarButtonItem.init(image: newsShareButtonImage, style: .plain, target: self, action: #selector(didTapShareButton))
         navigationItem.setRightBarButton(newsShareButtonItem, animated: true)
-
         setUpNewsSourceView(newsSource: news.source)
     }
 

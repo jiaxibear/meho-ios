@@ -21,12 +21,11 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     private let news: News
 
     // MARK: - UI
-    private let titleEnLabel = UILabel.init(frame: .zero)
-    private let titleZhLabel = UILabel.init(frame: .zero)
     private var chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:chaptersCollectionViewFlowLayout)
 
     private let newsChapterCellReuseIdentifier = "zhNewsChapterCell"
+    private let newsTitleHeaderCellReuseIdentifier = "zhNewsTitleHeader"
 
     // MARK: - Datamodels
     private let dataFetcher = NewsDataFetcher.init()
@@ -52,9 +51,16 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         super.init(nibName: nil, bundle: nil)
     }
 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
+            navigationController?.setNavigationBarHidden(true, animated: false)
+        } else {
+            navigationController?.setNavigationBarHidden(false, animated: false)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpTitleLabel()
         setUpChapters()
 
         // Do any additional setup after loading the view.
@@ -68,37 +74,6 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
             }
         })
     }
-    
-    // MARK: - Setup UI
-    func setUpTitleLabel() {
-        // Sets up the title.
-        titleZhLabel.text = news.title_zh
-        titleZhLabel.textColor = .black
-        titleZhLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: titleLabelFontSize)
-        titleZhLabel.numberOfLines = 3
-        titleZhLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(titleZhLabel)
-
-        titleEnLabel.text = news.title_en
-        titleEnLabel.textColor = .black
-        let languageToggleEnfontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        titleEnLabel.font = UIFont.init(descriptor: languageToggleEnfontDescriptor!, size: 0)
-        titleEnLabel.numberOfLines = 3
-        titleEnLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(titleEnLabel)
-
-
-        // Sets up layout constrainsts.
-        titleZhLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
-        titleZhLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true
-        titleZhLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: titleLableTopMargin).isActive = true
-
-        titleEnLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
-        titleEnLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true
-        titleEnLabel.topAnchor.constraint(equalTo: titleZhLabel.bottomAnchor, constant: CGFloat(5)).isActive = true
-
-    }
-
 
     func setUpChapters() {
         chaptersCollectionView.dataSource = self
@@ -113,17 +88,32 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionViewFlowLayout.minimumLineSpacing = 18
 
         chaptersCollectionView.register(NewsChapterCollectionViewCell.self, forCellWithReuseIdentifier:newsChapterCellReuseIdentifier)
+        chaptersCollectionView.register(NewsTwoTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier)
         view.addSubview(chaptersCollectionView)
 
 
         // view constraints
         chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
         chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true
-        chaptersCollectionView.topAnchor.constraint(equalTo: titleEnLabel.bottomAnchor, constant: chaptersToTitleMargin).isActive = true
+        chaptersCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         chaptersCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
     }
 
     // MARK: - UICollectionViewDataSource
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier, for: indexPath) as? NewsTwoTitleHeaderCollectionReusableView {
+                headerView.setTitle(titleEn: news.title_en, titleZh: news.title_zh)
+                return headerView
+            }
+        }
+        return UICollectionReusableView.init(frame: .zero)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize.init(width: 0, height: NewsTwoTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: news.title_en, titleZh: news.title_zh))
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return zhChapters.count
     }
