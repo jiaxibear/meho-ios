@@ -14,10 +14,11 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Constants
     let dimmingViewAlpha = CGFloat(CGFloat(99)/256)
     let contentViewCornerRadius = CGFloat(10)
-    let contentViewRatio = CGFloat(0.25)
+    let contentViewRatio = CGFloat(0.3)
     let zhLabelFontSize = CGFloat(22)
     let pinyinLabelFontSize = CGFloat(20)
     let enLabelFontSize = CGFloat(20)
+
 
     let horizontalMarginToWidthRaitio = CGFloat(1.0/12.0)
     let labelTopMarginToHeightRaitio = CGFloat(1.0/5.0)
@@ -32,6 +33,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
     let vocabularyZhLabel = UILabel.init(frame: .zero)
     let vocabularyPinyinLabel = UILabel.init(frame: .zero)
     let vocabularyEnLabel = UILabel.init(frame: .zero)
+    let vocabularyOptionalLabel = UILabel.init(frame: .zero)
     let likeButton = UIButton.init(frame: .zero)
     let prounceButton = UIButton.init(frame: .zero)
 
@@ -62,6 +64,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
         setupLikeButton()
         setupPinyinLabel()
         setupeEnLabel()
+        setupeOptionalLabel()
         setupPronounceButton()
         // Do any additional setup after loading the view.
     }
@@ -147,7 +150,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
         vocabularyEnLabel.textColor = .textBlueGray
         let enfontDescriptor = UIFont.systemFont(ofSize: enLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
         vocabularyEnLabel.font = UIFont.init(descriptor: enfontDescriptor!, size: 0)
-        vocabularyEnLabel.numberOfLines = 3
+        vocabularyEnLabel.numberOfLines = 1
         vocabularyEnLabel.sizeToFit()
         contentView.addSubview(vocabularyEnLabel)
 
@@ -155,6 +158,22 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
         vocabularyEnLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: containerWidth * horizontalMarginToWidthRaitio).isActive = true
         vocabularyEnLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -containerWidth * horizontalMarginToWidthRaitio).isActive = true
         vocabularyEnLabel.topAnchor.constraint(equalTo: vocabularyPinyinLabel.bottomAnchor, constant: CGFloat(13)).isActive = true
+    }
+
+    func setupeOptionalLabel() {
+        vocabularyOptionalLabel.translatesAutoresizingMaskIntoConstraints = false
+        vocabularyOptionalLabel.text = vocabulary.content_optional
+        vocabularyOptionalLabel.textColor = .textBlueGray
+        let optionalfontDescriptor = UIFont.systemFont(ofSize: enLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+        vocabularyEnLabel.font = UIFont.init(descriptor: optionalfontDescriptor!, size: 0)
+        vocabularyOptionalLabel.numberOfLines = 2
+        vocabularyOptionalLabel.sizeToFit()
+        contentView.addSubview(vocabularyOptionalLabel)
+
+        let containerWidth = view.bounds.width
+        vocabularyOptionalLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: containerWidth * horizontalMarginToWidthRaitio).isActive = true
+        vocabularyOptionalLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -containerWidth * horizontalMarginToWidthRaitio).isActive = true
+        vocabularyOptionalLabel.topAnchor.constraint(equalTo: vocabularyEnLabel.bottomAnchor, constant: CGFloat(10)).isActive = true
     }
 
     func setupPronounceButton() {

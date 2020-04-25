@@ -51,7 +51,7 @@ class NewsItemSizeXLCollectionViewCell: UICollectionViewCell, WebImageViewDelega
         coverImageView.delegate = self
         contentView.addSubview(coverImageView)
 
-        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(50).cgColor]
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(10).cgColor]
         coverImageView.layer.insertSublayer(gradientLayer, at: 0)
 
         // Sets up title label.

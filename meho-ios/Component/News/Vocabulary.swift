@@ -13,5 +13,6 @@ struct Vocabulary {
     var content_pinyin = ""
     var content_zh = ""
     var content_en = ""
+    var content_optional = ""
     var audioURL:URL?
 }
