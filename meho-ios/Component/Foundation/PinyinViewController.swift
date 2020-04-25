@@ -295,21 +295,30 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
 
     func checkPinyinResult() {
-        if (selectedFinalIdx == noneSelectedIdx || selectedInitialIdx == noneSelectedIdx) {
+        if (selectedFinalIdx == noneSelectedIdx) { // if user does not even select final, no need to call to search
             self.pinyinDetailView.setNotFound(message: self.pinyinDetailReminderOneMore)
-        } else if (selectedFinalIdx != noneSelectedIdx && selectedInitialIdx != noneSelectedIdx) {
-            let initial = initials[selectedInitialIdx]
+        } else if (selectedFinalIdx != noneSelectedIdx) { // user select a initial, can call to search
             let final = finals[selectedFinalIdx]
-            let pinyinToSearch = initial + final
+            let pinyinToSearch = (selectedInitialIdx == noneSelectedIdx)
+                ? final : initials[selectedInitialIdx] + final
             dataFetcher.fetchDetailedPinyin(pinyin: pinyinToSearch, completionHandler: { (detailedPinyin, error) in
                 DispatchQueue.main.async {
                     if (error == nil && detailedPinyin != nil && detailedPinyin!.identifier != -1) {
+                        // found a pinyin, show it
                         self.pinyinDetailView.setFoundDetail(pinyin: detailedPinyin!)
-                    } else {
-                        self.pinyinDetailView.setNotFound(message: self.pinyinDetailReminderNotFound)
+                    } else { // cannot found a pinyin
+                        if (self.selectedInitialIdx == self.noneSelectedIdx) {
+                            // if initial is not selected, suggest user to select one more
+                            self.pinyinDetailView.setNotFound(message: self.pinyinDetailReminderOneMore)
+                        } else {
+                            // if initial is selected, suggest user to change a group
+                            self.pinyinDetailView.setNotFound(message: self.pinyinDetailReminderNotFound)
+                        }
                     }
                 }
             })
+        } else if (selectedFinalIdx != noneSelectedIdx && selectedInitialIdx != noneSelectedIdx) {
+
         }
     }
 }
