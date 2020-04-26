@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Sets appearance of the navigation bar.
         let navigationBarAppearance = UINavigationBarAppearance()
-        let backBarButtonItemImage = UIImage.init(systemName: backBarButtonItemImageName)?.withTintColor(.wisteriaPurple)
+        let backBarButtonItemImage = UIImage.init(systemName: backBarButtonItemImageName)?.withTintColor(.wisteriaPurple).withAlignmentRectInsets(UIEdgeInsets.init(top: 0, left: 0, bottom: 2, right: 0))
         navigationBarAppearance.setBackIndicatorImage(backBarButtonItemImage, transitionMaskImage: backBarButtonItemImage)
         navigationBarAppearance.backgroundColor = .white
         navigationBarAppearance.shadowColor = .white
