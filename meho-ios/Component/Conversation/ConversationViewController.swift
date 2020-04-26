@@ -173,7 +173,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     }
 
     // MARK: - SeeMoreFooterCollectionResuableViewDelegate
-    func SeeMoreFooterCollectionResuableViewDidTapButton(_ view: SeeMoreFooterCollectionResuableView) {
+    func seeMoreFooterCollectionResuableViewDidTapButton(_ view: SeeMoreFooterCollectionResuableView) {
         var dialogStreamViewController: DialogStreamViewController?
         if view.tag == ConversationSection.mostPopluarDialogs.rawValue {
             dialogStreamViewController = DialogStreamViewController.init(streamType: .mostPopular)

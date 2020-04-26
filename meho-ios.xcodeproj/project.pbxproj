@@ -81,6 +81,7 @@
 		EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5449142442B12500C07D0A /* RoleUtils.swift */; };
 		EA544918244421FD00C07D0A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA544917244421FD00C07D0A /* StoreKit.framework */; };
 		EA6381E72449913B00481B8B /* AudioVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381E62449913B00481B8B /* AudioVisualizerView.swift */; };
+		EA6381E92454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -194,6 +195,7 @@
 		EA54491624441FDF00C07D0A /* Meho.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Meho.entitlements; sourceTree = "<group>"; };
 		EA544917244421FD00C07D0A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EA6381E62449913B00481B8B /* AudioVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVisualizerView.swift; sourceTree = "<group>"; };
+		EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoModeFooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
@@ -404,6 +406,7 @@
 				EA544906243ADF5200C07D0A /* ChapterScoreView.swift */,
 				EA5449112442A47200C07D0A /* ScoredChapter.swift */,
 				EA6381E62449913B00481B8B /* AudioVisualizerView.swift */,
+				EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -810,6 +813,7 @@
 				EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */,
 				EA5448BF2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift in Sources */,
 				92C5FE3924502FAC004A3322 /* PinyinDelimiterView.swift in Sources */,
+				EA6381E92454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift in Sources */,
 				92C5FE2D244C56AF004A3322 /* Pinyin.swift in Sources */,
 				EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */,
 				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,

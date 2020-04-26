@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol SeeMoreFooterCollectionResuableViewDelegate : AnyObject{
-    func SeeMoreFooterCollectionResuableViewDidTapButton(_ view: SeeMoreFooterCollectionResuableView)
+protocol SeeMoreFooterCollectionResuableViewDelegate : AnyObject {
+    func seeMoreFooterCollectionResuableViewDidTapButton(_ view: SeeMoreFooterCollectionResuableView)
 }
 
 class SeeMoreFooterCollectionResuableView: UICollectionReusableView {
@@ -60,6 +60,6 @@ class SeeMoreFooterCollectionResuableView: UICollectionReusableView {
     // MARK: - Private
     @objc
     func didTapSeeMoreButton() {
-        delegate?.SeeMoreFooterCollectionResuableViewDidTapButton(self)
+        delegate?.seeMoreFooterCollectionResuableViewDidTapButton(self)
     }
 }

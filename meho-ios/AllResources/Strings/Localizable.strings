@@ -53,3 +53,6 @@
 
 /* Text displayed when the user taps the replay button in the dialog. */
 "ReplayActionText" = "Replaying your recording...";
+
+/* Title for the button that the user taps to continue with duo mode. */
+"DuoModeButtonTitle" = "Continue with Duo Mode";

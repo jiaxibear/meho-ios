@@ -14,15 +14,33 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     // MARK: - Constants
     private let collapsedChapterCollectionViewCellReuseIdentifier = "collapsedChapterCollectionViewCellReuseIdentifier"
     private let expandedChapterCollectionViewCellReuseIdentifier = "expandedChapterCollectionViewCellReuseIdentifier"
+    private let duoModeFooterCollectionResuableViewReuseIdentifier = "duoModeFooterCollectionResuableViewReuseIdentifier"
 
     // MARK: - Properties
+    // MARK: Model
     private let conversationDataFetcher = ConversationDataFetcher.init()
     private var scoredChapters: [ScoredChapter] = []
     private let dialogID: String
-    private let chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-    private lazy var chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: chaptersCollectionViewFlowLayout)
     private var currentChapterIndex = 0
     private var hasAutoPlayedAudio = false
+
+    // MARK: UI
+    private lazy var chaptersCollectionViewFlowLayout: UICollectionViewFlowLayout = {
+        let chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+        chaptersCollectionViewFlowLayout.minimumLineSpacing = 0
+        return chaptersCollectionViewFlowLayout
+    }()
+    private lazy var chaptersCollectionView: UICollectionView = {
+        let chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: chaptersCollectionViewFlowLayout)
+        chaptersCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        chaptersCollectionView.backgroundColor = .white
+        chaptersCollectionView.register(CollapsedChapterCollectionViewCell.self, forCellWithReuseIdentifier: collapsedChapterCollectionViewCellReuseIdentifier)
+        chaptersCollectionView.register(ExpandedChapterCollectionViewCell.self, forCellWithReuseIdentifier: expandedChapterCollectionViewCellReuseIdentifier)
+        chaptersCollectionView.register(DuoModeFooterCollectionResuableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: duoModeFooterCollectionResuableViewReuseIdentifier)
+        chaptersCollectionView.delegate = self
+        chaptersCollectionView.dataSource = self
+        return chaptersCollectionView
+    }()
 
     // MARK: - Init
     init() {
@@ -71,16 +89,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
             }
         }
 
-        // Sets up chapters collection view.
-        chaptersCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        chaptersCollectionView.backgroundColor = .white
-        chaptersCollectionView.register(CollapsedChapterCollectionViewCell.self, forCellWithReuseIdentifier: collapsedChapterCollectionViewCellReuseIdentifier)
-        chaptersCollectionView.register(ExpandedChapterCollectionViewCell.self, forCellWithReuseIdentifier: expandedChapterCollectionViewCellReuseIdentifier)
-        chaptersCollectionView.delegate = self
-        chaptersCollectionView.dataSource = self
         view.addSubview(chaptersCollectionView)
-
-        chaptersCollectionViewFlowLayout.minimumLineSpacing = 0
 
         // Sets up layout constraints
         chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -133,5 +142,22 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
             expandedCell.playAudio()
             hasAutoPlayedAudio = true;
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if scoredChapters.count == 0 {
+            return CGSize.zero
+        }
+        let height = DuoModeFooterCollectionResuableView.viewHeight
+        return CGSize.init(width: 0, height: height)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionFooter {
+            if let duoModeFooterView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: duoModeFooterCollectionResuableViewReuseIdentifier, for: indexPath) as? DuoModeFooterCollectionResuableView {
+                return duoModeFooterView
+            }
+        }
+        return UICollectionReusableView.init(frame: .zero)
     }
 }
