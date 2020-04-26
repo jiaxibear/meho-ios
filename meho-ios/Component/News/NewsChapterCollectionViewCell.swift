@@ -63,8 +63,16 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         textView.isScrollEnabled = false
         textView.dataDetectorTypes = UIDataDetectorTypes.link
         textView.textColor = .textCharcoalGrey
-        textView.tintColor = .wisteriaPurple
         textView.textContainer.lineFragmentPadding = 0
+
+        let linkAttributes: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.foregroundColor: UIColor.wisteriaPurple,
+            NSAttributedString.Key.underlineColor: UIColor.lightGray,
+            NSAttributedString.Key.underlineStyle: NSUnderlineStyle.patternDot.rawValue | NSUnderlineStyle.byWord.rawValue
+        ]
+        textView.linkTextAttributes = linkAttributes
+
+
         textView.delegate = self
         contentView.addSubview(textView)
 
@@ -146,8 +154,12 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
 
         paragraphStyle.lineSpacing = 6 // Design set line height, I only find how to set line spacing
 
+//        let underscoreattr = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.patternDash.rawValue | NSUnderlineStyle.single.rawValue]
+
+
         // Add line spacing attribute to string
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+
         return attributedString
     }
 
