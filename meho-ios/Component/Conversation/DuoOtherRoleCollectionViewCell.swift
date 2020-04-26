@@ -101,7 +101,7 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
     func setScoredChapter(_ scoredChapter: ScoredChapter) {
         let role = scoredChapter.chapter.role
         roleImageView.image = RoleUtils.avatarImage(with: role)
-        roleLabel.text = role
+        roleLabel.text = NSLocalizedString("RoleAText", comment: "")
         contentLabel.text = scoredChapter.chapter.content
     }
 

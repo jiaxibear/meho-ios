@@ -7,17 +7,17 @@
 //
 
 import UIKit
+import AVFoundation
 
 class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Constants
     private static let replayButtonNormalImageName = "conversation_play_inactive"
-    private static let recordButtonNormalImageName = "conversation_microphone_inactive"
-    private static let nextButtonNormalImageName = "conversation_next"
-    private static let recordButtonSelectedImageName = "conversation_microphone_active"
-    private static let nextButtonDisabledImageName = "conversation_next_inactive"
-    private static let replayButtonSelectedImageName = "conversation_play_active"
     private static let replayButtonDisabledImageName = "conversation_play_disabled"
+    private static let recordButtonNormalImageName = "conversation_microphone_inactive"
+    private static let recordButtonDisabledImageName = "conversation_microphone_disabled"
+    private static let nextButtonNormalImageName = "conversation_next"
+    private static let nextButtonDisabledImageName = "conversation_next_disabled"
     private static let recordButtonSize = CGFloat(70)
     private static let replayButtonSize = CGFloat(50)
     private static let nextButtonSize = CGFloat(50)
@@ -32,13 +32,14 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     // MARK: Model
     private var scoredChapters: [ScoredChapter];
     private var currentScoredChapters: [ScoredChapter] = []
+    private var player: AVPlayer?
 
     // MARK: UI
     private lazy var progressView: UIProgressView = {
         let progressView = UIProgressView.init(progressViewStyle: .bar)
         progressView.progressTintColor = .skyBlue
         return progressView
-    }()
+    } ()
 
     private lazy var actionlabel: UILabel = {
         let actionLabel = UILabel.init(frame: .zero)
@@ -49,35 +50,33 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         actionLabel.numberOfLines = 1
         actionLabel.textAlignment = .center
         return actionLabel
-    }()
+    } ()
 
     private lazy var replayButton: UIButton = {
         let replayButton = UIButton.init(frame: .zero)
         replayButton.translatesAutoresizingMaskIntoConstraints = false
         let replayButtonNormalImage = UIImage.init(named: DuoDetailedDialogViewController.replayButtonNormalImageName)
         replayButton.setImage(replayButtonNormalImage, for: .normal)
-        let replayButtonEnabledImage = UIImage.init(named: DuoDetailedDialogViewController.replayButtonSelectedImageName)
-        replayButton.setImage(replayButtonEnabledImage, for: .selected)
         let replayButtonDisabledImage = UIImage.init(named: DuoDetailedDialogViewController.replayButtonDisabledImageName)
         replayButton.setImage(replayButtonDisabledImage, for: .disabled)
         replayButton.clipsToBounds = true
         replayButton.layer.cornerRadius = DuoDetailedDialogViewController.replayButtonSize / 2
         replayButton.addTarget(self, action: #selector(didTapReplayButton), for: .touchUpInside)
         return replayButton
-    }()
+    } ()
 
     private lazy var recordButton: UIButton = {
         let recordButton = UIButton.init(frame: .zero)
         recordButton.translatesAutoresizingMaskIntoConstraints = false
         let recordButtonNormalImage = UIImage.init(named: DuoDetailedDialogViewController.recordButtonNormalImageName)
         recordButton.setImage(recordButtonNormalImage, for: .normal)
-        let recordButtonSelectedImage = UIImage.init(named: DuoDetailedDialogViewController.recordButtonSelectedImageName)
-        recordButton.setImage(recordButtonSelectedImage, for: .selected)
+        let recordButtonDisabledImage = UIImage.init(named: DuoDetailedDialogViewController.recordButtonDisabledImageName)
+        recordButton.setImage(recordButtonDisabledImage, for: .disabled)
         recordButton.clipsToBounds = true
         recordButton.layer.cornerRadius = DuoDetailedDialogViewController.recordButtonSize / 2
         recordButton.addTarget(self, action: #selector(didTapRecordButton), for: .touchUpInside)
         return recordButton
-    }()
+    } ()
 
     private lazy var nextButton: UIButton = {
         let nextButton = UIButton.init(frame: .zero)
@@ -85,12 +84,12 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         let nextButtonNormalImage = UIImage.init(named: DuoDetailedDialogViewController.nextButtonNormalImageName)
         nextButton.setImage(nextButtonNormalImage, for: .normal)
         let nextButtonDisabledImage = UIImage.init(named: DuoDetailedDialogViewController.nextButtonDisabledImageName)
-        nextButton.setImage(nextButtonDisabledImage, for: .selected)
+        nextButton.setImage(nextButtonDisabledImage, for: .disabled)
         nextButton.clipsToBounds = true
         nextButton.layer.cornerRadius = DuoDetailedDialogViewController.nextButtonSize / 2
         nextButton.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         return nextButton
-    }()
+    } ()
 
     private lazy var chaptersCollectionViewFlowLayout: UICollectionViewFlowLayout = {
         let chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
@@ -130,6 +129,13 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             currentScoredChapters.append(firstChapter)
             let progress = Float(currentScoredChapters.count) / Float(scoredChapters.count)
             progressView.setProgress(progress, animated: false)
+            replayButton.isEnabled = false
+            recordButton.isEnabled = false
+            nextButton.isEnabled = false
+            let currentRoleFormat = NSLocalizedString("CurrentRoleText", comment: "")
+            let currentRole = NSLocalizedString("RoleB", comment: "")
+            actionlabel.text = String.init(format: currentRoleFormat, currentRole)
+            playCurrentChapter()
         }
     }
 
@@ -199,5 +205,19 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     @objc func didTapNextButton() {
 
+    }
+
+    func playCurrentChapter() {
+        if let currentChapter = currentScoredChapters.last, let contentAudioURL = currentChapter.chapter.contentAudioURL {
+            let playerItem = AVPlayerItem.init(url: contentAudioURL)
+            playerItem.audioTimePitchAlgorithm = .spectral
+            player = AVPlayer.init(playerItem: playerItem)
+            NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+            player?.play()
+        }
+    }
+
+    @objc func playerDidFinishPlaying() {
+        nextButton.isEnabled = true
     }
 }

@@ -56,3 +56,12 @@
 
 /* Title for the button that the user taps to continue with duo mode. */
 "DuoModeButtonTitle" = "Continue with Duo Mode";
+
+/* Text displayed for role A. */
+"RoleAText" = "Role A";
+
+/* Text displayed for role B. */
+"RoleBText" = "Role B";
+
+/* Text that indicates the current role for user. */
+"CurrentRoleText" = "You are the %@ in this conversation";
