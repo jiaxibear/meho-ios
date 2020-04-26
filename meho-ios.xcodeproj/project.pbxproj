@@ -84,6 +84,7 @@
 		EA6381E72449913B00481B8B /* AudioVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381E62449913B00481B8B /* AudioVisualizerView.swift */; };
 		EA6381E92454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */; };
 		EA6381EB2455140900481B8B /* DuoDetailedDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */; };
+		EA6381ED2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381EC2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -200,6 +201,7 @@
 		EA6381E62449913B00481B8B /* AudioVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVisualizerView.swift; sourceTree = "<group>"; };
 		EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoModeFooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoDetailedDialogViewController.swift; sourceTree = "<group>"; };
+		EA6381EC2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoOtherRoleCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				EA6381E62449913B00481B8B /* AudioVisualizerView.swift */,
 				EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */,
 				EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */,
+				EA6381EC2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -825,6 +828,7 @@
 				EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */,
 				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,
 				EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */,
+				EA6381ED2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift in Sources */,
 				EA52FDAF23EF8116008EB37B /* NewsViewController.swift in Sources */,
 				92C5FE37244D93BE004A3322 /* Vocabulary.swift in Sources */,
 				92183A6023F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift in Sources */,
