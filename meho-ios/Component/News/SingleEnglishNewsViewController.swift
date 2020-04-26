@@ -175,7 +175,6 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         return sections.count
     }
 
-    // TODOOOOOOOOOOOOOOOOO
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let detailedNewsSections = sections[indexPath.section]
         switch detailedNewsSections {

@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum ChineseNewsSection: Int {
+    case newsChapters
+    case vocabularyList
+}
+
 class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NewsChapterCollectionViewCellDelegate {
 
     // MARK: - Constants
@@ -15,21 +20,30 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     private let titleLableTopMargin = CGFloat(8) // marked as 18 to source subtitle, adjust as no navigationbar border
     private let titleLabelFontSize = CGFloat(24)
     private let chaptersToTitleMargin = CGFloat(18)
+    private let recapListTitle = "Recap key vocabulary"
+    private let sectionVerticalInsets = CGFloat(30)
 
 
     // MARK: - Properties
     private let news: News
+    private var hasFetchedNewsDetail = false
+    private var hasFetchedVocabularies = false
 
     // MARK: - UI
     private var chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:chaptersCollectionViewFlowLayout)
 
-    private let newsChapterCellReuseIdentifier = "zhNewsChapterCell"
     private let newsTitleHeaderCellReuseIdentifier = "zhNewsTitleHeader"
+    private let newsChapterCellReuseIdentifier = "zhNewsChapterCell"
+    private let vocabularyRecapHeaderCellReuseIdentifier = "newVocabularyRecapHeader"
+    private let newsRecapVocabularyCellReuseIdentifier = "newsVocabularyCell"
+
 
     // MARK: - Datamodels
     private let dataFetcher = NewsDataFetcher.init()
-    private var zhChapters:[NewsChapter] = []
+    private var newsChapters:[NewsChapter] = []
+    private var vocabularyList:[Vocabulary] = []
+    private var sections:[ChineseNewsSection] = []
 
     // MARK: - Init
     init() {
@@ -68,11 +82,24 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
             (englishChapters, chineseChapters, error) in
             if (error == nil && chineseChapters != nil && englishChapters != nil) {
                 DispatchQueue.main.async {
-                    self.zhChapters = chineseChapters!
-                    self.chaptersCollectionView.reloadData()
+                    self.newsChapters = chineseChapters!
+                    self.hasFetchedNewsDetail = true
+                    self.tryReloadCollectionView()
                 }
             }
         })
+
+        dataFetcher.fetchRecapVocabularies(completionHandler: {
+            (recapVocabularies, error) in
+            if (error == nil && recapVocabularies != nil) {
+                DispatchQueue.main.async {
+                    self.vocabularyList = recapVocabularies!
+                    self.hasFetchedVocabularies = true
+                    self.tryReloadCollectionView()
+                }
+            }
+        })
+
     }
 
     func setUpChapters() {
@@ -86,9 +113,14 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         // collection layout
         chaptersCollectionViewFlowLayout.scrollDirection = .vertical
         chaptersCollectionViewFlowLayout.minimumLineSpacing = 18
+        chaptersCollectionViewFlowLayout.sectionInset = UIEdgeInsets.init(top: 0, left: 0, bottom: sectionVerticalInsets, right: 0)
 
-        chaptersCollectionView.register(NewsChapterCollectionViewCell.self, forCellWithReuseIdentifier:newsChapterCellReuseIdentifier)
         chaptersCollectionView.register(NewsTwoTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier)
+        chaptersCollectionView.register(NewsChapterCollectionViewCell.self, forCellWithReuseIdentifier:newsChapterCellReuseIdentifier)
+
+        chaptersCollectionView.register(NewsOneTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: vocabularyRecapHeaderCellReuseIdentifier)
+        chaptersCollectionView.register(NewsRecapVocabularyCollectionViewCell.self, forCellWithReuseIdentifier: newsRecapVocabularyCellReuseIdentifier)
+
         view.addSubview(chaptersCollectionView)
 
 
@@ -102,35 +134,75 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
-            if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier, for: indexPath) as? NewsTwoTitleHeaderCollectionReusableView {
-                headerView.setTitle(titleEn: news.title_en, titleZh: news.title_zh)
-                return headerView
+            if indexPath.section == 0 {
+                if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier, for: indexPath) as? NewsTwoTitleHeaderCollectionReusableView {
+                    headerView.setTitle(titleEn: news.title_en, titleZh: news.title_zh)
+                    return headerView
+                }
+            } else if indexPath.section == 1 {
+                if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: vocabularyRecapHeaderCellReuseIdentifier, for: indexPath) as? NewsOneTitleHeaderCollectionReusableView {
+                    headerView.setTitle(titleEn: recapListTitle)
+                    return headerView
+                }
             }
+
         }
         return UICollectionReusableView.init(frame: .zero)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize.init(width: 0, height: NewsTwoTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: news.title_en, titleZh: news.title_zh))
+        if section == 0 {
+            return CGSize.init(width: 0, height: NewsTwoTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: news.title_en, titleZh: news.title_zh))
+        } else { // assuming only two sections!
+            return CGSize.init(width: 0, height: NewsOneTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: news.title_en))
+        }
+
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return zhChapters.count
+        let detailedNewsSections = sections[section]
+        switch detailedNewsSections {
+        case .newsChapters:
+            return newsChapters.count
+        case .vocabularyList:
+            return vocabularyList.count
+        }
+    }
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width
-        let chapter = zhChapters[indexPath.item]
-        return CGSize(width: width, height: NewsChapterCollectionViewCell.cellHeight(with: width, newsChapter: chapter))
+        let detailedNewsSections = sections[indexPath.section]
+        switch detailedNewsSections {
+        case .newsChapters:
+            let width = collectionView.bounds.width
+            let chapter = newsChapters[indexPath.item]
+            return CGSize(width: width, height: NewsChapterCollectionViewCell.cellHeight(with: width, newsChapter: chapter))
+        case .vocabularyList:
+            let width = collectionView.bounds.width
+            let vocabulary = vocabularyList[indexPath.item]
+            return CGSize(width: width, height: NewsRecapVocabularyCollectionViewCell.cellHeight(with: width, vocabulary: vocabulary))
+        }
 
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let chapter = zhChapters[indexPath.item]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsChapterCellReuseIdentifier, for: indexPath) as! NewsChapterCollectionViewCell
-        cell.setNewsChapter(chapter)
-        cell.setDelegate(delegate: self)
-        return cell
+        let detailedNewsSections = sections[indexPath.section]
+        switch detailedNewsSections {
+        case .newsChapters:
+            let chapter = newsChapters[indexPath.item]
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsChapterCellReuseIdentifier, for: indexPath) as! NewsChapterCollectionViewCell
+            cell.setNewsChapter(chapter)
+            cell.setDelegate(delegate: self)
+            return cell
+        case .vocabularyList:
+            let vocabulary = vocabularyList[indexPath.item]
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsRecapVocabularyCellReuseIdentifier, for: indexPath) as! NewsRecapVocabularyCollectionViewCell
+            cell.setVocabulary(vocabulary)
+            return cell
+        }
     }
 
     // MARK: - NewsChapterCollectionViewCellDelegate
@@ -148,4 +220,13 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         })
     }
 
+
+    func tryReloadCollectionView() {
+        if !(hasFetchedVocabularies && hasFetchedNewsDetail) {
+            return;
+        }
+        sections.insert(.newsChapters, at: 0)
+        sections.insert(.vocabularyList, at: 1)
+        chaptersCollectionView.reloadData()
+    }
 }

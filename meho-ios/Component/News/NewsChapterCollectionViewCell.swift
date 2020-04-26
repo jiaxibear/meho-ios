@@ -64,6 +64,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         textView.dataDetectorTypes = UIDataDetectorTypes.link
         textView.textColor = .textCharcoalGrey
         textView.tintColor = .wisteriaPurple
+        textView.textContainer.lineFragmentPadding = 0
         textView.delegate = self
         contentView.addSubview(textView)
 
