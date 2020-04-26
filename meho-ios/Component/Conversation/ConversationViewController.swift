@@ -20,8 +20,8 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let trailingLeadingMargin = CGFloat(15)
     private let titleLabelFontSize = CGFloat(30)
     private let titleLabelToConversationCollectionViewMargin = CGFloat(24)
-    private let headerReuseIdentifier = "Header"
-    private let footerReuseIdentifier = "footer"
+    private let headerReuseIdentifier = UICollectionView.elementKindSectionHeader
+    private let footerReuseIdentifier = UICollectionView.elementKindSectionFooter
     private let categoryCellReuseIdentifier = "Categories"
     private let dialogCellReuseIdentifier = "Dialogs"
     private let conversationsCollectionViewSectionTopBottomMargin = CGFloat(16)
@@ -100,8 +100,8 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         conversationCollectionView.delegate = self
         conversationCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: categoryCellReuseIdentifier)
         conversationCollectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCellReuseIdentifier)
-        conversationCollectionView.register(ConversationHeaderCollectionReusableView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: headerReuseIdentifier)
-        conversationCollectionView.register(SeeMoreFooterCollectionResuableView.self, forSupplementaryViewOfKind: "footer", withReuseIdentifier: footerReuseIdentifier)
+        conversationCollectionView.register(ConversationHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier)
+        conversationCollectionView.register(SeeMoreFooterCollectionResuableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerReuseIdentifier)
         view.addSubview(conversationCollectionView)
 
         // Sets up layout constrainsts.
@@ -224,13 +224,13 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == "header" {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: headerReuseIdentifier, for: indexPath) as! ConversationHeaderCollectionReusableView
+        if kind == UICollectionView.elementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, for: indexPath) as! ConversationHeaderCollectionReusableView
             let conversationSection = sections[indexPath.section]
             headerView.setTitle(self.titleForConversationSection(conversationSection))
             return headerView
-        } else if kind == "footer" {
-            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: "footer", withReuseIdentifier: footerReuseIdentifier, for: indexPath) as! SeeMoreFooterCollectionResuableView
+        } else if kind == UICollectionView.elementKindSectionFooter {
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerReuseIdentifier, for: indexPath) as! SeeMoreFooterCollectionResuableView
             let conversationSection = sections[indexPath.section]
             footerView.tag = conversationSection.rawValue
             footerView.delegate = self
@@ -251,7 +251,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         section.interGroupSpacing = categorieCollectionViewCellGroupSpacing
         section.contentInsets = NSDirectionalEdgeInsets.init(top: conversationsCollectionViewSectionTopBottomMargin, leading: trailingLeadingMargin, bottom: conversationsCollectionViewSectionTopBottomMargin, trailing: trailingLeadingMargin)
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(categorieCollectionViewSectionHeaderEstimatedHeight))
-        let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
+        let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         section.boundarySupplementaryItems = [headerElement]
         return section
     }
@@ -265,9 +265,9 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         section.interGroupSpacing = dialogCollectionViewCellGroupSpacing
         section.contentInsets = NSDirectionalEdgeInsets.init(top: conversationsCollectionViewSectionTopBottomMargin, leading: trailingLeadingMargin, bottom: conversationsCollectionViewSectionTopBottomMargin, trailing: trailingLeadingMargin)
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(categorieCollectionViewSectionHeaderEstimatedHeight))
-        let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
+        let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(categorieCollectionViewSectionFooterEstimatedHeight))
-        let footerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: "footer", alignment: .bottom)
+        let footerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
         section.boundarySupplementaryItems = [headerElement, footerElement]
         return section
     }
