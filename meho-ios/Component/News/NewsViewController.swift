@@ -98,7 +98,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         // view constraints
         newsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: newsCollectionHorizontalMargin).isActive = true
         newsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -newsCollectionHorizontalMargin).isActive = true
-        newsCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        newsCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: newsCollectionTopMargin).isActive = true
         newsCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
     }
 

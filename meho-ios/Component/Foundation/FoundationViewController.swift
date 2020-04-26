@@ -18,7 +18,7 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
 
     private let titleLabelLeadingMargin = CGFloat(15)
     private let featuresMargin = CGFloat(22)
-    private let foundationLabelTopMargin = CGFloat(38)
+    private let foundationLabelTopMargin = CGFloat(30)
     private let featureCellReuseIdentifier = "Features"
     
     // feature colelction view related, Will tune based on actual iOS design
@@ -29,7 +29,7 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     private let featuresCollectionViewBottomMargin = CGFloat(30)
     
     // MARK: - Properties
-    private let titleLabel = UILabel.init(frame: .zero)
+    private let titleView = MainTabTitleView.init(frame: .zero)
     private let featuresCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var featuresCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:featuresCollectionViewFlowLayout)
     private var features:[Feature] = []
@@ -70,17 +70,13 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     // MARK: - Elements layout, style & constrains
     func setupTitleLabelUI() {
         let margins = self.view.layoutMarginsGuide
-        titleLabel.numberOfLines = 1
-        titleLabel.text = foundationCoverTitle
-        titleLabel.textColor = .wisteriaPurple
-        let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        titleLabel.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(titleLabel)
+        titleView.setTitleText(text: foundationCoverTitle)
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleView)
         
-        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: titleLabelLeadingMargin).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -titleLabelLeadingMargin).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor, constant: foundationLabelTopMargin).isActive = true
+        titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: titleLabelLeadingMargin).isActive = true
+        titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -titleLabelLeadingMargin).isActive = true
+        titleView.topAnchor.constraint(equalTo: margins.topAnchor, constant: foundationLabelTopMargin).isActive = true
     }
     
     func setupFeatureCollectionViewUI() {
@@ -92,7 +88,7 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
         let margins = self.view.layoutMarginsGuide
         featuresCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: featuresMargin).isActive = true
         featuresCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -featuresMargin).isActive = true
-        featuresCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: featuresCollectionViewTopMargin).isActive = true
+        featuresCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: featuresCollectionViewTopMargin).isActive = true
         featuresCollectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -featuresCollectionViewBottomMargin).isActive = true
         
         // collection layout

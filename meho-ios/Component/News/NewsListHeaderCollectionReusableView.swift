@@ -11,13 +11,11 @@ import UIKit
 class NewsListHeaderCollectionReusableView: UICollectionReusableView {
 
     // MARK: - Constants
-    private let trailingLeadingMargin = CGFloat(22)
-    private let titleLableTopMargin = CGFloat(8) // marked as 18 to source subtitle, adjust as no navigationbar border
-    private let titleBottomMargin = CGFloat(20)
+    private let titleBottomMargin = CGFloat(30)
     private let titleLabelFontSize = CGFloat(34)
 
     // MARK: - Properties
-    private let titleLabel = UILabel.init(frame: .zero)
+    private let titleView = MainTabTitleView.init(frame: .zero)
     private static var sizingView = NewsListHeaderCollectionReusableView.init(frame: .zero)
 
     private var title = ""
@@ -39,32 +37,24 @@ class NewsListHeaderCollectionReusableView: UICollectionReusableView {
     }
 
     private func setupTitleView() {
-
-        // Sets up the title
-        titleLabel.text = NSLocalizedString("NewsTitle", comment: "")
-        titleLabel.textColor = .wisteriaPurple
-        titleLabel.textAlignment = .left
-        titleLabel.backgroundColor = .white
-        let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        titleLabel.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(titleLabel)
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        titleView.setTitleText(text: NSLocalizedString("NewsTitle", comment: ""))
+        addSubview(titleView)
 
 
         // Sets up layout constrainsts.
-        titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleLableTopMargin).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -titleBottomMargin).isActive = true
+        titleView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        titleView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        titleView.topAnchor.constraint(equalTo: topAnchor).isActive = true
     }
 
     public func setTitle(title: String) {
-        titleLabel.text = title
+        titleView.setTitleText(text: title)
     }
 
     public class func heightForTitle(with width: CGFloat, title: String) -> CGFloat {
         sizingView.setTitle(title: title)
-        let titleEnLabelHeight = sizingView.titleLabel.sizeThatFits(CGSize.init(width: width, height:CGFloat.greatestFiniteMagnitude)).height
-        return titleEnLabelHeight + sizingView.titleLableTopMargin + sizingView.titleBottomMargin
+        let titleEnLabelHeight = sizingView.titleView.getViewHeight()
+        return titleEnLabelHeight + sizingView.titleBottomMargin
     }
 }

@@ -20,6 +20,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let trailingLeadingMargin = CGFloat(15)
     private let titleLabelFontSize = CGFloat(30)
     private let titleLabelToConversationCollectionViewMargin = CGFloat(24)
+    private let titleLabelTopMargin = CGFloat(30)
     private let headerReuseIdentifier = UICollectionView.elementKindSectionHeader
     private let footerReuseIdentifier = UICollectionView.elementKindSectionFooter
     private let categoryCellReuseIdentifier = "Categories"
@@ -36,7 +37,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: - Properties
     // MARK: UI
-    private let titleLabel = UILabel.init(frame: .zero)
+    private let titleView = MainTabTitleView.init(frame: .zero)
     private var conversationCollectionViewCompositionalLayout: UICollectionViewCompositionalLayout?
     private lazy var conversationCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:conversationCollectionViewCompositionalLayout!)
     // MARK: MODEL
@@ -86,12 +87,9 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         let margins = view.layoutMarginsGuide
 
         // Sets up the title.
-        titleLabel.text = NSLocalizedString("ConversationTitle", comment: "")
-        titleLabel.textColor = .wisteriaPurple
-        let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        titleLabel.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(titleLabel)
+        titleView.setTitleText(text: NSLocalizedString("ConversationTitle", comment: ""))
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleView)
 
         // Sets up the collection view.
         conversationCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -105,13 +103,13 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         view.addSubview(conversationCollectionView)
 
         // Sets up layout constrainsts.
-        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: trailingLeadingMargin).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
+        titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true
+        titleView.topAnchor.constraint(equalTo: margins.topAnchor, constant: titleLabelTopMargin).isActive = true
 
         conversationCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         conversationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        conversationCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: titleLabelToConversationCollectionViewMargin).isActive = true
+        conversationCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: titleLabelToConversationCollectionViewMargin).isActive = true
         conversationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         dataFecther.fetchCategories { (categories, error) in
