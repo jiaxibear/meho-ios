@@ -48,18 +48,18 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let actionButtonsBottomMargin = CGFloat(25)
     private let actionButtonsMargin = CGFloat(48)
     private let speedButtonBottomMargin = CGFloat(2)
-    private let recordButtonSize = CGFloat(70)
-    private let listenButtonSize = CGFloat(50)
-    private let replayButtonSize = CGFloat(50)
+    private static let recordButtonSize = CGFloat(70)
+    private static let listenButtonSize = CGFloat(50)
+    private static let replayButtonSize = CGFloat(50)
     private let speedButtonFontSize = CGFloat(16)
     private let backgroundColorAlpha = CGFloat(0.05)
-    private let recordButtonNormalImageName = "conversation_microphone_inactive"
-    private let listenButtonNormalImageName = "conversation_headset_inactive"
-    private let replayButtonNormalImageName = "conversation_play_inactive"
-    private let recordButtonSelectedImageName = "conversation_microphone_active"
-    private let listenButtonSelectedImageName = "conversation_headset_active"
-    private let replayButtonSelectedImageName = "conversation_play_active"
-    private let replayButtonDisabledImageName = "conversation_play_disabled"
+    private static let recordButtonNormalImageName = "conversation_microphone_inactive"
+    private static let listenButtonNormalImageName = "conversation_headset_inactive"
+    private static let replayButtonNormalImageName = "conversation_play_inactive"
+    private static let recordButtonSelectedImageName = "conversation_microphone_active"
+    private static let listenButtonSelectedImageName = "conversation_headset_active"
+    private static let replayButtonSelectedImageName = "conversation_play_active"
+    private static let replayButtonDisabledImageName = "conversation_play_disabled"
     private let pronAccuraryMin = Float(60)
     private let audioDBLowerLimit = Float(-30)
 
@@ -70,12 +70,58 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private let contentLabel = UILabel.init(frame: .zero)
     private let contentPinyinLabel = UILabel.init(frame: .zero)
     private let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
-    private let actionLabel = UILabel.init(frame: .zero)
+    private lazy var actionLabel: UILabel = {
+        let actionLabel = UILabel.init(frame: .zero)
+        actionLabel.translatesAutoresizingMaskIntoConstraints = false
+        actionLabel.textColor = .textBlueGray
+        let actionLabelFontDescriptor = UIFont.systemFont(ofSize: actionLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        actionLabel.font = UIFont.init(descriptor: actionLabelFontDescriptor!, size: actionLabelFontSize)
+        actionLabel.numberOfLines = 1
+        actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
+        actionLabel.isHidden = true
+        actionLabel.textAlignment = .center
+        return actionLabel
+    } ()
     private let audioVisualizerView = AudioVisualizerView.init(frame: .zero)
     private let actionButtonsContainerView = UIView.init(frame: .zero)
-    private let recordButton = UIButton.init(frame: .zero)
-    private let listenButton = UIButton.init(frame: .zero)
-    private let replayButton = UIButton.init(frame: .zero)
+    private let recordButton: UIButton = {
+        let recordButton = UIButton.init(frame: .zero)
+        recordButton.translatesAutoresizingMaskIntoConstraints = false
+        let recordButtonNormalImage = UIImage.init(named: recordButtonNormalImageName)
+        recordButton.setImage(recordButtonNormalImage, for: .normal)
+        let recordButtonSelectedImage = UIImage.init(named: recordButtonSelectedImageName)
+        recordButton.setImage(recordButtonSelectedImage, for: .selected)
+        recordButton.clipsToBounds = true
+        recordButton.layer.cornerRadius = recordButtonSize / 2
+        recordButton.addTarget(self, action: #selector(didTapRecordButton), for: .touchUpInside)
+        return recordButton
+    }()
+    private let listenButton: UIButton = {
+        let listenButton = UIButton.init(frame: .zero)
+        listenButton.translatesAutoresizingMaskIntoConstraints = false
+        let listenButtonNormalImage = UIImage.init(named: listenButtonNormalImageName)
+        listenButton.setImage(listenButtonNormalImage, for: .normal)
+        let listenButtonEnabledImage = UIImage.init(named: listenButtonSelectedImageName)
+        listenButton.setImage(listenButtonEnabledImage, for: .selected)
+        listenButton.clipsToBounds = true
+        listenButton.layer.cornerRadius = listenButtonSize / 2
+        listenButton.addTarget(self, action: #selector(didTapListenButton), for: .touchUpInside)
+        return listenButton
+    }()
+    private let replayButton: UIButton = {
+        let replayButton = UIButton.init(frame: .zero)
+        replayButton.translatesAutoresizingMaskIntoConstraints = false
+        let replayButtonNormalImage = UIImage.init(named: replayButtonNormalImageName)
+        replayButton.setImage(replayButtonNormalImage, for: .normal)
+        let replayButtonEnabledImage = UIImage.init(named: replayButtonSelectedImageName)
+        replayButton.setImage(replayButtonEnabledImage, for: .selected)
+        let replayButtonDisabledImage = UIImage.init(named: replayButtonDisabledImageName)
+        replayButton.setImage(replayButtonDisabledImage, for: .disabled)
+        replayButton.clipsToBounds = true
+        replayButton.layer.cornerRadius = replayButtonSize / 2
+        replayButton.addTarget(self, action: #selector(didTapReplayButton), for: .touchUpInside)
+        return replayButton
+    }()
     private let speedButton = UIButton.init(frame: .zero)
 
     // MARK: Model
@@ -135,14 +181,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         contentView.addSubview(contentInLocalLanguageLabel)
 
         // Sets up the action label.
-        actionLabel.translatesAutoresizingMaskIntoConstraints = false
-        actionLabel.textColor = .textBlueGray
-        let actionLabelFontDescriptor = UIFont.systemFont(ofSize: actionLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        actionLabel.font = UIFont.init(descriptor: actionLabelFontDescriptor!, size: actionLabelFontSize)
-        actionLabel.numberOfLines = 1
-        actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
-        actionLabel.isHidden = true
-        actionLabel.textAlignment = .center
         contentView.addSubview(actionLabel)
 
         // Sets up the action buttons container view.
@@ -156,38 +194,12 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         contentView.addSubview(audioVisualizerView)
 
         // Sets up the record button.
-        recordButton.translatesAutoresizingMaskIntoConstraints = false
-        let recordButtonNormalImage = UIImage.init(named: recordButtonNormalImageName)
-        recordButton.setImage(recordButtonNormalImage, for: .normal)
-        let recordButtonSelectedImage = UIImage.init(named: recordButtonSelectedImageName)
-        recordButton.setImage(recordButtonSelectedImage, for: .selected)
-        recordButton.clipsToBounds = true
-        recordButton.layer.cornerRadius = recordButtonSize / 2
-        recordButton.addTarget(self, action: #selector(didTapRecordButton), for: .touchUpInside)
         actionButtonsContainerView.addSubview(recordButton)
 
         // Sets up the listen button.
-        listenButton.translatesAutoresizingMaskIntoConstraints = false
-        let listenButtonNormalImage = UIImage.init(named: listenButtonNormalImageName)
-        listenButton.setImage(listenButtonNormalImage, for: .normal)
-        let listenButtonEnabledImage = UIImage.init(named: listenButtonSelectedImageName)
-        listenButton.setImage(listenButtonEnabledImage, for: .selected)
-        listenButton.clipsToBounds = true
-        listenButton.layer.cornerRadius = listenButtonSize / 2
-        listenButton.addTarget(self, action: #selector(didTapListenButton), for: .touchUpInside)
         actionButtonsContainerView.addSubview(listenButton)
 
         // Sets up the replay button.
-        replayButton.translatesAutoresizingMaskIntoConstraints = false
-        let replayButtonNormalImage = UIImage.init(named: replayButtonNormalImageName)
-        replayButton.setImage(replayButtonNormalImage, for: .normal)
-        let replayButtonEnabledImage = UIImage.init(named: replayButtonSelectedImageName)
-        replayButton.setImage(replayButtonEnabledImage, for: .selected)
-        let replayButtonDisabledImage = UIImage.init(named: replayButtonDisabledImageName)
-        replayButton.setImage(replayButtonDisabledImage, for: .disabled)
-        replayButton.clipsToBounds = true
-        replayButton.layer.cornerRadius = replayButtonSize / 2
-        replayButton.addTarget(self, action: #selector(didTapReplayButton), for: .touchUpInside)
         actionButtonsContainerView.addSubview(replayButton)
 
         speedButton.translatesAutoresizingMaskIntoConstraints = false
@@ -227,7 +239,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         actionButtonsContainerView.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
         actionButtonsContainerView.topAnchor.constraint(equalTo: actionLabel.bottomAnchor, constant: actionButtonsTopMargin).isActive = true
         actionButtonsContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        actionButtonsContainerView.heightAnchor.constraint(equalToConstant: recordButtonSize + actionButtonsBottomMargin).isActive = true
+        actionButtonsContainerView.heightAnchor.constraint(equalToConstant: ExpandedChapterCollectionViewCell.recordButtonSize + actionButtonsBottomMargin).isActive = true
 
         audioVisualizerView.topAnchor.constraint(equalTo: actionButtonsContainerView.topAnchor).isActive = true
         audioVisualizerView.bottomAnchor.constraint(equalTo: actionButtonsContainerView.bottomAnchor).isActive = true
@@ -235,18 +247,18 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         audioVisualizerView.trailingAnchor.constraint(equalTo: actionButtonsContainerView.trailingAnchor).isActive = true
 
         recordButton.centerXAnchor.constraint(equalTo: actionButtonsContainerView.centerXAnchor).isActive = true
-        recordButton.widthAnchor.constraint(equalToConstant: recordButtonSize).isActive = true
-        recordButton.heightAnchor.constraint(equalToConstant: recordButtonSize).isActive = true
+        recordButton.widthAnchor.constraint(equalToConstant: ExpandedChapterCollectionViewCell.recordButtonSize).isActive = true
+        recordButton.heightAnchor.constraint(equalToConstant: ExpandedChapterCollectionViewCell.recordButtonSize).isActive = true
         recordButton.topAnchor.constraint(equalTo: actionButtonsContainerView.topAnchor).isActive = true
 
         listenButton.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor).isActive = true
-        listenButton.widthAnchor.constraint(equalToConstant: listenButtonSize).isActive = true
-        listenButton.heightAnchor.constraint(equalToConstant: listenButtonSize).isActive = true
+        listenButton.widthAnchor.constraint(equalToConstant: ExpandedChapterCollectionViewCell.listenButtonSize).isActive = true
+        listenButton.heightAnchor.constraint(equalToConstant: ExpandedChapterCollectionViewCell.listenButtonSize).isActive = true
         listenButton.trailingAnchor.constraint(equalTo: recordButton.leadingAnchor, constant: -actionButtonsMargin).isActive = true
 
         replayButton.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor).isActive = true
-        replayButton.widthAnchor.constraint(equalToConstant: replayButtonSize).isActive = true
-        replayButton.heightAnchor.constraint(equalToConstant: replayButtonSize).isActive = true
+        replayButton.widthAnchor.constraint(equalToConstant: ExpandedChapterCollectionViewCell.replayButtonSize).isActive = true
+        replayButton.heightAnchor.constraint(equalToConstant: ExpandedChapterCollectionViewCell.replayButtonSize).isActive = true
         replayButton.leadingAnchor.constraint(equalTo: recordButton.trailingAnchor, constant: actionButtonsMargin).isActive = true
 
         speedButton.bottomAnchor.constraint(equalTo: actionButtonsContainerView.bottomAnchor, constant: -speedButtonBottomMargin).isActive = true
@@ -309,7 +321,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         sizingCell.contentLabel.text = chapter.content
         sizingCell.contentPinyinLabel.text = chapter.contentPinyin
         sizingCell.contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
-        var height = sizingCell.avatarViewSize + sizingCell.avatarViewTopBottomMargin * 2 + 2 * sizingCell.contentsMargin + sizingCell.actionLabelTopMargin + sizingCell.actionButtonsTopMargin + sizingCell.actionButtonsBottomMargin + sizingCell.recordButtonSize
+        var height = sizingCell.avatarViewSize + sizingCell.avatarViewTopBottomMargin * 2 + 2 * sizingCell.contentsMargin + sizingCell.actionLabelTopMargin + sizingCell.actionButtonsTopMargin + sizingCell.actionButtonsBottomMargin + recordButtonSize
         let contentWidth = width - 2 * sizingCell.contentLeadingTrailingMargin
         height += sizingCell.contentLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height
         height += sizingCell.contentPinyinLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height
