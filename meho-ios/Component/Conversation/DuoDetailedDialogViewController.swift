@@ -21,6 +21,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private static let recordButtonSize = CGFloat(70)
     private static let replayButtonSize = CGFloat(50)
     private static let nextButtonSize = CGFloat(50)
+    private static let actionLabelAndChaptersCollectionViewMargin = CGFloat(24)
     private static let actionLabelFontSize = CGFloat(14)
     private static let recordButtonBottomMargin = CGFloat(40)
     private static let actionButtonsMargin = CGFloat(48)
@@ -163,7 +164,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         chaptersCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        chaptersCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        chaptersCollectionView.bottomAnchor.constraint(equalTo: actionlabel.topAnchor, constant: -DuoDetailedDialogViewController.actionLabelAndChaptersCollectionViewMargin).isActive = true
     }
 
     // MARK: - UICollectionViewDataSource
