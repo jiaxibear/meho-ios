@@ -21,6 +21,8 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
     private static let contentBackgroundViewAndRoleImageViewMargin = CGFloat(6)
     private static let contentFontSize = CGFloat(18)
     private static let contentLabelMargin = CGFloat(18)
+    private static let speakerImageViewSize = CGFloat(30)
+    private static let speakerImageName = "conversation_speaker"
 
     // MARK: - Properties
     // MARK: UI
@@ -59,6 +61,15 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
         return contentLabel
     } ()
 
+    private lazy var speakerImageView: UIImageView = {
+        let speakerImage = UIImage.init(named: DuoOtherRoleCollectionViewCell.speakerImageName)
+        let speakerImageView = UIImageView.init(image: speakerImage)
+        speakerImageView.translatesAutoresizingMaskIntoConstraints = false
+        speakerImageView.clipsToBounds = true
+        speakerImageView.layer.cornerRadius = DuoOtherRoleCollectionViewCell.speakerImageViewSize / 2
+        return speakerImageView
+    } ()
+
     private static var sizingCell = DuoOtherRoleCollectionViewCell.init(frame: .zero);
 
     // MARK: - Init
@@ -72,6 +83,7 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
         addSubview(roleImageView)
         addSubview(roleLabel)
         addSubview(contentBackgroundView)
+        addSubview(speakerImageView)
         contentBackgroundView.addSubview(contentLabel)
 
         roleImageView.widthAnchor.constraint(equalToConstant: DuoOtherRoleCollectionViewCell.roleImageViewSize).isActive = true
@@ -91,6 +103,11 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
         contentLabel.trailingAnchor.constraint(equalTo: contentBackgroundView.trailingAnchor, constant: -DuoOtherRoleCollectionViewCell.contentLabelMargin).isActive = true
         contentLabel.topAnchor.constraint(equalTo: contentBackgroundView.topAnchor, constant: DuoOtherRoleCollectionViewCell.contentLabelMargin).isActive = true
         contentLabel.bottomAnchor.constraint(equalTo: contentBackgroundView.bottomAnchor, constant: -DuoOtherRoleCollectionViewCell.contentLabelMargin).isActive = true
+
+        speakerImageView.widthAnchor.constraint(equalToConstant: DuoOtherRoleCollectionViewCell.speakerImageViewSize).isActive = true
+        speakerImageView.heightAnchor.constraint(equalToConstant: DuoOtherRoleCollectionViewCell.speakerImageViewSize).isActive = true
+        speakerImageView.centerXAnchor.constraint(equalTo: roleImageView.centerXAnchor).isActive = true
+        speakerImageView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor).isActive = true
     }
 
     @available(*, unavailable)
