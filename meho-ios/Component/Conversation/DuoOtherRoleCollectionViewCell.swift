@@ -55,6 +55,7 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
         contentLabel.translatesAutoresizingMaskIntoConstraints = false
         contentLabel.textColor = .mehoDarkGray
         contentLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: DuoOtherRoleCollectionViewCell.contentFontSize)
+        contentLabel.numberOfLines = 0
         return contentLabel
     } ()
 
@@ -111,5 +112,4 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
         let contentHeight = sizingCell.contentLabel.sizeThatFits(CGSize.init(width: contentWidth, height: CGFloat.greatestFiniteMagnitude)).height
         return roleImageViewSize + contentBackgroundViewAndRoleImageViewMargin + contentHeight + 2 * contentLabelMargin
     }
-
 }

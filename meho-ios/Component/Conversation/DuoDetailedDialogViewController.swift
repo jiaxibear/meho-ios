@@ -27,6 +27,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private static let actionButtonsMargin = CGFloat(48)
     private static let actionButtonsTopMargin = CGFloat(24)
     private static let duoOtherRoleCollectionViewCellReuseIdentifier = "duoOtherRoleCollectionViewCellReuseIdentifier"
+    private static let duoYourRoleCollectionViewCellReuseIdentifier = "duoYourRoleCollectionViewCellReuseIdentifier"
 
     // MARK: - Properties
     // MARK: Model
@@ -101,6 +102,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionView.backgroundColor = .white
         chaptersCollectionView.translatesAutoresizingMaskIntoConstraints = false
         chaptersCollectionView.register(DuoOtherRoleCollectionViewCell.self, forCellWithReuseIdentifier: DuoDetailedDialogViewController.duoOtherRoleCollectionViewCellReuseIdentifier)
+        chaptersCollectionView.register(DuoYourRoleCollectionViewCell.self, forCellWithReuseIdentifier: DuoDetailedDialogViewController.duoYourRoleCollectionViewCellReuseIdentifier)
         chaptersCollectionView.dataSource = self
         chaptersCollectionView.delegate = self
         return chaptersCollectionView
@@ -179,9 +181,17 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let duoOtherRoleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DuoDetailedDialogViewController.duoOtherRoleCollectionViewCellReuseIdentifier, for: indexPath) as? DuoOtherRoleCollectionViewCell {
-            duoOtherRoleCollectionViewCell.setScoredChapter(currentScoredChapters[indexPath.item])
-            return duoOtherRoleCollectionViewCell
+        let item = indexPath.item
+        if item % 2 == 0 {
+            if let duoOtherRoleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DuoDetailedDialogViewController.duoOtherRoleCollectionViewCellReuseIdentifier, for: indexPath) as? DuoOtherRoleCollectionViewCell {
+                duoOtherRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item])
+                return duoOtherRoleCollectionViewCell
+            }
+        } else {
+            if let duoYourRoleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DuoDetailedDialogViewController.duoYourRoleCollectionViewCellReuseIdentifier, for: indexPath) as? DuoYourRoleCollectionViewCell {
+                duoYourRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item])
+                return duoYourRoleCollectionViewCell
+            }
         }
 
         return UICollectionViewCell.init()
@@ -189,9 +199,15 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let item = indexPath.item
         let width = collectionView.bounds.width
-        let height = DuoOtherRoleCollectionViewCell.cellHeight(with: width, scoredChapter: currentScoredChapters[indexPath.item])
-        return CGSize.init(width: width, height: height)
+        if item % 2 == 0 {
+            let height = DuoOtherRoleCollectionViewCell.cellHeight(with: width, scoredChapter: currentScoredChapters[indexPath.item])
+            return CGSize.init(width: width, height: height)
+        } else {
+            let height = DuoYourRoleCollectionViewCell.cellHeight(with: width, scoredChapter: currentScoredChapters[indexPath.item])
+            return CGSize.init(width: width, height: height)
+        }
     }
 
     // MARK: - Private
@@ -204,7 +220,16 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     }
 
     @objc func didTapNextButton() {
-
+        let newScoredChapterIndex = currentScoredChapters.count
+        currentScoredChapters.append(scoredChapters[newScoredChapterIndex])
+        let newIndexPath = IndexPath.init(item: newScoredChapterIndex, section: 0)
+        chaptersCollectionView.insertItems(at: [newIndexPath])
+        let progress = Float(currentScoredChapters.count) / Float(scoredChapters.count)
+        progressView.setProgress(progress, animated: true)
+        replayButton.isEnabled = false
+        recordButton.isEnabled = false
+        nextButton.isEnabled = false
+        playCurrentChapter()
     }
 
     func playCurrentChapter() {
@@ -218,6 +243,6 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     }
 
     @objc func playerDidFinishPlaying() {
-        nextButton.isEnabled = true
+        nextButton.isEnabled = currentScoredChapters.count != scoredChapters.count
     }
 }

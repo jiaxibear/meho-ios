@@ -87,6 +87,7 @@
 		EA6381E92454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */; };
 		EA6381EB2455140900481B8B /* DuoDetailedDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */; };
 		EA6381ED2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381EC2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift */; };
+		EA6381EF245610D700481B8B /* DuoYourRoleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381EE245610D700481B8B /* DuoYourRoleCollectionViewCell.swift */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -206,6 +207,7 @@
 		EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoModeFooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoDetailedDialogViewController.swift; sourceTree = "<group>"; };
 		EA6381EC2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoOtherRoleCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA6381EE245610D700481B8B /* DuoYourRoleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoYourRoleCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */,
 				EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */,
 				EA6381EC2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift */,
+				EA6381EE245610D700481B8B /* DuoYourRoleCollectionViewCell.swift */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -868,6 +871,7 @@
 				9267EA1B243185E5009CA25D /* News.swift in Sources */,
 				9267EA1F2438521A009CA25D /* NewsItemSizeLCollectionViewCell.swift in Sources */,
 				92C5FE29244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift in Sources */,
+				EA6381EF245610D700481B8B /* DuoYourRoleCollectionViewCell.swift in Sources */,
 				EA5448C524273F0B00C07D0A /* CollapsedChapterCollectionViewCell.swift in Sources */,
 				EA5449122442A47200C07D0A /* ScoredChapter.swift in Sources */,
 				EA52FDB623EFE6B8008EB37B /* Category.swift in Sources */,
