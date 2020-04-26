@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class DetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class DetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DuoModeFooterCollectionResuableViewDelegate {
 
     // MARK: - Constants
     private let collapsedChapterCollectionViewCellReuseIdentifier = "collapsedChapterCollectionViewCellReuseIdentifier"
@@ -44,17 +44,17 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
 
     // MARK: - Init
     init() {
-        fatalError("Use init")
+        fatalError("Use init(dialogID: String)")
     }
 
     @available(*, unavailable)
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        fatalError("Use init")
+        fatalError("Use init(dialogID: String)")
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("Use init")
+        fatalError("Use init(dialogID: String)")
     }
 
     init(dialogID: String) {
@@ -63,7 +63,6 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     }
 
     // MARK: - UIViewController
-
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
@@ -99,7 +98,6 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     }
 
     // MARK: - UICollectionViewDataSource
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return scoredChapters.count
     }
@@ -155,9 +153,16 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionFooter {
             if let duoModeFooterView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: duoModeFooterCollectionResuableViewReuseIdentifier, for: indexPath) as? DuoModeFooterCollectionResuableView {
+                duoModeFooterView.delegate = self
                 return duoModeFooterView
             }
         }
         return UICollectionReusableView.init(frame: .zero)
+    }
+
+    // MARK: - DuoModeFooterCollectionResuableViewDelegate
+    func duoModeFooterCollectionResuableViewDidTapButton(_ view: DuoModeFooterCollectionResuableView) {
+        let duoDetailerDialogViewController = DuoDetailedDialogViewController.init(scoredChapters: scoredChapters)
+        navigationController?.pushViewController(duoDetailerDialogViewController, animated: true)
     }
 }

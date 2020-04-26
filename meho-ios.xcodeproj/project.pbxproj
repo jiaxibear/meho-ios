@@ -82,6 +82,7 @@
 		EA544918244421FD00C07D0A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA544917244421FD00C07D0A /* StoreKit.framework */; };
 		EA6381E72449913B00481B8B /* AudioVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381E62449913B00481B8B /* AudioVisualizerView.swift */; };
 		EA6381E92454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */; };
+		EA6381EB2455140900481B8B /* DuoDetailedDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -196,6 +197,7 @@
 		EA544917244421FD00C07D0A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EA6381E62449913B00481B8B /* AudioVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVisualizerView.swift; sourceTree = "<group>"; };
 		EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoModeFooterCollectionReusableView.swift; sourceTree = "<group>"; };
+		EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoDetailedDialogViewController.swift; sourceTree = "<group>"; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				EA5449112442A47200C07D0A /* ScoredChapter.swift */,
 				EA6381E62449913B00481B8B /* AudioVisualizerView.swift */,
 				EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */,
+				EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -805,6 +808,7 @@
 				92C5FE31244D2216004A3322 /* PinyinToneDetailCollectionViewCell.swift in Sources */,
 				EA544907243ADF5200C07D0A /* ChapterScoreView.swift in Sources */,
 				EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */,
+				EA6381EB2455140900481B8B /* DuoDetailedDialogViewController.swift in Sources */,
 				EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */,
 				9267EA1924316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift in Sources */,
 				EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */,
