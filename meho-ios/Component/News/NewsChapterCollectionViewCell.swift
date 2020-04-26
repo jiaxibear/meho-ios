@@ -154,9 +154,6 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
 
         paragraphStyle.lineSpacing = 6 // Design set line height, I only find how to set line spacing
 
-//        let underscoreattr = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.patternDash.rawValue | NSUnderlineStyle.single.rawValue]
-
-
         // Add line spacing attribute to string
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
 

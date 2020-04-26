@@ -37,7 +37,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     private let newsChapterCellReuseIdentifier = "zhNewsChapterCell"
     private let vocabularyRecapHeaderCellReuseIdentifier = "newVocabularyRecapHeader"
     private let newsRecapVocabularyCellReuseIdentifier = "newsVocabularyCell"
-
+    private let newsRecapFooterCellReuseIdentifier = "newsRecapFooter"
 
     // MARK: - Datamodels
     private let dataFetcher = NewsDataFetcher.init()
@@ -121,6 +121,9 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionView.register(NewsOneTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: vocabularyRecapHeaderCellReuseIdentifier)
         chaptersCollectionView.register(NewsRecapVocabularyCollectionViewCell.self, forCellWithReuseIdentifier: newsRecapVocabularyCellReuseIdentifier)
 
+        chaptersCollectionView.register(NewsRecapFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: newsRecapFooterCellReuseIdentifier)
+
+
         view.addSubview(chaptersCollectionView)
 
 
@@ -145,7 +148,12 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
                     return headerView
                 }
             }
-
+        } else if kind == UICollectionView.elementKindSectionFooter {
+            if indexPath.section == 1 {
+                if let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: newsRecapFooterCellReuseIdentifier, for: indexPath) as? NewsRecapFooterCollectionReusableView {
+                    return footerView
+                }
+            }
         }
         return UICollectionReusableView.init(frame: .zero)
     }
@@ -157,6 +165,14 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
             return CGSize.init(width: 0, height: NewsOneTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: news.title_en))
         }
 
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if section == 1 {
+            return CGSize.init(width: 0, height: NewsRecapFooterCollectionReusableView.cellHeight(with :collectionView.contentSize.width))
+        } else { // assuming only two sections!
+            return CGSize.init(width: 0, height: 0)
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
