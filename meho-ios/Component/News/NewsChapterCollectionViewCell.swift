@@ -90,7 +90,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         self.delegate = delegate
     }
 
-    public func setNews(_ newsChapter: NewsChapter) {
+    public func setNewsChapter(_ newsChapter: NewsChapter) {
         let attributedContent = NewsChapterCollectionViewCell.getChapterTextWithAttribute(content: newsChapter.content)
         textView.attributedText = attributedContent
         textView.sizeToFit()

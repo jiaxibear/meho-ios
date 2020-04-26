@@ -128,7 +128,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let chapter = zhChapters[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsChapterCellReuseIdentifier, for: indexPath) as! NewsChapterCollectionViewCell
-        cell.setNews(chapter)
+        cell.setNewsChapter(chapter)
         cell.setDelegate(delegate: self)
         return cell
     }

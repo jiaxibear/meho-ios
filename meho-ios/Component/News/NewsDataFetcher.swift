@@ -10,7 +10,7 @@ import UIKit
 
 class NewsDataFetcher: NSObject {
     // MARK: - Urls
-    private let fetchNewsListURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/articles/?limit=50"
+    private let fetchNewsListURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/articles/"
     private let fetchNewsDetailURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/paragraphs/?limit=50"
 
     // MARK: - Properties
@@ -87,30 +87,36 @@ class NewsDataFetcher: NSObject {
     }
 
 
-    public func fetchNewsList(completionHandler: @escaping ( Array<News>?, Error?) -> Void) {
-        if let newsListUrl = URL.init(string: fetchNewsListURLString) {
-            let dataCategoriesTask = session.dataTask(with: newsListUrl, completionHandler: { (data, URLResponse, error) in
-                if error != nil {
-                    print("There is an error getting the response of news list")
-                    completionHandler(nil, error)
-                    return
-                }
-                if data == nil {
-                    print("The response of news list is empty")
-                    completionHandler(nil, nil)
-                    return
-                }
-                do {
-                    if let newsListJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                        let newsList = self.parseNewsListJSON(newsListJson: newsListJson)
-                        completionHandler(newsList, nil)
+    public func fetchNewsList(count: String = "50", completionHandler: @escaping ( Array<News>?, Error?) -> Void) {
+        if var fetchNewsListURLComponent = URLComponents.init(string: fetchNewsListURLString) {
+            let quertItem = URLQueryItem.init(name: "limit", value: count)
+            fetchNewsListURLComponent.queryItems = [quertItem]
+            if let newsListUrl = fetchNewsListURLComponent.url {
+                let dataCategoriesTask = session.dataTask(with: newsListUrl, completionHandler: { (data, URLResponse, error) in
+                    if error != nil {
+                        print("There is an error getting the response of news list")
+                        completionHandler(nil, error)
+                        return
                     }
-                } catch let JSONError as NSError {
-                    print("Failed to parse news list JSON: \(JSONError.localizedDescription)")
-                    completionHandler(nil, JSONError)
-                }
-            })
-            dataCategoriesTask.resume()
+                    if data == nil {
+                        print("The response of news list is empty")
+                        completionHandler(nil, nil)
+                        return
+                    }
+                    do {
+                        if let newsListJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                            let newsList = self.parseNewsListJSON(newsListJson: newsListJson)
+                            completionHandler(newsList, nil)
+                        }
+                    } catch let JSONError as NSError {
+                        print("Failed to parse news list JSON: \(JSONError.localizedDescription)")
+                        completionHandler(nil, JSONError)
+                    }
+                })
+                dataCategoriesTask.resume()
+            } else {
+                completionHandler(nil, nil)
+            }
         } else {
             completionHandler(nil, nil)
         }

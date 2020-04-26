@@ -63,14 +63,14 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         view.backgroundColor = .white
         setupNewsCollectionView()
 
-        dataFecther.fetchNewsList { (newsList, error) in
+        dataFecther.fetchNewsList(count: "50", completionHandler:  { (newsList, error) in
             if (error == nil && newsList != nil) {
                 DispatchQueue.main.async {
                     self.newsList = newsList!
                     self.newsCollectionView.reloadData()
                 }
             }
-        }
+        })
     }
 
     func setupNewsCollectionView() {
