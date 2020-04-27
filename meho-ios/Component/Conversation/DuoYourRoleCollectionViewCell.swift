@@ -23,6 +23,8 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
     private static let contentsLabelMargin = CGFloat(18)
     private static let contentPinyinLabelFontSize = CGFloat(14)
     private static let contentPinyinLabelAndContentLabelMargin = CGFloat(6)
+    private static let speakerImageViewSize = CGFloat(30)
+    private static let speakerImageName = "conversation_speaker"
 
     // MARK: - Properties
     // MARK: UI
@@ -72,6 +74,15 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         return contentPinyinLabel
     } ()
 
+    private lazy var speakerImageView: UIImageView = {
+        let speakerImage = UIImage.init(named: DuoYourRoleCollectionViewCell.speakerImageName)
+        let speakerImageView = UIImageView.init(image: speakerImage)
+        speakerImageView.translatesAutoresizingMaskIntoConstraints = false
+        speakerImageView.clipsToBounds = true
+        speakerImageView.layer.cornerRadius = DuoYourRoleCollectionViewCell.speakerImageViewSize / 2
+        return speakerImageView
+    } ()
+
     private static var sizingCell = DuoYourRoleCollectionViewCell.init(frame: .zero);
 
     // MARK: - Init
@@ -85,6 +96,7 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         addSubview(roleImageView)
         addSubview(roleLabel)
         addSubview(contentBackgroundView)
+        addSubview(speakerImageView)
         contentBackgroundView.addSubview(contentLabel)
         contentBackgroundView.addSubview(contentPinyinLabel)
 
@@ -109,6 +121,11 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         contentPinyinLabel.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
         contentPinyinLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: DuoYourRoleCollectionViewCell.contentPinyinLabelAndContentLabelMargin).isActive = true
         contentPinyinLabel.bottomAnchor.constraint(equalTo: contentBackgroundView.bottomAnchor, constant: -DuoYourRoleCollectionViewCell.contentsLabelMargin).isActive = true
+
+        speakerImageView.widthAnchor.constraint(equalToConstant: DuoYourRoleCollectionViewCell.speakerImageViewSize).isActive = true
+        speakerImageView.heightAnchor.constraint(equalToConstant: DuoYourRoleCollectionViewCell.speakerImageViewSize).isActive = true
+        speakerImageView.centerXAnchor.constraint(equalTo: roleImageView.centerXAnchor).isActive = true
+        speakerImageView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor).isActive = true
     }
 
     @available(*, unavailable)
@@ -117,13 +134,24 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - Internal
-    func setScoredChapter(_ scoredChapter: ScoredChapter) {
+    func setScoredChapter(_ scoredChapter: ScoredChapter, isActive: Bool) {
         let chapter = scoredChapter.chapter
         let role = chapter.role
         roleImageView.image = RoleUtils.avatarImage(with: role)
         roleLabel.text = NSLocalizedString("RoleBText", comment: "")
         contentLabel.text = chapter.content
         contentPinyinLabel.text = chapter.contentPinyin
+        if isActive {
+            speakerImageView.isHidden = false
+            contentLabel.textColor = .mehoDarkGray
+            contentPinyinLabel.textColor = .mehoDarkGray
+            contentBackgroundView.backgroundColor = UIColor.skyBlue.withAlphaComponent(DuoYourRoleCollectionViewCell.contentBackgroundViewBackgroundColorAlpha)
+        } else {
+            speakerImageView.isHidden = true
+            contentLabel.textColor = .textBlueGray
+            contentPinyinLabel.textColor = .textBlueGray
+            contentBackgroundView.backgroundColor = .paleGray
+        }
     }
 
     class func cellHeight(with width: CGFloat, scoredChapter: ScoredChapter) -> CGFloat {

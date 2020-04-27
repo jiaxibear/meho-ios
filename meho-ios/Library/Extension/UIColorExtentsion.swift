@@ -57,6 +57,10 @@ extension UIColor {
         return UIColor.init(hex: "#a6b3c2")!
     }
 
+    class var paleGray: UIColor {
+        return UIColor.init(hex: "#f2f2f7")!
+    }
+
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 

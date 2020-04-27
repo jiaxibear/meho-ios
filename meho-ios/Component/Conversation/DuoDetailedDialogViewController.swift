@@ -182,14 +182,15 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = indexPath.item
+        let isActive = item == currentScoredChapters.count - 1
         if item % 2 == 0 {
             if let duoOtherRoleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DuoDetailedDialogViewController.duoOtherRoleCollectionViewCellReuseIdentifier, for: indexPath) as? DuoOtherRoleCollectionViewCell {
-                duoOtherRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item])
+                duoOtherRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item], isActive: isActive)
                 return duoOtherRoleCollectionViewCell
             }
         } else {
             if let duoYourRoleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DuoDetailedDialogViewController.duoYourRoleCollectionViewCellReuseIdentifier, for: indexPath) as? DuoYourRoleCollectionViewCell {
-                duoYourRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item])
+                duoYourRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item], isActive: isActive)
                 return duoYourRoleCollectionViewCell
             }
         }
@@ -224,6 +225,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         currentScoredChapters.append(scoredChapters[newScoredChapterIndex])
         let newIndexPath = IndexPath.init(item: newScoredChapterIndex, section: 0)
         chaptersCollectionView.insertItems(at: [newIndexPath])
+        let lastIndexPath = IndexPath.init(item: newScoredChapterIndex - 1, section: 0)
+        chaptersCollectionView.reloadItems(at: [lastIndexPath])
         let progress = Float(currentScoredChapters.count) / Float(scoredChapters.count)
         progressView.setProgress(progress, animated: true)
         replayButton.isEnabled = false

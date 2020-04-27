@@ -116,11 +116,20 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - Internal
-    func setScoredChapter(_ scoredChapter: ScoredChapter) {
+    func setScoredChapter(_ scoredChapter: ScoredChapter, isActive: Bool) {
         let role = scoredChapter.chapter.role
         roleImageView.image = RoleUtils.avatarImage(with: role)
         roleLabel.text = NSLocalizedString("RoleAText", comment: "")
         contentLabel.text = scoredChapter.chapter.content
+        if isActive {
+            speakerImageView.isHidden = false
+            contentLabel.textColor = .mehoDarkGray
+            contentBackgroundView.backgroundColor = UIColor.skyBlue.withAlphaComponent(DuoOtherRoleCollectionViewCell.contentBackgroundViewBackgroundColorAlpha)
+        } else {
+            speakerImageView.isHidden = true
+            contentLabel.textColor = .textBlueGray
+            contentBackgroundView.backgroundColor = .paleGray
+        }
     }
 
     class func cellHeight(with width: CGFloat, scoredChapter: ScoredChapter) -> CGFloat {
