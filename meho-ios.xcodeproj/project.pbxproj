@@ -49,6 +49,7 @@
 		92C5FE4F24565A40004A3322 /* ExpressionDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE4E24565A40004A3322 /* ExpressionDataFetcher.swift */; };
 		92C5FE5124565A7E004A3322 /* Phrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE5024565A7E004A3322 /* Phrase.swift */; };
 		92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DEE30E23F8FF60004D91D7 /* Feature.swift */; };
+		92FE6CE6245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE6CE5245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift */; };
 		EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */; };
 		EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA01E6AA23FA356900C0B0AE /* Localizable.strings */; };
 		EA01E6AD23FBA62900C0B0AE /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6AC23FBA62900C0B0AE /* Chapter.swift */; };
@@ -161,6 +162,7 @@
 		92C5FE4E24565A40004A3322 /* ExpressionDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionDataFetcher.swift; sourceTree = "<group>"; };
 		92C5FE5024565A7E004A3322 /* Phrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phrase.swift; sourceTree = "<group>"; };
 		92DEE30E23F8FF60004D91D7 /* Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
+		92FE6CE5245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingPhraseCollectionViewCell.swift; sourceTree = "<group>"; };
 		A40C5A697051BB021EFB5E9C /* Pods_meho_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A456EF74653F7CB7D8C47AD7 /* Pods_meho_ios_meho_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios_meho_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD7C00746FB72FA49F9B8405 /* Pods_meho_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -510,6 +512,7 @@
 				EA544909243B07FD00C07D0A /* ExpressionViewController.swift */,
 				92C5FE4E24565A40004A3322 /* ExpressionDataFetcher.swift */,
 				92C5FE5024565A7E004A3322 /* Phrase.swift */,
+				92FE6CE5245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift */,
 			);
 			path = Expression;
 			sourceTree = "<group>";
@@ -873,6 +876,7 @@
 				92BAC71D243ADA1500862571 /* SingleEnglishNewsViewController.swift in Sources */,
 				92ADF89524495D22003D2D12 /* FoundationDataFetcher.swift in Sources */,
 				92BAC71B2439B06B00862571 /* DetailedNewsViewController.swift in Sources */,
+				92FE6CE6245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift in Sources */,
 				EA5448C724283D6900C07D0A /* ExpandedChapterCollectionViewCell.swift in Sources */,
 				EA01E6B123FBD6F000C0B0AE /* DifficultyViewController.swift in Sources */,
 				EA52FDB823EFF416008EB37B /* CategoryCollectionViewCell.swift in Sources */,
