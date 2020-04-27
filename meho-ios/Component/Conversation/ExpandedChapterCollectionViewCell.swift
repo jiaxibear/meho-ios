@@ -83,7 +83,11 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         return actionLabel
     } ()
     private let audioVisualizerView = AudioVisualizerView.init(frame: .zero)
-    private let actionButtonsContainerView = UIView.init(frame: .zero)
+    private lazy var actionButtonsContainerView: UIView = {
+        let actionButtonsContainerView = UIView.init(frame: .zero)
+        actionButtonsContainerView.translatesAutoresizingMaskIntoConstraints = false
+        return actionButtonsContainerView
+    } ()
     private lazy var recordButton: UIButton = {
         let recordButton = UIButton.init(frame: .zero)
         recordButton.translatesAutoresizingMaskIntoConstraints = false
@@ -184,7 +188,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         contentView.addSubview(actionLabel)
 
         // Sets up the action buttons container view.
-        actionButtonsContainerView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(actionButtonsContainerView)
 
         // Sets up the audio visualizer view.

@@ -108,6 +108,12 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         return chaptersCollectionView
     } ()
 
+    private lazy var actionButtonsContainerView: UIView = {
+        let actionButtonsContainerView = UIView.init(frame: .zero)
+        actionButtonsContainerView.translatesAutoresizingMaskIntoConstraints = false
+        return actionButtonsContainerView
+    } ()
+
     // MARK: - Init
     init() {
         fatalError("Use init(scoredChapters: [ScoredChapter])")
@@ -146,15 +152,21 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         view.backgroundColor = .white
 
         view.addSubview(actionlabel)
-        view.addSubview(replayButton)
-        view.addSubview(recordButton)
-        view.addSubview(nextButton)
+        view.addSubview(actionButtonsContainerView)
+        actionButtonsContainerView.addSubview(replayButton)
+        actionButtonsContainerView.addSubview(recordButton)
+        actionButtonsContainerView.addSubview(nextButton)
         view.addSubview(chaptersCollectionView)
+
+        actionButtonsContainerView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -DuoDetailedDialogViewController.recordButtonBottomMargin).isActive = true
+        actionButtonsContainerView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+        actionButtonsContainerView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
+        actionButtonsContainerView.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.recordButtonSize).isActive = true
 
         recordButton.widthAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.recordButtonSize).isActive = true
         recordButton.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.recordButtonSize).isActive = true
-        recordButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -DuoDetailedDialogViewController.recordButtonBottomMargin).isActive = true
-        recordButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor).isActive = true
+        recordButton.bottomAnchor.constraint(equalTo: actionButtonsContainerView.bottomAnchor).isActive = true
+        recordButton.centerXAnchor.constraint(equalTo: actionButtonsContainerView.centerXAnchor).isActive = true
 
         replayButton.widthAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.replayButtonSize).isActive = true
         replayButton.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.replayButtonSize).isActive = true
@@ -167,7 +179,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         nextButton.leadingAnchor.constraint(equalTo: recordButton.trailingAnchor, constant: DuoDetailedDialogViewController.actionButtonsMargin).isActive = true
 
         actionlabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor).isActive = true
-        actionlabel.bottomAnchor.constraint(equalTo: recordButton.topAnchor, constant: -DuoDetailedDialogViewController.actionButtonsTopMargin).isActive = true
+        actionlabel.bottomAnchor.constraint(equalTo: actionButtonsContainerView.topAnchor, constant: -DuoDetailedDialogViewController.actionButtonsTopMargin).isActive = true
 
         chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -246,6 +258,12 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     }
 
     @objc func playerDidFinishPlaying() {
-        nextButton.isEnabled = currentScoredChapters.count != scoredChapters.count
+        if currentScoredChapters.count % 2 == 0 {
+            nextButton.isEnabled = false
+            recordButton.isEnabled = true
+        }
+        if currentScoredChapters.count == scoredChapters.count {
+            nextButton.isEnabled = false
+        }
     }
 }
