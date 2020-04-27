@@ -22,6 +22,10 @@ class ExpressionViewController: UIViewController {
     private let titleView = MainTabTitleView.init(frame: .zero)
 
 
+    // MARK: - Datamodels
+    private let dataFecther = ExpressionDataFetcher.init()
+    private var trendPhrases:[Phrase] = []
+
     // MARK: - Init
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -46,6 +50,16 @@ class ExpressionViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         setupTitleView()
+
+
+
+        dataFecther.fetchTrendingPhrases(completionHandler:  { (phrases, error) in
+            if (error == nil && phrases != nil) {
+                DispatchQueue.main.async {
+                    self.trendPhrases = phrases!
+                }
+            }
+        })
     }
 
     func setupTitleView() {
