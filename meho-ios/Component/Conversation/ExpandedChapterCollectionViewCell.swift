@@ -84,44 +84,44 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     } ()
     private let audioVisualizerView = AudioVisualizerView.init(frame: .zero)
     private let actionButtonsContainerView = UIView.init(frame: .zero)
-    private let recordButton: UIButton = {
+    private lazy var recordButton: UIButton = {
         let recordButton = UIButton.init(frame: .zero)
         recordButton.translatesAutoresizingMaskIntoConstraints = false
-        let recordButtonNormalImage = UIImage.init(named: recordButtonNormalImageName)
+        let recordButtonNormalImage = UIImage.init(named: ExpandedChapterCollectionViewCell.recordButtonNormalImageName)
         recordButton.setImage(recordButtonNormalImage, for: .normal)
-        let recordButtonSelectedImage = UIImage.init(named: recordButtonSelectedImageName)
+        let recordButtonSelectedImage = UIImage.init(named: ExpandedChapterCollectionViewCell.recordButtonSelectedImageName)
         recordButton.setImage(recordButtonSelectedImage, for: .selected)
         recordButton.clipsToBounds = true
-        recordButton.layer.cornerRadius = recordButtonSize / 2
+        recordButton.layer.cornerRadius = ExpandedChapterCollectionViewCell.recordButtonSize / 2
         recordButton.addTarget(self, action: #selector(didTapRecordButton), for: .touchUpInside)
         return recordButton
-    }()
-    private let listenButton: UIButton = {
+    } ()
+    private lazy var listenButton: UIButton = {
         let listenButton = UIButton.init(frame: .zero)
         listenButton.translatesAutoresizingMaskIntoConstraints = false
-        let listenButtonNormalImage = UIImage.init(named: listenButtonNormalImageName)
+        let listenButtonNormalImage = UIImage.init(named: ExpandedChapterCollectionViewCell.listenButtonNormalImageName)
         listenButton.setImage(listenButtonNormalImage, for: .normal)
-        let listenButtonEnabledImage = UIImage.init(named: listenButtonSelectedImageName)
+        let listenButtonEnabledImage = UIImage.init(named: ExpandedChapterCollectionViewCell.listenButtonSelectedImageName)
         listenButton.setImage(listenButtonEnabledImage, for: .selected)
         listenButton.clipsToBounds = true
-        listenButton.layer.cornerRadius = listenButtonSize / 2
+        listenButton.layer.cornerRadius = ExpandedChapterCollectionViewCell.listenButtonSize / 2
         listenButton.addTarget(self, action: #selector(didTapListenButton), for: .touchUpInside)
         return listenButton
-    }()
-    private let replayButton: UIButton = {
+    } ()
+    private lazy var replayButton: UIButton = {
         let replayButton = UIButton.init(frame: .zero)
         replayButton.translatesAutoresizingMaskIntoConstraints = false
-        let replayButtonNormalImage = UIImage.init(named: replayButtonNormalImageName)
+        let replayButtonNormalImage = UIImage.init(named: ExpandedChapterCollectionViewCell.replayButtonNormalImageName)
         replayButton.setImage(replayButtonNormalImage, for: .normal)
-        let replayButtonEnabledImage = UIImage.init(named: replayButtonSelectedImageName)
+        let replayButtonEnabledImage = UIImage.init(named: ExpandedChapterCollectionViewCell.replayButtonSelectedImageName)
         replayButton.setImage(replayButtonEnabledImage, for: .selected)
-        let replayButtonDisabledImage = UIImage.init(named: replayButtonDisabledImageName)
+        let replayButtonDisabledImage = UIImage.init(named: ExpandedChapterCollectionViewCell.replayButtonDisabledImageName)
         replayButton.setImage(replayButtonDisabledImage, for: .disabled)
         replayButton.clipsToBounds = true
-        replayButton.layer.cornerRadius = replayButtonSize / 2
+        replayButton.layer.cornerRadius = ExpandedChapterCollectionViewCell.replayButtonSize / 2
         replayButton.addTarget(self, action: #selector(didTapReplayButton), for: .touchUpInside)
         return replayButton
-    }()
+    } ()
     private let speedButton = UIButton.init(frame: .zero)
 
     // MARK: Model
