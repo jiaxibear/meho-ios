@@ -90,6 +90,8 @@
 		EA6381EB2455140900481B8B /* DuoDetailedDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */; };
 		EA6381ED2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381EC2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift */; };
 		EA6381EF245610D700481B8B /* DuoYourRoleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381EE245610D700481B8B /* DuoYourRoleCollectionViewCell.swift */; };
+		EA6381F2245807FD00481B8B /* ContentEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381F1245807FD00481B8B /* ContentEvaluator.swift */; };
+		EA6381F42458081400481B8B /* ContentEvaluationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381F32458081400481B8B /* ContentEvaluationResult.swift */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -212,6 +214,8 @@
 		EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoDetailedDialogViewController.swift; sourceTree = "<group>"; };
 		EA6381EC2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoOtherRoleCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA6381EE245610D700481B8B /* DuoYourRoleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoYourRoleCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA6381F1245807FD00481B8B /* ContentEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentEvaluator.swift; sourceTree = "<group>"; };
+		EA6381F32458081400481B8B /* ContentEvaluationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentEvaluationResult.swift; sourceTree = "<group>"; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
@@ -482,6 +486,7 @@
 		EA52FDB423EFAA5A008EB37B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				EA6381F0245807C100481B8B /* ContentEvaluation */,
 				EA5449132442B0FE00C07D0A /* Utils */,
 				EA544902243AC69200C07D0A /* Audio */,
 				EA01E6A623FA19E000C0B0AE /* Extension */,
@@ -515,6 +520,15 @@
 				EA5449142442B12500C07D0A /* RoleUtils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		EA6381F0245807C100481B8B /* ContentEvaluation */ = {
+			isa = PBXGroup;
+			children = (
+				EA6381F1245807FD00481B8B /* ContentEvaluator.swift */,
+				EA6381F32458081400481B8B /* ContentEvaluationResult.swift */,
+			);
+			path = ContentEvaluation;
 			sourceTree = "<group>";
 		};
 		EA7B730B23F0DBB10031093B /* AllResources */ = {
@@ -835,6 +849,7 @@
 				92C5FE5124565A7E004A3322 /* Phrase.swift in Sources */,
 				EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */,
 				92BAC71F243B12A100862571 /* SingleChineseNewsViewController.swift in Sources */,
+				EA6381F42458081400481B8B /* ContentEvaluationResult.swift in Sources */,
 				EA01E6AD23FBA62900C0B0AE /* Chapter.swift in Sources */,
 				EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */,
 				EA5448BF2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift in Sources */,
@@ -883,6 +898,7 @@
 				EA5449122442A47200C07D0A /* ScoredChapter.swift in Sources */,
 				EA52FDB623EFE6B8008EB37B /* Category.swift in Sources */,
 				92C5FE4F24565A40004A3322 /* ExpressionDataFetcher.swift in Sources */,
+				EA6381F2245807FD00481B8B /* ContentEvaluator.swift in Sources */,
 				EA5448BD2423324F00C07D0A /* DialogStreamViewController.swift in Sources */,
 				9267EA2124385929009CA25D /* NewsItemSizeXSCollectionViewCell.swift in Sources */,
 				EA5448C1242736CD00C07D0A /* DetailedDialogViewController.swift in Sources */,

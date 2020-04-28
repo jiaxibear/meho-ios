@@ -66,7 +66,11 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     // MARK: - Properties
     // MARK: UI
     private let avatarView = UIImageView.init(frame: .zero)
-    private let scoreView = ChapterScoreView.init(frame: .zero)
+    private lazy var scoreView: ChapterScoreView = {
+        let chapterScoreView = ChapterScoreView.init(frame: .zero)
+        chapterScoreView.translatesAutoresizingMaskIntoConstraints = false
+        return chapterScoreView
+    } ()
     private let contentLabel = UILabel.init(frame: .zero)
     private let contentPinyinLabel = UILabel.init(frame: .zero)
     private let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
@@ -82,7 +86,13 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         actionLabel.textAlignment = .center
         return actionLabel
     } ()
-    private let audioVisualizerView = AudioVisualizerView.init(frame: .zero)
+    private lazy var audioVisualizerView: AudioVisualizerView = {
+        let audioVisualizerView = AudioVisualizerView.init(frame: .zero)
+        audioVisualizerView.isHidden = true
+        audioVisualizerView.translatesAutoresizingMaskIntoConstraints = false
+        audioVisualizerView.delegate = self
+        return audioVisualizerView
+    } ()
     private lazy var actionButtonsContainerView: UIView = {
         let actionButtonsContainerView = UIView.init(frame: .zero)
         actionButtonsContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -155,7 +165,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarView)
 
-        scoreView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(scoreView)
 
         // Sets up the content label.
@@ -191,9 +200,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         contentView.addSubview(actionButtonsContainerView)
 
         // Sets up the audio visualizer view.
-        audioVisualizerView.isHidden = true
-        audioVisualizerView.translatesAutoresizingMaskIntoConstraints = false
-        audioVisualizerView.delegate = self
         contentView.addSubview(audioVisualizerView)
 
         // Sets up the record button.

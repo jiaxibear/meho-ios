@@ -8,8 +8,9 @@
 
 import UIKit
 import AVFoundation
+import TAISDK
 
-class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AudioVisualizerViewDelegte, AVAudioRecorderDelegate, TAIOralEvaluationDelegate {
 
     // MARK: - Constants
     private static let replayButtonNormalImageName = "conversation_play_inactive"
@@ -28,12 +29,18 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private static let actionButtonsTopMargin = CGFloat(24)
     private static let duoOtherRoleCollectionViewCellReuseIdentifier = "duoOtherRoleCollectionViewCellReuseIdentifier"
     private static let duoYourRoleCollectionViewCellReuseIdentifier = "duoYourRoleCollectionViewCellReuseIdentifier"
+    private let pronAccuraryMin = Float(60)
+    private let audioDBLowerLimit = Float(-30)
 
     // MARK: - Properties
     // MARK: Model
     private var scoredChapters: [ScoredChapter];
     private var currentScoredChapters: [ScoredChapter] = []
     private var player: AVPlayer?
+    private var audioFileURL: URL?
+    private var audioRecorder: AVAudioRecorder?
+    private var timer: Timer?
+    private let oralEvaluation = TAIOralEvaluation.init()
 
     // MARK: UI
     private lazy var progressView: UIProgressView = {
@@ -42,7 +49,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         return progressView
     } ()
 
-    private lazy var actionlabel: UILabel = {
+    private lazy var actionLabel: UILabel = {
         let actionLabel = UILabel.init(frame: .zero)
         actionLabel.translatesAutoresizingMaskIntoConstraints = false
         actionLabel.textColor = .textBlueGray
@@ -114,6 +121,14 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         return actionButtonsContainerView
     } ()
 
+    private lazy var audioVisualizerView: AudioVisualizerView = {
+        let audioVisualizerView = AudioVisualizerView.init(frame: .zero)
+        audioVisualizerView.isHidden = true
+        audioVisualizerView.translatesAutoresizingMaskIntoConstraints = false
+        audioVisualizerView.delegate = self
+        return audioVisualizerView
+    } ()
+
     // MARK: - Init
     init() {
         fatalError("Use init(scoredChapters: [ScoredChapter])")
@@ -132,6 +147,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     init(scoredChapters: [ScoredChapter]) {
         self.scoredChapters = scoredChapters
         super.init(nibName: nil, bundle: nil)
+        oralEvaluation.delegate = self
         navigationItem.titleView = progressView
         if let firstChapter = scoredChapters.first {
             currentScoredChapters.append(firstChapter)
@@ -142,7 +158,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             nextButton.isEnabled = false
             let currentRoleFormat = NSLocalizedString("CurrentRoleText", comment: "")
             let currentRole = NSLocalizedString("RoleB", comment: "")
-            actionlabel.text = String.init(format: currentRoleFormat, currentRole)
+            actionLabel.text = String.init(format: currentRoleFormat, currentRole)
             playCurrentChapter()
         }
     }
@@ -151,8 +167,9 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         super.viewDidLoad()
         view.backgroundColor = .white
 
-        view.addSubview(actionlabel)
+        view.addSubview(actionLabel)
         view.addSubview(actionButtonsContainerView)
+        view.addSubview(audioVisualizerView)
         actionButtonsContainerView.addSubview(replayButton)
         actionButtonsContainerView.addSubview(recordButton)
         actionButtonsContainerView.addSubview(nextButton)
@@ -162,6 +179,11 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         actionButtonsContainerView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
         actionButtonsContainerView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
         actionButtonsContainerView.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.recordButtonSize).isActive = true
+
+        audioVisualizerView.topAnchor.constraint(equalTo: actionButtonsContainerView.topAnchor).isActive = true
+        audioVisualizerView.bottomAnchor.constraint(equalTo: actionButtonsContainerView.bottomAnchor).isActive = true
+        audioVisualizerView.leadingAnchor.constraint(equalTo: actionButtonsContainerView.leadingAnchor).isActive = true
+        audioVisualizerView.trailingAnchor.constraint(equalTo: actionButtonsContainerView.trailingAnchor).isActive = true
 
         recordButton.widthAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.recordButtonSize).isActive = true
         recordButton.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.recordButtonSize).isActive = true
@@ -178,13 +200,13 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         nextButton.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor).isActive = true
         nextButton.leadingAnchor.constraint(equalTo: recordButton.trailingAnchor, constant: DuoDetailedDialogViewController.actionButtonsMargin).isActive = true
 
-        actionlabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor).isActive = true
-        actionlabel.bottomAnchor.constraint(equalTo: actionButtonsContainerView.topAnchor, constant: -DuoDetailedDialogViewController.actionButtonsTopMargin).isActive = true
+        actionLabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor).isActive = true
+        actionLabel.bottomAnchor.constraint(equalTo: actionButtonsContainerView.topAnchor, constant: -DuoDetailedDialogViewController.actionButtonsTopMargin).isActive = true
 
         chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         chaptersCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        chaptersCollectionView.bottomAnchor.constraint(equalTo: actionlabel.topAnchor, constant: -DuoDetailedDialogViewController.actionLabelAndChaptersCollectionViewMargin).isActive = true
+        chaptersCollectionView.bottomAnchor.constraint(equalTo: actionLabel.topAnchor, constant: -DuoDetailedDialogViewController.actionLabelAndChaptersCollectionViewMargin).isActive = true
     }
 
     // MARK: - UICollectionViewDataSource
@@ -223,13 +245,58 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         }
     }
 
+    // MARK: - AudioVisualizerViewDelegte
+    func audioVisualizerViewDidTapInside(_ audioVisualizerView: AudioVisualizerView) {
+        actionButtonsContainerView.isHidden = false
+        audioVisualizerView.isHidden = true
+        timer?.invalidate()
+        timer = nil
+        recordButton.isSelected = false
+        actionLabel.isHidden = true
+        audioRecorder?.stop()
+        if audioFileURL != nil {
+            replayButton.isEnabled = FileManager.default.fileExists(atPath: audioFileURL!.path)
+        }
+        startEvaluation()
+    }
+
+    // MARK: - TAIOralEvaluationDelegate
+    func oralEvaluation(_ oralEvaluation: TAIOralEvaluation!, onEvaluateData data: TAIOralEvaluationData!, result: TAIOralEvaluationRet!, error: TAIError!) {
+        if result != nil {
+            if let scoredChapter = currentScoredChapters.last {
+                let suggestedScore = result.suggestedScore
+                scoredChapter.score = suggestedScore
+                let scoredContent = self.scoredContent(result: result)
+                scoredChapter.scoredContent = scoredContent
+                actionLabel.isHidden = false
+                actionLabel.text = NSLocalizedString("ReplayPromptActionText", comment: "")
+                let currentIndexPath = IndexPath.init(item: currentScoredChapters.count - 1, section: 0)
+                chaptersCollectionView.reloadItems(at: [currentIndexPath])
+                nextButton.isEnabled = true
+            }
+        }
+    }
+
+    func oralEvaluation(_ oralEvaluation: TAIOralEvaluation!, onVolumeChanged volume: Int) {
+
+    }
+
+    func onEndOfSpeech(in oralEvaluation: TAIOralEvaluation!) {
+
+    }
+
     // MARK: - Private
     @objc func didTapReplayButton() {
 
     }
 
     @objc func didTapRecordButton() {
-
+        recordButton.isSelected = true
+        actionLabel.isHidden = false
+        actionLabel.text = NSLocalizedString("RecordActionText", comment: "")
+        startRecording()
+        actionButtonsContainerView.isHidden = true
+        audioVisualizerView.isHidden = false
     }
 
     @objc func didTapNextButton() {
@@ -239,6 +306,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionView.insertItems(at: [newIndexPath])
         let lastIndexPath = IndexPath.init(item: newScoredChapterIndex - 1, section: 0)
         chaptersCollectionView.reloadItems(at: [lastIndexPath])
+        chaptersCollectionView.scrollToItem(at: newIndexPath, at: .bottom, animated: true)
         let progress = Float(currentScoredChapters.count) / Float(scoredChapters.count)
         progressView.setProgress(progress, animated: true)
         replayButton.isEnabled = false
@@ -261,9 +329,117 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         if currentScoredChapters.count % 2 == 0 {
             nextButton.isEnabled = false
             recordButton.isEnabled = true
+        } else {
+            nextButton.isEnabled = true
         }
         if currentScoredChapters.count == scoredChapters.count {
             nextButton.isEnabled = false
         }
+    }
+
+    private func startRecording() {
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatLinearPCM),
+            AVSampleRateKey: 16000,
+            AVNumberOfChannelsKey: 2,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
+            AVLinearPCMBitDepthKey: 16,
+            AVLinearPCMIsFloatKey: false,
+            AVLinearPCMIsBigEndianKey: false,
+            ] as [String : Any]
+        if let identifier = currentScoredChapters.last?.chapter.identifier {
+            let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),isDirectory: true)
+            let audioFileName = "\(identifier).caf"
+            audioFileURL = temporaryDirectoryURL.appendingPathComponent(audioFileName)
+            if audioFileURL != nil {
+                do {
+                    audioRecorder = try AVAudioRecorder(url: audioFileURL!, settings: settings)
+                    audioRecorder!.delegate = self
+                    audioRecorder!.isMeteringEnabled = true
+                    audioRecorder!.record()
+                    audioVisualizerView.prepareBanners()
+                    timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true, block: { (timer) in
+                        self.audioRecorder!.updateMeters()
+                        var audioDB = self.audioRecorder!.averagePower(forChannel: 0)
+                        if audioDB > self.audioDBLowerLimit {
+                            audioDB = (audioDB - self.audioDBLowerLimit) / -self.audioDBLowerLimit
+                            self.audioVisualizerView.drawBanner(value: audioDB)
+                        } else {
+                            self.audioVisualizerView.drawBanner(value: 0)
+                        }
+                    })
+                    timer?.fire()
+                } catch {
+                    // TODO: Catch recorder error.
+                }
+            }
+        }
+    }
+
+    private func startEvaluation() {
+        if let content = currentScoredChapters.last?.chapter.content {
+            let param = TAIOralEvaluationParam.init()
+            param.sessionId = UUID().uuidString
+            param.appId = "1300579049"
+            param.workMode = .once
+            param.evalMode = .paragraph
+            param.workMode = .stream
+            param.storageMode = .disable
+            param.serverType = .chinese
+            param.scoreCoeff = 1.0
+            param.fileType = .mp3
+            param.refText = content;
+            param.secretId = "AKIDiHaeZOnGK8h083q4B2cy3sUsBF4KYctt"
+            param.secretKey = "tWsyoQo8D1auymOozu4A0pOzLPCk49xX"
+            param.textMode = .noraml
+            let audioConverter = AudioConverter.init()
+            if let mp3FileName = audioConverter.mp3File(fromM4aFile: audioFileURL?.path) {
+                let mp3FileURL = URL.init(fileURLWithPath: mp3FileName)
+                let data = TAIOralEvaluationData.init()
+                data.bEnd = true
+                data.seqId = 1
+                data.audio = try? Data.init(contentsOf: mp3FileURL)
+                oralEvaluation.oralEvaluation(param, data: data, callback: { (error) in
+                    if (error?.code != TAIErrCode.succ) {
+                        self.recordButton.isSelected = false
+                        self.actionLabel.isHidden = false
+                        self.actionLabel.text = NSLocalizedString("RecordPromptActionText", comment: "")
+                    }
+                })
+            }
+        }
+    }
+
+    private func scoredContent(result: TAIOralEvaluationRet) -> NSAttributedString {
+        if let content = currentScoredChapters.last?.chapter.content {
+            let scoredContent = NSMutableAttributedString.init(string: content)
+            if let scoredWords = result.words {
+                if scoredWords.count == 0 {
+                    scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.coral, range: NSRange.init(location: 0, length: content.count))
+                } else {
+                    var scoredWordsIndex = 0
+                    for (index, character) in content.enumerated() {
+                        if (scoredWordsIndex >= scoredWords.count) {
+                            scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
+                        } else {
+                            let contentWord = String(character)
+                            let scoredWord = scoredWords[scoredWordsIndex]
+                            if contentWord == scoredWord.word {
+                                if scoredWord.pronAccuracy > pronAccuraryMin {
+                                    scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
+                                } else {
+                                    scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.coral, range: NSRange.init(location: index, length: 1))
+                                }
+                                scoredWordsIndex = scoredWordsIndex + 1;
+                            } else {
+                                scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
+                            }
+                        }
+                    }
+                }
+            }
+            return scoredContent
+        }
+        return NSAttributedString.init()
     }
 }

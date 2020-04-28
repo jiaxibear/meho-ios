@@ -83,6 +83,12 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         return speakerImageView
     } ()
 
+    private lazy var scoreView: ChapterScoreView = {
+        let chapterScoreView = ChapterScoreView.init(frame: .zero)
+        chapterScoreView.translatesAutoresizingMaskIntoConstraints = false
+        return chapterScoreView
+    } ()
+
     private static var sizingCell = DuoYourRoleCollectionViewCell.init(frame: .zero);
 
     // MARK: - Init
@@ -97,6 +103,7 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         addSubview(roleLabel)
         addSubview(contentBackgroundView)
         addSubview(speakerImageView)
+        addSubview(scoreView)
         contentBackgroundView.addSubview(contentLabel)
         contentBackgroundView.addSubview(contentPinyinLabel)
 
@@ -126,6 +133,9 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         speakerImageView.heightAnchor.constraint(equalToConstant: DuoYourRoleCollectionViewCell.speakerImageViewSize).isActive = true
         speakerImageView.centerXAnchor.constraint(equalTo: roleImageView.centerXAnchor).isActive = true
         speakerImageView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor).isActive = true
+
+        scoreView.centerXAnchor.constraint(equalTo: speakerImageView.centerXAnchor).isActive = true
+        scoreView.centerYAnchor.constraint(equalTo: speakerImageView.centerYAnchor).isActive = true
     }
 
     @available(*, unavailable)
@@ -143,7 +153,11 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         contentPinyinLabel.text = chapter.contentPinyin
         if isActive {
             speakerImageView.isHidden = false
-            contentLabel.textColor = .mehoDarkGray
+            if let scoredContent = scoredChapter.scoredContent {
+                contentLabel.attributedText = scoredContent
+            } else {
+                contentLabel.textColor = .mehoDarkGray
+            }
             contentPinyinLabel.textColor = .mehoDarkGray
             contentBackgroundView.backgroundColor = UIColor.skyBlue.withAlphaComponent(DuoYourRoleCollectionViewCell.contentBackgroundViewBackgroundColorAlpha)
         } else {
@@ -151,6 +165,15 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
             contentLabel.textColor = .textBlueGray
             contentPinyinLabel.textColor = .textBlueGray
             contentBackgroundView.backgroundColor = .paleGray
+        }
+        let score = scoredChapter.score
+        if score > -1 {
+            speakerImageView.isHidden = true
+            scoreView.isHidden = false
+            scoreView.setScore(score)
+        } else {
+            speakerImageView.isHidden = false
+            scoreView.isHidden = true
         }
     }
 
