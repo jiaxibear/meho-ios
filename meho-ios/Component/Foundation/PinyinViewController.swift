@@ -21,6 +21,8 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     private let pinyinDetailReminderNotFound = "Ops...\n this combo of Final and Initial is invalid, please try again"
     private let initialsDelimiterTitle = "声母 Initials"
     private let finalsDelimiterTitle = "韵母 Finals"
+    private let originalInitialText = "Initial"
+    private let originalFinalText = "Final"
     private let plusImageName = "stories_heart_filled"
     private let navTitleLabelFontSize = CGFloat(18)
     private let pillCornerRadius = CGFloat(10)
@@ -119,7 +121,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         initialLabel.layer.borderColor = UIColor.skyBlue.cgColor
         initialLabel.layer.borderWidth = pillBorderWidth
         initialLabel.font = topLabelFont
-        initialLabel.text = "Initial"
+        initialLabel.text = originalInitialText
         initialLabel.textAlignment = .center
         initialLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(initialLabel)
@@ -129,7 +131,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         finalLabel.layer.borderColor = UIColor.skyBlue.cgColor
         finalLabel.layer.borderWidth = pillBorderWidth
         finalLabel.font = topLabelFont
-        finalLabel.text = "Final"
+        finalLabel.text = originalFinalText
         finalLabel.textAlignment = .center
         finalLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(finalLabel)
@@ -277,19 +279,34 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
                 let currentSelectedInitialCell = collectionView.cellForItem(at: IndexPath.init(item: selectedInitialIdx, section: 0)) as! PinyinInitialCollectionViewCell
                 currentSelectedInitialCell.unSelectCell()
             }
-            let tappedCell = collectionView.cellForItem(at: indexPath) as! PinyinInitialCollectionViewCell
-            tappedCell.selectCell()
-            initialLabel.text = tappedCell.getCellLabel()
-            selectedInitialIdx = indexPath.item
+
+            if (indexPath.item != selectedInitialIdx) { //  if selected another cell, set it selected
+                let tappedCell = collectionView.cellForItem(at: indexPath) as! PinyinInitialCollectionViewCell
+                tappedCell.selectCell()
+                initialLabel.text = tappedCell.getCellLabel()
+                selectedInitialIdx = indexPath.item
+            } else { // otherwise selected the original cell, remain unselected and toggle the detail label back
+                initialLabel.text = originalInitialText
+                selectedInitialIdx = noneSelectedIdx
+            }
+
         case .finals:
+            // unselected the previous selected cell anyway
             if (selectedFinalIdx != noneSelectedIdx) {
                 let currentSelectedFinalCell = collectionView.cellForItem(at: IndexPath.init(item: selectedFinalIdx, section: 1)) as! PinyinFinalCollectionViewCell
                 currentSelectedFinalCell.unSelectCell()
             }
-            let tappedCell = collectionView.cellForItem(at: indexPath) as! PinyinFinalCollectionViewCell
-            tappedCell.selectCell()
-            finalLabel.text = tappedCell.getCellLabel()
-            selectedFinalIdx = indexPath.item
+
+            if (indexPath.item != selectedFinalIdx) { //  if selected another cell, set it selected
+                let tappedCell = collectionView.cellForItem(at: indexPath) as! PinyinFinalCollectionViewCell
+                tappedCell.selectCell()
+                finalLabel.text = tappedCell.getCellLabel()
+                selectedFinalIdx = indexPath.item
+            } else { // otherwise selected the original cell, remain unselected and toggle the detail label back
+                finalLabel.text = originalFinalText
+                selectedFinalIdx = noneSelectedIdx
+            }
+
         }
         checkPinyinResult()
     }
@@ -297,7 +314,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     func checkPinyinResult() {
         if (selectedFinalIdx == noneSelectedIdx) { // if user does not even select final, no need to call to search
             self.pinyinDetailView.setNotFound(message: self.pinyinDetailReminderOneMore)
-        } else if (selectedFinalIdx != noneSelectedIdx) { // user select a initial, can call to search
+        } else { // user select a initial, can call to search
             let final = finals[selectedFinalIdx]
             let pinyinToSearch = (selectedInitialIdx == noneSelectedIdx)
                 ? final : initials[selectedInitialIdx] + final
@@ -317,8 +334,6 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
                     }
                 }
             })
-        } else if (selectedFinalIdx != noneSelectedIdx && selectedInitialIdx != noneSelectedIdx) {
-
         }
     }
 }
