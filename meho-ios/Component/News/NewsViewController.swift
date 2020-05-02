@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate  {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
@@ -27,6 +27,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         let titleView = MainTabTitleView.init(frame: .zero)
         titleView.setTitleText(text: newsListTitle)
         titleView.translatesAutoresizingMaskIntoConstraints = false
+        titleView.setDelegate(delegate: self)
         return titleView
     } ()
     private var newsCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
@@ -188,5 +189,11 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     // rendertype is returned as one of [XS, S, L, XL], usually we respect it. S, L, XL all come with images while XS don't.  If one news is not marked XS but still does not come with image, we should still degrade to XS
     func chooseRenterType(news: News) -> String {
         return news.coverImageURL == nil ? "XS" : news.renderType
+    }
+
+    // implement for the delegate of TitleView when tapping on profile image, navigate to profile view
+    func MainTitleViewDidTapProfileImage() {
+        let profileController = ProfileViewController.init()
+        navigationController?.pushViewController(profileController, animated: true)
     }
 }

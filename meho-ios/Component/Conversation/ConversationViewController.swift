@@ -14,7 +14,7 @@ enum ConversationSection: Int {
     case mostPopluarDialogs
 }
 
-class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SeeMoreFooterCollectionResuableViewDelegate {
+class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SeeMoreFooterCollectionResuableViewDelegate, TriggerProfileViewDelegate {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
@@ -92,6 +92,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
         // Sets up the title.
         titleView.setTitleText(text: NSLocalizedString("ConversationTitle", comment: ""))
+        titleView.setDelegate(delegate: self)
         titleView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleView)
 
@@ -298,5 +299,12 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         case .mostPopluarDialogs:
             return NSLocalizedString("MostPopularTitle", comment: "")
         }
+    }
+
+
+    // implement for the delegate of TitleView when tapping on profile image, navigate to profile view
+    func MainTitleViewDidTapProfileImage() {
+        let profileController = ProfileViewController.init()
+        navigationController?.pushViewController(profileController, animated: true)
     }
 }

@@ -12,7 +12,8 @@ enum ExpressionSection: Int {
     case trendingPhrases
 }
 
-class ExpressionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ExpressionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate {
+
 
     // MARK: - Constants
     private let expressionTabBarItemImageName = "tabbar_expression_25pt"
@@ -33,6 +34,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         let titleView = MainTabTitleView.init(frame: .zero)
         titleView.setTitleText(text: foundationCoverTitle)
         titleView.translatesAutoresizingMaskIntoConstraints = false
+        titleView.setDelegate(delegate: self)
         return titleView
     } ()
 
@@ -195,5 +197,11 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         section.boundarySupplementaryItems = [headerElement]
         return section
+    }
+
+    // implement for the delegate of TitleView when tapping on profile image, navigate to profile view
+    func MainTitleViewDidTapProfileImage() {
+        let profileController = ProfileViewController.init()
+        navigationController?.pushViewController(profileController, animated: true)
     }
 }

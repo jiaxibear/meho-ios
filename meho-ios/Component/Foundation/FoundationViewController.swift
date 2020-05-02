@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class FoundationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class FoundationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate {
     
     // MARK: - Constants
     private let foundationCoverTitle = "Foundations"
@@ -72,6 +72,7 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     func setupTitleLabelUI() {
         let margins = self.view.layoutMarginsGuide
         titleView.setTitleText(text: foundationCoverTitle)
+        titleView.setDelegate(delegate: self)
         titleView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleView)
         
@@ -130,6 +131,13 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
             let pinyinViewController = PinyinViewController.init(featureName:foundationItem.name)
             navigationController?.pushViewController(pinyinViewController, animated: true)
         }
+    }
+
+
+    // implement for the delegate of TitleView when tapping on profile image, navigate to profile view
+    func MainTitleViewDidTapProfileImage() {
+        let profileController = ProfileViewController.init()
+        navigationController?.pushViewController(profileController, animated: true)
     }
 }
 

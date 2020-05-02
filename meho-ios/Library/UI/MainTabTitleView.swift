@@ -19,6 +19,7 @@ class MainTabTitleView: UIView {
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
     private let profileButton = UIButton.init(frame: .zero)
+    private weak var delegate: TriggerProfileViewDelegate?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -57,6 +58,7 @@ class MainTabTitleView: UIView {
         let profileImage = UIImage.init(named:dummypProfileImageName)
         profileButton.translatesAutoresizingMaskIntoConstraints = false
         profileButton.setImage(profileImage, for: .normal)
+        profileButton.addTarget(self, action: #selector(didTapProfileImage), for: .touchUpInside)
         addSubview(profileButton)
 
         profileButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
@@ -73,4 +75,19 @@ class MainTabTitleView: UIView {
         return viewHeight
     }
 
+    func setDelegate(delegate: TriggerProfileViewDelegate) {
+        self.delegate = delegate
+    }
+
+    @objc
+    private func didTapProfileImage() {
+
+//        let detailedNewsViewController = ProfileViewController.init()
+        delegate?.MainTitleViewDidTapProfileImage()
+//        navigationController?.pushViewController(detailedNewsViewController, animated: true)
+    }
+}
+
+protocol TriggerProfileViewDelegate : AnyObject {
+    func MainTitleViewDidTapProfileImage()
 }

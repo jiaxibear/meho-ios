@@ -14,7 +14,7 @@ class ProfileViewController: UIViewController {
     // MARK: - Constants
     
     // MARK: - Properties
-    private let logoutButtom = UIButton.init()
+    private let logoutButton = UIButton.init()
     
     
     private let profileTabBarItemImageName = "tabbar_profile_25pt"
@@ -42,32 +42,25 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         setupLogoutButtom()
-        let session = URLSession(configuration: .default)
-        let URLString = "https://150uu7wn8b.execute-api.us-west-2.amazonaws.com/dev/dialogue/recordUserPronounce"
-        var request = URLRequest.init(url: URL.init(string: URLString)!)
-        request.httpMethod = "POST"
-        request.httpBody = "chapter_id : 123".data(using: .utf8)
-        session.dataTask(with: request).resume()
     }
     
     
     // MARK - Elements layout, style & constrains
     func setupLogoutButtom() {
-        logoutButtom.translatesAutoresizingMaskIntoConstraints = false
-        logoutButtom.setTitle("Logout ", for: UIControl.State.normal)
-        logoutButtom.sizeToFit()
-        logoutButtom.backgroundColor = .blue
-        logoutButtom.layer.borderWidth = 1
-        logoutButtom.layer.borderColor = UIColor.black.cgColor
-        view.addSubview(logoutButtom)
+        logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        logoutButton.setTitle("Logout ", for: UIControl.State.normal)
+        logoutButton.sizeToFit()
+        logoutButton.backgroundColor = .wisteriaPurple
+        view.addSubview(logoutButton)
         let margins = view.layoutMarginsGuide
-        logoutButtom.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        logoutButtom.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        logoutButtom.topAnchor.constraint(equalTo: margins.topAnchor, constant: CGFloat(30)).isActive = true
-        logoutButtom.heightAnchor.constraint(equalToConstant: CGFloat(35)).isActive = true
+        logoutButton.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        logoutButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        logoutButton.topAnchor.constraint(equalTo: margins.topAnchor, constant: CGFloat(30)).isActive = true
+        logoutButton.heightAnchor.constraint(equalToConstant: CGFloat(35)).isActive = true
         
-        logoutButtom.addTarget(self, action: #selector(logout), for: .touchUpInside)
+        logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
     }
     
     
