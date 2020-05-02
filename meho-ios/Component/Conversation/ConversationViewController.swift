@@ -40,6 +40,10 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let titleView = MainTabTitleView.init(frame: .zero)
     private var conversationCollectionViewCompositionalLayout: UICollectionViewCompositionalLayout?
     private lazy var conversationCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:conversationCollectionViewCompositionalLayout!)
+
+    private var scrollDownTitleHiddenCollectionViewTopConstraint: NSLayoutConstraint!
+    private var scrollUpTitleShownCollectionViewTopConstraint: NSLayoutConstraint!
+
     // MARK: MODEL
     private var categories:[Category] = []
     private var featuredDialogs:[Dialog] = []
@@ -96,6 +100,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         conversationCollectionView.backgroundColor = .white
         conversationCollectionView.dataSource = self
         conversationCollectionView.delegate = self
+        
         conversationCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: categoryCellReuseIdentifier)
         conversationCollectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCellReuseIdentifier)
         conversationCollectionView.register(ConversationHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier)
@@ -107,9 +112,11 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true
         titleView.topAnchor.constraint(equalTo: margins.topAnchor, constant: titleLabelTopMargin).isActive = true
 
+        scrollDownTitleHiddenCollectionViewTopConstraint = conversationCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
+        scrollUpTitleShownCollectionViewTopConstraint = conversationCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: titleLabelToConversationCollectionViewMargin)
+        scrollUpTitleShownCollectionViewTopConstraint.isActive = true
         conversationCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         conversationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        conversationCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: titleLabelToConversationCollectionViewMargin).isActive = true
         conversationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         dataFecther.fetchCategories { (categories, error) in
@@ -147,6 +154,18 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
                 }
             }
         })
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
+            titleView.isHidden = true
+            scrollUpTitleShownCollectionViewTopConstraint.isActive = false
+            scrollDownTitleHiddenCollectionViewTopConstraint.isActive = true
+        } else {
+            titleView.isHidden = false
+            scrollDownTitleHiddenCollectionViewTopConstraint.isActive = false
+            scrollUpTitleShownCollectionViewTopConstraint.isActive = true
+        }
     }
 
     // MARK: - UICollectionViewDelegate

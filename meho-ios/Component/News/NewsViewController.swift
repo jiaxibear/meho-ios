@@ -17,21 +17,27 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     private let newsCollectionViewCellHeight = CGFloat(110)
     private let newsCollectionViewCellGroupSpacing = CGFloat(20)
 
-    private let newsCollectionHorizontalMargin = CGFloat(15)
-    private let newsCollectionTopMargin = CGFloat(30)
+    private let horizontalMargin = CGFloat(15)
+    private let verticalTopMargin = CGFloat(30)
     private let newsListTitle = NSLocalizedString("NewsTitle", comment: "")
 
 
     // MARK: UI
-    private let titleLabel = UILabel.init(frame: .zero)
+    private lazy var titleView: MainTabTitleView = {
+        let titleView = MainTabTitleView.init(frame: .zero)
+        titleView.setTitleText(text: newsListTitle)
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        return titleView
+    } ()
     private var newsCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var newsCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:newsCollectionViewFlowLayout)
+    private var scrollDownTitleHiddenCollectionViewTopConstraint: NSLayoutConstraint!
+    private var scrollUpTitleShownCollectionViewTopConstraint: NSLayoutConstraint!
 
     private let newsItemSizeXLCellReuseIdentifier = "NewsItemSizeXL"
     private let newsItemSizeLCellReuseIdentifier = "NewsItemSizeL"
     private let newsItemSizeSCellReuseIdentifier = "NewsItemSizeS"
     private let newsItemSizeXSCellReuseIdentifier = "NewsItemSizeXS"
-    private let newsListTitleHeaderCellReuseIdentifier = "NewsListTitle"
 
     // MARK: - Datamodels
     private let dataFecther = NewsDataFetcher.init()
@@ -61,6 +67,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupTitleViewConstraint()
         setupNewsCollectionView()
 
         dataFecther.fetchNewsList(count: "50", completionHandler:  { (newsList, error) in
@@ -91,31 +98,40 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         newsCollectionView.register(NewsItemSizeLCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeLCellReuseIdentifier)
         newsCollectionView.register(NewsItemSizeSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeSCellReuseIdentifier)
         newsCollectionView.register(NewsItemSizeXSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeXSCellReuseIdentifier)
-        newsCollectionView.register(NewsListHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsListTitleHeaderCellReuseIdentifier)
         view.addSubview(newsCollectionView)
 
 
         // view constraints
-        newsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: newsCollectionHorizontalMargin).isActive = true
-        newsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -newsCollectionHorizontalMargin).isActive = true
-        newsCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: newsCollectionTopMargin).isActive = true
+        scrollDownTitleHiddenCollectionViewTopConstraint = newsCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
+        scrollUpTitleShownCollectionViewTopConstraint = newsCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: verticalTopMargin)
+        scrollUpTitleShownCollectionViewTopConstraint.isActive = true
+        newsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalMargin).isActive = true
+        newsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -horizontalMargin).isActive = true
         newsCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
     }
 
-    // MARK: - UICollectionViewDataSource
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader {
-            if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsListTitleHeaderCellReuseIdentifier, for: indexPath) as? NewsListHeaderCollectionReusableView {
-                headerView.setTitle(title: newsListTitle)
-                return headerView
-            }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
+            titleView.isHidden = true
+            scrollUpTitleShownCollectionViewTopConstraint.isActive = false
+            scrollDownTitleHiddenCollectionViewTopConstraint.isActive = true
+        } else {
+            titleView.isHidden = false
+            scrollDownTitleHiddenCollectionViewTopConstraint.isActive = false
+            scrollUpTitleShownCollectionViewTopConstraint.isActive = true
         }
-        return UICollectionReusableView.init(frame: .zero)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize.init(width: 0, height: NewsListHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, title: newsListTitle))
+    private func setupTitleViewConstraint() {
+        let margins = view.layoutMarginsGuide
+        view.addSubview(titleView)
+        titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalMargin).isActive = true
+        titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -horizontalMargin).isActive = true
+        titleView.topAnchor.constraint(equalTo: margins.topAnchor, constant: verticalTopMargin).isActive = true
     }
+
+
+    // MARK: - UICollectionViewDataSource
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return newsList.count

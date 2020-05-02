@@ -39,6 +39,10 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     private var expressionCollectionViewCompositionalLayout: UICollectionViewCompositionalLayout?
     private lazy var expressionCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:expressionCollectionViewCompositionalLayout!)
 
+    private var scrollDownTitleHiddenCollectionViewTopConstraint: NSLayoutConstraint!
+    private var scrollUpTitleShownCollectionViewTopConstraint: NSLayoutConstraint!
+
+
     // MARK: - Datamodels
     private let dataFecther = ExpressionDataFetcher.init()
     private var trendingPhrases:[Phrase] = []
@@ -101,7 +105,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     private func setupTitleViewConstraint() {
-        let margins = self.view.layoutMarginsGuide
+        let margins = view.layoutMarginsGuide
         view.addSubview(titleView)
         titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalMargin).isActive = true
         titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -horizontalMargin).isActive = true
@@ -113,8 +117,22 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
 
         expressionCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalMargin).isActive = true
         expressionCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -horizontalMargin).isActive = true
-        expressionCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: collectionViewTopMargin).isActive = true
+        scrollDownTitleHiddenCollectionViewTopConstraint = expressionCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
+        scrollUpTitleShownCollectionViewTopConstraint = expressionCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: collectionViewTopMargin)
+        scrollUpTitleShownCollectionViewTopConstraint.isActive = true
         expressionCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
+            titleView.isHidden = true
+            scrollUpTitleShownCollectionViewTopConstraint.isActive = false
+            scrollDownTitleHiddenCollectionViewTopConstraint.isActive = true
+        } else {
+            titleView.isHidden = false
+            scrollDownTitleHiddenCollectionViewTopConstraint.isActive = false
+            scrollUpTitleShownCollectionViewTopConstraint.isActive = true
+        }
     }
 
 
