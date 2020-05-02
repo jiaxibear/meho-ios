@@ -18,8 +18,7 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
     private static let explanationLabelFontSize = CGFloat(16)
     private static let labelToExplainMargin = CGFloat(10)
     private static let contentViewCornerRadius = CGFloat(8)
-    private static let contentViewShadowRadius = CGFloat(2)
-    private static let contentViewShadowSpread = CGFloat(2)
+    private static let contentViewShadowRadius = CGFloat(6)
 
     private static let pronounceSpeakerSize = CGFloat(25)
     private static let cellVerticalMargin = CGFloat(7)
@@ -88,12 +87,10 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.shadowColor = UIColor.paleLilac.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowOffset = .zero
+        layer.shadowOpacity = 1.0
+        layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.masksToBounds = false
         layer.shadowRadius = TrendingPhraseCollectionViewCell.contentViewShadowRadius
-        let shadowBounds = bounds.insetBy(dx: TrendingPhraseCollectionViewCell.contentViewShadowSpread, dy: -TrendingPhraseCollectionViewCell.contentViewShadowSpread)
-        layer.shadowPath = UIBezierPath(roundedRect: shadowBounds, cornerRadius: TrendingPhraseCollectionViewCell.contentViewCornerRadius).cgPath
         layer.backgroundColor = UIColor.clear.cgColor
 
         contentView.layer.borderWidth = 0.5
