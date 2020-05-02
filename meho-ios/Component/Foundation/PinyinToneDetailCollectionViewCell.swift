@@ -15,7 +15,8 @@ class PinyinToneDetailCollectionViewCell: UICollectionViewCell {
     private let cardBorderwidth = CGFloat(2)
     private let labelFontSize = CGFloat(17)
     private let speakerToSymbalMargin = CGFloat(10)
-    private let pronounceButtonImageName = "stories_speaker"
+    private let enabledeSpeakerImageName = "stories_speaker"
+    private let disabledeSpeakerImageName = "speaker_disabled"
 
     // MARK: - Properties
     private let prounceButton = UIButton.init(frame: .zero)
@@ -23,7 +24,6 @@ class PinyinToneDetailCollectionViewCell: UICollectionViewCell {
     private let characterLabel = UILabel.init(frame: .zero)
 
     // MARK: - Data
-    private var isFound = false
     private var maybeToneAudioUrl: URL?
     private var player: AVPlayer?
 
@@ -41,10 +41,7 @@ class PinyinToneDetailCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         // Sets up elements in the cell
-        let pronounceSpeakerImage = UIImage.init(named: pronounceButtonImageName)
         prounceButton.translatesAutoresizingMaskIntoConstraints = false
-        prounceButton.setImage(pronounceSpeakerImage, for: UIControl.State.normal)
-        prounceButton.setImage(pronounceSpeakerImage, for: UIControl.State.selected)
         prounceButton.addTarget(self, action: #selector(didTapPronounceButton), for: .touchUpInside)
         contentView.addSubview(prounceButton)
 
@@ -69,7 +66,6 @@ class PinyinToneDetailCollectionViewCell: UICollectionViewCell {
         prounceButton.widthAnchor.constraint(equalToConstant: contentView.bounds.height * 0.6).isActive = true
         prounceButton.heightAnchor.constraint(equalToConstant: contentView.bounds.height * 0.6).isActive = true
         prounceButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        prounceButton.isHidden = true
 
         symbolLabel.leadingAnchor.constraint(equalTo: prounceButton.trailingAnchor, constant: speakerToSymbalMargin).isActive = true
         symbolLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -82,28 +78,29 @@ class PinyinToneDetailCollectionViewCell: UICollectionViewCell {
     }
 
     override func prepareForReuse() {
-        prounceButton.isHidden = true
         symbolLabel.text = nil
         characterLabel.text = nil
     }
 
     func setDetailsFound(symbol: String, character: String, pronounceUrl: URL?) {
-        isFound = true
         maybeToneAudioUrl = pronounceUrl
         symbolLabel.text = "/" + symbol + "/ "
         symbolLabel.textColor = .textCharcoalGrey
         characterLabel.text = character
 
-        prounceButton.isHidden = false
+        let enabledeSpeakerImage = UIImage.init(named: enabledeSpeakerImageName)
+        prounceButton.setImage(enabledeSpeakerImage, for: UIControl.State.normal)
+        prounceButton.isUserInteractionEnabled = true
         characterLabel.isHidden = false
     }
 
     func setDetailsNotFound(symbol: String) {
-        isFound = false
         symbolLabel.text = "/" + symbol + "/ "
         symbolLabel.textColor = .textBlueGray
 
-        prounceButton.isHidden = true
+        let disabledeSpeakerImage = UIImage.init(named: disabledeSpeakerImageName)
+        prounceButton.isUserInteractionEnabled = false
+        prounceButton.setImage(disabledeSpeakerImage, for: UIControl.State.normal)
         characterLabel.isHidden = true
     }
 
