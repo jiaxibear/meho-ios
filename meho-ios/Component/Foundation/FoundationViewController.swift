@@ -26,7 +26,7 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     private let featuresCollectionViewCellHeight = CGFloat(200)
 
     private let featuresCollectionViewTopMargin = CGFloat(30)
-    private let featuresCollectionViewBottomMargin = CGFloat(30)
+    private let featuresCollectionViewBottomMargin = CGFloat(18)
     
     // MARK: - Properties
     private let titleView = MainTabTitleView.init(frame: .zero)
@@ -65,6 +65,7 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     func populateFeatureList() {
         features.append(Feature.init(name: "Pinyin", description: "Pin Yin - Romanized Spelling for Speaking and Typing", imageName: "foundation_feature_pinyin", textColor: .white))
         features.append(Feature.init(name: "Pictography", description: "Xiang Xing Zi - Chinese Character Graphics", imageName: "foundation_feature_pictography", textColor: .black))
+        features.append(Feature.init(name: "Idoms", description: "Cheng Yu Su Yu - Chinese Idioms & Proverbs", imageName: "foundation_feature_idioms", textColor: .black))
     }
     
     // MARK: - Elements layout, style & constrains
@@ -115,7 +116,7 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
-        let height = collectionView.bounds.height * 0.32
+        let height = collectionView.bounds.height * 0.3
         return CGSize(width: width, height: height)
 
     }
