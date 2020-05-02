@@ -44,6 +44,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         coverImageView.layer.borderWidth = coverImageBorderWidth
         coverImageView.layer.borderColor = UIColor.borderGray.cgColor
         coverImageView.clipsToBounds = true
+        coverImageView.contentMode = .scaleAspectFill
         coverImageView.delegate = self
         contentView.addSubview(coverImageView)
 

@@ -48,6 +48,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
 
         // Sets up cover image view.
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
+        coverImageView.contentMode = .scaleAspectFill
         coverImageView.delegate = self
         contentView.addSubview(coverImageView)
 
