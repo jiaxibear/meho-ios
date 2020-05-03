@@ -38,6 +38,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private var audioFileURL: URL?
     private var audioRecorder: AVAudioRecorder?
     private var timer: Timer?
+    private let contentEvaluator = ContentEvaluator.init()
 
     // MARK: UI
     private lazy var progressView: UIProgressView = {
@@ -125,8 +126,6 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         audioVisualizerView.delegate = self
         return audioVisualizerView
     } ()
-
-    private let contentEvaluator = ContentEvaluator.init()
 
     // MARK: - Init
     init() {
@@ -271,6 +270,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                         }
                         break
                     case .failure(let error):
+                        self.actionLabel.isHidden = false
+                        self.actionLabel.text = NSLocalizedString("RecordPromptActionText", comment: "")
                         print(error.localizedDescription)
                         break
                     }

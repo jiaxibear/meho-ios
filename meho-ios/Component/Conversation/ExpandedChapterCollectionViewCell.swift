@@ -31,7 +31,7 @@ enum AudioPlaySpeed : Float {
     }
 }
 
-class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluationDelegate, AVAudioRecorderDelegate, AudioVisualizerViewDelegte {
+class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AudioVisualizerViewDelegte {
 
     // MARK: - Constants
     private let contentLabelFontSize = CGFloat(24)
@@ -60,7 +60,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private static let listenButtonSelectedImageName = "conversation_headset_active"
     private static let replayButtonSelectedImageName = "conversation_play_active"
     private static let replayButtonDisabledImageName = "conversation_play_disabled"
-    private let pronAccuraryMin = Float(60)
     private let audioDBLowerLimit = Float(-30)
 
     // MARK: - Properties
@@ -147,6 +146,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     private var player: AVPlayer?
     private var currentAudioPlaySpeed = AudioPlaySpeed.normal
     private var timer: Timer?
+    private let contentEvaluator = ContentEvaluator.init()
 
     // MARK: - Init
     @available(*, unavailable)
@@ -157,7 +157,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.skyBlue.withAlphaComponent(backgroundColorAlpha)
-        oralEvaluation.delegate = self
 
         // Sets up the avatar view.
         avatarView.clipsToBounds = true
@@ -339,28 +338,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         return height
     }
 
-    // MARK: - TAIOralEvaluationDelegate
-    func oralEvaluation(_ oralEvaluation: TAIOralEvaluation!, onEvaluateData data: TAIOralEvaluationData!, result: TAIOralEvaluationRet!, error: TAIError!) {
-        if result != nil {
-            let suggestedScore = result.suggestedScore
-            scoreView.setScore(suggestedScore)
-            scoredChapter.score = suggestedScore
-            let scoredContent = self.scoredContent(result: result)
-            contentLabel.attributedText = scoredContent
-            scoredChapter.scoredContent = scoredContent
-            actionLabel.isHidden = false
-            actionLabel.text = NSLocalizedString("ReplayPromptActionText", comment: "")
-        }
-    }
-
-    func oralEvaluation(_ oralEvaluation: TAIOralEvaluation!, onVolumeChanged volume: Int) {
-
-    }
-
-    func onEndOfSpeech(in oralEvaluation: TAIOralEvaluation!) {
-
-    }
-
     // MARK: - AudioVisualizerViewDelegte
     func audioVisualizerViewDidTapInside(_ audioVisualizerView: AudioVisualizerView) {
         actionButtonsContainerView.isHidden = false
@@ -372,8 +349,28 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
         audioRecorder?.stop()
         if audioFileURL != nil {
             replayButton.isEnabled = FileManager.default.fileExists(atPath: audioFileURL!.path)
+            let content = scoredChapter.chapter.content
+            contentEvaluator.evaluate(content: content, audioFileURL: audioFileURL!) { (result) in
+                switch result {
+                case .success(let contentEvaluationResult):
+                    let suggestedScore = contentEvaluationResult.score
+                    self.scoreView.setScore(suggestedScore)
+                    self.scoredChapter.score = suggestedScore
+                    let scoredContent = contentEvaluationResult.scoredContent
+                    self.contentLabel.attributedText = scoredContent
+                    self.scoredChapter.scoredContent = scoredContent
+                    self.actionLabel.isHidden = false
+                    self.actionLabel.text = NSLocalizedString("ReplayPromptActionText", comment: "")
+                    break
+                case .failure(let error):
+                    self.recordButton.isSelected = false
+                    self.actionLabel.isHidden = false
+                    self.actionLabel.text = NSLocalizedString("RecordPromptActionText", comment: "")
+                    print(error.localizedDescription)
+                    break
+                }
+            }
         }
-        startEvaluation()
     }
 
     // MARK: - Private
@@ -468,68 +465,5 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, TAIOralEvaluation
                 // TODO: Catch recorder error.
             }
         }
-    }
-
-    private func startEvaluation() {
-        let param = TAIOralEvaluationParam.init()
-        param.sessionId = UUID().uuidString
-        param.appId = "1300579049"
-        param.workMode = .once
-        param.evalMode = .paragraph
-        param.workMode = .stream
-        param.storageMode = .disable
-        param.serverType = .chinese
-        param.scoreCoeff = 1.0
-        param.fileType = .mp3
-        param.refText = contentLabel.text;
-        param.secretId = "AKIDiHaeZOnGK8h083q4B2cy3sUsBF4KYctt"
-        param.secretKey = "tWsyoQo8D1auymOozu4A0pOzLPCk49xX"
-        param.textMode = .noraml
-        let audioConverter = AudioConverter.init()
-        if let mp3FileName = audioConverter.mp3File(fromM4aFile: audioFileURL?.path) {
-            let mp3FileURL = URL.init(fileURLWithPath: mp3FileName)
-            let data = TAIOralEvaluationData.init()
-            data.bEnd = true
-            data.seqId = 1
-            data.audio = try? Data.init(contentsOf: mp3FileURL)
-            oralEvaluation.oralEvaluation(param, data: data, callback: { (error) in
-                if (error?.code != TAIErrCode.succ) {
-                    self.recordButton.isSelected = false
-                    self.actionLabel.isHidden = false
-                    self.actionLabel.text = NSLocalizedString("RecordPromptActionText", comment: "")
-                }
-            })
-        }
-    }
-
-    private func scoredContent(result: TAIOralEvaluationRet) -> NSAttributedString {
-        let content = scoredChapter.chapter.content
-        let scoredContent = NSMutableAttributedString.init(string: content)
-        if let scoredWords = result.words {
-            if scoredWords.count == 0 {
-                scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.coral, range: NSRange.init(location: 0, length: content.count))
-            } else {
-                var scoredWordsIndex = 0
-                for (index, character) in content.enumerated() {
-                    if (scoredWordsIndex >= scoredWords.count) {
-                        scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
-                    } else {
-                        let contentWord = String(character)
-                        let scoredWord = scoredWords[scoredWordsIndex]
-                        if contentWord == scoredWord.word {
-                            if scoredWord.pronAccuracy > pronAccuraryMin {
-                                scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
-                            } else {
-                                scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.coral, range: NSRange.init(location: index, length: 1))
-                            }
-                            scoredWordsIndex = scoredWordsIndex + 1;
-                        } else {
-                            scoredContent.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.wisteriaPurple, range: NSRange.init(location: index, length: 1))
-                        }
-                    }
-                }
-            }
-        }
-        return scoredContent
     }
 }
