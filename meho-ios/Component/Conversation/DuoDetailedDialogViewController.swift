@@ -314,8 +314,6 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         if (currentScoredChapters.count == scoredChapters.count) {
             return
         }
-        hasPlayedAudio = false
-        audioFileURL = nil
         let newScoredChapterIndex = currentScoredChapters.count
         currentScoredChapters.append(scoredChapters[newScoredChapterIndex])
         let newIndexPath = IndexPath.init(item: newScoredChapterIndex, section: 0)
@@ -325,11 +323,13 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionView.scrollToItem(at: newIndexPath, at: .bottom, animated: true)
         let progress = Float(currentScoredChapters.count) / Float(scoredChapters.count)
         progressView.setProgress(progress, animated: true)
+        clearStates()
         refreshButtonStates()
         playCurrentChapter()
     }
 
     @objc func didTapchangeRoleBarButtonItem() {
+        clearStates()
         isYourRoleFirst = !isYourRoleFirst
         currentScoredChapters = Array(currentScoredChapters[0...0])
         chaptersCollectionView.reloadData()
@@ -353,7 +353,11 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     @objc func playerDidFinishPlaying() {
         hasPlayedAudio = true
-        refreshButtonStates()
+        if isCurrentChapterYourRole() {
+            refreshButtonStates()
+        } else {
+            didTapNextButton()
+        }
     }
 
     private func startRecording() {
@@ -406,6 +410,12 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         } else {
             return index % 2 == 1
         }
+    }
+
+    private func clearStates() {
+        hasPlayedAudio = false
+        audioFileURL = nil
+        player = nil
     }
 
     private func refreshButtonStates() {
