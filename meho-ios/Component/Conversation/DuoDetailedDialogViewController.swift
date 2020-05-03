@@ -13,6 +13,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     // MARK: - Constants
     private static let replayButtonNormalImageName = "conversation_play_inactive"
+    private static let replayButtonSelectedImageName = "conversation_play_active"
     private static let replayButtonDisabledImageName = "conversation_play_disabled"
     private static let recordButtonNormalImageName = "conversation_microphone_inactive"
     private static let recordButtonDisabledImageName = "conversation_microphone_disabled"
@@ -65,6 +66,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         replayButton.setImage(replayButtonNormalImage, for: .normal)
         let replayButtonDisabledImage = UIImage.init(named: DuoDetailedDialogViewController.replayButtonDisabledImageName)
         replayButton.setImage(replayButtonDisabledImage, for: .disabled)
+        let replayButtonSelectedImageName = UIImage.init(named: DuoDetailedDialogViewController.replayButtonSelectedImageName)
+        replayButton.setImage(replayButtonSelectedImageName, for: .selected)
         replayButton.clipsToBounds = true
         replayButton.layer.cornerRadius = DuoDetailedDialogViewController.replayButtonSize / 2
         replayButton.addTarget(self, action: #selector(didTapReplayButton), for: .touchUpInside)
@@ -282,7 +285,16 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     // MARK: - Private
     @objc func didTapReplayButton() {
-
+        if audioFileURL != nil && FileManager.default.fileExists(atPath: audioFileURL!.path) {
+            replayButton.isSelected = true
+            recordButton.isSelected = false
+            let playerItem = AVPlayerItem.init(url: audioFileURL!)
+            player = AVPlayer.init(playerItem: playerItem)
+            NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+            player?.play()
+            actionLabel.isHidden = false
+            actionLabel.text = NSLocalizedString("ReplayActionText", comment: "")
+        }
     }
 
     @objc func didTapRecordButton() {
@@ -321,14 +333,19 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     }
 
     @objc func playerDidFinishPlaying() {
-        if currentScoredChapters.count % 2 == 0 {
-            nextButton.isEnabled = false
-            recordButton.isEnabled = true
-        } else {
+        if (!isCurrentChapterYourRole()) {
             nextButton.isEnabled = true
+            return
         }
+        recordButton.isEnabled = true
         if currentScoredChapters.count == scoredChapters.count {
             nextButton.isEnabled = false
+        } else {
+            nextButton.isEnabled = currentScoredChapters.last?.scoredContent != nil
+        }
+        recordButton.isEnabled = true
+        if replayButton.isSelected {
+            replayButton.isSelected = false
         }
     }
 
@@ -369,5 +386,9 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                 }
             }
         }
+    }
+
+    private func isCurrentChapterYourRole() -> Bool {
+        return currentScoredChapters.count % 2 == 0
     }
 }
