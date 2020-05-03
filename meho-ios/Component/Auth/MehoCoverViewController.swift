@@ -12,7 +12,6 @@ import AWSMobileClient
 class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Constants
-    private let titleLabelFontSize = CGFloat(30)
     private let buttonLabelFontSize = CGFloat(20)
     private let titleLabelText = "Meho Stories"
     private let buttonCornerRadius = CGFloat(18)
@@ -21,25 +20,15 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     private let pageControlToSignUpMargin = CGFloat(40)
     private let buttonHorizontalMargin = CGFloat(58)
     private let verticalMarginScreenPct = CGFloat(1.0/40.0)
-    private let buttonHeightScreenPct = CGFloat(1.0/18.0)
+    private let collectionViewHeightScreenPct = CGFloat(3.2 / 5.0)
+    private let buttonHeightScreenPct = CGFloat(1.0/20.0)
 
     private let introCellReuseIdentifier = "mehoIntroCellId"
 
     // MARK: - Data models
-    private let storyNameList:[String] = ["signin_story_1", "signin_story_2" ,"signin_story_3"]
+    private let storyNameList:[String] = ["meho_cover_stories", "meho_cover_expressions" ,"meho_cover_talk"]
 
     // MARK: - Properties
-    private lazy var titleLabel:UILabel = {
-        let label = UILabel.init(frame: .zero)
-        label.textColor = .wisteriaPurple
-        label.textAlignment = .center
-        label.backgroundColor = .white
-        label.text = titleLabelText
-        let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
-        label.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    } ()
 
     private lazy var storiesCollectionViewFlowLayout:UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout.init()
@@ -63,7 +52,6 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
 
     private lazy var pageControl: UIPageControl = {
         let pc = UIPageControl()
-
         pc.numberOfPages = storyNameList.count
         pc.currentPage = 0
         pc.pageIndicatorTintColor = .paleLilac
@@ -102,33 +90,26 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
         view.backgroundColor = .white
-        setupTitleLabel()
         setupStoryCollectionView()
         setupPageControl()
         setupSignUpButton()
         setupSignInButton()
     }
 
-    func setupTitleLabel() {
-        view.addSubview(titleLabel)
-        let screenHeight = view.bounds.height
-        titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight * verticalMarginScreenPct * 3).isActive = true
-        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    }
-
     func setupStoryCollectionView() {
         view.addSubview(storyollectionView)
-        let screenHeight = view.frame.height
+        let screenHeight = view.bounds.height
         storyollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         storyollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        storyollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
-        storyollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -screenHeight/4).isActive = true
+        storyollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
+        storyollectionView.heightAnchor.constraint(equalToConstant: screenHeight * collectionViewHeightScreenPct).isActive = true
 
     }
 
     func setupPageControl() {
         view.addSubview(pageControl)
-        pageControl.topAnchor.constraint(equalTo: storyollectionView.bottomAnchor).isActive = true
+        let screenHeight = view.bounds.height
+        pageControl.topAnchor.constraint(equalTo: storyollectionView.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
         pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 
@@ -156,7 +137,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: introCellReuseIdentifier, for: indexPath) as! MehoIntroCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: introCellReuseIdentifier, for: indexPath) as! MehoCoverIntroCollectionViewCell
         let storyName = storyNameList[indexPath.item]
         cell.setStoryCardData(name: storyName)
         return cell

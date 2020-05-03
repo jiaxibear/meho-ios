@@ -12,7 +12,7 @@
 		92183A6023F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92183A5F23F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift */; };
 		924C53E323FA14B300B59D95 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 924C53E223FA14B300B59D95 /* amplifyconfiguration.json */; };
 		924C53E523FA14C300B59D95 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 924C53E423FA14C300B59D95 /* awsconfiguration.json */; };
-		924C53E823FA1E2600B59D95 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924C53E723FA1E2600B59D95 /* SignInViewController.swift */; };
+		924C53E823FA1E2600B59D95 /* MehoCoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924C53E723FA1E2600B59D95 /* MehoCoverViewController.swift */; };
 		92577B2724457ACA0097A445 /* NewsChapterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92577B2624457ACA0097A445 /* NewsChapterCollectionViewCell.swift */; };
 		92577B2924457BFD0097A445 /* NewsChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92577B2824457BFD0097A445 /* NewsChapter.swift */; };
 		92577B2B2446E8910097A445 /* PictographyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92577B2A2446E8910097A445 /* PictographyViewController.swift */; };
@@ -50,7 +50,7 @@
 		92C5FE5124565A7E004A3322 /* Phrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE5024565A7E004A3322 /* Phrase.swift */; };
 		92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DEE30E23F8FF60004D91D7 /* Feature.swift */; };
 		92FE6CE6245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE6CE5245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift */; };
-		92FE6CE8245E7620000E69BC /* SignInStoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE6CE7245E7620000E69BC /* SignInStoriesCollectionViewCell.swift */; };
+		92FE6CE8245E7620000E69BC /* MehoCoverIntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE6CE7245E7620000E69BC /* MehoCoverIntroCollectionViewCell.swift */; };
 		EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */; };
 		EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA01E6AA23FA356900C0B0AE /* Localizable.strings */; };
 		EA01E6AD23FBA62900C0B0AE /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6AC23FBA62900C0B0AE /* Chapter.swift */; };
@@ -126,7 +126,7 @@
 		92183A5F23F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationFeatureCollectionViewCell.swift; sourceTree = "<group>"; };
 		924C53E223FA14B300B59D95 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		924C53E423FA14C300B59D95 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
-		924C53E723FA1E2600B59D95 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		924C53E723FA1E2600B59D95 /* MehoCoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MehoCoverViewController.swift; sourceTree = "<group>"; };
 		92577B2624457ACA0097A445 /* NewsChapterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsChapterCollectionViewCell.swift; sourceTree = "<group>"; };
 		92577B2824457BFD0097A445 /* NewsChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsChapter.swift; sourceTree = "<group>"; };
 		92577B2A2446E8910097A445 /* PictographyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictographyViewController.swift; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 		92C5FE5024565A7E004A3322 /* Phrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phrase.swift; sourceTree = "<group>"; };
 		92DEE30E23F8FF60004D91D7 /* Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
 		92FE6CE5245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingPhraseCollectionViewCell.swift; sourceTree = "<group>"; };
-		92FE6CE7245E7620000E69BC /* SignInStoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInStoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		92FE6CE7245E7620000E69BC /* MehoCoverIntroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MehoCoverIntroCollectionViewCell.swift; sourceTree = "<group>"; };
 		A40C5A697051BB021EFB5E9C /* Pods_meho_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A456EF74653F7CB7D8C47AD7 /* Pods_meho_ios_meho_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios_meho_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD7C00746FB72FA49F9B8405 /* Pods_meho_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,8 +275,8 @@
 		924C53E623FA1E0400B59D95 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				924C53E723FA1E2600B59D95 /* SignInViewController.swift */,
-				92FE6CE7245E7620000E69BC /* SignInStoriesCollectionViewCell.swift */,
+				924C53E723FA1E2600B59D95 /* MehoCoverViewController.swift */,
+				92FE6CE7245E7620000E69BC /* MehoCoverIntroCollectionViewCell.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -851,7 +851,7 @@
 				EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */,
 				EA6381EB2455140900481B8B /* DuoDetailedDialogViewController.swift in Sources */,
 				EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */,
-				92FE6CE8245E7620000E69BC /* SignInStoriesCollectionViewCell.swift in Sources */,
+				92FE6CE8245E7620000E69BC /* MehoCoverIntroCollectionViewCell.swift in Sources */,
 				9267EA1924316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift in Sources */,
 				92C5FE5124565A7E004A3322 /* Phrase.swift in Sources */,
 				EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */,
@@ -891,7 +891,7 @@
 				EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */,
 				EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */,
 				92577B2D2446F5B70097A445 /* PinyinViewController.swift in Sources */,
-				924C53E823FA1E2600B59D95 /* SignInViewController.swift in Sources */,
+				924C53E823FA1E2600B59D95 /* MehoCoverViewController.swift in Sources */,
 				EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */,
 				EA6381E72449913B00481B8B /* AudioVisualizerView.swift in Sources */,
 				EA01E6AF23FBC25F00C0B0AE /* Difficulty.swift in Sources */,

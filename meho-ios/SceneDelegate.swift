@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let navigationViewController = UINavigationController.init(rootViewController: SignInViewController.init())
+            let navigationViewController = UINavigationController.init(rootViewController: MehoCoverViewController.init())
             window.rootViewController = navigationViewController
             self.window = window
             window.makeKeyAndVisible()

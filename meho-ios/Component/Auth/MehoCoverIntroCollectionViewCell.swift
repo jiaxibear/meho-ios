@@ -11,6 +11,7 @@ import UIKit
 class MehoCoverIntroCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
     private let imageCornerRadius = CGFloat(10)
+    private let titleLabelFontSize = CGFloat(30)
 
     // MARK: - Properties
     private lazy var storyImageView:UIImageView = {
@@ -19,6 +20,8 @@ class MehoCoverIntroCollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = imageCornerRadius
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+
+        return imageView
     } ()
 
     private lazy var titleLabel:UILabel = {
@@ -57,7 +60,7 @@ class MehoCoverIntroCollectionViewCell: UICollectionViewCell {
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: cellHeight / 5).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: cellHeight / 6).isActive = true
     }
 
     private func setupCellImageUI() {
@@ -74,5 +77,13 @@ class MehoCoverIntroCollectionViewCell: UICollectionViewCell {
     public func setStoryCardData(name: String) {
         let storyImage = UIImage.init(named: name)
         storyImageView.image = storyImage
+        if name == "meho_cover_stories" {
+            titleLabel.text = "Meho Stories"
+        } else if name == "meho_cover_expressions" {
+            titleLabel.text = "Meho Expressions"
+        } else {
+            titleLabel.text = "Meho Talk"
+        }
+
     }
 }
