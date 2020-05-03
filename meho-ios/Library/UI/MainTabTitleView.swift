@@ -81,10 +81,7 @@ class MainTabTitleView: UIView {
 
     @objc
     private func didTapProfileImage() {
-
-//        let detailedNewsViewController = ProfileViewController.init()
         delegate?.MainTitleViewDidTapProfileImage()
-//        navigationController?.pushViewController(detailedNewsViewController, animated: true)
     }
 }
 

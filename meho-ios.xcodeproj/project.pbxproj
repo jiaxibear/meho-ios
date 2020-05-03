@@ -50,6 +50,7 @@
 		92C5FE5124565A7E004A3322 /* Phrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5FE5024565A7E004A3322 /* Phrase.swift */; };
 		92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DEE30E23F8FF60004D91D7 /* Feature.swift */; };
 		92FE6CE6245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE6CE5245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift */; };
+		92FE6CE8245E7620000E69BC /* SignInStoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE6CE7245E7620000E69BC /* SignInStoriesCollectionViewCell.swift */; };
 		EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */; };
 		EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA01E6AA23FA356900C0B0AE /* Localizable.strings */; };
 		EA01E6AD23FBA62900C0B0AE /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6AC23FBA62900C0B0AE /* Chapter.swift */; };
@@ -163,6 +164,7 @@
 		92C5FE5024565A7E004A3322 /* Phrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phrase.swift; sourceTree = "<group>"; };
 		92DEE30E23F8FF60004D91D7 /* Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
 		92FE6CE5245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingPhraseCollectionViewCell.swift; sourceTree = "<group>"; };
+		92FE6CE7245E7620000E69BC /* SignInStoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInStoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		A40C5A697051BB021EFB5E9C /* Pods_meho_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A456EF74653F7CB7D8C47AD7 /* Pods_meho_ios_meho_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios_meho_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD7C00746FB72FA49F9B8405 /* Pods_meho_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				924C53E723FA1E2600B59D95 /* SignInViewController.swift */,
+				92FE6CE7245E7620000E69BC /* SignInStoriesCollectionViewCell.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -848,6 +851,7 @@
 				EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */,
 				EA6381EB2455140900481B8B /* DuoDetailedDialogViewController.swift in Sources */,
 				EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */,
+				92FE6CE8245E7620000E69BC /* SignInStoriesCollectionViewCell.swift in Sources */,
 				9267EA1924316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift in Sources */,
 				92C5FE5124565A7E004A3322 /* Phrase.swift in Sources */,
 				EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */,
