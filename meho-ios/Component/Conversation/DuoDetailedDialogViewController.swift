@@ -42,6 +42,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private var timer: Timer?
     private let contentEvaluator = ContentEvaluator.init()
     private var hasPlayedAudio = false
+    private var isYourRoleFirst = false
 
     // MARK: UI
     private lazy var progressView: UIProgressView = {
@@ -151,6 +152,9 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         self.scoredChapters = scoredChapters
         super.init(nibName: nil, bundle: nil)
         navigationItem.titleView = progressView
+        let changeRoleBarButtonItemTitle = NSLocalizedString("changeRoleButtonTitle", comment: "")
+        let changeRoleBarButtonItem = UIBarButtonItem.init(title: changeRoleBarButtonItemTitle, style: .plain, target: self, action: #selector(didTapchangeRoleBarButtonItem))
+        navigationItem.rightBarButtonItem = changeRoleBarButtonItem
         if let firstChapter = scoredChapters.first {
             currentScoredChapters.append(firstChapter)
             let progress = Float(currentScoredChapters.count) / Float(scoredChapters.count)
@@ -217,15 +221,15 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = indexPath.item
         let isActive = item == currentScoredChapters.count - 1
-        if item % 2 == 0 {
-            if let duoOtherRoleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DuoDetailedDialogViewController.duoOtherRoleCollectionViewCellReuseIdentifier, for: indexPath) as? DuoOtherRoleCollectionViewCell {
-                duoOtherRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item], isActive: isActive)
-                return duoOtherRoleCollectionViewCell
-            }
-        } else {
+        if isChapterYourRole(index: item) {
             if let duoYourRoleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DuoDetailedDialogViewController.duoYourRoleCollectionViewCellReuseIdentifier, for: indexPath) as? DuoYourRoleCollectionViewCell {
                 duoYourRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item], isActive: isActive)
                 return duoYourRoleCollectionViewCell
+            }
+        } else {
+            if let duoOtherRoleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DuoDetailedDialogViewController.duoOtherRoleCollectionViewCellReuseIdentifier, for: indexPath) as? DuoOtherRoleCollectionViewCell {
+                duoOtherRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item], isActive: isActive)
+                return duoOtherRoleCollectionViewCell
             }
         }
 
@@ -236,11 +240,11 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let item = indexPath.item
         let width = collectionView.bounds.width
-        if item % 2 == 0 {
-            let height = DuoOtherRoleCollectionViewCell.cellHeight(with: width, scoredChapter: currentScoredChapters[indexPath.item])
+        if isChapterYourRole(index: item) {
+            let height = DuoYourRoleCollectionViewCell.cellHeight(with: width, scoredChapter: currentScoredChapters[indexPath.item])
             return CGSize.init(width: width, height: height)
         } else {
-            let height = DuoYourRoleCollectionViewCell.cellHeight(with: width, scoredChapter: currentScoredChapters[indexPath.item])
+            let height = DuoOtherRoleCollectionViewCell.cellHeight(with: width, scoredChapter: currentScoredChapters[indexPath.item])
             return CGSize.init(width: width, height: height)
         }
     }
@@ -325,6 +329,18 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         playCurrentChapter()
     }
 
+    @objc func didTapchangeRoleBarButtonItem() {
+        isYourRoleFirst = !isYourRoleFirst
+        currentScoredChapters = Array(currentScoredChapters[0...0])
+        chaptersCollectionView.reloadData()
+        let nextButtonNormalImage = UIImage.init(named: DuoDetailedDialogViewController.nextButtonNormalImageName)
+        nextButton.setImage(nextButtonNormalImage, for: .normal)
+        let nextButtonDisabledImage = UIImage.init(named: DuoDetailedDialogViewController.nextButtonDisabledImageName)
+        nextButton.setImage(nextButtonDisabledImage, for: .disabled)
+        refreshButtonStates()
+        playCurrentChapter()
+    }
+
     func playCurrentChapter() {
         if let currentChapter = currentScoredChapters.last, let contentAudioURL = currentChapter.chapter.contentAudioURL {
             let playerItem = AVPlayerItem.init(url: contentAudioURL)
@@ -380,7 +396,16 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     }
 
     private func isCurrentChapterYourRole() -> Bool {
-        return currentScoredChapters.count % 2 == 0
+        let currentIndex = currentScoredChapters.count - 1
+        return isChapterYourRole(index: currentIndex)
+    }
+
+    private func isChapterYourRole(index: Int) -> Bool {
+        if isYourRoleFirst {
+            return index % 2 == 0
+        } else {
+            return index % 2 == 1
+        }
     }
 
     private func refreshButtonStates() {
@@ -405,6 +430,12 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             replayButton.isEnabled = false
             recordButton.isEnabled = false
             nextButton.isEnabled = true
+            if currentScoredChapters.count == scoredChapters.count {
+                let finishButtonNormalImage = UIImage.init(named: DuoDetailedDialogViewController.finishButtonNormalImageName)
+                nextButton.setImage(finishButtonNormalImage, for: .normal)
+                let finishButtonDisabledImage = UIImage.init(named: DuoDetailedDialogViewController.finishButtonNormalImageName)
+                nextButton.setImage(finishButtonDisabledImage, for: .disabled)
+            }
         }
     }
 }
