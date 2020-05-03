@@ -169,7 +169,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
             super.viewWillAppear(animated)
             // uncomment next line if you want enforce login every time app launch
             // logout()
-//            self.checkSignIn()
+            self.checkSignIn()
         }
 
     func checkSignIn() {
