@@ -412,29 +412,13 @@
 		EA52FDA523EF806D008EB37B /* Conversation */ = {
 			isa = PBXGroup;
 			children = (
-				EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */,
-				EA52FDB523EFE6B8008EB37B /* Category.swift */,
-				EA52FDB723EFF416008EB37B /* CategoryCollectionViewCell.swift */,
-				EAB7C4C723F10236003C8548 /* Dialog.swift */,
-				EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */,
-				EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */,
-				EA01E6AC23FBA62900C0B0AE /* Chapter.swift */,
-				EA01E6AE23FBC25F00C0B0AE /* Difficulty.swift */,
-				EA01E6B023FBD6F000C0B0AE /* DifficultyViewController.swift */,
-				EA5448B82414B5B400C07D0A /* ConversationHeaderCollectionReusableView.swift */,
-				EA5448BA2415D93400C07D0A /* SeeMoreFooterCollectionResuableView.swift */,
-				EA5448BC2423324F00C07D0A /* DialogStreamViewController.swift */,
-				EA5448BE2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift */,
-				EA5448C0242736CD00C07D0A /* DetailedDialogViewController.swift */,
-				EA5448C424273F0B00C07D0A /* CollapsedChapterCollectionViewCell.swift */,
-				EA5448C624283D6900C07D0A /* ExpandedChapterCollectionViewCell.swift */,
-				EA544906243ADF5200C07D0A /* ChapterScoreView.swift */,
-				EA5449112442A47200C07D0A /* ScoredChapter.swift */,
-				EA6381E62449913B00481B8B /* AudioVisualizerView.swift */,
-				EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */,
-				EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */,
-				EA6381EC2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift */,
-				EA6381EE245610D700481B8B /* DuoYourRoleCollectionViewCell.swift */,
+				EA5D9D56245F8727003A8F9C /* Shared */,
+				EA5D9D55245F8702003A8F9C /* Solo */,
+				EA5D9D54245F86E1003A8F9C /* Main */,
+				EA5D9D53245F86D5003A8F9C /* Data */,
+				EA5D9D52245F8679003A8F9C /* DialogStream */,
+				EA5D9D51245F862A003A8F9C /* Models */,
+				EA5D9D50245F8612003A8F9C /* DuoMode */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -526,6 +510,78 @@
 				EA5449142442B12500C07D0A /* RoleUtils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		EA5D9D50245F8612003A8F9C /* DuoMode */ = {
+			isa = PBXGroup;
+			children = (
+				EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */,
+				EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */,
+				EA6381EC2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift */,
+				EA6381EE245610D700481B8B /* DuoYourRoleCollectionViewCell.swift */,
+			);
+			path = DuoMode;
+			sourceTree = "<group>";
+		};
+		EA5D9D51245F862A003A8F9C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EAB7C4C723F10236003C8548 /* Dialog.swift */,
+				EA52FDB523EFE6B8008EB37B /* Category.swift */,
+				EA01E6AC23FBA62900C0B0AE /* Chapter.swift */,
+				EA01E6AE23FBC25F00C0B0AE /* Difficulty.swift */,
+				EA5449112442A47200C07D0A /* ScoredChapter.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EA5D9D52245F8679003A8F9C /* DialogStream */ = {
+			isa = PBXGroup;
+			children = (
+				EA01E6B023FBD6F000C0B0AE /* DifficultyViewController.swift */,
+				EA5448BC2423324F00C07D0A /* DialogStreamViewController.swift */,
+				EA5448BE2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift */,
+			);
+			path = DialogStream;
+			sourceTree = "<group>";
+		};
+		EA5D9D53245F86D5003A8F9C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		EA5D9D54245F86E1003A8F9C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */,
+				EA52FDB723EFF416008EB37B /* CategoryCollectionViewCell.swift */,
+				EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */,
+				EA5448B82414B5B400C07D0A /* ConversationHeaderCollectionReusableView.swift */,
+				EA5448BA2415D93400C07D0A /* SeeMoreFooterCollectionResuableView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		EA5D9D55245F8702003A8F9C /* Solo */ = {
+			isa = PBXGroup;
+			children = (
+				EA5448C0242736CD00C07D0A /* DetailedDialogViewController.swift */,
+				EA5448C424273F0B00C07D0A /* CollapsedChapterCollectionViewCell.swift */,
+				EA5448C624283D6900C07D0A /* ExpandedChapterCollectionViewCell.swift */,
+			);
+			path = Solo;
+			sourceTree = "<group>";
+		};
+		EA5D9D56245F8727003A8F9C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				EA544906243ADF5200C07D0A /* ChapterScoreView.swift */,
+				EA6381E62449913B00481B8B /* AudioVisualizerView.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		EA6381F0245807C100481B8B /* ContentEvaluation */ = {
