@@ -19,6 +19,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private static let recordButtonDisabledImageName = "conversation_microphone_disabled"
     private static let nextButtonNormalImageName = "conversation_next"
     private static let nextButtonDisabledImageName = "conversation_next_disabled"
+    private static let finishButtonNormalImageName = "conversation_finish"
     private static let recordButtonSize = CGFloat(70)
     private static let replayButtonSize = CGFloat(50)
     private static let nextButtonSize = CGFloat(50)
@@ -40,6 +41,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private var audioRecorder: AVAudioRecorder?
     private var timer: Timer?
     private let contentEvaluator = ContentEvaluator.init()
+    private var hasPlayedAudio = false
 
     // MARK: UI
     private lazy var progressView: UIProgressView = {
@@ -89,11 +91,11 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     private lazy var nextButton: UIButton = {
         let nextButton = UIButton.init(frame: .zero)
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
         let nextButtonNormalImage = UIImage.init(named: DuoDetailedDialogViewController.nextButtonNormalImageName)
         nextButton.setImage(nextButtonNormalImage, for: .normal)
         let nextButtonDisabledImage = UIImage.init(named: DuoDetailedDialogViewController.nextButtonDisabledImageName)
         nextButton.setImage(nextButtonDisabledImage, for: .disabled)
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.clipsToBounds = true
         nextButton.layer.cornerRadius = DuoDetailedDialogViewController.nextButtonSize / 2
         nextButton.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
@@ -153,9 +155,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             currentScoredChapters.append(firstChapter)
             let progress = Float(currentScoredChapters.count) / Float(scoredChapters.count)
             progressView.setProgress(progress, animated: false)
-            replayButton.isEnabled = false
-            recordButton.isEnabled = false
-            nextButton.isEnabled = false
+            refreshButtonStates()
             let currentRoleFormat = NSLocalizedString("CurrentRoleText", comment: "")
             let currentRole = NSLocalizedString("RoleB", comment: "")
             actionLabel.text = String.init(format: currentRoleFormat, currentRole)
@@ -269,7 +269,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                             self.actionLabel.text = NSLocalizedString("ReplayPromptActionText", comment: "")
                             let currentIndexPath = IndexPath.init(item: self.currentScoredChapters.count - 1, section: 0)
                             self.chaptersCollectionView.reloadItems(at: [currentIndexPath])
-                            self.nextButton.isEnabled = true
+                            self.refreshButtonStates()
                         }
                         break
                     case .failure(let error):
@@ -307,6 +307,11 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     }
 
     @objc func didTapNextButton() {
+        if (currentScoredChapters.count == scoredChapters.count) {
+            return
+        }
+        hasPlayedAudio = false
+        audioFileURL = nil
         let newScoredChapterIndex = currentScoredChapters.count
         currentScoredChapters.append(scoredChapters[newScoredChapterIndex])
         let newIndexPath = IndexPath.init(item: newScoredChapterIndex, section: 0)
@@ -316,9 +321,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionView.scrollToItem(at: newIndexPath, at: .bottom, animated: true)
         let progress = Float(currentScoredChapters.count) / Float(scoredChapters.count)
         progressView.setProgress(progress, animated: true)
-        replayButton.isEnabled = false
-        recordButton.isEnabled = false
-        nextButton.isEnabled = false
+        refreshButtonStates()
         playCurrentChapter()
     }
 
@@ -333,20 +336,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     }
 
     @objc func playerDidFinishPlaying() {
-        if (!isCurrentChapterYourRole()) {
-            nextButton.isEnabled = true
-            return
-        }
-        recordButton.isEnabled = true
-        if currentScoredChapters.count == scoredChapters.count {
-            nextButton.isEnabled = false
-        } else {
-            nextButton.isEnabled = currentScoredChapters.last?.scoredContent != nil
-        }
-        recordButton.isEnabled = true
-        if replayButton.isSelected {
-            replayButton.isSelected = false
-        }
+        hasPlayedAudio = true
+        refreshButtonStates()
     }
 
     private func startRecording() {
@@ -390,5 +381,30 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     private func isCurrentChapterYourRole() -> Bool {
         return currentScoredChapters.count % 2 == 0
+    }
+
+    private func refreshButtonStates() {
+        if (isCurrentChapterYourRole()) {
+            replayButton.isEnabled = audioFileURL != nil
+            if replayButton.isSelected {
+                replayButton.isSelected = false
+            }
+            recordButton.isEnabled = hasPlayedAudio
+            if currentScoredChapters.last?.scoredContent != nil {
+                if currentScoredChapters.count == scoredChapters.count {
+                    let finishButtonNormalImage = UIImage.init(named: DuoDetailedDialogViewController.finishButtonNormalImageName)
+                    nextButton.setImage(finishButtonNormalImage, for: .normal)
+                    let finishButtonDisabledImage = UIImage.init(named: DuoDetailedDialogViewController.finishButtonNormalImageName)
+                    nextButton.setImage(finishButtonDisabledImage, for: .disabled)
+                }
+                nextButton.isEnabled = true
+            } else {
+                nextButton.isEnabled = false
+            }
+        } else {
+            replayButton.isEnabled = false
+            recordButton.isEnabled = false
+            nextButton.isEnabled = true
+        }
     }
 }
