@@ -325,6 +325,11 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         didTapListenButton()
     }
 
+    func stopAudio() {
+        player?.pause()
+        player = nil
+    }
+
     class func cellHeight(with width: CGFloat, chapter: Chapter) -> CGFloat {
         sizingCell.contentLabel.text = chapter.content
         sizingCell.contentPinyinLabel.text = chapter.contentPinyin

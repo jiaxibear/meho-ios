@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol DuoYourRoleCollectionViewCellDelegate : AnyObject {
+    func duoYourRoleCollectionViewCellDidTapSpeakerButton(_ view: DuoYourRoleCollectionViewCell)
+}
+
 class DuoYourRoleCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Constants
@@ -23,7 +27,7 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
     private static let contentsLabelMargin = CGFloat(18)
     private static let contentPinyinLabelFontSize = CGFloat(14)
     private static let contentPinyinLabelAndContentLabelMargin = CGFloat(6)
-    private static let speakerImageViewSize = CGFloat(30)
+    private static let speakerButtonSize = CGFloat(30)
     private static let speakerImageName = "conversation_speaker"
 
     // MARK: - Properties
@@ -74,13 +78,15 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         return contentPinyinLabel
     } ()
 
-    private lazy var speakerImageView: UIImageView = {
+    private lazy var speakerButton: UIButton = {
+        let speakerButton = UIButton.init(frame: .zero)
         let speakerImage = UIImage.init(named: DuoYourRoleCollectionViewCell.speakerImageName)
-        let speakerImageView = UIImageView.init(image: speakerImage)
-        speakerImageView.translatesAutoresizingMaskIntoConstraints = false
-        speakerImageView.clipsToBounds = true
-        speakerImageView.layer.cornerRadius = DuoYourRoleCollectionViewCell.speakerImageViewSize / 2
-        return speakerImageView
+        speakerButton.setImage(speakerImage, for: .normal)
+        speakerButton.translatesAutoresizingMaskIntoConstraints = false
+        speakerButton.clipsToBounds = true
+        speakerButton.layer.cornerRadius = DuoYourRoleCollectionViewCell.speakerButtonSize / 2
+        speakerButton.addTarget(self, action: #selector(didTapSpeakerButton), for: .touchUpInside)
+        return speakerButton
     } ()
 
     private lazy var scoreView: ChapterScoreView = {
@@ -90,6 +96,9 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
     } ()
 
     private static var sizingCell = DuoYourRoleCollectionViewCell.init(frame: .zero);
+
+    // MARK: Model
+    weak var delegate: DuoYourRoleCollectionViewCellDelegate?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -102,7 +111,7 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         addSubview(roleImageView)
         addSubview(roleLabel)
         addSubview(contentBackgroundView)
-        addSubview(speakerImageView)
+        addSubview(speakerButton)
         addSubview(scoreView)
         contentBackgroundView.addSubview(contentLabel)
         contentBackgroundView.addSubview(contentPinyinLabel)
@@ -129,13 +138,13 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         contentPinyinLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: DuoYourRoleCollectionViewCell.contentPinyinLabelAndContentLabelMargin).isActive = true
         contentPinyinLabel.bottomAnchor.constraint(equalTo: contentBackgroundView.bottomAnchor, constant: -DuoYourRoleCollectionViewCell.contentsLabelMargin).isActive = true
 
-        speakerImageView.widthAnchor.constraint(equalToConstant: DuoYourRoleCollectionViewCell.speakerImageViewSize).isActive = true
-        speakerImageView.heightAnchor.constraint(equalToConstant: DuoYourRoleCollectionViewCell.speakerImageViewSize).isActive = true
-        speakerImageView.centerXAnchor.constraint(equalTo: roleImageView.centerXAnchor).isActive = true
-        speakerImageView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor).isActive = true
+        speakerButton.widthAnchor.constraint(equalToConstant: DuoYourRoleCollectionViewCell.speakerButtonSize).isActive = true
+        speakerButton.heightAnchor.constraint(equalToConstant: DuoYourRoleCollectionViewCell.speakerButtonSize).isActive = true
+        speakerButton.centerXAnchor.constraint(equalTo: roleImageView.centerXAnchor).isActive = true
+        speakerButton.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor).isActive = true
 
-        scoreView.centerXAnchor.constraint(equalTo: speakerImageView.centerXAnchor).isActive = true
-        scoreView.centerYAnchor.constraint(equalTo: speakerImageView.centerYAnchor).isActive = true
+        scoreView.centerXAnchor.constraint(equalTo: speakerButton.centerXAnchor).isActive = true
+        scoreView.centerYAnchor.constraint(equalTo: speakerButton.centerYAnchor).isActive = true
     }
 
     @available(*, unavailable)
@@ -152,7 +161,7 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         contentLabel.text = chapter.content
         contentPinyinLabel.text = chapter.contentPinyin
         if isActive {
-            speakerImageView.isHidden = false
+            speakerButton.isHidden = false
             if let scoredContent = scoredChapter.scoredContent {
                 contentLabel.attributedText = scoredContent
             } else {
@@ -161,18 +170,18 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
             contentPinyinLabel.textColor = .mehoDarkGray
             contentBackgroundView.backgroundColor = UIColor.skyBlue.withAlphaComponent(DuoYourRoleCollectionViewCell.contentBackgroundViewBackgroundColorAlpha)
         } else {
-            speakerImageView.isHidden = true
+            speakerButton.isHidden = true
             contentLabel.textColor = .textBlueGray
             contentPinyinLabel.textColor = .textBlueGray
             contentBackgroundView.backgroundColor = .paleGray
         }
         let score = scoredChapter.score
         if score > -1 {
-            speakerImageView.isHidden = true
+            speakerButton.isHidden = true
             scoreView.isHidden = false
             scoreView.setScore(score)
         } else {
-            speakerImageView.isHidden = false
+            speakerButton.isHidden = false
             scoreView.isHidden = true
         }
     }
@@ -186,5 +195,10 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         sizingCell.contentPinyinLabel.text = chapter.contentPinyin
         let contentPinyinHeight = sizingCell.contentPinyinLabel.sizeThatFits(contentFittingSize).height
         return roleImageViewSize + contentBackgroundViewAndRoleImageViewMargin + contentHeight + contentPinyinLabelAndContentLabelMargin + contentPinyinHeight + 2 * contentsLabelMargin
+    }
+
+    // MARK: - Private
+    @objc func didTapSpeakerButton() {
+        delegate?.duoYourRoleCollectionViewCellDidTapSpeakerButton(self)
     }
 }

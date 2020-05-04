@@ -477,20 +477,20 @@
 			children = (
 				EA6381F0245807C100481B8B /* ContentEvaluation */,
 				EA5449132442B0FE00C07D0A /* Utils */,
-				EA544902243AC69200C07D0A /* Audio */,
+				EA544902243AC69200C07D0A /* AudioConverter */,
 				EA01E6A623FA19E000C0B0AE /* Extension */,
 				EAB7C4CC23F12056003C8548 /* UI */,
 			);
 			path = Library;
 			sourceTree = "<group>";
 		};
-		EA544902243AC69200C07D0A /* Audio */ = {
+		EA544902243AC69200C07D0A /* AudioConverter */ = {
 			isa = PBXGroup;
 			children = (
 				EA544903243AC6BE00C07D0A /* AudioConverter.m */,
 				EA544905243AC73100C07D0A /* AudioConverter.h */,
 			);
-			path = Audio;
+			path = AudioConverter;
 			sourceTree = "<group>";
 		};
 		EA544908243B07E200C07D0A /* Expression */ = {
@@ -1145,7 +1145,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "meho-ios/Meho.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = LW56PXHU2T;
 				ENABLE_BITCODE = NO;
@@ -1176,7 +1176,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "meho-ios/Meho.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = LW56PXHU2T;
 				ENABLE_BITCODE = NO;

@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AudioVisualizerViewDelegte, AVAudioRecorderDelegate {
+class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AudioVisualizerViewDelegte, AVAudioRecorderDelegate, DuoYourRoleCollectionViewCellDelegate {
 
     // MARK: - Constants
     private static let replayButtonNormalImageName = "conversation_play_inactive"
@@ -223,6 +223,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         let isActive = item == currentScoredChapters.count - 1
         if isChapterYourRole(index: item) {
             if let duoYourRoleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DuoDetailedDialogViewController.duoYourRoleCollectionViewCellReuseIdentifier, for: indexPath) as? DuoYourRoleCollectionViewCell {
+                duoYourRoleCollectionViewCell.delegate = self
                 duoYourRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item], isActive: isActive)
                 return duoYourRoleCollectionViewCell
             }
@@ -285,6 +286,11 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                 }
             }
         }
+    }
+
+    // MARK: - DuoYourRoleCollectionViewCellDelegate
+    func duoYourRoleCollectionViewCellDidTapSpeakerButton(_ view: DuoYourRoleCollectionViewCell) {
+        playCurrentChapter()
     }
 
     // MARK: - Private
