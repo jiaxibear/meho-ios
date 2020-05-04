@@ -25,11 +25,6 @@
             "authenticationFlowType": "USER_SRP_AUTH"
         }
     },
-    "GoogleSignIn": {
-        "Permissions": "email,profile,openid",
-        "ClientId-WebApp": "983399197555-59f934onlp3dlqrga2bfqf01t5dgu7ec.apps.googleusercontent.com",
-        "ClientId-iOS": "983399197555-m5b0kem8a98rp7khu0pkcofemsu37vgp.apps.googleusercontent.com"
-    },
     "FacebookSignIn": {
         "AppId": "2791276970964145",
         "Permissions": "public_profile"

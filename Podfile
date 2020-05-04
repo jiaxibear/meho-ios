@@ -12,8 +12,8 @@ target 'meho-ios' do
 
   # 3rd party Auth
   pod 'AWSFacebookSignIn', '~> 2.12.0'
-  pod 'AWSGoogleSignIn', '~> 2.12.0'
-  pod 'GoogleSignIn', '~> 4.0'
+#  pod 'AWSGoogleSignIn', '~> 2.12.0'
+#  pod 'GoogleSignIn', '~> 4.0'
 
 
   target 'meho-iosTests' do
