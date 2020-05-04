@@ -63,7 +63,8 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     private lazy var signUpButton: UIButton = {
         let button = UIButton.init(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Sign Up", for: .normal)
+        button.setTitle("SIGN UP", for: .normal)
+        button.setTitle("SIGN UP", for: .selected)
         button.backgroundColor = .skyBlue
         let fontDescriptor = UIFont.systemFont(ofSize: buttonLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         button.titleLabel?.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
@@ -76,18 +77,24 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     private lazy var signInButton: UIButton = {
         let button = UIButton.init(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Sign In", for: .normal)
+        button.setTitle("SIGN IN", for: .normal)
+        button.setTitle("SIGN IN", for: .selected)
         button.backgroundColor = .skyBlue
         let fontDescriptor = UIFont.systemFont(ofSize: buttonLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         button.titleLabel?.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = buttonCornerRadius
-//        button.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
         return button
     } ()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if AWSMobileClient.default().isSignedIn {
+            // sign in func
+            self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
+        }
+
         navigationController?.setNavigationBarHidden(true, animated: false)
         view.backgroundColor = .white
         setupStoryCollectionView()
@@ -101,7 +108,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         let screenHeight = view.bounds.height
         storyollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         storyollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        storyollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
+        storyollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         storyollectionView.heightAnchor.constraint(equalToConstant: screenHeight * collectionViewHeightScreenPct).isActive = true
 
     }
@@ -164,12 +171,18 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         pageControl.currentPage = Int(index.row)
     }
 
+    @objc
+    func didTapSignInButton() {
+        let signInController = SignInViewController.init()
+        navigationController?.pushViewController(signInController, animated: true)
+    }
+
     // MARK: - Views
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             // uncomment next line if you want enforce login every time app launch
             // logout()
-            self.checkSignIn()
+//            self.checkSignIn()
         }
 
     func checkSignIn() {

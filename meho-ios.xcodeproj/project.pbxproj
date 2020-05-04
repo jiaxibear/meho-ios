@@ -51,6 +51,8 @@
 		92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DEE30E23F8FF60004D91D7 /* Feature.swift */; };
 		92FE6CE6245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE6CE5245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift */; };
 		92FE6CE8245E7620000E69BC /* MehoCoverIntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE6CE7245E7620000E69BC /* MehoCoverIntroCollectionViewCell.swift */; };
+		92FE6CEC245F9C88000E69BC /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE6CEB245F9C88000E69BC /* SignInViewController.swift */; };
+		92FE6CEE245FC959000E69BC /* UITextFieldPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE6CED245FC959000E69BC /* UITextFieldPadding.swift */; };
 		EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */; };
 		EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA01E6AA23FA356900C0B0AE /* Localizable.strings */; };
 		EA01E6AD23FBA62900C0B0AE /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6AC23FBA62900C0B0AE /* Chapter.swift */; };
@@ -165,6 +167,8 @@
 		92DEE30E23F8FF60004D91D7 /* Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
 		92FE6CE5245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingPhraseCollectionViewCell.swift; sourceTree = "<group>"; };
 		92FE6CE7245E7620000E69BC /* MehoCoverIntroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MehoCoverIntroCollectionViewCell.swift; sourceTree = "<group>"; };
+		92FE6CEB245F9C88000E69BC /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		92FE6CED245FC959000E69BC /* UITextFieldPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldPadding.swift; sourceTree = "<group>"; };
 		A40C5A697051BB021EFB5E9C /* Pods_meho_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A456EF74653F7CB7D8C47AD7 /* Pods_meho_ios_meho_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios_meho_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD7C00746FB72FA49F9B8405 /* Pods_meho_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meho_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -277,6 +281,7 @@
 			children = (
 				924C53E723FA1E2600B59D95 /* MehoCoverViewController.swift */,
 				92FE6CE7245E7620000E69BC /* MehoCoverIntroCollectionViewCell.swift */,
+				92FE6CEB245F9C88000E69BC /* SignInViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -299,6 +304,7 @@
 			children = (
 				EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */,
 				92C5FE26244B894B004A3322 /* UIGifExtension.swift */,
+				92FE6CED245FC959000E69BC /* UITextFieldPadding.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -944,6 +950,7 @@
 				92C5FE432454C56E004A3322 /* NewsListHeaderCollectionReusableView.swift in Sources */,
 				92C5FE4124542F35004A3322 /* NewsOneTitleHeaderCollectionReusableView.swift in Sources */,
 				EA544904243AC6BE00C07D0A /* AudioConverter.m in Sources */,
+				92FE6CEC245F9C88000E69BC /* SignInViewController.swift in Sources */,
 				EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */,
 				EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */,
 				92577B2D2446F5B70097A445 /* PinyinViewController.swift in Sources */,
@@ -971,6 +978,7 @@
 				92C5FE47245540FB004A3322 /* NewsRecapVocabularyCollectionViewCell.swift in Sources */,
 				92C5FE27244B894B004A3322 /* UIGifExtension.swift in Sources */,
 				92577B2924457BFD0097A445 /* NewsChapter.swift in Sources */,
+				92FE6CEE245FC959000E69BC /* UITextFieldPadding.swift in Sources */,
 				92577B2F2446F90E0097A445 /* Pictograph.swift in Sources */,
 				92C5FE49245562BE004A3322 /* NewsRecapFooterCollectionReusableView.swift in Sources */,
 				EA5448BB2415D93500C07D0A /* SeeMoreFooterCollectionResuableView.swift in Sources */,

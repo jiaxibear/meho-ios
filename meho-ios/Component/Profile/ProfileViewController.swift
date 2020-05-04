@@ -78,18 +78,7 @@ class ProfileViewController: UIViewController {
             self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
         }
         else {
-            let options = SignInUIOptions(canCancel: false)
-            AWSMobileClient.default().showSignIn(navigationController: self.navigationController!, signInUIOptions: options) { (userState, error) in
-                guard error == nil else { return }
-                guard let state =   userState else { return }
-                
-                switch state {
-                case .signedIn:
-                    self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
-                default:
-                    print ("default")
-                }
-            }
+            self.navigationController? .setViewControllers([MehoCoverViewController.init()], animated: false)
         }
     }
 }

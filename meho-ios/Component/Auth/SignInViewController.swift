@@ -2,216 +2,143 @@
 //  SignInViewController.swift
 //  meho-ios
 //
-//  Created by Jiaxi Xiong on 2/16/20.
+//  Created by Jiaxi Xiong on 5/3/20.
 //  Copyright © 2020 Meho. All rights reserved.
 //
 
 import UIKit
 import AWSMobileClient
 
-class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class SignInViewController: UIViewController {
 
     // MARK: - Constants
-    private let titleLabelFontSize = CGFloat(30)
-    private let buttonLabelFontSize = CGFloat(20)
-    private let titleLabelText = "Meho Stories"
-    private let buttonCornerRadius = CGFloat(18)
+    private let labelFontSize = CGFloat(20)
+    private let cornerRadius = CGFloat(6)
+    private let verticalMargin = CGFloat(10)
 
-    private let cardInsets = CGFloat(32)
-    private let pageControlToSignUpMargin = CGFloat(40)
-    private let buttonHorizontalMargin = CGFloat(58)
-    private let verticalMarginScreenPct = CGFloat(1.0/40.0)
-    private let buttonHeightScreenPct = CGFloat(1.0/18.0)
-
-    private let introCellReuseIdentifier = "mehoIntroCellId"
-
-    // MARK: - Data models
-    private let storyNameList:[String] = ["signin_story_1", "signin_story_2" ,"signin_story_3"]
+    private let inputFieldWidth = CGFloat(280)
+    private let inputFieldHeight = CGFloat(40)
 
     // MARK: - Properties
-    private lazy var titleLabel:UILabel = {
-        let label = UILabel.init(frame: .zero)
-        label.textColor = .wisteriaPurple
-        label.textAlignment = .center
-        label.backgroundColor = .white
-        label.text = titleLabelText
-        let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
-        label.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    private lazy var logoImageView: UIImageView = {
+        let imageView = UIImageView.init(frame: .zero)
+        let logoImage = UIImage.init(named: "auth_logo")
+        imageView.image = logoImage
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     } ()
 
-    private lazy var storiesCollectionViewFlowLayout:UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout.init()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = cardInsets
-        return layout
-    } ()
-    private lazy var storyollectionView:UICollectionView = {
-        let collectionView = UICollectionView.init(frame: .zero, collectionViewLayout:storiesCollectionViewFlowLayout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets.init(top: 0, left: cardInsets, bottom: 0, right: cardInsets)
-        collectionView.isPagingEnabled = true
-        // Sets up cell data
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(MehoCoverIntroCollectionViewCell.self, forCellWithReuseIdentifier:introCellReuseIdentifier)
-        return collectionView
+    private lazy var usernameField:UITextFieldPadding = {
+        let textField = UITextFieldPadding.init()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Email Address"
+        let fontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+        textField.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
+        textField.autocapitalizationType = .none
+        textField.textColor = .darkGrayTwo
+        textField.layer.cornerRadius = cornerRadius
+        textField.layer.borderWidth = 2
+        textField.layer.borderColor = UIColor.wisteriaPurple.cgColor
+        textField.tintColor = .wisteriaPurple
+        return textField
     } ()
 
-    private lazy var pageControl: UIPageControl = {
-        let pc = UIPageControl()
-
-        pc.numberOfPages = storyNameList.count
-        pc.currentPage = 0
-        pc.pageIndicatorTintColor = .paleLilac
-        pc.currentPageIndicatorTintColor = .darkGray
-        pc.translatesAutoresizingMaskIntoConstraints = false
-        return pc
-    }()
-
-    private lazy var signUpButton: UIButton = {
-        let button = UIButton.init(frame: .zero)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Sign Up", for: .normal)
-        button.backgroundColor = .skyBlue
-        let fontDescriptor = UIFont.systemFont(ofSize: buttonLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        button.titleLabel?.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        button.titleLabel?.textColor = .white
-        button.layer.cornerRadius = buttonCornerRadius
-//        button.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
-        return button
+    private lazy var passwordField:UITextFieldPadding = {
+        let textField = UITextFieldPadding.init()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Password"
+        let fontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+        textField.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
+        textField.textColor = .darkGrayTwo
+        textField.layer.cornerRadius = cornerRadius
+        textField.layer.borderWidth = 2
+        textField.layer.borderColor = UIColor.wisteriaPurple.cgColor
+        textField.isSecureTextEntry = true
+        textField.tintColor = .wisteriaPurple
+        return textField
     } ()
 
     private lazy var signInButton: UIButton = {
         let button = UIButton.init(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Sign In", for: .normal)
-        button.backgroundColor = .skyBlue
-        let fontDescriptor = UIFont.systemFont(ofSize: buttonLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        button.backgroundColor = .wisteriaPurple
+        let fontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         button.titleLabel?.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
         button.titleLabel?.textColor = .white
-        button.layer.cornerRadius = buttonCornerRadius
-//        button.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
+        button.layer.cornerRadius = cornerRadius
+        button.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
         return button
     } ()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationItem.title = "SIGN IN"
+        // Do any additional setup after loading the view.
         view.backgroundColor = .white
-        setupTitleLabel()
-        setupStoryCollectionView()
-        setupPageControl()
-        setupSignUpButton()
+        setupLogoImage()
+        setupUsernameInput()
+        setupPasswordInput()
         setupSignInButton()
     }
 
-    func setupTitleLabel() {
-        view.addSubview(titleLabel)
-        let screenHeight = view.bounds.height
-        titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight * verticalMarginScreenPct * 3).isActive = true
-        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    private func setupLogoImage() {
+        view.addSubview(logoImageView)
+        // constraints
+        logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: verticalMargin).isActive = true
+        logoImageView.heightAnchor.constraint(equalToConstant: CGFloat(200)).isActive = true
+        logoImageView.widthAnchor.constraint(equalToConstant: CGFloat(200)).isActive = true
     }
 
-    func setupStoryCollectionView() {
-        view.addSubview(storyollectionView)
-        let screenHeight = view.frame.height
-        storyollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        storyollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        storyollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
-        storyollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -screenHeight/4).isActive = true
+    private func setupUsernameInput() {
+        view.addSubview(usernameField)
 
+        usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        usernameField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: verticalMargin).isActive = true
+        usernameField.widthAnchor.constraint(equalToConstant: inputFieldWidth).isActive = true
+        usernameField.heightAnchor.constraint(equalToConstant: inputFieldHeight).isActive = true
     }
 
-    func setupPageControl() {
-        view.addSubview(pageControl)
-        pageControl.topAnchor.constraint(equalTo: storyollectionView.bottomAnchor).isActive = true
-        pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    private func setupPasswordInput() {
+        view.addSubview(passwordField)
+
+        passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: verticalMargin).isActive = true
+        passwordField.widthAnchor.constraint(equalToConstant: inputFieldWidth).isActive = true
+        passwordField.heightAnchor.constraint(equalToConstant: inputFieldHeight).isActive = true
     }
 
-    func setupSignUpButton() {
-        view.addSubview(signUpButton)
-        let screenHeight = view.bounds.height
-        signUpButton.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
-        signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonHorizontalMargin).isActive = true
-        signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonHorizontalMargin).isActive = true
-        signUpButton.heightAnchor.constraint(equalToConstant: screenHeight * buttonHeightScreenPct).isActive = true
-    }
-
-    func setupSignInButton() {
+    private func setupSignInButton() {
         view.addSubview(signInButton)
-        let screenHeight = view.bounds.height
-        signInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
-        signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonHorizontalMargin).isActive = true
-        signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonHorizontalMargin).isActive = true
-        signInButton.heightAnchor.constraint(equalToConstant: screenHeight * buttonHeightScreenPct).isActive = true
+
+        signInButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        signInButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: verticalMargin * 2).isActive = true
+        signInButton.widthAnchor.constraint(equalToConstant: inputFieldWidth).isActive = true
+        signInButton.heightAnchor.constraint(equalToConstant: inputFieldHeight).isActive = true
     }
 
-    // MARK: - UICollectionViewDataSource
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return storyNameList.count
-    }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: introCellReuseIdentifier, for: indexPath) as! MehoIntroCollectionViewCell
-        let storyName = storyNameList[indexPath.item]
-        cell.setStoryCardData(name: storyName)
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = view.bounds.width - 2 * cardInsets
-        let height = collectionView.bounds.height
-        return CGSize(width: width, height: height)
-    }
-
-//    // Scroll to next cell if half of current cell is moved out of screen
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        targetContentOffset.pointee = scrollView.contentOffset
-        var indexPaths = storyollectionView.indexPathsForVisibleItems
-        indexPaths.sort()
-        var index = indexPaths.first!
-        let currentCell = storyollectionView.cellForItem(at: index)!
-        let position = storyollectionView.contentOffset.x - currentCell.frame.origin.x
-        if position > (currentCell.frame.size.width / 2) {
-           index.row = index.row + 1
-        }
-        storyollectionView.scrollToItem(at: index, at: .left, animated: true )
-        pageControl.currentPage = Int(index.row)
-    }
-
-    // MARK: - Views
-    override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            // uncomment next line if you want enforce login every time app launch
-            // logout()
-//            self.checkSignIn()
-        }
-
-    func checkSignIn() {
-        if AWSMobileClient.default().isSignedIn {
-            // sign in func
-            self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
-        }
-        else {
-            let options = SignInUIOptions(canCancel: false)
-            AWSMobileClient.default().showSignIn(navigationController: self.navigationController!, signInUIOptions: options) { (userState, error) in
-                guard error == nil else { return }
-                guard let state =   userState else { return }
-                
-                switch state {
+    @objc
+    func didTapSignInButton() {
+        let un = usernameField.text
+        passwordField.isSecureTextEntry = false
+        let pw2 = passwordField.text
+        passwordField.isSecureTextEntry = true
+        AWSMobileClient.default().signIn(username: un!, password: pw2!) { (result, error) in
+            guard error == nil else { return }
+            guard let state =   result?.signInState else { return }
+            switch state {
                 case .signedIn:
-                    self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
+                    DispatchQueue.main.async {
+                        self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
+                    }
                 default:
                     print ("default")
-                }
             }
         }
     }
 
-
-
 }
+
