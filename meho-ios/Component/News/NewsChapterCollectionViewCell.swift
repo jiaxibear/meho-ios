@@ -9,7 +9,7 @@
 import UIKit
 
 protocol NewsChapterCollectionViewCellDelegate : AnyObject {
-    func NewsChapterCollectionViewCellDidTapVocabulary(vocabularyUrl: URL)
+    func NewsChapterCollectionViewCellDidTapVocabulary(vocabularyId: String)
 }
 
 class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate, UITextViewDelegate {
@@ -162,7 +162,16 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
 
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         /* perform your own custom actions here */
-        delegate?.NewsChapterCollectionViewCellDidTapVocabulary(vocabularyUrl: URL.absoluteURL)
+        let webdata:String = URL.absoluteString
+
+        /*  A HACK: embeding vocab id in the current style: <a href=\"0d94c25d-9bb5-47bc-bba5-66a61b01869a\">产生</a> ,
+            the id cannot be parsed as into shouldInteractWith URL as a pure string typed id, but instead, in the format of:
+            "applewebdata://139693F5-FB5E-47D4-8E11-DA68C6D2A90A/0d94c25d-9bb5-47bc-bba5-66a61b01869a"
+            the real id is the latest 36 characters, thus make a hack here.
+            Going forward, a proper parser should be applied to get the id
+         */
+        let id = String(webdata.suffix(36))
+        delegate?.NewsChapterCollectionViewCellDidTapVocabulary(vocabularyId: id)
         return false // return true if you also want UIAlertController to pop up
     }
 

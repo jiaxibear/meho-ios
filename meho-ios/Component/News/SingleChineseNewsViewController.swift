@@ -222,9 +222,9 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     }
 
     // MARK: - NewsChapterCollectionViewCellDelegate
-    func NewsChapterCollectionViewCellDidTapVocabulary(vocabularyUrl: URL) {
+    func NewsChapterCollectionViewCellDidTapVocabulary(vocabularyId: String) {
 
-        dataFetcher.fetchVocabulary (vocabularyUrl: vocabularyUrl, completionHandler: { (vocabulary, error) in
+        dataFetcher.fetchVocabulary (vocabularyId: vocabularyId, completionHandler: { (vocabulary, error) in
             DispatchQueue.main.async {
                 if (error == nil && vocabulary != nil) {
                     let vocabularyViewController = VocabularyViewController.init(vocabulary: vocabulary!)
