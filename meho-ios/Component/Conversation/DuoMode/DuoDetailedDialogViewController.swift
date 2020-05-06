@@ -30,6 +30,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private static let actionButtonsTopMargin = CGFloat(24)
     private static let duoOtherRoleCollectionViewCellReuseIdentifier = "duoOtherRoleCollectionViewCellReuseIdentifier"
     private static let duoYourRoleCollectionViewCellReuseIdentifier = "duoYourRoleCollectionViewCellReuseIdentifier"
+    private static let changeRoleBarButtonItemImageName = "conversation_ab_role_rotate"
     private let audioDBLowerLimit = Float(-30)
 
     // MARK: - Properties
@@ -152,8 +153,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         self.scoredChapters = scoredChapters
         super.init(nibName: nil, bundle: nil)
         navigationItem.titleView = progressView
-        let changeRoleBarButtonItemTitle = NSLocalizedString("changeRoleButtonTitle", comment: "")
-        let changeRoleBarButtonItem = UIBarButtonItem.init(title: changeRoleBarButtonItemTitle, style: .plain, target: self, action: #selector(didTapchangeRoleBarButtonItem))
+        let changeRoleBarButtonItemImage = UIImage.init(named: DuoDetailedDialogViewController.changeRoleBarButtonItemImageName)
+        let changeRoleBarButtonItem = UIBarButtonItem.init(image: changeRoleBarButtonItemImage, style: .plain, target: self, action: #selector(didTapchangeRoleBarButtonItem))
         navigationItem.rightBarButtonItem = changeRoleBarButtonItem
         if let firstChapter = scoredChapters.first {
             currentScoredChapters.append(firstChapter)

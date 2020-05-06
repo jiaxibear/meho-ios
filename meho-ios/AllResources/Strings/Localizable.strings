@@ -65,6 +65,3 @@
 
 /* Text that indicates the current role for user. */
 "CurrentRoleText" = "You are the %@ in this conversation";
-
-/* Title for the button that the user taps to change the role in the duo mode. */
-"changeRoleButtonTitle" = "A􀄭B";
