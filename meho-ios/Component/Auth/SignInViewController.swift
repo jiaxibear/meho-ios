@@ -71,6 +71,20 @@ class SignInViewController: UIViewController {
         return button
     } ()
 
+    private lazy var signInFailureLabel:UILabel = {
+        let label = UILabel.init(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Incorrect password! Try again"
+        label.textColor = .red
+        let fontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+        label.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
+        label.numberOfLines = 1
+        label.textAlignment = .left
+        label.isHidden = true
+        return label
+    } ()
+
+    // MARK: - view loads
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
@@ -81,6 +95,7 @@ class SignInViewController: UIViewController {
         setupUsernameInput()
         setupPasswordInput()
         setupSignInButton()
+        setupSignInFailureLabel()
     }
 
     private func setupLogoImage() {
@@ -119,6 +134,15 @@ class SignInViewController: UIViewController {
         signInButton.heightAnchor.constraint(equalToConstant: inputFieldHeight).isActive = true
     }
 
+    private func setupSignInFailureLabel() {
+        view.addSubview(signInFailureLabel)
+
+        signInFailureLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        signInFailureLabel.topAnchor.constraint(equalTo: signInButton.bottomAnchor).isActive = true
+        signInFailureLabel.widthAnchor.constraint(equalToConstant: inputFieldWidth).isActive = true
+        signInFailureLabel.heightAnchor.constraint(equalToConstant: inputFieldHeight).isActive = true
+    }
+
 
     @objc
     func didTapSignInButton() {
@@ -127,15 +151,18 @@ class SignInViewController: UIViewController {
         let pw2 = passwordField.text
         passwordField.isSecureTextEntry = true
         AWSMobileClient.default().signIn(username: un!, password: pw2!) { (result, error) in
-            guard error == nil else { return }
-            guard let state =   result?.signInState else { return }
-            switch state {
-                case .signedIn:
-                    DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                guard error == nil else {
+                    self.signInFailureLabel.isHidden = false
+                    return
+                }
+                guard let state =   result?.signInState else { return }
+                switch state {
+                    case .signedIn:
                         self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
-                    }
-                default:
-                    print ("default")
+                    default:
+                        print ("default")
+                }
             }
         }
     }
