@@ -1,6 +1,7 @@
 //
 //  NewsRecapFooterCollectionReusableView.swift
 //  meho-ios
+//  Holds logic for showing the taking quiz / mark as complete button
 //
 //  Created by Jiaxi Xiong on 4/25/20.
 //  Copyright © 2020 Meho. All rights reserved.

@@ -115,7 +115,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionViewFlowLayout.minimumLineSpacing = 18
         chaptersCollectionViewFlowLayout.sectionInset = UIEdgeInsets.init(top: 0, left: 0, bottom: sectionVerticalInsets, right: 0)
 
-        chaptersCollectionView.register(NewsOneTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier)
+        chaptersCollectionView.register(OneLineTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier)
         chaptersCollectionView.register(NewsChapterCollectionViewCell.self, forCellWithReuseIdentifier:newsChapterCellReuseIdentifier)
         chaptersCollectionView.register(NewsItemSizeSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeSCellReuseIdentifier)
         chaptersCollectionView.register(NewsItemSizeXSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeXSCellReuseIdentifier)
@@ -141,7 +141,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
             case .relatedNewsList:
                 sectionTitle = relatedNewsListTitle
             }
-            if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier, for: indexPath) as? NewsOneTitleHeaderCollectionReusableView {
+            if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier, for: indexPath) as? OneLineTitleHeaderCollectionReusableView {
                 headerView.setTitle(titleEn: sectionTitle)
                 return headerView
             }
@@ -158,7 +158,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         case .relatedNewsList:
             sectionTitle = relatedNewsListTitle
         }
-        return CGSize.init(width: 0, height: NewsOneTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: sectionTitle))
+        return CGSize.init(width: 0, height: OneLineTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: sectionTitle))
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

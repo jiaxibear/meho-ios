@@ -1,6 +1,7 @@
 //
 //  NewsRecapVocabularyCollectionViewCell.swift
 //  meho-ios
+//  Holds UI logic for showing
 //
 //  Created by Jiaxi Xiong on 4/25/20.
 //  Copyright © 2020 Meho. All rights reserved.

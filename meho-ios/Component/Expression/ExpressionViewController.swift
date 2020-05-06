@@ -86,7 +86,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         expressionCollectionView.backgroundColor = .white
         expressionCollectionView.showsVerticalScrollIndicator = false
         expressionCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        expressionCollectionView.register(NewsOneTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderCellReuseIdentifier)
+        expressionCollectionView.register(OneLineTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderCellReuseIdentifier)
         expressionCollectionView.register(TrendingPhraseCollectionViewCell.self, forCellWithReuseIdentifier: trendingPhraseCellReuseIdentifier)
         expressionCollectionView.delegate = self
         expressionCollectionView.dataSource = self
@@ -163,7 +163,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderCellReuseIdentifier, for: indexPath) as! NewsOneTitleHeaderCollectionReusableView
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderCellReuseIdentifier, for: indexPath) as! OneLineTitleHeaderCollectionReusableView
             headerView.setTitle(titleEn: "Trending Phrase")
             return headerView
         }

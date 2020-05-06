@@ -1,6 +1,7 @@
 //
 //  NewsTwoTitleHeaderCollectionReusableView.swift
 //  meho-ios
+//  Reusable header view for news, two line here specifically meant for Chinese and English view, as compared to OneLineTitleHeaderCollectionReusableView only has English title view
 //
 //  Created by Jiaxi Xiong on 4/25/20.
 //  Copyright © 2020 Meho. All rights reserved.
@@ -8,7 +9,7 @@
 
 import UIKit
 
-class NewsTwoTitleHeaderCollectionReusableView: UICollectionReusableView {
+class TwoLineTitleHeaderCollectionReusableView: UICollectionReusableView {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(22)
@@ -20,7 +21,7 @@ class NewsTwoTitleHeaderCollectionReusableView: UICollectionReusableView {
     // MARK: - Properties
     private let titleEnLabel = UILabel.init(frame: .zero)
     private let titleZhLabel = UILabel.init(frame: .zero)
-    private static var sizingView = NewsTwoTitleHeaderCollectionReusableView.init(frame: .zero)
+    private static var sizingView = TwoLineTitleHeaderCollectionReusableView.init(frame: .zero)
 
     private var titleEn = ""
     private var titleZh = ""

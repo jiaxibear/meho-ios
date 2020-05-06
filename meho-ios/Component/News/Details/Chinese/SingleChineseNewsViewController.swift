@@ -115,10 +115,10 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionViewFlowLayout.minimumLineSpacing = 18
         chaptersCollectionViewFlowLayout.sectionInset = UIEdgeInsets.init(top: 0, left: 0, bottom: sectionVerticalInsets, right: 0)
 
-        chaptersCollectionView.register(NewsTwoTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier)
+        chaptersCollectionView.register(TwoLineTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier)
         chaptersCollectionView.register(NewsChapterCollectionViewCell.self, forCellWithReuseIdentifier:newsChapterCellReuseIdentifier)
 
-        chaptersCollectionView.register(NewsOneTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: vocabularyRecapHeaderCellReuseIdentifier)
+        chaptersCollectionView.register(OneLineTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: vocabularyRecapHeaderCellReuseIdentifier)
         chaptersCollectionView.register(NewsRecapVocabularyCollectionViewCell.self, forCellWithReuseIdentifier: newsRecapVocabularyCellReuseIdentifier)
 
         chaptersCollectionView.register(NewsRecapFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: newsRecapFooterCellReuseIdentifier)
@@ -138,12 +138,12 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             if indexPath.section == 0 {
-                if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier, for: indexPath) as? NewsTwoTitleHeaderCollectionReusableView {
+                if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier, for: indexPath) as? TwoLineTitleHeaderCollectionReusableView {
                     headerView.setTitle(titleEn: news.title_en, titleZh: news.title_zh)
                     return headerView
                 }
             } else if indexPath.section == 1 {
-                if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: vocabularyRecapHeaderCellReuseIdentifier, for: indexPath) as? NewsOneTitleHeaderCollectionReusableView {
+                if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: vocabularyRecapHeaderCellReuseIdentifier, for: indexPath) as? OneLineTitleHeaderCollectionReusableView {
                     headerView.setTitle(titleEn: recapListTitle)
                     return headerView
                 }
@@ -160,9 +160,9 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {
-            return CGSize.init(width: 0, height: NewsTwoTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: news.title_en, titleZh: news.title_zh))
+            return CGSize.init(width: 0, height: TwoLineTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: news.title_en, titleZh: news.title_zh))
         } else { // assuming only two sections!
-            return CGSize.init(width: 0, height: NewsOneTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: news.title_en))
+            return CGSize.init(width: 0, height: OneLineTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: news.title_en))
         }
 
     }
