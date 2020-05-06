@@ -11,7 +11,7 @@ import UIKit
 class NewsDataFetcher: NSObject {
     // MARK: - Urls
     private let fetchNewsListURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/articles/"
-    private let fetchNewsDetailURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/paragraphs/?limit=50"
+    private let fetchNewsDetailURLBaseString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/articleDetails/"
     private let fetchVocabulariesURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/vocabularies/"
     private let fetchRecapVocabulariesURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/vocabularies/?limit=3"
 
@@ -22,10 +22,8 @@ class NewsDataFetcher: NSObject {
     // MARK: - Public
 
     public func fetchNewsDetail(newsID: String, completionHandler: @escaping ( Array<NewsChapter>?, Array<NewsChapter>?, Error?) -> Void) {
-        if var fetchNewsDetailURLComponent = URLComponents.init(string: fetchNewsDetailURLString) {
-//            let quertItem = URLQueryItem.init(name: dialogIDQueryItemName, value: dialogID)
-//            fetchDetailedDialogURLComponent.queryItems = [quertItem]
-            // TODO replace with real fetch news by ID
+        let fetchNewsDetailURLString = fetchNewsDetailURLBaseString + newsID
+        if let fetchNewsDetailURLComponent = URLComponents.init(string: fetchNewsDetailURLString) {
             if let fetchNewsDetailURL = fetchNewsDetailURLComponent.url {
                 let newsDetailDataTask = session.dataTask(with: fetchNewsDetailURL, completionHandler: { (data, URLResponse, error) in
                     if error != nil {
@@ -61,7 +59,7 @@ class NewsDataFetcher: NSObject {
 
         var englishNewsChapters:[NewsChapter] = []
         var chineseNewsChapters:[NewsChapter] = []
-        if let newsChaptersJson = newsDetailJson["results"] as? [Dictionary<String, Any>] {
+        if let newsChaptersJson = newsDetailJson["paragraphs"] as? [Dictionary<String, Any>] {
             for newsChapterJson in newsChaptersJson {
                 var newsChapter = NewsChapter.init()
                 if let language = newsChapterJson["content_type"] as? String {
@@ -169,7 +167,7 @@ class NewsDataFetcher: NSObject {
     }
 
     public func fetchRecapVocabularies(completionHandler: @escaping ( Array<Vocabulary>?, Error?) -> Void) {
-        if var fetchRecapVocabularyListURLComponent = URLComponents.init(string: fetchRecapVocabulariesURLString) {
+        if let fetchRecapVocabularyListURLComponent = URLComponents.init(string: fetchRecapVocabulariesURLString) {
             if let recapVocabulariesUrl = fetchRecapVocabularyListURLComponent.url {
                 let dataCategoriesTask = session.dataTask(with: recapVocabulariesUrl, completionHandler: { (data, URLResponse, error) in
                     if error != nil {
@@ -211,7 +209,7 @@ class NewsDataFetcher: NSObject {
 
     public func fetchVocabulary(vocabularyId: String, completionHandler: @escaping ( Vocabulary?, Error?) -> Void) {
         let vocabularyUrlString = fetchVocabulariesURLString + vocabularyId
-        if var fetchVocabularyURLComponent = URLComponents.init(string: vocabularyUrlString) {
+        if let fetchVocabularyURLComponent = URLComponents.init(string: vocabularyUrlString) {
             if let vocabularyUrl = fetchVocabularyURLComponent.url {
                 let dataCategoriesTask = session.dataTask(with: vocabularyUrl, completionHandler: { (data, URLResponse, error) in
                     if error != nil {
