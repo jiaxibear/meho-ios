@@ -9,11 +9,11 @@
 import UIKit
 
 enum ExpressionSection: Int {
+    case survivalPhrases
     case trendingPhrases
 }
 
 class ExpressionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate {
-
 
     // MARK: - Constants
     private let expressionTabBarItemImageName = "tabbar_expression_25pt"
@@ -23,11 +23,14 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     private let horizontalMargin = CGFloat(15)
     private let titleLabelTopMargin = CGFloat(30)
     private let collectionViewTopMargin = CGFloat(24)
+    private let survivalPhrasesGroupSpacing = CGFloat(5)
+    private let survivalPhrasesItemInset = CGFloat(2.5)
 
     private let trendingCollectionViewCellSpacing = CGFloat(20)
 
     private let sectionHeaderCellReuseIdentifier = "SectionHeaderIdentifier"
     private let trendingPhraseCellReuseIdentifier = "TrendingPhraseCellIdentifier"
+    private let survivalPhraseCellReuseIdentifier = "survivalPhraseCellIdentifier"
 
     // MARK: - Properties
     private lazy var titleView: MainTabTitleView = {
@@ -38,8 +41,33 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         return titleView
     } ()
 
-    private var expressionCollectionViewCompositionalLayout: UICollectionViewCompositionalLayout?
-    private lazy var expressionCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:expressionCollectionViewCompositionalLayout!)
+    private lazy var expressionCollectionViewCompositionalLayout: UICollectionViewCompositionalLayout = {
+        let expressionCollectionViewCompositionalLayout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
+          layoutEnvironment: NSCollectionLayoutEnvironment)
+            -> NSCollectionLayoutSection? in
+            let expressionSection = self.sections[sectionIndex]
+            switch expressionSection {
+            case .trendingPhrases:
+                return self.trendingLayoutSection()
+            case .survivalPhrases:
+                return self.survivalLayoutSection()
+            }
+        }
+        return expressionCollectionViewCompositionalLayout
+    } ()
+
+    private lazy var expressionCollectionView: UICollectionView = {
+        let expressionCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:expressionCollectionViewCompositionalLayout)
+        expressionCollectionView.backgroundColor = .white
+        expressionCollectionView.showsVerticalScrollIndicator = false
+        expressionCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        expressionCollectionView.register(OneLineTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderCellReuseIdentifier)
+        expressionCollectionView.register(TrendingPhraseCollectionViewCell.self, forCellWithReuseIdentifier: trendingPhraseCellReuseIdentifier)
+        expressionCollectionView.register(SurvivalPhraseCollectionViewCell.self, forCellWithReuseIdentifier: survivalPhraseCellReuseIdentifier)
+        expressionCollectionView.delegate = self
+        expressionCollectionView.dataSource = self
+        return expressionCollectionView
+    } ()
 
     private var scrollDownTitleHiddenCollectionViewTopConstraint: NSLayoutConstraint!
     private var scrollUpTitleShownCollectionViewTopConstraint: NSLayoutConstraint!
@@ -47,8 +75,22 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
 
     // MARK: - Datamodels
     private let dataFecther = ExpressionDataFetcher.init()
-    private var trendingPhrases:[Phrase] = []
-    private var sections:[ExpressionSection] = []
+    private var trendingPhrases: [Phrase] = []
+    private var sections: [ExpressionSection] = [.survivalPhrases]
+    private lazy var survivalPhrases: [SurvivalPhrase] = {
+        let basicSurvivalPhrase = SurvivalPhrase.init(title: "Basic", titleFontSize:12, backgroundImage: nil, backgroundColor: .greenBlue)
+        let numbersSurvivalPhrase = SurvivalPhrase.init(title: "Numbers", titleFontSize:12,  backgroundImage: nil, backgroundColor: .skyBlue)
+        let shoppingSurvivalPhrase = SurvivalPhrase.init(title: "Shopping", titleFontSize:16,  backgroundImage: nil, backgroundColor: .sunYellow)
+        let travelSurvivalPhrase = SurvivalPhrase.init(title: "Travel", titleFontSize:20, backgroundImage: nil, backgroundColor: .wisteriaPurple)
+        let dinningSurvivalPhrase = SurvivalPhrase.init(title: "Dinning", titleFontSize:14, backgroundImage: nil, backgroundColor: .wisteriaPurple)
+        let healthSurvivalPhrase = SurvivalPhrase.init(title: "Health", titleFontSize:14, backgroundImage: nil, backgroundColor: .greenBlue)
+        let businessSurvivalPhrase = SurvivalPhrase.init(title: "Business", titleFontSize:20, backgroundImage: nil, backgroundColor: .skyBlue)
+        let entertainmentSurvivalPhrase = SurvivalPhrase.init(title: "Entertainment",titleFontSize:18, backgroundImage: nil, backgroundColor: .sunYellow)
+        let familySurvivalPhrase = SurvivalPhrase.init(title: "Family", titleFontSize:12, backgroundImage: nil, backgroundColor: .greenBlue)
+        let flirtingSurvivalPhrase = SurvivalPhrase.init(title: "Flirting",titleFontSize:12, backgroundImage: nil, backgroundColor: .sunYellow)
+        let festivitiesSurvivalPhrase = SurvivalPhrase.init(title: "Festivities", titleFontSize:12, backgroundImage: nil, backgroundColor: .wisteriaPurple)
+        return [basicSurvivalPhrase, numbersSurvivalPhrase, shoppingSurvivalPhrase, travelSurvivalPhrase, dinningSurvivalPhrase, healthSurvivalPhrase, businessSurvivalPhrase, entertainmentSurvivalPhrase, familySurvivalPhrase, flirtingSurvivalPhrase, festivitiesSurvivalPhrase]
+    } ()
 
     // MARK: - Init
     init() {
@@ -56,16 +98,6 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         let expressionTabBarItemImage = UIImage.init(named: expressionTabBarItemImageName)
         let expressionTabBarItem = UITabBarItem.init(title: nil, image: expressionTabBarItemImage, tag: 0)
         tabBarItem = expressionTabBarItem
-
-        expressionCollectionViewCompositionalLayout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
-          layoutEnvironment: NSCollectionLayoutEnvironment)
-            -> NSCollectionLayoutSection? in
-            let expressionSection = self.sections[sectionIndex]
-            switch expressionSection {
-            case .trendingPhrases:
-                return self.trendingLayoutSection()
-            }
-        }
     }
 
     @available(*, unavailable)
@@ -83,14 +115,6 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         super.viewDidLoad()
         view.backgroundColor = .white
 
-        expressionCollectionView.backgroundColor = .white
-        expressionCollectionView.showsVerticalScrollIndicator = false
-        expressionCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        expressionCollectionView.register(OneLineTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderCellReuseIdentifier)
-        expressionCollectionView.register(TrendingPhraseCollectionViewCell.self, forCellWithReuseIdentifier: trendingPhraseCellReuseIdentifier)
-        expressionCollectionView.delegate = self
-        expressionCollectionView.dataSource = self
-
         setupTitleViewConstraint()
         setupExpressionCollectionView()
 
@@ -98,7 +122,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             if (error == nil && phrases != nil) {
                 DispatchQueue.main.async {
                     self.trendingPhrases = phrases!
-                    self.sections.insert(.trendingPhrases, at: 0) // Change to 1 once survival section added
+                    self.sections.append(.trendingPhrases)
                     self.expressionCollectionView.reloadData()
                 }
             }
@@ -143,6 +167,8 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         switch expressionSections {
         case .trendingPhrases:
             return trendingPhrases.count
+        case .survivalPhrases:
+            return survivalPhrases.count
         }
     }
 
@@ -158,6 +184,11 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             let phrase = trendingPhrases[indexPath.item]
             cell.setPhrase(phrase)
             return cell
+        case .survivalPhrases:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: survivalPhraseCellReuseIdentifier, for: indexPath) as! SurvivalPhraseCollectionViewCell
+            let survivalPhrase = survivalPhrases[indexPath.item]
+            cell.setSurvivalPhrase(survivalPhrase)
+            return cell
         }
     }
 
@@ -170,16 +201,64 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         return UICollectionReusableView.init(frame: .zero)
     }
 
-    // NOT CALLED!!!!
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let expressionSection = sections[indexPath.section]
-        switch expressionSection {
-        case .trendingPhrases:
-            let width = collectionView.bounds.width
-            let phrase = trendingPhrases[indexPath.item]
-            let height = TrendingPhraseCollectionViewCell.cellHeight(with: width, phrase: phrase)
-            return CGSize.init(width: width, height: height)
-        }
+    private func survivalLayoutSection() -> NSCollectionLayoutSection {
+        // Sets up the bottom group.
+        let bottomItemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
+        let bottomItem = NSCollectionLayoutItem.init(layoutSize: bottomItemSize)
+        let bottomGroupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40))
+        let bottomGroup = NSCollectionLayoutGroup.horizontal(layoutSize: bottomGroupSize, subitem: bottomItem, count: 2)
+        bottomGroup.interItemSpacing = .fixed(survivalPhrasesGroupSpacing)
+
+        // Sets up the top left group.
+        let topLeftFirstRowItemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(1))
+        let topLeftFirstRowItem = NSCollectionLayoutItem.init(layoutSize: topLeftFirstRowItemSize)
+        let topLeftFirstRowGroupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/4))
+        let topLeftFirstRowGroup = NSCollectionLayoutGroup.horizontal(layoutSize: topLeftFirstRowGroupSize, subitem: topLeftFirstRowItem, count: 2)
+        topLeftFirstRowGroup.interItemSpacing = .fixed(survivalPhrasesGroupSpacing)
+        let topLeftSecondItemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/4))
+        let topLeftSecondItem = NSCollectionLayoutItem.init(layoutSize: topLeftSecondItemSize)
+        topLeftSecondItem.contentInsets = NSDirectionalEdgeInsets(top: survivalPhrasesItemInset * 2, leading: 0, bottom: survivalPhrasesItemInset, trailing: 0)
+        let topLeftThirdItemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/2))
+        let topLeftThirdItem = NSCollectionLayoutItem.init(layoutSize: topLeftThirdItemSize)
+        topLeftThirdItem.contentInsets = NSDirectionalEdgeInsets(top: survivalPhrasesItemInset, leading: 0, bottom: 0, trailing: 0)
+        let topLeftGroupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(2/5), heightDimension: .fractionalHeight(1))
+        let topLeftGroup = NSCollectionLayoutGroup.vertical(layoutSize: topLeftGroupSize, subitems: [topLeftFirstRowGroup, topLeftSecondItem, topLeftThirdItem])
+        topLeftGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: survivalPhrasesItemInset)
+
+        // Sets up the top right group.
+        let topRightFirstColumnFirstRowItemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/2))
+        let topRightFirstColumnFirstRowItem = NSCollectionLayoutItem.init(layoutSize: topRightFirstColumnFirstRowItemSize)
+        let topRightFirstColumnFirstRowGroupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1))
+        let topRightFirstColumnFirstRowGroup = NSCollectionLayoutGroup.vertical(layoutSize: topRightFirstColumnFirstRowGroupSize, subitem: topRightFirstColumnFirstRowItem, count: 2)
+        topRightFirstColumnFirstRowGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: survivalPhrasesItemInset)
+        topRightFirstColumnFirstRowGroup.interItemSpacing = .fixed(survivalPhrasesGroupSpacing)
+        let topRightSecondColumnFirstRowItemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(2/3), heightDimension: .fractionalHeight(1))
+        let topRightSecondColumnFirstRowItem = NSCollectionLayoutItem.init(layoutSize: topRightSecondColumnFirstRowItemSize)
+        topRightSecondColumnFirstRowItem.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: survivalPhrasesItemInset, bottom: 0, trailing: 0)
+        let topRightFirstRowGroupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(2/3))
+        let topRightFirstRowGroup = NSCollectionLayoutGroup.horizontal(layoutSize: topRightFirstRowGroupSize, subitems: [topRightFirstColumnFirstRowGroup, topRightSecondColumnFirstRowItem])
+        topRightFirstRowGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: survivalPhrasesItemInset, trailing: 0)
+        let topRightSecondRowFirstItemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(2/3), heightDimension: .fractionalHeight(1))
+        let topRightSecondRowFirstItem = NSCollectionLayoutItem.init(layoutSize: topRightSecondRowFirstItemSize)
+        topRightSecondRowFirstItem.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: survivalPhrasesItemInset)
+        let topRightSecondRowSecondItemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1))
+        let topRightSecondRowSecondItem = NSCollectionLayoutItem.init(layoutSize: topRightSecondRowSecondItemSize)
+        topRightSecondRowSecondItem.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: survivalPhrasesItemInset, bottom: 0, trailing: 0)
+        let topRightSecondRowGroupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3))
+        let topRightSecondRowGroup = NSCollectionLayoutGroup.horizontal(layoutSize: topRightSecondRowGroupSize, subitems: [topRightSecondRowFirstItem, topRightSecondRowSecondItem])
+        topRightSecondRowGroup.contentInsets = NSDirectionalEdgeInsets(top: survivalPhrasesItemInset, leading: 0, bottom: 0, trailing: 0)
+        let topRightGroupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(3/5), heightDimension: .fractionalHeight(1))
+        let topRightGroup = NSCollectionLayoutGroup.vertical(layoutSize: topRightGroupSize, subitems: [topRightFirstRowGroup, topRightSecondRowGroup])
+        topRightGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: survivalPhrasesItemInset, bottom: 0, trailing: 0)
+
+        let topGroupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(240))
+        let topGroup = NSCollectionLayoutGroup.horizontal(layoutSize: topGroupSize, subitems: [topLeftGroup, topRightGroup])
+        //topGroup.interItemSpacing = .flexible(survivalPhrasesGroupSpacing)
+        let groupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(285))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [topGroup, bottomGroup])
+        group.interItemSpacing = .fixed(survivalPhrasesGroupSpacing)
+        let section = NSCollectionLayoutSection.init(group: group)
+        return section
     }
 
 

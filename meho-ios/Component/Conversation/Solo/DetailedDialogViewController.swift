@@ -131,7 +131,9 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         }
         let previousCurrentChapterIndex = currentChapterIndex
         currentChapterIndex = indexPath.item
-        collectionView.reloadItems(at: [IndexPath.init(item: previousCurrentChapterIndex, section: 0), IndexPath.init(item: currentChapterIndex, section: 0)])
+        UIView.performWithoutAnimation {
+            collectionView.reloadItems(at: [IndexPath.init(item: previousCurrentChapterIndex, section: 0), IndexPath.init(item: currentChapterIndex, section: 0)])
+        }
         collectionView.scrollToItem(at: IndexPath.init(item: currentChapterIndex, section: 0), at: .top, animated: true)
     }
 
