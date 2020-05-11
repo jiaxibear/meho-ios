@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Phrase {
+struct TrendingPhrase {
     var identifier = ""
     var content_pinyin = ""
     var content_zh = ""

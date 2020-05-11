@@ -15,7 +15,7 @@ class ExpressionDataFetcher: NSObject {
     // MARK: - Properties
     private let session = URLSession(configuration: .default)
 
-    public func fetchTrendingPhrases(count: String = "5", completionHandler: @escaping ( Array<Phrase>?, Error?) -> Void) {
+    public func fetchTrendingPhrases(count: String = "5", completionHandler: @escaping ( Array<TrendingPhrase>?, Error?) -> Void) {
         if var fetchTrendingPhraseURLComponent = URLComponents.init(string: fetchTrendingPhraseURLString) {
             let quertItem = URLQueryItem.init(name: "limit", value: count)
             fetchTrendingPhraseURLComponent.queryItems = [quertItem]
@@ -33,7 +33,7 @@ class ExpressionDataFetcher: NSObject {
                     }
                     do {
                         if let phrasesJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                            let phrases = self.parsePhrasesJSON(phrasesJson: phrasesJson)
+                            let phrases = self.parseTrendingPhrasesJSON(phrasesJson: phrasesJson)
                             completionHandler(phrases, nil)
                         }
                     } catch let JSONError as NSError {
@@ -50,12 +50,11 @@ class ExpressionDataFetcher: NSObject {
         }
     }
 
-    private func parsePhrasesJSON(phrasesJson: [String: Any]) -> Array<Phrase> {
-
-        var phrases:[Phrase] = []
+    private func parseTrendingPhrasesJSON(phrasesJson: [String: Any]) -> Array<TrendingPhrase> {
+        var trendingPhrases:[TrendingPhrase] = []
         if let phraseListJson = phrasesJson["results"] as? [Dictionary<String, Any>] {
             for phraseJson in phraseListJson {
-                var phrase = Phrase.init()
+                var phrase = TrendingPhrase.init()
                 if let content = phraseJson["content"] as? String {
                     phrase.content_zh = content
                 }
@@ -72,10 +71,10 @@ class ExpressionDataFetcher: NSObject {
                     let audioUrl = URL.init(string: audioURLString)
                     phrase.audioURL = audioUrl
                 }
-                phrases.append(phrase)
+                trendingPhrases.append(phrase)
             }
         }
 
-        return phrases
+        return trendingPhrases
     }
 }

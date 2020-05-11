@@ -11,6 +11,7 @@ import UIKit
 struct SurvivalPhrase {
     let title: String
     let titleFontSize: CGFloat
+    let category: SurvivalPhraseCategory
     let backgroundImage: UIImage?
     let backgroundColor: UIColor?
 }

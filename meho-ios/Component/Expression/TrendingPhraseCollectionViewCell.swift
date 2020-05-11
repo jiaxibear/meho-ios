@@ -149,14 +149,14 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - Public
-    public func setPhrase(_ phrase: Phrase) {
+    public func setPhrase(_ phrase: TrendingPhrase) {
         phraseLabel.text = " # " + phrase.content_zh + " "
         pinyinLabel.text = "/" + phrase.content_pinyin + "/  "
         explanationLabel.text = phrase.content_explanation
         maybePronounceAudioUrl = phrase.audioURL
     }
 
-    public class func cellHeight(with width: CGFloat, phrase: Phrase) -> CGFloat {
+    public class func cellHeight(with width: CGFloat, phrase: TrendingPhrase) -> CGFloat {
         sizingCell.setPhrase(phrase)
         let height = TrendingPhraseCollectionViewCell.cellVerticalMargin * 4
             + sizingCell.phraseLabel.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height

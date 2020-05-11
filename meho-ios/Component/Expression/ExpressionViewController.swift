@@ -75,20 +75,20 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
 
     // MARK: - Datamodels
     private let dataFecther = ExpressionDataFetcher.init()
-    private var trendingPhrases: [Phrase] = []
+    private var trendingPhrases: [TrendingPhrase] = []
     private var sections: [ExpressionSection] = [.survivalPhrases]
     private lazy var survivalPhrases: [SurvivalPhrase] = {
-        let basicSurvivalPhrase = SurvivalPhrase.init(title: "Basic", titleFontSize:12, backgroundImage: nil, backgroundColor: .greenBlue)
-        let numbersSurvivalPhrase = SurvivalPhrase.init(title: "Numbers", titleFontSize:12,  backgroundImage: nil, backgroundColor: .skyBlue)
-        let shoppingSurvivalPhrase = SurvivalPhrase.init(title: "Shopping", titleFontSize:16,  backgroundImage: nil, backgroundColor: .sunYellow)
-        let travelSurvivalPhrase = SurvivalPhrase.init(title: "Travel", titleFontSize:20, backgroundImage: nil, backgroundColor: .wisteriaPurple)
-        let dinningSurvivalPhrase = SurvivalPhrase.init(title: "Dinning", titleFontSize:14, backgroundImage: nil, backgroundColor: .wisteriaPurple)
-        let healthSurvivalPhrase = SurvivalPhrase.init(title: "Health", titleFontSize:14, backgroundImage: nil, backgroundColor: .greenBlue)
-        let businessSurvivalPhrase = SurvivalPhrase.init(title: "Business", titleFontSize:20, backgroundImage: nil, backgroundColor: .skyBlue)
-        let entertainmentSurvivalPhrase = SurvivalPhrase.init(title: "Entertainment",titleFontSize:18, backgroundImage: nil, backgroundColor: .sunYellow)
-        let familySurvivalPhrase = SurvivalPhrase.init(title: "Family", titleFontSize:12, backgroundImage: nil, backgroundColor: .greenBlue)
-        let flirtingSurvivalPhrase = SurvivalPhrase.init(title: "Flirting",titleFontSize:12, backgroundImage: nil, backgroundColor: .sunYellow)
-        let festivitiesSurvivalPhrase = SurvivalPhrase.init(title: "Festivities", titleFontSize:12, backgroundImage: nil, backgroundColor: .wisteriaPurple)
+        let basicSurvivalPhrase = SurvivalPhrase.init(title: "Basic", titleFontSize:12, category:.basic, backgroundImage: nil, backgroundColor: .greenBlue)
+        let numbersSurvivalPhrase = SurvivalPhrase.init(title: "Numbers", titleFontSize:12, category:.numbers, backgroundImage: nil, backgroundColor: .skyBlue)
+        let shoppingSurvivalPhrase = SurvivalPhrase.init(title: "Shopping", titleFontSize:16, category:.shopping,  backgroundImage: nil, backgroundColor: .sunYellow)
+        let travelSurvivalPhrase = SurvivalPhrase.init(title: "Travel", titleFontSize:20, category:.travel, backgroundImage: nil, backgroundColor: .wisteriaPurple)
+        let dinningSurvivalPhrase = SurvivalPhrase.init(title: "Dining", titleFontSize:14, category:.dining, backgroundImage: nil, backgroundColor: .wisteriaPurple)
+        let healthSurvivalPhrase = SurvivalPhrase.init(title: "Health", titleFontSize:14, category:.health, backgroundImage: nil, backgroundColor: .greenBlue)
+        let businessSurvivalPhrase = SurvivalPhrase.init(title: "Business", titleFontSize:20, category:.business, backgroundImage: nil, backgroundColor: .skyBlue)
+        let entertainmentSurvivalPhrase = SurvivalPhrase.init(title: "Entertainment",titleFontSize:18, category:.entertainment, backgroundImage: nil, backgroundColor: .sunYellow)
+        let familySurvivalPhrase = SurvivalPhrase.init(title: "Family", titleFontSize:12, category:.family, backgroundImage: nil, backgroundColor: .greenBlue)
+        let flirtingSurvivalPhrase = SurvivalPhrase.init(title: "Flirting",titleFontSize:12, category:.flirting, backgroundImage: nil, backgroundColor: .sunYellow)
+        let festivitiesSurvivalPhrase = SurvivalPhrase.init(title: "Festivities", titleFontSize:12, category:.festivities, backgroundImage: nil, backgroundColor: .wisteriaPurple)
         return [basicSurvivalPhrase, numbersSurvivalPhrase, shoppingSurvivalPhrase, travelSurvivalPhrase, dinningSurvivalPhrase, healthSurvivalPhrase, businessSurvivalPhrase, entertainmentSurvivalPhrase, familySurvivalPhrase, flirtingSurvivalPhrase, festivitiesSurvivalPhrase]
     } ()
 
