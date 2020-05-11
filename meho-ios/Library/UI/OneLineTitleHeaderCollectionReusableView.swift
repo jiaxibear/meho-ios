@@ -17,10 +17,17 @@ class OneLineTitleHeaderCollectionReusableView: UICollectionReusableView {
     private let titleLabelFontSize = CGFloat(24)
 
     // MARK: - Properties
-    private let titleEnLabel = UILabel.init(frame: .zero)
-    private static var sizingView = OneLineTitleHeaderCollectionReusableView.init(frame: .zero)
+    private lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel.init(frame: .zero)
+        titleLabel.textColor = .black
+        let languageToggleEnfontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        titleLabel.font = UIFont.init(descriptor: languageToggleEnfontDescriptor!, size: 0)
+        titleLabel.numberOfLines = 3
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return titleLabel
+    } ()
 
-    private var titleEn = ""
+    private static var sizingView = OneLineTitleHeaderCollectionReusableView.init(frame: .zero)
 
     // MARK: - Init
     @available(*, unavailable)
@@ -34,37 +41,24 @@ class OneLineTitleHeaderCollectionReusableView: UICollectionReusableView {
     }
 
     override init(frame: CGRect) {
-    super.init(frame: frame)
-        setupTitleView()
-    }
-
-    private func setupTitleView() {
-
-        // Sets up the title
-        titleEnLabel.text = titleEn
-        titleEnLabel.textColor = .black
-        let languageToggleEnfontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        titleEnLabel.font = UIFont.init(descriptor: languageToggleEnfontDescriptor!, size: 0)
-        titleEnLabel.numberOfLines = 3
-        titleEnLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(titleEnLabel)
-
+        super.init(frame: frame)
+        addSubview(titleLabel)
 
         // Sets up layout constrainsts.
-        titleEnLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        titleEnLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        titleEnLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleLableTopMargin).isActive = true
-        titleEnLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -titleBottomMargin).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleLableTopMargin).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -titleBottomMargin).isActive = true
     }
 
-    public func setTitle(titleEn: String) {
-        titleEnLabel.text = titleEn
-        titleEnLabel.sizeToFit()
+    // MARK: - Internal
+    func setTitle(title: String) {
+        titleLabel.text = title
     }
 
-    public class func heightForTitle(with width: CGFloat, titleEn: String) -> CGFloat {
-        sizingView.setTitle(titleEn: titleEn)
-        let titleEnLabelHeight = sizingView.titleEnLabel.sizeThatFits(CGSize.init(width: width, height:CGFloat.greatestFiniteMagnitude)).height
-        return titleEnLabelHeight + sizingView.titleLableTopMargin + sizingView.titleBottomMargin
+    class func heightForTitle(with width: CGFloat, title: String) -> CGFloat {
+        sizingView.setTitle(title: title)
+        let titleLabelHeight = sizingView.titleLabel.sizeThatFits(CGSize.init(width: width, height:CGFloat.greatestFiniteMagnitude)).height
+        return titleLabelHeight + sizingView.titleLableTopMargin + sizingView.titleBottomMargin
     }
 }

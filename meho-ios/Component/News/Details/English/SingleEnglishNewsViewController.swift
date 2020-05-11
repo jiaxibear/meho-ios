@@ -142,7 +142,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
                 sectionTitle = relatedNewsListTitle
             }
             if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier, for: indexPath) as? OneLineTitleHeaderCollectionReusableView {
-                headerView.setTitle(titleEn: sectionTitle)
+                headerView.setTitle(title: sectionTitle)
                 return headerView
             }
         }
@@ -158,7 +158,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         case .relatedNewsList:
             sectionTitle = relatedNewsListTitle
         }
-        return CGSize.init(width: 0, height: OneLineTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: sectionTitle))
+        return CGSize.init(width: 0, height: OneLineTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, title: sectionTitle))
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

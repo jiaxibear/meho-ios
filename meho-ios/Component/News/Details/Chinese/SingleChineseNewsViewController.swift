@@ -144,7 +144,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
                 }
             } else if indexPath.section == 1 {
                 if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: vocabularyRecapHeaderCellReuseIdentifier, for: indexPath) as? OneLineTitleHeaderCollectionReusableView {
-                    headerView.setTitle(titleEn: recapListTitle)
+                    headerView.setTitle(title: recapListTitle)
                     return headerView
                 }
             }
@@ -162,7 +162,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         if section == 0 {
             return CGSize.init(width: 0, height: TwoLineTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: news.title_en, titleZh: news.title_zh))
         } else { // assuming only two sections!
-            return CGSize.init(width: 0, height: OneLineTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: news.title_en))
+            return CGSize.init(width: 0, height: OneLineTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, title: news.title_en))
         }
 
     }

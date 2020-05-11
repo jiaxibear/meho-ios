@@ -65,3 +65,9 @@
 
 /* Text that indicates the current role for user. */
 "CurrentRoleText" = "You are the %@ in this conversation";
+
+/* Title for the survival phrases section. */
+"SurvivalPhrasesTitle" = "Cracking the survival phrases";
+
+/* Title for the trending phrases section. */
+"TrendingPhrasesTitle" = "Trending Phrases";

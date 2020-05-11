@@ -195,7 +195,16 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderCellReuseIdentifier, for: indexPath) as! OneLineTitleHeaderCollectionReusableView
-            headerView.setTitle(titleEn: "Trending Phrase")
+            var title: String
+            switch sections[indexPath.section] {
+            case .survivalPhrases:
+                title = NSLocalizedString("SurvivalPhrasesTitle", comment: "")
+                break
+            case .trendingPhrases:
+                title = NSLocalizedString("TrendingPhrasesTitle", comment: "")
+                break
+            }
+            headerView.setTitle(title: title)
             return headerView
         }
         return UICollectionReusableView.init(frame: .zero)
@@ -258,6 +267,9 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [topGroup, bottomGroup])
         group.interItemSpacing = .fixed(survivalPhrasesGroupSpacing)
         let section = NSCollectionLayoutSection.init(group: group)
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(CGFloat(30)))
+        let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        section.boundarySupplementaryItems = [headerElement]
         return section
     }
 
