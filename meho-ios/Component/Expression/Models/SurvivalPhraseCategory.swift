@@ -1,23 +1,17 @@
 //
-//  SurvialPhraseCategory.swift
+//  SurvivalPhraseCategory.swift
 //  meho-ios
 //
-//  Created by Meho Dev on 5/10/20.
+//  Created by Meho Dev on 5/9/20.
 //  Copyright © 2020 Meho. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-enum SurvivalPhraseCategory: String {
-    case basic = "Basic"
-    case numbers = "Numbers"
-    case shopping = "Shopping"
-    case travel = "Travel"
-    case dining = "Dining"
-    case health = "Health"
-    case business = "Business"
-    case entertainment = "Entertainment"
-    case family = "Family"
-    case flirting = "Flirting"
-    case festivities = "Festivities"
+struct SurvivalPhraseCategory {
+    let title: String
+    let titleFontSize: CGFloat
+    let identifier: SurvivalPhraseCategoryIdentifier
+    let backgroundImage: UIImage?
+    let backgroundColor: UIColor?
 }

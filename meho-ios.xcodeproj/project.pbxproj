@@ -65,9 +65,9 @@
 		EA2FC5CC23EF7AD600E258BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA2FC5CA23EF7AD600E258BD /* LaunchScreen.storyboard */; };
 		EA2FC5D723EF7AD600E258BD /* meho_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5D623EF7AD600E258BD /* meho_iosTests.swift */; };
 		EA2FC5E223EF7AD600E258BD /* meho_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5E123EF7AD600E258BD /* meho_iosUITests.swift */; };
-		EA4206912467BD8200DA3F2A /* SurvivalPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206902467BD8200DA3F2A /* SurvivalPhrase.swift */; };
+		EA4206912467BD8200DA3F2A /* SurvivalPhraseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206902467BD8200DA3F2A /* SurvivalPhraseCategory.swift */; };
 		EA4206932467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206922467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift */; };
-		EA4206962468CFD400DA3F2A /* SurvivalPhraseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206952468CFD400DA3F2A /* SurvivalPhraseCategory.swift */; };
+		EA4206962468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206952468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift */; };
 		EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA223EF7D4D008EB37B /* MainViewController.swift */; };
 		EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA723EF809D008EB37B /* ProfileViewController.swift */; };
 		EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */; };
@@ -193,9 +193,9 @@
 		EA2FC5DD23EF7AD600E258BD /* meho-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "meho-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA2FC5E123EF7AD600E258BD /* meho_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = meho_iosUITests.swift; sourceTree = "<group>"; };
 		EA2FC5E323EF7AD600E258BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EA4206902467BD8200DA3F2A /* SurvivalPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhrase.swift; sourceTree = "<group>"; };
+		EA4206902467BD8200DA3F2A /* SurvivalPhraseCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCategory.swift; sourceTree = "<group>"; };
 		EA4206922467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCollectionViewCell.swift; sourceTree = "<group>"; };
-		EA4206952468CFD400DA3F2A /* SurvivalPhraseCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCategory.swift; sourceTree = "<group>"; };
+		EA4206952468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCategoryIdentifier.swift; sourceTree = "<group>"; };
 		EA52FDA223EF7D4D008EB37B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA52FDA723EF809D008EB37B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
@@ -488,8 +488,8 @@
 			isa = PBXGroup;
 			children = (
 				92C5FE5024565A7E004A3322 /* TrendingPhrase.swift */,
-				EA4206902467BD8200DA3F2A /* SurvivalPhrase.swift */,
-				EA4206952468CFD400DA3F2A /* SurvivalPhraseCategory.swift */,
+				EA4206902467BD8200DA3F2A /* SurvivalPhraseCategory.swift */,
+				EA4206952468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -975,7 +975,7 @@
 				92C5FE3924502FAC004A3322 /* PinyinDelimiterView.swift in Sources */,
 				EA6381E92454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift in Sources */,
 				92C5FE2D244C56AF004A3322 /* Pinyin.swift in Sources */,
-				EA4206962468CFD400DA3F2A /* SurvivalPhraseCategory.swift in Sources */,
+				EA4206962468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift in Sources */,
 				92C5FE4B24557931004A3322 /* MainTabTitleView.swift in Sources */,
 				EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */,
 				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,
@@ -1012,7 +1012,7 @@
 				92BAC7192439691200862571 /* NewsReasonView.swift in Sources */,
 				92C5FE2B244C3E0F004A3322 /* PinyinFinalCollectionViewCell.swift in Sources */,
 				92577B2B2446E8910097A445 /* PictographyViewController.swift in Sources */,
-				EA4206912467BD8200DA3F2A /* SurvivalPhrase.swift in Sources */,
+				EA4206912467BD8200DA3F2A /* SurvivalPhraseCategory.swift in Sources */,
 				9267EA1B243185E5009CA25D /* News.swift in Sources */,
 				9267EA1F2438521A009CA25D /* NewsItemSizeLCollectionViewCell.swift in Sources */,
 				92C5FE29244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift in Sources */,

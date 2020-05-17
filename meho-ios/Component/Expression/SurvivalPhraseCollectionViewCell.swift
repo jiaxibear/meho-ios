@@ -13,11 +13,14 @@ class SurvivalPhraseCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
     private let contentViewCornerRadius = CGFloat(2)
     private let contentViewBackgroundColorAlpha = CGFloat(0.8)
+    private let backgroundImageViewAlpha = CGFloat(0.8)
 
     private lazy var backgroundImageView: UIImageView = {
         let backgroundImageView = UIImageView.init(frame: .zero)
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.isHidden = true
+        backgroundImageView.alpha = backgroundImageViewAlpha
+        backgroundImageView.contentMode = .scaleAspectFill
         return backgroundImageView
     } ()
 
@@ -55,7 +58,7 @@ class SurvivalPhraseCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - Internal
-    func setSurvivalPhrase(_ survivalPhrase: SurvivalPhrase) {
+    func setSurvivalPhraseCategory(_ survivalPhrase: SurvivalPhraseCategory) {
         titleLabel.text = survivalPhrase.title
         let titleLabelFontSize = survivalPhrase.titleFontSize
         let titlefontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
@@ -64,6 +67,7 @@ class SurvivalPhraseCollectionViewCell: UICollectionViewCell {
             contentView.backgroundColor = backgroundColor.withAlphaComponent(contentViewBackgroundColorAlpha)
             backgroundImageView.isHidden = true
         } else if let backgroundImage = survivalPhrase.backgroundImage {
+            contentView.backgroundColor = .clear
             backgroundImageView.isHidden = false
             backgroundImageView.image = backgroundImage
         }

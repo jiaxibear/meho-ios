@@ -136,6 +136,16 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         return replayButton
     } ()
     private let speedButton = UIButton.init(frame: .zero)
+    private lazy var avatarViewHeightConstraint: NSLayoutConstraint = {
+        let avatarViewHeightConstraint = avatarView.heightAnchor.constraint(equalToConstant: avatarViewSize)
+        avatarViewHeightConstraint.isActive = true
+        return avatarViewHeightConstraint
+    } ()
+    private lazy var avatarViewTopMarginConstraint: NSLayoutConstraint = {
+        let avatarViewTopMarginConstraint = avatarView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: avatarViewTopBottomMargin)
+        avatarViewTopMarginConstraint.isActive = true
+        return avatarViewTopMarginConstraint
+    } ()
 
     // MARK: Model
     private var scoredChapter: ScoredChapter!
@@ -220,8 +230,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
 
         // Sets up layout constraints
         avatarView.widthAnchor.constraint(equalToConstant: avatarViewSize).isActive = true
-        avatarView.heightAnchor.constraint(equalToConstant: avatarViewSize).isActive = true
-        avatarView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: avatarViewTopBottomMargin).isActive = true
         avatarView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
 
         scoreView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -311,7 +319,15 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         contentPinyinLabel.text = chapter.contentPinyin
         contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
         scoreView.setScore(scoredChapter.score)
-        avatarView.image = RoleUtils.avatarImage(with: chapter.role)
+        if chapter.role.count > 0 {
+            avatarView.image = RoleUtils.avatarImage(with: chapter.role)
+            avatarViewHeightConstraint.constant = avatarViewSize
+            avatarViewTopMarginConstraint.constant = avatarViewTopBottomMargin
+        } else {
+            avatarView.image = nil
+            avatarViewHeightConstraint.constant = 0
+            avatarViewTopMarginConstraint.constant = 0
+        }
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
         isDirectory: true)
         let identifier = chapter.identifier
@@ -334,7 +350,10 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         sizingCell.contentLabel.text = chapter.content
         sizingCell.contentPinyinLabel.text = chapter.contentPinyin
         sizingCell.contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
-        var height = sizingCell.avatarViewSize + sizingCell.avatarViewTopBottomMargin * 2 + 2 * sizingCell.contentsMargin + sizingCell.actionLabelTopMargin + sizingCell.actionButtonsTopMargin + sizingCell.actionButtonsBottomMargin + recordButtonSize
+        var height = sizingCell.avatarViewTopBottomMargin + 2 * sizingCell.contentsMargin + sizingCell.actionLabelTopMargin + sizingCell.actionButtonsTopMargin + sizingCell.actionButtonsBottomMargin + recordButtonSize
+        if chapter.role.count > 0 {
+            height += sizingCell.avatarViewSize + sizingCell.avatarViewTopBottomMargin
+        }
         let contentWidth = width - 2 * sizingCell.contentLeadingTrailingMargin
         height += sizingCell.contentLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height
         height += sizingCell.contentPinyinLabel.sizeThatFits(CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)).height

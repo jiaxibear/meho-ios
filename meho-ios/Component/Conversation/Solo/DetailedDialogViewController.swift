@@ -19,8 +19,10 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     // MARK: - Properties
     // MARK: Model
     private let conversationDataFetcher = ConversationDataFetcher.init()
+    private let expressionDataFetcher = ExpressionDataFetcher.init()
     private var scoredChapters: [ScoredChapter] = []
-    private let dialogID: String
+    private let dialogID: String!
+    private let survivalPhraseCategoryIdentifier: String!
     private var currentChapterIndex = 0
     private var hasAutoPlayedAudio = false
 
@@ -36,7 +38,9 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         chaptersCollectionView.backgroundColor = .white
         chaptersCollectionView.register(CollapsedChapterCollectionViewCell.self, forCellWithReuseIdentifier: collapsedChapterCollectionViewCellReuseIdentifier)
         chaptersCollectionView.register(ExpandedChapterCollectionViewCell.self, forCellWithReuseIdentifier: expandedChapterCollectionViewCellReuseIdentifier)
-        chaptersCollectionView.register(DuoModeFooterCollectionResuableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: duoModeFooterCollectionResuableViewReuseIdentifier)
+        if self.dialogID != nil {
+            chaptersCollectionView.register(DuoModeFooterCollectionResuableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: duoModeFooterCollectionResuableViewReuseIdentifier)
+        }
         chaptersCollectionView.delegate = self
         chaptersCollectionView.dataSource = self
         return chaptersCollectionView
@@ -59,6 +63,13 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
 
     init(dialogID: String) {
         self.dialogID = dialogID
+        survivalPhraseCategoryIdentifier = nil
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    init(survivalPhraseCategoryIdentifier: String) {
+        self.survivalPhraseCategoryIdentifier = survivalPhraseCategoryIdentifier
+        dialogID = nil
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -67,12 +78,36 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.topItem?.title = ""
-        conversationDataFetcher.fetchDetailedDialog(dialogID: dialogID) { (dialog, error) in
-            if (dialog != nil && error == nil) {
-                self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in
+        if dialogID != nil {
+            conversationDataFetcher.fetchDetailedDialog(dialogID: dialogID) { (dialog, error) in
+                if (dialog != nil && error == nil) {
+                    self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in
+                        return ScoredChapter.init(chapter: chapter)
+                    })
+                    DispatchQueue.main.async {
+                        self.chaptersCollectionView.reloadData()
+                        let audioSession = AVAudioSession.sharedInstance()
+                        do {
+                            try audioSession.setCategory(.playAndRecord, mode: .default)
+                            try audioSession.setActive(true)
+                            audioSession.requestRecordPermission { (allowed) in
+                                // TODO: Add UI if not allowed.
+                            }
+                        } catch {
+                            // TODO: Add UI if not allowed.
+                        }
+                    }
+                }
+            }
+        } else if survivalPhraseCategoryIdentifier != nil {
+            expressionDataFetcher.fetchSurvivalPhrases(category: survivalPhraseCategoryIdentifier) { (result) in
+                switch result {
+                case .success(let chapters):
+                self.scoredChapters = chapters.map({ (chapter) -> ScoredChapter in
                     return ScoredChapter.init(chapter: chapter)
                 })
                 DispatchQueue.main.async {
+                    self.hasAutoPlayedAudio = true
                     self.chaptersCollectionView.reloadData()
                     let audioSession = AVAudioSession.sharedInstance()
                     do {
@@ -85,8 +120,14 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
                         // TODO: Add UI if not allowed.
                     }
                 }
+                    break
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    break
+                }
             }
         }
+
 
         view.addSubview(chaptersCollectionView)
 
@@ -145,7 +186,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if scoredChapters.count == 0 {
+        if scoredChapters.count == 0 || dialogID == nil {
             return CGSize.zero
         }
         let height = DuoModeFooterCollectionResuableView.viewHeight

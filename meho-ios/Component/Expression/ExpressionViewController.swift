@@ -18,6 +18,8 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     // MARK: - Constants
     private let expressionTabBarItemImageName = "tabbar_expression_25pt"
     private let foundationCoverTitle = "Expressions"
+    private let businessImageName = "professional_original"
+    private let travelImageName = "convo_golden_gate_original"
     private let titleLabelFontSize = CGFloat(34)
 
     private let horizontalMargin = CGFloat(15)
@@ -77,19 +79,21 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     private let dataFecther = ExpressionDataFetcher.init()
     private var trendingPhrases: [TrendingPhrase] = []
     private var sections: [ExpressionSection] = [.survivalPhrases]
-    private lazy var survivalPhrases: [SurvivalPhrase] = {
-        let basicSurvivalPhrase = SurvivalPhrase.init(title: "Basic", titleFontSize:12, category:.basic, backgroundImage: nil, backgroundColor: .greenBlue)
-        let numbersSurvivalPhrase = SurvivalPhrase.init(title: "Numbers", titleFontSize:12, category:.numbers, backgroundImage: nil, backgroundColor: .skyBlue)
-        let shoppingSurvivalPhrase = SurvivalPhrase.init(title: "Shopping", titleFontSize:16, category:.shopping,  backgroundImage: nil, backgroundColor: .sunYellow)
-        let travelSurvivalPhrase = SurvivalPhrase.init(title: "Travel", titleFontSize:20, category:.travel, backgroundImage: nil, backgroundColor: .wisteriaPurple)
-        let dinningSurvivalPhrase = SurvivalPhrase.init(title: "Dining", titleFontSize:14, category:.dining, backgroundImage: nil, backgroundColor: .wisteriaPurple)
-        let healthSurvivalPhrase = SurvivalPhrase.init(title: "Health", titleFontSize:14, category:.health, backgroundImage: nil, backgroundColor: .greenBlue)
-        let businessSurvivalPhrase = SurvivalPhrase.init(title: "Business", titleFontSize:20, category:.business, backgroundImage: nil, backgroundColor: .skyBlue)
-        let entertainmentSurvivalPhrase = SurvivalPhrase.init(title: "Entertainment",titleFontSize:18, category:.entertainment, backgroundImage: nil, backgroundColor: .sunYellow)
-        let familySurvivalPhrase = SurvivalPhrase.init(title: "Family", titleFontSize:12, category:.family, backgroundImage: nil, backgroundColor: .greenBlue)
-        let flirtingSurvivalPhrase = SurvivalPhrase.init(title: "Flirting",titleFontSize:12, category:.flirting, backgroundImage: nil, backgroundColor: .sunYellow)
-        let festivitiesSurvivalPhrase = SurvivalPhrase.init(title: "Festivities", titleFontSize:12, category:.festivities, backgroundImage: nil, backgroundColor: .wisteriaPurple)
-        return [basicSurvivalPhrase, numbersSurvivalPhrase, shoppingSurvivalPhrase, travelSurvivalPhrase, dinningSurvivalPhrase, healthSurvivalPhrase, businessSurvivalPhrase, entertainmentSurvivalPhrase, familySurvivalPhrase, flirtingSurvivalPhrase, festivitiesSurvivalPhrase]
+    private lazy var survivalPhraseCategories: [SurvivalPhraseCategory] = {
+        let basicSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Basic", titleFontSize:12, identifier:.basic, backgroundImage: nil, backgroundColor: .greenBlue)
+        let numbersSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Numbers", titleFontSize:12, identifier:.numbers, backgroundImage: nil, backgroundColor: .skyBlue)
+        let shoppingSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Shopping", titleFontSize:16, identifier:.shopping,  backgroundImage: nil, backgroundColor: .sunYellow)
+        let travelImage = UIImage.init(named: travelImageName)
+        let travelSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Travel", titleFontSize:20, identifier:.travel, backgroundImage: travelImage, backgroundColor: nil)
+        let dinningSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Dining", titleFontSize:14, identifier:.dining, backgroundImage: nil, backgroundColor: .wisteriaPurple)
+        let healthSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Health", titleFontSize:14, identifier:.health, backgroundImage: nil, backgroundColor: .greenBlue)
+        let businessImage = UIImage.init(named: businessImageName)
+        let businessSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Business", titleFontSize:20, identifier:.business, backgroundImage: businessImage, backgroundColor: nil)
+        let entertainmentSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Entertainment",titleFontSize:18, identifier:.entertainment, backgroundImage: nil, backgroundColor: .sunYellow)
+        let familySurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Family", titleFontSize:12, identifier:.family, backgroundImage: nil, backgroundColor: .greenBlue)
+        let flirtingSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Flirting",titleFontSize:12, identifier:.flirting, backgroundImage: nil, backgroundColor: .sunYellow)
+        let festivitiesSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Festivities", titleFontSize:12, identifier:.festivities, backgroundImage: nil, backgroundColor: .wisteriaPurple)
+        return [basicSurvivalPhraseCategory, numbersSurvivalPhraseCategory, shoppingSurvivalPhraseCategory, travelSurvivalPhraseCategory, dinningSurvivalPhraseCategory, healthSurvivalPhraseCategory, businessSurvivalPhraseCategory, entertainmentSurvivalPhraseCategory, familySurvivalPhraseCategory, flirtingSurvivalPhraseCategory, festivitiesSurvivalPhraseCategory]
     } ()
 
     // MARK: - Init
@@ -127,7 +131,6 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
                 }
             }
         })
-
     }
 
     private func setupTitleViewConstraint() {
@@ -168,7 +171,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         case .trendingPhrases:
             return trendingPhrases.count
         case .survivalPhrases:
-            return survivalPhrases.count
+            return survivalPhraseCategories.count
         }
     }
 
@@ -186,8 +189,8 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             return cell
         case .survivalPhrases:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: survivalPhraseCellReuseIdentifier, for: indexPath) as! SurvivalPhraseCollectionViewCell
-            let survivalPhrase = survivalPhrases[indexPath.item]
-            cell.setSurvivalPhrase(survivalPhrase)
+            let survivalPhraseCategory = survivalPhraseCategories[indexPath.item]
+            cell.setSurvivalPhraseCategory(survivalPhraseCategory)
             return cell
         }
     }
@@ -208,6 +211,16 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             return headerView
         }
         return UICollectionReusableView.init(frame: .zero)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let section = indexPath.section
+        let expressionSection = sections[section]
+        if expressionSection == .survivalPhrases {
+            let survivalPhraseCategoryIdentifier = survivalPhraseCategories[indexPath.item].identifier.rawValue
+            let detailedNewsViewController = DetailedDialogViewController.init(survivalPhraseCategoryIdentifier: survivalPhraseCategoryIdentifier)
+            navigationController?.pushViewController(detailedNewsViewController, animated: true)
+        }
     }
 
     private func survivalLayoutSection() -> NSCollectionLayoutSection {

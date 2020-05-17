@@ -9,20 +9,22 @@
 import UIKit
 
 class ExpressionDataFetcher: NSObject {
-    // MARK: - Urls
+    // MARK: - URLs
     private let fetchTrendingPhraseURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/lightening/trendingPhrase/"
+    private let fetchSurvivalPhraseByCategoryURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/foundation/survival/"
 
     // MARK: - Properties
     private let session = URLSession(configuration: .default)
 
-    public func fetchTrendingPhrases(count: String = "5", completionHandler: @escaping ( Array<TrendingPhrase>?, Error?) -> Void) {
+    // MARK: - Internal
+    func fetchTrendingPhrases(count: String = "5", completionHandler: @escaping ( Array<TrendingPhrase>?, Error?) -> Void) {
         if var fetchTrendingPhraseURLComponent = URLComponents.init(string: fetchTrendingPhraseURLString) {
             let quertItem = URLQueryItem.init(name: "limit", value: count)
             fetchTrendingPhraseURLComponent.queryItems = [quertItem]
             if let trendingPhraseURLString = fetchTrendingPhraseURLComponent.url {
                 let dataCategoriesTask = session.dataTask(with: trendingPhraseURLString, completionHandler: { (data, URLResponse, error) in
                     if error != nil {
-                        print("There is an error getting the response of news list")
+                        print("There is an error getting the response of tranding phrases")
                         completionHandler(nil, error)
                         return
                     }
@@ -50,6 +52,42 @@ class ExpressionDataFetcher: NSObject {
         }
     }
 
+    func fetchSurvivalPhrases(category: String, completionHandler: @escaping (Result<Array<Chapter>, Error>) -> Void) {
+        if var fetchTrendingPhraseURLComponent = URLComponents.init(string: fetchSurvivalPhraseByCategoryURLString) {
+            let quertItem = URLQueryItem.init(name: "category", value: category)
+            fetchTrendingPhraseURLComponent.queryItems = [quertItem]
+            if let trendingPhraseURLString = fetchTrendingPhraseURLComponent.url {
+                let dataCategoriesTask = session.dataTask(with: trendingPhraseURLString, completionHandler: { (data, URLResponse, error) in
+                    if error != nil {
+                        print("There is an error getting the response of news list")
+                        completionHandler(.failure(error!))
+                        return
+                    }
+                    if data == nil {
+                        print("The response of trending phrase is empty")
+                        completionHandler(.success([]))
+                        return
+                    }
+                    do {
+                        if let phrasesJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                            let phrases = self.parseSurvivalPhrasesJSON(phrasesJson: phrasesJson)
+                            completionHandler(.success(phrases))
+                        }
+                    } catch let JSONError as NSError {
+                        print("Failed to parse trending phrase list JSON: \(JSONError.localizedDescription)")
+                        completionHandler(.failure(JSONError))
+                    }
+                })
+                dataCategoriesTask.resume()
+            } else {
+                completionHandler(.success([]))
+            }
+        } else {
+            completionHandler(.success([]))
+        }
+    }
+
+    // MARK: - Private
     private func parseTrendingPhrasesJSON(phrasesJson: [String: Any]) -> Array<TrendingPhrase> {
         var trendingPhrases:[TrendingPhrase] = []
         if let phraseListJson = phrasesJson["results"] as? [Dictionary<String, Any>] {
@@ -76,5 +114,29 @@ class ExpressionDataFetcher: NSObject {
         }
 
         return trendingPhrases
+    }
+
+    private func parseSurvivalPhrasesJSON(phrasesJson: [String: Any]) -> Array<Chapter> {
+        var survivalPhrases:[Chapter] = []
+        if let phraseListJson = phrasesJson["results"] as? [Dictionary<String, Any>] {
+            for phraseJson in phraseListJson {
+                var phrase = Chapter.init()
+                if let content = phraseJson["content"] as? String {
+                    phrase.content = content
+                }
+                if let contentPinyin = phraseJson["pinyin_content"] as? String {
+                    phrase.contentPinyin = contentPinyin
+                }
+                if let contentInLocalLanguage = phraseJson["local_language_content"] as? String {
+                    phrase.contentInLocalLanguage = contentInLocalLanguage
+                }
+                if let contentAudioURLString = phraseJson["audio_media"] as? String, let contentAudioURL = URL.init(string: contentAudioURLString) {
+                    phrase.contentAudioURL = contentAudioURL
+                }
+                survivalPhrases.append(phrase)
+            }
+        }
+
+        return survivalPhrases
     }
 }
