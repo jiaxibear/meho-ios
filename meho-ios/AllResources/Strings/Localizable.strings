@@ -71,3 +71,30 @@
 
 /* Title for the trending phrases section. */
 "TrendingPhrasesTitle" = "Trending Phrases";
+
+/* Title for the duo mode final score screen. */
+"CongratulationsTitle" = "Congratulations!";
+
+/* Text that indicates the user has finished the practice for the specified role. */
+"FinishRoleText" = "You just finished %@ Practice";
+
+/* Text that indicates the user's total score. */
+"TotalScoreText" = "You Finished! Your total score is %@";
+
+/* Text displayed as the title for the role of scores. */
+"ScoreText" = "Score";
+
+/* Text displayed to encourage the user to continue work on the other role. */
+"MoreToGoText" = "More to go, keep up the momentum!";
+
+/* Text displayed if the user gets a high score. */
+"HighScoreText" = "You rock, keep it up!";
+
+/* Text displayed if the user gets a low score. */
+"LowScoreText" = "You can do better!";
+
+/* Title for the button that lets the user to continue practicing with the specified role. */
+"ContinueRoleButtonTitle" = "Continue with %@ Practice";
+
+/* Title for the button that lets the user to dismiss the final score view. */
+"FinishButtonTitle" = "Finish";

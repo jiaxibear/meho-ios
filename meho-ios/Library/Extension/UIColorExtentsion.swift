@@ -65,6 +65,10 @@ extension UIColor {
         return UIColor.init(hex: "#29cb88")!
     }
 
+    class var slateGrey: UIColor {
+        return UIColor.init(hex: "#636366")!
+    }
+
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 

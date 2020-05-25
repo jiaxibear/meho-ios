@@ -32,6 +32,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private static let duoYourRoleCollectionViewCellReuseIdentifier = "duoYourRoleCollectionViewCellReuseIdentifier"
     private static let changeRoleBarButtonItemImageName = "conversation_ab_role_rotate"
     private let audioDBLowerLimit = Float(-30)
+    private let duoFinalScoreViewLeadingTrailingMargin = CGFloat(24)
 
     // MARK: - Properties
     // MARK: Model
@@ -319,6 +320,19 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     @objc func didTapNextButton() {
         if (currentScoredChapters.count == scoredChapters.count) {
+            var score = 0
+            for scoredChapter in currentScoredChapters {
+                score = score + Int(scoredChapter.score)
+            }
+            score = score / currentScoredChapters.count
+            let duoFinalScoreViewController = DuoFinalScoreViewController.init(scoreA: nil, scoreB: score)
+            let viewWidth = view.bounds.width - duoFinalScoreViewLeadingTrailingMargin * 2
+            let viewHeight = duoFinalScoreViewController.viewHeight(width: viewWidth)
+            duoFinalScoreViewController.preferredContentSize = CGSize.init(width: viewWidth, height: viewHeight)
+            let dialogViewController = DialogViewController.init(contentViewController: duoFinalScoreViewController)
+            dialogViewController.modalPresentationStyle = .overFullScreen
+            dialogViewController.modalTransitionStyle = .crossDissolve
+            present(dialogViewController, animated: true, completion: nil)
             return
         }
         let newScoredChapterIndex = currentScoredChapters.count

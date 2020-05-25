@@ -12,9 +12,9 @@ class DialogViewController: UIViewController, UIGestureRecognizerDelegate {
 
     let backgroundView = UIView.init(frame: .zero)
     let backgroundViewAlpha = CGFloat(CGFloat(99)/256)
-    let contentView:UIView
+    let contentView: UIView
     let contentViewCornerRadius = CGFloat(10)
-    let contentViewController:UIViewController
+    let contentViewController: UIViewController
 
     // MARK: - Init
     init() {
