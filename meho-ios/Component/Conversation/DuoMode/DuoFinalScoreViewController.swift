@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol DuoFinalScoreViewControllerDelegate: AnyObject {
+    func duoFinalScoreViewControllerDidFinish()
+    func duoFinalScoreViewControllerDidContinueWithRole(role: String)
+}
+
 class DuoFinalScoreViewController: UIViewController {
     // MARK: - Constants
     private let congratulationsLabelFontSize = CGFloat(24)
@@ -41,8 +46,9 @@ class DuoFinalScoreViewController: UIViewController {
 
     // MARK: - Properties
     // MARK: Models
-    let scoreA: Int?
-    let scoreB: Int?
+    private let scoreA: Int?
+    private let scoreB: Int?
+    var delegate: DuoFinalScoreViewControllerDelegate?
 
     // MARK: Views
     lazy var congratulationsLabel: UILabel = {
@@ -188,6 +194,7 @@ class DuoFinalScoreViewController: UIViewController {
         var mainActionButtonTitle = ""
         if self.scoreA != nil && self.scoreB != nil {
             mainActionButtonTitle = NSLocalizedString("FinishButtonTitle", comment: "")
+            mainActionButton.addTarget(self, action: #selector(didTapFinishButton), for: .touchUpInside)
         } else {
             let mainActionButtonTitleFormat = NSLocalizedString("ContinueRoleButtonTitle", comment: "")
             if self.scoreA != nil {
@@ -197,6 +204,7 @@ class DuoFinalScoreViewController: UIViewController {
                 let roleBText = NSLocalizedString("RoleBText", comment: "")
                 mainActionButtonTitle = String.init(format: mainActionButtonTitleFormat, roleBText)
             }
+            mainActionButton.addTarget(self, action: #selector(didTapContinueRoleButton), for: .touchUpInside)
         }
         mainActionButton.setTitle(mainActionButtonTitle, for: .normal)
         mainActionButton.clipsToBounds = true
@@ -216,6 +224,7 @@ class DuoFinalScoreViewController: UIViewController {
         secondaryActionButton.clipsToBounds = true
         secondaryActionButton.layer.cornerRadius = buttonHeight / 2;
         secondaryActionButton.layer.borderWidth = secondaryActionButtonBorderWidth
+        secondaryActionButton.addTarget(self, action: #selector(didTapFinishButton), for: .touchUpInside)
         return secondaryActionButton
     } ()
 
@@ -315,5 +324,16 @@ class DuoFinalScoreViewController: UIViewController {
         let fittingSize = CGSize.init(width: width, height: .greatestFiniteMagnitude)
         let height = congratulationsLabelHeight + finishRoleLabel.sizeThatFits(fittingSize).height + scoreBackgroundContainerViewTopMargin + scoreBackgroundContainerViewHeight + reviewLabelTopMargin + reviewLabel.sizeThatFits(fittingSize).height + mainActionButtonTopMargin + buttonHeight * 2 + secondaryActionButtonTopMargin + secondaryActionButtonBottomMargin
         return height
+    }
+
+    // MARK: - Private
+    @objc
+    private func didTapFinishButton() {
+        delegate?.duoFinalScoreViewControllerDidFinish()
+    }
+
+    @objc
+    private func didTapContinueRoleButton() {
+        delegate?.duoFinalScoreViewControllerDidContinueWithRole(role: "")
     }
 }

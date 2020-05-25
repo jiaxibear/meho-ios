@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AudioVisualizerViewDelegte, AVAudioRecorderDelegate, DuoYourRoleCollectionViewCellDelegate {
+class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AudioVisualizerViewDelegte, AVAudioRecorderDelegate, DuoYourRoleCollectionViewCellDelegate, DuoFinalScoreViewControllerDelegate {
 
     // MARK: - Constants
     private static let replayButtonNormalImageName = "conversation_play_inactive"
@@ -295,6 +295,15 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         playCurrentChapter()
     }
 
+    // MARK: - DuoFinalScoreViewControllerDelegate
+    func duoFinalScoreViewControllerDidFinish() {
+        dismiss(animated: true, completion: nil)
+    }
+
+    func duoFinalScoreViewControllerDidContinueWithRole(role: String) {
+        dismiss(animated: true, completion: nil)
+    }
+
     // MARK: - Private
     @objc func didTapReplayButton() {
         if audioFileURL != nil && FileManager.default.fileExists(atPath: audioFileURL!.path) {
@@ -326,6 +335,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             }
             score = score / currentScoredChapters.count
             let duoFinalScoreViewController = DuoFinalScoreViewController.init(scoreA: nil, scoreB: score)
+            duoFinalScoreViewController.delegate = self
             let viewWidth = view.bounds.width - duoFinalScoreViewLeadingTrailingMargin * 2
             let viewHeight = duoFinalScoreViewController.viewHeight(width: viewWidth)
             duoFinalScoreViewController.preferredContentSize = CGSize.init(width: viewWidth, height: viewHeight)
