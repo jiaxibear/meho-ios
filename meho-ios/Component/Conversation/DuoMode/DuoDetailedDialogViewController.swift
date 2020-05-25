@@ -357,6 +357,13 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         clearStates()
         refreshButtonStates()
         playCurrentChapter()
+        if isCurrentChapterYourRole() {
+            actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
+        } else {
+            let currentRoleFormat = NSLocalizedString("CurrentRoleText", comment: "")
+            let currentRole = NSLocalizedString("RoleB", comment: "")
+            actionLabel.text = String.init(format: currentRoleFormat, currentRole)
+        }
     }
 
     @objc func didTapchangeRoleBarButtonItem() {
@@ -385,6 +392,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     @objc func playerDidFinishPlaying() {
         hasPlayedAudio = true
         if isCurrentChapterYourRole() {
+            actionLabel.text = ""
             refreshButtonStates()
         } else {
             didTapNextButton()

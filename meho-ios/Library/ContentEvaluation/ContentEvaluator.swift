@@ -78,17 +78,6 @@ class ContentEvaluator: NSObject, TAIOralEvaluationDelegate {
             let scoredContent = self.scoredContent(result: result)
             let contentEvaluationResult = ContentEvaluationResult.init(score: suggestScore, scoredContent: scoredContent)
             completion(.success(contentEvaluationResult))
-//            if let scoredChapter = currentScoredChapters.last {
-//                let suggestedScore = result.suggestedScore
-//                scoredChapter.score = suggestedScore
-//                let scoredContent = self.scoredContent(result: result)
-//                scoredChapter.scoredContent = scoredContent
-//                actionLabel.isHidden = false
-//                actionLabel.text = NSLocalizedString("ReplayPromptActionText", comment: "")
-//                let currentIndexPath = IndexPath.init(item: currentScoredChapters.count - 1, section: 0)
-//                chaptersCollectionView.reloadItems(at: [currentIndexPath])
-//                nextButton.isEnabled = true
-//            }
         }
         content = nil
         completion = nil
