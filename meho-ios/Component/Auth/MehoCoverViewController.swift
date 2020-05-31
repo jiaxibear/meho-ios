@@ -29,14 +29,14 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     private let storyNameList:[String] = ["meho_cover_stories", "meho_cover_expressions" ,"meho_cover_talk"]
 
     // MARK: - Properties
-
-    private lazy var storiesCollectionViewFlowLayout:UICollectionViewFlowLayout = {
+    private lazy var storiesCollectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = cardInsets
         return layout
     } ()
-    private lazy var storyollectionView:UICollectionView = {
+    
+    private lazy var storyCollectionView: UICollectionView = {
         let collectionView = UICollectionView.init(frame: .zero, collectionViewLayout:storiesCollectionViewFlowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
@@ -63,26 +63,25 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     private lazy var signUpButton: UIButton = {
         let button = UIButton.init(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("SIGN UP", for: .normal)
-        button.setTitle("SIGN UP", for: .selected)
-        button.backgroundColor = .skyBlue
-        let fontDescriptor = UIFont.systemFont(ofSize: buttonLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        let buttonTitle = NSLocalizedString("SignUpButtonTitle", comment: "")
+        button.setTitle(buttonTitle, for: .normal)
+        button.backgroundColor = .wisteriaPurple
+        let fontDescriptor = UIFont.systemFont(ofSize: buttonLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
         button.titleLabel?.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        button.titleLabel?.textColor = .white
+        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = buttonCornerRadius
-//        button.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
         return button
     } ()
 
     private lazy var signInButton: UIButton = {
         let button = UIButton.init(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("SIGN IN", for: .normal)
-        button.setTitle("SIGN IN", for: .selected)
+        let buttonTitle = NSLocalizedString("SignInButtonTitle", comment: "")
+        button.setTitle(buttonTitle, for: .normal)
         button.backgroundColor = .skyBlue
-        let fontDescriptor = UIFont.systemFont(ofSize: buttonLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        let fontDescriptor = UIFont.systemFont(ofSize: buttonLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
         button.titleLabel?.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        button.titleLabel?.textColor = .white
+        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = buttonCornerRadius
         button.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
         return button
@@ -104,19 +103,18 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     }
 
     func setupStoryCollectionView() {
-        view.addSubview(storyollectionView)
+        view.addSubview(storyCollectionView)
         let screenHeight = view.bounds.height
-        storyollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        storyollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        storyollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        storyollectionView.heightAnchor.constraint(equalToConstant: screenHeight * collectionViewHeightScreenPct).isActive = true
-
+        storyCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        storyCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        storyCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        storyCollectionView.heightAnchor.constraint(equalToConstant: screenHeight * collectionViewHeightScreenPct).isActive = true
     }
 
     func setupPageControl() {
         view.addSubview(pageControl)
         let screenHeight = view.bounds.height
-        pageControl.topAnchor.constraint(equalTo: storyollectionView.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
+        pageControl.topAnchor.constraint(equalTo: storyCollectionView.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
         pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 
@@ -156,18 +154,17 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         return CGSize(width: width, height: height)
     }
 
-//    // Scroll to next cell if half of current cell is moved out of screen
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         targetContentOffset.pointee = scrollView.contentOffset
-        var indexPaths = storyollectionView.indexPathsForVisibleItems
+        var indexPaths = storyCollectionView.indexPathsForVisibleItems
         indexPaths.sort()
         var index = indexPaths.first!
-        let currentCell = storyollectionView.cellForItem(at: index)!
-        let position = storyollectionView.contentOffset.x - currentCell.frame.origin.x
+        let currentCell = storyCollectionView.cellForItem(at: index)!
+        let position = storyCollectionView.contentOffset.x - currentCell.frame.origin.x
         if position > (currentCell.frame.size.width / 2) {
            index.row = index.row + 1
         }
-        storyollectionView.scrollToItem(at: index, at: .left, animated: true )
+        storyCollectionView.scrollToItem(at: index, at: .left, animated: true )
         pageControl.currentPage = Int(index.row)
     }
 
@@ -178,12 +175,6 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     }
 
     // MARK: - Views
-    override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            // uncomment next line if you want enforce login every time app launch
-            // logout()
-//            self.checkSignIn()
-        }
 
     func checkSignIn() {
         if AWSMobileClient.default().isSignedIn {
@@ -205,7 +196,4 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
             }
         }
     }
-
-
-
 }

@@ -98,3 +98,9 @@
 
 /* Title for the button that lets the user to dismiss the final score view. */
 "FinishButtonTitle" = "Finish";
+
+/* Title for the button that lets the user to sign in. */
+"SignInButtonTitle" = "Sign In";
+
+/* Title for the button that lets the user to sign up. */
+"SignUpButtonTitle" = "Sign Up";
