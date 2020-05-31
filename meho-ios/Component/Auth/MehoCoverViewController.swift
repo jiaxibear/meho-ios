@@ -41,7 +41,6 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
         collectionView.contentInset = UIEdgeInsets.init(top: 0, left: cardInsets, bottom: 0, right: cardInsets)
-        collectionView.isPagingEnabled = true
         // Sets up cell data
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
