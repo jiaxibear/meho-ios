@@ -104,3 +104,12 @@
 
 /* Title for the button that lets the user to sign up. */
 "SignUpButtonTitle" = "Sign Up";
+
+/* Placeholder text for the email address text field. */
+"EmailAddressPlaceholder" = "Email Address";
+
+/* Placeholder text for the password text field. */
+"PasswordPlaceholder" = "Password";
+
+/* Title displayed in the navigation bar in the sign in screen. */
+"SignInScreenTitle" = "Sign In with Email";

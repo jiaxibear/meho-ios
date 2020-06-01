@@ -178,7 +178,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     func checkSignIn() {
         if AWSMobileClient.default().isSignedIn {
             // sign in func
-            self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
+            self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
         }
         else {
             let options = SignInUIOptions(canCancel: false)
@@ -188,7 +188,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
                 
                 switch state {
                 case .signedIn:
-                    self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
+                    self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
                 default:
                     print ("default")
                 }

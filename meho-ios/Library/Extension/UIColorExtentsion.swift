@@ -69,6 +69,10 @@ extension UIColor {
         return UIColor.init(hex: "#636366")!
     }
 
+    class var lightBlueGrey: UIColor {
+        return UIColor.init(hex: "#d1d1d6")!
+    }
+
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 

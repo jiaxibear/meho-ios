@@ -12,151 +12,134 @@ import AWSMobileClient
 class SignInViewController: UIViewController {
 
     // MARK: - Constants
-    private let labelFontSize = CGFloat(20)
-    private let cornerRadius = CGFloat(6)
-    private let verticalMargin = CGFloat(10)
-
-    private let inputFieldWidth = CGFloat(280)
-    private let inputFieldHeight = CGFloat(40)
+    private let textFieldFontSize = CGFloat(16)
+    private let textFieldCornerRadius = CGFloat(2)
+    private let textFieldVerticalMargin = CGFloat(34)
+    private let textFieldBackgroundColorAlpha = CGFloat(0.1)
+    private let textFieldLeadingTrailingMargin = CGFloat(30)
+    private let textFieldHeight = CGFloat(58)
+    private let signInButtonLeadingTrailingMargin = CGFloat(58)
+    private let signInButtonTopMargin = CGFloat(54)
+    private let signInButtonCornerRadius = CGFloat(18)
+    private let signInButtonHeight = CGFloat(50)
+    private let textFieldTopMargin = CGFloat(32)
 
     // MARK: - Properties
-    private lazy var logoImageView: UIImageView = {
-        let imageView = UIImageView.init(frame: .zero)
-        let logoImage = UIImage.init(named: "auth_logo")
-        imageView.image = logoImage
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    } ()
 
-    private lazy var usernameField:UITextFieldPadding = {
+    private lazy var emailAddressField: UITextFieldPadding = {
         let textField = UITextFieldPadding.init()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Email Address"
-        let fontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+        textField.placeholder = NSLocalizedString("EmailAddressPlaceholder", comment: "")
+        let fontDescriptor = UIFont.systemFont(ofSize: textFieldFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
         textField.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
         textField.autocapitalizationType = .none
-        textField.textColor = .darkGrayTwo
-        textField.layer.cornerRadius = cornerRadius
-        textField.layer.borderWidth = 2
-        textField.layer.borderColor = UIColor.wisteriaPurple.cgColor
+        textField.textColor = .textCharcoalGrey
+        textField.layer.cornerRadius = textFieldCornerRadius
         textField.tintColor = .wisteriaPurple
+        textField.backgroundColor = UIColor.skyBlue.withAlphaComponent(textFieldBackgroundColorAlpha)
+        textField.keyboardType = .emailAddress
+        textField.clipsToBounds = true
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
     } ()
 
     private lazy var passwordField:UITextFieldPadding = {
         let textField = UITextFieldPadding.init()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Password"
-        let fontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+        textField.placeholder = NSLocalizedString("PasswordPlaceholder", comment: "")
+        let fontDescriptor = UIFont.systemFont(ofSize: textFieldFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
         textField.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        textField.textColor = .darkGrayTwo
-        textField.layer.cornerRadius = cornerRadius
-        textField.layer.borderWidth = 2
-        textField.layer.borderColor = UIColor.wisteriaPurple.cgColor
+        textField.autocapitalizationType = .none
+        textField.textColor = .textCharcoalGrey
+        textField.layer.cornerRadius = textFieldCornerRadius
         textField.isSecureTextEntry = true
         textField.tintColor = .wisteriaPurple
+        textField.backgroundColor = UIColor.skyBlue.withAlphaComponent(textFieldBackgroundColorAlpha)
+        textField.clipsToBounds = true
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
     } ()
 
     private lazy var signInButton: UIButton = {
         let button = UIButton.init(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Sign In", for: .normal)
-        button.backgroundColor = .wisteriaPurple
-        let fontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        let buttonTitle = NSLocalizedString("SignInButtonTitle", comment: "")
+        button.setTitle(buttonTitle, for: .normal)
+        button.backgroundColor = .lightBlueGrey
+        let fontDescriptor = UIFont.systemFont(ofSize: textFieldFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
         button.titleLabel?.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        button.titleLabel?.textColor = .white
-        button.layer.cornerRadius = cornerRadius
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = signInButtonCornerRadius
+        button.clipsToBounds = true
+        button.isEnabled = false
         button.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
         return button
     } ()
 
-    private lazy var signInFailureLabel:UILabel = {
-        let label = UILabel.init(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Incorrect password! Try again"
-        label.textColor = .red
-        let fontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
-        label.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        label.numberOfLines = 1
-        label.textAlignment = .left
-        label.isHidden = true
-        return label
-    } ()
-
-    // MARK: - view loads
+    // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationItem.title = "SIGN IN"
-        // Do any additional setup after loading the view.
+        navigationItem.title = NSLocalizedString("SignInScreenTitle", comment: "")
+
         view.backgroundColor = .white
-        setupLogoImage()
-        setupUsernameInput()
-        setupPasswordInput()
+        setupEmailAddressTextField()
+        setupPasswordTextField()
         setupSignInButton()
-        setupSignInFailureLabel()
     }
 
-    private func setupLogoImage() {
-        view.addSubview(logoImageView)
-        // constraints
-        logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        logoImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: verticalMargin).isActive = true
-        logoImageView.heightAnchor.constraint(equalToConstant: CGFloat(200)).isActive = true
-        logoImageView.widthAnchor.constraint(equalToConstant: CGFloat(200)).isActive = true
+    // MARK: - Private Methods
+    private func setupEmailAddressTextField() {
+        view.addSubview(emailAddressField)
+
+        emailAddressField.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: textFieldTopMargin).isActive = true
+        emailAddressField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: textFieldLeadingTrailingMargin).isActive = true
+        emailAddressField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -textFieldLeadingTrailingMargin).isActive = true
+        emailAddressField.heightAnchor.constraint(equalToConstant: textFieldHeight).isActive = true
     }
 
-    private func setupUsernameInput() {
-        view.addSubview(usernameField)
-
-        usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        usernameField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: verticalMargin).isActive = true
-        usernameField.widthAnchor.constraint(equalToConstant: inputFieldWidth).isActive = true
-        usernameField.heightAnchor.constraint(equalToConstant: inputFieldHeight).isActive = true
-    }
-
-    private func setupPasswordInput() {
+    private func setupPasswordTextField() {
         view.addSubview(passwordField)
 
-        passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: verticalMargin).isActive = true
-        passwordField.widthAnchor.constraint(equalToConstant: inputFieldWidth).isActive = true
-        passwordField.heightAnchor.constraint(equalToConstant: inputFieldHeight).isActive = true
+        passwordField.topAnchor.constraint(equalTo: emailAddressField.bottomAnchor, constant: textFieldVerticalMargin).isActive = true
+        passwordField.leadingAnchor.constraint(equalTo: emailAddressField.leadingAnchor).isActive = true
+        passwordField.trailingAnchor.constraint(equalTo: emailAddressField.trailingAnchor).isActive = true
+        passwordField.heightAnchor.constraint(equalToConstant: textFieldHeight).isActive = true
     }
 
     private func setupSignInButton() {
         view.addSubview(signInButton)
 
-        signInButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        signInButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: verticalMargin * 2).isActive = true
-        signInButton.widthAnchor.constraint(equalToConstant: inputFieldWidth).isActive = true
-        signInButton.heightAnchor.constraint(equalToConstant: inputFieldHeight).isActive = true
+        signInButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: signInButtonTopMargin).isActive = true
+        signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: signInButtonLeadingTrailingMargin).isActive = true
+        signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -signInButtonLeadingTrailingMargin).isActive = true
+        signInButton.heightAnchor.constraint(equalToConstant: signInButtonHeight).isActive = true
     }
-
-    private func setupSignInFailureLabel() {
-        view.addSubview(signInFailureLabel)
-
-        signInFailureLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        signInFailureLabel.topAnchor.constraint(equalTo: signInButton.bottomAnchor).isActive = true
-        signInFailureLabel.widthAnchor.constraint(equalToConstant: inputFieldWidth).isActive = true
-        signInFailureLabel.heightAnchor.constraint(equalToConstant: inputFieldHeight).isActive = true
-    }
-
 
     @objc
-    func didTapSignInButton() {
-        let un = usernameField.text
+    private func textFieldDidChange() {
+        if let password = passwordField.text, let emailAddress = emailAddressField.text, password.count > 0 && emailAddress.count > 0 {
+            signInButton.isEnabled = true
+            signInButton.backgroundColor = .skyBlue
+        } else {
+            signInButton.isEnabled = false
+            signInButton.backgroundColor = .lightBlueGrey
+        }
+    }
+
+    @objc
+    private func didTapSignInButton() {
+        let un = emailAddressField.text
         passwordField.isSecureTextEntry = false
         let pw2 = passwordField.text
         passwordField.isSecureTextEntry = true
         AWSMobileClient.default().signIn(username: un!, password: pw2!) { (result, error) in
             DispatchQueue.main.async {
                 guard error == nil else {
-                    self.signInFailureLabel.isHidden = false
+                    // TODO: show error message.
                     return
                 }
-                guard let state =   result?.signInState else { return }
+                guard let state = result?.signInState else { return }
                 switch state {
                     case .signedIn:
                         self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
