@@ -92,7 +92,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
             // sign in func
             self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
         }
-
+        title = ""
         navigationController?.setNavigationBarHidden(true, animated: false)
         view.backgroundColor = .white
         setupStoryCollectionView()
