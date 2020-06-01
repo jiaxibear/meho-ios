@@ -79,9 +79,8 @@ class SignInViewController: UIViewController {
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = NSLocalizedString("SignInScreenTitle", comment: "")
         navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationItem.title = NSLocalizedString("SignInScreenTitle", comment: "")
-
         view.backgroundColor = .white
         setupEmailAddressTextField()
         setupPasswordTextField()

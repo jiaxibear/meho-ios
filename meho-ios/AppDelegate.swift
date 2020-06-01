@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Constants
     private let backBarButtonItemImageName = "arrow.left"
+    private let navigationBarTitleFontSize = CGFloat(18)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Sets appearance of the navigation bar.
@@ -22,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearance.setBackIndicatorImage(backBarButtonItemImage, transitionMaskImage: backBarButtonItemImage)
         navigationBarAppearance.backgroundColor = .white
         navigationBarAppearance.shadowColor = .white
+        let fontDescriptor = UIFont.systemFont(ofSize: navigationBarTitleFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
+        let navigationBarTitleFont = UIFont.init(descriptor: fontDescriptor!, size: 0)
+        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.wisteriaPurple, NSAttributedString.Key.font: navigationBarTitleFont]
         let appearance = UINavigationBar.appearance()
         appearance.standardAppearance = navigationBarAppearance
         appearance.scrollEdgeAppearance = navigationBarAppearance
