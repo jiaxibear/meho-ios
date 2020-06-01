@@ -136,6 +136,34 @@ class SignInViewController: UIViewController {
             DispatchQueue.main.async {
                 guard error == nil else {
                     // TODO: show error message.
+                    if let mobileClientError = error as? AWSMobileClientError {
+                        switch mobileClientError {
+                        case .userNotFound(_):
+                            let alertTitle = NSLocalizedString("InvalidEmailTitle", comment: "")
+                            let alertMessage = NSLocalizedString("InvalidEmailMessage", comment: "")
+                            let alertController = UIAlertController.init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                            let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
+                            let okAction = UIAlertAction.init(title:okTitle, style:.default) { (action) in
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                            alertController.addAction(okAction)
+                            self.present(alertController, animated: true, completion: nil)
+                            break
+                        case .notAuthorized(_):
+                            let alertTitle = NSLocalizedString("IncorrectPasswordTitle", comment: "")
+                            let alertMessage = NSLocalizedString("IncorrectPasswordMessage", comment: "")
+                            let alertController = UIAlertController.init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                            let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
+                            let okAction = UIAlertAction.init(title:okTitle, style:.default) { (action) in
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                            alertController.addAction(okAction)
+                            self.present(alertController, animated: true, completion: nil)
+                            break
+                        default:
+                            break
+                        }
+                    }
                     return
                 }
                 guard let state = result?.signInState else { return }

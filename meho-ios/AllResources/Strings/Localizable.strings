@@ -113,3 +113,18 @@
 
 /* Title displayed in the navigation bar in the sign in screen. */
 "SignInScreenTitle" = "Sign In with Email";
+
+/* Title for the alert when the email adress is invalid. */
+"InvalidEmailTitle" = "Invalid Email";
+
+/* Message for the alert when the email adress is invalid. */
+"InvalidEmailMessage" = "This email has not been registered";
+
+/* Title for the alert when the password is incorrect. */
+"IncorrectPasswordTitle" = "Incorrect Password";
+
+/* Message for the alert when the password is incorrect. */
+"IncorrectPasswordMessage" = "Retry or use “Forget Password” to reset";
+
+/* Title for the OK button. */
+"OKButtonTitle" = "OK";
