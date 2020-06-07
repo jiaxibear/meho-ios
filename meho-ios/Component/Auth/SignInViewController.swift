@@ -22,6 +22,9 @@ class SignInViewController: UIViewController {
     private let signInButtonTopMargin = CGFloat(54)
     private let signInButtonCornerRadius = CGFloat(18)
     private let signInButtonHeight = CGFloat(50)
+    private let signInButtonFontSize = CGFloat(20)
+    private let forgetPasswordButtonFontSize = CGFloat(16)
+    private let forgetPasswordButtonTopMargin = CGFloat(46)
     private let textFieldTopMargin = CGFloat(32)
 
     // MARK: - Properties
@@ -66,7 +69,7 @@ class SignInViewController: UIViewController {
         let buttonTitle = NSLocalizedString("SignInButtonTitle", comment: "")
         button.setTitle(buttonTitle, for: .normal)
         button.backgroundColor = .lightBlueGrey
-        let fontDescriptor = UIFont.systemFont(ofSize: textFieldFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
+        let fontDescriptor = UIFont.systemFont(ofSize: signInButtonFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
         button.titleLabel?.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = signInButtonCornerRadius
@@ -74,6 +77,17 @@ class SignInViewController: UIViewController {
         button.isEnabled = false
         button.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
         return button
+    } ()
+
+    private lazy var forgetPasswordButton: UIButton = {
+        let forgetPasswordButton = UIButton.init(frame: .zero)
+        forgetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
+        let forgetPasswordButtonTitle = NSLocalizedString("ForgetPasswordButtonTitle", comment: "")
+        forgetPasswordButton.setTitle(forgetPasswordButtonTitle, for: .normal)
+        let forgetPasswordButtonFontDescriptor = UIFont.systemFont(ofSize: forgetPasswordButtonFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        forgetPasswordButton.titleLabel?.font = UIFont.init(descriptor: forgetPasswordButtonFontDescriptor!, size: 0)
+        forgetPasswordButton.setTitleColor(.greenBlue, for: .normal)
+        return forgetPasswordButton
     } ()
 
     // MARK: - UIViewController
@@ -85,6 +99,7 @@ class SignInViewController: UIViewController {
         setupEmailAddressTextField()
         setupPasswordTextField()
         setupSignInButton()
+        setUpForgetPasswordButton()
     }
 
     // MARK: - Private Methods
@@ -113,6 +128,13 @@ class SignInViewController: UIViewController {
         signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: signInButtonLeadingTrailingMargin).isActive = true
         signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -signInButtonLeadingTrailingMargin).isActive = true
         signInButton.heightAnchor.constraint(equalToConstant: signInButtonHeight).isActive = true
+    }
+
+    private func setUpForgetPasswordButton() {
+        view.addSubview(forgetPasswordButton)
+
+        forgetPasswordButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: forgetPasswordButtonTopMargin).isActive = true
+        forgetPasswordButton.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor).isActive = true
     }
 
     @objc

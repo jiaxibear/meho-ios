@@ -128,3 +128,6 @@
 
 /* Title for the OK button. */
 "OKButtonTitle" = "OK";
+
+/* Title for the forget password button. */
+"ForgetPasswordButtonTitle" = "Forget Password?";
