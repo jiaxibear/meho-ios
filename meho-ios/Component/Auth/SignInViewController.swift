@@ -26,9 +26,8 @@ class SignInViewController: UIViewController {
     private let forgetPasswordButtonFontSize = CGFloat(16)
     private let forgetPasswordButtonTopMargin = CGFloat(46)
     private let textFieldTopMargin = CGFloat(32)
-    private let thirdPartySignInTextViewBottomMargin = CGFloat(8)
-    private let thirdPartySignInTextViewLeadingTrailingMargin = CGFloat(22)
-    private let thirdPartySignInTextFontSize = CGFloat(10)
+    private let otherSignInViewLeadingTrailingMargin = CGFloat(20)
+    private let otherSignInViewBottomMargin = CGFloat(8)
 
     // MARK: - Properties
 
@@ -93,24 +92,10 @@ class SignInViewController: UIViewController {
         return forgetPasswordButton
     } ()
 
-    private lazy var thirdPartySignInTextView: UITextView = {
-        let thirdPartySignInTextView = UITextView.init(frame: .zero)
-        thirdPartySignInTextView.translatesAutoresizingMaskIntoConstraints = false
-        thirdPartySignInTextView.isScrollEnabled = false
-        let thirdPartySignInTextFormat = NSLocalizedString("ThirdPartySignInText", comment: "")
-        let termsAndConditionsText = NSLocalizedString("TermsAndConditionsText", comment: "")
-        let privacyStatementText = NSLocalizedString("PrivacyStatementText", comment: "")
-        let thirdPartySignInText = String.init(format: thirdPartySignInTextFormat, termsAndConditionsText, privacyStatementText)
-        let thirdPartySignInAttributedText = NSMutableAttributedString.init(string: thirdPartySignInText)
-        let termsAndConditionsTextRange = thirdPartySignInAttributedText.mutableString.range(of: termsAndConditionsText)
-        let privacyStatementTextRange = thirdPartySignInAttributedText.mutableString.range(of: privacyStatementText)
-        thirdPartySignInAttributedText.addAttribute(.link, value: URL.init(string: "https://www.google.com")!, range: termsAndConditionsTextRange)
-        thirdPartySignInAttributedText.addAttribute(.link, value: URL.init(string: "https://www.google.com")!, range: privacyStatementTextRange)
-        thirdPartySignInAttributedText.addAttribute(.font, value: UIFont.systemFont(ofSize: thirdPartySignInTextFontSize), range: NSRange.init(location: 0, length: thirdPartySignInText.count))
-        thirdPartySignInAttributedText.addAttribute(.foregroundColor, value: UIColor.black.withAlphaComponent(0.25), range: NSRange.init(location: 0, length: thirdPartySignInText.count))
-        thirdPartySignInTextView.attributedText = thirdPartySignInAttributedText
-        thirdPartySignInTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.greenBlue.withAlphaComponent(0.75)]
-        return thirdPartySignInTextView
+    private lazy var otherSignInView: OtherSignInView = {
+        let otherSignInView = OtherSignInView.init(frame: .zero)
+        otherSignInView.translatesAutoresizingMaskIntoConstraints = false
+        return otherSignInView
     } ()
 
     // MARK: - UIViewController
@@ -123,7 +108,7 @@ class SignInViewController: UIViewController {
         setupPasswordTextField()
         setupSignInButton()
         setUpForgetPasswordButton()
-        setUpThirdPartySignInTextView()
+        setUpOtherSignInView()
     }
 
     // MARK: - Private Methods
@@ -161,12 +146,12 @@ class SignInViewController: UIViewController {
         forgetPasswordButton.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor).isActive = true
     }
 
-    private func setUpThirdPartySignInTextView() {
-        view.addSubview(thirdPartySignInTextView)
+    private func setUpOtherSignInView() {
+        view.addSubview(otherSignInView)
 
-        thirdPartySignInTextView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -thirdPartySignInTextViewBottomMargin).isActive = true
-        thirdPartySignInTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -thirdPartySignInTextViewLeadingTrailingMargin).isActive = true
-        thirdPartySignInTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: thirdPartySignInTextViewLeadingTrailingMargin).isActive = true
+        otherSignInView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -otherSignInViewLeadingTrailingMargin).isActive = true
+        otherSignInView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: otherSignInViewLeadingTrailingMargin).isActive = true
+        otherSignInView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -otherSignInViewBottomMargin).isActive = true
     }
 
     @objc

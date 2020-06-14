@@ -140,3 +140,15 @@
 
 /* Text for the link to display the privacy statement. */
 "PrivacyStatementText" = "Privacy Statement";
+
+/* Text to indicated that the user has other sign in options. */
+"OrText" = "Or";
+
+/* Title for the Facebook sign-in button. */
+"FacebookButtonTitle" = "Facebook";
+
+/* Title for the Facebook sign-in button. */
+"GoogleButtonTitle" = "Google";
+
+/* Title for the Facebook sign-in button. */
+"AppleButtonTitle" = "Apple";
