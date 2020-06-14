@@ -131,3 +131,12 @@
 
 /* Title for the forget password button. */
 "ForgetPasswordButtonTitle" = "Forget Password?";
+
+/* Text displayed for third party sign in. */
+"ThirdPartySignInText" = "By tapping Facebook, Google, LinkedIn, you agree to our %@, and %@.";
+
+/* Text for the link to display the terms and conditions. */
+"TermsAndConditionsText" = "Terms and Conditions";
+
+/* Text for the link to display the privacy statement. */
+"PrivacyStatementText" = "Privacy Statement";

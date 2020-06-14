@@ -26,6 +26,9 @@ class SignInViewController: UIViewController {
     private let forgetPasswordButtonFontSize = CGFloat(16)
     private let forgetPasswordButtonTopMargin = CGFloat(46)
     private let textFieldTopMargin = CGFloat(32)
+    private let thirdPartySignInTextViewBottomMargin = CGFloat(8)
+    private let thirdPartySignInTextViewLeadingTrailingMargin = CGFloat(22)
+    private let thirdPartySignInTextFontSize = CGFloat(10)
 
     // MARK: - Properties
 
@@ -90,6 +93,26 @@ class SignInViewController: UIViewController {
         return forgetPasswordButton
     } ()
 
+    private lazy var thirdPartySignInTextView: UITextView = {
+        let thirdPartySignInTextView = UITextView.init(frame: .zero)
+        thirdPartySignInTextView.translatesAutoresizingMaskIntoConstraints = false
+        thirdPartySignInTextView.isScrollEnabled = false
+        let thirdPartySignInTextFormat = NSLocalizedString("ThirdPartySignInText", comment: "")
+        let termsAndConditionsText = NSLocalizedString("TermsAndConditionsText", comment: "")
+        let privacyStatementText = NSLocalizedString("PrivacyStatementText", comment: "")
+        let thirdPartySignInText = String.init(format: thirdPartySignInTextFormat, termsAndConditionsText, privacyStatementText)
+        let thirdPartySignInAttributedText = NSMutableAttributedString.init(string: thirdPartySignInText)
+        let termsAndConditionsTextRange = thirdPartySignInAttributedText.mutableString.range(of: termsAndConditionsText)
+        let privacyStatementTextRange = thirdPartySignInAttributedText.mutableString.range(of: privacyStatementText)
+        thirdPartySignInAttributedText.addAttribute(.link, value: URL.init(string: "https://www.google.com")!, range: termsAndConditionsTextRange)
+        thirdPartySignInAttributedText.addAttribute(.link, value: URL.init(string: "https://www.google.com")!, range: privacyStatementTextRange)
+        thirdPartySignInAttributedText.addAttribute(.font, value: UIFont.systemFont(ofSize: thirdPartySignInTextFontSize), range: NSRange.init(location: 0, length: thirdPartySignInText.count))
+        thirdPartySignInAttributedText.addAttribute(.foregroundColor, value: UIColor.black.withAlphaComponent(0.25), range: NSRange.init(location: 0, length: thirdPartySignInText.count))
+        thirdPartySignInTextView.attributedText = thirdPartySignInAttributedText
+        thirdPartySignInTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.greenBlue.withAlphaComponent(0.75)]
+        return thirdPartySignInTextView
+    } ()
+
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +123,7 @@ class SignInViewController: UIViewController {
         setupPasswordTextField()
         setupSignInButton()
         setUpForgetPasswordButton()
+        setUpThirdPartySignInTextView()
     }
 
     // MARK: - Private Methods
@@ -135,6 +159,14 @@ class SignInViewController: UIViewController {
 
         forgetPasswordButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: forgetPasswordButtonTopMargin).isActive = true
         forgetPasswordButton.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor).isActive = true
+    }
+
+    private func setUpThirdPartySignInTextView() {
+        view.addSubview(thirdPartySignInTextView)
+
+        thirdPartySignInTextView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -thirdPartySignInTextViewBottomMargin).isActive = true
+        thirdPartySignInTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -thirdPartySignInTextViewLeadingTrailingMargin).isActive = true
+        thirdPartySignInTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: thirdPartySignInTextViewLeadingTrailingMargin).isActive = true
     }
 
     @objc
