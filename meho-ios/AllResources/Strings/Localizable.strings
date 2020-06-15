@@ -152,3 +152,18 @@
 
 /* Title for the Facebook sign-in button. */
 "AppleButtonTitle" = "Apple";
+
+/* Title displayed in the navigation bar in the sign up screen. */
+"SignUpScreenTitle" = "Register with Email";
+
+/* Placeholder text for the nick name text field. */
+"NickNamePlaceholder" = "Nick Name";
+
+/* Placeholder text for the create password text field. */
+"CreatePasswordPlaceholder" = "Create Password";
+
+/* Placeholder text for the repeat password text field. */
+"RepeatPasswordPlaceholder" = "Repeat Password";
+
+/* Title for the button to go the next step in the sign-up flow. */
+"NextButtonTitle" = "Next";

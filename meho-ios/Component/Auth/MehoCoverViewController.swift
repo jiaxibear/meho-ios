@@ -69,6 +69,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         button.titleLabel?.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = buttonCornerRadius
+        button.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
         return button
     } ()
 
@@ -171,6 +172,12 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     func didTapSignInButton() {
         let signInController = SignInViewController.init()
         navigationController?.pushViewController(signInController, animated: true)
+    }
+
+    @objc
+    func didTapSignUpButton() {
+        let signUpController = SignUpViewController.init()
+        navigationController?.pushViewController(signUpController, animated: true)
     }
 
     // MARK: - Views
