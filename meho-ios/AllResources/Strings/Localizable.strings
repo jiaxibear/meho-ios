@@ -167,3 +167,6 @@
 
 /* Title for the button to go the next step in the sign-up flow. */
 "NextButtonTitle" = "Next";
+
+/* Error message shown to the user when the email address they input for sign up is invalid. */
+"InvalidEmailAddressErrorMessage" = "Please enter a legit email email address";

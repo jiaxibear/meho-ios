@@ -24,6 +24,8 @@ class SignUpTextField: UIView {
     private let statusImageViewSideWidth = CGFloat(30)
     private let statusImageViewSideHeight = CGFloat(30)
     private let statusImageViewLeadingTrailingMargin = CGFloat(10)
+    private let statusValidImageName = "login_check"
+    private let statusInvalidImageName = "login_wrong"
 
     // MARK: - Properties
     lazy var textField: UITextField = {
@@ -88,9 +90,11 @@ class SignUpTextField: UIView {
             break
         case .valid:
             statusImageView.isHidden = false
+            statusImageView.image = UIImage.init(named: statusValidImageName)
             break
         case .invalid:
             statusImageView.isHidden = false
+            statusImageView.image = UIImage.init(named: statusInvalidImageName)
             break
         }
     }

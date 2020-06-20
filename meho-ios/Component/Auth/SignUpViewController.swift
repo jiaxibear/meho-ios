@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Constants
     private let textFieldsStackViewHeight = CGFloat(324)
@@ -28,6 +28,7 @@ class SignUpViewController: UIViewController {
         let nickNameTextField = SignUpTextField.init(frame: .zero)
         nickNameTextField.translatesAutoresizingMaskIntoConstraints = false
         nickNameTextField.textField.placeholder = NSLocalizedString("NickNamePlaceholder", comment: "")
+        nickNameTextField.textField.delegate = self
         return nickNameTextField
     } ()
 
@@ -36,6 +37,7 @@ class SignUpViewController: UIViewController {
         emailAddressTextField.translatesAutoresizingMaskIntoConstraints = false
         emailAddressTextField.textField.placeholder = NSLocalizedString("EmailAddressPlaceholder", comment: "")
         emailAddressTextField.textField.keyboardType = .emailAddress
+        emailAddressTextField.textField.delegate = self
         return emailAddressTextField
     } ()
 
@@ -44,6 +46,7 @@ class SignUpViewController: UIViewController {
         createPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
         createPasswordTextField.textField.placeholder = NSLocalizedString("CreatePasswordPlaceholder", comment: "")
         createPasswordTextField.textField.isSecureTextEntry = true
+        createPasswordTextField.textField.delegate = self
         return createPasswordTextField
     } ()
 
@@ -52,6 +55,7 @@ class SignUpViewController: UIViewController {
         repeatPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
         repeatPasswordTextField.textField.placeholder = NSLocalizedString("RepeatPasswordPlaceholder", comment: "")
         repeatPasswordTextField.textField.isSecureTextEntry = true
+        repeatPasswordTextField.textField.delegate = self
         return repeatPasswordTextField
     } ()
 
@@ -125,8 +129,34 @@ class SignUpViewController: UIViewController {
         nextButton.heightAnchor.constraint(equalToConstant: nextButtonHeight).isActive = true
     }
 
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let signUpTextField = textField.superview as? SignUpTextField {
+            if signUpTextField == emailAddressTextField  {
+                if let emailAddress = textField.text, isValidEmail(emailAddress) {
+                    signUpTextField.setStatus(.valid)
+                } else {
+                    signUpTextField.setStatus(.invalid)
+                    errorMessageLabel.text = NSLocalizedString("InvalidEmailAddressErrorMessage", comment: "")
+                }
+            } else if signUpTextField == repeatPasswordTextField {
+                if let repeatedPassword = textField.text, let password = createPasswordTextField.textField.text, repeatedPassword == password {
+                    signUpTextField.setStatus(.valid)
+                } else {
+                    signUpTextField.setStatus(.invalid)
+                }
+            }
+        }
+    }
+
     // MARK: - Private
-    @objc func didTapNextButton() {
+    @objc
+    func didTapNextButton() {
         // TODO: Implement
+    }
+
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
     }
 }
