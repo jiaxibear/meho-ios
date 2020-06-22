@@ -14,4 +14,5 @@ struct Dialog {
     var titleInLocalLanguage = ""
     var coverImageURL:URL?
     var chapters: [Chapter] = []
+    var difficulty = Difficulty.beginner
 }

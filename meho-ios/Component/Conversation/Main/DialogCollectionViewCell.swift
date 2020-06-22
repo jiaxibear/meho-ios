@@ -12,6 +12,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     // MARK: - Constants
     private let titleLabelFontSize = CGFloat(18)
     private let titleLabelLeadingTrailingMargin = CGFloat(15)
+    private let titleLabelTopMargin = CGFloat(10)
     private let titleLabelTotitleInLocalLanguageLabelMargin = CGFloat(15)
     private let titleInLocalLanguageLabelFontSize = CGFloat(15)
     private let coverImageViewCornerRadius = CGFloat(4)
@@ -21,12 +22,62 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     private let arrowImageViewWidth = CGFloat(45)
     private let arrowImageViewHeight = CGFloat(45)
     private let arrowImageName = "conversation_arrow_in_circle"
+    private let difficultyLabelCornerRadius = CGFloat(2)
+    private let difficultyLabelWidth = CGFloat(66)
+    private let difficultyLabelHeight = CGFloat(20)
+    private let difficultyLabelTopMargin = CGFloat(2)
+    private let difficultyLabelFontSize = CGFloat(10)
 
     // MARK: - Properties
-    private let titleLabel = UILabel.init(frame: .zero)
-    private let titleInLocalLanguageLabel = UILabel.init(frame: .zero)
-    private let coverImageView = WebImageView.init(frame: .zero)
-    private let arrowImageView = UIImageView.init(frame: .zero)
+    private lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel.init(frame: .zero)
+        titleLabel.numberOfLines = 1
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textColor = .darkGrayTwo
+        titleLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: titleLabelFontSize)
+        return titleLabel
+    } ()
+
+    private lazy var titleInLocalLanguageLabel: UILabel = {
+        let titleInLocalLanguageLabel = UILabel.init(frame: .zero)
+        titleInLocalLanguageLabel.numberOfLines = 2
+        titleInLocalLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleInLocalLanguageLabel.textColor = .textBlueGray
+        let titleInLocalLanguageFontDescriptor = UIFont.systemFont(ofSize: titleInLocalLanguageLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        titleInLocalLanguageLabel.font = UIFont.init(descriptor: titleInLocalLanguageFontDescriptor!, size: titleInLocalLanguageLabelFontSize)
+        return titleInLocalLanguageLabel
+    } ()
+
+    private lazy var coverImageView: WebImageView = {
+        let coverImageView = WebImageView.init(frame: .zero)
+        coverImageView.translatesAutoresizingMaskIntoConstraints = false
+        coverImageView.layer.cornerRadius = coverImageViewCornerRadius
+        coverImageView.layer.borderWidth = coverImageBorderWidth
+        coverImageView.layer.borderColor = UIColor.borderGray.cgColor
+        coverImageView.clipsToBounds = true
+        coverImageView.contentMode = .scaleAspectFill
+        coverImageView.delegate = self
+        return coverImageView
+    } ()
+
+    private lazy var arrowImageView: UIImageView = {
+        let arrowImage = UIImage.init(named: arrowImageName)
+        let arrowImageView = UIImageView.init(image: arrowImage)
+        arrowImageView.translatesAutoresizingMaskIntoConstraints = false
+        return arrowImageView
+    } ()
+
+    private lazy var difficultyLabel: UILabel = {
+        let difficultyLabel = UILabel.init(frame: .zero)
+        difficultyLabel.translatesAutoresizingMaskIntoConstraints = false
+        difficultyLabel.clipsToBounds = true
+        difficultyLabel.layer.cornerRadius = difficultyLabelCornerRadius
+        difficultyLabel.textColor = .white
+        difficultyLabel.textAlignment = .center
+        let difficultyLabelFontDescriptor = UIFont.systemFont(ofSize: difficultyLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
+        difficultyLabel.font = UIFont.init(descriptor: difficultyLabelFontDescriptor!, size: difficultyLabelFontSize)
+        return difficultyLabel
+    } ()
 
     // MARK: - Init
     @available(*, unavailable)
@@ -38,36 +89,11 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         super.init(frame: frame)
         backgroundColor = .white
 
-        // Sets up cover image view.
-        coverImageView.translatesAutoresizingMaskIntoConstraints = false
-        coverImageView.layer.cornerRadius = coverImageViewCornerRadius
-        coverImageView.layer.borderWidth = coverImageBorderWidth
-        coverImageView.layer.borderColor = UIColor.borderGray.cgColor
-        coverImageView.clipsToBounds = true
-        coverImageView.contentMode = .scaleAspectFill
-        coverImageView.delegate = self
         contentView.addSubview(coverImageView)
-
-        // Sets up title label.
-        titleLabel.numberOfLines = 1
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = .darkGrayTwo
-        titleLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: titleLabelFontSize)
         contentView.addSubview(titleLabel)
-
-        // Sets up title in local language label.
-        titleInLocalLanguageLabel.numberOfLines = 2
-        titleInLocalLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleInLocalLanguageLabel.textColor = .textBlueGray
-        let titleInLocalLanguageFontDescriptor = UIFont.systemFont(ofSize: titleInLocalLanguageLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        titleInLocalLanguageLabel.font = UIFont.init(descriptor: titleInLocalLanguageFontDescriptor!, size: titleInLocalLanguageLabelFontSize)
         contentView.addSubview(titleInLocalLanguageLabel)
-
-        // Sets up arrow image view.
-        let arrowImage = UIImage.init(named: arrowImageName)
-        arrowImageView.image = arrowImage
-        arrowImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(arrowImageView)
+        contentView.addSubview(difficultyLabel)
 
         // Sets up constraints
         coverImageView.widthAnchor.constraint(equalToConstant: coverImageViewWidth).isActive = true
@@ -75,8 +101,13 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         coverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         coverImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
 
-        titleLabel.leadingAnchor.constraint(equalTo: coverImageView.trailingAnchor, constant: titleLabelLeadingTrailingMargin).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: coverImageView.topAnchor).isActive = true
+        difficultyLabel.leadingAnchor.constraint(equalTo: coverImageView.trailingAnchor, constant: titleLabelLeadingTrailingMargin).isActive = true
+        difficultyLabel.topAnchor.constraint(equalTo: coverImageView.topAnchor, constant: difficultyLabelTopMargin).isActive = true
+        difficultyLabel.widthAnchor.constraint(equalToConstant: difficultyLabelWidth).isActive = true
+        difficultyLabel.heightAnchor.constraint(equalToConstant: difficultyLabelHeight).isActive = true
+
+        titleLabel.leadingAnchor.constraint(equalTo: difficultyLabel.leadingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: difficultyLabel.bottomAnchor, constant: titleLabelTopMargin).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor, constant: -titleLabelLeadingTrailingMargin).isActive = true
 
         titleInLocalLanguageLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
@@ -105,13 +136,24 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     public func setDialog(_ dialog: Dialog) {
         // Sets the text for the title label.
         titleLabel.text = dialog.title
-        titleLabel.sizeToFit()
         titleInLocalLanguageLabel.text = dialog.titleInLocalLanguage
-        titleInLocalLanguageLabel.sizeToFit()
 
         // Downloads the image.
         if let coverImageURL = dialog.coverImageURL {
             coverImageView.imageURL = coverImageURL
+        }
+
+        difficultyLabel.text = dialog.difficulty.title.uppercased()
+        switch dialog.difficulty.identifier {
+        case .advanced:
+            difficultyLabel.backgroundColor = .skyBlue
+            break
+        case .intermediate:
+            difficultyLabel.backgroundColor = .periwinkle
+            break
+        case .beginner:
+            difficultyLabel.backgroundColor = .wisteriaPurple
+            break
         }
     }
 }

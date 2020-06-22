@@ -25,7 +25,7 @@
 "DifficultyBeginner" = "Beginner";
 
 /* Text that indictates the difficulty level is intermediate. */
-"DifficultyIntermediate" = "Intermediate";
+"DifficultyIntermediate" = "Medium";
 
 /* Text that indictates the difficulty level is advanced. */
 "DifficultyAdvanced" = "Advanced";

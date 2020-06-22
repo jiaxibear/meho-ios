@@ -253,6 +253,15 @@ class ConversationDataFetcher: NSObject {
             let coverImageURL = URL.init(string: coverImageURLString)
             dialog.coverImageURL = coverImageURL
         }
+        if let difficulty = dialogJSON["difficulty_level"] as? String {
+            if difficulty == DifficultyIdentifier.advanced.rawValue {
+                dialog.difficulty = .advanced
+            } else if difficulty == DifficultyIdentifier.intermediate.rawValue {
+                dialog.difficulty = .intermediate
+            } else if difficulty == DifficultyIdentifier.beginner.rawValue {
+                dialog.difficulty = .beginner
+            }
+        }
         if let chaptersJSON = dialogJSON["chapters"] as? [Dictionary<String, Any>] {
             var chapters:[Chapter] = []
             for chapterJSON in chaptersJSON {

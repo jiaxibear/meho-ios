@@ -77,6 +77,10 @@ extension UIColor {
         return UIColor.init(hex: "#c7c7cc")!
     }
 
+    class var periwinkle: UIColor {
+        return UIColor.init(hex: "#928afd")!
+    }
+
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 
