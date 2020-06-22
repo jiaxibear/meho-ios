@@ -18,8 +18,8 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     // MARK: - Constants
     private let expressionTabBarItemImageName = "tabbar_expression_25pt"
     private let foundationCoverTitle = "Expressions"
-    private let businessImageName = "professional_original"
-    private let travelImageName = "convo_golden_gate_original"
+    private let businessImageName = "expression_business"
+    private let travelImageName = "expression_travel"
     private let titleLabelFontSize = CGFloat(34)
 
     private let horizontalMargin = CGFloat(15)
