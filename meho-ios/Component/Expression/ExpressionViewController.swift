@@ -77,7 +77,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
 
     // MARK: - Datamodels
     private let dataFecther = ExpressionDataFetcher.init()
-    private var trendingPhrases: [TrendingPhrase] = []
+    private var trendingPhrases: [TrendingPhraseWrapper] = []
     private var sections: [ExpressionSection] = [.survivalPhrases]
     private lazy var survivalPhraseCategories: [SurvivalPhraseCategory] = {
         let basicSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Basic", titleFontSize:12, identifier:.basic, backgroundImage: nil, backgroundColor: .greenBlue)
@@ -125,7 +125,9 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         dataFecther.fetchTrendingPhrases(completionHandler:  { (phrases, error) in
             if (error == nil && phrases != nil) {
                 DispatchQueue.main.async {
-                    self.trendingPhrases = phrases!
+                    self.trendingPhrases = phrases!.map({ (trendingPhrase) -> TrendingPhraseWrapper in
+                        return TrendingPhraseWrapper.init(trendingPhrase: trendingPhrase)
+                    })
                     self.sections.append(.trendingPhrases)
                     self.expressionCollectionView.reloadData()
                 }
@@ -220,6 +222,15 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             let survivalPhraseCategoryIdentifier = survivalPhraseCategories[indexPath.item].identifier.rawValue
             let detailedNewsViewController = DetailedDialogViewController.init(survivalPhraseCategoryIdentifier: survivalPhraseCategoryIdentifier)
             navigationController?.pushViewController(detailedNewsViewController, animated: true)
+        } else if expressionSection == .trendingPhrases {
+            let trendingPhraseWrapper = trendingPhrases[indexPath.item]
+            if trendingPhraseWrapper.isExpanded {
+                return
+            }
+            trendingPhraseWrapper.isExpanded = true
+            UIView.performWithoutAnimation {
+                collectionView.reloadItems(at: [indexPath])
+            }
         }
     }
 

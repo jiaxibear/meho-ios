@@ -72,6 +72,7 @@
 		EA42069C2495C90100DA3F2A /* OtherSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA42069B2495C90100DA3F2A /* OtherSignInView.swift */; };
 		EA42069E2496F9B800DA3F2A /* SignUpTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA42069D2496F9B800DA3F2A /* SignUpTextField.swift */; };
 		EA4206A024970B6300DA3F2A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA42069F24970B6300DA3F2A /* SignUpViewController.swift */; };
+		EA4206A224A054E000DA3F2A /* TrendingPhraseWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206A124A054E000DA3F2A /* TrendingPhraseWrapper.swift */; };
 		EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA223EF7D4D008EB37B /* MainViewController.swift */; };
 		EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA723EF809D008EB37B /* ProfileViewController.swift */; };
 		EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */; };
@@ -204,6 +205,7 @@
 		EA42069B2495C90100DA3F2A /* OtherSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherSignInView.swift; sourceTree = "<group>"; };
 		EA42069D2496F9B800DA3F2A /* SignUpTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTextField.swift; sourceTree = "<group>"; };
 		EA42069F24970B6300DA3F2A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		EA4206A124A054E000DA3F2A /* TrendingPhraseWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingPhraseWrapper.swift; sourceTree = "<group>"; };
 		EA52FDA223EF7D4D008EB37B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA52FDA723EF809D008EB37B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 				92C5FE5024565A7E004A3322 /* TrendingPhrase.swift */,
 				EA4206902467BD8200DA3F2A /* SurvivalPhraseCategory.swift */,
 				EA4206952468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift */,
+				EA4206A124A054E000DA3F2A /* TrendingPhraseWrapper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1049,6 +1052,7 @@
 				92FE6CEE245FC959000E69BC /* UITextFieldPadding.swift in Sources */,
 				92577B2F2446F90E0097A445 /* Pictograph.swift in Sources */,
 				92C5FE49245562BE004A3322 /* NewsRecapFooterCollectionReusableView.swift in Sources */,
+				EA4206A224A054E000DA3F2A /* TrendingPhraseWrapper.swift in Sources */,
 				EA5448BB2415D93500C07D0A /* SeeMoreFooterCollectionResuableView.swift in Sources */,
 				9267EA2324385FC2009CA25D /* NewsDataFetcher.swift in Sources */,
 				9267EA1D2431A5A2009CA25D /* NewsItemSizeSCollectionViewCell.swift in Sources */,

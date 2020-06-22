@@ -11,6 +11,7 @@ import AVFoundation
 
 
 class TrendingPhraseCollectionViewCell: UICollectionViewCell {
+
     // MARK: - Constants
     private static let elementHorizontalMargin = CGFloat(18)
     private static let phraseLabelFontSize = CGFloat(20)
@@ -62,7 +63,7 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         label.textColor = .darkGray
         let fontDescriptor = UIFont.systemFont(ofSize: TrendingPhraseCollectionViewCell.explanationLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
         label.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         return label
     } ()
 
@@ -71,7 +72,6 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
     // MARK: - Data
     private var player: AVPlayer?
     private var maybePronounceAudioUrl: URL?
-
 
     // MARK: - Init
     @available(*, unavailable)
@@ -106,6 +106,7 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
 
     }
 
+    // MARK: - Private
     private func setupPhraseLabel() {
         contentView.addSubview(phraseLabel)
 
@@ -138,7 +139,6 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         explanationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -TrendingPhraseCollectionViewCell.elementHorizontalMargin).isActive = true
     }
 
-    // MARK: - Private
     @objc func didTapPronounceButton() {
         if let pronounceURL = maybePronounceAudioUrl {
             let playerItem = AVPlayerItem.init(url: pronounceURL)
@@ -148,20 +148,17 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    // MARK: - Public
-    public func setPhrase(_ phrase: TrendingPhrase) {
-        phraseLabel.text = " # " + phrase.content_zh + " "
-        pinyinLabel.text = "/" + phrase.content_pinyin + "/  "
-        explanationLabel.text = phrase.content_explanation
-        maybePronounceAudioUrl = phrase.audioURL
-    }
-
-    public class func cellHeight(with width: CGFloat, phrase: TrendingPhrase) -> CGFloat {
-        sizingCell.setPhrase(phrase)
-        let height = TrendingPhraseCollectionViewCell.cellVerticalMargin * 4
-            + sizingCell.phraseLabel.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height
-            + sizingCell.pinyinLabel.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height
-            + sizingCell.explanationLabel.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height
-        return height
+    // MARK: - Internal
+    func setPhrase(_ trendingPhraseWrapper: TrendingPhraseWrapper) {
+        let trendingPhrase = trendingPhraseWrapper.trendingPhrase
+        phraseLabel.text = " # " + trendingPhrase.content_zh + " "
+        pinyinLabel.text = "/" + trendingPhrase.content_pinyin + "/  "
+        explanationLabel.text = trendingPhrase.content_explanation
+        maybePronounceAudioUrl = trendingPhrase.audioURL
+        if trendingPhraseWrapper.isExpanded {
+            explanationLabel.numberOfLines = 0
+        } else {
+            explanationLabel.numberOfLines = 1
+        }
     }
 }
