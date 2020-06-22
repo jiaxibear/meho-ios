@@ -170,3 +170,9 @@
 
 /* Error message shown to the user when the email address they input for sign up is invalid. */
 "InvalidEmailAddressErrorMessage" = "Please enter a legit email email address";
+
+/* Title for the button to launch the solo practice mode of the conversation. */
+"soloPracticeButtonTitle" = "Solo Practice";
+
+/* Title for the button to launch the duo role-play mode of the conversation. */
+"duoRolePlayButtonTitle" = "Duo Role-Play";

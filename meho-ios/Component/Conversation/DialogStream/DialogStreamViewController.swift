@@ -13,7 +13,7 @@ enum DialogStreamType {
     case featured
 }
 
-class DialogStreamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DialogStreamHeaderCollectionReusableViewDelegate, DifficultyViewControllerDelegate {
+class DialogStreamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DialogStreamHeaderCollectionReusableViewDelegate, DifficultyViewControllerDelegate, DialogModeSelectionViewControllerDelegate {
 
     // MARK: - Constants
     private let dialogCellReuseIdentifier = "dialogCellReuseIdentifier"
@@ -146,9 +146,13 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let dialogID = dialogs[indexPath.item].identifier
-        let detailedDialogViewController = DetailedDialogViewController.init(dialogID: dialogID)
-        navigationController?.pushViewController(detailedDialogViewController, animated: true)
+        let dialog = dialogs[indexPath.item]
+        let dialogModeSelectionViewController = DialogModeSelectionViewController.init(dialog: dialog)
+        dialogModeSelectionViewController.delegate = self
+        let dialogViewController = DialogViewController.init(contentViewController: dialogModeSelectionViewController)
+        dialogViewController.modalPresentationStyle = .overFullScreen
+        dialogViewController.modalTransitionStyle = .crossDissolve
+        navigationController?.present(dialogViewController, animated: true, completion: nil)
     }
 
     // MARK: - DifficultyViewControllerDelegate
@@ -156,6 +160,21 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         self.difficulty = diffculty
         dismiss(animated: true) {
             self.fetechDialogs()
+        }
+    }
+
+    // MARK: - DialogModeSelectionViewControllerDelegate
+    func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialogID: String) {
+        dismiss(animated: true) {
+            let detailedDialogViewController = DetailedDialogViewController.init(dialogID: dialogID)
+            self.navigationController?.pushViewController(detailedDialogViewController, animated: true)
+        }
+    }
+
+    func dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialogID: String) {
+        dismiss(animated: true) {
+            let detailedDialogViewController = DetailedDialogViewController.init(dialogID: dialogID)
+            self.navigationController?.pushViewController(detailedDialogViewController, animated: true)
         }
     }
 
