@@ -224,10 +224,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             navigationController?.pushViewController(detailedNewsViewController, animated: true)
         } else if expressionSection == .trendingPhrases {
             let trendingPhraseWrapper = trendingPhrases[indexPath.item]
-            if trendingPhraseWrapper.isExpanded {
-                return
-            }
-            trendingPhraseWrapper.isExpanded = true
+            trendingPhraseWrapper.isExpanded = !trendingPhraseWrapper.isExpanded
             UIView.performWithoutAnimation {
                 collectionView.reloadItems(at: [indexPath])
             }
