@@ -18,12 +18,55 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
     private let contentsMargin = CGFloat(12)
     private let scoreViewAlpha = CGFloat(0.5)
     private let scoreViewTralingMargin = CGFloat(16)
+    private let bottomSeparatorViewHeight = CGFloat(1)
 
     // MARK: - Properties
-    private let contentLabel = UILabel.init(frame: .zero)
-    private let contentPinyinLabel = UILabel.init(frame: .zero)
-    private let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
-    private let scoreView = ChapterScoreView.init(frame: .zero)
+    private lazy var contentLabel: UILabel = {
+        let contentLabel = UILabel.init(frame: .zero)
+        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentLabel.textColor = .textBlueGray
+        contentLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: contentLabelFontSize)
+        contentLabel.numberOfLines = 0
+        contentLabel.textAlignment = .center
+        return contentLabel
+    } ()
+
+    private lazy var contentPinyinLabel: UILabel = {
+        let contentPinyinLabel = UILabel.init(frame: .zero)
+        contentPinyinLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentPinyinLabel.textColor = .textBlueGray
+        let contentPinyinFontDescriptor = UIFont.systemFont(ofSize: contentPinyinLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        contentPinyinLabel.font = UIFont.init(descriptor: contentPinyinFontDescriptor!, size: contentPinyinLabelFontSize)
+        contentPinyinLabel.numberOfLines = 0
+        contentPinyinLabel.textAlignment = .center
+        return contentPinyinLabel
+    } ()
+
+    private lazy var contentInLocalLanguageLabel: UILabel = {
+        let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
+        contentInLocalLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentInLocalLanguageLabel.textColor = .textBlueGray
+        let contentInLocalLanguageFontDescriptor = UIFont.systemFont(ofSize: contentInLocalLanguageLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        contentInLocalLanguageLabel.font = UIFont.init(descriptor: contentInLocalLanguageFontDescriptor!, size: contentInLocalLanguageLabelFontSize)
+        contentInLocalLanguageLabel.numberOfLines = 0
+        contentInLocalLanguageLabel.textAlignment = .center
+        return contentInLocalLanguageLabel
+    } ()
+
+    private lazy var scoreView: ChapterScoreView = {
+        let scoreView = ChapterScoreView.init(frame: .zero)
+        scoreView.translatesAutoresizingMaskIntoConstraints = false
+        scoreView.alpha = scoreViewAlpha
+        return scoreView
+    } ()
+
+    private lazy var bottomSeparatorView: UIView = {
+        let bottomSeparatorView = UIView.init(frame: .zero)
+        bottomSeparatorView.translatesAutoresizingMaskIntoConstraints = false
+        bottomSeparatorView.backgroundColor = .separator
+        return bottomSeparatorView
+    } ()
+
     private static var sizingCell = CollapsedChapterCollectionViewCell.init(frame: .zero);
 
     // MARK: - Init
@@ -35,36 +78,11 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        // Sets up content label.
-        contentLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentLabel.textColor = .textBlueGray
-        contentLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: contentLabelFontSize)
-        contentLabel.numberOfLines = 0
-        contentLabel.textAlignment = .center
         contentView.addSubview(contentLabel)
-
-        // Sets up score view.
-        scoreView.translatesAutoresizingMaskIntoConstraints = false
-        scoreView.alpha = scoreViewAlpha
         contentView.addSubview(scoreView)
-
-        // Sets up content pinyin label.
-        contentPinyinLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentPinyinLabel.textColor = .textBlueGray
-        let contentPinyinFontDescriptor = UIFont.systemFont(ofSize: contentPinyinLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        contentPinyinLabel.font = UIFont.init(descriptor: contentPinyinFontDescriptor!, size: contentPinyinLabelFontSize)
-        contentPinyinLabel.numberOfLines = 0
-        contentPinyinLabel.textAlignment = .center
         contentView.addSubview(contentPinyinLabel)
-
-        // Sets up content in local language label.
-        contentInLocalLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentInLocalLanguageLabel.textColor = .textBlueGray
-        let contentInLocalLanguageFontDescriptor = UIFont.systemFont(ofSize: contentInLocalLanguageLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        contentInLocalLanguageLabel.font = UIFont.init(descriptor: contentInLocalLanguageFontDescriptor!, size: contentInLocalLanguageLabelFontSize)
-        contentInLocalLanguageLabel.numberOfLines = 0
-        contentInLocalLanguageLabel.textAlignment = .center
         contentView.addSubview(contentInLocalLanguageLabel)
+        contentView.addSubview(bottomSeparatorView)
 
         // Sets up layout constraints
         scoreView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -82,6 +100,11 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
         contentInLocalLanguageLabel.trailingAnchor.constraint(equalTo: contentLabel.trailingAnchor).isActive = true
         contentInLocalLanguageLabel.topAnchor.constraint(equalTo: contentPinyinLabel.bottomAnchor, constant: contentsMargin).isActive = true
         contentInLocalLanguageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -contentTopBottomMargin).isActive = true
+
+        bottomSeparatorView.heightAnchor.constraint(equalToConstant: bottomSeparatorViewHeight).isActive = true
+        bottomSeparatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        bottomSeparatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        bottomSeparatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -bottomSeparatorViewHeight).isActive = true
     }
 
     @available(*, unavailable)
