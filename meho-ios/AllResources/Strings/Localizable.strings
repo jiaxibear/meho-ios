@@ -176,3 +176,21 @@
 
 /* Title for the button to launch the duo role-play mode of the conversation. */
 "duoRolePlayButtonTitle" = "Duo Role-Play";
+
+/* The first bullet point of the solo practice mode that tells the user they can listen to the voice demo. */
+"soloBulletPoint1" = "Listen to voice demo";
+
+/* The second bullet point of the solo practice mode that tells the user they can practice with speech recognition. */
+"soloBulletPoint2" = "Practice with speech recognition";
+
+/* The third bullet point of the solo practice mode that tells the user they can get real-time feedback. */
+"soloBulletPoint3" = "Get real-time feedback";
+
+/* The first bullet point of the duo practice mode that tells the user they can get the speaking scored. */
+"duoBulletPoint1" = "Score your speaking";
+
+/* The second bullet point of the duo practice mode that tells the user they can mimic real-life talking. */
+"duoBulletPoint2" = "Mimic real-life talking";
+
+/* The third bullet point of the duo practice mode that tells the user they can track score history. */
+"duoBulletPoint3" = "Track score history";
