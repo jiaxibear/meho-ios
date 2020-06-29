@@ -166,8 +166,8 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: - DialogModeSelectionViewControllerDelegate
     func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialogID: String) {
         dismiss(animated: true) {
-            let detailedDialogViewController = DetailedDialogViewController.init(dialogID: dialogID)
-            self.navigationController?.pushViewController(detailedDialogViewController, animated: true)
+            let duoDetailedDialogViewController = DuoDetailedDialogViewController.init(dialogID: dialogID)
+            self.navigationController?.pushViewController(duoDetailedDialogViewController, animated: true)
         }
     }
 

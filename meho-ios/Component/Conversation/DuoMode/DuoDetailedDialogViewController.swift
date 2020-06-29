@@ -45,6 +45,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private let contentEvaluator = ContentEvaluator.init()
     private var hasPlayedAudio = false
     private var isYourRoleFirst = false
+    private let conversationDataFetcher = ConversationDataFetcher.init()
+    private let dialogID: String?
 
     // MARK: UI
     private lazy var progressView: UIProgressView = {
@@ -152,21 +154,17 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     init(scoredChapters: [ScoredChapter]) {
         self.scoredChapters = scoredChapters
+        self.dialogID = nil
         super.init(nibName: nil, bundle: nil)
-        navigationItem.titleView = progressView
-        let changeRoleBarButtonItemImage = UIImage.init(named: DuoDetailedDialogViewController.changeRoleBarButtonItemImageName)
-        let changeRoleBarButtonItem = UIBarButtonItem.init(image: changeRoleBarButtonItemImage, style: .plain, target: self, action: #selector(didTapchangeRoleBarButtonItem))
-        navigationItem.rightBarButtonItem = changeRoleBarButtonItem
-        if let firstChapter = scoredChapters.first {
-            currentScoredChapters.append(firstChapter)
-            let progress = Float(currentScoredChapters.count) / Float(scoredChapters.count)
-            progressView.setProgress(progress, animated: false)
-            refreshButtonStates()
-            let currentRoleFormat = NSLocalizedString("CurrentRoleText", comment: "")
-            let currentRole = NSLocalizedString("RoleB", comment: "")
-            actionLabel.text = String.init(format: currentRoleFormat, currentRole)
-            playCurrentChapter()
-        }
+        setUpNavigationItem()
+        loadFirstChapter()
+    }
+
+    init(dialogID: String) {
+        self.scoredChapters = []
+        self.dialogID = dialogID
+        super.init(nibName: nil, bundle: nil)
+        setUpNavigationItem()
     }
 
     override func viewDidLoad() {
@@ -180,6 +178,20 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         actionButtonsContainerView.addSubview(recordButton)
         actionButtonsContainerView.addSubview(nextButton)
         view.addSubview(chaptersCollectionView)
+
+        if dialogID != nil {
+            conversationDataFetcher.fetchDetailedDialog(dialogID: dialogID!) { (dialog, error) in
+                if (dialog != nil && error == nil) {
+                    self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in
+                        return ScoredChapter.init(chapter: chapter)
+                    })
+                    DispatchQueue.main.async {
+                        self.chaptersCollectionView.reloadData()
+                        self.loadFirstChapter()
+                    }
+                }
+            }
+        }
 
         actionButtonsContainerView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -DuoDetailedDialogViewController.recordButtonBottomMargin).isActive = true
         actionButtonsContainerView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
@@ -486,5 +498,25 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                 nextButton.setImage(finishButtonDisabledImage, for: .disabled)
             }
         }
+    }
+
+    private func loadFirstChapter() {
+        if let firstChapter = scoredChapters.first {
+            currentScoredChapters.append(firstChapter)
+            let progress = Float(currentScoredChapters.count) / Float(scoredChapters.count)
+            progressView.setProgress(progress, animated: false)
+            refreshButtonStates()
+            let currentRoleFormat = NSLocalizedString("CurrentRoleText", comment: "")
+            let currentRole = NSLocalizedString("RoleB", comment: "")
+            actionLabel.text = String.init(format: currentRoleFormat, currentRole)
+            playCurrentChapter()
+        }
+    }
+
+    private func setUpNavigationItem() {
+        navigationItem.titleView = progressView
+        let changeRoleBarButtonItemImage = UIImage.init(named: DuoDetailedDialogViewController.changeRoleBarButtonItemImageName)
+        let changeRoleBarButtonItem = UIBarButtonItem.init(image: changeRoleBarButtonItemImage, style: .plain, target: self, action: #selector(didTapchangeRoleBarButtonItem))
+        navigationItem.rightBarButtonItem = changeRoleBarButtonItem
     }
 }
