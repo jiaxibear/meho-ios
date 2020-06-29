@@ -169,6 +169,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(false, animated: false)
         view.backgroundColor = .white
 
         view.addSubview(actionLabel)

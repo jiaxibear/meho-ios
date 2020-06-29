@@ -14,7 +14,7 @@ enum ConversationSection: Int {
     case mostPopluarDialogs
 }
 
-class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SeeMoreFooterCollectionResuableViewDelegate, TriggerProfileViewDelegate {
+class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SeeMoreFooterCollectionResuableViewDelegate, TriggerProfileViewDelegate, DialogModeSelectionViewControllerDelegate {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
@@ -178,15 +178,27 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
             let dialogStreamViewController = DialogStreamViewController.init(category: category)
             navigationController?.pushViewController(dialogStreamViewController, animated: true)
         case .featuredDialogs:
-            let dialogID = featuredDialogs[indexPath.item].identifier
-            let detailedDialogViewController = DetailedDialogViewController.init(dialogID: dialogID)
-            navigationController?.pushViewController(detailedDialogViewController, animated: true)
-            break
+            let dialog = featuredDialogs[indexPath.item]
+            displayDialogModeSelectionViewController(dialog: dialog)
         case .mostPopluarDialogs:
-            let dialogID = mostPopularDialogs[indexPath.item].identifier
-            let detailedDialogViewController = DetailedDialogViewController.init(dialogID: dialogID)
-            navigationController?.pushViewController(detailedDialogViewController, animated: true)
+            let dialog = mostPopularDialogs[indexPath.item]
+            displayDialogModeSelectionViewController(dialog: dialog)
             break
+        }
+    }
+
+    // MARK: - DialogModeSelectionViewControllerDelegate
+    func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialogID: String) {
+        dismiss(animated: true) {
+            let duoDetailedDialogViewController = DuoDetailedDialogViewController.init(dialogID: dialogID)
+            self.navigationController?.pushViewController(duoDetailedDialogViewController, animated: true)
+        }
+    }
+
+    func dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialogID: String) {
+        dismiss(animated: true) {
+            let detailedDialogViewController = DetailedDialogViewController.init(dialogID: dialogID)
+            self.navigationController?.pushViewController(detailedDialogViewController, animated: true)
         }
     }
 
@@ -301,10 +313,18 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         }
     }
 
-
     // implement for the delegate of TitleView when tapping on profile image, navigate to profile view
     func MainTitleViewDidTapProfileImage() {
         let profileController = ProfileViewController.init()
         navigationController?.pushViewController(profileController, animated: true)
+    }
+
+    func displayDialogModeSelectionViewController(dialog: Dialog) {
+        let dialogModeSelectionViewController = DialogModeSelectionViewController.init(dialog: dialog)
+        dialogModeSelectionViewController.delegate = self
+        let dialogViewController = DialogViewController.init(contentViewController: dialogModeSelectionViewController)
+        dialogViewController.modalPresentationStyle = .overFullScreen
+        dialogViewController.modalTransitionStyle = .crossDissolve
+        navigationController?.present(dialogViewController, animated: true, completion: nil)
     }
 }
