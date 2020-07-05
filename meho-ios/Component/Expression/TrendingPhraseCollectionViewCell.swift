@@ -20,13 +20,15 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
     private static let labelToExplainMargin = CGFloat(10)
     private static let contentViewCornerRadius = CGFloat(8)
     private static let contentViewShadowRadius = CGFloat(6)
+    private static let expandIconImageName = "chevron.down"
+    private static let collapseIconImageName = "chevron.up"
 
     private static let pronounceSpeakerSize = CGFloat(25)
     private static let cellVerticalMargin = CGFloat(7)
     private static let pronounceButtonImageName = "stories_speaker"
 
     // MARK: - Properties
-    private lazy var phraseLabel:UILabel = {
+    private lazy var phraseLabel: UILabel = {
         let label = UILabel.init(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .wisteriaPurple
@@ -36,7 +38,7 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         return label
     } ()
 
-    private lazy var pinyinLabel:UILabel = {
+    private lazy var pinyinLabel: UILabel = {
         let label = UILabel.init(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
 
@@ -57,7 +59,7 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         return button
     } ()
 
-    private lazy var explanationLabel:UILabel = {
+    private lazy var explanationLabel: UILabel = {
         let label = UILabel.init(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .darkGray
@@ -65,6 +67,13 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
         label.numberOfLines = 1
         return label
+    } ()
+
+    private lazy var expandImageView: UIImageView = {
+        let expandImageView = UIImageView.init(frame: .zero)
+        expandImageView.translatesAutoresizingMaskIntoConstraints = false
+        expandImageView.tintColor = .textBlueGray
+        return expandImageView
     } ()
 
     private static var sizingCell = TrendingPhraseCollectionViewCell.init(frame: .zero);
@@ -103,7 +112,7 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         setupPinyinLabel()
         setupPronounceButton()
         setupExplanationLabel()
-
+        setUpExpandImageView()
     }
 
     // MARK: - Private
@@ -139,6 +148,13 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         explanationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -TrendingPhraseCollectionViewCell.elementHorizontalMargin).isActive = true
     }
 
+    private func setUpExpandImageView() {
+        contentView.addSubview(expandImageView)
+
+        expandImageView.centerYAnchor.constraint(equalTo: phraseLabel.centerYAnchor).isActive = true
+        expandImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -TrendingPhraseCollectionViewCell.elementHorizontalMargin).isActive = true
+    }
+
     @objc func didTapPronounceButton() {
         if let pronounceURL = maybePronounceAudioUrl {
             let playerItem = AVPlayerItem.init(url: pronounceURL)
@@ -157,8 +173,12 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         maybePronounceAudioUrl = trendingPhrase.audioURL
         if trendingPhraseWrapper.isExpanded {
             explanationLabel.numberOfLines = 0
+            let expandImage = UIImage.init(systemName: TrendingPhraseCollectionViewCell.collapseIconImageName)
+            expandImageView.image = expandImage
         } else {
             explanationLabel.numberOfLines = 1
+            let expandImage = UIImage.init(systemName: TrendingPhraseCollectionViewCell.expandIconImageName)
+            expandImageView.image = expandImage
         }
     }
 }
