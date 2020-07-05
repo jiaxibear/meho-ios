@@ -55,9 +55,8 @@ class NewsItemSizeSCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
         // Sets up title label.
         titleLabel.numberOfLines = 3
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = .darkGray
-
-        let labelfontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+        titleLabel.textColor = .darkGrayTwo
+        let labelfontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         titleLabel.font = UIFont.init(descriptor: labelfontDescriptor!, size: 0)
         contentView.addSubview(titleLabel)
 

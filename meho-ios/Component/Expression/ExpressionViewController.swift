@@ -89,7 +89,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         let healthSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Health", titleFontSize:14, identifier:.health, backgroundImage: nil, backgroundColor: .greenBlue)
         let businessImage = UIImage.init(named: businessImageName)
         let businessSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Business", titleFontSize:20, identifier:.business, backgroundImage: businessImage, backgroundColor: nil)
-        let entertainmentSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Entertainment",titleFontSize:18, identifier:.entertainment, backgroundImage: nil, backgroundColor: .sunYellow)
+        let entertainmentSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Entertainment",titleFontSize:18, identifier:.entertainment, backgroundImage: nil, backgroundColor: .skyBlue)
         let familySurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Family", titleFontSize:12, identifier:.family, backgroundImage: nil, backgroundColor: .greenBlue)
         let flirtingSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Flirting",titleFontSize:12, identifier:.flirting, backgroundImage: nil, backgroundColor: .sunYellow)
         let festivitiesSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Festivities", titleFontSize:12, identifier:.festivities, backgroundImage: nil, backgroundColor: .wisteriaPurple)

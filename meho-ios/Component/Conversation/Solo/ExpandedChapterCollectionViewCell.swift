@@ -52,7 +52,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
     private static let listenButtonSize = CGFloat(50)
     private static let replayButtonSize = CGFloat(50)
     private let speedButtonFontSize = CGFloat(16)
-    private let backgroundColorAlpha = CGFloat(0.05)
+    private let backgroundColorAlpha = CGFloat(0.1)
     private static let recordButtonNormalImageName = "conversation_microphone_inactive"
     private static let listenButtonNormalImageName = "conversation_headset_inactive"
     private static let replayButtonNormalImageName = "conversation_play_inactive"

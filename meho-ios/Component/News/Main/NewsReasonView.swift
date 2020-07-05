@@ -49,9 +49,9 @@ class NewsReasonView: UIView {
         addSubview(yellowView)
 
         // Sets up reason label.
-        let reasonfontDescriptor = UIFont.systemFont(ofSize: reasonLabelFontSize, weight: .light).fontDescriptor.withDesign(.rounded)
+        let reasonfontDescriptor = UIFont.systemFont(ofSize: reasonLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
         reasonLabel.font = UIFont.init(descriptor: reasonfontDescriptor!, size: reasonLabelFontSize)
-        reasonLabel.textColor = .darkGrayTwo
+        reasonLabel.textColor = .textBlueGray
         reasonLabel.translatesAutoresizingMaskIntoConstraints = false
         reasonLabel.numberOfLines = 3
         if isDarkMode {

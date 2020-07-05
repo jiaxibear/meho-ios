@@ -19,6 +19,7 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
     private let scoreViewAlpha = CGFloat(0.5)
     private let scoreViewTralingMargin = CGFloat(16)
     private let bottomSeparatorViewHeight = CGFloat(1)
+    private let bottomSeparatorViewLeadingTrailingMargin = CGFloat(20)
 
     // MARK: - Properties
     private lazy var contentLabel: UILabel = {
@@ -102,8 +103,8 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
         contentInLocalLanguageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -contentTopBottomMargin).isActive = true
 
         bottomSeparatorView.heightAnchor.constraint(equalToConstant: bottomSeparatorViewHeight).isActive = true
-        bottomSeparatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        bottomSeparatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        bottomSeparatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: bottomSeparatorViewLeadingTrailingMargin).isActive = true
+        bottomSeparatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -bottomSeparatorViewLeadingTrailingMargin).isActive = true
         bottomSeparatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -bottomSeparatorViewHeight).isActive = true
     }
 

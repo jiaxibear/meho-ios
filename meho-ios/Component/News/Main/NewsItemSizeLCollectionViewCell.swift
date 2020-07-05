@@ -9,11 +9,10 @@ import UIKit
 
 class NewsItemSizeLCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     // MARK: - Constants
-    private let titleLabelFontSize = CGFloat(18)
+    private let titleLabelFontSize = CGFloat(20)
     private let titleLabelLeadingTrailingMargin = CGFloat(12)
     private let titleLabelToBottomMargin = CGFloat(6)
 
-    private let reasonLabelFontSize = CGFloat(16)
     private let elementMargin = CGFloat(10)
 
     private let coverImageViewHeight = CGFloat(200)
@@ -52,14 +51,15 @@ class NewsItemSizeLCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
         // Sets up title label.
         titleLabel.numberOfLines = 3
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = .darkGray
-        let labelfontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+        titleLabel.textColor = .darkGrayTwo
+        let labelfontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         titleLabel.font = UIFont.init(descriptor: labelfontDescriptor!, size: 0)
         contentView.addSubview(titleLabel)
 
         // Sets up reason label.
         reasonView.translatesAutoresizingMaskIntoConstraints = false
         reasonView.backgroundColor = .white
+
         contentView.addSubview(reasonView)
 
 
