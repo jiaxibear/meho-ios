@@ -67,17 +67,20 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         super.init(nibName: nil, bundle: nil)
     }
 
-    init(survivalPhraseCategoryIdentifier: String) {
+    init(survivalPhraseCategoryIdentifier: String, title: String) {
         self.survivalPhraseCategoryIdentifier = survivalPhraseCategoryIdentifier
         dialogID = nil
         super.init(nibName: nil, bundle: nil)
+        self.title = title
     }
 
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationController?.navigationBar.topItem?.title = ""
+        if title == nil {
+            navigationController?.navigationBar.topItem?.title = ""
+        }
         if dialogID != nil {
             conversationDataFetcher.fetchDetailedDialog(dialogID: dialogID) { (dialog, error) in
                 if (dialog != nil && error == nil) {

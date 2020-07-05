@@ -219,8 +219,9 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         let section = indexPath.section
         let expressionSection = sections[section]
         if expressionSection == .survivalPhrases {
-            let survivalPhraseCategoryIdentifier = survivalPhraseCategories[indexPath.item].identifier.rawValue
-            let detailedNewsViewController = DetailedDialogViewController.init(survivalPhraseCategoryIdentifier: survivalPhraseCategoryIdentifier)
+            let survivalPhrase = survivalPhraseCategories[indexPath.item]
+            let survivalPhraseCategoryIdentifier = survivalPhrase.identifier.rawValue
+            let detailedNewsViewController = DetailedDialogViewController.init(survivalPhraseCategoryIdentifier: survivalPhraseCategoryIdentifier, title: survivalPhrase.title)
             navigationController?.pushViewController(detailedNewsViewController, animated: true)
         } else if expressionSection == .trendingPhrases {
             let trendingPhraseWrapper = trendingPhrases[indexPath.item]
