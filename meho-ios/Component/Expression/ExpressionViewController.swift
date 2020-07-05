@@ -82,7 +82,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     private lazy var survivalPhraseCategories: [SurvivalPhraseCategory] = {
         let basicSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Basic", titleFontSize:12, identifier:.basic, backgroundImage: nil, backgroundColor: .greenBlue)
         let numbersSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Numbers", titleFontSize:12, identifier:.numbers, backgroundImage: nil, backgroundColor: .skyBlue)
-        let shoppingSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Shopping", titleFontSize:16, identifier:.shopping,  backgroundImage: nil, backgroundColor: .sunYellow)
+        let shoppingSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Shopping", titleFontSize:16, identifier:.shopping,  backgroundImage: nil, backgroundColor: .dustyOrange)
         let travelImage = UIImage.init(named: travelImageName)
         let travelSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Travel", titleFontSize:20, identifier:.travel, backgroundImage: travelImage, backgroundColor: nil)
         let dinningSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Dining", titleFontSize:14, identifier:.dining, backgroundImage: nil, backgroundColor: .wisteriaPurple)
@@ -91,8 +91,8 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         let businessSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Business", titleFontSize:20, identifier:.business, backgroundImage: businessImage, backgroundColor: nil)
         let entertainmentSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Entertainment",titleFontSize:18, identifier:.entertainment, backgroundImage: nil, backgroundColor: .skyBlue)
         let familySurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Family", titleFontSize:12, identifier:.family, backgroundImage: nil, backgroundColor: .greenBlue)
-        let flirtingSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Flirting",titleFontSize:12, identifier:.flirting, backgroundImage: nil, backgroundColor: .sunYellow)
-        let festivitiesSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Festivities", titleFontSize:12, identifier:.festivities, backgroundImage: nil, backgroundColor: .wisteriaPurple)
+        let flirtingSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Flirting",titleFontSize:12, identifier:.flirting, backgroundImage: nil, backgroundColor: .wisteriaPurple)
+        let festivitiesSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Festivities", titleFontSize:12, identifier:.festivities, backgroundImage: nil, backgroundColor: .dustyOrange)
         return [basicSurvivalPhraseCategory, numbersSurvivalPhraseCategory, shoppingSurvivalPhraseCategory, travelSurvivalPhraseCategory, dinningSurvivalPhraseCategory, healthSurvivalPhraseCategory, businessSurvivalPhraseCategory, entertainmentSurvivalPhraseCategory, familySurvivalPhraseCategory, flirtingSurvivalPhraseCategory, festivitiesSurvivalPhraseCategory]
     } ()
 

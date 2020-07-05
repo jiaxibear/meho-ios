@@ -81,6 +81,10 @@ extension UIColor {
         return UIColor.init(hex: "#928afd")!
     }
 
+    class var dustyOrange: UIColor {
+        return UIColor.init(hex: "#fe7f22")!
+    }
+
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 
