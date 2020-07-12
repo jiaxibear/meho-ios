@@ -318,7 +318,11 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         }
         contentPinyinLabel.text = chapter.contentPinyin
         contentInLocalLanguageLabel.text = chapter.contentInLocalLanguage
-        scoreView.setScore(scoredChapter.score)
+        if scoredChapter.shouldDisplayScore {
+            scoreView.setScore(scoredChapter.score)
+        } else {
+            scoreView.isHidden = true
+        }
         if chapter.role.count > 0 {
             avatarView.image = RoleUtils.avatarImage(with: chapter.role)
             avatarViewHeightConstraint.constant = avatarViewSize
@@ -378,7 +382,9 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
                 switch result {
                 case .success(let contentEvaluationResult):
                     let suggestedScore = contentEvaluationResult.score
-                    self.scoreView.setScore(suggestedScore)
+                    if self.scoredChapter.shouldDisplayScore {
+                        self.scoreView.setScore(suggestedScore)
+                    }
                     self.scoredChapter.score = suggestedScore
                     let scoredContent = contentEvaluationResult.scoredContent
                     self.contentLabel.attributedText = scoredContent

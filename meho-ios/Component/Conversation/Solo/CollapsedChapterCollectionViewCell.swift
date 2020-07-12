@@ -118,7 +118,11 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
         contentLabel.text = scoredChapter.chapter.content
         contentPinyinLabel.text = scoredChapter.chapter.contentPinyin
         contentInLocalLanguageLabel.text = scoredChapter.chapter.contentInLocalLanguage
-        scoreView.setScore(scoredChapter.score)
+        if scoredChapter.shouldDisplayScore {
+            scoreView.setScore(scoredChapter.score)
+        } else {
+            scoreView.isHidden = true
+        }
     }
 
     class func cellHeight(with width: CGFloat, chapter: Chapter) -> CGFloat {

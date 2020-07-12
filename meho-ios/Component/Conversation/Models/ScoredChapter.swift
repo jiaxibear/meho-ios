@@ -9,9 +9,10 @@
 import UIKit
 
 class ScoredChapter: NSObject {
-    let chapter:Chapter
-    var score:Float
+    let chapter: Chapter
+    var score: Float
     var scoredContent: NSAttributedString?
+    var shouldDisplayScore = false
 
     init(chapter: Chapter) {
         self.chapter = chapter
