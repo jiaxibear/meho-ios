@@ -110,6 +110,7 @@
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
 		EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CD23F12080003C8548 /* WebImageView.swift */; };
 		EAB7C4D023F8C8E2003C8548 /* DialogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */; };
+		EAD7F76524BAA8B8008ADC1C /* DisplayScoreSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -247,6 +248,7 @@
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
 		EAB7C4CD23F12080003C8548 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogCollectionViewCell.swift; sourceTree = "<group>"; };
+		EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayScoreSwitch.swift; sourceTree = "<group>"; };
 		F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.release.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -608,6 +610,7 @@
 				92C5FE4E24565A40004A3322 /* ExpressionDataFetcher.swift */,
 				92FE6CE5245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift */,
 				EA4206922467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift */,
+				EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */,
 			);
 			path = Expression;
 			sourceTree = "<group>";
@@ -1003,6 +1006,7 @@
 				EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */,
 				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,
 				EA42069C2495C90100DA3F2A /* OtherSignInView.swift in Sources */,
+				EAD7F76524BAA8B8008ADC1C /* DisplayScoreSwitch.swift in Sources */,
 				EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */,
 				EA4206932467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift in Sources */,
 				EA6381ED2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift in Sources */,

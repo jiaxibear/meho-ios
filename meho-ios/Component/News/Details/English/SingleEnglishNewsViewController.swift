@@ -108,7 +108,6 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionView.delegate = self
         chaptersCollectionView.backgroundColor = .white
         chaptersCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        chaptersCollectionView.showsVerticalScrollIndicator = false
         chaptersCollectionView.contentInset = UIEdgeInsets.init(top: 20, left: 0, bottom: 0, right: 0)
         // collection layout
         chaptersCollectionViewFlowLayout.scrollDirection = .vertical

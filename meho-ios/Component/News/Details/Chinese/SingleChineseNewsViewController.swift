@@ -107,7 +107,6 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionView.delegate = self
         chaptersCollectionView.backgroundColor = .clear
         chaptersCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        chaptersCollectionView.showsVerticalScrollIndicator = false
         chaptersCollectionView.contentInset = .zero
 
         // collection layout
