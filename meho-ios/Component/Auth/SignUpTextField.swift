@@ -43,6 +43,24 @@ class SignUpTextField: UIView {
         return textField
     } ()
 
+    var status = SignUpTextFieldStatus.notStarted {
+        didSet {
+            switch status {
+            case .notStarted:
+                statusImageView.isHidden = true
+                break
+            case .valid:
+                statusImageView.isHidden = false
+                statusImageView.image = UIImage.init(named: statusValidImageName)
+                break
+            case .invalid:
+                statusImageView.isHidden = false
+                statusImageView.image = UIImage.init(named: statusInvalidImageName)
+                break
+            }
+        }
+    }
+
     private lazy var statusImageView: UIImageView = {
         let statusImageView = UIImageView.init(frame: .zero)
         statusImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -79,23 +97,5 @@ class SignUpTextField: UIView {
     // MARK: - UIView
     override var intrinsicContentSize: CGSize {
         return CGSize.init(width: 0, height: viewHeight)
-    }
-
-
-    // MARK: - Internal
-    func setStatus(_ status: SignUpTextFieldStatus) {
-        switch status {
-        case .notStarted:
-            statusImageView.isHidden = true
-            break
-        case .valid:
-            statusImageView.isHidden = false
-            statusImageView.image = UIImage.init(named: statusValidImageName)
-            break
-        case .invalid:
-            statusImageView.isHidden = false
-            statusImageView.image = UIImage.init(named: statusInvalidImageName)
-            break
-        }
     }
 }

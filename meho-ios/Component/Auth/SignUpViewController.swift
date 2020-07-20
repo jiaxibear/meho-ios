@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSMobileClient
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
 
@@ -133,25 +134,44 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         if let signUpTextField = textField.superview as? SignUpTextField {
             if signUpTextField == emailAddressTextField  {
                 if let emailAddress = textField.text, isValidEmail(emailAddress) {
-                    signUpTextField.setStatus(.valid)
+                    signUpTextField.status = .valid
                 } else {
-                    signUpTextField.setStatus(.invalid)
+                    signUpTextField.status = .invalid
                     errorMessageLabel.text = NSLocalizedString("InvalidEmailAddressErrorMessage", comment: "")
                 }
             } else if signUpTextField == repeatPasswordTextField {
                 if let repeatedPassword = textField.text, let password = createPasswordTextField.textField.text, repeatedPassword == password {
-                    signUpTextField.setStatus(.valid)
+                    signUpTextField.status = .valid
                 } else {
-                    signUpTextField.setStatus(.invalid)
+                    signUpTextField.status = .invalid
+                }
+            } else if signUpTextField == createPasswordTextField {
+                if let repeatedPassword = textField.text, let password = createPasswordTextField.textField.text, repeatedPassword == password {
+                    repeatPasswordTextField.status = .valid
+                } else {
+                    repeatPasswordTextField.status = .invalid
                 }
             }
+        }
+        if emailAddressTextField.status == .valid && repeatPasswordTextField.status == .valid {
+            nextButton.isEnabled = true
+            nextButton.backgroundColor = .skyBlue
+        } else {
+            nextButton.isEnabled = false
+            nextButton.backgroundColor = .lightBlueGrey
         }
     }
 
     // MARK: - Private
     @objc
     func didTapNextButton() {
-        // TODO: Implement
+        if let emailAddress = emailAddressTextField.textField.text, let password = createPasswordTextField.textField.text {
+            AWSMobileClient.default().signUp(username: emailAddress, password: password) { (signupResult, error) in
+                DispatchQueue.main.async {
+                    self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
+                }
+            }
+        }
     }
 
     func isValidEmail(_ email: String) -> Bool {
