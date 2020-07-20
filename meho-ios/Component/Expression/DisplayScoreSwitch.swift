@@ -11,6 +11,7 @@ import UIKit
 class DisplayScoreSwitch: UIView {
 
     private let titleLabelFontSize = CGFloat(16)
+    private let titleLabelAndToggleSwitchMargin = CGFloat(6)
 
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel.init(frame: .zero)
@@ -29,6 +30,15 @@ class DisplayScoreSwitch: UIView {
         return toggleSwitch
     } ()
 
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView.init(arrangedSubviews: [titleLabel, toggleSwitch])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    } ()
+
     // MARK: - Init
     @available(*, unavailable)
     init() {
@@ -42,6 +52,19 @@ class DisplayScoreSwitch: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addSubview(stackView)
+        stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
 
+    // MARK: - UIView
+    override var intrinsicContentSize: CGSize {
+        let titleLabelIntrinsicContentSize = titleLabel.intrinsicContentSize
+        let toggleSwitchIntrinsicContentSize = toggleSwitch.intrinsicContentSize
+        let height = max(titleLabelIntrinsicContentSize.height, toggleSwitchIntrinsicContentSize.height)
+        let width = titleLabelIntrinsicContentSize.width + titleLabelAndToggleSwitchMargin + toggleSwitchIntrinsicContentSize.width
+        return CGSize.init(width: width, height: height)
+    }
 }

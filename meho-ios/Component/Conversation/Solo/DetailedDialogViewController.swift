@@ -25,6 +25,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     private let survivalPhraseCategoryIdentifier: String!
     private var currentChapterIndex = 0
     private var hasAutoPlayedAudio = false
+    private let displayScoreSwitch: DisplayScoreSwitch?
 
     // MARK: UI
     private lazy var chaptersCollectionViewFlowLayout: UICollectionViewFlowLayout = {
@@ -32,6 +33,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         chaptersCollectionViewFlowLayout.minimumLineSpacing = 0
         return chaptersCollectionViewFlowLayout
     }()
+
     private lazy var chaptersCollectionView: UICollectionView = {
         let chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: chaptersCollectionViewFlowLayout)
         chaptersCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -64,14 +66,17 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     init(dialogID: String) {
         self.dialogID = dialogID
         survivalPhraseCategoryIdentifier = nil
+        displayScoreSwitch = nil
         super.init(nibName: nil, bundle: nil)
     }
 
     init(survivalPhraseCategoryIdentifier: String, title: String) {
         self.survivalPhraseCategoryIdentifier = survivalPhraseCategoryIdentifier
         dialogID = nil
+        displayScoreSwitch = DisplayScoreSwitch.init(frame: .zero)
         super.init(nibName: nil, bundle: nil)
         self.title = title
+        displayScoreSwitch!.toggleSwitch.addTarget(self, action: #selector(displayScoreSwitchValueChanged), for: .valueChanged)
     }
 
     // MARK: - UIViewController
@@ -80,6 +85,10 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         navigationController?.setNavigationBarHidden(false, animated: false)
         if title == nil {
             navigationController?.navigationBar.topItem?.title = ""
+        }
+        if displayScoreSwitch != nil {
+            let displayScoreBarButtonItem = UIBarButtonItem.init(customView: displayScoreSwitch!)
+            navigationItem.rightBarButtonItem = displayScoreBarButtonItem
         }
         if dialogID != nil {
             conversationDataFetcher.fetchDetailedDialog(dialogID: dialogID) { (dialog, error) in
@@ -213,5 +222,17 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     func duoModeFooterCollectionResuableViewDidTapButton(_ view: DuoModeFooterCollectionResuableView) {
         let duoDetailerDialogViewController = DuoDetailedDialogViewController.init(scoredChapters: scoredChapters)
         navigationController?.pushViewController(duoDetailerDialogViewController, animated: true)
+    }
+
+    // MARK: - Private
+    @objc
+    func displayScoreSwitchValueChanged() {
+        let shouldDisplayScore = displayScoreSwitch?.toggleSwitch.isOn
+        if shouldDisplayScore != nil {
+            for scoredChapter in scoredChapters {
+                scoredChapter.shouldDisplayScore = shouldDisplayScore!
+                chaptersCollectionView.reloadData()
+            }
+        }
     }
 }

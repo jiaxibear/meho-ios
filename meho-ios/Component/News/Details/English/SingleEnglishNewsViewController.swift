@@ -120,7 +120,6 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionView.register(NewsItemSizeXSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeXSCellReuseIdentifier)
         view.addSubview(chaptersCollectionView)
 
-
         // view constraints
         chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
         chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true

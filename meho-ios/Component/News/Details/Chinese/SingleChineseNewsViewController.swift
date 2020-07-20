@@ -99,7 +99,6 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
                 }
             }
         })
-
     }
 
     func setUpChapters() {
