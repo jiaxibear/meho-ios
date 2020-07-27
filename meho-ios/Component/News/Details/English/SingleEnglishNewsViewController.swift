@@ -108,7 +108,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionView.delegate = self
         chaptersCollectionView.backgroundColor = .white
         chaptersCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        chaptersCollectionView.contentInset = UIEdgeInsets.init(top: 20, left: 0, bottom: 0, right: 0)
+        chaptersCollectionView.contentInset = UIEdgeInsets.init(top: 20, left: trailingLeadingMargin, bottom: 0, right: trailingLeadingMargin)
         // collection layout
         chaptersCollectionViewFlowLayout.scrollDirection = .vertical
         chaptersCollectionViewFlowLayout.minimumLineSpacing = 18
@@ -121,8 +121,8 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         view.addSubview(chaptersCollectionView)
 
         // view constraints
-        chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
-        chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true
+        chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         chaptersCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         chaptersCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
     }
@@ -175,13 +175,12 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let detailedNewsSections = sections[indexPath.section]
+        let width = collectionView.bounds.width - 2 * trailingLeadingMargin
         switch detailedNewsSections {
         case .newsChapters:
-            let width = collectionView.bounds.width
             let chapter = newsChapters[indexPath.item]
             return CGSize(width: width, height: NewsChapterCollectionViewCell.cellHeight(with: width, newsChapter: chapter))
         case .relatedNewsList:
-            let width = collectionView.bounds.width
             let relatedNewsItem = relatedNewsList[indexPath.item]
             switch chooseRenterType(news:relatedNewsItem) {
                 case "S":

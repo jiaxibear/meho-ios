@@ -9,7 +9,7 @@
 import UIKit
 import AWSMobileClient
 
-class SignInViewController: UIViewController {
+class SignInViewController: UIViewController, OtherSignInViewDelegate {
 
     // MARK: - Constants
     private let textFieldFontSize = CGFloat(16)
@@ -95,13 +95,13 @@ class SignInViewController: UIViewController {
     private lazy var otherSignInView: OtherSignInView = {
         let otherSignInView = OtherSignInView.init(frame: .zero)
         otherSignInView.translatesAutoresizingMaskIntoConstraints = false
+        otherSignInView.delegate = self
         return otherSignInView
     } ()
 
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = NSLocalizedString("SignInScreenTitle", comment: "")
         navigationController?.setNavigationBarHidden(false, animated: false)
         view.backgroundColor = .white
         setupEmailAddressTextField()
@@ -109,6 +109,19 @@ class SignInViewController: UIViewController {
         setupSignInButton()
         setUpForgetPasswordButton()
         setUpOtherSignInView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = NSLocalizedString("SignInScreenTitle", comment: "")
+    }
+
+    // MARK: - OtherSignInViewDelegate
+    func otherSignInViewDidTapURL(_ URL: URL) {
+        let title = URL.absoluteString.contains("PrivacyPolicy") ? NSLocalizedString("privacyPolicy", comment: "") : NSLocalizedString("termsOfUse", comment: "")
+        let webViewController = WebViewController.init(title: title, contentURL: URL)
+        self.title = ""
+        navigationController?.pushViewController(webViewController, animated: true)
     }
 
     // MARK: - Private Methods

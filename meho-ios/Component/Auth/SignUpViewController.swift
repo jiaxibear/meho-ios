@@ -9,7 +9,7 @@
 import UIKit
 import AWSMobileClient
 
-class SignUpViewController: UIViewController, UITextFieldDelegate {
+class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInViewDelegate {
 
     // MARK: - Constants
     private let textFieldsStackViewHeight = CGFloat(324)
@@ -81,6 +81,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     private lazy var otherSignInView: OtherSignInView = {
         let otherSignInView = OtherSignInView.init(frame: .zero)
         otherSignInView.translatesAutoresizingMaskIntoConstraints = false
+        otherSignInView.delegate = self
         return otherSignInView
     } ()
 
@@ -103,7 +104,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = NSLocalizedString("SignUpScreenTitle", comment: "")
         navigationController?.setNavigationBarHidden(false, animated: false)
         view.backgroundColor = .white
         view.addSubview(textFieldsStackView)
@@ -128,6 +128,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: nextButtonLeadingTrailingMargin).isActive = true
         nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -nextButtonLeadingTrailingMargin).isActive = true
         nextButton.heightAnchor.constraint(equalToConstant: nextButtonHeight).isActive = true
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = NSLocalizedString("SignUpScreenTitle", comment: "")
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -160,6 +165,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             nextButton.isEnabled = false
             nextButton.backgroundColor = .lightBlueGrey
         }
+    }
+
+    // MARK: - OtherSignInViewDelegate
+    func otherSignInViewDidTapURL(_ URL: URL) {
+        let title = URL.absoluteString.contains("PrivacyPolicy") ? NSLocalizedString("privacyPolicy", comment: "") : NSLocalizedString("termsOfUse", comment: "")
+        let webViewController = WebViewController.init(title: title, contentURL: URL)
+        self.title = ""
+        navigationController?.pushViewController(webViewController, animated: true)
     }
 
     // MARK: - Private

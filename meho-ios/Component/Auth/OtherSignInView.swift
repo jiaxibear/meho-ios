@@ -8,7 +8,11 @@
 
 import UIKit
 
-class OtherSignInView: UIView {
+protocol OtherSignInViewDelegate: AnyObject {
+    func otherSignInViewDidTapURL(_ URL: URL)
+}
+
+class OtherSignInView: UIView, UITextViewDelegate {
 
     // MARK: - Constants
     private let orLabelFontSize = CGFloat(14)
@@ -24,6 +28,8 @@ class OtherSignInView: UIView {
     private let viewHeight = CGFloat(240)
 
     // MARK: - Properties
+    var delegate: OtherSignInViewDelegate?
+
     private lazy var leftBar: UIView = {
         let leftBar = UIView.init(frame: .zero)
         leftBar.translatesAutoresizingMaskIntoConstraints = false
@@ -104,12 +110,13 @@ class OtherSignInView: UIView {
         let thirdPartySignInAttributedText = NSMutableAttributedString.init(string: thirdPartySignInText)
         let termsAndConditionsTextRange = thirdPartySignInAttributedText.mutableString.range(of: termsAndConditionsText)
         let privacyStatementTextRange = thirdPartySignInAttributedText.mutableString.range(of: privacyStatementText)
-        thirdPartySignInAttributedText.addAttribute(.link, value: URL.init(string: "https://www.google.com")!, range: termsAndConditionsTextRange)
-        thirdPartySignInAttributedText.addAttribute(.link, value: URL.init(string: "https://www.google.com")!, range: privacyStatementTextRange)
+        thirdPartySignInAttributedText.addAttribute(.link, value: Bundle.main.url(forResource: "TermsOfUse", withExtension: "pdf")!, range: termsAndConditionsTextRange)
+        thirdPartySignInAttributedText.addAttribute(.link, value: Bundle.main.url(forResource: "PrivacyPolicy", withExtension: "pdf")!, range: privacyStatementTextRange)
         thirdPartySignInAttributedText.addAttribute(.font, value: UIFont.systemFont(ofSize: thirdPartySignInTextFontSize), range: NSRange.init(location: 0, length: thirdPartySignInText.count))
         thirdPartySignInAttributedText.addAttribute(.foregroundColor, value: UIColor.black.withAlphaComponent(0.25), range: NSRange.init(location: 0, length: thirdPartySignInText.count))
         thirdPartySignInTextView.attributedText = thirdPartySignInAttributedText
         thirdPartySignInTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.greenBlue.withAlphaComponent(0.75)]
+        thirdPartySignInTextView.delegate = self
         return thirdPartySignInTextView
     } ()
 
@@ -158,5 +165,11 @@ class OtherSignInView: UIView {
     // MARK: - UIView
     override var intrinsicContentSize: CGSize {
         return CGSize.init(width: 0, height: viewHeight)
+    }
+
+    // MARK: - UITextViewDelegate
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        delegate?.otherSignInViewDidTapURL(URL)
+        return false
     }
 }

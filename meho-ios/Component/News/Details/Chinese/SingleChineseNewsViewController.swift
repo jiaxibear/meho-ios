@@ -106,7 +106,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionView.delegate = self
         chaptersCollectionView.backgroundColor = .clear
         chaptersCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        chaptersCollectionView.contentInset = .zero
+        chaptersCollectionView.contentInset = UIEdgeInsets.init(top: 0, left: trailingLeadingMargin, bottom: 0, right: trailingLeadingMargin)
 
         // collection layout
         chaptersCollectionViewFlowLayout.scrollDirection = .vertical
@@ -115,19 +115,16 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
         chaptersCollectionView.register(TwoLineTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier)
         chaptersCollectionView.register(NewsChapterCollectionViewCell.self, forCellWithReuseIdentifier:newsChapterCellReuseIdentifier)
-
         chaptersCollectionView.register(OneLineTitleHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: vocabularyRecapHeaderCellReuseIdentifier)
         chaptersCollectionView.register(NewsRecapVocabularyCollectionViewCell.self, forCellWithReuseIdentifier: newsRecapVocabularyCellReuseIdentifier)
 
         chaptersCollectionView.register(NewsRecapFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: newsRecapFooterCellReuseIdentifier)
 
-
         view.addSubview(chaptersCollectionView)
 
-
         // view constraints
-        chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
-        chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true
+        chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         chaptersCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         chaptersCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
     }
@@ -189,13 +186,12 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let detailedNewsSections = sections[indexPath.section]
+        let width = collectionView.bounds.width - 2 * trailingLeadingMargin
         switch detailedNewsSections {
         case .newsChapters:
-            let width = collectionView.bounds.width
             let chapter = newsChapters[indexPath.item]
             return CGSize(width: width, height: NewsChapterCollectionViewCell.cellHeight(with: width, newsChapter: chapter))
         case .vocabularyList:
-            let width = collectionView.bounds.width
             let vocabulary = vocabularyList[indexPath.item]
             return CGSize(width: width, height: NewsRecapVocabularyCollectionViewCell.cellHeight(with: width, vocabulary: vocabulary))
         }

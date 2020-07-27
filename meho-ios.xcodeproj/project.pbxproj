@@ -111,6 +111,9 @@
 		EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CD23F12080003C8548 /* WebImageView.swift */; };
 		EAB7C4D023F8C8E2003C8548 /* DialogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */; };
 		EAD7F76524BAA8B8008ADC1C /* DisplayScoreSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */; };
+		EAD7F76A24CE4472008ADC1C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F76924CE4472008ADC1C /* WebViewController.swift */; };
+		EAD7F76E24CE61DF008ADC1C /* PrivacyPolicy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EAD7F76D24CE61DF008ADC1C /* PrivacyPolicy.pdf */; };
+		EAD7F77024CE6297008ADC1C /* TermsOfUse.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EAD7F76F24CE6297008ADC1C /* TermsOfUse.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -249,6 +252,9 @@
 		EAB7C4CD23F12080003C8548 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogCollectionViewCell.swift; sourceTree = "<group>"; };
 		EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayScoreSwitch.swift; sourceTree = "<group>"; };
+		EAD7F76924CE4472008ADC1C /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		EAD7F76D24CE61DF008ADC1C /* PrivacyPolicy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PrivacyPolicy.pdf; sourceTree = "<group>"; };
+		EAD7F76F24CE6297008ADC1C /* TermsOfUse.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TermsOfUse.pdf; sourceTree = "<group>"; };
 		F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.release.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -709,6 +715,7 @@
 		EA7B730B23F0DBB10031093B /* AllResources */ = {
 			isa = PBXGroup;
 			children = (
+				EAD7F76624CE4285008ADC1C /* HTMLs */,
 				EA01E6A923FA351700C0B0AE /* Strings */,
 				EA7B730C23F0DBC40031093B /* Images */,
 			);
@@ -732,8 +739,18 @@
 				EA01E6B224020CBF00C0B0AE /* DialogViewController.swift */,
 				92C5FE4A24557931004A3322 /* MainTabTitleView.swift */,
 				EA9B5DD424A97A6C00D6CFBD /* BulletPointView.swift */,
+				EAD7F76924CE4472008ADC1C /* WebViewController.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		EAD7F76624CE4285008ADC1C /* HTMLs */ = {
+			isa = PBXGroup;
+			children = (
+				EAD7F76F24CE6297008ADC1C /* TermsOfUse.pdf */,
+				EAD7F76D24CE61DF008ADC1C /* PrivacyPolicy.pdf */,
+			);
+			path = HTMLs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -851,8 +868,10 @@
 				924C53E523FA14C300B59D95 /* awsconfiguration.json in Resources */,
 				924C53E323FA14B300B59D95 /* amplifyconfiguration.json in Resources */,
 				EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */,
+				EAD7F77024CE6297008ADC1C /* TermsOfUse.pdf in Resources */,
 				EA2FC5C923EF7AD600E258BD /* Preview Assets.xcassets in Resources */,
 				EA2FC5C623EF7AD600E258BD /* Assets.xcassets in Resources */,
+				EAD7F76E24CE61DF008ADC1C /* PrivacyPolicy.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1053,6 +1072,7 @@
 				92C5FE4F24565A40004A3322 /* ExpressionDataFetcher.swift in Sources */,
 				EA6381F2245807FD00481B8B /* ContentEvaluator.swift in Sources */,
 				EA5448BD2423324F00C07D0A /* DialogStreamViewController.swift in Sources */,
+				EAD7F76A24CE4472008ADC1C /* WebViewController.swift in Sources */,
 				9267EA2124385929009CA25D /* NewsItemSizeXSCollectionViewCell.swift in Sources */,
 				EA5448C1242736CD00C07D0A /* DetailedDialogViewController.swift in Sources */,
 				EAB7C4D023F8C8E2003C8548 /* DialogCollectionViewCell.swift in Sources */,
@@ -1237,7 +1257,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "meho-ios/Meho.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = LW56PXHU2T;
 				ENABLE_BITCODE = NO;
@@ -1268,7 +1288,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "meho-ios/Meho.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = LW56PXHU2T;
 				ENABLE_BITCODE = NO;

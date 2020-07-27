@@ -194,3 +194,9 @@
 
 /* The third bullet point of the duo practice mode that tells the user they can track score history. */
 "duoBulletPoint3" = "Track score history";
+
+/* Title for the privacy policy page. */
+"privacyPolicy" = "Privacy Policy";
+
+/* Title for the terms of use page. */
+"termsOfUse" = "Terms of Use";
