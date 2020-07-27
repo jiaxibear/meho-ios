@@ -156,8 +156,25 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
 
         // Add line spacing attribute to string
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+        var ranges: [NSRange] = []
+        attributedString.enumerateAttribute(.link, in: NSRange.init(location: 0, length: attributedString.length), options: .longestEffectiveRangeNotRequired) { (result, range, _) in
+            if result != nil {
+                ranges.append(range)
+            }
+        }
 
-        return attributedString
+        let newAttributedString = NSMutableAttributedString.init(attributedString: attributedString)
+        var indexOffset = 0
+        for (index, range) in ranges.enumerated() {
+            if index < ranges.count - 1 {
+                if range.location + range.length == ranges[index + 1].location {
+                    newAttributedString.insert(NSAttributedString.init(string: " "), at: ranges[index + 1].location + indexOffset)
+                    indexOffset = indexOffset + 1
+                }
+            }
+        }
+
+        return newAttributedString
     }
 
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
