@@ -112,8 +112,8 @@
 		EAB7C4D023F8C8E2003C8548 /* DialogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */; };
 		EAD7F76524BAA8B8008ADC1C /* DisplayScoreSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */; };
 		EAD7F76A24CE4472008ADC1C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F76924CE4472008ADC1C /* WebViewController.swift */; };
-		EAD7F76E24CE61DF008ADC1C /* PrivacyPolicy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EAD7F76D24CE61DF008ADC1C /* PrivacyPolicy.pdf */; };
-		EAD7F77024CE6297008ADC1C /* TermsOfUse.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EAD7F76F24CE6297008ADC1C /* TermsOfUse.pdf */; };
+		EAD7F77324D5265A008ADC1C /* TermsOfUse.html in Resources */ = {isa = PBXBuildFile; fileRef = EAD7F77124D52659008ADC1C /* TermsOfUse.html */; };
+		EAD7F77424D5265A008ADC1C /* PrivacyPolicy.html in Resources */ = {isa = PBXBuildFile; fileRef = EAD7F77224D5265A008ADC1C /* PrivacyPolicy.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -253,8 +253,8 @@
 		EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogCollectionViewCell.swift; sourceTree = "<group>"; };
 		EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayScoreSwitch.swift; sourceTree = "<group>"; };
 		EAD7F76924CE4472008ADC1C /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		EAD7F76D24CE61DF008ADC1C /* PrivacyPolicy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PrivacyPolicy.pdf; sourceTree = "<group>"; };
-		EAD7F76F24CE6297008ADC1C /* TermsOfUse.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TermsOfUse.pdf; sourceTree = "<group>"; };
+		EAD7F77124D52659008ADC1C /* TermsOfUse.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TermsOfUse.html; sourceTree = "<group>"; };
+		EAD7F77224D5265A008ADC1C /* PrivacyPolicy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PrivacyPolicy.html; sourceTree = "<group>"; };
 		F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.release.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -747,8 +747,8 @@
 		EAD7F76624CE4285008ADC1C /* HTMLs */ = {
 			isa = PBXGroup;
 			children = (
-				EAD7F76F24CE6297008ADC1C /* TermsOfUse.pdf */,
-				EAD7F76D24CE61DF008ADC1C /* PrivacyPolicy.pdf */,
+				EAD7F77224D5265A008ADC1C /* PrivacyPolicy.html */,
+				EAD7F77124D52659008ADC1C /* TermsOfUse.html */,
 			);
 			path = HTMLs;
 			sourceTree = "<group>";
@@ -867,11 +867,11 @@
 				EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */,
 				924C53E523FA14C300B59D95 /* awsconfiguration.json in Resources */,
 				924C53E323FA14B300B59D95 /* amplifyconfiguration.json in Resources */,
+				EAD7F77424D5265A008ADC1C /* PrivacyPolicy.html in Resources */,
 				EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */,
-				EAD7F77024CE6297008ADC1C /* TermsOfUse.pdf in Resources */,
 				EA2FC5C923EF7AD600E258BD /* Preview Assets.xcassets in Resources */,
 				EA2FC5C623EF7AD600E258BD /* Assets.xcassets in Resources */,
-				EAD7F76E24CE61DF008ADC1C /* PrivacyPolicy.pdf in Resources */,
+				EAD7F77324D5265A008ADC1C /* TermsOfUse.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

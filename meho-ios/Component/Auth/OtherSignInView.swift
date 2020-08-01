@@ -110,8 +110,8 @@ class OtherSignInView: UIView, UITextViewDelegate {
         let thirdPartySignInAttributedText = NSMutableAttributedString.init(string: thirdPartySignInText)
         let termsAndConditionsTextRange = thirdPartySignInAttributedText.mutableString.range(of: termsAndConditionsText)
         let privacyStatementTextRange = thirdPartySignInAttributedText.mutableString.range(of: privacyStatementText)
-        thirdPartySignInAttributedText.addAttribute(.link, value: Bundle.main.url(forResource: "TermsOfUse", withExtension: "pdf")!, range: termsAndConditionsTextRange)
-        thirdPartySignInAttributedText.addAttribute(.link, value: Bundle.main.url(forResource: "PrivacyPolicy", withExtension: "pdf")!, range: privacyStatementTextRange)
+        thirdPartySignInAttributedText.addAttribute(.link, value: Bundle.main.url(forResource: "TermsOfUse", withExtension: "html")!, range: termsAndConditionsTextRange)
+        thirdPartySignInAttributedText.addAttribute(.link, value: Bundle.main.url(forResource: "PrivacyPolicy", withExtension: "html")!, range: privacyStatementTextRange)
         thirdPartySignInAttributedText.addAttribute(.font, value: UIFont.systemFont(ofSize: thirdPartySignInTextFontSize), range: NSRange.init(location: 0, length: thirdPartySignInText.count))
         thirdPartySignInAttributedText.addAttribute(.foregroundColor, value: UIColor.black.withAlphaComponent(0.25), range: NSRange.init(location: 0, length: thirdPartySignInText.count))
         thirdPartySignInTextView.attributedText = thirdPartySignInAttributedText
