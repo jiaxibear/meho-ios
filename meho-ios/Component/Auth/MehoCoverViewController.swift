@@ -94,12 +94,16 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
             self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
         }
         title = ""
-        navigationController?.setNavigationBarHidden(true, animated: false)
         view.backgroundColor = .white
         setupStoryCollectionView()
         setupPageControl()
         setupSignUpButton()
         setupSignInButton()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     func setupStoryCollectionView() {
