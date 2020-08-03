@@ -17,7 +17,8 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
     private let textFieldVerticalMargin = CGFloat(34)
     private let textFieldBackgroundColorAlpha = CGFloat(0.1)
     private let textFieldLeadingTrailingMargin = CGFloat(30)
-    private let textFieldHeight = CGFloat(58)
+    private let textFieldHeight = CGFloat(54)
+    private let textFieldCompactHeight = CGFloat(40)
     private let signInButtonLeadingTrailingMargin = CGFloat(58)
     private let signInButtonTopMargin = CGFloat(54)
     private let signInButtonCornerRadius = CGFloat(18)
@@ -48,7 +49,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
         return textField
     } ()
 
-    private lazy var passwordField:UITextFieldPadding = {
+    private lazy var passwordField: UITextFieldPadding = {
         let textField = UITextFieldPadding.init()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = NSLocalizedString("PasswordPlaceholder", comment: "")
@@ -63,6 +64,15 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
         textField.clipsToBounds = true
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
+    } ()
+
+    private lazy var textFieldsStackView: UIStackView = {
+        let textFieldsStackView = UIStackView.init(arrangedSubviews: [emailAddressField, passwordField])
+        textFieldsStackView.translatesAutoresizingMaskIntoConstraints = false
+        textFieldsStackView.axis = .vertical
+        textFieldsStackView.distribution = .fillEqually
+        textFieldsStackView.spacing = textFieldVerticalMargin
+        return textFieldsStackView
     } ()
 
     private lazy var signInButton: UIButton = {
@@ -104,11 +114,36 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
         view.backgroundColor = .white
-        setupEmailAddressTextField()
-        setupPasswordTextField()
-        setupSignInButton()
-        setUpForgetPasswordButton()
+
+        view.addSubview(textFieldsStackView)
+        let textFieldsStackViewTopConstraint = textFieldsStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: textFieldTopMargin)
+        textFieldsStackViewTopConstraint.isActive = true
+        textFieldsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: textFieldLeadingTrailingMargin).isActive = true
+        textFieldsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -textFieldLeadingTrailingMargin).isActive = true
+        let textFieldsStackViewHeight = 2 * textFieldHeight + textFieldVerticalMargin
+        let textFieldsStackViewHeightConstraint = textFieldsStackView.heightAnchor.constraint(equalToConstant: textFieldsStackViewHeight)
+        textFieldsStackViewHeightConstraint.isActive = true
+
+        view.addSubview(signInButton)
+        let signInButtonTopConstraint = signInButton.topAnchor.constraint(equalTo: textFieldsStackView.bottomAnchor, constant: signInButtonTopMargin)
+        signInButtonTopConstraint.isActive = true
+        signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: signInButtonLeadingTrailingMargin).isActive = true
+        signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -signInButtonLeadingTrailingMargin).isActive = true
+        signInButton.heightAnchor.constraint(equalToConstant: signInButtonHeight).isActive = true
         setUpOtherSignInView()
+
+        view.addSubview(forgetPasswordButton)
+        let forgetPasswordButtonTopConstraint = forgetPasswordButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: forgetPasswordButtonTopMargin)
+        forgetPasswordButtonTopConstraint.isActive = true
+        forgetPasswordButton.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor).isActive = true
+        if textFieldTopMargin + textFieldsStackViewHeight + signInButtonTopMargin + signInButtonHeight + forgetPasswordButtonTopMargin + otherSignInViewBottomMargin + otherSignInView.intrinsicContentSize.height > view.bounds.height {
+            textFieldsStackViewTopConstraint.constant = textFieldTopMargin / 2
+            textFieldsStackViewHeightConstraint.constant = 2 * textFieldCompactHeight + textFieldVerticalMargin / 2
+            textFieldsStackView.spacing = textFieldVerticalMargin / 2
+            signInButtonTopConstraint.constant = signInButtonTopMargin / 2
+            otherSignInView.isCompact = true
+            forgetPasswordButtonTopConstraint.constant = forgetPasswordButtonTopMargin / 2
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -125,40 +160,6 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
     }
 
     // MARK: - Private Methods
-    private func setupEmailAddressTextField() {
-        view.addSubview(emailAddressField)
-
-        emailAddressField.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: textFieldTopMargin).isActive = true
-        emailAddressField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: textFieldLeadingTrailingMargin).isActive = true
-        emailAddressField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -textFieldLeadingTrailingMargin).isActive = true
-        emailAddressField.heightAnchor.constraint(equalToConstant: textFieldHeight).isActive = true
-    }
-
-    private func setupPasswordTextField() {
-        view.addSubview(passwordField)
-
-        passwordField.topAnchor.constraint(equalTo: emailAddressField.bottomAnchor, constant: textFieldVerticalMargin).isActive = true
-        passwordField.leadingAnchor.constraint(equalTo: emailAddressField.leadingAnchor).isActive = true
-        passwordField.trailingAnchor.constraint(equalTo: emailAddressField.trailingAnchor).isActive = true
-        passwordField.heightAnchor.constraint(equalToConstant: textFieldHeight).isActive = true
-    }
-
-    private func setupSignInButton() {
-        view.addSubview(signInButton)
-
-        signInButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: signInButtonTopMargin).isActive = true
-        signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: signInButtonLeadingTrailingMargin).isActive = true
-        signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -signInButtonLeadingTrailingMargin).isActive = true
-        signInButton.heightAnchor.constraint(equalToConstant: signInButtonHeight).isActive = true
-    }
-
-    private func setUpForgetPasswordButton() {
-        view.addSubview(forgetPasswordButton)
-
-        forgetPasswordButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: forgetPasswordButtonTopMargin).isActive = true
-        forgetPasswordButton.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor).isActive = true
-    }
-
     private func setUpOtherSignInView() {
         view.addSubview(otherSignInView)
 
