@@ -37,6 +37,10 @@ class DialogModeSelectionViewController: UIViewController {
             return 14;
         }
     } ()
+    private let saveButtonWidth = CGFloat(30)
+    private let saveButtonHeight = CGFloat(30)
+    private let saveButtonTrailingMargin = CGFloat(16)
+
     // MARK: Not First Time
     private let contentStackViewLeadingTrailingMargin = CGFloat(16)
     private let contentStackViewBackgroundColorAlpha = CGFloat(0.1)
@@ -240,6 +244,14 @@ class DialogModeSelectionViewController: UIViewController {
         return duoBulletPointsStackView
     } ()
 
+    private lazy var saveButton: UIButton = {
+        let saveButton = UIButton.init(frame: .zero)
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        let saveButtonImage = UIImage.init(named: "purple_saved_unfilled")
+        saveButton.setImage(saveButtonImage, for: .normal)
+        return saveButton
+    } ()
+
     var delegate: DialogModeSelectionViewControllerDelegate?
 
     // MARK: - Init
@@ -279,6 +291,7 @@ class DialogModeSelectionViewController: UIViewController {
             view.addSubview(contentStackView)
             view.addSubview(buttonsStackView)
         }
+        view.addSubview(saveButton)
         view.backgroundColor = .white
 
         difficultyLabel.widthAnchor.constraint(equalToConstant: difficultyLabelWidth).isActive = true
@@ -293,6 +306,9 @@ class DialogModeSelectionViewController: UIViewController {
         contentStackViewHeight = contentStackViewHeight + introductionLabel.sizeThatFits(labelFittingSize).height + introductionLabelTopMargin
         viewHeight = viewHeight + contentStackViewHeight
 
+        saveButton.widthAnchor.constraint(equalToConstant: saveButtonWidth).isActive = true
+        saveButton.heightAnchor.constraint(equalToConstant: saveButtonHeight).isActive = true
+        saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -saveButtonTrailingMargin).isActive = true
         if isFirstTime {
             viewHeight = viewHeight + introductionLabelBottomMargin
             contentStackViewBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -304,6 +320,7 @@ class DialogModeSelectionViewController: UIViewController {
             contentStackView.leadingAnchor.constraint(equalTo: contentStackViewBackgroundView.leadingAnchor, constant: contentStackViewLeadingTrailingMargin).isActive = true
             contentStackView.trailingAnchor.constraint(equalTo: contentStackViewBackgroundView.trailingAnchor, constant: -contentStackViewLeadingTrailingMargin).isActive = true
             contentStackView.heightAnchor.constraint(equalToConstant: contentStackViewHeight).isActive = true
+            saveButton.topAnchor.constraint(equalTo: contentStackView.topAnchor).isActive = true
 
             viewHeight = viewHeight + buttonHeight + soloPracticeButtonTopMargin
             soloPracticeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: soloPracticeButtonLeadingTrailingMargin).isActive = true
@@ -346,6 +363,7 @@ class DialogModeSelectionViewController: UIViewController {
             contentStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentStackViewLeadingTrailingMargin).isActive = true
             contentStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentStackViewLeadingTrailingMargin).isActive = true
             contentStackView.heightAnchor.constraint(equalToConstant: contentStackViewHeight).isActive = true
+            saveButton.topAnchor.constraint(equalTo: contentStackView.topAnchor).isActive = true
 
             viewHeight = viewHeight + buttonsStackViewTopMargin + buttonsStackViewHeight + buttonsStackViewBottomMargin
             buttonsStackView.topAnchor.constraint(equalTo: contentStackView.bottomAnchor, constant: buttonsStackViewTopMargin).isActive = true
