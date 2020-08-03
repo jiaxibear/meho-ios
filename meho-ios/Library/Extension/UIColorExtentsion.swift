@@ -33,6 +33,10 @@ extension UIColor {
         return UIColor.init(hex: "#9576cd")!
     }
 
+    class var lighterPurple: UIColor {
+        return UIColor.init(hex: "#947ad9")!
+    }
+
     class var textCharcoalGrey: UIColor {
         return UIColor.init(hex: "#48484a")!
     }
@@ -83,6 +87,10 @@ extension UIColor {
 
     class var dustyOrange: UIColor {
         return UIColor.init(hex: "#fe7f22")!
+    }
+
+    class var periwinkleBlue: UIColor {
+        return UIColor.init(hex: "#879dfc")!
     }
 
     public convenience init?(hex: String) {

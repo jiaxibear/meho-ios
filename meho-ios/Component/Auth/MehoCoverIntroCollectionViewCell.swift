@@ -8,30 +8,41 @@
 
 import UIKit
 
+struct CoverIntro {
+    let title: String
+    let subtitle: String
+    let backgroundColor: UIColor
+}
+
 class MehoCoverIntroCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
-    private let imageCornerRadius = CGFloat(10)
     private let titleLabelFontSize = CGFloat(30)
+    private let titleLabelTopMargin = CGFloat(40)
+    private let subtitleLabelFontSize = CGFloat(18)
+    private let subtitleLabelTopMargin = CGFloat(40)
+    private let labelsLeadingTrailingMargin = CGFloat(14)
+    private let contentViewCornerRadius = CGFloat(8)
 
     // MARK: - Properties
-    private lazy var storyImageView:UIImageView = {
-        let imageView = UIImageView.init(frame: .zero)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = imageCornerRadius
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-
-        return imageView
-    } ()
-
     private lazy var titleLabel:UILabel = {
         let label = UILabel.init(frame: .zero)
-        label.textColor = .wisteriaPurple
+        label.textColor = .white
         label.textAlignment = .center
-        label.backgroundColor = .white
         let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
-        label.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
+        label.font = UIFont.init(descriptor: fontDescriptor!, size: titleLabelFontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        return label
+    } ()
+
+    private lazy var subtitleLabel:UILabel = {
+        let label = UILabel.init(frame: .zero)
+        label.textColor = .white
+        label.textAlignment = .center
+        let fontDescriptor = UIFont.systemFont(ofSize: subtitleLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+        label.font = UIFont.init(descriptor: fontDescriptor!, size: subtitleLabelFontSize)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
         return label
     } ()
 
@@ -49,41 +60,30 @@ class MehoCoverIntroCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupTitleLabel()
-        setupCellImageUI()
+        setupSubtitleLabel()
+        contentView.layer.cornerRadius = contentViewCornerRadius
+        contentView.clipsToBounds = true
     }
 
     // MARK: - Elements layout, style & constrains
-
     private func setupTitleLabel() {
         contentView.addSubview(titleLabel)
-        let cellHeight = contentView.bounds.height
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: cellHeight / 6).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: titleLabelTopMargin).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: labelsLeadingTrailingMargin).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -labelsLeadingTrailingMargin).isActive = true
     }
 
-    private func setupCellImageUI() {
-        contentView.addSubview(storyImageView)
-
-        // constraints
-        storyImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        storyImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        storyImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
-        storyImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    private func setupSubtitleLabel() {
+        contentView.addSubview(subtitleLabel)
+        subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: subtitleLabelTopMargin).isActive = true
+        subtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: labelsLeadingTrailingMargin).isActive = true
+        subtitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -labelsLeadingTrailingMargin).isActive = true
     }
 
     // MARK: - Public
-    public func setStoryCardData(name: String) {
-        let storyImage = UIImage.init(named: name)
-        storyImageView.image = storyImage
-        if name == "meho_cover_stories" {
-            titleLabel.text = "Meho Stories"
-        } else if name == "meho_cover_expressions" {
-            titleLabel.text = "Meho Expressions"
-        } else {
-            titleLabel.text = "Meho Talk"
-        }
-
+    public func setCoverIntro(_ coverIntro: CoverIntro) {
+        contentView.backgroundColor = coverIntro.backgroundColor
+        titleLabel.text = coverIntro.title
+        subtitleLabel.text = coverIntro.subtitle
     }
 }

@@ -20,13 +20,19 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     private let pageControlToSignUpMargin = CGFloat(40)
     private let buttonHorizontalMargin = CGFloat(58)
     private let verticalMarginScreenPct = CGFloat(1.0/40.0)
+    private let collectionViewTopMargin = CGFloat(40)
     private let collectionViewHeightScreenPct = CGFloat(3.2 / 5.0)
     private let buttonHeightScreenPct = CGFloat(1.0/20.0)
 
     private let introCellReuseIdentifier = "mehoIntroCellId"
 
     // MARK: - Data models
-    private let storyNameList:[String] = ["meho_cover_stories", "meho_cover_expressions" ,"meho_cover_talk"]
+    private lazy var coverIntroList: [CoverIntro] = {
+        let stories = CoverIntro.init(title: NSLocalizedString("coverStoriesTitle", comment: ""), subtitle: NSLocalizedString("coverStoriesSubtitle", comment: ""), backgroundColor: .lighterPurple)
+        let expressions = CoverIntro.init(title: NSLocalizedString("coverExpressionsTitle", comment: ""), subtitle: NSLocalizedString("coverExpressionsSubtitle", comment: ""), backgroundColor: .periwinkle)
+        let talk = CoverIntro.init(title: NSLocalizedString("coverTalkTitle", comment: ""), subtitle: NSLocalizedString("coverTalkSubtitle", comment: ""), backgroundColor: .periwinkleBlue)
+        return [stories, expressions, talk]
+    } ()
 
     // MARK: - Properties
     private lazy var storiesCollectionViewFlowLayout: UICollectionViewFlowLayout = {
@@ -51,7 +57,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
 
     private lazy var pageControl: UIPageControl = {
         let pc = UIPageControl()
-        pc.numberOfPages = storyNameList.count
+        pc.numberOfPages = coverIntroList.count
         pc.currentPage = 0
         pc.pageIndicatorTintColor = .paleLilac
         pc.currentPageIndicatorTintColor = .darkGray
@@ -108,23 +114,23 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
 
     func setupStoryCollectionView() {
         view.addSubview(storyCollectionView)
-        let screenHeight = view.bounds.height
+        let screenHeight = view.bounds.height - collectionViewTopMargin
         storyCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         storyCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        storyCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        storyCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: collectionViewTopMargin).isActive = true
         storyCollectionView.heightAnchor.constraint(equalToConstant: screenHeight * collectionViewHeightScreenPct).isActive = true
     }
 
     func setupPageControl() {
         view.addSubview(pageControl)
-        let screenHeight = view.bounds.height
+        let screenHeight = view.bounds.height - collectionViewTopMargin
         pageControl.topAnchor.constraint(equalTo: storyCollectionView.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
         pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 
     func setupSignUpButton() {
         view.addSubview(signUpButton)
-        let screenHeight = view.bounds.height
+        let screenHeight = view.bounds.height - collectionViewTopMargin
         signUpButton.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
         signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonHorizontalMargin).isActive = true
         signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonHorizontalMargin).isActive = true
@@ -133,7 +139,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
 
     func setupSignInButton() {
         view.addSubview(signInButton)
-        let screenHeight = view.bounds.height
+        let screenHeight = view.bounds.height - collectionViewTopMargin
         signInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
         signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonHorizontalMargin).isActive = true
         signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonHorizontalMargin).isActive = true
@@ -142,13 +148,13 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
 
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return storyNameList.count
+        return coverIntroList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: introCellReuseIdentifier, for: indexPath) as! MehoCoverIntroCollectionViewCell
-        let storyName = storyNameList[indexPath.item]
-        cell.setStoryCardData(name: storyName)
+        let coverIntro = coverIntroList[indexPath.item]
+        cell.setCoverIntro(coverIntro)
         return cell
     }
 
