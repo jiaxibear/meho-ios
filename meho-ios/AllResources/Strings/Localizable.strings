@@ -219,3 +219,6 @@
 /* Subtitle for Meho talk in the onboarding screen. */
 "coverTalkSubtitle" = "Real-life conversations on various topics to practice speaking";
 
+/* Toast message disaplayed when the expression is saved successfully. */
+"saveSuccessfullyMessage" = "Added to Saved. View All in Profile";
+

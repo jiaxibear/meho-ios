@@ -29,12 +29,14 @@ PODS:
     - FBSDKLoginKit/Login (= 5.8.0)
   - FBSDKLoginKit/Login (5.8.0):
     - FBSDKCoreKit (~> 5.0)
+  - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
   - AWSAuthUI (~> 2.12.1)
   - AWSFacebookSignIn (~> 2.12.0)
   - AWSMobileClient (~> 2.12.1)
   - AWSUserPoolsSignIn (~> 2.12.1)
+  - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
   trunk:
@@ -48,6 +50,7 @@ SPEC REPOS:
     - AWSUserPoolsSignIn
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - Toast-Swift
 
 SPEC CHECKSUMS:
   AWSAuthCore: 288cb737a35ff031fbf42edaa8d0062328791d4e
@@ -60,7 +63,8 @@ SPEC CHECKSUMS:
   AWSUserPoolsSignIn: fffc46e512e326783585e53639e58c355aae320f
   FBSDKCoreKit: e7dcac0aabcfb09d0166998edd95fe3b05a0ce5d
   FBSDKLoginKit: 1b0cf04df0370b37404213157b060d6666ede814
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 4be451f3c40b261d2997a2ae3916d4f5899b1f64
+PODFILE CHECKSUM: a84ef4c54b9324c108c7c9e3c30ae7ff9461f156
 
 COCOAPODS: 1.8.4

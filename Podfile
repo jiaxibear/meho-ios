@@ -9,6 +9,7 @@ target 'meho-ios' do
   pod 'AWSMobileClient', '~> 2.12.1'      # Required dependency
   pod 'AWSAuthUI', '~> 2.12.1'            # Optional dependency required to use drop-in UI
   pod 'AWSUserPoolsSignIn', '~> 2.12.1'   # Optional dependency required to use drop-in UI
+  pod 'Toast-Swift', '~> 5.0.1'
 
   # 3rd party Auth
   pod 'AWSFacebookSignIn', '~> 2.12.0'

@@ -11,6 +11,7 @@ import UIKit
 protocol DialogModeSelectionViewControllerDelegate: AnyObject {
     func dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialogID: String)
     func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialogID: String)
+    func dialogModeSelectionViewControllerDidTapSaveButton(dialogID: String)
 }
 
 class DialogModeSelectionViewController: UIViewController {
@@ -249,6 +250,7 @@ class DialogModeSelectionViewController: UIViewController {
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         let saveButtonImage = UIImage.init(named: "purple_saved_unfilled")
         saveButton.setImage(saveButtonImage, for: .normal)
+        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
         return saveButton
     } ()
 
@@ -384,5 +386,10 @@ class DialogModeSelectionViewController: UIViewController {
     @objc
     func didTapDuoRolePlayButton()  {
         delegate?.dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialogID: dialog.identifier)
+    }
+
+    @objc
+    func didTapSaveButton() {
+        delegate?.dialogModeSelectionViewControllerDidTapSaveButton(dialogID: dialog.identifier)
     }
 }

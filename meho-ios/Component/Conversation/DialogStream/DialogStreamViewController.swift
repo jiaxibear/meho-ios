@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toast_Swift
 
 enum DialogStreamType {
     case mostPopular
@@ -176,6 +177,10 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
             let detailedDialogViewController = DetailedDialogViewController.init(dialogID: dialogID)
             self.navigationController?.pushViewController(detailedDialogViewController, animated: true)
         }
+    }
+
+    func dialogModeSelectionViewControllerDidTapSaveButton(dialogID: String) {
+        view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
     }
 
     // MARK: - Private

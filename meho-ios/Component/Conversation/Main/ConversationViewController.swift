@@ -202,6 +202,10 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         }
     }
 
+    func dialogModeSelectionViewControllerDidTapSaveButton(dialogID: String) {
+        view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
+    }
+
     // MARK: - SeeMoreFooterCollectionResuableViewDelegate
     func seeMoreFooterCollectionResuableViewDidTapButton(_ view: SeeMoreFooterCollectionResuableView) {
         var dialogStreamViewController: DialogStreamViewController?
