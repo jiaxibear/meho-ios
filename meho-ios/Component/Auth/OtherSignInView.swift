@@ -26,8 +26,11 @@ class OtherSignInView: UIView, UITextViewDelegate {
     private let buttonTitleFontSize = CGFloat(16)
     private let thirdPartySignInTextFontSize = CGFloat(10)
     private let viewHeight = CGFloat(240)
+    private let compactViewHeight = CGFloat(160)
 
     // MARK: - Properties
+    var isCompact = false
+
     var delegate: OtherSignInViewDelegate?
 
     private lazy var leftBar: UIView = {
@@ -164,7 +167,8 @@ class OtherSignInView: UIView, UITextViewDelegate {
 
     // MARK: - UIView
     override var intrinsicContentSize: CGSize {
-        return CGSize.init(width: 0, height: viewHeight)
+        let height = isCompact ? compactViewHeight : viewHeight
+        return CGSize.init(width: 0, height: height)
     }
 
     // MARK: - UITextViewDelegate

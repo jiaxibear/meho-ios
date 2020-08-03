@@ -21,6 +21,7 @@ class SignUpTextField: UIView {
     private let textFieldCornerRadius = CGFloat(2)
     private let textFieldBackgroundColorAlpha = CGFloat(0.1)
     private let viewHeight = CGFloat(54)
+    private let compactViewHeight = CGFloat(40)
     private let statusImageViewSideWidth = CGFloat(30)
     private let statusImageViewSideHeight = CGFloat(30)
     private let statusImageViewLeadingTrailingMargin = CGFloat(10)
@@ -28,6 +29,8 @@ class SignUpTextField: UIView {
     private let statusInvalidImageName = "login_wrong"
 
     // MARK: - Properties
+    var isCompact = false
+
     lazy var textField: UITextField = {
         let textField = UITextFieldPadding.init(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -96,6 +99,7 @@ class SignUpTextField: UIView {
 
     // MARK: - UIView
     override var intrinsicContentSize: CGSize {
-        return CGSize.init(width: 0, height: viewHeight)
+        let height = isCompact ? compactViewHeight : viewHeight
+        return CGSize.init(width: 0, height: height)
     }
 }

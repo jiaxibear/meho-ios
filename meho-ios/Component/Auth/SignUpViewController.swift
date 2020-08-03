@@ -13,6 +13,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
 
     // MARK: - Constants
     private let textFieldsStackViewHeight = CGFloat(324)
+    private let textFieldsStackViewSpacing = CGFloat(36)
     private let textFieldsStackViewTopMargin = CGFloat(32)
     private let contentViewLeadingTrailingMargin = CGFloat(20)
     private let errorMessageLabelFontSize = CGFloat(16)
@@ -111,23 +112,39 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         view.addSubview(errorMessageLabel)
         view.addSubview(nextButton)
 
-        textFieldsStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: textFieldsStackViewTopMargin).isActive = true
+        let textFieldsStackViewTopConstraint = textFieldsStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: textFieldsStackViewTopMargin)
+        textFieldsStackViewTopConstraint.isActive = true
         textFieldsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentViewLeadingTrailingMargin).isActive = true
         textFieldsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentViewLeadingTrailingMargin).isActive = true
-        textFieldsStackView.heightAnchor.constraint(equalToConstant: textFieldsStackViewHeight).isActive = true
+        let textFieldsStackViewHeightConstraint = textFieldsStackView.heightAnchor.constraint(equalToConstant: textFieldsStackViewHeight)
+        textFieldsStackViewHeightConstraint.isActive = true
 
         otherSignInView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentViewLeadingTrailingMargin).isActive = true
         otherSignInView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentViewLeadingTrailingMargin).isActive = true
         otherSignInView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -otherSignInViewBottomMargin).isActive = true
 
-        errorMessageLabel.topAnchor.constraint(equalTo: textFieldsStackView.bottomAnchor, constant: errorMessageLabelTopMargin).isActive = true
+        let errorMessageLabelTopConstraint = errorMessageLabel.topAnchor.constraint(equalTo: textFieldsStackView.bottomAnchor, constant: errorMessageLabelTopMargin)
+        errorMessageLabelTopConstraint.isActive = true
         errorMessageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentViewLeadingTrailingMargin).isActive = true
         errorMessageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentViewLeadingTrailingMargin).isActive = true
 
-        nextButton.topAnchor.constraint(equalTo: errorMessageLabel.bottomAnchor, constant: nextButtonTopMargin).isActive = true
+        let nextButtonTopConstraint = nextButton.topAnchor.constraint(equalTo: errorMessageLabel.bottomAnchor, constant: nextButtonTopMargin)
+        nextButtonTopConstraint.isActive = true
         nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: nextButtonLeadingTrailingMargin).isActive = true
         nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -nextButtonLeadingTrailingMargin).isActive = true
         nextButton.heightAnchor.constraint(equalToConstant: nextButtonHeight).isActive = true
+
+        if textFieldsStackViewTopMargin + textFieldsStackViewHeight + otherSignInViewBottomMargin + otherSignInView.intrinsicContentSize.height + errorMessageLabelTopMargin + nextButtonHeight + nextButtonTopMargin > view.bounds.height {
+            textFieldsStackViewTopConstraint.constant = textFieldsStackViewTopMargin / 2
+            nickNameTextField.isCompact = true
+            emailAddressTextField.isCompact = true
+            createPasswordTextField.isCompact = true
+            repeatPasswordTextField.isCompact = true
+            textFieldsStackViewHeightConstraint.constant = nickNameTextField.intrinsicContentSize.height * 4 + textFieldsStackViewSpacing / 2 * 3
+            errorMessageLabelTopConstraint.constant = errorMessageLabelTopMargin / 2
+            nextButtonTopConstraint.constant = nextButtonTopMargin / 2
+            otherSignInView.isCompact = true
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
