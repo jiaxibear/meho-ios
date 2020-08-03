@@ -30,7 +30,10 @@ class DialogModeSelectionViewController: UIViewController {
     private let titleInLocalLanguageLabelTopMargin = CGFloat(12)
     private let introductionLabelFontSize = CGFloat(16)
     private let introductionLabelTopMargin = CGFloat(20)
-    private let viewWidth = CGFloat(330)
+    private let viewWidth: CGFloat = {
+        let screenWidth = UIScreen.main.bounds.width
+        return screenWidth * 0.8
+    } ()
     private lazy var buttonFontSize: CGFloat = {
         if self.isFirstTime {
             return 16;
@@ -264,7 +267,7 @@ class DialogModeSelectionViewController: UIViewController {
     init(dialog: Dialog) {
         self.dialog = dialog
         let defaults = UserDefaults.standard
-        self.isFirstTime = !defaults.bool(forKey: hasSeenDialogModeSelectionKey)
+        self.isFirstTime = defaults.bool(forKey: hasSeenDialogModeSelectionKey)
         super.init(nibName: nil, bundle: nil)
         defaults.set(true, forKey: hasSeenDialogModeSelectionKey)
     }
@@ -316,19 +319,22 @@ class DialogModeSelectionViewController: UIViewController {
             contentStackViewBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
             contentStackViewBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
             contentStackViewBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-            contentStackViewBackgroundView.heightAnchor.constraint(equalToConstant: viewHeight).isActive = true
+            let contentStackViewBackgroundViewHeightConstraint = contentStackViewBackgroundView.heightAnchor.constraint(equalToConstant: viewHeight)
+            contentStackViewBackgroundViewHeightConstraint.isActive = true
 
             contentStackView.topAnchor.constraint(equalTo: contentStackViewBackgroundView.topAnchor, constant: difficultyLabelTopMargin).isActive = true
             contentStackView.leadingAnchor.constraint(equalTo: contentStackViewBackgroundView.leadingAnchor, constant: contentStackViewLeadingTrailingMargin).isActive = true
             contentStackView.trailingAnchor.constraint(equalTo: contentStackViewBackgroundView.trailingAnchor, constant: -contentStackViewLeadingTrailingMargin).isActive = true
-            contentStackView.heightAnchor.constraint(equalToConstant: contentStackViewHeight).isActive = true
+            let contentStackViewHeightConstraint = contentStackView.heightAnchor.constraint(equalToConstant: contentStackViewHeight)
+            contentStackViewHeightConstraint.isActive = true
             saveButton.topAnchor.constraint(equalTo: contentStackView.topAnchor).isActive = true
 
             viewHeight = viewHeight + buttonHeight + soloPracticeButtonTopMargin
             soloPracticeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: soloPracticeButtonLeadingTrailingMargin).isActive = true
             soloPracticeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -soloPracticeButtonLeadingTrailingMargin).isActive = true
             soloPracticeButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-            soloPracticeButton.topAnchor.constraint(equalTo: contentStackViewBackgroundView.bottomAnchor, constant: soloPracticeButtonTopMargin).isActive = true
+            let soloPracticeButtonTopConstraint = soloPracticeButton.topAnchor.constraint(equalTo: contentStackViewBackgroundView.bottomAnchor, constant: soloPracticeButtonTopMargin)
+            soloPracticeButtonTopConstraint.isActive = true
 
             let bulletPointsStackViewWidth = viewWidth - 2 * bulletPointsStackViewLeadingTrailingMargin
             let bulletPointFittingSize = CGSize.init(width: bulletPointsStackViewWidth, height: .greatestFiniteMagnitude)
@@ -339,10 +345,12 @@ class DialogModeSelectionViewController: UIViewController {
             viewHeight = viewHeight + bulletPointsStackViewTopMargin + soloBulletPointsStackViewHeight + bulletPointsStackViewBottomMargin
 
             soloBulletPointsStackView.heightAnchor.constraint(equalToConstant: soloBulletPointsStackViewHeight).isActive = true
-            soloBulletPointsStackView.topAnchor.constraint(equalTo: soloPracticeButton.bottomAnchor, constant: bulletPointsStackViewTopMargin).isActive = true
+            let soloBulletPointsStackViewTopConstraint = soloBulletPointsStackView.topAnchor.constraint(equalTo: soloPracticeButton.bottomAnchor, constant: bulletPointsStackViewTopMargin)
+            soloBulletPointsStackViewTopConstraint.isActive = true
             soloBulletPointsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: bulletPointsStackViewLeadingTrailingMargin).isActive = true
             soloBulletPointsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -bulletPointsStackViewLeadingTrailingMargin).isActive = true
-            soloBulletPointsStackView.bottomAnchor.constraint(equalTo: duoRolePlayButton.topAnchor, constant: -bulletPointsStackViewBottomMargin).isActive = true
+            let soloBulletPointsStackViewBottomConstraint = soloBulletPointsStackView.bottomAnchor.constraint(equalTo: duoRolePlayButton.topAnchor, constant: -bulletPointsStackViewBottomMargin)
+            soloBulletPointsStackViewBottomConstraint.isActive = true
 
             viewHeight = viewHeight + buttonHeight
 
@@ -357,9 +365,23 @@ class DialogModeSelectionViewController: UIViewController {
             viewHeight = viewHeight + bulletPointsStackViewTopMargin + duoBulletPointsStackViewHeight + bulletPointsStackViewBottomMargin
 
             duoBulletPointsStackView.heightAnchor.constraint(equalToConstant: duoBulletPointsStackViewHeight).isActive = true
-            duoBulletPointsStackView.topAnchor.constraint(equalTo: duoRolePlayButton.bottomAnchor, constant: bulletPointsStackViewTopMargin).isActive = true
+            let duoBulletPointsStackViewTopConstraint = duoBulletPointsStackView.topAnchor.constraint(equalTo: duoRolePlayButton.bottomAnchor, constant: bulletPointsStackViewTopMargin)
+            duoBulletPointsStackViewTopConstraint.isActive = true
             duoBulletPointsStackView.leadingAnchor.constraint(equalTo: soloBulletPointsStackView.leadingAnchor).isActive = true
             duoBulletPointsStackView.trailingAnchor.constraint(equalTo: soloBulletPointsStackView.trailingAnchor).isActive = true
+            if viewHeight > UIScreen.main.bounds.height * 0.9 {
+                duoBulletPointsStackViewTopConstraint.constant = bulletPointsStackViewTopMargin / 2
+                soloBulletPointsStackViewTopConstraint.constant = bulletPointsStackViewTopMargin / 2
+                soloPracticeButtonTopConstraint.constant = soloPracticeButtonTopMargin / 2
+                soloBulletPointsStackViewBottomConstraint.constant = -bulletPointsStackViewBottomMargin / 2
+                contentStackView.setCustomSpacing(titleLabelTopMargin / 2, after: difficultyLabel)
+                contentStackView.setCustomSpacing(titleInLocalLanguageLabelTopMargin / 2, after: titleLabel)
+                contentStackView.setCustomSpacing(introductionLabelTopMargin / 2, after: titleInLocalLanguageLabel)
+                let contentStackViewHeightDiff = titleLabelTopMargin / 2 + titleInLocalLanguageLabelTopMargin / 2 + introductionLabelTopMargin / 2
+                contentStackViewBackgroundViewHeightConstraint.constant = contentStackViewBackgroundViewHeightConstraint.constant - contentStackViewHeightDiff
+                contentStackViewHeightConstraint.constant = contentStackViewHeightConstraint.constant - contentStackViewHeightDiff
+                viewHeight = viewHeight - bulletPointsStackViewTopMargin - soloPracticeButtonTopMargin / 2 - bulletPointsStackViewBottomMargin - contentStackViewHeightDiff
+            }
         } else {
             contentStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: difficultyLabelTopMargin).isActive = true
             contentStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentStackViewLeadingTrailingMargin).isActive = true
