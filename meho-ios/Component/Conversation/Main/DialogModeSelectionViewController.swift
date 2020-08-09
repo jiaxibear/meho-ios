@@ -267,7 +267,7 @@ class DialogModeSelectionViewController: UIViewController {
     init(dialog: Dialog) {
         self.dialog = dialog
         let defaults = UserDefaults.standard
-        self.isFirstTime = defaults.bool(forKey: hasSeenDialogModeSelectionKey)
+        self.isFirstTime = !defaults.bool(forKey: hasSeenDialogModeSelectionKey)
         super.init(nibName: nil, bundle: nil)
         defaults.set(true, forKey: hasSeenDialogModeSelectionKey)
     }

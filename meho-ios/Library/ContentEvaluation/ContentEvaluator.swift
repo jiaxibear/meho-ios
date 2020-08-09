@@ -28,7 +28,6 @@ class ContentEvaluator: NSObject, TAIOralEvaluationDelegate {
 
     private lazy var param: TAIOralEvaluationParam = {
         let param = TAIOralEvaluationParam.init()
-        param.sessionId = UUID().uuidString
         param.appId = "1300579049"
         param.workMode = .once
         param.evalMode = .paragraph
@@ -62,6 +61,8 @@ class ContentEvaluator: NSObject, TAIOralEvaluationDelegate {
             data.seqId = 1
             data.audio = try? Data.init(contentsOf: mp3FileURL)
             param.refText = content
+            // We can't use the same session ID, so generating a new one each time we need to evaluate.
+            param.sessionId = UUID().uuidString
             oralEvaluation.oralEvaluation(param, data: data, callback: { (error) in
                 if (error?.code != TAIErrCode.succ) {
                     self.content = nil
