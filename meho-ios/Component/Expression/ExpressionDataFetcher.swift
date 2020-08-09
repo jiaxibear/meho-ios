@@ -29,7 +29,7 @@ class ExpressionDataFetcher: NSObject {
                         return
                     }
                     if data == nil {
-                        print("The response of trending phrase is empty")
+                        print("The response of trending phrases is empty")
                         completionHandler(nil, nil)
                         return
                     }
@@ -59,12 +59,12 @@ class ExpressionDataFetcher: NSObject {
             if let trendingPhraseURLString = fetchTrendingPhraseURLComponent.url {
                 let dataCategoriesTask = session.dataTask(with: trendingPhraseURLString, completionHandler: { (data, URLResponse, error) in
                     if error != nil {
-                        print("There is an error getting the response of news list")
+                        print("There is an error getting the response of survival phrases")
                         completionHandler(.failure(error!))
                         return
                     }
                     if data == nil {
-                        print("The response of trending phrase is empty")
+                        print("The response of survival phrase is empty")
                         completionHandler(.success([]))
                         return
                     }
@@ -74,7 +74,7 @@ class ExpressionDataFetcher: NSObject {
                             completionHandler(.success(phrases))
                         }
                     } catch let JSONError as NSError {
-                        print("Failed to parse trending phrase list JSON: \(JSONError.localizedDescription)")
+                        print("Failed to parse survival phrase list JSON: \(JSONError.localizedDescription)")
                         completionHandler(.failure(JSONError))
                     }
                 })
