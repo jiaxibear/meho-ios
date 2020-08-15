@@ -24,6 +24,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
     private let nextButtonHeight = CGFloat(50)
     private let nextButtonLeadingTrailingMargin = CGFloat(54)
     private let nextButtonTopMargin = CGFloat(32)
+    private let passwordMinLength = 8
 
     // MARK: - Properties
     private lazy var nickNameTextField: SignUpTextField = {
@@ -162,13 +163,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
                     errorMessageLabel.text = NSLocalizedString("InvalidEmailAddressErrorMessage", comment: "")
                 }
             } else if signUpTextField == repeatPasswordTextField {
-                if let repeatedPassword = textField.text, let password = createPasswordTextField.textField.text, repeatedPassword == password {
+                if let repeatedPassword = textField.text, let password = createPasswordTextField.textField.text, repeatedPassword == password, repeatedPassword.count >= passwordMinLength {
                     signUpTextField.status = .valid
                 } else {
                     signUpTextField.status = .invalid
                 }
             } else if signUpTextField == createPasswordTextField {
-                if let repeatedPassword = textField.text, let password = createPasswordTextField.textField.text, repeatedPassword == password {
+                if let password = textField.text, let repeatedPassword = repeatPasswordTextField.textField.text, repeatedPassword == password {
                     repeatPasswordTextField.status = .valid
                 } else {
                     repeatPasswordTextField.status = .invalid
