@@ -86,7 +86,7 @@ class CollapsedChapterCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(bottomSeparatorView)
 
         // Sets up layout constraints
-        scoreView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        scoreView.centerYAnchor.constraint(equalTo: contentLabel.centerYAnchor).isActive = true
         scoreView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -scoreViewTralingMargin).isActive = true
 
         contentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
