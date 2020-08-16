@@ -53,6 +53,10 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
     private static let replayButtonSize = CGFloat(50)
     private let speedButtonFontSize = CGFloat(16)
     private let backgroundColorAlpha = CGFloat(0.1)
+    private let saveButtonWidth = CGFloat(30)
+    private let saveButtonHeight = CGFloat(30)
+    private let saveButtonTopMargin = CGFloat(16)
+    private let saveButtonLeadingMargin = CGFloat(16)
     private static let recordButtonNormalImageName = "conversation_microphone_inactive"
     private static let listenButtonNormalImageName = "conversation_headset_inactive"
     private static let replayButtonNormalImageName = "conversation_play_inactive"
@@ -64,15 +68,52 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
 
     // MARK: - Properties
     // MARK: UI
-    private let avatarView = UIImageView.init(frame: .zero)
+    private lazy var avatarView: UIImageView = {
+        let avatarView = UIImageView.init(frame: .zero)
+        avatarView.clipsToBounds = true
+        avatarView.layer.cornerRadius = avatarViewSize / 2
+        avatarView.translatesAutoresizingMaskIntoConstraints = false
+        return avatarView
+    } ()
+
     private lazy var scoreView: ChapterScoreView = {
         let chapterScoreView = ChapterScoreView.init(frame: .zero)
         chapterScoreView.translatesAutoresizingMaskIntoConstraints = false
         return chapterScoreView
     } ()
-    private let contentLabel = UILabel.init(frame: .zero)
-    private let contentPinyinLabel = UILabel.init(frame: .zero)
-    private let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
+
+    private lazy var contentLabel: UILabel = {
+        let contentLabel = UILabel.init(frame: .zero)
+        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentLabel.textColor = .darkGray
+        contentLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: contentLabelFontSize)
+        contentLabel.numberOfLines = 0
+        contentLabel.textAlignment = .center
+        return contentLabel
+    } ()
+
+    private lazy var contentPinyinLabel: UILabel = {
+        let contentInLocalLanguageLabel = UILabel.init(frame: .zero)
+        contentInLocalLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentInLocalLanguageLabel.textColor = .darkGray
+        let contentInLocalLanguageFontDescriptor = UIFont.systemFont(ofSize: contentInLocalLanguageLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        contentInLocalLanguageLabel.font = UIFont.init(descriptor: contentInLocalLanguageFontDescriptor!, size: contentInLocalLanguageLabelFontSize)
+        contentInLocalLanguageLabel.numberOfLines = 0
+        contentInLocalLanguageLabel.textAlignment = .center
+        return contentInLocalLanguageLabel
+    } ()
+
+    private lazy var contentInLocalLanguageLabel: UILabel = {
+        let contentPinyinLabel = UILabel.init(frame: .zero)
+        contentPinyinLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentPinyinLabel.textColor = .darkGray
+        let contentPinyinFontDescriptor = UIFont.systemFont(ofSize: contentPinyinLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        contentPinyinLabel.font = UIFont.init(descriptor: contentPinyinFontDescriptor!, size: contentPinyinLabelFontSize)
+        contentPinyinLabel.numberOfLines = 0
+        contentPinyinLabel.textAlignment = .center
+        return contentPinyinLabel
+    } ()
+
     private lazy var actionLabel: UILabel = {
         let actionLabel = UILabel.init(frame: .zero)
         actionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -85,6 +126,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         actionLabel.textAlignment = .center
         return actionLabel
     } ()
+
     private lazy var audioVisualizerView: AudioVisualizerView = {
         let audioVisualizerView = AudioVisualizerView.init(frame: .zero)
         audioVisualizerView.isHidden = true
@@ -92,11 +134,17 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         audioVisualizerView.delegate = self
         return audioVisualizerView
     } ()
+
     private lazy var actionButtonsContainerView: UIView = {
         let actionButtonsContainerView = UIView.init(frame: .zero)
         actionButtonsContainerView.translatesAutoresizingMaskIntoConstraints = false
+        actionButtonsContainerView.addSubview(recordButton)
+        actionButtonsContainerView.addSubview(listenButton)
+        actionButtonsContainerView.addSubview(replayButton)
+        actionButtonsContainerView.addSubview(speedButton)
         return actionButtonsContainerView
     } ()
+
     private lazy var recordButton: UIButton = {
         let recordButton = UIButton.init(frame: .zero)
         recordButton.translatesAutoresizingMaskIntoConstraints = false
@@ -109,6 +157,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         recordButton.addTarget(self, action: #selector(didTapRecordButton), for: .touchUpInside)
         return recordButton
     } ()
+
     private lazy var listenButton: UIButton = {
         let listenButton = UIButton.init(frame: .zero)
         listenButton.translatesAutoresizingMaskIntoConstraints = false
@@ -121,6 +170,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         listenButton.addTarget(self, action: #selector(didTapListenButton), for: .touchUpInside)
         return listenButton
     } ()
+
     private lazy var replayButton: UIButton = {
         let replayButton = UIButton.init(frame: .zero)
         replayButton.translatesAutoresizingMaskIntoConstraints = false
@@ -135,16 +185,38 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         replayButton.addTarget(self, action: #selector(didTapReplayButton), for: .touchUpInside)
         return replayButton
     } ()
-    private let speedButton = UIButton.init(frame: .zero)
+
+    private lazy var speedButton: UIButton = {
+        let speedButton = UIButton.init(frame: .zero)
+        speedButton.translatesAutoresizingMaskIntoConstraints = false
+        speedButton.setTitleColor(.skyBlue, for: .normal)
+        speedButton.setTitle(AudioPlaySpeed.normal.displayString(), for: .normal)
+        let speedButtonFontDescriptor = UIFont.systemFont(ofSize: speedButtonFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        speedButton.titleLabel?.font = UIFont.init(descriptor: speedButtonFontDescriptor!, size: speedButtonFontSize)
+        speedButton.addTarget(self, action: #selector(didTapSpeedButton), for: .touchUpInside)
+        return speedButton
+    } ()
+
     private lazy var avatarViewHeightConstraint: NSLayoutConstraint = {
         let avatarViewHeightConstraint = avatarView.heightAnchor.constraint(equalToConstant: avatarViewSize)
         avatarViewHeightConstraint.isActive = true
         return avatarViewHeightConstraint
     } ()
+
     private lazy var avatarViewTopMarginConstraint: NSLayoutConstraint = {
         let avatarViewTopMarginConstraint = avatarView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: avatarViewTopBottomMargin)
         avatarViewTopMarginConstraint.isActive = true
         return avatarViewTopMarginConstraint
+    } ()
+
+    private lazy var saveButton: UIButton = {
+        let saveButton = UIButton.init(frame: .zero)
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        let saveButtonImage = UIImage.init(named: "purple_saved_unfilled")
+        saveButton.setImage(saveButtonImage, for: .normal)
+        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
+        saveButton.isHidden = true
+        return saveButton
     } ()
 
     // MARK: Model
@@ -168,65 +240,15 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         super.init(frame: frame)
         backgroundColor = UIColor.skyBlue.withAlphaComponent(backgroundColorAlpha)
 
-        // Sets up the avatar view.
-        avatarView.clipsToBounds = true
-        avatarView.layer.cornerRadius = avatarViewSize / 2
-        avatarView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarView)
-
         contentView.addSubview(scoreView)
-
-        // Sets up the content label.
-        contentLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentLabel.textColor = .darkGray
-        contentLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: contentLabelFontSize)
-        contentLabel.numberOfLines = 0
-        contentLabel.textAlignment = .center
         contentView.addSubview(contentLabel)
-
-        // Sets up the content pinyin label.
-        contentPinyinLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentPinyinLabel.textColor = .darkGray
-        let contentPinyinFontDescriptor = UIFont.systemFont(ofSize: contentPinyinLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        contentPinyinLabel.font = UIFont.init(descriptor: contentPinyinFontDescriptor!, size: contentPinyinLabelFontSize)
-        contentPinyinLabel.numberOfLines = 0
-        contentPinyinLabel.textAlignment = .center
         contentView.addSubview(contentPinyinLabel)
-
-        // Sets up the content in local language label.
-        contentInLocalLanguageLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentInLocalLanguageLabel.textColor = .darkGray
-        let contentInLocalLanguageFontDescriptor = UIFont.systemFont(ofSize: contentInLocalLanguageLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        contentInLocalLanguageLabel.font = UIFont.init(descriptor: contentInLocalLanguageFontDescriptor!, size: contentInLocalLanguageLabelFontSize)
-        contentInLocalLanguageLabel.numberOfLines = 0
-        contentInLocalLanguageLabel.textAlignment = .center
         contentView.addSubview(contentInLocalLanguageLabel)
-
-        // Sets up the action label.
         contentView.addSubview(actionLabel)
-
-        // Sets up the action buttons container view.
         contentView.addSubview(actionButtonsContainerView)
-
-        // Sets up the audio visualizer view.
         contentView.addSubview(audioVisualizerView)
-
-        // Sets up the record button.
-        actionButtonsContainerView.addSubview(recordButton)
-
-        // Sets up the listen button.
-        actionButtonsContainerView.addSubview(listenButton)
-
-        // Sets up the replay button.
-        actionButtonsContainerView.addSubview(replayButton)
-
-        speedButton.translatesAutoresizingMaskIntoConstraints = false
-        speedButton.setTitleColor(.skyBlue, for: .normal)
-        speedButton.setTitle(AudioPlaySpeed.normal.displayString(), for: .normal)
-        let speedButtonFontDescriptor = UIFont.systemFont(ofSize: speedButtonFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        speedButton.titleLabel?.font = UIFont.init(descriptor: speedButtonFontDescriptor!, size: speedButtonFontSize)
-        speedButton.addTarget(self, action: #selector(didTapSpeedButton), for: .touchUpInside)
-        actionButtonsContainerView.addSubview(speedButton)
+        contentView.addSubview(saveButton)
 
         // Sets up layout constraints
         avatarView.widthAnchor.constraint(equalToConstant: avatarViewSize).isActive = true
@@ -279,6 +301,11 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
 
         speedButton.bottomAnchor.constraint(equalTo: actionButtonsContainerView.bottomAnchor, constant: -speedButtonBottomMargin).isActive = true
         speedButton.centerXAnchor.constraint(equalTo: listenButton.centerXAnchor).isActive = true
+
+        saveButton.widthAnchor.constraint(equalToConstant: saveButtonWidth).isActive = true
+        saveButton.heightAnchor.constraint(equalToConstant: saveButtonHeight).isActive = true
+        saveButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: saveButtonLeadingMargin).isActive = true
+        saveButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: saveButtonTopMargin).isActive = true
     }
 
     @available(*, unavailable)
@@ -308,7 +335,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
     }
 
     // MARK: - Internal
-    func setScoredChapter(_ scoredChapter: ScoredChapter) {
+    func setScoredChapter(_ scoredChapter: ScoredChapter, isSaveButtonHidden: Bool) {
         let chapter = scoredChapter.chapter
         if let scoredContent = scoredChapter.scoredContent {
             contentLabel.attributedText = scoredContent
@@ -339,6 +366,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         audioFileURL = temporaryDirectoryURL.appendingPathComponent(audioFileName)
         replayButton.isEnabled = FileManager.default.fileExists(atPath: audioFileURL!.path)
         self.scoredChapter = scoredChapter
+        saveButton.isHidden = isSaveButtonHidden
     }
 
     func playAudio() {
@@ -454,6 +482,11 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         if player != nil {
             player?.rate = currentAudioPlaySpeed.rawValue
         }
+    }
+
+    @objc
+    func didTapSaveButton() {
+        // TODO: Implement
     }
 
     @objc func playerDidFinishPlaying() {
