@@ -74,6 +74,12 @@
 		EA4206A024970B6300DA3F2A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA42069F24970B6300DA3F2A /* SignUpViewController.swift */; };
 		EA4206A224A054E000DA3F2A /* TrendingPhraseWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206A124A054E000DA3F2A /* TrendingPhraseWrapper.swift */; };
 		EA4206A424A05BD700DA3F2A /* DialogModeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206A324A05BD700DA3F2A /* DialogModeSelectionViewController.swift */; };
+		EA4BEAF324E9E3CD009056D6 /* CompleteProfileViewStep1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4BEAF224E9E3CD009056D6 /* CompleteProfileViewStep1Controller.swift */; };
+		EA4BEAF524E9F98F009056D6 /* ProfileQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4BEAF424E9F98F009056D6 /* ProfileQuestion.swift */; };
+		EA4BEAF724E9FBFC009056D6 /* QuestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4BEAF624E9FBFC009056D6 /* QuestionCollectionViewCell.swift */; };
+		EA4BEAF924EA19E6009056D6 /* QuestionHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4BEAF824EA19E6009056D6 /* QuestionHeaderReusableView.swift */; };
+		EA4BEAFB24EA32EB009056D6 /* CompleteProfileViewStep2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4BEAFA24EA32EB009056D6 /* CompleteProfileViewStep2Controller.swift */; };
+		EA4BEAFD24EA3A81009056D6 /* CompleteProfileViewStep3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4BEAFC24EA3A81009056D6 /* CompleteProfileViewStep3Controller.swift */; };
 		EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA223EF7D4D008EB37B /* MainViewController.swift */; };
 		EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA723EF809D008EB37B /* ProfileViewController.swift */; };
 		EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */; };
@@ -213,6 +219,12 @@
 		EA42069F24970B6300DA3F2A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		EA4206A124A054E000DA3F2A /* TrendingPhraseWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingPhraseWrapper.swift; sourceTree = "<group>"; };
 		EA4206A324A05BD700DA3F2A /* DialogModeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogModeSelectionViewController.swift; sourceTree = "<group>"; };
+		EA4BEAF224E9E3CD009056D6 /* CompleteProfileViewStep1Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteProfileViewStep1Controller.swift; sourceTree = "<group>"; };
+		EA4BEAF424E9F98F009056D6 /* ProfileQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileQuestion.swift; sourceTree = "<group>"; };
+		EA4BEAF624E9FBFC009056D6 /* QuestionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA4BEAF824EA19E6009056D6 /* QuestionHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionHeaderReusableView.swift; sourceTree = "<group>"; };
+		EA4BEAFA24EA32EB009056D6 /* CompleteProfileViewStep2Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteProfileViewStep2Controller.swift; sourceTree = "<group>"; };
+		EA4BEAFC24EA3A81009056D6 /* CompleteProfileViewStep3Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteProfileViewStep3Controller.swift; sourceTree = "<group>"; };
 		EA52FDA223EF7D4D008EB37B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA52FDA723EF809D008EB37B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
@@ -311,6 +323,12 @@
 				EA42069B2495C90100DA3F2A /* OtherSignInView.swift */,
 				EA42069D2496F9B800DA3F2A /* SignUpTextField.swift */,
 				EA42069F24970B6300DA3F2A /* SignUpViewController.swift */,
+				EA4BEAF224E9E3CD009056D6 /* CompleteProfileViewStep1Controller.swift */,
+				EA4BEAF424E9F98F009056D6 /* ProfileQuestion.swift */,
+				EA4BEAF624E9FBFC009056D6 /* QuestionCollectionViewCell.swift */,
+				EA4BEAF824EA19E6009056D6 /* QuestionHeaderReusableView.swift */,
+				EA4BEAFA24EA32EB009056D6 /* CompleteProfileViewStep2Controller.swift */,
+				EA4BEAFC24EA3A81009056D6 /* CompleteProfileViewStep3Controller.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1009,8 +1027,10 @@
 				EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */,
 				92FE6CE8245E7620000E69BC /* MehoCoverIntroCollectionViewCell.swift in Sources */,
 				9267EA1924316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift in Sources */,
+				EA4BEAF324E9E3CD009056D6 /* CompleteProfileViewStep1Controller.swift in Sources */,
 				92C5FE5124565A7E004A3322 /* TrendingPhrase.swift in Sources */,
 				EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */,
+				EA4BEAF524E9F98F009056D6 /* ProfileQuestion.swift in Sources */,
 				92BAC71F243B12A100862571 /* SingleChineseNewsViewController.swift in Sources */,
 				EA6381F42458081400481B8B /* ContentEvaluationResult.swift in Sources */,
 				EA4206A424A05BD700DA3F2A /* DialogModeSelectionViewController.swift in Sources */,
@@ -1019,9 +1039,11 @@
 				EA5448BF2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift in Sources */,
 				92C5FE3924502FAC004A3322 /* PinyinDelimiterView.swift in Sources */,
 				EA6381E92454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift in Sources */,
+				EA4BEAF724E9FBFC009056D6 /* QuestionCollectionViewCell.swift in Sources */,
 				92C5FE2D244C56AF004A3322 /* Pinyin.swift in Sources */,
 				EA4206962468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift in Sources */,
 				92C5FE4B24557931004A3322 /* MainTabTitleView.swift in Sources */,
+				EA4BEAF924EA19E6009056D6 /* QuestionHeaderReusableView.swift in Sources */,
 				EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */,
 				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,
 				EA42069C2495C90100DA3F2A /* OtherSignInView.swift in Sources */,
@@ -1054,6 +1076,7 @@
 				EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */,
 				92577B2D2446F5B70097A445 /* PinyinViewController.swift in Sources */,
 				924C53E823FA1E2600B59D95 /* MehoCoverViewController.swift in Sources */,
+				EA4BEAFD24EA3A81009056D6 /* CompleteProfileViewStep3Controller.swift in Sources */,
 				EA42069E2496F9B800DA3F2A /* SignUpTextField.swift in Sources */,
 				EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */,
 				EA6381E72449913B00481B8B /* AudioVisualizerView.swift in Sources */,
@@ -1064,6 +1087,7 @@
 				EA4206912467BD8200DA3F2A /* SurvivalPhraseCategory.swift in Sources */,
 				9267EA1B243185E5009CA25D /* News.swift in Sources */,
 				9267EA1F2438521A009CA25D /* NewsItemSizeLCollectionViewCell.swift in Sources */,
+				EA4BEAFB24EA32EB009056D6 /* CompleteProfileViewStep2Controller.swift in Sources */,
 				92C5FE29244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift in Sources */,
 				EA6381EF245610D700481B8B /* DuoYourRoleCollectionViewCell.swift in Sources */,
 				EA5448C524273F0B00C07D0A /* CollapsedChapterCollectionViewCell.swift in Sources */,

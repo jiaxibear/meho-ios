@@ -222,3 +222,26 @@
 /* Toast message disaplayed when the expression is saved successfully. */
 "saveSuccessfullyMessage" = "Added to Saved. View All in Profile";
 
+/* Title for the complete profile step 1 page. */
+"completeProfileStep1Title" = "Complete your profile (1/3)";
+
+/* Title for the complete profile step 2 page. */
+"completeProfileStep2Title" = "Complete your profile (2/3)";
+
+/* Title for the complete profile step 3 page. */
+"completeProfileStep3Title" = "Complete your profile (3/3)";
+
+/* Title to ask why the user is interested in learning Chinese. */
+"InterestReasonTitle" = "You are interested in learning Chinese and understanding China to (please choose all that apply):";
+
+/* Title to ask what industry the user is in. */
+"IndustryTitle" = "What best to describes the industry you are in? This will help us tailor our content to your needs:";
+
+/* Text displayed to the user to let them select who they are interested in communicating to. */
+"communicationSelectionsText" = "Communiate with:";
+
+/* Text displayed to the user to let them select what other actions they are interested in doing. */
+"otherSelectionsText" = "and/or to:";
+
+/* Title for the button that the user taps to start learning. */
+"StartLearningButtonTitle" = "Start Learning";

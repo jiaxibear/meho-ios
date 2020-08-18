@@ -331,7 +331,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         }
     }
 
-    @objc func didTapRecordButton() {
+    @objc
+    func didTapRecordButton() {
         recordButton.isSelected = true
         actionLabel.isHidden = false
         actionLabel.text = NSLocalizedString("RecordActionText", comment: "")
@@ -340,7 +341,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         audioVisualizerView.isHidden = false
     }
 
-    @objc func didTapNextButton() {
+    @objc
+    func didTapNextButton() {
         if (currentScoredChapters.count == scoredChapters.count) {
             var score = 0
             for scoredChapter in currentScoredChapters {
@@ -379,7 +381,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         }
     }
 
-    @objc func didTapchangeRoleBarButtonItem() {
+    @objc
+    func didTapchangeRoleBarButtonItem() {
         clearStates()
         isYourRoleFirst = !isYourRoleFirst
         currentScoredChapters = Array(currentScoredChapters[0...0])
