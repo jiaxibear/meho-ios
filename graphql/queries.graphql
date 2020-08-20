@@ -1,0 +1,1640 @@
+# this is an auto generated file. This will be overwritten
+query GetParagraph($id: ID!) {
+  getParagraph(id: $id) {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    content
+    contentType
+    seqNumber
+    contentImage {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListParagraphs(
+  $filter: ModelParagraphFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listParagraphs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      article {
+        id
+        coverImage {
+          ...S3Object
+        }
+        titleEn
+        titleZh
+        whyYouShouldReadThisArticle
+        createdAt
+        tags {
+          items {
+            id
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        vocabularies {
+          items {
+            id
+            paragraphId
+            startIndex
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        sourcer
+        paragraphs {
+          items {
+            id
+            content
+            contentType
+            seqNumber
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        updatedAt
+      }
+      content
+      contentType
+      seqNumber
+      contentImage {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetArticle($id: ID!) {
+  getArticle(id: $id) {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleEn
+    titleZh
+    whyYouShouldReadThisArticle
+    createdAt
+    tags {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    vocabularies {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    sourcer
+    paragraphs {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        content
+        contentType
+        seqNumber
+        contentImage {
+          ...S3Object
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    updatedAt
+  }
+}
+query ListArticles(
+  $filter: ModelArticleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetVocabulary($id: ID!) {
+  getVocabulary(id: $id) {
+    id
+    contentZh
+    contentEn
+    contentPinyin
+    label
+    audio {
+      ...S3Object
+    }
+    optionContent
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListVocabularys(
+  $filter: ModelVocabularyFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVocabularys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      contentZh
+      contentEn
+      contentPinyin
+      label
+      audio {
+        ...S3Object
+      }
+      optionContent
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetVocabularyArticle($id: ID!) {
+  getVocabularyArticle(id: $id) {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    vocabulary {
+      id
+      contentZh
+      contentEn
+      contentPinyin
+      label
+      audio {
+        ...S3Object
+      }
+      optionContent
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    paragraphId
+    startIndex
+    createdAt
+    updatedAt
+  }
+}
+query ListVocabularyArticles(
+  $filter: ModelVocabularyArticleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVocabularyArticles(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      article {
+        id
+        coverImage {
+          ...S3Object
+        }
+        titleEn
+        titleZh
+        whyYouShouldReadThisArticle
+        createdAt
+        tags {
+          items {
+            id
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        vocabularies {
+          items {
+            id
+            paragraphId
+            startIndex
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        sourcer
+        paragraphs {
+          items {
+            id
+            content
+            contentType
+            seqNumber
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        updatedAt
+      }
+      vocabulary {
+        id
+        contentZh
+        contentEn
+        contentPinyin
+        label
+        audio {
+          ...S3Object
+        }
+        optionContent
+        articles {
+          items {
+            id
+            paragraphId
+            startIndex
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      paragraphId
+      startIndex
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetTag($id: ID!) {
+  getTag(id: $id) {
+    id
+    content
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    dialogues {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {
+  listTags(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetTagArticle($id: ID!) {
+  getTagArticle(id: $id) {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListTagArticles(
+  $filter: ModelTagArticleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTagArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      article {
+        id
+        coverImage {
+          ...S3Object
+        }
+        titleEn
+        titleZh
+        whyYouShouldReadThisArticle
+        createdAt
+        tags {
+          items {
+            id
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        vocabularies {
+          items {
+            id
+            paragraphId
+            startIndex
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        sourcer
+        paragraphs {
+          items {
+            id
+            content
+            contentType
+            seqNumber
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        updatedAt
+      }
+      tag {
+        id
+        content
+        articles {
+          items {
+            id
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        dialogues {
+          items {
+            id
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetChapter($id: ID!) {
+  getChapter(id: $id) {
+    id
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    seqNumber
+    npc {
+      id
+      name
+      avatar {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    role
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListChapters(
+  $filter: ModelChapterFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChapters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      contentZh
+      contentPinyin
+      contentEn
+      audio {
+        ...S3Object
+      }
+      seqNumber
+      npc {
+        id
+        name
+        avatar {
+          ...S3Object
+        }
+        createdAt
+        updatedAt
+      }
+      role
+      dialogue {
+        id
+        coverImage {
+          ...S3Object
+        }
+        titleZh
+        titleEn
+        whyYouShouldLearnThisDialogue
+        difficultyLevel
+        tags {
+          items {
+            id
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        chapters {
+          items {
+            id
+            contentZh
+            contentPinyin
+            contentEn
+            seqNumber
+            role
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetDialogue($id: ID!) {
+  getDialogue(id: $id) {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleZh
+    titleEn
+    whyYouShouldLearnThisDialogue
+    difficultyLevel
+    tags {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    chapters {
+      items {
+        id
+        contentZh
+        contentPinyin
+        contentEn
+        audio {
+          ...S3Object
+        }
+        seqNumber
+        npc {
+          id
+          name
+          avatar {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        role
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListDialogues(
+  $filter: ModelDialogueFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listDialogues(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetTagDialogue($id: ID!) {
+  getTagDialogue(id: $id) {
+    id
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListTagDialogues(
+  $filter: ModelTagDialogueFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTagDialogues(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      dialogue {
+        id
+        coverImage {
+          ...S3Object
+        }
+        titleZh
+        titleEn
+        whyYouShouldLearnThisDialogue
+        difficultyLevel
+        tags {
+          items {
+            id
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        chapters {
+          items {
+            id
+            contentZh
+            contentPinyin
+            contentEn
+            seqNumber
+            role
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      tag {
+        id
+        content
+        articles {
+          items {
+            id
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        dialogues {
+          items {
+            id
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetNpc($id: ID!) {
+  getNpc(id: $id) {
+    id
+    name
+    avatar {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListNpcs($filter: ModelNpcFilterInput, $limit: Int, $nextToken: String) {
+  listNpcs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      avatar {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

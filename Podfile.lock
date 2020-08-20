@@ -1,24 +1,33 @@
 PODS:
-  - AWSAuthCore (2.12.7):
-    - AWSCore (= 2.12.7)
-  - AWSAuthUI (2.12.7):
-    - AWSAuthCore (= 2.12.7)
-    - AWSCore (= 2.12.7)
-  - AWSCognitoIdentityProvider (2.12.7):
+  - AppSyncRealTimeClient (1.2.0):
+    - Starscream (~> 3.1.0)
+  - AWSAppSync (3.1.3):
+    - AppSyncRealTimeClient (~> 1.1)
+    - AWSCore (~> 2.14.0)
+    - ReachabilitySwift (~> 5.0.0)
+    - SQLite.swift (~> 0.12.2)
+  - AWSAuthCore (2.14.2):
+    - AWSCore (= 2.14.2)
+  - AWSAuthUI (2.14.2):
+    - AWSAuthCore (= 2.14.2)
+    - AWSCore (= 2.14.2)
+  - AWSCognitoIdentityProvider (2.14.2):
     - AWSCognitoIdentityProviderASF (= 1.0.1)
-    - AWSCore (= 2.12.7)
+    - AWSCore (= 2.14.2)
   - AWSCognitoIdentityProviderASF (1.0.1)
-  - AWSCore (2.12.7)
-  - AWSFacebookSignIn (2.12.7):
-    - AWSAuthCore (= 2.12.7)
+  - AWSCore (2.14.2)
+  - AWSFacebookSignIn (2.14.2):
+    - AWSAuthCore (= 2.14.2)
     - FBSDKCoreKit (= 5.8)
     - FBSDKLoginKit (= 5.8)
-  - AWSMobileClient (2.12.7):
-    - AWSAuthCore (= 2.12.7)
-    - AWSCognitoIdentityProvider (= 2.12.7)
-  - AWSUserPoolsSignIn (2.12.7):
-    - AWSAuthCore (= 2.12.7)
-    - AWSCognitoIdentityProvider (= 2.12.7)
+  - AWSMobileClient (2.14.2):
+    - AWSAuthCore (= 2.14.2)
+    - AWSCognitoIdentityProvider (= 2.14.2)
+  - AWSS3 (2.14.2):
+    - AWSCore (= 2.14.2)
+  - AWSUserPoolsSignIn (2.14.2):
+    - AWSAuthCore (= 2.14.2)
+    - AWSCognitoIdentityProvider (= 2.14.2)
   - FBSDKCoreKit (5.8.0):
     - FBSDKCoreKit/Basics (= 5.8.0)
     - FBSDKCoreKit/Core (= 5.8.0)
@@ -29,17 +38,27 @@ PODS:
     - FBSDKLoginKit/Login (= 5.8.0)
   - FBSDKLoginKit/Login (5.8.0):
     - FBSDKCoreKit (~> 5.0)
+  - ReachabilitySwift (5.0.0)
+  - SQLite.swift (0.12.2):
+    - SQLite.swift/standard (= 0.12.2)
+  - SQLite.swift/standard (0.12.2)
+  - Starscream (3.1.1)
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
-  - AWSAuthUI (~> 2.12.1)
-  - AWSFacebookSignIn (~> 2.12.0)
-  - AWSMobileClient (~> 2.12.1)
-  - AWSUserPoolsSignIn (~> 2.12.1)
+  - AWSAppSync (~> 3.1.3)
+  - AWSAuthUI (~> 2.14.2)
+  - AWSCore (~> 2.14.0)
+  - AWSFacebookSignIn (~> 2.14.2)
+  - AWSMobileClient (~> 2.14.2)
+  - AWSS3 (~> 2.14.2)
+  - AWSUserPoolsSignIn (~> 2.14.2)
   - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
   trunk:
+    - AppSyncRealTimeClient
+    - AWSAppSync
     - AWSAuthCore
     - AWSAuthUI
     - AWSCognitoIdentityProvider
@@ -47,24 +66,34 @@ SPEC REPOS:
     - AWSCore
     - AWSFacebookSignIn
     - AWSMobileClient
+    - AWSS3
     - AWSUserPoolsSignIn
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - ReachabilitySwift
+    - SQLite.swift
+    - Starscream
     - Toast-Swift
 
 SPEC CHECKSUMS:
-  AWSAuthCore: 288cb737a35ff031fbf42edaa8d0062328791d4e
-  AWSAuthUI: 464fbab1841f8878e6370ec76581f9bea67e6252
-  AWSCognitoIdentityProvider: 4998bdbfbafe5038dae0237a598580e102e7b6b5
+  AppSyncRealTimeClient: 3f95699ecb432b8f5856b1d58484e8d651debec0
+  AWSAppSync: f8cfbdcbca1e9bc5039371abe07bf390a60ae4da
+  AWSAuthCore: 7ab6f5ab60ba8bb91a4868581946a993cbbae76d
+  AWSAuthUI: dea9fe4eaefd623e88f02ae91bd3d8bc421eab38
+  AWSCognitoIdentityProvider: 609856c741ef86037055223b3a46f4eeb49319d0
   AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
-  AWSCore: 2f0f88ae94a63a198274d683c7d0e18709d7090b
-  AWSFacebookSignIn: 01647349b676d8522fa8d586459c44ce1f253243
-  AWSMobileClient: bf1fb0868f9187141ca7b69220383c14878c0a29
-  AWSUserPoolsSignIn: fffc46e512e326783585e53639e58c355aae320f
+  AWSCore: 80da498ab0979e77dbdc7690a61ceaaccfb0499a
+  AWSFacebookSignIn: 1cf0ade42563abec41b15fad69f5eeb61053a92b
+  AWSMobileClient: b80f21439aa95df2375e7acdde76d2f60c12f4b7
+  AWSS3: 2ea579ed91fb01a187f7d8d827e3936da488531e
+  AWSUserPoolsSignIn: 6cdca6deec183019640710af5e1665ad38a5e27a
   FBSDKCoreKit: e7dcac0aabcfb09d0166998edd95fe3b05a0ce5d
   FBSDKLoginKit: 1b0cf04df0370b37404213157b060d6666ede814
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: a84ef4c54b9324c108c7c9e3c30ae7ff9461f156
+PODFILE CHECKSUM: 4caed24467f340e5c2f297461cfcb90f195cbcf7
 
 COCOAPODS: 1.8.4

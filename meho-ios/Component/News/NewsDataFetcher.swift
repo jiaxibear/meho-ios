@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import AWSAppSync
+import AWSS3
+import AWSCore
 
 class NewsDataFetcher: NSObject {
     // MARK: - Urls
@@ -16,12 +19,170 @@ class NewsDataFetcher: NSObject {
     private let fetchRecapVocabulariesURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/vocabularies/?limit=3"
 
     // MARK: - Properties
-
+    private var appSyncClient: AWSAppSyncClient?
     private let session = URLSession(configuration: .default)
+    //handles download
+    var completionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?
 
-    // MARK: - Public
+    // MARK: - Init
+    override init() {
+        appSyncClient = (UIApplication.shared.delegate as! AppDelegate).appSyncClient
+    }
 
+    // MARK: - GraphQL based queries
     public func fetchNewsDetail(newsID: String, completionHandler: @escaping ( Array<NewsChapter>?, Array<NewsChapter>?, Error?) -> Void) {
+        let q = GetArticleQuery(id: newsID)
+        appSyncClient?.fetch(query: q) { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {return}
+            guard let items = result?.data?.getArticle?.paragraphs?.items, items.count > 0 else { return }
+            var zhParagraphs:[NewsChapter] = []
+            var enParagraphs:[NewsChapter] = []
+
+            for item in items {
+                guard let chapter = item else {continue}
+                var newsChapter = NewsChapter.init()
+                newsChapter.identifier = chapter.id
+                newsChapter.language = chapter.contentType
+                newsChapter.content = chapter.content
+                newsChapter.seq = chapter.seqNumber
+
+                if let image_key = chapter.contentImage?.key {
+                    newsChapter.image_key = image_key
+                }
+                if let image_bucket = chapter.contentImage?.bucket {
+                    newsChapter.image_bucket = image_bucket
+                }
+
+                if newsChapter.language == "EN" {
+                    enParagraphs.append(newsChapter)
+                } else {
+                    zhParagraphs.append(newsChapter)
+                }
+
+            }
+            zhParagraphs.sort { $0.seq < $1.seq }
+            enParagraphs.sort { $0.seq < $1.seq }
+
+            completionHandler(enParagraphs, zhParagraphs, nil)
+        }
+
+        completionHandler(nil, nil, nil)
+    }
+
+
+    public func fetchNewsList(count: String = "50", completionHandler: @escaping ( Array<News>?, Error?) -> Void) {
+        let q = ListArticlesQuery()
+        appSyncClient?.fetch(query: q) { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {return}
+            guard let items = result?.data?.listArticles?.items, items.count > 0 else { return }
+
+            var newsList:[News] = []
+            for item in items {
+                guard let article = item else {continue}
+                var news = News.init()
+                news.identifier = article.id
+                news.title_en = article.titleEn
+                news.title_zh = article.titleZh
+                news.reason = article.whyYouShouldReadThisArticle
+                if let sourcer = article.sourcer as? String {
+                    news.source = sourcer
+                }
+                if let image_key = article.coverImage?.key {
+                    news.image_key = image_key
+                }
+                if let image_bucket = article.coverImage?.bucket {
+                    news.image_bucket = image_bucket
+                }
+                news.renderType = "S"
+                newsList.append(news)
+            }
+            newsList[0].renderType = "L"
+            completionHandler(newsList, nil)
+        }
+
+        completionHandler(nil, nil)
+    }
+
+    public func fetchNewsListRest(count: String = "50", completionHandler: @escaping ( Array<News>?, Error?) -> Void) {
+
+
+
+            if var fetchNewsListURLComponent = URLComponents.init(string: fetchNewsListURLString) {
+                let quertItem = URLQueryItem.init(name: "limit", value: count)
+                fetchNewsListURLComponent.queryItems = [quertItem]
+                if let newsListUrl = fetchNewsListURLComponent.url {
+                    let dataCategoriesTask = session.dataTask(with: newsListUrl, completionHandler: { (data, URLResponse, error) in
+                        if error != nil {
+                            print("There is an error getting the response of news list")
+                            completionHandler(nil, error)
+                            return
+                        }
+                        if data == nil {
+                            print("The response of news list is empty")
+                            completionHandler(nil, nil)
+                            return
+                        }
+                        do {
+                            if let newsListJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                                let newsList = self.parseNewsListJSON(newsListJson: newsListJson)
+                                completionHandler(newsList, nil)
+                            }
+                        } catch let JSONError as NSError {
+                            print("Failed to parse news list JSON: \(JSONError.localizedDescription)")
+                            completionHandler(nil, JSONError)
+                        }
+                    })
+                    dataCategoriesTask.resume()
+                } else {
+                    completionHandler(nil, nil)
+                }
+            } else {
+                completionHandler(nil, nil)
+            }
+        }
+
+    private func parseNewsListJSON(newsListJson: [String: Any]) -> Array<News> {
+
+        var newsList:[News] = []
+        if let newsItemsJson = newsListJson["results"] as? [Dictionary<String, Any>] {
+            for newsItemJson in newsItemsJson {
+                var news = News.init()
+                if let title_en = newsItemJson["title_en_US"] as? String {
+                    news.title_en = title_en
+                }
+                if let title_zh = newsItemJson["title_zh_CN"] as? String {
+                    news.title_zh = title_zh
+                }
+                if let reason = newsItemJson["why_you_should_read_this_article"] as? String {
+                    news.reason = reason
+                }
+                if let identifier = newsItemJson["id"] as? String {
+                    news.identifier = identifier
+                }
+                if let renderType = newsItemJson["render_type"] as? String {
+                    news.renderType = renderType
+                }
+                if let coverImageURLString = newsItemJson["cover_image"] as? String {
+                    let coverImageURL = URL.init(string: coverImageURLString)
+                    news.coverImageURL = coverImageURL
+                }
+                if let sourceObj = newsItemJson["source"] as? Dictionary<String, Any> {
+                    if let sourceName = sourceObj["name"] as? String {
+                        news.source = sourceName
+                    }
+                }
+                newsList.append(news)
+            }
+        }
+
+        return newsList
+    }
+
+
+    // MARK: - Rest based queries
+    public func fetchNewsDetailRest(newsID: String, completionHandler: @escaping ( Array<NewsChapter>?, Array<NewsChapter>?, Error?) -> Void) {
         let fetchNewsDetailURLString = fetchNewsDetailURLBaseString + newsID
         if let fetchNewsDetailURLComponent = URLComponents.init(string: fetchNewsDetailURLString) {
             if let fetchNewsDetailURL = fetchNewsDetailURLComponent.url {
@@ -91,79 +252,6 @@ class NewsDataFetcher: NSObject {
         }
 
         return (englishNewsChapters, chineseNewsChapters)
-    }
-
-
-    public func fetchNewsList(count: String = "50", completionHandler: @escaping ( Array<News>?, Error?) -> Void) {
-        if var fetchNewsListURLComponent = URLComponents.init(string: fetchNewsListURLString) {
-            let quertItem = URLQueryItem.init(name: "limit", value: count)
-            fetchNewsListURLComponent.queryItems = [quertItem]
-            if let newsListUrl = fetchNewsListURLComponent.url {
-                let dataCategoriesTask = session.dataTask(with: newsListUrl, completionHandler: { (data, URLResponse, error) in
-                    if error != nil {
-                        print("There is an error getting the response of news list")
-                        completionHandler(nil, error)
-                        return
-                    }
-                    if data == nil {
-                        print("The response of news list is empty")
-                        completionHandler(nil, nil)
-                        return
-                    }
-                    do {
-                        if let newsListJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                            let newsList = self.parseNewsListJSON(newsListJson: newsListJson)
-                            completionHandler(newsList, nil)
-                        }
-                    } catch let JSONError as NSError {
-                        print("Failed to parse news list JSON: \(JSONError.localizedDescription)")
-                        completionHandler(nil, JSONError)
-                    }
-                })
-                dataCategoriesTask.resume()
-            } else {
-                completionHandler(nil, nil)
-            }
-        } else {
-            completionHandler(nil, nil)
-        }
-    }
-
-    private func parseNewsListJSON(newsListJson: [String: Any]) -> Array<News> {
-
-        var newsList:[News] = []
-        if let newsItemsJson = newsListJson["results"] as? [Dictionary<String, Any>] {
-            for newsItemJson in newsItemsJson {
-                var news = News.init()
-                if let title_en = newsItemJson["title_en_US"] as? String {
-                    news.title_en = title_en
-                }
-                if let title_zh = newsItemJson["title_zh_CN"] as? String {
-                    news.title_zh = title_zh
-                }
-                if let reason = newsItemJson["why_you_should_read_this_article"] as? String {
-                    news.reason = reason
-                }
-                if let identifier = newsItemJson["id"] as? String {
-                    news.identifier = identifier
-                }
-                if let renderType = newsItemJson["render_type"] as? String {
-                    news.renderType = renderType
-                }
-                if let coverImageURLString = newsItemJson["cover_image"] as? String {
-                    let coverImageURL = URL.init(string: coverImageURLString)
-                    news.coverImageURL = coverImageURL
-                }
-                if let sourceObj = newsItemJson["source"] as? Dictionary<String, Any> {
-                    if let sourceName = sourceObj["name"] as? String {
-                        news.source = sourceName
-                    }
-                }
-                newsList.append(news)
-            }
-        }
-
-        return newsList
     }
 
     public func fetchRecapVocabularies(completionHandler: @escaping ( Array<Vocabulary>?, Error?) -> Void) {

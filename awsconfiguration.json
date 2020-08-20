@@ -25,6 +25,15 @@
             "authenticationFlowType": "USER_SRP_AUTH"
         }
     },
+    "AppSync": {
+        "Default": {
+            "ApiUrl": "https://kqrsgzfocvb67dijx5dm5asrou.appsync-api.us-west-2.amazonaws.com/graphql",
+            "Region": "us-west-2",
+            "AuthMode": "API_KEY",
+            "ApiKey": "da2-w2up3ueksvd7zd5euf2twfxuny",
+            "ClientDatabasePrefix": "mehoadminapi-mehoadmin_API_KEY"
+        }
+    },
     "FacebookSignIn": {
         "AppId": "2791276970964145",
         "Permissions": "public_profile"

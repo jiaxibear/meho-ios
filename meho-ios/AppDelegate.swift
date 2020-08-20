@@ -8,9 +8,13 @@
 
 import UIKit
 import AWSMobileClient
+import AWSAppSync
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    // MARK: - Properties
+    var appSyncClient: AWSAppSyncClient?
 
     // MARK: - Constants
     private let backBarButtonItemImageName = "arrow.left"
@@ -34,6 +38,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AWSMobileClient.default().initialize { (userState, error) in
             print(userState); print(error)
         }
+        setupAppSyncClient()
+
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2,
+           identityPoolId:"us-west-2:14c75bc3-c76b-4d4c-8a8f-6c993aa4305e")
+
+        let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
+
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
+
         return true
     }
 
@@ -49,6 +62,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+
+    func setupAppSyncClient() {
+        let localCacheUrl = URL(fileURLWithPath: NSTemporaryDirectory() + "MehoCache.db")
+        
+        do {
+            let config = try AWSAppSyncClientConfiguration(appSyncServiceConfig: AWSAppSyncServiceConfig())
+            appSyncClient = try AWSAppSyncClient(appSyncConfig: config)
+
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
 

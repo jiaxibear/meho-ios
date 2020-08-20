@@ -188,7 +188,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     // rendertype is returned as one of [XS, S, L, XL], usually we respect it. S, L, XL all come with images while XS don't.  If one news is not marked XS but still does not come with image, we should still degrade to XS
     func chooseRenterType(news: News) -> String {
-        return news.coverImageURL == nil ? "XS" : news.renderType
+        return news.image_bucket == nil || news.image_key == nil ? "XS" : news.renderType
     }
 
     // implement for the delegate of TitleView when tapping on profile image, navigate to profile view

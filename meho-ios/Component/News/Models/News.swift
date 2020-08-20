@@ -16,4 +16,6 @@ struct News {
     var source = ""
     var renderType = ""
     var coverImageURL:URL?
+    var image_bucket:String?
+    var image_key:String?
 }

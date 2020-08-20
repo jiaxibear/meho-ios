@@ -10,7 +10,7 @@ import UIKit
 
 enum EnglishNewsSection: Int {
     case newsChapters
-    case relatedNewsList
+//    case relatedNewsList
 }
 
 class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
@@ -85,12 +85,14 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
                 DispatchQueue.main.async {
                     self.newsChapters = englishChapters!
                     self.hasFetchedNewsDetail = true
-                    self.tryReloadCollectionView()
+                    self.chaptersCollectionView.reloadData()
+//                    self.tryReloadCollectionView()
                 }
             }
         })
 
         // Fetch related news, preparing data for related news list in footer
+        // Hide for Beta launch. Will resume
         dataFecther.fetchNewsList (count: "3", completionHandler: { (newsList, error) in
             if (error == nil && newsList != nil) {
                 DispatchQueue.main.async {
@@ -136,8 +138,8 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
             switch detailedNewsSections {
             case .newsChapters:
                 sectionTitle = news.title_en
-            case .relatedNewsList:
-                sectionTitle = relatedNewsListTitle
+//            case .relatedNewsList:
+//                sectionTitle = relatedNewsListTitle
             }
             if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier, for: indexPath) as? OneLineTitleHeaderCollectionReusableView {
                 headerView.setTitle(title: sectionTitle)
@@ -153,8 +155,8 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         switch detailedNewsSections {
         case .newsChapters:
             sectionTitle = news.title_en
-        case .relatedNewsList:
-            sectionTitle = relatedNewsListTitle
+//        case .relatedNewsList:
+//            sectionTitle = relatedNewsListTitle
         }
         return CGSize.init(width: 0, height: OneLineTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, title: sectionTitle))
     }
@@ -164,8 +166,8 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         switch detailedNewsSections {
         case .newsChapters:
             return newsChapters.count
-        case .relatedNewsList:
-            return relatedNewsList.count
+//        case .relatedNewsList:
+//            return relatedNewsList.count
         }
     }
 
@@ -180,16 +182,16 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         case .newsChapters:
             let chapter = newsChapters[indexPath.item]
             return CGSize(width: width, height: NewsChapterCollectionViewCell.cellHeight(with: width, newsChapter: chapter))
-        case .relatedNewsList:
-            let relatedNewsItem = relatedNewsList[indexPath.item]
-            switch chooseRenterType(news:relatedNewsItem) {
-                case "S":
-                    return CGSize(width: width, height: NewsItemSizeSCollectionViewCell.cellHeight(with: width, news: relatedNewsItem))
-                case "XS":
-                    return CGSize(width: width, height: NewsItemSizeXSCollectionViewCell.cellHeight(with: width, news: relatedNewsItem))
-                default:
-                    return CGSize(width: width, height: 0)
-            }
+//        case .relatedNewsList:
+//            let relatedNewsItem = relatedNewsList[indexPath.item]
+//            switch chooseRenterType(news:relatedNewsItem) {
+//                case "S":
+//                    return CGSize(width: width, height: NewsItemSizeSCollectionViewCell.cellHeight(with: width, news: relatedNewsItem))
+//                case "XS":
+//                    return CGSize(width: width, height: NewsItemSizeXSCollectionViewCell.cellHeight(with: width, news: relatedNewsItem))
+//                default:
+//                    return CGSize(width: width, height: 0)
+//            }
         }
     }
 
@@ -201,20 +203,20 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsChapterCellReuseIdentifier, for: indexPath) as! NewsChapterCollectionViewCell
             cell.setNewsChapter(chapter)
             return cell
-        case .relatedNewsList:
-            let relatedNewsItem = relatedNewsList[indexPath.item]
-            switch chooseRenterType(news:relatedNewsItem) {
-                case "S":
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeSCellReuseIdentifier, for: indexPath) as! NewsItemSizeSCollectionViewCell
-                    cell.setNews(relatedNewsItem)
-                    return cell
-                case "XS":
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeXSCellReuseIdentifier, for: indexPath) as! NewsItemSizeXSCollectionViewCell
-                    cell.setNews(relatedNewsItem)
-                    return cell
-                default:
-                    return UICollectionViewCell.init()
-            }
+//        case .relatedNewsList:
+//            let relatedNewsItem = relatedNewsList[indexPath.item]
+//            switch chooseRenterType(news:relatedNewsItem) {
+//                case "S":
+//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeSCellReuseIdentifier, for: indexPath) as! NewsItemSizeSCollectionViewCell
+//                    cell.setNews(relatedNewsItem)
+//                    return cell
+//                case "XS":
+//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeXSCellReuseIdentifier, for: indexPath) as! NewsItemSizeXSCollectionViewCell
+//                    cell.setNews(relatedNewsItem)
+//                    return cell
+//                default:
+//                    return UICollectionViewCell.init()
+//            }
         }
     }
 
@@ -228,7 +230,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
             return;
         }
         sections.insert(.newsChapters, at: 0)
-        sections.insert(.relatedNewsList, at: 1)
+//        sections.insert(.relatedNewsList, at: 1)
         chaptersCollectionView.reloadData()
     }
 

@@ -116,6 +116,12 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
             imageViewHeightConstraint.constant = contentImageReservedHeight
             imageViewToTextViewMarginConstraint.isActive = true
             textViewBottomConstraint.isActive = false
+        } else if let imageKey = newsChapter.image_key, let imageBucket = newsChapter.image_bucket {
+            let s3Key = S3ImageViewKey.init(bucket: imageBucket, key: imageKey)
+            imageView.imageKey = s3Key
+            imageViewHeightConstraint.constant = contentImageReservedHeight
+            imageViewToTextViewMarginConstraint.isActive = true
+            textViewBottomConstraint.isActive = false
         } else {
             imageViewHeightConstraint.constant = 0
             imageViewToTextViewMarginConstraint.isActive = false
@@ -134,7 +140,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         }
 
         var height = sizingCell.textView.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height
-        if newsChapter.contentImageURL != nil {
+        if newsChapter.contentImageURL != nil || (newsChapter.image_key != nil && newsChapter.image_bucket != nil) {
             height += sizingCell.textAndImageMargin
             height += sizingCell.contentImageReservedHeight
         }

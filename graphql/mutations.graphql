@@ -1,0 +1,3064 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateParagraph(
+  $input: CreateParagraphInput!
+  $condition: ModelParagraphConditionInput
+) {
+  createParagraph(input: $input, condition: $condition) {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    content
+    contentType
+    seqNumber
+    contentImage {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateParagraph(
+  $input: UpdateParagraphInput!
+  $condition: ModelParagraphConditionInput
+) {
+  updateParagraph(input: $input, condition: $condition) {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    content
+    contentType
+    seqNumber
+    contentImage {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteParagraph(
+  $input: DeleteParagraphInput!
+  $condition: ModelParagraphConditionInput
+) {
+  deleteParagraph(input: $input, condition: $condition) {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    content
+    contentType
+    seqNumber
+    contentImage {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateArticle(
+  $input: CreateArticleInput!
+  $condition: ModelArticleConditionInput
+) {
+  createArticle(input: $input, condition: $condition) {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleEn
+    titleZh
+    whyYouShouldReadThisArticle
+    createdAt
+    tags {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    vocabularies {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    sourcer
+    paragraphs {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        content
+        contentType
+        seqNumber
+        contentImage {
+          ...S3Object
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    updatedAt
+  }
+}
+mutation UpdateArticle(
+  $input: UpdateArticleInput!
+  $condition: ModelArticleConditionInput
+) {
+  updateArticle(input: $input, condition: $condition) {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleEn
+    titleZh
+    whyYouShouldReadThisArticle
+    createdAt
+    tags {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    vocabularies {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    sourcer
+    paragraphs {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        content
+        contentType
+        seqNumber
+        contentImage {
+          ...S3Object
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    updatedAt
+  }
+}
+mutation DeleteArticle(
+  $input: DeleteArticleInput!
+  $condition: ModelArticleConditionInput
+) {
+  deleteArticle(input: $input, condition: $condition) {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleEn
+    titleZh
+    whyYouShouldReadThisArticle
+    createdAt
+    tags {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    vocabularies {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    sourcer
+    paragraphs {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        content
+        contentType
+        seqNumber
+        contentImage {
+          ...S3Object
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    updatedAt
+  }
+}
+mutation CreateVocabulary(
+  $input: CreateVocabularyInput!
+  $condition: ModelVocabularyConditionInput
+) {
+  createVocabulary(input: $input, condition: $condition) {
+    id
+    contentZh
+    contentEn
+    contentPinyin
+    label
+    audio {
+      ...S3Object
+    }
+    optionContent
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateVocabulary(
+  $input: UpdateVocabularyInput!
+  $condition: ModelVocabularyConditionInput
+) {
+  updateVocabulary(input: $input, condition: $condition) {
+    id
+    contentZh
+    contentEn
+    contentPinyin
+    label
+    audio {
+      ...S3Object
+    }
+    optionContent
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteVocabulary(
+  $input: DeleteVocabularyInput!
+  $condition: ModelVocabularyConditionInput
+) {
+  deleteVocabulary(input: $input, condition: $condition) {
+    id
+    contentZh
+    contentEn
+    contentPinyin
+    label
+    audio {
+      ...S3Object
+    }
+    optionContent
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateVocabularyArticle(
+  $input: CreateVocabularyArticleInput!
+  $condition: ModelVocabularyArticleConditionInput
+) {
+  createVocabularyArticle(input: $input, condition: $condition) {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    vocabulary {
+      id
+      contentZh
+      contentEn
+      contentPinyin
+      label
+      audio {
+        ...S3Object
+      }
+      optionContent
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    paragraphId
+    startIndex
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateVocabularyArticle(
+  $input: UpdateVocabularyArticleInput!
+  $condition: ModelVocabularyArticleConditionInput
+) {
+  updateVocabularyArticle(input: $input, condition: $condition) {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    vocabulary {
+      id
+      contentZh
+      contentEn
+      contentPinyin
+      label
+      audio {
+        ...S3Object
+      }
+      optionContent
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    paragraphId
+    startIndex
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteVocabularyArticle(
+  $input: DeleteVocabularyArticleInput!
+  $condition: ModelVocabularyArticleConditionInput
+) {
+  deleteVocabularyArticle(input: $input, condition: $condition) {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    vocabulary {
+      id
+      contentZh
+      contentEn
+      contentPinyin
+      label
+      audio {
+        ...S3Object
+      }
+      optionContent
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    paragraphId
+    startIndex
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateTag(
+  $input: CreateTagInput!
+  $condition: ModelTagConditionInput
+) {
+  createTag(input: $input, condition: $condition) {
+    id
+    content
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    dialogues {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateTag(
+  $input: UpdateTagInput!
+  $condition: ModelTagConditionInput
+) {
+  updateTag(input: $input, condition: $condition) {
+    id
+    content
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    dialogues {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteTag(
+  $input: DeleteTagInput!
+  $condition: ModelTagConditionInput
+) {
+  deleteTag(input: $input, condition: $condition) {
+    id
+    content
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    dialogues {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateTagArticle(
+  $input: CreateTagArticleInput!
+  $condition: ModelTagArticleConditionInput
+) {
+  createTagArticle(input: $input, condition: $condition) {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateTagArticle(
+  $input: UpdateTagArticleInput!
+  $condition: ModelTagArticleConditionInput
+) {
+  updateTagArticle(input: $input, condition: $condition) {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteTagArticle(
+  $input: DeleteTagArticleInput!
+  $condition: ModelTagArticleConditionInput
+) {
+  deleteTagArticle(input: $input, condition: $condition) {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateChapter(
+  $input: CreateChapterInput!
+  $condition: ModelChapterConditionInput
+) {
+  createChapter(input: $input, condition: $condition) {
+    id
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    seqNumber
+    npc {
+      id
+      name
+      avatar {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    role
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateChapter(
+  $input: UpdateChapterInput!
+  $condition: ModelChapterConditionInput
+) {
+  updateChapter(input: $input, condition: $condition) {
+    id
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    seqNumber
+    npc {
+      id
+      name
+      avatar {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    role
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteChapter(
+  $input: DeleteChapterInput!
+  $condition: ModelChapterConditionInput
+) {
+  deleteChapter(input: $input, condition: $condition) {
+    id
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    seqNumber
+    npc {
+      id
+      name
+      avatar {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    role
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateDialogue(
+  $input: CreateDialogueInput!
+  $condition: ModelDialogueConditionInput
+) {
+  createDialogue(input: $input, condition: $condition) {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleZh
+    titleEn
+    whyYouShouldLearnThisDialogue
+    difficultyLevel
+    tags {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    chapters {
+      items {
+        id
+        contentZh
+        contentPinyin
+        contentEn
+        audio {
+          ...S3Object
+        }
+        seqNumber
+        npc {
+          id
+          name
+          avatar {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        role
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateDialogue(
+  $input: UpdateDialogueInput!
+  $condition: ModelDialogueConditionInput
+) {
+  updateDialogue(input: $input, condition: $condition) {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleZh
+    titleEn
+    whyYouShouldLearnThisDialogue
+    difficultyLevel
+    tags {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    chapters {
+      items {
+        id
+        contentZh
+        contentPinyin
+        contentEn
+        audio {
+          ...S3Object
+        }
+        seqNumber
+        npc {
+          id
+          name
+          avatar {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        role
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteDialogue(
+  $input: DeleteDialogueInput!
+  $condition: ModelDialogueConditionInput
+) {
+  deleteDialogue(input: $input, condition: $condition) {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleZh
+    titleEn
+    whyYouShouldLearnThisDialogue
+    difficultyLevel
+    tags {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    chapters {
+      items {
+        id
+        contentZh
+        contentPinyin
+        contentEn
+        audio {
+          ...S3Object
+        }
+        seqNumber
+        npc {
+          id
+          name
+          avatar {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        role
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateTagDialogue(
+  $input: CreateTagDialogueInput!
+  $condition: ModelTagDialogueConditionInput
+) {
+  createTagDialogue(input: $input, condition: $condition) {
+    id
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateTagDialogue(
+  $input: UpdateTagDialogueInput!
+  $condition: ModelTagDialogueConditionInput
+) {
+  updateTagDialogue(input: $input, condition: $condition) {
+    id
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteTagDialogue(
+  $input: DeleteTagDialogueInput!
+  $condition: ModelTagDialogueConditionInput
+) {
+  deleteTagDialogue(input: $input, condition: $condition) {
+    id
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateNpc(
+  $input: CreateNpcInput!
+  $condition: ModelNpcConditionInput
+) {
+  createNpc(input: $input, condition: $condition) {
+    id
+    name
+    avatar {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateNpc(
+  $input: UpdateNpcInput!
+  $condition: ModelNpcConditionInput
+) {
+  updateNpc(input: $input, condition: $condition) {
+    id
+    name
+    avatar {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteNpc(
+  $input: DeleteNpcInput!
+  $condition: ModelNpcConditionInput
+) {
+  deleteNpc(input: $input, condition: $condition) {
+    id
+    name
+    avatar {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}

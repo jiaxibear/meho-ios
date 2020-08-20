@@ -99,6 +99,10 @@ class NewsItemSizeXLCollectionViewCell: UICollectionViewCell, WebImageViewDelega
         if let coverImageURL = news.coverImageURL {
             coverImageView.imageURL = coverImageURL
         }
+        if let imageKey = news.image_key, let imageBucket = news.image_bucket {
+            let s3Key = S3ImageViewKey.init(bucket: imageBucket, key: imageKey)
+            coverImageView.imageKey = s3Key
+        }
     }
 
     public class func cellHeight(with width: CGFloat, news: News) -> CGFloat {

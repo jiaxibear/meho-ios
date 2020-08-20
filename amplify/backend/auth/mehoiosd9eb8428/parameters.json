@@ -1,6 +1,6 @@
 {
     "identityPoolName": "mehoiosd9eb8428_identitypool_d9eb8428",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "mehoiod9eb8428",
     "userPoolName": "mehoiosd9eb8428_userpool_d9eb8428",
     "autoVerifiedAttributes": [
@@ -48,6 +48,8 @@
     "usernameAttributes": [
         "email"
     ],
-    "userPoolGroupList": [],
+    "userPoolGroupList": [
+        "mehogeneral"
+    ],
     "dependsOn": []
 }

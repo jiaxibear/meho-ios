@@ -1,0 +1,18 @@
+projects:
+  mehoadminapi-mehoadmin:
+    schemaPath: graphql/schema.json
+    includes:
+      - graphql/**/*.graphql
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: swift
+        generatedFileName: API.swift
+        docsFilePath: graphql
+        region: us-west-2
+        apiId: v64ixmlkqrey5mftr2fc6ql55a
+        maxDepth: 5
+extensions:
+  amplify:
+    version: 3

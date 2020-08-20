@@ -1,0 +1,2974 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateParagraph {
+  onCreateParagraph {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    content
+    contentType
+    seqNumber
+    contentImage {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateParagraph {
+  onUpdateParagraph {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    content
+    contentType
+    seqNumber
+    contentImage {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteParagraph {
+  onDeleteParagraph {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    content
+    contentType
+    seqNumber
+    contentImage {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateArticle {
+  onCreateArticle {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleEn
+    titleZh
+    whyYouShouldReadThisArticle
+    createdAt
+    tags {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    vocabularies {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    sourcer
+    paragraphs {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        content
+        contentType
+        seqNumber
+        contentImage {
+          ...S3Object
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    updatedAt
+  }
+}
+subscription OnUpdateArticle {
+  onUpdateArticle {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleEn
+    titleZh
+    whyYouShouldReadThisArticle
+    createdAt
+    tags {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    vocabularies {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    sourcer
+    paragraphs {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        content
+        contentType
+        seqNumber
+        contentImage {
+          ...S3Object
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    updatedAt
+  }
+}
+subscription OnDeleteArticle {
+  onDeleteArticle {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleEn
+    titleZh
+    whyYouShouldReadThisArticle
+    createdAt
+    tags {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    vocabularies {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    sourcer
+    paragraphs {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        content
+        contentType
+        seqNumber
+        contentImage {
+          ...S3Object
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    updatedAt
+  }
+}
+subscription OnCreateVocabulary {
+  onCreateVocabulary {
+    id
+    contentZh
+    contentEn
+    contentPinyin
+    label
+    audio {
+      ...S3Object
+    }
+    optionContent
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateVocabulary {
+  onUpdateVocabulary {
+    id
+    contentZh
+    contentEn
+    contentPinyin
+    label
+    audio {
+      ...S3Object
+    }
+    optionContent
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteVocabulary {
+  onDeleteVocabulary {
+    id
+    contentZh
+    contentEn
+    contentPinyin
+    label
+    audio {
+      ...S3Object
+    }
+    optionContent
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateVocabularyArticle {
+  onCreateVocabularyArticle {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    vocabulary {
+      id
+      contentZh
+      contentEn
+      contentPinyin
+      label
+      audio {
+        ...S3Object
+      }
+      optionContent
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    paragraphId
+    startIndex
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateVocabularyArticle {
+  onUpdateVocabularyArticle {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    vocabulary {
+      id
+      contentZh
+      contentEn
+      contentPinyin
+      label
+      audio {
+        ...S3Object
+      }
+      optionContent
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    paragraphId
+    startIndex
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteVocabularyArticle {
+  onDeleteVocabularyArticle {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    vocabulary {
+      id
+      contentZh
+      contentEn
+      contentPinyin
+      label
+      audio {
+        ...S3Object
+      }
+      optionContent
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    paragraphId
+    startIndex
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateTag {
+  onCreateTag {
+    id
+    content
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    dialogues {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateTag {
+  onUpdateTag {
+    id
+    content
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    dialogues {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteTag {
+  onDeleteTag {
+    id
+    content
+    articles {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    dialogues {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateTagArticle {
+  onCreateTagArticle {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateTagArticle {
+  onUpdateTagArticle {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteTagArticle {
+  onDeleteTagArticle {
+    id
+    article {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateChapter {
+  onCreateChapter {
+    id
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    seqNumber
+    npc {
+      id
+      name
+      avatar {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    role
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateChapter {
+  onUpdateChapter {
+    id
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    seqNumber
+    npc {
+      id
+      name
+      avatar {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    role
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteChapter {
+  onDeleteChapter {
+    id
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    seqNumber
+    npc {
+      id
+      name
+      avatar {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    role
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateDialogue {
+  onCreateDialogue {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleZh
+    titleEn
+    whyYouShouldLearnThisDialogue
+    difficultyLevel
+    tags {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    chapters {
+      items {
+        id
+        contentZh
+        contentPinyin
+        contentEn
+        audio {
+          ...S3Object
+        }
+        seqNumber
+        npc {
+          id
+          name
+          avatar {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        role
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateDialogue {
+  onUpdateDialogue {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleZh
+    titleEn
+    whyYouShouldLearnThisDialogue
+    difficultyLevel
+    tags {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    chapters {
+      items {
+        id
+        contentZh
+        contentPinyin
+        contentEn
+        audio {
+          ...S3Object
+        }
+        seqNumber
+        npc {
+          id
+          name
+          avatar {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        role
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteDialogue {
+  onDeleteDialogue {
+    id
+    coverImage {
+      ...S3Object
+    }
+    titleZh
+    titleEn
+    whyYouShouldLearnThisDialogue
+    difficultyLevel
+    tags {
+      items {
+        id
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    chapters {
+      items {
+        id
+        contentZh
+        contentPinyin
+        contentEn
+        audio {
+          ...S3Object
+        }
+        seqNumber
+        npc {
+          id
+          name
+          avatar {
+            ...S3Object
+          }
+          createdAt
+          updatedAt
+        }
+        role
+        dialogue {
+          id
+          coverImage {
+            ...S3Object
+          }
+          titleZh
+          titleEn
+          whyYouShouldLearnThisDialogue
+          difficultyLevel
+          tags {
+            nextToken
+          }
+          chapters {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateTagDialogue {
+  onCreateTagDialogue {
+    id
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateTagDialogue {
+  onUpdateTagDialogue {
+    id
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteTagDialogue {
+  onDeleteTagDialogue {
+    id
+    dialogue {
+      id
+      coverImage {
+        ...S3Object
+      }
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          seqNumber
+          npc {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          role
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    tag {
+      id
+      content
+      articles {
+        items {
+          id
+          article {
+            id
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      dialogues {
+        items {
+          id
+          dialogue {
+            id
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            createdAt
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateNpc {
+  onCreateNpc {
+    id
+    name
+    avatar {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateNpc {
+  onUpdateNpc {
+    id
+    name
+    avatar {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteNpc {
+  onDeleteNpc {
+    id
+    name
+    avatar {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
