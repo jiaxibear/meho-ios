@@ -80,7 +80,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         // Do any additional setup after loading the view.
         // Fetch news chapters
         dataFecther.fetchNewsDetail(newsID: news.identifier, completionHandler: {
-            (englishChapters, chineseChapters, error) in
+            (englishChapters, chineseChapters, recabVocabs, error) in
             if (error == nil && chineseChapters != nil && englishChapters != nil) {
                 DispatchQueue.main.async {
                     self.newsChapters = englishChapters!

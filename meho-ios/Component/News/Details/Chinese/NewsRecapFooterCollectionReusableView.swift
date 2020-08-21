@@ -40,7 +40,7 @@ class NewsRecapFooterCollectionReusableView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setupQuizButton()
+//        setupQuizButton()
         setupMarkCompleteButton()
     }
 
@@ -70,14 +70,19 @@ class NewsRecapFooterCollectionReusableView: UICollectionReusableView {
         markCompleteButton.setTitle(markCompleteButtonTitle, for: .normal)
         addSubview(markCompleteButton)
 
-        markCompleteButton.topAnchor.constraint(equalTo: quizButton.bottomAnchor, constant: buttonInset).isActive = true
+        // change to the following line when resuming quiz function
+//        markCompleteButton.topAnchor.constraint(equalTo: quizButton.bottomAnchor, constant: buttonInset).isActive = true
+        markCompleteButton.topAnchor.constraint(equalTo: topAnchor).isActive = true
         markCompleteButton.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         markCompleteButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         markCompleteButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
     }
 
     public class func cellHeight(with width: CGFloat) -> CGFloat {
-        return 2 * sizingView.buttonHeight + sizingView.buttonInset + sizingView.bottomMargin
+        // when resuming quiz option, exchange with this
+//        return 2*sizingView.buttonHeight + sizingView.buttonInset + sizingView.bottomMargin
+        return sizingView.buttonHeight + sizingView.buttonInset
+
     }
 
 }

@@ -12,7 +12,7 @@ import AWSS3
 import AWSCore
 
 class NewsDataFetcher: NSObject {
-    // MARK: - Urls
+    // MARK: - Urls for Restful APIs
     private let fetchNewsListURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/articles/"
     private let fetchNewsDetailURLBaseString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/articleDetails/"
     private let fetchVocabulariesURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/news/vocabularies/"
@@ -30,7 +30,7 @@ class NewsDataFetcher: NSObject {
     }
 
     // MARK: - GraphQL based queries
-    public func fetchNewsDetail(newsID: String, completionHandler: @escaping ( Array<NewsChapter>?, Array<NewsChapter>?, Error?) -> Void) {
+    public func fetchNewsDetail(newsID: String, completionHandler: @escaping ( Array<NewsChapter>?, Array<NewsChapter>?, Array<Vocabulary>?, Error?) -> Void) {
         let q = GetArticleQuery(id: newsID)
         appSyncClient?.fetch(query: q) { (result, error) in
             print (error?.localizedDescription as Any)
@@ -64,10 +64,42 @@ class NewsDataFetcher: NSObject {
             zhParagraphs.sort { $0.seq < $1.seq }
             enParagraphs.sort { $0.seq < $1.seq }
 
-            completionHandler(enParagraphs, zhParagraphs, nil)
+            guard let allVocabs = result?.data?.getArticle?.vocabularies?.items else { return }
+            var recabVocabs: [Vocabulary] = []
+            var recabVocabIdSet:Set<String> = []
+            for maybeArticleVocab in allVocabs {
+                guard let articleVocab = maybeArticleVocab else { continue }
+                guard let remoteVocab = articleVocab.vocabulary else { continue }
+                var vocab = Vocabulary.init()
+                vocab.identifier = remoteVocab.id
+                vocab.content_en = remoteVocab.contentEn
+                vocab.content_zh = remoteVocab.contentZh
+                vocab.content_pinyin = remoteVocab.contentPinyin
+                if let contentOptional = remoteVocab.optionContent {
+                    vocab.content_optional = contentOptional
+                }
+                if let audio_key = remoteVocab.audio?.key {
+                    vocab.audio_key = audio_key
+                }
+                if let audio_bucket = remoteVocab.audio?.bucket {
+                    vocab.audio_bucket = audio_bucket
+                }
+
+                if let startIndex = articleVocab.startIndex {
+                    vocab.chapter_offset = startIndex
+                }
+
+                if remoteVocab.label == "MEHO_CURATED", !recabVocabIdSet.contains(vocab.identifier) {
+                    recabVocabs.append(vocab)
+                    recabVocabIdSet.insert(vocab.identifier)
+                }
+
+            }
+
+            completionHandler(enParagraphs, zhParagraphs, recabVocabs, nil)
         }
 
-        completionHandler(nil, nil, nil)
+        completionHandler(nil, nil, nil, nil)
     }
 
 

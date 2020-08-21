@@ -14,5 +14,8 @@ struct Vocabulary {
     var content_zh = ""
     var content_en = ""
     var content_optional = ""
+    var chapter_offset = -1
     var audioURL:URL?
+    var audio_bucket:String?
+    var audio_key:String?
 }

@@ -26,8 +26,6 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
     // MARK: - Properties
     private let news: News
-    private var hasFetchedNewsDetail = false
-    private var hasFetchedVocabularies = false
 
     // MARK: - UI
     private var chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
@@ -79,26 +77,19 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
         // Do any additional setup after loading the view.
         dataFetcher.fetchNewsDetail(newsID: news.identifier, completionHandler: {
-            (englishChapters, chineseChapters, error) in
-            if (error == nil && chineseChapters != nil && englishChapters != nil) {
+            (englishChapters, chineseChapters, recabVocabs, error) in
+            if (error == nil && chineseChapters != nil && englishChapters != nil && recabVocabs != nil ) {
                 DispatchQueue.main.async {
                     self.newsChapters = chineseChapters!
-                    self.hasFetchedNewsDetail = true
-                    self.tryReloadCollectionView()
+                    self.vocabularyList = recabVocabs!
+                    self.sections.insert(.newsChapters, at: 0)
+                    self.sections.insert(.vocabularyList, at: 1)
+                    self.chaptersCollectionView.reloadData()
                 }
             }
         })
 
-        dataFetcher.fetchRecapVocabularies(completionHandler: {
-            (recapVocabularies, error) in
-            if (error == nil && recapVocabularies != nil) {
-                DispatchQueue.main.async {
-                    self.vocabularyList = recapVocabularies!
-                    self.hasFetchedVocabularies = true
-                    self.tryReloadCollectionView()
-                }
-            }
-        })
+
     }
 
     func setUpChapters() {
@@ -230,13 +221,4 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         })
     }
 
-
-    func tryReloadCollectionView() {
-        if !(hasFetchedVocabularies && hasFetchedNewsDetail) {
-            return;
-        }
-        sections.insert(.newsChapters, at: 0)
-        sections.insert(.vocabularyList, at: 1)
-        chaptersCollectionView.reloadData()
-    }
 }
