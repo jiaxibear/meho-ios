@@ -206,17 +206,11 @@ class DetailedNewsViewController: UIViewController {
 
     @objc
     func didTapShareButton() {
-        let newsTitle = news.title_en
+        let newsTitle = "Join me and sign up for Meho to explore great content on China and learn hands-on Chinese skills!"
+        let logoImage = UIImage.init(named: "auth_logo")
 
-        // If you want to put an image
-        let webImageView : WebImageView = WebImageView.init(frame: .zero)
-        // Downloads the image.
-        if let coverImageURL = news.coverImageURL {
-            webImageView.imageURL = coverImageURL
-        }
-
-        if let myWebsite = URL(string: "https://www.meho.com/") {//Enter link to your app here
-            let objectsToShare = [newsTitle, myWebsite, webImageView] as [Any]
+        if let myWebsite = URL(string: "https://www.wearemeho.com/") {//Enter link to your app here
+            let objectsToShare = [newsTitle, logoImage!, myWebsite] as [Any]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
 
             //Excluded Activities
