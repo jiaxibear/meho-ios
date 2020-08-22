@@ -30,13 +30,13 @@ class NewsDataFetcher: NSObject {
     }
 
     // MARK: - GraphQL based queries
-    public func fetchNewsDetail(newsID: String, completionHandler: @escaping ( Array<NewsChapter>?, Array<NewsChapter>?, Array<Vocabulary>?, Error?) -> Void) {
+    public func fetchNewsDetail(newsID: String, completionHandler: @escaping ( Array<NewsChapter>?, Array<NewsChapter>?, Array<Vocabulary>?, Dictionary<String, Vocabulary>?, Error?) -> Void) {
         let q = GetArticleQuery(id: newsID)
         appSyncClient?.fetch(query: q) { (result, error) in
             print (error?.localizedDescription as Any)
             guard error == nil else {return}
             guard let items = result?.data?.getArticle?.paragraphs?.items, items.count > 0 else { return }
-            var zhParagraphs:[NewsChapter] = []
+            var zhParagraphDict:Dictionary<String, NewsChapter> = [:]
             var enParagraphs:[NewsChapter] = []
 
             for item in items {
@@ -57,16 +57,15 @@ class NewsDataFetcher: NSObject {
                 if newsChapter.language == "EN" {
                     enParagraphs.append(newsChapter)
                 } else {
-                    zhParagraphs.append(newsChapter)
+                    zhParagraphDict[chapter.id] = newsChapter
                 }
 
             }
-            zhParagraphs.sort { $0.seq < $1.seq }
-            enParagraphs.sort { $0.seq < $1.seq }
 
             guard let allVocabs = result?.data?.getArticle?.vocabularies?.items else { return }
             var recabVocabs: [Vocabulary] = []
             var recabVocabIdSet:Set<String> = []
+            var allVocabDict:Dictionary<String, Vocabulary> = [:]
             for maybeArticleVocab in allVocabs {
                 guard let articleVocab = maybeArticleVocab else { continue }
                 guard let remoteVocab = articleVocab.vocabulary else { continue }
@@ -94,12 +93,21 @@ class NewsDataFetcher: NSObject {
                     recabVocabIdSet.insert(vocab.identifier)
                 }
 
+                if let chapterId = articleVocab.paragraphId, zhParagraphDict[chapterId] != nil {
+                    zhParagraphDict[chapterId]!.vocabularies.append(vocab)
+                }
+
+                allVocabDict[vocab.identifier] = vocab
             }
 
-            completionHandler(enParagraphs, zhParagraphs, recabVocabs, nil)
+            var zhParagraphs = Array(zhParagraphDict.values)
+            zhParagraphs.sort { $0.seq < $1.seq }
+            enParagraphs.sort { $0.seq < $1.seq }
+
+            completionHandler(enParagraphs, zhParagraphs, recabVocabs, allVocabDict, nil)
         }
 
-        completionHandler(nil, nil, nil, nil)
+        completionHandler(nil, nil, nil, nil, nil)
     }
 
 
@@ -118,7 +126,7 @@ class NewsDataFetcher: NSObject {
                 news.title_en = article.titleEn
                 news.title_zh = article.titleZh
                 news.reason = article.whyYouShouldReadThisArticle
-                if let sourcer = article.sourcer as? String {
+                if let sourcer = article.sourcer {
                     news.source = sourcer
                 }
                 if let image_key = article.coverImage?.key {

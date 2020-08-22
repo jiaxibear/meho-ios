@@ -150,7 +150,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
         vocabularyEnLabel.textColor = .textBlueGray
         let enfontDescriptor = UIFont.systemFont(ofSize: enLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
         vocabularyEnLabel.font = UIFont.init(descriptor: enfontDescriptor!, size: 0)
-        vocabularyEnLabel.numberOfLines = 1
+        vocabularyEnLabel.numberOfLines = 0
         vocabularyEnLabel.sizeToFit()
         contentView.addSubview(vocabularyEnLabel)
 
@@ -166,7 +166,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
         vocabularyOptionalLabel.textColor = .textBlueGray
         let optionalfontDescriptor = UIFont.systemFont(ofSize: enLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
         vocabularyEnLabel.font = UIFont.init(descriptor: optionalfontDescriptor!, size: 0)
-        vocabularyOptionalLabel.numberOfLines = 2
+        vocabularyOptionalLabel.numberOfLines = 0
         vocabularyOptionalLabel.sizeToFit()
         contentView.addSubview(vocabularyOptionalLabel)
 
@@ -189,7 +189,9 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
         prounceButton.widthAnchor.constraint(equalToConstant: vocabularyPinyinLabel.bounds.height).isActive = true
         prounceButton.heightAnchor.constraint(equalToConstant: vocabularyPinyinLabel.bounds.height).isActive = true
 
-        if vocabulary.audioURL == nil {
+        if vocabulary.audioURL != nil || (vocabulary.audio_bucket != nil && vocabulary.audio_key != nil) {
+            prounceButton.isHidden = false
+        } else {
             prounceButton.isHidden = true
         }
     }
@@ -210,6 +212,17 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
             player = AVPlayer.init(playerItem: playerItem)
             player?.rate = AudioPlaySpeed.normal.rawValue
             player?.play()
+        }
+        if let audioKey = vocabulary.audio_key, let audioBucket = vocabulary.audio_bucket {
+            let hackedUrlString = ("https://" + audioBucket + ".s3-us-west-2.amazonaws.com/public/" + audioKey).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            if let someURLComponent = URLComponents.init(string: hackedUrlString!) {
+                if let fetchNewsDetailURL = someURLComponent.url {
+                    let playerItem = AVPlayerItem.init(url: fetchNewsDetailURL)
+                    player = AVPlayer.init(playerItem: playerItem)
+                    player?.rate = AudioPlaySpeed.normal.rawValue
+                    player?.play()
+                }
+            }
         }
     }
 }

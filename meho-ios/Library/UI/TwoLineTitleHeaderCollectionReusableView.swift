@@ -72,8 +72,8 @@ class TwoLineTitleHeaderCollectionReusableView: UICollectionReusableView {
     }
 
     public func setTitle(titleEn: String, titleZh: String) {
-        titleEnLabel.text = titleEn
-        titleZhLabel.text = titleZh
+        titleEnLabel.text = titleEn.trimmingCharacters(in: .whitespacesAndNewlines)
+        titleZhLabel.text = titleZh.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     public class func heightForTitle(with width: CGFloat, titleEn: String, titleZh: String) -> CGFloat {

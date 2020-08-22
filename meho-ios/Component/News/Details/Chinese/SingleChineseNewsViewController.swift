@@ -10,7 +10,7 @@ import UIKit
 
 enum ChineseNewsSection: Int {
     case newsChapters
-    case vocabularyList
+    case recapVocabularyList
 }
 
 class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NewsChapterCollectionViewCellDelegate {
@@ -40,7 +40,8 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     // MARK: - Datamodels
     private let dataFetcher = NewsDataFetcher.init()
     private var newsChapters:[NewsChapter] = []
-    private var vocabularyList:[Vocabulary] = []
+    private var recapVocabularyList:[Vocabulary] = []
+    private var allVocabDict:Dictionary<String, Vocabulary> = [:]
     private var sections:[ChineseNewsSection] = []
 
     // MARK: - Init
@@ -77,13 +78,14 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
         // Do any additional setup after loading the view.
         dataFetcher.fetchNewsDetail(newsID: news.identifier, completionHandler: {
-            (englishChapters, chineseChapters, recabVocabs, error) in
-            if (error == nil && chineseChapters != nil && englishChapters != nil && recabVocabs != nil ) {
+            (englishChapters, chineseChapters, recabVocabs, allVocabDict, error) in
+            if (error == nil && chineseChapters != nil && englishChapters != nil && recabVocabs != nil && allVocabDict != nil) {
                 DispatchQueue.main.async {
                     self.newsChapters = chineseChapters!
-                    self.vocabularyList = recabVocabs!
+                    self.recapVocabularyList = recabVocabs!
+                    self.allVocabDict = allVocabDict!
                     self.sections.insert(.newsChapters, at: 0)
-                    self.sections.insert(.vocabularyList, at: 1)
+                    self.sections.insert(.recapVocabularyList, at: 1)
                     self.chaptersCollectionView.reloadData()
                 }
             }
@@ -166,8 +168,8 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         switch detailedNewsSections {
         case .newsChapters:
             return newsChapters.count
-        case .vocabularyList:
-            return vocabularyList.count
+        case .recapVocabularyList:
+            return recapVocabularyList.count
         }
     }
 
@@ -182,8 +184,8 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         case .newsChapters:
             let chapter = newsChapters[indexPath.item]
             return CGSize(width: width, height: NewsChapterCollectionViewCell.cellHeight(with: width, newsChapter: chapter))
-        case .vocabularyList:
-            let vocabulary = vocabularyList[indexPath.item]
+        case .recapVocabularyList:
+            let vocabulary = recapVocabularyList[indexPath.item]
             return CGSize(width: width, height: NewsRecapVocabularyCollectionViewCell.cellHeight(with: width, vocabulary: vocabulary))
         }
 
@@ -198,8 +200,8 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
             cell.setNewsChapter(chapter)
             cell.setDelegate(delegate: self)
             return cell
-        case .vocabularyList:
-            let vocabulary = vocabularyList[indexPath.item]
+        case .recapVocabularyList:
+            let vocabulary = recapVocabularyList[indexPath.item]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsRecapVocabularyCellReuseIdentifier, for: indexPath) as! NewsRecapVocabularyCollectionViewCell
             cell.setVocabulary(vocabulary)
             return cell
@@ -208,17 +210,13 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
     // MARK: - NewsChapterCollectionViewCellDelegate
     func NewsChapterCollectionViewCellDidTapVocabulary(vocabularyId: String) {
+        if let vocabulary = self.allVocabDict[vocabularyId] {
+            let vocabularyViewController = VocabularyViewController.init(vocabulary: vocabulary)
+            vocabularyViewController.modalPresentationStyle = .overFullScreen
+            vocabularyViewController.modalTransitionStyle = .crossDissolve
+            self.navigationController?.present(vocabularyViewController, animated: true, completion: nil)
+        }
 
-        dataFetcher.fetchVocabulary (vocabularyId: vocabularyId, completionHandler: { (vocabulary, error) in
-            DispatchQueue.main.async {
-                if (error == nil && vocabulary != nil) {
-                    let vocabularyViewController = VocabularyViewController.init(vocabulary: vocabulary!)
-                    vocabularyViewController.modalPresentationStyle = .overFullScreen
-                    vocabularyViewController.modalTransitionStyle = .crossDissolve
-                    self.navigationController?.present(vocabularyViewController, animated: true, completion: nil)
-                }
-            }
-        })
     }
 
 }

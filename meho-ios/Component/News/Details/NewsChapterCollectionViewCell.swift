@@ -100,7 +100,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
     }
 
     public func setNewsChapter(_ newsChapter: NewsChapter) {
-        let attributedContent = NewsChapterCollectionViewCell.getChapterTextWithAttribute(content: newsChapter.content)
+        let attributedContent = NewsChapterCollectionViewCell.getChapterTextWithAttribute(chapter: newsChapter)
         textView.attributedText = attributedContent
         textView.sizeToFit()
         if newsChapter.language == "en-US" {
@@ -130,7 +130,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
     }
 
     public class func cellHeight(with width: CGFloat, newsChapter: NewsChapter) -> CGFloat {
-        let attributedContent = getChapterTextWithAttribute(content: newsChapter.content)
+        let attributedContent = getChapterTextWithAttribute(chapter: newsChapter)
         sizingCell.textView.attributedText = attributedContent
         if newsChapter.language == "en-US" {
             let contentfontDescriptor = UIFont.systemFont(ofSize: sizingCell.contentTextFontSize, weight: .light).fontDescriptor.withDesign(.rounded)
@@ -147,29 +147,23 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         return height
     }
 
-    private class func getChapterTextWithAttribute(content: String) -> NSMutableAttributedString {
+    private class func getChapterTextWithAttribute(chapter: NewsChapter) -> NSMutableAttributedString {
+        let attributedContent = NSMutableAttributedString(string: chapter.content.trimmingCharacters(in: .whitespacesAndNewlines))
 
-        let htmlData = NSString(string: content).data(using: String.Encoding.unicode.rawValue)
-
-        let options = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html]
-
-        let attributedString = try! NSMutableAttributedString(data: htmlData!, options: options, documentAttributes: nil)
-
-        // Create instance of `NSMutableParagraphStyle`
-        let paragraphStyle = NSMutableParagraphStyle()
-
-        paragraphStyle.lineSpacing = 6 // Design set line height, I only find how to set line spacing
-
-        // Add line spacing attribute to string
-        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+        // Add links
+        let vocabularyList = chapter.vocabularies
         var ranges: [NSRange] = []
-        attributedString.enumerateAttribute(.link, in: NSRange.init(location: 0, length: attributedString.length), options: .longestEffectiveRangeNotRequired) { (result, range, _) in
-            if result != nil {
-                ranges.append(range)
-            }
+        for vocab in vocabularyList {
+            let vocabOffset = vocab.chapter_offset
+            guard vocabOffset != -1 else { continue }
+            let range = NSRange(location: vocabOffset, length: vocab.content_zh.count)
+            attributedContent.addAttribute(.link, value: vocab.identifier, range: range)
+            ranges.append(range)
         }
+        ranges.sort {$0.location < $1.location}
 
-        let newAttributedString = NSMutableAttributedString.init(attributedString: attributedString)
+        // Add space
+        let newAttributedString = NSMutableAttributedString.init(attributedString: attributedContent)
         var indexOffset = 0
         for (index, range) in ranges.enumerated() {
             if index < ranges.count - 1 {
@@ -180,24 +174,22 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
             }
         }
 
+        // Add line spacing
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 2 // Design set line height, I only find how to set line spacing
+
+        // Add line spacing attribute to string
+        newAttributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, newAttributedString.length))
+
         return newAttributedString
     }
 
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         /* perform your own custom actions here */
-        let webdata:String = URL.absoluteString
-
-        /*  A HACK: embeding vocab id in the current style: <a href=\"0d94c25d-9bb5-47bc-bba5-66a61b01869a\">产生</a> ,
-            the id cannot be parsed as into shouldInteractWith URL as a pure string typed id, but instead, in the format of:
-            "applewebdata://139693F5-FB5E-47D4-8E11-DA68C6D2A90A/0d94c25d-9bb5-47bc-bba5-66a61b01869a"
-            the real id is the latest 36 characters, thus make a hack here.
-            Going forward, a proper parser should be applied to get the id
-         */
-        let id = String(webdata.suffix(36))
+        let id:String = URL.absoluteString
         delegate?.NewsChapterCollectionViewCellDidTapVocabulary(vocabularyId: id)
         return false // return true if you also want UIAlertController to pop up
     }
-
 
 }
 

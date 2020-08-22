@@ -53,7 +53,7 @@ class OneLineTitleHeaderCollectionReusableView: UICollectionReusableView {
 
     // MARK: - Internal
     func setTitle(title: String) {
-        titleLabel.text = title
+        titleLabel.text = title.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     class func heightForTitle(with width: CGFloat, title: String) -> CGFloat {
