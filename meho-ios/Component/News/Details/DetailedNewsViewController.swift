@@ -22,8 +22,8 @@ class DetailedNewsViewController: UIViewController {
     private let likeHeartMargin = CGFloat(10)
     private let likeHeartSideLength = CGFloat(50)
     private let newsTabBarItemImageName = "tabbar_news_25pt"
-    private let newsLikeHeartUnfilledImageName = "stories_heart_unfilled"
-    private let newsLikeHeartFilledImageName = "stories_heart_filled"
+    private let newsSaveUnfilledImageName = "purple_saved_unfilled"
+    private let newsSaveFilledImageName = "purple_saved_filled"
     private let newsShareButtonImageName = "stories_share"
 
     // TODO move to Localizeable.strings
@@ -145,8 +145,8 @@ class DetailedNewsViewController: UIViewController {
         view.addSubview(bottomBarView)
 
         // Set up the heart
-        let newsLikeHeartUnfilledImage = UIImage.init(named: newsLikeHeartUnfilledImageName)
-        let newsLikeHeartFilledImag = UIImage.init(named: newsLikeHeartFilledImageName)
+        let newsLikeHeartUnfilledImage = UIImage.init(named: newsSaveUnfilledImageName)
+        let newsLikeHeartFilledImag = UIImage.init(named: newsSaveFilledImageName)
         likeButton.translatesAutoresizingMaskIntoConstraints = false
         likeButton.setImage(newsLikeHeartUnfilledImage, for: UIControl.State.normal)
         likeButton.setImage(newsLikeHeartFilledImag, for: UIControl.State.selected)

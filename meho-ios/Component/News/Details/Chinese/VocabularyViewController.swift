@@ -23,8 +23,8 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
     let horizontalMarginToWidthRaitio = CGFloat(1.0/12.0)
     let labelTopMarginToHeightRaitio = CGFloat(1.0/5.0)
 
-    private let newsLikeHeartUnfilledImageName = "stories_heart_unfilled"
-    private let newsLikeHeartFilledImageName = "stories_heart_filled"
+    private let saveUnfilledImageName = "purple_saved_unfilled"
+    private let saveFilledImageName = "purple_saved_filled"
     private let pronounceButtonImageName = "stories_speaker"
 
     // MARK: - Properties
@@ -113,8 +113,8 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     func setupLikeButton() {
-        let newsLikeHeartUnfilledImage = UIImage.init(named: newsLikeHeartUnfilledImageName)
-        let newsLikeHeartFilledImag = UIImage.init(named: newsLikeHeartFilledImageName)
+        let newsLikeHeartUnfilledImage = UIImage.init(named: saveUnfilledImageName)
+        let newsLikeHeartFilledImag = UIImage.init(named: saveFilledImageName)
         likeButton.translatesAutoresizingMaskIntoConstraints = false
         likeButton.setImage(newsLikeHeartUnfilledImage, for: UIControl.State.normal)
         likeButton.setImage(newsLikeHeartFilledImag, for: UIControl.State.selected)
