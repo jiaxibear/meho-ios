@@ -12,7 +12,7 @@ import AWSMobileClient
 class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInViewDelegate {
 
     // MARK: - Constants
-    private let textFieldsStackViewHeight = CGFloat(324)
+    private let textFieldsStackViewHeight = CGFloat(234)
     private let textFieldsStackViewSpacing = CGFloat(36)
     private let textFieldsStackViewTopMargin = CGFloat(32)
     private let contentViewLeadingTrailingMargin = CGFloat(20)
@@ -75,7 +75,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
     } ()
 
     private lazy var textFieldsStackView: UIStackView = {
-        let textFieldsStackView = UIStackView.init(arrangedSubviews: [nickNameTextField, emailAddressTextField, createPasswordTextField, repeatPasswordTextField])
+        let textFieldsStackView = UIStackView.init(arrangedSubviews: [/* nickNameTextField, */ emailAddressTextField, createPasswordTextField, repeatPasswordTextField])
         textFieldsStackView.translatesAutoresizingMaskIntoConstraints = false
         textFieldsStackView.axis = .vertical
         textFieldsStackView.distribution = .equalSpacing
@@ -147,7 +147,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
             emailAddressTextField.isCompact = true
             createPasswordTextField.isCompact = true
             repeatPasswordTextField.isCompact = true
-            textFieldsStackViewHeightConstraint.constant = nickNameTextField.intrinsicContentSize.height * 4 + textFieldsStackViewSpacing / 2 * 3
+            textFieldsStackViewHeightConstraint.constant = nickNameTextField.intrinsicContentSize.height * 3 + textFieldsStackViewSpacing
             errorMessageLabelTopConstraint.constant = errorMessageLabelTopMargin / 4
             nextButtonTopConstraint.constant = nextButtonTopMargin / 4
             otherSignInView.isCompact = true
