@@ -143,7 +143,7 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
         questionsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
         questionsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
         questionsCollectionView.topAnchor.constraint(equalTo: interestReasonLabel.bottomAnchor, constant: questionsCollectionViewTopBottomMargin).isActive = true
-        questionsCollectionView.bottomAnchor.constraint(equalTo: nextButton.topAnchor, constant: questionsCollectionViewTopBottomMargin).isActive = true
+        questionsCollectionView.bottomAnchor.constraint(equalTo: nextButton.topAnchor, constant: -questionsCollectionViewTopBottomMargin).isActive = true
     }
 
     override func viewWillAppear(_ animated: Bool) {

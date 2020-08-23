@@ -28,6 +28,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     private let questionsCollectionViewCellTitleFontSize = CGFloat(18)
     private let industryBottomLineHeight = CGFloat(3)
     private let industryStackViewTopMargin = CGFloat(30)
+    private let industryStackViewBottomMargin = CGFloat(16)
 
     // MARK: - Properties
     // MARK: Model
@@ -181,17 +182,21 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         nextButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -nextButtonBottomMargin).isActive = true
         nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
-        questionsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
-        questionsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
-        questionsCollectionView.topAnchor.constraint(equalTo: interestReasonLabel.bottomAnchor, constant: questionsCollectionViewTopBottomMargin).isActive = true
-        let questionsCollectionViewHeight = (questionsCollectionViewCellHeight + questionsCollectionViewMinimumLineSpacing) * CGFloat((questions.count - 1) / questionsCollectionNumberOfCellsInRow) + questionsCollectionViewSpecialCellHeight
-        questionsCollectionView.heightAnchor.constraint(equalToConstant: questionsCollectionViewHeight).isActive = true
-
         industryStackView.leadingAnchor.constraint(equalTo: questionsCollectionView.leadingAnchor).isActive = true
         industryStackView.trailingAnchor.constraint(equalTo: questionsCollectionView.trailingAnchor).isActive = true
         let industryStackViewHeight = industryTextField.intrinsicContentSize.height + industryBottomLineHeight
         industryStackView.heightAnchor.constraint(equalToConstant: industryStackViewHeight).isActive = true
         industryStackView.topAnchor.constraint(equalTo: questionsCollectionView.bottomAnchor, constant: industryStackViewTopMargin).isActive = true
+
+        questionsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
+        questionsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
+        questionsCollectionView.topAnchor.constraint(equalTo: interestReasonLabel.bottomAnchor, constant: questionsCollectionViewTopBottomMargin).isActive = true
+        let statusBarHeight = UIApplication.shared.windows.first { $0.isKeyWindow }?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0.0
+        let navigationBarHeight = navigationController?.navigationBar.frame.height ?? 0.0
+        let availableQuestionsCollectionViewHeight = view.bounds.height - interestReasonLabel.sizeThatFits(CGSize.init(width: view.bounds.width, height: .greatestFiniteMagnitude)).height - nextButtonHeight - nextButtonBottomMargin - industryStackViewHeight - industryStackViewTopMargin - questionsCollectionViewTopBottomMargin - interestReasonLabelTopMargin - statusBarHeight - navigationBarHeight - industryStackViewBottomMargin
+        let questionsCollectionViewIdealHeight = (questionsCollectionViewCellHeight + questionsCollectionViewMinimumLineSpacing) * CGFloat((questions.count - 1) / questionsCollectionNumberOfCellsInRow) + questionsCollectionViewSpecialCellHeight
+        let questionsCollectionViewHeight = min(availableQuestionsCollectionViewHeight, questionsCollectionViewIdealHeight)
+        questionsCollectionView.heightAnchor.constraint(equalToConstant: questionsCollectionViewHeight).isActive = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
