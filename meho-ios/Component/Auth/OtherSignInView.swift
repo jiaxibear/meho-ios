@@ -26,7 +26,7 @@ class OtherSignInView: UIView, UITextViewDelegate {
     private let buttonTitleFontSize = CGFloat(16)
     private let thirdPartySignInTextFontSize = CGFloat(10)
     private let viewHeight = CGFloat(240)
-    private let compactViewHeight = CGFloat(160)
+    private let compactViewHeight = CGFloat(140)
 
     // MARK: - Properties
     var isCompact = false

@@ -17,13 +17,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
     private let textFieldsStackViewTopMargin = CGFloat(32)
     private let contentViewLeadingTrailingMargin = CGFloat(20)
     private let errorMessageLabelFontSize = CGFloat(16)
-    private let errorMessageLabelTopMargin = CGFloat(36)
+    private let errorMessageLabelCompactFontSize = CGFloat(12)
+    private let errorMessageLabelTopMargin = CGFloat(24)
     private let otherSignInViewBottomMargin = CGFloat(8)
     private let nextButtonTitleFontSize = CGFloat(20)
     private let nextButtonCornerRadius = CGFloat(18)
     private let nextButtonHeight = CGFloat(50)
     private let nextButtonLeadingTrailingMargin = CGFloat(54)
-    private let nextButtonTopMargin = CGFloat(32)
+    private let nextButtonTopMargin = CGFloat(24)
     private let passwordMinLength = 8
 
     // MARK: - Properties
@@ -69,6 +70,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         let errorMessageLabelFontDescriptor = UIFont.systemFont(ofSize: errorMessageLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
         errorMessageLabel.font = UIFont.init(descriptor: errorMessageLabelFontDescriptor!, size: errorMessageLabelFontSize)
         errorMessageLabel.textAlignment = .center
+        errorMessageLabel.numberOfLines = 0
         return errorMessageLabel
     } ()
 
@@ -128,6 +130,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         errorMessageLabelTopConstraint.isActive = true
         errorMessageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentViewLeadingTrailingMargin).isActive = true
         errorMessageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentViewLeadingTrailingMargin).isActive = true
+        errorMessageLabel.text = "a\na\na"
+        let errorMessageLabelHeight = errorMessageLabel.sizeThatFits(CGSize.init(width: view.bounds.width - 2 * contentViewLeadingTrailingMargin, height: .greatestFiniteMagnitude)).height
+        errorMessageLabel.heightAnchor.constraint(equalToConstant: errorMessageLabelHeight).isActive = true
+        errorMessageLabel.text = ""
 
         let nextButtonTopConstraint = nextButton.topAnchor.constraint(equalTo: errorMessageLabel.bottomAnchor, constant: nextButtonTopMargin)
         nextButtonTopConstraint.isActive = true
@@ -142,9 +148,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
             createPasswordTextField.isCompact = true
             repeatPasswordTextField.isCompact = true
             textFieldsStackViewHeightConstraint.constant = nickNameTextField.intrinsicContentSize.height * 4 + textFieldsStackViewSpacing / 2 * 3
-            errorMessageLabelTopConstraint.constant = errorMessageLabelTopMargin / 2
-            nextButtonTopConstraint.constant = nextButtonTopMargin / 2
+            errorMessageLabelTopConstraint.constant = errorMessageLabelTopMargin / 4
+            nextButtonTopConstraint.constant = nextButtonTopMargin / 4
             otherSignInView.isCompact = true
+            errorMessageLabel.font = errorMessageLabel.font.withSize(errorMessageLabelCompactFontSize)
         }
     }
 
@@ -160,28 +167,47 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
                     signUpTextField.status = .valid
                 } else {
                     signUpTextField.status = .invalid
-                    errorMessageLabel.text = NSLocalizedString("InvalidEmailAddressErrorMessage", comment: "")
                 }
             } else if signUpTextField == repeatPasswordTextField {
-                if let repeatedPassword = textField.text, let password = createPasswordTextField.textField.text, repeatedPassword == password, repeatedPassword.count >= passwordMinLength {
+                if let repeatedPassword = textField.text, let password = createPasswordTextField.textField.text, repeatedPassword == password {
                     signUpTextField.status = .valid
                 } else {
                     signUpTextField.status = .invalid
                 }
             } else if signUpTextField == createPasswordTextField {
-                if let password = textField.text, let repeatedPassword = repeatPasswordTextField.textField.text, repeatedPassword == password {
-                    repeatPasswordTextField.status = .valid
+                if let repeatedPassword = repeatPasswordTextField.textField.text, repeatedPassword.count > 0 {
+                    if let password = textField.text, repeatedPassword == password {
+                        repeatPasswordTextField.status = .valid
+                    } else {
+                        repeatPasswordTextField.status = .invalid
+                    }
+                }
+                if let password = textField.text, password.count >= passwordMinLength  {
+                    signUpTextField.status = .valid
                 } else {
-                    repeatPasswordTextField.status = .invalid
+                    signUpTextField.status = .invalid
                 }
             }
         }
-        if emailAddressTextField.status == .valid && repeatPasswordTextField.status == .valid {
+        if emailAddressTextField.status == .valid && repeatPasswordTextField.status == .valid && createPasswordTextField.status == .valid {
             nextButton.isEnabled = true
             nextButton.backgroundColor = .skyBlue
         } else {
             nextButton.isEnabled = false
             nextButton.backgroundColor = .lightBlueGrey
+            var errorMessages: [String] = []
+            if emailAddressTextField.status == .invalid {
+                errorMessages.append(NSLocalizedString("InvalidEmailAddressErrorMessage", comment: ""))
+            }
+            if createPasswordTextField.status == .invalid {
+                errorMessages.append(NSLocalizedString("passwordMinLengthMessage", comment: ""))
+            }
+            if repeatPasswordTextField.status == .invalid {
+                errorMessages.append(NSLocalizedString("passwordNotMatchMessage", comment: ""))
+            }
+            if errorMessages.count > 0 {
+                errorMessageLabel.text = errorMessages.joined(separator: "\n")
+            }
         }
     }
 
@@ -198,8 +224,36 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
     func didTapNextButton() {
         if let emailAddress = emailAddressTextField.textField.text, let password = createPasswordTextField.textField.text {
             AWSMobileClient.default().signUp(username: emailAddress, password: password) { (signupResult, error) in
-                DispatchQueue.main.async {
-                    self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
+                var errorMessage: String?
+                if error != nil {
+                    if let mobileClientError = error as? AWSMobileClientError {
+                        switch mobileClientError {
+                        case let .usernameExists(message):
+                            errorMessage = message
+                            break
+                        case let .invalidPassword(message):
+                            errorMessage = message
+                            break
+                        default:
+                            errorMessage = NSLocalizedString("genericSignUpErrorMessage", comment: "")
+                        }
+                    } else {
+                        errorMessage = NSLocalizedString("genericSignUpErrorMessage", comment: "")
+                    }
+                }
+                if signupResult != nil {
+                    DispatchQueue.main.async {
+                        self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
+                    }
+                } else {
+                    errorMessage = NSLocalizedString("genericSignUpErrorMessage", comment: "")
+                }
+                if errorMessage != nil {
+                    DispatchQueue.main.async {
+                        let alertController = UIAlertController.init(title: NSLocalizedString("signUpErrorTitle", comment: ""), message: errorMessage, preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction.init(title: NSLocalizedString("OKButtonTitle", comment: ""), style: .default, handler: nil))
+                        self.present(alertController, animated: true, completion: nil)
+                    }
                 }
             }
         }

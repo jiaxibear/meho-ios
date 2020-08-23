@@ -169,7 +169,7 @@
 "NextButtonTitle" = "Next";
 
 /* Error message shown to the user when the email address they input for sign up is invalid. */
-"InvalidEmailAddressErrorMessage" = "Please enter a legit email email address";
+"InvalidEmailAddressErrorMessage" = "Please enter a legit email address";
 
 /* Title for the button to launch the solo practice mode of the conversation. */
 "soloPracticeButtonTitle" = "Solo Practice";
@@ -248,3 +248,15 @@
 
 /* Title displayed in the navigation bar in the Idioms & Proverbs screen. */
 "IdiomTitle" = "Idioms & Proverbs";
+
+/* Error message displayed when the user entered a password without sufficient length. */
+"passwordMinLengthMessage" = "Password needs to have at least 8 characters";
+
+/* Error message displayed when the passwords user entered did not match. */
+"passwordNotMatchMessage" = "Password does not match";
+
+/* An generic error message displayed when an error occurred while signing up the account. */
+"genericSignUpErrorMessage" = "An error occurred while signing up the account";
+
+/* Title for the sign up error alert. */
+"signUpErrorTitle" = "Sign up error";
