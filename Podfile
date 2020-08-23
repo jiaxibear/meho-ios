@@ -17,7 +17,7 @@ target 'meho-ios' do
   pod 'Toast-Swift', '~> 5.0.1'
 
   # 3rd party Auth
-  pod 'AWSFacebookSignIn', '~> 2.14.2'
+#  pod 'AWSFacebookSignIn', '~> 2.14.2'
 #  pod 'AWSGoogleSignIn', '~> 2.12.0'
 #  pod 'GoogleSignIn', '~> 4.0'
 

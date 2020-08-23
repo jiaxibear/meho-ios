@@ -9,7 +9,6 @@
 import UIKit
 import AVFoundation
 
-
 class TrendingPhraseCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Constants

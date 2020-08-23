@@ -55,10 +55,10 @@ class WebImageView: UIImageView {
                 let imageKey = self.imageKey!
                 let expression = AWSS3TransferUtilityDownloadExpression()
                 transferUtility.downloadData(fromBucket:imageKey.bucket, key:"public/" + imageKey.key, expression: expression) { (task, url, data, error) in
-//                    if error != nil {
-//                        print("There is an error getting the image")
-//                        return
-//                    }
+                    if error != nil {
+                        print("There is an error getting the image")
+                        return
+                    }
                     if data == nil {
                         print("The image is empty")
                         return

@@ -118,6 +118,9 @@
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
 		EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CD23F12080003C8548 /* WebImageView.swift */; };
 		EAB7C4D023F8C8E2003C8548 /* DialogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */; };
+		EAD20B9E24F1CFB300C1ED89 /* IdiomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20B9C24F1CFB300C1ED89 /* IdiomViewController.swift */; };
+		EAD20B9F24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20B9D24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift */; };
+		EAD20BA124F1F4E400C1ED89 /* Idiom.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20BA024F1F4E400C1ED89 /* Idiom.swift */; };
 		EAD7F76524BAA8B8008ADC1C /* DisplayScoreSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */; };
 		EAD7F76A24CE4472008ADC1C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F76924CE4472008ADC1C /* WebViewController.swift */; };
 		EAD7F77324D5265A008ADC1C /* TermsOfUse.html in Resources */ = {isa = PBXBuildFile; fileRef = EAD7F77124D52659008ADC1C /* TermsOfUse.html */; };
@@ -267,6 +270,9 @@
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
 		EAB7C4CD23F12080003C8548 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogCollectionViewCell.swift; sourceTree = "<group>"; };
+		EAD20B9C24F1CFB300C1ED89 /* IdiomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdiomViewController.swift; sourceTree = "<group>"; };
+		EAD20B9D24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdiomCollectionViewCell.swift; sourceTree = "<group>"; };
+		EAD20BA024F1F4E400C1ED89 /* Idiom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Idiom.swift; sourceTree = "<group>"; };
 		EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayScoreSwitch.swift; sourceTree = "<group>"; };
 		EAD7F76924CE4472008ADC1C /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		EAD7F77124D52659008ADC1C /* TermsOfUse.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TermsOfUse.html; sourceTree = "<group>"; };
@@ -352,6 +358,7 @@
 				92DEE30E23F8FF60004D91D7 /* Feature.swift */,
 				92577B2E2446F90E0097A445 /* Pictograph.swift */,
 				92C5FE2C244C56AF004A3322 /* Pinyin.swift */,
+				EAD20BA024F1F4E400C1ED89 /* Idiom.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -591,6 +598,7 @@
 		EA52FDA623EF8079008EB37B /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				EAD20B9B24F1CF6100C1ED89 /* Idiom */,
 				92FE6CF5246287B4000E69BC /* Pictograph */,
 				92FE6CF42462877D000E69BC /* Pinyin */,
 				92FE6CF324628718000E69BC /* Models */,
@@ -766,6 +774,15 @@
 				EAD7F76924CE4472008ADC1C /* WebViewController.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		EAD20B9B24F1CF6100C1ED89 /* Idiom */ = {
+			isa = PBXGroup;
+			children = (
+				EAD20B9D24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift */,
+				EAD20B9C24F1CFB300C1ED89 /* IdiomViewController.swift */,
+			);
+			path = Idiom;
 			sourceTree = "<group>";
 		};
 		EAD7F76624CE4285008ADC1C /* HTMLs */ = {
@@ -1036,6 +1053,7 @@
 				9267EA1924316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift in Sources */,
 				EA4BEAF324E9E3CD009056D6 /* CompleteProfileViewStep1Controller.swift in Sources */,
 				92C5FE5124565A7E004A3322 /* TrendingPhrase.swift in Sources */,
+				EAD20B9F24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift in Sources */,
 				EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */,
 				EA4BEAF524E9F98F009056D6 /* ProfileQuestion.swift in Sources */,
 				92BAC71F243B12A100862571 /* SingleChineseNewsViewController.swift in Sources */,
@@ -1055,6 +1073,7 @@
 				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,
 				EA42069C2495C90100DA3F2A /* OtherSignInView.swift in Sources */,
 				EAD7F76524BAA8B8008ADC1C /* DisplayScoreSwitch.swift in Sources */,
+				EAD20BA124F1F4E400C1ED89 /* Idiom.swift in Sources */,
 				EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */,
 				EA4206932467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift in Sources */,
 				EA6381ED2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift in Sources */,
@@ -1083,6 +1102,7 @@
 				EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */,
 				EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */,
 				92577B2D2446F5B70097A445 /* PinyinViewController.swift in Sources */,
+				EAD20B9E24F1CFB300C1ED89 /* IdiomViewController.swift in Sources */,
 				924C53E823FA1E2600B59D95 /* MehoCoverViewController.swift in Sources */,
 				EA4BEAFD24EA3A81009056D6 /* CompleteProfileViewStep3Controller.swift in Sources */,
 				EA42069E2496F9B800DA3F2A /* SignUpTextField.swift in Sources */,

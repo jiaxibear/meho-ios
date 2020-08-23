@@ -245,3 +245,6 @@
 
 /* Title for the button that the user taps to start learning. */
 "StartLearningButtonTitle" = "Start Learning";
+
+/* Title displayed in the navigation bar in the Idioms & Proverbs screen. */
+"IdiomTitle" = "Idioms & Proverbs";

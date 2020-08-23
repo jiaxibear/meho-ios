@@ -119,7 +119,6 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
         let width = collectionView.bounds.width
         let height = collectionView.bounds.height * 0.3
         return CGSize(width: width, height: height)
-
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -130,6 +129,9 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
         } else if foundationItem.name == "Pinyin" {
             let pinyinViewController = PinyinViewController.init(featureName:foundationItem.name)
             navigationController?.pushViewController(pinyinViewController, animated: true)
+        } else if foundationItem.name == "Idoms" {
+            let idomsViewController = IdiomViewController.init()
+            navigationController?.pushViewController(idomsViewController, animated: true)
         }
     }
 
