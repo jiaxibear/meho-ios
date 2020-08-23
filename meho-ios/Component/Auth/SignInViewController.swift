@@ -222,7 +222,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
                 guard let state = result?.signInState else { return }
                 switch state {
                     case .signedIn:
-                    self.navigationController?.setViewControllers([CompleteProfileViewStep1Controller.init()], animated: false)
+                    self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
                     default:
                         print ("default")
                 }

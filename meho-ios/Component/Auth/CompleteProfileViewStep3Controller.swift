@@ -208,7 +208,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     @objc
     func didTapNextButton() {
         title = ""
-        navigationController?.setViewControllers([MehoCoverViewController.init()], animated: true)
+        navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
     }
 
     @objc
