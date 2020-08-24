@@ -51,27 +51,53 @@ class WebImageView: UIImageView {
     var imageKey: S3ImageViewKey? {
         didSet {
             if self.imageKey != nil {
-                let transferUtility = AWSS3TransferUtility.default()
                 let imageKey = self.imageKey!
-                let expression = AWSS3TransferUtilityDownloadExpression()
-                transferUtility.downloadData(fromBucket:imageKey.bucket, key:"public/" + imageKey.key, expression: expression) { (task, url, data, error) in
-                    if error != nil {
-                        print("There is an error getting the image")
-                        return
-                    }
-                    if data == nil {
-                        print("The image is empty")
-                        return
-                    }
-                    if task.bucket == imageKey.bucket {
-                        if let image = UIImage.init(data: data!) {
-                            DispatchQueue.main.async {
-                                self.image = image
-                                self.delegate?.webImageViewDidSetImage(webImageView: self)
+                let hackedUrlString = ("https://" + imageKey.bucket + ".s3-us-west-2.amazonaws.com/public/" + imageKey.key).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                if let someURLComponent = URLComponents.init(string: hackedUrlString!) {
+                    if let fetchNewsDetailURL = someURLComponent.url {
+                        self.imageDataSession.dataTask(with: fetchNewsDetailURL, completionHandler: { (data, request, error) in
+                            if error != nil {
+                                print("There is an error getting the image")
+                                return
                             }
-                        }
+                            if data == nil {
+                                print("The image is empty")
+                                return
+                            }
+                            if request?.url == someURLComponent.url {
+                                if let image = UIImage.init(data: data!) {
+                                    DispatchQueue.main.async {
+                                        self.image = image
+                                        self.delegate?.webImageViewDidSetImage(webImageView: self)
+                                    }
+                                }
+                            }
+                            }).resume()
                     }
                 }
+
+
+//                let transferUtility = AWSS3TransferUtility.default()
+//                let imageKey = self.imageKey!
+//                let expression = AWSS3TransferUtilityDownloadExpression()
+//                transferUtility.downloadData(fromBucket:imageKey.bucket, key:"public/" + imageKey.key, expression: expression) { (task, url, data, error) in
+//                    if error != nil {
+//                        print("There is an error getting the image")
+//                        return
+//                    }
+//                    if data == nil {
+//                        print("The image is empty")
+//                        return
+//                    }
+//                    if task.bucket == imageKey.bucket {
+//                        if let image = UIImage.init(data: data!) {
+//                            DispatchQueue.main.async {
+//                                self.image = image
+//                                self.delegate?.webImageViewDidSetImage(webImageView: self)
+//                            }
+//                        }
+//                    }
+//                }
             }
         }
     }

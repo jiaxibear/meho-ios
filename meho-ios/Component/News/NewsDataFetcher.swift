@@ -66,12 +66,8 @@ class NewsDataFetcher: NSObject {
 
             }
 
-            var zhParagraphs = Array(zhParagraphDict.values)
-            zhParagraphs.sort { $0.seq < $1.seq }
-            enParagraphs.sort { $0.seq < $1.seq }
-
             guard let allVocabs = result?.data?.getArticle?.vocabularies?.items else {
-                completionHandler(enParagraphs, zhParagraphs, nil, nil, nil)
+                completionHandler(nil, nil, nil, nil, nil)
                 return
             }
             var recabVocabs: [Vocabulary] = []
@@ -110,6 +106,10 @@ class NewsDataFetcher: NSObject {
 
                 allVocabDict[vocab.identifier] = vocab
             }
+
+            var zhParagraphs = Array(zhParagraphDict.values)
+            zhParagraphs.sort { $0.seq < $1.seq }
+            enParagraphs.sort { $0.seq < $1.seq }
 
             completionHandler(enParagraphs, zhParagraphs, recabVocabs, allVocabDict, nil)
         }

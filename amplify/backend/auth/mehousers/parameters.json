@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "mehoiosd9eb8428_identitypool_d9eb8428",
-    "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "mehoiod9eb8428",
-    "userPoolName": "mehoiosd9eb8428_userpool_d9eb8428",
+    "identityPoolName": "mehousersidentitypool",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "mehousf68fc163",
+    "userPoolName": "mehousers",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -21,17 +21,27 @@
         "email"
     ],
     "userpoolClientGenerateSecret": true,
-    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientRefreshTokenValidity": "365",
     "userpoolClientWriteAttributes": [
         "email"
     ],
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "mehoiod9eb8428_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "mehousf68fc163_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "mehoiosd9eb8428",
+    "useDefault": "manual",
     "authSelections": "identityPoolAndUserPool",
+    "resourceName": "mehousers",
+    "thirdPartyAuth": false,
+    "usernameAttributes": [
+        "email"
+    ],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{}",
+    "hostedUI": false,
+    "userPoolGroupList": [],
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -44,12 +54,9 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
-    "usernameAttributes": [
-        "email"
-    ],
-    "userPoolGroupList": [
-        "mehogeneral"
-    ],
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
     "dependsOn": []
 }

@@ -1,0 +1,147 @@
+type Paragraph @model {
+    id: ID!
+    article: Article @connection(name: "ArticleParagraphs")
+    content: String! 
+    contentType: String!
+    seqNumber: Int!
+    contentImage: S3Object
+    contentImage_key: String # hack for android
+}
+
+type Article @model {
+    id: ID!
+    coverImage: S3Object
+    coverImage_key: String
+    titleEn: String!
+    titleZh: String!
+    whyYouShouldReadThisArticle: String!
+    createdAt: String!
+    tags: [TagArticle] @connection(name: "ArticleTag")
+    vocabularies: [VocabularyArticle] @connection(name: "ArticleVocabulary")
+    sourcer: String
+    paragraphs: [Paragraph] @connection(name: "ArticleParagraphs")        
+} 
+
+type Vocabulary @model {
+    id: ID!
+    contentZh: String!
+    contentEn: String!
+    contentPinyin: String!
+    label: String 
+    audio: S3Object
+    audio_key: String
+    optionContent: String
+    articles: [VocabularyArticle] @connection(name: "VocabularyArticle")
+}
+
+type VocabularyArticle @model {  
+    id: ID!
+    article: Article @connection(name: "ArticleVocabulary", sortField: "createdAt")
+    vocabulary: Vocabulary @connection(name: "VocabularyArticle")
+    paragraphId: ID
+    startIndex: Int
+}
+
+type Tag @model {
+    id: ID!
+    content: String!
+    articles: [TagArticle] @connection(name: "TagArticle")
+    dialogues: [TagDialogue] @connection(name: "TagDialogue")
+}
+
+type TagArticle @model {  #for many to many relationship
+    id: ID!
+    article: Article @connection(name: "ArticleTag", sortField: "createdAt")
+    tag: Tag @connection(name: "TagArticle")
+}
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type Chapter @model {
+    id: ID!
+    contentZh: String
+    contentPinyin: String
+    contentEn: String
+    audio: S3Object
+    audio_key: String
+    seqNumber:Int
+    npcName: String
+    npcAvatar: S3Object
+    npcAvatar_key: String
+    npcRole: String
+    dialogue: Dialogue @connection(name: "DialogueChapters")
+}
+type Dialogue @model {
+    id: ID!
+    coverImage: S3Object
+    coverImage_key: String
+    titleZh: String
+    titleEn: String
+    whyYouShouldLearnThisDialogue: String    
+    difficultyLevel: String
+    tags: [TagDialogue] @connection(name: "DialogueTag")
+    chapters: [Chapter] @connection(name: "DialogueChapters")   
+}
+
+type TagDialogue @model {  #for many to many relationship
+    id: ID!
+    dialogue: Dialogue @connection(name: "DialogueTag", sortField: "createdAt")
+    tag: Tag @connection(name: "TagDialogue")
+}
+
+type Npc @model {
+    id: ID!
+    name: String!
+    avatar: S3Object
+    avatar_key: String
+}
+
+
+# User status table
+
+type User @model {
+    id: ID!
+    username: String!
+    email: String!
+    avatar: S3Object
+    avatar_key: String
+    goals: [String!]
+    interests: [String!]
+    profession: String
+
+    completedItems: [UserItemCompleted] @connection(name: "UserItemCompleted")
+    inProgressItems: [UserItemInProgress] @connection(name: "UserItemInProgress")
+    savedItems: [UserItemSave] @connection(name: "UserItemSave")
+    savedVocabularies: [UserVocabularySave] @connection(name: "UserVocabularySave")
+}
+
+type UserItemCompleted @model {
+    id: ID!
+    user: User @connection(name: "UserItemCompleted")
+    itemType: String # STORY EXPRESSION TALK
+    itemID: ID!
+}
+
+type UserItemInProgress @model {
+    id: ID!
+    user: User @connection(name: "UserItemInProgress")
+    itemType: String # STORY EXPRESSION TALK
+    itemID: ID!
+}
+
+type UserItemSave @model {
+    id: ID!
+    user: User @connection(name: "UserItemSave")
+    itemType: String # STORY EXPRESSION TALK
+    itemID: ID!
+}
+
+type UserVocabularySave @model {
+    id: ID!
+    users: User @connection(name: "UserVocabularySave")
+    vocabularyID: ID!
+}

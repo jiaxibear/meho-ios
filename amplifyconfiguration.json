@@ -10,7 +10,23 @@
                     "region": "us-west-2",
                     "authorizationType": "API_KEY",
                     "apiKey": "da2-w2up3ueksvd7zd5euf2twfxuny"
+                },
+                "mehoadminapi": {
+                    "endpointType": "GraphQL",
+                    "endpoint": "https://kqrsgzfocvb67dijx5dm5asrou.appsync-api.us-west-2.amazonaws.com/graphql",
+                    "region": "us-west-2",
+                    "authorizationType": "API_KEY",
+                    "apiKey": "da2-w2up3ueksvd7zd5euf2twfxuny"
                 }
+            }
+        }
+    },
+    "storage": {
+        "plugins": {
+            "awsS3StoragePlugin": {
+                "bucket": "mehoassets213338-mehoadmin",
+                "region": "us-west-2",
+                "defaultAccessLevel": "guest"
             }
         }
     }

@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupAppSyncClient()
 
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2,
-           identityPoolId:"us-west-2:14c75bc3-c76b-4d4c-8a8f-6c993aa4305e")
+           identityPoolId:"us-west-2:c6cfa4af-876b-4eca-802f-da355b63fbe9")
 
         let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
 

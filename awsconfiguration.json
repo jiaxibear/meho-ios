@@ -4,19 +4,28 @@
     "IdentityManager": {
         "Default": {}
     },
+    "AppSync": {
+        "Default": {
+            "ApiUrl": "https://kqrsgzfocvb67dijx5dm5asrou.appsync-api.us-west-2.amazonaws.com/graphql",
+            "Region": "us-west-2",
+            "AuthMode": "API_KEY",
+            "ApiKey": "da2-w2up3ueksvd7zd5euf2twfxuny",
+            "ClientDatabasePrefix": "mehoadminapi_API_KEY"
+        }
+    },
     "CredentialsProvider": {
         "CognitoIdentity": {
             "Default": {
-                "PoolId": "us-west-2:14c75bc3-c76b-4d4c-8a8f-6c993aa4305e",
+                "PoolId": "us-west-2:c6cfa4af-876b-4eca-802f-da355b63fbe9",
                 "Region": "us-west-2"
             }
         }
     },
     "CognitoUserPool": {
         "Default": {
-            "PoolId": "us-west-2_jdCEgxXvr",
-            "AppClientId": "dblgp9k65kf61gak5kj3vkr9g",
-            "AppClientSecret": "96mfrgenm8tlil4touin7u4upfj8cpkgaoru2rq532ra9ekgakv",
+            "PoolId": "us-west-2_hODv9nMSf",
+            "AppClientId": "12elqc1ncgclimgud5pjb6dav",
+            "AppClientSecret": "13spd53g21biadp592j10200g7ief4qp7t4b0dq38fqor7buitr2",
             "Region": "us-west-2"
         }
     },
@@ -25,13 +34,10 @@
             "authenticationFlowType": "USER_SRP_AUTH"
         }
     },
-    "AppSync": {
+    "S3TransferUtility": {
         "Default": {
-            "ApiUrl": "https://kqrsgzfocvb67dijx5dm5asrou.appsync-api.us-west-2.amazonaws.com/graphql",
-            "Region": "us-west-2",
-            "AuthMode": "API_KEY",
-            "ApiKey": "da2-w2up3ueksvd7zd5euf2twfxuny",
-            "ClientDatabasePrefix": "mehoadminapi-mehoadmin_API_KEY"
+            "Bucket": "mehoassets213338-mehoadmin",
+            "Region": "us-west-2"
         }
     },
     "FacebookSignIn": {

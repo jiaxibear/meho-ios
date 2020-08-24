@@ -1,56 +1,15 @@
 {
-    "dev": {
+    "mehoadmin": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-mehoios-dev-164834-authRole",
-            "UnauthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-dev-164834-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-dev-164834-authRole",
-            "Region": "us-east-2",
-            "DeploymentBucketName": "amplify-mehoios-dev-164834-deployment",
-            "UnauthRoleName": "amplify-mehoios-dev-164834-unauthRole",
-            "StackName": "amplify-mehoios-dev-164834",
-            "StackId": "arn:aws:cloudformation:us-east-2:296052403006:stack/amplify-mehoios-dev-164834/3bab9cc0-511f-11ea-923e-0696b95a38c4",
-            "AmplifyAppId": "d30wqh36hv8tz0"
-        },
-        "categories": {
-            "auth": {
-                "mehoios8bf6d874": {}
-            }
-        }
-    },
-    "meho": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-mehoios-meho-171925-authRole",
-            "UnauthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-meho-171925-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-meho-171925-authRole",
-            "Region": "us-east-2",
-            "DeploymentBucketName": "amplify-mehoios-meho-171925-deployment",
-            "UnauthRoleName": "amplify-mehoios-meho-171925-unauthRole",
-            "StackName": "amplify-mehoios-meho-171925",
-            "StackId": "arn:aws:cloudformation:us-east-2:296052403006:stack/amplify-mehoios-meho-171925/8b452f20-55da-11ea-8913-0a9bb1cea78e",
-            "AmplifyAppId": "d30wqh36hv8tz0"
-        },
-        "categories": {
-            "auth": {
-                "mehoios8bf6d874": {}
-            }
-        }
-    },
-    "mehhoo": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-mehoios-mehhoo-172756-authRole",
-            "UnauthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-mehhoo-172756-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoios-mehhoo-172756-authRole",
+            "AuthRoleName": "amplify-mehoadmin-mehoadmin-213338-authRole",
+            "UnauthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoadmin-mehoadmin-213338-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::296052403006:role/amplify-mehoadmin-mehoadmin-213338-authRole",
             "Region": "us-west-2",
-            "DeploymentBucketName": "amplify-mehoios-mehhoo-172756-deployment",
-            "UnauthRoleName": "amplify-mehoios-mehhoo-172756-unauthRole",
-            "StackName": "amplify-mehoios-mehhoo-172756",
-            "StackId": "arn:aws:cloudformation:us-west-2:296052403006:stack/amplify-mehoios-mehhoo-172756/c193a920-55db-11ea-9dec-069fde0f6b80",
-            "AmplifyAppId": "d3n3b5wox52uww"
-        },
-        "categories": {
-            "auth": {
-                "mehoiosd9eb8428": {}
-            }
+            "DeploymentBucketName": "amplify-mehoadmin-mehoadmin-213338-deployment",
+            "UnauthRoleName": "amplify-mehoadmin-mehoadmin-213338-unauthRole",
+            "StackName": "amplify-mehoadmin-mehoadmin-213338",
+            "StackId": "arn:aws:cloudformation:us-west-2:296052403006:stack/amplify-mehoadmin-mehoadmin-213338/87599830-c266-11ea-8a1b-029123b1cc42",
+            "AmplifyAppId": "d1zfqjd6e7r1fb"
         }
     }
 }

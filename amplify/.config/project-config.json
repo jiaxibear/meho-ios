@@ -1,8 +1,8 @@
 {
-    "projectName": "mehoios",
-    "version": "3.0",
-    "frontend": "ios",
     "providers": [
         "awscloudformation"
-    ]
+    ],
+    "projectName": "mehoadmin",
+    "version": "3.0",
+    "frontend": "ios"
 }
