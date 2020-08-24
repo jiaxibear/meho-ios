@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSMobileClient
 
 class CompleteProfileViewStep1Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -36,7 +37,7 @@ class CompleteProfileViewStep1Controller: UIViewController, UICollectionViewData
 
     // MARK: - Properties
     // MARK: Model
-
+    private let userDataFecther = UserDataFetcher.init()
     private let sections = [CompleteProfileViewStep1Section.communication, CompleteProfileViewStep1Section.general]
 
     private lazy var communicationQuestions: [ProfileQuestion] = {
@@ -210,26 +211,44 @@ class CompleteProfileViewStep1Controller: UIViewController, UICollectionViewData
     // MARK: - Private
     @objc
     func didTapNextButton() {
-        title = ""
-        navigationController?.pushViewController(CompleteProfileViewStep2Controller.init(), animated: true)
+        guard let userId = AWSMobileClient.default().userSub else { return }
+        var goals: [String] = []
+        for communication in communicationQuestions {
+            if communication.isSelected {
+                goals.append(communication.title)
+            }
+        }
+        for general in generalQuestions {
+            if general.isSelected {
+                goals.append(general.title)
+            }
+        }
+
+        userDataFecther.updateUser(id: userId, goals: goals) { (basicUser, error) in
+            DispatchQueue.main.async {
+                self.title = ""
+                self.navigationController?.pushViewController(CompleteProfileViewStep2Controller.init(), animated: true)
+            }
+        }
     }
 
     func updateNextButton() {
-        var hasSelectedCommunication = false
+        var hasSelected = false
         for communication in communicationQuestions {
             if communication.isSelected {
-                hasSelectedCommunication = true
+                hasSelected = true
                 break
             }
         }
-        var hasSelectedGeneral = false
-        for general in generalQuestions {
-            if general.isSelected {
-                hasSelectedGeneral = true
-                break
+        if !hasSelected {
+            for general in generalQuestions {
+                if general.isSelected {
+                    hasSelected = true
+                    break
+                }
             }
         }
-        nextButton.isEnabled = hasSelectedGeneral && hasSelectedCommunication
+        nextButton.isEnabled = hasSelected
         if nextButton.isEnabled {
             nextButton.backgroundColor = .skyBlue
         } else {

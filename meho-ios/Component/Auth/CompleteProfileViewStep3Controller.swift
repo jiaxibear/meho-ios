@@ -213,13 +213,20 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     @objc
     func didTapNextButton() {
         guard let userId = AWSMobileClient.default().userSub else { return }
-        let profession = "coder1"
-        userDataFecther.updateUser(id: userId, profession: profession) { (maybeUpdatedUser, error) in
-            DispatchQueue.main.async {
-                self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
+
+        let profession: String?
+        if lastSelectedIndex != questions.count - 1 {
+            profession = questions[lastSelectedIndex].title
+        } else {
+            profession = industryTextField.text
+        }
+        if profession != nil {
+            userDataFecther.updateUser(id: userId, profession: profession!) { (maybeUpdatedUser, error) in
+                DispatchQueue.main.async {
+                    self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
+                }
             }
         }
-
     }
 
     @objc

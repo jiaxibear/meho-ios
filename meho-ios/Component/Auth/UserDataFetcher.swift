@@ -83,7 +83,6 @@ class UserDataFetcher: NSObject {
     }
 
     public func updateUser(id:String, username: String? = nil, email: String? = nil, avatar: S3ObjectInput? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completionHandler: @escaping ( BasicUser?, Error?) -> Void) {
-        // TODO: replace with actual profession
         let updateUserInput = UpdateUserInput.init(id: id, username: username, email: email, avatar: avatar, avatarKey: avatarKey, goals: goals, interests: interests, profession: profession)
         let m = UpdateUserMutation(input: updateUserInput)
         appSyncClient?.perform(mutation: m) { (result, error) in
@@ -122,9 +121,5 @@ class UserDataFetcher: NSObject {
 
             completionHandler(updatedUser, nil)
         }
-
     }
-
-
-
 }
