@@ -32,8 +32,14 @@ class NewsDataFetcher: NSObject {
         let q = GetArticleQuery(id: newsID)
         appSyncClient?.fetch(query: q) { (result, error) in
             print (error?.localizedDescription as Any)
-            guard error == nil else {return}
-            guard let items = result?.data?.getArticle?.paragraphs?.items, items.count > 0 else { return }
+            guard error == nil else {
+                completionHandler(nil, nil, nil, nil, error)
+                return
+            }
+            guard let items = result?.data?.getArticle?.paragraphs?.items, items.count > 0 else {
+                completionHandler(nil, nil, nil, nil, nil)
+                return
+            }
             var zhParagraphDict:Dictionary<String, NewsChapter> = [:]
             var enParagraphs:[NewsChapter] = []
 
@@ -60,7 +66,14 @@ class NewsDataFetcher: NSObject {
 
             }
 
-            guard let allVocabs = result?.data?.getArticle?.vocabularies?.items else { return }
+            var zhParagraphs = Array(zhParagraphDict.values)
+            zhParagraphs.sort { $0.seq < $1.seq }
+            enParagraphs.sort { $0.seq < $1.seq }
+
+            guard let allVocabs = result?.data?.getArticle?.vocabularies?.items else {
+                completionHandler(enParagraphs, zhParagraphs, nil, nil, nil)
+                return
+            }
             var recabVocabs: [Vocabulary] = []
             var recabVocabIdSet:Set<String> = []
             var allVocabDict:Dictionary<String, Vocabulary> = [:]
@@ -98,14 +111,8 @@ class NewsDataFetcher: NSObject {
                 allVocabDict[vocab.identifier] = vocab
             }
 
-            var zhParagraphs = Array(zhParagraphDict.values)
-            zhParagraphs.sort { $0.seq < $1.seq }
-            enParagraphs.sort { $0.seq < $1.seq }
-
             completionHandler(enParagraphs, zhParagraphs, recabVocabs, allVocabDict, nil)
         }
-
-        completionHandler(nil, nil, nil, nil, nil)
     }
 
 
@@ -113,8 +120,14 @@ class NewsDataFetcher: NSObject {
         let q = ListArticlesQuery()
         appSyncClient?.fetch(query: q) { (result, error) in
             print (error?.localizedDescription as Any)
-            guard error == nil else {return}
-            guard let items = result?.data?.listArticles?.items, items.count > 0 else { return }
+            guard error == nil else {
+                completionHandler(nil, nil)
+                return
+            }
+            guard let items = result?.data?.listArticles?.items, items.count > 0 else {
+                completionHandler(nil, nil)
+                return
+            }
 
             var newsList:[News] = []
             for item in items {
@@ -139,47 +152,42 @@ class NewsDataFetcher: NSObject {
             newsList[0].renderType = "L"
             completionHandler(newsList, nil)
         }
-
-        completionHandler(nil, nil)
     }
 
     public func fetchNewsListRest(count: String = "50", completionHandler: @escaping ( Array<News>?, Error?) -> Void) {
-
-
-
-            if var fetchNewsListURLComponent = URLComponents.init(string: fetchNewsListURLString) {
-                let quertItem = URLQueryItem.init(name: "limit", value: count)
-                fetchNewsListURLComponent.queryItems = [quertItem]
-                if let newsListUrl = fetchNewsListURLComponent.url {
-                    let dataCategoriesTask = session.dataTask(with: newsListUrl, completionHandler: { (data, URLResponse, error) in
-                        if error != nil {
-                            print("There is an error getting the response of news list")
-                            completionHandler(nil, error)
-                            return
+        if var fetchNewsListURLComponent = URLComponents.init(string: fetchNewsListURLString) {
+            let quertItem = URLQueryItem.init(name: "limit", value: count)
+            fetchNewsListURLComponent.queryItems = [quertItem]
+            if let newsListUrl = fetchNewsListURLComponent.url {
+                let dataCategoriesTask = session.dataTask(with: newsListUrl, completionHandler: { (data, URLResponse, error) in
+                    if error != nil {
+                        print("There is an error getting the response of news list")
+                        completionHandler(nil, error)
+                        return
+                    }
+                    if data == nil {
+                        print("The response of news list is empty")
+                        completionHandler(nil, nil)
+                        return
+                    }
+                    do {
+                        if let newsListJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                            let newsList = self.parseNewsListJSON(newsListJson: newsListJson)
+                            completionHandler(newsList, nil)
                         }
-                        if data == nil {
-                            print("The response of news list is empty")
-                            completionHandler(nil, nil)
-                            return
-                        }
-                        do {
-                            if let newsListJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                                let newsList = self.parseNewsListJSON(newsListJson: newsListJson)
-                                completionHandler(newsList, nil)
-                            }
-                        } catch let JSONError as NSError {
-                            print("Failed to parse news list JSON: \(JSONError.localizedDescription)")
-                            completionHandler(nil, JSONError)
-                        }
-                    })
-                    dataCategoriesTask.resume()
-                } else {
-                    completionHandler(nil, nil)
-                }
+                    } catch let JSONError as NSError {
+                        print("Failed to parse news list JSON: \(JSONError.localizedDescription)")
+                        completionHandler(nil, JSONError)
+                    }
+                })
+                dataCategoriesTask.resume()
             } else {
                 completionHandler(nil, nil)
             }
+        } else {
+            completionHandler(nil, nil)
         }
+    }
 
     private func parseNewsListJSON(newsListJson: [String: Any]) -> Array<News> {
 

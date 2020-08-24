@@ -279,6 +279,7 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
         if emailAddressTextField.status == .valid && repeatPasswordTextField.status == .valid && createPasswordTextField.status == .valid && sendCodeTextField.text != nil && sendCodeTextField.text!.count > 0 {
             nextButton.isEnabled = true
             nextButton.backgroundColor = .skyBlue
+            errorMessageLabel.text = ""
         } else {
             nextButton.isEnabled = false
             nextButton.backgroundColor = .lightBlueGrey
@@ -297,6 +298,8 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
             }
             if errorMessages.count > 0 {
                 errorMessageLabel.text = errorMessages.joined(separator: "\n")
+            } else {
+                errorMessageLabel.text = ""
             }
         }
     }

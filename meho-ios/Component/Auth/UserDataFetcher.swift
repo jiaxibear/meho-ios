@@ -25,15 +25,20 @@ class UserDataFetcher: NSObject {
         let m = CreateUserMutation(input: createUserInput)
         appSyncClient?.perform(mutation: m) { (result, error) in
             print (error?.localizedDescription as Any)
-            guard error == nil else {return}
-            guard let createdUser = result?.data?.createUser else {return}
+            guard error == nil else {
+                completionHandler(nil, error)
+                return
+            }
+            guard let createdUser = result?.data?.createUser else {
+                completionHandler(nil, nil)
+                return
+            }
             var newUser = BasicUser.init()
             newUser.identifier = createdUser.id
             newUser.username = createdUser.username
             newUser.email = createdUser.email
             completionHandler(newUser, nil)
         }
-        completionHandler(nil, nil)
     }
 
     public func getUser(userId: String, completionHandler: @escaping ( BasicUser?, Error?) -> Void) {
@@ -41,8 +46,14 @@ class UserDataFetcher: NSObject {
         appSyncClient?.fetch(query: q) { (result, error) in
 
             print (error?.localizedDescription as Any)
-            guard error == nil else {return}
-            guard let remoteuser = result?.data?.getUser else {return}
+            guard error == nil else {
+                completionHandler(nil, error)
+                return
+            }
+            guard let remoteuser = result?.data?.getUser else {
+                completionHandler(nil, nil)
+                return
+            }
 
             var basicUser = BasicUser.init()
             basicUser.identifier = remoteuser.id
@@ -67,11 +78,7 @@ class UserDataFetcher: NSObject {
             if let profession = remoteuser.profession {
                 basicUser.profession = profession
             }
-
             completionHandler(basicUser, nil)
         }
-        completionHandler(nil, nil)
     }
-
-
 }

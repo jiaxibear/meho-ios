@@ -255,7 +255,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
                                 }
                             } else {
                                 // user exist case, recurring user, we should pop main screen
-                                    self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
+                                self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
                             }
                         }
                     default:

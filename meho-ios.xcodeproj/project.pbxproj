@@ -107,6 +107,7 @@
 		EA5449122442A47200C07D0A /* ScoredChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5449112442A47200C07D0A /* ScoredChapter.swift */; };
 		EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5449142442B12500C07D0A /* RoleUtils.swift */; };
 		EA544918244421FD00C07D0A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA544917244421FD00C07D0A /* StoreKit.framework */; };
+		EA57D7CA24F377E200E7BEFF /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57D7C924F377E200E7BEFF /* ResetPasswordViewController.swift */; };
 		EA6381E72449913B00481B8B /* AudioVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381E62449913B00481B8B /* AudioVisualizerView.swift */; };
 		EA6381E92454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */; };
 		EA6381EB2455140900481B8B /* DuoDetailedDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */; };
@@ -261,6 +262,7 @@
 		EA5449142442B12500C07D0A /* RoleUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleUtils.swift; sourceTree = "<group>"; };
 		EA54491624441FDF00C07D0A /* Meho.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Meho.entitlements; sourceTree = "<group>"; };
 		EA544917244421FD00C07D0A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		EA57D7C924F377E200E7BEFF /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		EA6381E62449913B00481B8B /* AudioVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVisualizerView.swift; sourceTree = "<group>"; };
 		EA6381E82454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoModeFooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		EA6381EA2455140900481B8B /* DuoDetailedDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoDetailedDialogViewController.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 		924C53E623FA1E0400B59D95 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				EA57D7C924F377E200E7BEFF /* ResetPasswordViewController.swift */,
 				92046FF924F337A100DE1A2D /* QuestionCollectionViewCell.swift */,
 				92046FF824F337A100DE1A2D /* CompleteProfileViewStep1Controller.swift */,
 				92046FF424F337A100DE1A2D /* CompleteProfileViewStep2Controller.swift */,
@@ -1073,6 +1076,7 @@
 				EA6381E92454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift in Sources */,
 				92C5FE2D244C56AF004A3322 /* Pinyin.swift in Sources */,
 				EA4206962468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift in Sources */,
+				EA57D7CA24F377E200E7BEFF /* ResetPasswordViewController.swift in Sources */,
 				92C5FE4B24557931004A3322 /* MainTabTitleView.swift in Sources */,
 				EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */,
 				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,
