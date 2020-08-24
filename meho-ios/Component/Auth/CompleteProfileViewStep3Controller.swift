@@ -193,9 +193,12 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         questionsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
         questionsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
         questionsCollectionView.topAnchor.constraint(equalTo: interestReasonLabel.bottomAnchor, constant: questionsCollectionViewTopBottomMargin).isActive = true
-        let statusBarHeight = UIApplication.shared.windows.first { $0.isKeyWindow }?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0.0
-        let navigationBarHeight = navigationController?.navigationBar.frame.height ?? 0.0
-        let availableQuestionsCollectionViewHeight = view.bounds.height - interestReasonLabel.sizeThatFits(CGSize.init(width: view.bounds.width, height: .greatestFiniteMagnitude)).height - nextButtonHeight - nextButtonBottomMargin - industryStackViewHeight - industryStackViewTopMargin - questionsCollectionViewTopBottomMargin - interestReasonLabelTopMargin - statusBarHeight - navigationBarHeight - industryStackViewBottomMargin
+        let viewHeight = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.layoutMarginsGuide.layoutFrame.height ?? view.bounds.height
+        let interestReasonLabelHeight = interestReasonLabel.sizeThatFits(CGSize.init(width: view.bounds.width, height: .greatestFiniteMagnitude)).height
+        let navigationBarHeight = navigationController?.navigationBar.frame.size.height ?? 0
+        let questionsCollectionViewTop = interestReasonLabelHeight + interestReasonLabelTopMargin + questionsCollectionViewTopBottomMargin + navigationBarHeight
+        let questionsCollectionViewBottom = nextButtonHeight + nextButtonBottomMargin + industryStackViewHeight + industryStackViewTopMargin + industryStackViewBottomMargin
+        let availableQuestionsCollectionViewHeight = viewHeight - questionsCollectionViewTop - questionsCollectionViewBottom
         let questionsCollectionViewIdealHeight = (questionsCollectionViewCellHeight + questionsCollectionViewMinimumLineSpacing) * CGFloat((questions.count - 1) / questionsCollectionNumberOfCellsInRow) + questionsCollectionViewSpecialCellHeight
         let questionsCollectionViewHeight = min(availableQuestionsCollectionViewHeight, questionsCollectionViewIdealHeight)
         questionsCollectionView.heightAnchor.constraint(equalToConstant: questionsCollectionViewHeight).isActive = true
