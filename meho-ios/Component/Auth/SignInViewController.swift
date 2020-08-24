@@ -102,6 +102,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
         let forgetPasswordButtonFontDescriptor = UIFont.systemFont(ofSize: forgetPasswordButtonFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         forgetPasswordButton.titleLabel?.font = UIFont.init(descriptor: forgetPasswordButtonFontDescriptor!, size: 0)
         forgetPasswordButton.setTitleColor(.greenBlue, for: .normal)
+        forgetPasswordButton.addTarget(self, action: #selector(didTapForgetPasswordButton), for: .touchUpInside)
         return forgetPasswordButton
     } ()
 
@@ -180,6 +181,13 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
             signInButton.isEnabled = false
             signInButton.backgroundColor = .lightBlueGrey
         }
+    }
+
+    @objc
+    private func didTapForgetPasswordButton() {
+        let resetPasswordViewController = ResetPasswordViewController.init();
+        title = ""
+        navigationController?.pushViewController(resetPasswordViewController, animated: true)
     }
 
     @objc

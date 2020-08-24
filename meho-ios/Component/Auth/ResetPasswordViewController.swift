@@ -1,5 +1,5 @@
 //
-//  SignUpViewController.swift
+//  ResetPasswordViewController.swift
 //  meho-ios
 //
 //  Created by Meho Dev on 6/14/20.
@@ -9,10 +9,10 @@
 import UIKit
 import AWSMobileClient
 
-class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInViewDelegate {
+class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherSignInViewDelegate {
 
     // MARK: - Constants
-    private let textFieldsStackViewHeight = CGFloat(234)
+    private let textFieldsStackViewHeight = CGFloat(324)
     private let textFieldsStackViewSpacing = CGFloat(36)
     private let textFieldsStackViewTopMargin = CGFloat(32)
     private let contentViewLeadingTrailingMargin = CGFloat(20)
@@ -26,16 +26,18 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
     private let nextButtonLeadingTrailingMargin = CGFloat(54)
     private let nextButtonTopMargin = CGFloat(24)
     private let passwordMinLength = 8
+    private let sendCodeButtonTitleFontSize = CGFloat(16)
+    private let sendCodeBackgroundViewColorAlpha = CGFloat(0.1)
+    private let sendCodeBackgroundViewCornerRadius = CGFloat(2)
+    private let sendCodeTextFieldFontSize = CGFloat(16)
+    private let sendCodeSeparatorViewWidth = CGFloat(1)
+    private let sendCodeSeparatorViewHeight = CGFloat(30)
+    private let sendCodeBackgroundViewHeight = CGFloat(54)
+    private let sendCodeBackgroundViewCompactHeight = CGFloat(40)
+    private let sendCodeStackViewSpacing = CGFloat(4)
+    private let sendCodeButtonExtraWidth = CGFloat(24)
 
     // MARK: - Properties
-    private lazy var nickNameTextField: SignUpTextField = {
-        let nickNameTextField = SignUpTextField.init(frame: .zero)
-        nickNameTextField.translatesAutoresizingMaskIntoConstraints = false
-        nickNameTextField.textField.placeholder = NSLocalizedString("NickNamePlaceholder", comment: "")
-        nickNameTextField.textField.delegate = self
-        return nickNameTextField
-    } ()
-
     private lazy var emailAddressTextField: SignUpTextField = {
         let emailAddressTextField = SignUpTextField.init(frame: .zero)
         emailAddressTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -74,8 +76,63 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         return errorMessageLabel
     } ()
 
+    private lazy var sendCodeButton: UIButton = {
+        let sendCodeButton = UIButton.init(frame: .zero)
+        sendCodeButton.translatesAutoresizingMaskIntoConstraints = false
+        sendCodeButton.backgroundColor = .clear
+        sendCodeButton.setTitle(NSLocalizedString("sendCodeButtonTitle", comment: ""), for: .normal)
+        sendCodeButton.setTitleColor(.greenBlue, for: .normal)
+        sendCodeButton.setTitleColor(.lightBlueGrey, for: .disabled)
+        let sendCodeButtonFontDescriptor = UIFont.systemFont(ofSize: sendCodeButtonTitleFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        sendCodeButton.titleLabel?.font = UIFont.init(descriptor: sendCodeButtonFontDescriptor!, size: sendCodeButtonTitleFontSize)
+        sendCodeButton.isEnabled = false
+        sendCodeButton.addTarget(self, action: #selector(didTapSendCodeButton), for: .touchUpInside)
+        return sendCodeButton
+    } ()
+
+    private lazy var sendCodeSeparatorView: UIView = {
+        let sendCodeSeparatorView = UIView.init(frame: .zero)
+        sendCodeSeparatorView.translatesAutoresizingMaskIntoConstraints = false
+        sendCodeSeparatorView.backgroundColor = .palePurple
+        return sendCodeSeparatorView
+    } ()
+
+    private lazy var sendCodeTextField: UITextField = {
+        let sendCodeTextField = UITextFieldPadding.init(frame: .zero)
+        sendCodeTextField.translatesAutoresizingMaskIntoConstraints = false
+        let fontDescriptor = UIFont.systemFont(ofSize: sendCodeTextFieldFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
+        sendCodeTextField.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
+        sendCodeTextField.autocapitalizationType = .none
+        sendCodeTextField.textColor = .textCharcoalGrey
+        sendCodeTextField.tintColor = .wisteriaPurple
+        sendCodeTextField.backgroundColor = .clear
+        sendCodeTextField.isSecureTextEntry = true
+        sendCodeTextField.placeholder = NSLocalizedString("verificationCodePlaceholderText", comment: "")
+        sendCodeTextField.delegate = self
+        return sendCodeTextField
+    } ()
+
+    private lazy var sendCodeStackView: UIStackView = {
+        let sendCodeStackView = UIStackView.init(arrangedSubviews: [sendCodeTextField, sendCodeSeparatorView, sendCodeButton])
+        sendCodeStackView.translatesAutoresizingMaskIntoConstraints = false
+        sendCodeStackView.axis = .horizontal
+        sendCodeStackView.alignment = .center
+        sendCodeStackView.spacing = sendCodeStackViewSpacing
+        return sendCodeStackView
+    } ()
+
+    private lazy var sendCodeBackgroundView: UIView = {
+        let sendCodeBackgroundView = UIView.init(frame: .zero)
+        sendCodeBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        sendCodeBackgroundView.backgroundColor = UIColor.skyBlue.withAlphaComponent(sendCodeBackgroundViewColorAlpha)
+        sendCodeBackgroundView.layer.cornerRadius = sendCodeBackgroundViewCornerRadius
+        sendCodeBackgroundView.clipsToBounds = true
+        sendCodeBackgroundView.addSubview(sendCodeStackView)
+        return sendCodeBackgroundView
+    } ()
+
     private lazy var textFieldsStackView: UIStackView = {
-        let textFieldsStackView = UIStackView.init(arrangedSubviews: [/* nickNameTextField, */ emailAddressTextField, createPasswordTextField, repeatPasswordTextField])
+        let textFieldsStackView = UIStackView.init(arrangedSubviews: [ emailAddressTextField, createPasswordTextField, repeatPasswordTextField, sendCodeBackgroundView ])
         textFieldsStackView.translatesAutoresizingMaskIntoConstraints = false
         textFieldsStackView.axis = .vertical
         textFieldsStackView.distribution = .equalSpacing
@@ -105,6 +162,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         return button
     } ()
 
+    private lazy var sendCodeButtonWidthAnchor: NSLayoutConstraint = {
+        return sendCodeButton.widthAnchor.constraint(equalToConstant: 0)
+    } ()
+
+    private var hasEditedVerificationCode = false
+
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,6 +185,21 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         let textFieldsStackViewHeightConstraint = textFieldsStackView.heightAnchor.constraint(equalToConstant: textFieldsStackViewHeight)
         textFieldsStackViewHeightConstraint.isActive = true
 
+        sendCodeStackView.topAnchor.constraint(equalTo: sendCodeBackgroundView.topAnchor).isActive = true
+        sendCodeStackView.bottomAnchor.constraint(equalTo: sendCodeBackgroundView.bottomAnchor).isActive = true
+        sendCodeStackView.leadingAnchor.constraint(equalTo: sendCodeBackgroundView.leadingAnchor).isActive = true
+        sendCodeStackView.trailingAnchor.constraint(equalTo: sendCodeBackgroundView.trailingAnchor).isActive = true
+
+        sendCodeSeparatorView.widthAnchor.constraint(equalToConstant: sendCodeSeparatorViewWidth).isActive = true
+        sendCodeSeparatorView.heightAnchor.constraint(equalToConstant: sendCodeSeparatorViewHeight).isActive = true
+
+        let sendCodeBackgroundViewHeightConstraint = sendCodeBackgroundView.heightAnchor.constraint(equalToConstant: sendCodeBackgroundViewHeight)
+        sendCodeBackgroundViewHeightConstraint.isActive = true
+
+        let sendCodeButtonWidth = sendCodeButton.sizeThatFits(CGSize.init(width: view.bounds.width - 2 * contentViewLeadingTrailingMargin, height: .greatestFiniteMagnitude)).width + sendCodeButtonExtraWidth
+        sendCodeButtonWidthAnchor.constant = sendCodeButtonWidth
+        sendCodeButtonWidthAnchor.isActive = true
+
         otherSignInView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentViewLeadingTrailingMargin).isActive = true
         otherSignInView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentViewLeadingTrailingMargin).isActive = true
         otherSignInView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -otherSignInViewBottomMargin).isActive = true
@@ -130,7 +208,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         errorMessageLabelTopConstraint.isActive = true
         errorMessageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentViewLeadingTrailingMargin).isActive = true
         errorMessageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentViewLeadingTrailingMargin).isActive = true
-        errorMessageLabel.text = "a\na\na"
+        errorMessageLabel.text = "a\na\na\na"
         let errorMessageLabelHeight = errorMessageLabel.sizeThatFits(CGSize.init(width: view.bounds.width - 2 * contentViewLeadingTrailingMargin, height: .greatestFiniteMagnitude)).height
         errorMessageLabel.heightAnchor.constraint(equalToConstant: errorMessageLabelHeight).isActive = true
         errorMessageLabel.text = ""
@@ -143,21 +221,28 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
 
         if textFieldsStackViewTopMargin + textFieldsStackViewHeight + otherSignInViewBottomMargin + otherSignInView.intrinsicContentSize.height + errorMessageLabelTopMargin + nextButtonHeight + nextButtonTopMargin > view.bounds.height {
             textFieldsStackViewTopConstraint.constant = textFieldsStackViewTopMargin / 2
-            /* nickNameTextField.isCompact = true */
             emailAddressTextField.isCompact = true
             createPasswordTextField.isCompact = true
             repeatPasswordTextField.isCompact = true
-            textFieldsStackViewHeightConstraint.constant = emailAddressTextField.intrinsicContentSize.height * 3 + textFieldsStackViewSpacing
+            textFieldsStackViewHeightConstraint.constant = emailAddressTextField.intrinsicContentSize.height * 4 + textFieldsStackViewSpacing / 2 * 3
+            sendCodeBackgroundViewHeightConstraint.constant = sendCodeBackgroundViewCompactHeight
             errorMessageLabelTopConstraint.constant = errorMessageLabelTopMargin / 4
             nextButtonTopConstraint.constant = nextButtonTopMargin / 4
             otherSignInView.isCompact = true
             errorMessageLabel.font = errorMessageLabel.font.withSize(errorMessageLabelCompactFontSize)
+            sendCodeBackgroundViewHeightConstraint.constant = sendCodeBackgroundViewCompactHeight
         }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        title = NSLocalizedString("SignUpScreenTitle", comment: "")
+        title = NSLocalizedString("ResetPasswordScreenTitle", comment: "")
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == sendCodeTextField {
+            hasEditedVerificationCode = true
+        }
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -165,8 +250,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
             if signUpTextField == emailAddressTextField  {
                 if let emailAddress = textField.text, isValidEmail(emailAddress) {
                     signUpTextField.status = .valid
+                    sendCodeButton.isEnabled = true
                 } else {
                     signUpTextField.status = .invalid
+                    sendCodeButton.isEnabled = false
                 }
             } else if signUpTextField == repeatPasswordTextField {
                 if let repeatedPassword = textField.text, let password = createPasswordTextField.textField.text, repeatedPassword == password {
@@ -189,10 +276,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
                 }
             }
         }
-        if emailAddressTextField.status == .valid && repeatPasswordTextField.status == .valid && createPasswordTextField.status == .valid {
+        if emailAddressTextField.status == .valid && repeatPasswordTextField.status == .valid && createPasswordTextField.status == .valid && sendCodeTextField.text != nil && sendCodeTextField.text!.count > 0 {
             nextButton.isEnabled = true
             nextButton.backgroundColor = .skyBlue
-            errorMessageLabel.text = ""
         } else {
             nextButton.isEnabled = false
             nextButton.backgroundColor = .lightBlueGrey
@@ -206,10 +292,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
             if repeatPasswordTextField.status == .invalid {
                 errorMessages.append(NSLocalizedString("passwordNotMatchMessage", comment: ""))
             }
+            if hasEditedVerificationCode && (sendCodeTextField.text == nil || sendCodeTextField.text!.count == 0) {
+                errorMessages.append(NSLocalizedString("VerificationCodeEmptyMessage", comment: ""))
+            }
             if errorMessages.count > 0 {
                 errorMessageLabel.text = errorMessages.joined(separator: "\n")
-            } else {
-                errorMessageLabel.text = ""
             }
         }
     }
@@ -224,47 +311,54 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
 
     // MARK: - Private
     @objc
+    func didTapSendCodeButton() {
+        if let emailAddress = emailAddressTextField.textField.text {
+            AWSMobileClient.default().forgotPassword(username: emailAddress) { (forgotPasswordResult, error) in
+                if forgotPasswordResult?.forgotPasswordState == .confirmationCodeSent {
+                    let alertController = UIAlertController.init(title: NSLocalizedString("VerificationCodeSentTitle", comment: ""), message: NSLocalizedString("VerificationCodeSentMessage", comment: ""), preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction.init(title: NSLocalizedString("OKButtonTitle", comment: ""), style: .default, handler: nil))
+                    DispatchQueue.main.async {
+                        self.present(alertController, animated: true, completion: nil)
+                        self.sendCodeButton.setTitle(NSLocalizedString("sendAgainButtonTitle", comment: ""), for: .normal)
+                        let sendCodeButtonWidth = self.sendCodeButton.sizeThatFits(CGSize.init(width: self.view.bounds.width - 2 * self.contentViewLeadingTrailingMargin, height: .greatestFiniteMagnitude)).width + self.sendCodeButtonExtraWidth
+                        self.sendCodeButtonWidthAnchor.constant = sendCodeButtonWidth
+                    }
+                } else {
+                    let alertController = UIAlertController.init(title: NSLocalizedString("verificationCodeErrorTitle", comment: ""), message: NSLocalizedString("genericVerificationErrorMessage", comment: ""), preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction.init(title: NSLocalizedString("OKButtonTitle", comment: ""), style: .default, handler: nil))
+                    DispatchQueue.main.async {
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+    }
+
+    @objc
     func didTapNextButton() {
-        if let emailAddress = emailAddressTextField.textField.text, let password = createPasswordTextField.textField.text {
-            AWSMobileClient.default().signUp(username: emailAddress, password: password) { (signupResult, error) in
-                var errorMessage: String?
-                if error != nil {
+        if let emailAddress = emailAddressTextField.textField.text, let password = createPasswordTextField.textField.text, let verificationCode = sendCodeTextField.text {
+            AWSMobileClient.default().confirmForgotPassword(username: emailAddress, newPassword: password, confirmationCode: verificationCode) { (forgotPasswordResult, error) in
+                if forgotPasswordResult?.forgotPasswordState == .done {
+                    DispatchQueue.main.async {
+                        self.navigationController?.setViewControllers([SignInViewController.init()], animated: false)
+                    }
+                } else {
+                    var errorMessage = NSLocalizedString("genericForgetPasswordErrorMessage", comment: "")
                     if let mobileClientError = error as? AWSMobileClientError {
                         switch mobileClientError {
-                        case let .usernameExists(message):
+                        case let .codeMismatch(message):
                             errorMessage = message
                             break
                         case let .invalidPassword(message):
                             errorMessage = message
                             break
                         default:
-                            errorMessage = NSLocalizedString("genericSignUpErrorMessage", comment: "")
-                        }
-                    } else {
-                        errorMessage = NSLocalizedString("genericSignUpErrorMessage", comment: "")
-                    }
-                }
-                if signupResult != nil {
-                    let alertTitle = NSLocalizedString("VerificationEmailSentTitle", comment: "")
-                    let alertMessage = NSLocalizedString("VerificationEmailSentMessage", comment: "")
-                    let alertController = UIAlertController.init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-                    let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
-                    let okAction = UIAlertAction.init(title:okTitle, style:.default) { (action) in
-                        DispatchQueue.main.async {
-                            self.navigationController?.setViewControllers([SignInViewController.init()], animated: false)
+                            break
                         }
                     }
-                    alertController.addAction(okAction)
+                    let alertController = UIAlertController.init(title: NSLocalizedString("forgetPasswordErrorTitle", comment: ""), message: errorMessage, preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction.init(title: NSLocalizedString("OKButtonTitle", comment: ""), style: .default, handler: nil))
                     DispatchQueue.main.async {
-                        self.present(alertController, animated: true, completion: nil)
-                    }
-                } else {
-                    errorMessage = NSLocalizedString("genericSignUpErrorMessage", comment: "")
-                }
-                if errorMessage != nil {
-                    DispatchQueue.main.async {
-                        let alertController = UIAlertController.init(title: NSLocalizedString("signUpErrorTitle", comment: ""), message: errorMessage, preferredStyle: .alert)
-                        alertController.addAction(UIAlertAction.init(title: NSLocalizedString("OKButtonTitle", comment: ""), style: .default, handler: nil))
                         self.present(alertController, animated: true, completion: nil)
                     }
                 }

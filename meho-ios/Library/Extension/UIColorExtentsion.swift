@@ -97,6 +97,10 @@ extension UIColor {
         return UIColor.init(hex: "#9480e5")!
     }
 
+    class var palePurple: UIColor {
+        return UIColor.init(hex: "#aeaeb2")!
+    }
+
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 
