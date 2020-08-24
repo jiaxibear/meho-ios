@@ -10,6 +10,7 @@ mutation CreateParagraph(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -19,6 +20,7 @@ mutation CreateParagraph(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -42,6 +44,7 @@ mutation CreateParagraph(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -55,6 +58,7 @@ mutation CreateParagraph(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -72,6 +76,7 @@ mutation CreateParagraph(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -85,6 +90,7 @@ mutation CreateParagraph(
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -98,6 +104,7 @@ mutation CreateParagraph(
     contentImage {
       ...S3Object
     }
+    contentImage_key
     createdAt
     updatedAt
   }
@@ -113,6 +120,7 @@ mutation UpdateParagraph(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -122,6 +130,7 @@ mutation UpdateParagraph(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -145,6 +154,7 @@ mutation UpdateParagraph(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -158,6 +168,7 @@ mutation UpdateParagraph(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -175,6 +186,7 @@ mutation UpdateParagraph(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -188,6 +200,7 @@ mutation UpdateParagraph(
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -201,6 +214,7 @@ mutation UpdateParagraph(
     contentImage {
       ...S3Object
     }
+    contentImage_key
     createdAt
     updatedAt
   }
@@ -216,6 +230,7 @@ mutation DeleteParagraph(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -225,6 +240,7 @@ mutation DeleteParagraph(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -248,6 +264,7 @@ mutation DeleteParagraph(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -261,6 +278,7 @@ mutation DeleteParagraph(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -278,6 +296,7 @@ mutation DeleteParagraph(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -291,6 +310,7 @@ mutation DeleteParagraph(
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -304,6 +324,7 @@ mutation DeleteParagraph(
     contentImage {
       ...S3Object
     }
+    contentImage_key
     createdAt
     updatedAt
   }
@@ -317,6 +338,7 @@ mutation CreateArticle(
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleEn
     titleZh
     whyYouShouldReadThisArticle
@@ -329,6 +351,7 @@ mutation CreateArticle(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -370,6 +393,7 @@ mutation CreateArticle(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -395,6 +419,7 @@ mutation CreateArticle(
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -418,6 +443,7 @@ mutation CreateArticle(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -440,6 +466,7 @@ mutation CreateArticle(
         contentImage {
           ...S3Object
         }
+        contentImage_key
         createdAt
         updatedAt
       }
@@ -457,6 +484,7 @@ mutation UpdateArticle(
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleEn
     titleZh
     whyYouShouldReadThisArticle
@@ -469,6 +497,7 @@ mutation UpdateArticle(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -510,6 +539,7 @@ mutation UpdateArticle(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -535,6 +565,7 @@ mutation UpdateArticle(
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -558,6 +589,7 @@ mutation UpdateArticle(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -580,6 +612,7 @@ mutation UpdateArticle(
         contentImage {
           ...S3Object
         }
+        contentImage_key
         createdAt
         updatedAt
       }
@@ -597,6 +630,7 @@ mutation DeleteArticle(
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleEn
     titleZh
     whyYouShouldReadThisArticle
@@ -609,6 +643,7 @@ mutation DeleteArticle(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -650,6 +685,7 @@ mutation DeleteArticle(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -675,6 +711,7 @@ mutation DeleteArticle(
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -698,6 +735,7 @@ mutation DeleteArticle(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -720,6 +758,7 @@ mutation DeleteArticle(
         contentImage {
           ...S3Object
         }
+        contentImage_key
         createdAt
         updatedAt
       }
@@ -741,6 +780,7 @@ mutation CreateVocabulary(
     audio {
       ...S3Object
     }
+    audio_key
     optionContent
     articles {
       items {
@@ -750,6 +790,7 @@ mutation CreateVocabulary(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -775,6 +816,7 @@ mutation CreateVocabulary(
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -806,6 +848,7 @@ mutation UpdateVocabulary(
     audio {
       ...S3Object
     }
+    audio_key
     optionContent
     articles {
       items {
@@ -815,6 +858,7 @@ mutation UpdateVocabulary(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -840,6 +884,7 @@ mutation UpdateVocabulary(
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -871,6 +916,7 @@ mutation DeleteVocabulary(
     audio {
       ...S3Object
     }
+    audio_key
     optionContent
     articles {
       items {
@@ -880,6 +926,7 @@ mutation DeleteVocabulary(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -905,6 +952,7 @@ mutation DeleteVocabulary(
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -934,6 +982,7 @@ mutation CreateVocabularyArticle(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -943,6 +992,7 @@ mutation CreateVocabularyArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -966,6 +1016,7 @@ mutation CreateVocabularyArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -979,6 +1030,7 @@ mutation CreateVocabularyArticle(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -996,6 +1048,7 @@ mutation CreateVocabularyArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1009,6 +1062,7 @@ mutation CreateVocabularyArticle(
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -1025,12 +1079,14 @@ mutation CreateVocabularyArticle(
       audio {
         ...S3Object
       }
+      audio_key
       optionContent
       articles {
         items {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1044,6 +1100,7 @@ mutation CreateVocabularyArticle(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1075,6 +1132,7 @@ mutation UpdateVocabularyArticle(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1084,6 +1142,7 @@ mutation UpdateVocabularyArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1107,6 +1166,7 @@ mutation UpdateVocabularyArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1120,6 +1180,7 @@ mutation UpdateVocabularyArticle(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1137,6 +1198,7 @@ mutation UpdateVocabularyArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1150,6 +1212,7 @@ mutation UpdateVocabularyArticle(
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -1166,12 +1229,14 @@ mutation UpdateVocabularyArticle(
       audio {
         ...S3Object
       }
+      audio_key
       optionContent
       articles {
         items {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1185,6 +1250,7 @@ mutation UpdateVocabularyArticle(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1216,6 +1282,7 @@ mutation DeleteVocabularyArticle(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1225,6 +1292,7 @@ mutation DeleteVocabularyArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1248,6 +1316,7 @@ mutation DeleteVocabularyArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1261,6 +1330,7 @@ mutation DeleteVocabularyArticle(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1278,6 +1348,7 @@ mutation DeleteVocabularyArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1291,6 +1362,7 @@ mutation DeleteVocabularyArticle(
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -1307,12 +1379,14 @@ mutation DeleteVocabularyArticle(
       audio {
         ...S3Object
       }
+      audio_key
       optionContent
       articles {
         items {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1326,6 +1400,7 @@ mutation DeleteVocabularyArticle(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1361,6 +1436,7 @@ mutation CreateTag(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1402,6 +1478,7 @@ mutation CreateTag(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -1451,6 +1528,7 @@ mutation UpdateTag(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1492,6 +1570,7 @@ mutation UpdateTag(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -1541,6 +1620,7 @@ mutation DeleteTag(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1582,6 +1662,7 @@ mutation DeleteTag(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -1627,6 +1708,7 @@ mutation CreateTagArticle(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1636,6 +1718,7 @@ mutation CreateTagArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1659,6 +1742,7 @@ mutation CreateTagArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1672,6 +1756,7 @@ mutation CreateTagArticle(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1689,6 +1774,7 @@ mutation CreateTagArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1702,6 +1788,7 @@ mutation CreateTagArticle(
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -1717,6 +1804,7 @@ mutation CreateTagArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1740,6 +1828,7 @@ mutation CreateTagArticle(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -1776,6 +1865,7 @@ mutation UpdateTagArticle(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1785,6 +1875,7 @@ mutation UpdateTagArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1808,6 +1899,7 @@ mutation UpdateTagArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1821,6 +1913,7 @@ mutation UpdateTagArticle(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1838,6 +1931,7 @@ mutation UpdateTagArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1851,6 +1945,7 @@ mutation UpdateTagArticle(
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -1866,6 +1961,7 @@ mutation UpdateTagArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1889,6 +1985,7 @@ mutation UpdateTagArticle(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -1925,6 +2022,7 @@ mutation DeleteTagArticle(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1934,6 +2032,7 @@ mutation DeleteTagArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1957,6 +2056,7 @@ mutation DeleteTagArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1970,6 +2070,7 @@ mutation DeleteTagArticle(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1987,6 +2088,7 @@ mutation DeleteTagArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2000,6 +2102,7 @@ mutation DeleteTagArticle(
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -2015,6 +2118,7 @@ mutation DeleteTagArticle(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2038,6 +2142,7 @@ mutation DeleteTagArticle(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2075,22 +2180,20 @@ mutation CreateChapter(
     audio {
       ...S3Object
     }
+    audio_key
     seqNumber
-    npc {
-      id
-      name
-      avatar {
-        ...S3Object
-      }
-      createdAt
-      updatedAt
+    npcName
+    npcAvatar {
+      ...S3Object
     }
-    role
+    npcAvatar_key
+    npcRole
     dialogue {
       id
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -2100,6 +2203,7 @@ mutation CreateChapter(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2127,16 +2231,17 @@ mutation CreateChapter(
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2168,22 +2273,20 @@ mutation UpdateChapter(
     audio {
       ...S3Object
     }
+    audio_key
     seqNumber
-    npc {
-      id
-      name
-      avatar {
-        ...S3Object
-      }
-      createdAt
-      updatedAt
+    npcName
+    npcAvatar {
+      ...S3Object
     }
-    role
+    npcAvatar_key
+    npcRole
     dialogue {
       id
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -2193,6 +2296,7 @@ mutation UpdateChapter(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2220,16 +2324,17 @@ mutation UpdateChapter(
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2261,22 +2366,20 @@ mutation DeleteChapter(
     audio {
       ...S3Object
     }
+    audio_key
     seqNumber
-    npc {
-      id
-      name
-      avatar {
-        ...S3Object
-      }
-      createdAt
-      updatedAt
+    npcName
+    npcAvatar {
+      ...S3Object
     }
-    role
+    npcAvatar_key
+    npcRole
     dialogue {
       id
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -2286,6 +2389,7 @@ mutation DeleteChapter(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2313,16 +2417,17 @@ mutation DeleteChapter(
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2351,6 +2456,7 @@ mutation CreateDialogue(
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleZh
     titleEn
     whyYouShouldLearnThisDialogue
@@ -2363,6 +2469,7 @@ mutation CreateDialogue(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -2402,22 +2509,20 @@ mutation CreateDialogue(
         audio {
           ...S3Object
         }
+        audio_key
         seqNumber
-        npc {
-          id
-          name
-          avatar {
-            ...S3Object
-          }
-          createdAt
-          updatedAt
+        npcName
+        npcAvatar {
+          ...S3Object
         }
-        role
+        npcAvatar_key
+        npcRole
         dialogue {
           id
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -2449,6 +2554,7 @@ mutation UpdateDialogue(
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleZh
     titleEn
     whyYouShouldLearnThisDialogue
@@ -2461,6 +2567,7 @@ mutation UpdateDialogue(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -2500,22 +2607,20 @@ mutation UpdateDialogue(
         audio {
           ...S3Object
         }
+        audio_key
         seqNumber
-        npc {
-          id
-          name
-          avatar {
-            ...S3Object
-          }
-          createdAt
-          updatedAt
+        npcName
+        npcAvatar {
+          ...S3Object
         }
-        role
+        npcAvatar_key
+        npcRole
         dialogue {
           id
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -2547,6 +2652,7 @@ mutation DeleteDialogue(
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleZh
     titleEn
     whyYouShouldLearnThisDialogue
@@ -2559,6 +2665,7 @@ mutation DeleteDialogue(
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -2598,22 +2705,20 @@ mutation DeleteDialogue(
         audio {
           ...S3Object
         }
+        audio_key
         seqNumber
-        npc {
-          id
-          name
-          avatar {
-            ...S3Object
-          }
-          createdAt
-          updatedAt
+        npcName
+        npcAvatar {
+          ...S3Object
         }
-        role
+        npcAvatar_key
+        npcRole
         dialogue {
           id
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -2647,6 +2752,7 @@ mutation CreateTagDialogue(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -2656,6 +2762,7 @@ mutation CreateTagDialogue(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2683,16 +2790,17 @@ mutation CreateTagDialogue(
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2716,6 +2824,7 @@ mutation CreateTagDialogue(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2739,6 +2848,7 @@ mutation CreateTagDialogue(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2775,6 +2885,7 @@ mutation UpdateTagDialogue(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -2784,6 +2895,7 @@ mutation UpdateTagDialogue(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2811,16 +2923,17 @@ mutation UpdateTagDialogue(
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2844,6 +2957,7 @@ mutation UpdateTagDialogue(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2867,6 +2981,7 @@ mutation UpdateTagDialogue(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2903,6 +3018,7 @@ mutation DeleteTagDialogue(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -2912,6 +3028,7 @@ mutation DeleteTagDialogue(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2939,16 +3056,17 @@ mutation DeleteTagDialogue(
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2972,6 +3090,7 @@ mutation DeleteTagDialogue(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2995,6 +3114,7 @@ mutation DeleteTagDialogue(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -3030,6 +3150,7 @@ mutation CreateNpc(
     avatar {
       ...S3Object
     }
+    avatar_key
     createdAt
     updatedAt
   }
@@ -3044,6 +3165,7 @@ mutation UpdateNpc(
     avatar {
       ...S3Object
     }
+    avatar_key
     createdAt
     updatedAt
   }
@@ -3058,6 +3180,1798 @@ mutation DeleteNpc(
     avatar {
       ...S3Object
     }
+    avatar_key
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateUser(
+  $input: CreateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  createUser(input: $input, condition: $condition) {
+    id
+    username
+    email
+    avatar {
+      ...S3Object
+    }
+    avatar_key
+    goals
+    interests
+    professional
+    completedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    inProgressItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedVocabularies {
+      items {
+        id
+        users {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        vocabularyID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUser(
+  $input: UpdateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  updateUser(input: $input, condition: $condition) {
+    id
+    username
+    email
+    avatar {
+      ...S3Object
+    }
+    avatar_key
+    goals
+    interests
+    professional
+    completedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    inProgressItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedVocabularies {
+      items {
+        id
+        users {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        vocabularyID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUser(
+  $input: DeleteUserInput!
+  $condition: ModelUserConditionInput
+) {
+  deleteUser(input: $input, condition: $condition) {
+    id
+    username
+    email
+    avatar {
+      ...S3Object
+    }
+    avatar_key
+    goals
+    interests
+    professional
+    completedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    inProgressItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedVocabularies {
+      items {
+        id
+        users {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        vocabularyID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateUserItemCompleted(
+  $input: CreateUserItemCompletedInput!
+  $condition: ModelUserItemCompletedConditionInput
+) {
+  createUserItemCompleted(input: $input, condition: $condition) {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUserItemCompleted(
+  $input: UpdateUserItemCompletedInput!
+  $condition: ModelUserItemCompletedConditionInput
+) {
+  updateUserItemCompleted(input: $input, condition: $condition) {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUserItemCompleted(
+  $input: DeleteUserItemCompletedInput!
+  $condition: ModelUserItemCompletedConditionInput
+) {
+  deleteUserItemCompleted(input: $input, condition: $condition) {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateUserItemInProgress(
+  $input: CreateUserItemInProgressInput!
+  $condition: ModelUserItemInProgressConditionInput
+) {
+  createUserItemInProgress(input: $input, condition: $condition) {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUserItemInProgress(
+  $input: UpdateUserItemInProgressInput!
+  $condition: ModelUserItemInProgressConditionInput
+) {
+  updateUserItemInProgress(input: $input, condition: $condition) {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUserItemInProgress(
+  $input: DeleteUserItemInProgressInput!
+  $condition: ModelUserItemInProgressConditionInput
+) {
+  deleteUserItemInProgress(input: $input, condition: $condition) {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateUserItemSave(
+  $input: CreateUserItemSaveInput!
+  $condition: ModelUserItemSaveConditionInput
+) {
+  createUserItemSave(input: $input, condition: $condition) {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUserItemSave(
+  $input: UpdateUserItemSaveInput!
+  $condition: ModelUserItemSaveConditionInput
+) {
+  updateUserItemSave(input: $input, condition: $condition) {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUserItemSave(
+  $input: DeleteUserItemSaveInput!
+  $condition: ModelUserItemSaveConditionInput
+) {
+  deleteUserItemSave(input: $input, condition: $condition) {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateUserVocabularySave(
+  $input: CreateUserVocabularySaveInput!
+  $condition: ModelUserVocabularySaveConditionInput
+) {
+  createUserVocabularySave(input: $input, condition: $condition) {
+    id
+    users {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    vocabularyID
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUserVocabularySave(
+  $input: UpdateUserVocabularySaveInput!
+  $condition: ModelUserVocabularySaveConditionInput
+) {
+  updateUserVocabularySave(input: $input, condition: $condition) {
+    id
+    users {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    vocabularyID
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUserVocabularySave(
+  $input: DeleteUserVocabularySaveInput!
+  $condition: ModelUserVocabularySaveConditionInput
+) {
+  deleteUserVocabularySave(input: $input, condition: $condition) {
+    id
+    users {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    vocabularyID
     createdAt
     updatedAt
   }

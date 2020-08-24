@@ -21,8 +21,6 @@ class NewsDataFetcher: NSObject {
     // MARK: - Properties
     private var appSyncClient: AWSAppSyncClient?
     private let session = URLSession(configuration: .default)
-    //handles download
-    var completionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?
 
     // MARK: - Init
     override init() {

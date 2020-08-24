@@ -7,6 +7,7 @@ query GetParagraph($id: ID!) {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -16,6 +17,7 @@ query GetParagraph($id: ID!) {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -39,6 +41,7 @@ query GetParagraph($id: ID!) {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -52,6 +55,7 @@ query GetParagraph($id: ID!) {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -69,6 +73,7 @@ query GetParagraph($id: ID!) {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -82,6 +87,7 @@ query GetParagraph($id: ID!) {
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -95,6 +101,7 @@ query GetParagraph($id: ID!) {
     contentImage {
       ...S3Object
     }
+    contentImage_key
     createdAt
     updatedAt
   }
@@ -112,6 +119,7 @@ query ListParagraphs(
         coverImage {
           ...S3Object
         }
+        coverImage_key
         titleEn
         titleZh
         whyYouShouldReadThisArticle
@@ -141,6 +149,7 @@ query ListParagraphs(
             content
             contentType
             seqNumber
+            contentImage_key
             createdAt
             updatedAt
           }
@@ -154,6 +163,7 @@ query ListParagraphs(
       contentImage {
         ...S3Object
       }
+      contentImage_key
       createdAt
       updatedAt
     }
@@ -166,6 +176,7 @@ query GetArticle($id: ID!) {
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleEn
     titleZh
     whyYouShouldReadThisArticle
@@ -178,6 +189,7 @@ query GetArticle($id: ID!) {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -219,6 +231,7 @@ query GetArticle($id: ID!) {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -244,6 +257,7 @@ query GetArticle($id: ID!) {
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -267,6 +281,7 @@ query GetArticle($id: ID!) {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -289,6 +304,7 @@ query GetArticle($id: ID!) {
         contentImage {
           ...S3Object
         }
+        contentImage_key
         createdAt
         updatedAt
       }
@@ -308,6 +324,7 @@ query ListArticles(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -317,6 +334,7 @@ query ListArticles(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -340,6 +358,7 @@ query ListArticles(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -353,6 +372,7 @@ query ListArticles(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -370,6 +390,7 @@ query ListArticles(
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -383,6 +404,7 @@ query ListArticles(
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -403,6 +425,7 @@ query GetVocabulary($id: ID!) {
     audio {
       ...S3Object
     }
+    audio_key
     optionContent
     articles {
       items {
@@ -412,6 +435,7 @@ query GetVocabulary($id: ID!) {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -437,6 +461,7 @@ query GetVocabulary($id: ID!) {
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -470,12 +495,14 @@ query ListVocabularys(
       audio {
         ...S3Object
       }
+      audio_key
       optionContent
       articles {
         items {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -489,6 +516,7 @@ query ListVocabularys(
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -514,6 +542,7 @@ query GetVocabularyArticle($id: ID!) {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -523,6 +552,7 @@ query GetVocabularyArticle($id: ID!) {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -546,6 +576,7 @@ query GetVocabularyArticle($id: ID!) {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -559,6 +590,7 @@ query GetVocabularyArticle($id: ID!) {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -576,6 +608,7 @@ query GetVocabularyArticle($id: ID!) {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -589,6 +622,7 @@ query GetVocabularyArticle($id: ID!) {
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -605,12 +639,14 @@ query GetVocabularyArticle($id: ID!) {
       audio {
         ...S3Object
       }
+      audio_key
       optionContent
       articles {
         items {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -624,6 +660,7 @@ query GetVocabularyArticle($id: ID!) {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -661,6 +698,7 @@ query ListVocabularyArticles(
         coverImage {
           ...S3Object
         }
+        coverImage_key
         titleEn
         titleZh
         whyYouShouldReadThisArticle
@@ -690,6 +728,7 @@ query ListVocabularyArticles(
             content
             contentType
             seqNumber
+            contentImage_key
             createdAt
             updatedAt
           }
@@ -706,6 +745,7 @@ query ListVocabularyArticles(
         audio {
           ...S3Object
         }
+        audio_key
         optionContent
         articles {
           items {
@@ -740,6 +780,7 @@ query GetTag($id: ID!) {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -781,6 +822,7 @@ query GetTag($id: ID!) {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -825,6 +867,7 @@ query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -848,6 +891,7 @@ query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -880,6 +924,7 @@ query GetTagArticle($id: ID!) {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -889,6 +934,7 @@ query GetTagArticle($id: ID!) {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -912,6 +958,7 @@ query GetTagArticle($id: ID!) {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -925,6 +972,7 @@ query GetTagArticle($id: ID!) {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -942,6 +990,7 @@ query GetTagArticle($id: ID!) {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -955,6 +1004,7 @@ query GetTagArticle($id: ID!) {
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -970,6 +1020,7 @@ query GetTagArticle($id: ID!) {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -993,6 +1044,7 @@ query GetTagArticle($id: ID!) {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -1031,6 +1083,7 @@ query ListTagArticles(
         coverImage {
           ...S3Object
         }
+        coverImage_key
         titleEn
         titleZh
         whyYouShouldReadThisArticle
@@ -1060,6 +1113,7 @@ query ListTagArticles(
             content
             contentType
             seqNumber
+            contentImage_key
             createdAt
             updatedAt
           }
@@ -1104,22 +1158,20 @@ query GetChapter($id: ID!) {
     audio {
       ...S3Object
     }
+    audio_key
     seqNumber
-    npc {
-      id
-      name
-      avatar {
-        ...S3Object
-      }
-      createdAt
-      updatedAt
+    npcName
+    npcAvatar {
+      ...S3Object
     }
-    role
+    npcAvatar_key
+    npcRole
     dialogue {
       id
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -1129,6 +1181,7 @@ query GetChapter($id: ID!) {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -1156,16 +1209,17 @@ query GetChapter($id: ID!) {
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -1199,22 +1253,20 @@ query ListChapters(
       audio {
         ...S3Object
       }
+      audio_key
       seqNumber
-      npc {
-        id
-        name
-        avatar {
-          ...S3Object
-        }
-        createdAt
-        updatedAt
+      npcName
+      npcAvatar {
+        ...S3Object
       }
-      role
+      npcAvatar_key
+      npcRole
       dialogue {
         id
         coverImage {
           ...S3Object
         }
+        coverImage_key
         titleZh
         titleEn
         whyYouShouldLearnThisDialogue
@@ -1233,8 +1285,11 @@ query ListChapters(
             contentZh
             contentPinyin
             contentEn
+            audio_key
             seqNumber
-            role
+            npcName
+            npcAvatar_key
+            npcRole
             createdAt
             updatedAt
           }
@@ -1255,6 +1310,7 @@ query GetDialogue($id: ID!) {
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleZh
     titleEn
     whyYouShouldLearnThisDialogue
@@ -1267,6 +1323,7 @@ query GetDialogue($id: ID!) {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -1306,22 +1363,20 @@ query GetDialogue($id: ID!) {
         audio {
           ...S3Object
         }
+        audio_key
         seqNumber
-        npc {
-          id
-          name
-          avatar {
-            ...S3Object
-          }
-          createdAt
-          updatedAt
+        npcName
+        npcAvatar {
+          ...S3Object
         }
-        role
+        npcAvatar_key
+        npcRole
         dialogue {
           id
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -1355,6 +1410,7 @@ query ListDialogues(
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -1364,6 +1420,7 @@ query ListDialogues(
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -1391,16 +1448,17 @@ query ListDialogues(
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -1427,6 +1485,7 @@ query GetTagDialogue($id: ID!) {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -1436,6 +1495,7 @@ query GetTagDialogue($id: ID!) {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -1463,16 +1523,17 @@ query GetTagDialogue($id: ID!) {
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -1496,6 +1557,7 @@ query GetTagDialogue($id: ID!) {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1519,6 +1581,7 @@ query GetTagDialogue($id: ID!) {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -1557,6 +1620,7 @@ query ListTagDialogues(
         coverImage {
           ...S3Object
         }
+        coverImage_key
         titleZh
         titleEn
         whyYouShouldLearnThisDialogue
@@ -1575,8 +1639,11 @@ query ListTagDialogues(
             contentZh
             contentPinyin
             contentEn
+            audio_key
             seqNumber
-            role
+            npcName
+            npcAvatar_key
+            npcRole
             createdAt
             updatedAt
           }
@@ -1620,6 +1687,7 @@ query GetNpc($id: ID!) {
     avatar {
       ...S3Object
     }
+    avatar_key
     createdAt
     updatedAt
   }
@@ -1632,6 +1700,982 @@ query ListNpcs($filter: ModelNpcFilterInput, $limit: Int, $nextToken: String) {
       avatar {
         ...S3Object
       }
+      avatar_key
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetUser($id: ID!) {
+  getUser(id: $id) {
+    id
+    username
+    email
+    avatar {
+      ...S3Object
+    }
+    avatar_key
+    goals
+    interests
+    professional
+    completedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    inProgressItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedVocabularies {
+      items {
+        id
+        users {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        vocabularyID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetUserItemCompleted($id: ID!) {
+  getUserItemCompleted(id: $id) {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+query ListUserItemCompleteds(
+  $filter: ModelUserItemCompletedFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserItemCompleteds(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      user {
+        id
+        username
+        email
+        avatar {
+          ...S3Object
+        }
+        avatar_key
+        goals
+        interests
+        professional
+        completedItems {
+          items {
+            id
+            itemType
+            itemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        inProgressItems {
+          items {
+            id
+            itemType
+            itemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        savedItems {
+          items {
+            id
+            itemType
+            itemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        savedVocabularies {
+          items {
+            id
+            vocabularyID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      itemType
+      itemID
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetUserItemInProgress($id: ID!) {
+  getUserItemInProgress(id: $id) {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+query ListUserItemInProgresss(
+  $filter: ModelUserItemInProgressFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserItemInProgresss(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      user {
+        id
+        username
+        email
+        avatar {
+          ...S3Object
+        }
+        avatar_key
+        goals
+        interests
+        professional
+        completedItems {
+          items {
+            id
+            itemType
+            itemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        inProgressItems {
+          items {
+            id
+            itemType
+            itemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        savedItems {
+          items {
+            id
+            itemType
+            itemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        savedVocabularies {
+          items {
+            id
+            vocabularyID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      itemType
+      itemID
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetUserItemSave($id: ID!) {
+  getUserItemSave(id: $id) {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+query ListUserItemSaves(
+  $filter: ModelUserItemSaveFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserItemSaves(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      user {
+        id
+        username
+        email
+        avatar {
+          ...S3Object
+        }
+        avatar_key
+        goals
+        interests
+        professional
+        completedItems {
+          items {
+            id
+            itemType
+            itemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        inProgressItems {
+          items {
+            id
+            itemType
+            itemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        savedItems {
+          items {
+            id
+            itemType
+            itemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        savedVocabularies {
+          items {
+            id
+            vocabularyID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      itemType
+      itemID
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetUserVocabularySave($id: ID!) {
+  getUserVocabularySave(id: $id) {
+    id
+    users {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    vocabularyID
+    createdAt
+    updatedAt
+  }
+}
+query ListUserVocabularySaves(
+  $filter: ModelUserVocabularySaveFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserVocabularySaves(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      users {
+        id
+        username
+        email
+        avatar {
+          ...S3Object
+        }
+        avatar_key
+        goals
+        interests
+        professional
+        completedItems {
+          items {
+            id
+            itemType
+            itemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        inProgressItems {
+          items {
+            id
+            itemType
+            itemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        savedItems {
+          items {
+            id
+            itemType
+            itemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        savedVocabularies {
+          items {
+            id
+            vocabularyID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      vocabularyID
       createdAt
       updatedAt
     }

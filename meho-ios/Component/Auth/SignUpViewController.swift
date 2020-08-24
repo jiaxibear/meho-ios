@@ -243,7 +243,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
                 }
                 if signupResult != nil {
                     DispatchQueue.main.async {
-                        self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
+                        self.navigationController?.setViewControllers([SignInViewController.init()], animated: false)
                     }
                 } else {
                     errorMessage = NSLocalizedString("genericSignUpErrorMessage", comment: "")

@@ -7,6 +7,7 @@ subscription OnCreateParagraph {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -16,6 +17,7 @@ subscription OnCreateParagraph {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -39,6 +41,7 @@ subscription OnCreateParagraph {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -52,6 +55,7 @@ subscription OnCreateParagraph {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -69,6 +73,7 @@ subscription OnCreateParagraph {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -82,6 +87,7 @@ subscription OnCreateParagraph {
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -95,6 +101,7 @@ subscription OnCreateParagraph {
     contentImage {
       ...S3Object
     }
+    contentImage_key
     createdAt
     updatedAt
   }
@@ -107,6 +114,7 @@ subscription OnUpdateParagraph {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -116,6 +124,7 @@ subscription OnUpdateParagraph {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -139,6 +148,7 @@ subscription OnUpdateParagraph {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -152,6 +162,7 @@ subscription OnUpdateParagraph {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -169,6 +180,7 @@ subscription OnUpdateParagraph {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -182,6 +194,7 @@ subscription OnUpdateParagraph {
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -195,6 +208,7 @@ subscription OnUpdateParagraph {
     contentImage {
       ...S3Object
     }
+    contentImage_key
     createdAt
     updatedAt
   }
@@ -207,6 +221,7 @@ subscription OnDeleteParagraph {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -216,6 +231,7 @@ subscription OnDeleteParagraph {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -239,6 +255,7 @@ subscription OnDeleteParagraph {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -252,6 +269,7 @@ subscription OnDeleteParagraph {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -269,6 +287,7 @@ subscription OnDeleteParagraph {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -282,6 +301,7 @@ subscription OnDeleteParagraph {
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -295,6 +315,7 @@ subscription OnDeleteParagraph {
     contentImage {
       ...S3Object
     }
+    contentImage_key
     createdAt
     updatedAt
   }
@@ -305,6 +326,7 @@ subscription OnCreateArticle {
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleEn
     titleZh
     whyYouShouldReadThisArticle
@@ -317,6 +339,7 @@ subscription OnCreateArticle {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -358,6 +381,7 @@ subscription OnCreateArticle {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -383,6 +407,7 @@ subscription OnCreateArticle {
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -406,6 +431,7 @@ subscription OnCreateArticle {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -428,6 +454,7 @@ subscription OnCreateArticle {
         contentImage {
           ...S3Object
         }
+        contentImage_key
         createdAt
         updatedAt
       }
@@ -442,6 +469,7 @@ subscription OnUpdateArticle {
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleEn
     titleZh
     whyYouShouldReadThisArticle
@@ -454,6 +482,7 @@ subscription OnUpdateArticle {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -495,6 +524,7 @@ subscription OnUpdateArticle {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -520,6 +550,7 @@ subscription OnUpdateArticle {
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -543,6 +574,7 @@ subscription OnUpdateArticle {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -565,6 +597,7 @@ subscription OnUpdateArticle {
         contentImage {
           ...S3Object
         }
+        contentImage_key
         createdAt
         updatedAt
       }
@@ -579,6 +612,7 @@ subscription OnDeleteArticle {
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleEn
     titleZh
     whyYouShouldReadThisArticle
@@ -591,6 +625,7 @@ subscription OnDeleteArticle {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -632,6 +667,7 @@ subscription OnDeleteArticle {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -657,6 +693,7 @@ subscription OnDeleteArticle {
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -680,6 +717,7 @@ subscription OnDeleteArticle {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -702,6 +740,7 @@ subscription OnDeleteArticle {
         contentImage {
           ...S3Object
         }
+        contentImage_key
         createdAt
         updatedAt
       }
@@ -720,6 +759,7 @@ subscription OnCreateVocabulary {
     audio {
       ...S3Object
     }
+    audio_key
     optionContent
     articles {
       items {
@@ -729,6 +769,7 @@ subscription OnCreateVocabulary {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -754,6 +795,7 @@ subscription OnCreateVocabulary {
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -782,6 +824,7 @@ subscription OnUpdateVocabulary {
     audio {
       ...S3Object
     }
+    audio_key
     optionContent
     articles {
       items {
@@ -791,6 +834,7 @@ subscription OnUpdateVocabulary {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -816,6 +860,7 @@ subscription OnUpdateVocabulary {
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -844,6 +889,7 @@ subscription OnDeleteVocabulary {
     audio {
       ...S3Object
     }
+    audio_key
     optionContent
     articles {
       items {
@@ -853,6 +899,7 @@ subscription OnDeleteVocabulary {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -878,6 +925,7 @@ subscription OnDeleteVocabulary {
           audio {
             ...S3Object
           }
+          audio_key
           optionContent
           articles {
             nextToken
@@ -904,6 +952,7 @@ subscription OnCreateVocabularyArticle {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -913,6 +962,7 @@ subscription OnCreateVocabularyArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -936,6 +986,7 @@ subscription OnCreateVocabularyArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -949,6 +1000,7 @@ subscription OnCreateVocabularyArticle {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -966,6 +1018,7 @@ subscription OnCreateVocabularyArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -979,6 +1032,7 @@ subscription OnCreateVocabularyArticle {
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -995,12 +1049,14 @@ subscription OnCreateVocabularyArticle {
       audio {
         ...S3Object
       }
+      audio_key
       optionContent
       articles {
         items {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1014,6 +1070,7 @@ subscription OnCreateVocabularyArticle {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1042,6 +1099,7 @@ subscription OnUpdateVocabularyArticle {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1051,6 +1109,7 @@ subscription OnUpdateVocabularyArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1074,6 +1133,7 @@ subscription OnUpdateVocabularyArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1087,6 +1147,7 @@ subscription OnUpdateVocabularyArticle {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1104,6 +1165,7 @@ subscription OnUpdateVocabularyArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1117,6 +1179,7 @@ subscription OnUpdateVocabularyArticle {
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -1133,12 +1196,14 @@ subscription OnUpdateVocabularyArticle {
       audio {
         ...S3Object
       }
+      audio_key
       optionContent
       articles {
         items {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1152,6 +1217,7 @@ subscription OnUpdateVocabularyArticle {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1180,6 +1246,7 @@ subscription OnDeleteVocabularyArticle {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1189,6 +1256,7 @@ subscription OnDeleteVocabularyArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1212,6 +1280,7 @@ subscription OnDeleteVocabularyArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1225,6 +1294,7 @@ subscription OnDeleteVocabularyArticle {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1242,6 +1312,7 @@ subscription OnDeleteVocabularyArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1255,6 +1326,7 @@ subscription OnDeleteVocabularyArticle {
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -1271,12 +1343,14 @@ subscription OnDeleteVocabularyArticle {
       audio {
         ...S3Object
       }
+      audio_key
       optionContent
       articles {
         items {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1290,6 +1364,7 @@ subscription OnDeleteVocabularyArticle {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1322,6 +1397,7 @@ subscription OnCreateTag {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1363,6 +1439,7 @@ subscription OnCreateTag {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -1409,6 +1486,7 @@ subscription OnUpdateTag {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1450,6 +1528,7 @@ subscription OnUpdateTag {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -1496,6 +1575,7 @@ subscription OnDeleteTag {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1537,6 +1617,7 @@ subscription OnDeleteTag {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -1579,6 +1660,7 @@ subscription OnCreateTagArticle {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1588,6 +1670,7 @@ subscription OnCreateTagArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1611,6 +1694,7 @@ subscription OnCreateTagArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1624,6 +1708,7 @@ subscription OnCreateTagArticle {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1641,6 +1726,7 @@ subscription OnCreateTagArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1654,6 +1740,7 @@ subscription OnCreateTagArticle {
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -1669,6 +1756,7 @@ subscription OnCreateTagArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1692,6 +1780,7 @@ subscription OnCreateTagArticle {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -1725,6 +1814,7 @@ subscription OnUpdateTagArticle {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1734,6 +1824,7 @@ subscription OnUpdateTagArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1757,6 +1848,7 @@ subscription OnUpdateTagArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1770,6 +1862,7 @@ subscription OnUpdateTagArticle {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1787,6 +1880,7 @@ subscription OnUpdateTagArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1800,6 +1894,7 @@ subscription OnUpdateTagArticle {
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -1815,6 +1910,7 @@ subscription OnUpdateTagArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1838,6 +1934,7 @@ subscription OnUpdateTagArticle {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -1871,6 +1968,7 @@ subscription OnDeleteTagArticle {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1880,6 +1978,7 @@ subscription OnDeleteTagArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1903,6 +2002,7 @@ subscription OnDeleteTagArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1916,6 +2016,7 @@ subscription OnDeleteTagArticle {
             contentEn
             contentPinyin
             label
+            audio_key
             optionContent
             createdAt
             updatedAt
@@ -1933,6 +2034,7 @@ subscription OnDeleteTagArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1946,6 +2048,7 @@ subscription OnDeleteTagArticle {
           contentImage {
             ...S3Object
           }
+          contentImage_key
           createdAt
           updatedAt
         }
@@ -1961,6 +2064,7 @@ subscription OnDeleteTagArticle {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1984,6 +2088,7 @@ subscription OnDeleteTagArticle {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2018,22 +2123,20 @@ subscription OnCreateChapter {
     audio {
       ...S3Object
     }
+    audio_key
     seqNumber
-    npc {
-      id
-      name
-      avatar {
-        ...S3Object
-      }
-      createdAt
-      updatedAt
+    npcName
+    npcAvatar {
+      ...S3Object
     }
-    role
+    npcAvatar_key
+    npcRole
     dialogue {
       id
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -2043,6 +2146,7 @@ subscription OnCreateChapter {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2070,16 +2174,17 @@ subscription OnCreateChapter {
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2108,22 +2213,20 @@ subscription OnUpdateChapter {
     audio {
       ...S3Object
     }
+    audio_key
     seqNumber
-    npc {
-      id
-      name
-      avatar {
-        ...S3Object
-      }
-      createdAt
-      updatedAt
+    npcName
+    npcAvatar {
+      ...S3Object
     }
-    role
+    npcAvatar_key
+    npcRole
     dialogue {
       id
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -2133,6 +2236,7 @@ subscription OnUpdateChapter {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2160,16 +2264,17 @@ subscription OnUpdateChapter {
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2198,22 +2303,20 @@ subscription OnDeleteChapter {
     audio {
       ...S3Object
     }
+    audio_key
     seqNumber
-    npc {
-      id
-      name
-      avatar {
-        ...S3Object
-      }
-      createdAt
-      updatedAt
+    npcName
+    npcAvatar {
+      ...S3Object
     }
-    role
+    npcAvatar_key
+    npcRole
     dialogue {
       id
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -2223,6 +2326,7 @@ subscription OnDeleteChapter {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2250,16 +2354,17 @@ subscription OnDeleteChapter {
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2285,6 +2390,7 @@ subscription OnCreateDialogue {
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleZh
     titleEn
     whyYouShouldLearnThisDialogue
@@ -2297,6 +2403,7 @@ subscription OnCreateDialogue {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -2336,22 +2443,20 @@ subscription OnCreateDialogue {
         audio {
           ...S3Object
         }
+        audio_key
         seqNumber
-        npc {
-          id
-          name
-          avatar {
-            ...S3Object
-          }
-          createdAt
-          updatedAt
+        npcName
+        npcAvatar {
+          ...S3Object
         }
-        role
+        npcAvatar_key
+        npcRole
         dialogue {
           id
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -2380,6 +2485,7 @@ subscription OnUpdateDialogue {
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleZh
     titleEn
     whyYouShouldLearnThisDialogue
@@ -2392,6 +2498,7 @@ subscription OnUpdateDialogue {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -2431,22 +2538,20 @@ subscription OnUpdateDialogue {
         audio {
           ...S3Object
         }
+        audio_key
         seqNumber
-        npc {
-          id
-          name
-          avatar {
-            ...S3Object
-          }
-          createdAt
-          updatedAt
+        npcName
+        npcAvatar {
+          ...S3Object
         }
-        role
+        npcAvatar_key
+        npcRole
         dialogue {
           id
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -2475,6 +2580,7 @@ subscription OnDeleteDialogue {
     coverImage {
       ...S3Object
     }
+    coverImage_key
     titleZh
     titleEn
     whyYouShouldLearnThisDialogue
@@ -2487,6 +2593,7 @@ subscription OnDeleteDialogue {
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -2526,22 +2633,20 @@ subscription OnDeleteDialogue {
         audio {
           ...S3Object
         }
+        audio_key
         seqNumber
-        npc {
-          id
-          name
-          avatar {
-            ...S3Object
-          }
-          createdAt
-          updatedAt
+        npcName
+        npcAvatar {
+          ...S3Object
         }
-        role
+        npcAvatar_key
+        npcRole
         dialogue {
           id
           coverImage {
             ...S3Object
           }
+          coverImage_key
           titleZh
           titleEn
           whyYouShouldLearnThisDialogue
@@ -2572,6 +2677,7 @@ subscription OnCreateTagDialogue {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -2581,6 +2687,7 @@ subscription OnCreateTagDialogue {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2608,16 +2715,17 @@ subscription OnCreateTagDialogue {
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2641,6 +2749,7 @@ subscription OnCreateTagDialogue {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2664,6 +2773,7 @@ subscription OnCreateTagDialogue {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2697,6 +2807,7 @@ subscription OnUpdateTagDialogue {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -2706,6 +2817,7 @@ subscription OnUpdateTagDialogue {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2733,16 +2845,17 @@ subscription OnUpdateTagDialogue {
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2766,6 +2879,7 @@ subscription OnUpdateTagDialogue {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2789,6 +2903,7 @@ subscription OnUpdateTagDialogue {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2822,6 +2937,7 @@ subscription OnDeleteTagDialogue {
       coverImage {
         ...S3Object
       }
+      coverImage_key
       titleZh
       titleEn
       whyYouShouldLearnThisDialogue
@@ -2831,6 +2947,7 @@ subscription OnDeleteTagDialogue {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2858,16 +2975,17 @@ subscription OnDeleteTagDialogue {
           audio {
             ...S3Object
           }
+          audio_key
           seqNumber
-          npc {
-            id
-            name
-            createdAt
-            updatedAt
+          npcName
+          npcAvatar {
+            ...S3Object
           }
-          role
+          npcAvatar_key
+          npcRole
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2891,6 +3009,7 @@ subscription OnDeleteTagDialogue {
           id
           article {
             id
+            coverImage_key
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2914,6 +3033,7 @@ subscription OnDeleteTagDialogue {
           id
           dialogue {
             id
+            coverImage_key
             titleZh
             titleEn
             whyYouShouldLearnThisDialogue
@@ -2946,6 +3066,7 @@ subscription OnCreateNpc {
     avatar {
       ...S3Object
     }
+    avatar_key
     createdAt
     updatedAt
   }
@@ -2957,6 +3078,7 @@ subscription OnUpdateNpc {
     avatar {
       ...S3Object
     }
+    avatar_key
     createdAt
     updatedAt
   }
@@ -2968,6 +3090,1753 @@ subscription OnDeleteNpc {
     avatar {
       ...S3Object
     }
+    avatar_key
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateUser {
+  onCreateUser {
+    id
+    username
+    email
+    avatar {
+      ...S3Object
+    }
+    avatar_key
+    goals
+    interests
+    professional
+    completedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    inProgressItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedVocabularies {
+      items {
+        id
+        users {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        vocabularyID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUser {
+  onUpdateUser {
+    id
+    username
+    email
+    avatar {
+      ...S3Object
+    }
+    avatar_key
+    goals
+    interests
+    professional
+    completedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    inProgressItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedVocabularies {
+      items {
+        id
+        users {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        vocabularyID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUser {
+  onDeleteUser {
+    id
+    username
+    email
+    avatar {
+      ...S3Object
+    }
+    avatar_key
+    goals
+    interests
+    professional
+    completedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    inProgressItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedItems {
+      items {
+        id
+        user {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        itemType
+        itemID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    savedVocabularies {
+      items {
+        id
+        users {
+          id
+          username
+          email
+          avatar {
+            ...S3Object
+          }
+          avatar_key
+          goals
+          interests
+          professional
+          completedItems {
+            nextToken
+          }
+          inProgressItems {
+            nextToken
+          }
+          savedItems {
+            nextToken
+          }
+          savedVocabularies {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        vocabularyID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateUserItemCompleted {
+  onCreateUserItemCompleted {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUserItemCompleted {
+  onUpdateUserItemCompleted {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUserItemCompleted {
+  onDeleteUserItemCompleted {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateUserItemInProgress {
+  onCreateUserItemInProgress {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUserItemInProgress {
+  onUpdateUserItemInProgress {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUserItemInProgress {
+  onDeleteUserItemInProgress {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateUserItemSave {
+  onCreateUserItemSave {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUserItemSave {
+  onUpdateUserItemSave {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUserItemSave {
+  onDeleteUserItemSave {
+    id
+    user {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    itemType
+    itemID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateUserVocabularySave {
+  onCreateUserVocabularySave {
+    id
+    users {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    vocabularyID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUserVocabularySave {
+  onUpdateUserVocabularySave {
+    id
+    users {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    vocabularyID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUserVocabularySave {
+  onDeleteUserVocabularySave {
+    id
+    users {
+      id
+      username
+      email
+      avatar {
+        ...S3Object
+      }
+      avatar_key
+      goals
+      interests
+      professional
+      completedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      inProgressItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedItems {
+        items {
+          id
+          user {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          itemType
+          itemID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      savedVocabularies {
+        items {
+          id
+          users {
+            id
+            username
+            email
+            avatar_key
+            goals
+            interests
+            professional
+            createdAt
+            updatedAt
+          }
+          vocabularyID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    vocabularyID
     createdAt
     updatedAt
   }

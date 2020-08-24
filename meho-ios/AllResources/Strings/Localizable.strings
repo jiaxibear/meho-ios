@@ -126,6 +126,12 @@
 /* Message for the alert when the password is incorrect. */
 "IncorrectPasswordMessage" = "Retry or use “Forget Password” to reset";
 
+/* Title for the alert when the password is incorrect. */
+"EmailUnconfirmedTitle" = "Unconfirmed Email";
+
+/* Message for the alert when the password is incorrect. */
+"EmailUnconfirmedMessage" = "This account has not been confirmed, please go to check your mailbox";
+
 /* Title for the OK button. */
 "OKButtonTitle" = "OK";
 

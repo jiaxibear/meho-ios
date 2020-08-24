@@ -30,8 +30,11 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
     private let otherSignInViewLeadingTrailingMargin = CGFloat(20)
     private let otherSignInViewBottomMargin = CGFloat(8)
 
-    // MARK: - Properties
+    // MARK: - Datamodels
+    private let userDataFecther = UserDataFetcher.init()
 
+
+    // MARK: - Properties
     private lazy var emailAddressField: UITextFieldPadding = {
         let textField = UITextFieldPadding.init()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -213,6 +216,17 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
                             alertController.addAction(okAction)
                             self.present(alertController, animated: true, completion: nil)
                             break
+                        case .userNotConfirmed(_):
+                            let alertTitle = NSLocalizedString("EmailUnconfirmedTitle", comment: "")
+                            let alertMessage = NSLocalizedString("EmailUnconfirmedMessage", comment: "")
+                            let alertController = UIAlertController.init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                            let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
+                            let okAction = UIAlertAction.init(title:okTitle, style:.default) { (action) in
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                            alertController.addAction(okAction)
+                            self.present(alertController, animated: true, completion: nil)
+                            break
                         default:
                             break
                         }
@@ -222,7 +236,20 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
                 guard let state = result?.signInState else { return }
                 switch state {
                     case .signedIn:
-                    self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
+                        let userId = AWSMobileClient.default().userSub!
+                        self.userDataFecther.getUser(userId: userId) { (maybeUser, error) in
+                            if (maybeUser == nil) {
+                                // no user found case, this is new user login, we should create a new user and pop onboarding steps
+                                self.userDataFecther.createUser(userId: userId, username: un!, userEmail: un!) { (userCreated, error) in
+                                    if (error == nil && userCreated != nil && userCreated!.identifier == userId) {
+                                        self.navigationController?.setViewControllers([CompleteProfileViewStep1Controller.init()], animated: false)
+                                    }
+                                }
+                            } else {
+                                // user exist case, recurring user, we should pop main screen
+                                    self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
+                            }
+                        }
                     default:
                         print ("default")
                 }
