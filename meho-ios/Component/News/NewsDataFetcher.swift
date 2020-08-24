@@ -118,6 +118,7 @@ class NewsDataFetcher: NSObject {
 
     public func fetchNewsList(count: String = "50", completionHandler: @escaping ( Array<News>?, Error?) -> Void) {
         let q = ListArticlesQuery()
+        q.limit = 50
         appSyncClient?.fetch(query: q) { (result, error) in
             print (error?.localizedDescription as Any)
             guard error == nil else {
