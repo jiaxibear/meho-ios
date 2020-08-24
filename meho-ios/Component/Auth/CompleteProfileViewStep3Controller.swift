@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSMobileClient
 
 class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -32,6 +33,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
 
     // MARK: - Properties
     // MARK: Model
+    private let userDataFecther = UserDataFetcher.init()
 
     private lazy var questions: [ProfileQuestion] = {
         let academic = ProfileQuestion.init(title: "Academic", subtitle: "(student, scholar, researcher, etc)", color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
@@ -207,8 +209,14 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     // MARK: - Private
     @objc
     func didTapNextButton() {
-        title = ""
-        navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
+        guard let userId = AWSMobileClient.default().userSub else { return }
+        let profession = "coder1"
+        userDataFecther.updateUser(id: userId, profession: profession) { (maybeUpdatedUser, error) in
+            DispatchQueue.main.async {
+                self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
+            }
+        }
+
     }
 
     @objc

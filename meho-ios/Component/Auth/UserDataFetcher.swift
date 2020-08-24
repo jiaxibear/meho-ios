@@ -81,4 +81,50 @@ class UserDataFetcher: NSObject {
             completionHandler(basicUser, nil)
         }
     }
+
+    public func updateUser(id:String, username: String? = nil, email: String? = nil, avatar: S3ObjectInput? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completionHandler: @escaping ( BasicUser?, Error?) -> Void) {
+        // TODO: replace with actual profession
+        let updateUserInput = UpdateUserInput.init(id: id, username: username, email: email, avatar: avatar, avatarKey: avatarKey, goals: goals, interests: interests, profession: profession)
+        let m = UpdateUserMutation(input: updateUserInput)
+        appSyncClient?.perform(mutation: m) { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {
+                completionHandler(nil, error)
+                return
+            }
+            guard let remoteUser = result?.data?.updateUser else {
+                completionHandler(nil, nil)
+                return
+            }
+            var updatedUser = BasicUser.init()
+            updatedUser.identifier = remoteUser.id
+            updatedUser.username = remoteUser.username
+            updatedUser.email = remoteUser.email
+
+            if let avatar_key = remoteUser.avatar?.key {
+                updatedUser.avatar_key = avatar_key
+            }
+            if let avatar_bucket = remoteUser.avatar?.bucket {
+                updatedUser.avatar_bucket = avatar_bucket
+            }
+
+            if let goals = remoteUser.goals {
+                updatedUser.goals = goals
+            }
+
+            if let interests = remoteUser.interests {
+                updatedUser.interests = interests
+            }
+
+            if let profession = remoteUser.profession {
+                updatedUser.profession = profession
+            }
+
+            completionHandler(updatedUser, nil)
+        }
+
+    }
+
+
+
 }
