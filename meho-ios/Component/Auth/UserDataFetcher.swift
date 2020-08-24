@@ -57,34 +57,15 @@ class UserDataFetcher: NSObject {
             }
 
             if let goals = remoteuser.goals {
-                var goalsToAdd:[String] = []
-                for goal in goals {
-                    guard let goalString = goal else { continue }
-                    goalsToAdd.append(goalString)
-                }
-                basicUser.goals = goalsToAdd
-            }
-
-            if let goals = remoteuser.goals {
-                var goalsToAdd:[String] = []
-                for goal in goals {
-                    guard let goalString = goal else { continue }
-                    goalsToAdd.append(goalString)
-                }
-                basicUser.goals = goalsToAdd
+                basicUser.goals = goals
             }
 
             if let interests = remoteuser.interests {
-                var interestsToAdd:[String] = []
-                for interest in interests {
-                    guard let interestString = interest else { continue }
-                    interestsToAdd.append(interestString)
-                }
-                basicUser.interests = interestsToAdd
+                basicUser.interests = interests
             }
 
-            if let profession = remoteuser.professional {
-                basicUser.professional = profession
+            if let profession = remoteuser.profession {
+                basicUser.profession = profession
             }
 
             completionHandler(basicUser, nil)

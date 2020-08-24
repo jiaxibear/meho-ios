@@ -1718,7 +1718,7 @@ query GetUser($id: ID!) {
     avatar_key
     goals
     interests
-    professional
+    profession
     completedItems {
       items {
         id
@@ -1732,7 +1732,7 @@ query GetUser($id: ID!) {
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -1768,7 +1768,7 @@ query GetUser($id: ID!) {
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -1804,7 +1804,7 @@ query GetUser($id: ID!) {
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -1840,7 +1840,7 @@ query GetUser($id: ID!) {
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -1882,7 +1882,7 @@ query ListUsers(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -1893,7 +1893,7 @@ query ListUsers(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -1914,7 +1914,7 @@ query ListUsers(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -1935,7 +1935,7 @@ query ListUsers(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -1956,7 +1956,7 @@ query ListUsers(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -1985,7 +1985,7 @@ query GetUserItemCompleted($id: ID!) {
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -1996,7 +1996,7 @@ query GetUserItemCompleted($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2017,7 +2017,7 @@ query GetUserItemCompleted($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2038,7 +2038,7 @@ query GetUserItemCompleted($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2059,7 +2059,7 @@ query GetUserItemCompleted($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2100,7 +2100,7 @@ query ListUserItemCompleteds(
         avatar_key
         goals
         interests
-        professional
+        profession
         completedItems {
           items {
             id
@@ -2164,7 +2164,7 @@ query GetUserItemInProgress($id: ID!) {
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -2175,7 +2175,7 @@ query GetUserItemInProgress($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2196,7 +2196,7 @@ query GetUserItemInProgress($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2217,7 +2217,7 @@ query GetUserItemInProgress($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2238,7 +2238,7 @@ query GetUserItemInProgress($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2279,7 +2279,7 @@ query ListUserItemInProgresss(
         avatar_key
         goals
         interests
-        professional
+        profession
         completedItems {
           items {
             id
@@ -2343,7 +2343,7 @@ query GetUserItemSave($id: ID!) {
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -2354,7 +2354,7 @@ query GetUserItemSave($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2375,7 +2375,7 @@ query GetUserItemSave($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2396,7 +2396,7 @@ query GetUserItemSave($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2417,7 +2417,7 @@ query GetUserItemSave($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2454,7 +2454,7 @@ query ListUserItemSaves(
         avatar_key
         goals
         interests
-        professional
+        profession
         completedItems {
           items {
             id
@@ -2518,7 +2518,7 @@ query GetUserVocabularySave($id: ID!) {
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -2529,7 +2529,7 @@ query GetUserVocabularySave($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2550,7 +2550,7 @@ query GetUserVocabularySave($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2571,7 +2571,7 @@ query GetUserVocabularySave($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2592,7 +2592,7 @@ query GetUserVocabularySave($id: ID!) {
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -2632,7 +2632,7 @@ query ListUserVocabularySaves(
         avatar_key
         goals
         interests
-        professional
+        profession
         completedItems {
           items {
             id

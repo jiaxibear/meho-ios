@@ -3199,7 +3199,7 @@ mutation CreateUser(
     avatar_key
     goals
     interests
-    professional
+    profession
     completedItems {
       items {
         id
@@ -3213,7 +3213,7 @@ mutation CreateUser(
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -3249,7 +3249,7 @@ mutation CreateUser(
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -3285,7 +3285,7 @@ mutation CreateUser(
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -3321,7 +3321,7 @@ mutation CreateUser(
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -3361,7 +3361,7 @@ mutation UpdateUser(
     avatar_key
     goals
     interests
-    professional
+    profession
     completedItems {
       items {
         id
@@ -3375,7 +3375,7 @@ mutation UpdateUser(
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -3411,7 +3411,7 @@ mutation UpdateUser(
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -3447,7 +3447,7 @@ mutation UpdateUser(
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -3483,7 +3483,7 @@ mutation UpdateUser(
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -3523,7 +3523,7 @@ mutation DeleteUser(
     avatar_key
     goals
     interests
-    professional
+    profession
     completedItems {
       items {
         id
@@ -3537,7 +3537,7 @@ mutation DeleteUser(
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -3573,7 +3573,7 @@ mutation DeleteUser(
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -3609,7 +3609,7 @@ mutation DeleteUser(
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -3645,7 +3645,7 @@ mutation DeleteUser(
           avatar_key
           goals
           interests
-          professional
+          profession
           completedItems {
             nextToken
           }
@@ -3687,7 +3687,7 @@ mutation CreateUserItemCompleted(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -3698,7 +3698,7 @@ mutation CreateUserItemCompleted(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -3719,7 +3719,7 @@ mutation CreateUserItemCompleted(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -3740,7 +3740,7 @@ mutation CreateUserItemCompleted(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -3761,7 +3761,7 @@ mutation CreateUserItemCompleted(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -3796,7 +3796,7 @@ mutation UpdateUserItemCompleted(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -3807,7 +3807,7 @@ mutation UpdateUserItemCompleted(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -3828,7 +3828,7 @@ mutation UpdateUserItemCompleted(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -3849,7 +3849,7 @@ mutation UpdateUserItemCompleted(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -3870,7 +3870,7 @@ mutation UpdateUserItemCompleted(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -3905,7 +3905,7 @@ mutation DeleteUserItemCompleted(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -3916,7 +3916,7 @@ mutation DeleteUserItemCompleted(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -3937,7 +3937,7 @@ mutation DeleteUserItemCompleted(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -3958,7 +3958,7 @@ mutation DeleteUserItemCompleted(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -3979,7 +3979,7 @@ mutation DeleteUserItemCompleted(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4014,7 +4014,7 @@ mutation CreateUserItemInProgress(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -4025,7 +4025,7 @@ mutation CreateUserItemInProgress(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4046,7 +4046,7 @@ mutation CreateUserItemInProgress(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4067,7 +4067,7 @@ mutation CreateUserItemInProgress(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4088,7 +4088,7 @@ mutation CreateUserItemInProgress(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4123,7 +4123,7 @@ mutation UpdateUserItemInProgress(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -4134,7 +4134,7 @@ mutation UpdateUserItemInProgress(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4155,7 +4155,7 @@ mutation UpdateUserItemInProgress(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4176,7 +4176,7 @@ mutation UpdateUserItemInProgress(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4197,7 +4197,7 @@ mutation UpdateUserItemInProgress(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4232,7 +4232,7 @@ mutation DeleteUserItemInProgress(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -4243,7 +4243,7 @@ mutation DeleteUserItemInProgress(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4264,7 +4264,7 @@ mutation DeleteUserItemInProgress(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4285,7 +4285,7 @@ mutation DeleteUserItemInProgress(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4306,7 +4306,7 @@ mutation DeleteUserItemInProgress(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4341,7 +4341,7 @@ mutation CreateUserItemSave(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -4352,7 +4352,7 @@ mutation CreateUserItemSave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4373,7 +4373,7 @@ mutation CreateUserItemSave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4394,7 +4394,7 @@ mutation CreateUserItemSave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4415,7 +4415,7 @@ mutation CreateUserItemSave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4450,7 +4450,7 @@ mutation UpdateUserItemSave(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -4461,7 +4461,7 @@ mutation UpdateUserItemSave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4482,7 +4482,7 @@ mutation UpdateUserItemSave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4503,7 +4503,7 @@ mutation UpdateUserItemSave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4524,7 +4524,7 @@ mutation UpdateUserItemSave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4559,7 +4559,7 @@ mutation DeleteUserItemSave(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -4570,7 +4570,7 @@ mutation DeleteUserItemSave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4591,7 +4591,7 @@ mutation DeleteUserItemSave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4612,7 +4612,7 @@ mutation DeleteUserItemSave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4633,7 +4633,7 @@ mutation DeleteUserItemSave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4668,7 +4668,7 @@ mutation CreateUserVocabularySave(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -4679,7 +4679,7 @@ mutation CreateUserVocabularySave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4700,7 +4700,7 @@ mutation CreateUserVocabularySave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4721,7 +4721,7 @@ mutation CreateUserVocabularySave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4742,7 +4742,7 @@ mutation CreateUserVocabularySave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4776,7 +4776,7 @@ mutation UpdateUserVocabularySave(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -4787,7 +4787,7 @@ mutation UpdateUserVocabularySave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4808,7 +4808,7 @@ mutation UpdateUserVocabularySave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4829,7 +4829,7 @@ mutation UpdateUserVocabularySave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4850,7 +4850,7 @@ mutation UpdateUserVocabularySave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4884,7 +4884,7 @@ mutation DeleteUserVocabularySave(
       avatar_key
       goals
       interests
-      professional
+      profession
       completedItems {
         items {
           id
@@ -4895,7 +4895,7 @@ mutation DeleteUserVocabularySave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4916,7 +4916,7 @@ mutation DeleteUserVocabularySave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4937,7 +4937,7 @@ mutation DeleteUserVocabularySave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }
@@ -4958,7 +4958,7 @@ mutation DeleteUserVocabularySave(
             avatar_key
             goals
             interests
-            professional
+            profession
             createdAt
             updatedAt
           }

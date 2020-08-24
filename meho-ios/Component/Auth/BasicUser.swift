@@ -12,7 +12,7 @@ struct BasicUser {
     var identifier = ""
     var username = ""
     var email = ""
-    var professional = ""
+    var profession = ""
     var goals:[String] = []
     var interests:[String] = []
     var avatar_bucket:String?
