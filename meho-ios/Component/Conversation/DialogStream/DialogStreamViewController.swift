@@ -189,7 +189,9 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         if category != nil {
             conversationDataFetcher.fetchDialogs(category: category!.identifier, difficulty: difficultyString) { (dialogs, error) in
                 if error == nil && dialogs != nil {
-                    self.dialogs = dialogs!
+                    self.dialogs = dialogs!.filter({ (dialog) -> Bool in
+                        dialog.difficulty == self.difficulty
+                    })
                     DispatchQueue.main.async {
                         self.dialogsCollectionView.reloadData()
                     }
@@ -200,7 +202,9 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
             case .mostPopular:
                 conversationDataFetcher.fetchMostPopularDialogs(difficulty: difficultyString, completionHandler: { (dialogs, error) in
                     if error == nil && dialogs != nil {
-                        self.dialogs = dialogs!
+                        self.dialogs = dialogs!.filter({ (dialog) -> Bool in
+                            dialog.difficulty == self.difficulty
+                        })
                         DispatchQueue.main.async {
                             self.dialogsCollectionView.reloadData()
                         }
@@ -210,7 +214,9 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
             case .featured:
                 conversationDataFetcher.fetchFeaturedDialogs(difficulty: difficultyString, completionHandler: { (dialogs, error) in
                     if error == nil && dialogs != nil {
-                        self.dialogs = dialogs!
+                        self.dialogs = dialogs!.filter({ (dialog) -> Bool in
+                            dialog.difficulty == self.difficulty
+                        })
                         DispatchQueue.main.async {
                             self.dialogsCollectionView.reloadData()
                         }
