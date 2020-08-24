@@ -21,7 +21,6 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     private let verticalTopMargin = CGFloat(30)
     private let newsListTitle = NSLocalizedString("NewsTitle", comment: "")
 
-
     // MARK: UI
     private lazy var titleView: MainTabTitleView = {
         let titleView = MainTabTitleView.init(frame: .zero)
@@ -30,6 +29,13 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         titleView.setDelegate(delegate: self)
         return titleView
     } ()
+
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl.init(frame: .zero)
+        refreshControl.addTarget(self, action: #selector(didRefresh), for: .valueChanged)
+        return refreshControl
+    } ()
+
     private var newsCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var newsCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:newsCollectionViewFlowLayout)
     private var scrollDownTitleHiddenCollectionViewTopConstraint: NSLayoutConstraint!
@@ -71,19 +77,12 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         setupTitleViewConstraint()
         setupNewsCollectionView()
 
-        dataFecther.fetchNewsList(count: "50", completionHandler:  { (newsList, error) in
-            if (error == nil && newsList != nil) {
-                DispatchQueue.main.async {
-                    self.newsList = newsList!
-                    self.newsCollectionView.reloadData()
-                }
-            }
-        })
+        didRefresh()
     }
 
     func setupNewsCollectionView() {
         // Sets up news collection.
-
+        newsCollectionView.refreshControl = refreshControl
         newsCollectionView.dataSource = self
         newsCollectionView.delegate = self
         newsCollectionView.backgroundColor = .white
@@ -100,7 +99,6 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         newsCollectionView.register(NewsItemSizeSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeSCellReuseIdentifier)
         newsCollectionView.register(NewsItemSizeXSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeXSCellReuseIdentifier)
         view.addSubview(newsCollectionView)
-
 
         // view constraints
         scrollDownTitleHiddenCollectionViewTopConstraint = newsCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
@@ -195,5 +193,18 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     func MainTitleViewDidTapProfileImage() {
         let profileController = ProfileViewController.init()
         navigationController?.pushViewController(profileController, animated: true)
+    }
+
+    @objc
+    func didRefresh() {
+        dataFecther.fetchNewsList(count: "50", completionHandler:  { (newsList, error) in
+            if (error == nil && newsList != nil) {
+                DispatchQueue.main.async {
+                    self.newsList = newsList!
+                    self.newsCollectionView.reloadData()
+                    self.refreshControl.endRefreshing()
+                }
+            }
+        })
     }
 }
