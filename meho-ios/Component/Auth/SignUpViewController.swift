@@ -192,6 +192,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         if emailAddressTextField.status == .valid && repeatPasswordTextField.status == .valid && createPasswordTextField.status == .valid {
             nextButton.isEnabled = true
             nextButton.backgroundColor = .skyBlue
+            errorMessageLabel.text = ""
         } else {
             nextButton.isEnabled = false
             nextButton.backgroundColor = .lightBlueGrey
@@ -207,6 +208,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
             }
             if errorMessages.count > 0 {
                 errorMessageLabel.text = errorMessages.joined(separator: "\n")
+            } else {
+                errorMessageLabel.text = ""
             }
         }
     }
@@ -242,8 +245,18 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
                     }
                 }
                 if signupResult != nil {
+                    let alertTitle = NSLocalizedString("VerificationEmailSentTitle", comment: "")
+                    let alertMessage = NSLocalizedString("VerificationEmailSentMessage", comment: "")
+                    let alertController = UIAlertController.init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                    let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
+                    let okAction = UIAlertAction.init(title:okTitle, style:.default) { (action) in
+                        DispatchQueue.main.async {
+                            self.navigationController?.setViewControllers([SignInViewController.init()], animated: false)
+                        }
+                    }
+                    alertController.addAction(okAction)
                     DispatchQueue.main.async {
-                        self.navigationController?.setViewControllers([SignInViewController.init()], animated: false)
+                        self.present(alertController, animated: true, completion: nil)
                     }
                 } else {
                     errorMessage = NSLocalizedString("genericSignUpErrorMessage", comment: "")

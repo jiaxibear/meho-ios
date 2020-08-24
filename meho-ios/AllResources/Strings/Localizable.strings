@@ -130,7 +130,13 @@
 "EmailUnconfirmedTitle" = "Unconfirmed Email";
 
 /* Message for the alert when the password is incorrect. */
-"EmailUnconfirmedMessage" = "This account has not been confirmed, please go to check your mailbox";
+"EmailUnconfirmedMessage" = "This account has not been confirmed, please check your email and verify via the link";
+
+/* Title for the alert when the password is incorrect. */
+"VerificationEmailSentTitle" = "Verification Email Sent";
+
+/* Message for the alert when the password is incorrect. */
+"VerificationEmailSentMessage" = "Please check your email and verify via the link to finish the sign up process";
 
 /* Title for the OK button. */
 "OKButtonTitle" = "OK";
