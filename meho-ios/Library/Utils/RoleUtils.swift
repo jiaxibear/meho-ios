@@ -27,7 +27,7 @@ class RoleUtils: NSObject {
             imageName = roleJikaiImageName
         } else if role == roleChuhan {
             imageName = roleChuhanImageName
-        } else if role == roleCharlieImageName {
+        } else if role == roleCharlie {
             imageName = roleCharlieImageName
         } else {
             imageName = roleJackieImageName
