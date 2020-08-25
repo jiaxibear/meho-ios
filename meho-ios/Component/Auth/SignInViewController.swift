@@ -9,7 +9,7 @@
 import UIKit
 import AWSMobileClient
 
-class SignInViewController: UIViewController, OtherSignInViewDelegate {
+class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFieldDelegate {
 
     // MARK: - Constants
     private let textFieldFontSize = CGFloat(16)
@@ -33,7 +33,6 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
     // MARK: - Datamodels
     private let userDataFecther = UserDataFetcher.init()
 
-
     // MARK: - Properties
     private lazy var emailAddressField: UITextFieldPadding = {
         let textField = UITextFieldPadding.init()
@@ -49,6 +48,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
         textField.keyboardType = .emailAddress
         textField.clipsToBounds = true
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        textField.delegate = self
         return textField
     } ()
 
@@ -66,6 +66,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
         textField.backgroundColor = UIColor.skyBlue.withAlphaComponent(textFieldBackgroundColorAlpha)
         textField.clipsToBounds = true
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        textField.delegate = self
         return textField
     } ()
 
@@ -153,6 +154,13 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = NSLocalizedString("SignInScreenTitle", comment: "")
+    }
+
+    // MARK: - UITextFieldDelegate
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
     }
 
     // MARK: - OtherSignInViewDelegate

@@ -239,6 +239,12 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
         title = NSLocalizedString("ResetPasswordScreenTitle", comment: "")
     }
 
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
+
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == sendCodeTextField {
             hasEditedVerificationCode = true

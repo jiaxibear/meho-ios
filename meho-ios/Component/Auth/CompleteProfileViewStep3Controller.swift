@@ -9,7 +9,7 @@
 import UIKit
 import AWSMobileClient
 
-class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
 
     // MARK: - Constants
     private let nextButtonWidth = CGFloat(200)
@@ -47,6 +47,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     } ()
 
     private var lastSelectedIndex = -1
+    private var questionsCollectionViewHeight = CGFloat(0)
 
     // MARK: UI
     private lazy var nextButton: UIButton = {
@@ -94,6 +95,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         industryTextField.translatesAutoresizingMaskIntoConstraints = false
         industryTextField.borderStyle = .none
         industryTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        industryTextField.delegate = self
         return industryTextField
     } ()
 
@@ -110,6 +112,10 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         industryStackView.axis = .vertical
         industryStackView.isHidden = true
         return industryStackView
+    } ()
+
+    private lazy var questionsCollectionViewHeightConstraint: NSLayoutConstraint = {
+        return questionsCollectionView.heightAnchor.constraint(equalToConstant: questionsCollectionViewHeight)
     } ()
 
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -165,10 +171,18 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         return 1
     }
 
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
+
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         view.addSubview(questionsCollectionView)
         view.addSubview(interestReasonLabel)
@@ -200,8 +214,9 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         let questionsCollectionViewBottom = nextButtonHeight + nextButtonBottomMargin + industryStackViewHeight + industryStackViewTopMargin + industryStackViewBottomMargin
         let availableQuestionsCollectionViewHeight = viewHeight - questionsCollectionViewTop - questionsCollectionViewBottom
         let questionsCollectionViewIdealHeight = (questionsCollectionViewCellHeight + questionsCollectionViewMinimumLineSpacing) * CGFloat((questions.count - 1) / questionsCollectionNumberOfCellsInRow) + questionsCollectionViewSpecialCellHeight
-        let questionsCollectionViewHeight = min(availableQuestionsCollectionViewHeight, questionsCollectionViewIdealHeight)
-        questionsCollectionView.heightAnchor.constraint(equalToConstant: questionsCollectionViewHeight).isActive = true
+        questionsCollectionViewHeight = min(availableQuestionsCollectionViewHeight, questionsCollectionViewIdealHeight)
+        questionsCollectionViewHeightConstraint.constant = questionsCollectionViewHeight
+        questionsCollectionViewHeightConstraint.isActive = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -232,6 +247,18 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     @objc
     private func textFieldDidChange() {
         updateNextButton()
+    }
+
+    @objc
+    func keyboardWillShow() {
+        questionsCollectionViewHeightConstraint.constant = questionsCollectionViewSpecialCellHeight
+        view.layoutIfNeeded()
+        questionsCollectionView.scrollToItem(at: IndexPath.init(item: questions.count - 1, section: 0), at: .bottom, animated: true)
+    }
+
+    @objc
+    func keyboardWillHide() {
+        questionsCollectionViewHeightConstraint.constant = questionsCollectionViewHeight
     }
 
     func updateNextButton() {

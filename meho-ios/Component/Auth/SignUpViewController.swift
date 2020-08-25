@@ -160,6 +160,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         title = NSLocalizedString("SignUpScreenTitle", comment: "")
     }
 
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let signUpTextField = textField.superview as? SignUpTextField {
             if signUpTextField == emailAddressTextField  {
