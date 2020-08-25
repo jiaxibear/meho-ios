@@ -305,3 +305,6 @@
 
 /* Message for the verification code sent alert. */
 "VerificationCodeSentMessage" = "Please check your email to obtain the code";
+
+/* Placeholder text for the industry text field. */
+"industryPlaceholder" = "Please tell us more about your industry";

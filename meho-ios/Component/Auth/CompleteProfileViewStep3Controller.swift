@@ -30,6 +30,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     private let industryBottomLineHeight = CGFloat(3)
     private let industryStackViewTopMargin = CGFloat(30)
     private let industryStackViewBottomMargin = CGFloat(16)
+    private let industryPlaceholderFontSize = CGFloat(16)
 
     // MARK: - Properties
     // MARK: Model
@@ -96,6 +97,17 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         industryTextField.borderStyle = .none
         industryTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         industryTextField.delegate = self
+        let centeredParagraphStyle = NSMutableParagraphStyle()
+        centeredParagraphStyle.alignment = .center
+        let industryPlaceholderFontDescriptor = UIFont.systemFont(ofSize: industryPlaceholderFontSize, weight: .light).fontDescriptor.withDesign(.rounded)
+        let attributes = [
+            NSAttributedString.Key.paragraphStyle: centeredParagraphStyle,
+            NSAttributedString.Key.foregroundColor : UIColor.textBlueGray,
+            NSAttributedString.Key.font : UIFont.init(descriptor: industryPlaceholderFontDescriptor!, size: industryPlaceholderFontSize)
+        ]
+        let attributedPlaceholder = NSAttributedString(string: NSLocalizedString("industryPlaceholder", comment: ""), attributes: attributes)
+        industryTextField.attributedPlaceholder = attributedPlaceholder
+        industryTextField.textAlignment = .center
         return industryTextField
     } ()
 
