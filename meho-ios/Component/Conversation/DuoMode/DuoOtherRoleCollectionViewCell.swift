@@ -116,10 +116,10 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - Internal
-    func setScoredChapter(_ scoredChapter: ScoredChapter, isActive: Bool) {
+    func setScoredChapter(_ scoredChapter: ScoredChapter, isActive: Bool, name: String) {
         let role = scoredChapter.chapter.role
         roleImageView.image = RoleUtils.avatarImage(with: role)
-        roleLabel.text = NSLocalizedString("RoleAText", comment: "")
+        roleLabel.text = name
         contentLabel.text = scoredChapter.chapter.content
         if isActive {
             speakerImageView.isHidden = false

@@ -97,7 +97,7 @@ class DuoFinalScoreViewController: UIViewController {
     } ()
 
     lazy var avatarImageView: UIImageView = {
-        let avatarImage = UIImage.init(named: "conversation_facepile2")
+        let avatarImage = UIImage.init(named: "no_profile_pic")
         let avatarImageView = UIImageView.init(image: avatarImage)
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.clipsToBounds = true
@@ -111,7 +111,7 @@ class DuoFinalScoreViewController: UIViewController {
         nameLabel.textColor = .slateGrey
         let nameLabelFontDescriptor = UIFont.systemFont(ofSize: nameLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
         nameLabel.font = UIFont.init(descriptor: nameLabelFontDescriptor!, size: 0)
-        nameLabel.text = "Jikai"
+        nameLabel.text = "You"
         return nameLabel
     } ()
 

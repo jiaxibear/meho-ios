@@ -236,15 +236,16 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = indexPath.item
         let isActive = item == currentScoredChapters.count - 1
+        let name = item % 2 == 0 ? NSLocalizedString("RoleAText", comment: "") : NSLocalizedString("RoleBText", comment: "")
         if isChapterYourRole(index: item) {
             if let duoYourRoleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DuoDetailedDialogViewController.duoYourRoleCollectionViewCellReuseIdentifier, for: indexPath) as? DuoYourRoleCollectionViewCell {
                 duoYourRoleCollectionViewCell.delegate = self
-                duoYourRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item], isActive: isActive)
+                duoYourRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item], isActive: isActive, name: name)
                 return duoYourRoleCollectionViewCell
             }
         } else {
             if let duoOtherRoleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DuoDetailedDialogViewController.duoOtherRoleCollectionViewCellReuseIdentifier, for: indexPath) as? DuoOtherRoleCollectionViewCell {
-                duoOtherRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item], isActive: isActive)
+                duoOtherRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item], isActive: isActive, name: name)
                 return duoOtherRoleCollectionViewCell
             }
         }

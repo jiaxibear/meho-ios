@@ -153,11 +153,11 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - Internal
-    func setScoredChapter(_ scoredChapter: ScoredChapter, isActive: Bool) {
+    func setScoredChapter(_ scoredChapter: ScoredChapter, isActive: Bool, name: String) {
         let chapter = scoredChapter.chapter
         let role = chapter.role
         roleImageView.image = RoleUtils.avatarImage(with: role)
-        roleLabel.text = NSLocalizedString("RoleBText", comment: "")
+        roleLabel.text = name
         contentLabel.text = chapter.content
         contentPinyinLabel.text = chapter.contentPinyin
         if isActive {
