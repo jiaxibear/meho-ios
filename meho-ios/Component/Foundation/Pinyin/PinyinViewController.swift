@@ -23,7 +23,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     private let finalsDelimiterTitle = "韵母 Finals"
     private let originalInitialText = "Initial"
     private let originalFinalText = "Final"
-    private let plusImageName = "stories_heart_filled"
+    private let plusImageName = "purple_plus_sign"
     private let navTitleLabelFontSize = CGFloat(18)
     private let pillCornerRadius = CGFloat(10)
     private let pillBorderWidth = CGFloat(2)
