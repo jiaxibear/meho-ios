@@ -133,7 +133,6 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Private
     @objc func didTapPronounceButton() {
-
         if let pronounceURL = maybePronounceAudioUrl {
             let playerItem = AVPlayerItem.init(url: pronounceURL)
             player = AVPlayer.init(playerItem: playerItem)

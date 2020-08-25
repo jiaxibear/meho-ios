@@ -99,13 +99,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
                     DispatchQueue.main.async {
                         self.chaptersCollectionView.reloadData()
                         let audioSession = AVAudioSession.sharedInstance()
-                        do {
-                            try audioSession.setCategory(.playAndRecord, mode: .default)
-                            try audioSession.setActive(true)
-                            audioSession.requestRecordPermission { (allowed) in
-                                // TODO: Add UI if not allowed.
-                            }
-                        } catch {
+                        audioSession.requestRecordPermission { (allowed) in
                             // TODO: Add UI if not allowed.
                         }
                     }
@@ -122,13 +116,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
                     self.hasAutoPlayedAudio = true
                     self.chaptersCollectionView.reloadData()
                     let audioSession = AVAudioSession.sharedInstance()
-                    do {
-                        try audioSession.setCategory(.playAndRecord, mode: .default)
-                        try audioSession.setActive(true)
-                        audioSession.requestRecordPermission { (allowed) in
-                            // TODO: Add UI if not allowed.
-                        }
-                    } catch {
+                    audioSession.requestRecordPermission { (allowed) in
                         // TODO: Add UI if not allowed.
                     }
                 }

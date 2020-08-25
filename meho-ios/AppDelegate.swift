@@ -9,6 +9,7 @@
 import UIKit
 import AWSMobileClient
 import AWSAppSync
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Sets appearance of the navigation bar.
+        try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: .defaultToSpeaker)
+        try? AVAudioSession.sharedInstance().setActive(true)
         let navigationBarAppearance = UINavigationBarAppearance()
         let backBarButtonItemImage = UIImage.init(systemName: backBarButtonItemImageName)?.withTintColor(.wisteriaPurple).withAlignmentRectInsets(UIEdgeInsets.init(top: 0, left: 0, bottom: 2, right: 0))
         navigationBarAppearance.setBackIndicatorImage(backBarButtonItemImage, transitionMaskImage: backBarButtonItemImage)
