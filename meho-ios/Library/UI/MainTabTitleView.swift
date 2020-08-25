@@ -11,7 +11,7 @@ import UIKit
 class MainTabTitleView: UIView {
 
     // MARK: - Constants
-    private let dummypProfileImageName = "conversation_facepile1"
+    private let dummypProfileImageName = "no_profile_pic"
     private let titleLabelFontSize = CGFloat(34)
     private let titleLableTopMargin = CGFloat(8)
     private let viewHeight = CGFloat(40)
