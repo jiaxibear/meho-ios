@@ -418,7 +418,11 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
                     self.contentLabel.attributedText = scoredContent
                     self.scoredChapter.scoredContent = scoredContent
                     self.actionLabel.isHidden = false
-                    self.actionLabel.text = NSLocalizedString("ReplayPromptActionText", comment: "")
+                    if self.scoredChapter.shouldDisplayScore {
+                        self.actionLabel.text = NSLocalizedString("ReplayPromptActionText", comment: "")
+                    } else {
+                        self.actionLabel.text = NSLocalizedString("ReplayWithoutScorePromptActionText", comment: "")
+                    }
                     break
                 case .failure(let error):
                     self.recordButton.isSelected = false

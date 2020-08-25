@@ -51,6 +51,9 @@
 /* Text displayed to prompt the user to tap the replay button in the dialog. */
 "ReplayPromptActionText" = "Scored! Click to replay your recording...";
 
+/* Text displayed to prompt the user to tap the replay button in the dialog when there is no score. */
+"ReplayWithoutScorePromptActionText" = "Recorded! Click to replay your recording...";
+
 /* Text displayed when the user taps the replay button in the dialog. */
 "ReplayActionText" = "Replaying your recording...";
 
