@@ -98,9 +98,7 @@ class NewsDataFetcher: NSObject {
                 if remoteVocab.label == "MEHO_CURATED", !recabVocabIdSet.contains(vocab.identifier) {
                     recabVocabs.append(vocab)
                     recabVocabIdSet.insert(vocab.identifier)
-                }
-
-                if let chapterId = articleVocab.paragraphId, zhParagraphDict[chapterId] != nil {
+                } else if let chapterId = articleVocab.paragraphId, zhParagraphDict[chapterId] != nil {
                     zhParagraphDict[chapterId]!.vocabularies.append(vocab)
                 }
 
