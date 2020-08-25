@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import AWSMobileClient
 
 class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
 
@@ -38,6 +39,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
     let prounceButton = UIButton.init(frame: .zero)
 
     // MARK: - Data
+    private let userDataFecther = UserDataFetcher.init()
     private var vocabulary: Vocabulary
     private var player: AVPlayer?
 
@@ -67,6 +69,15 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
         setupeOptionalLabel()
         setupPronounceButton()
         // Do any additional setup after loading the view.
+
+        guard let userId = AWSMobileClient.default().userSub else { return }
+        userDataFecther.getUserVocabularySave (userId: userId, vocaularyId: self.vocabulary.identifier, completionHandler: { (isSaved, error) in
+            if (error == nil && isSaved) {
+                DispatchQueue.main.async {
+                    self.likeButton.isSelected = true
+                }
+            }
+        })
     }
     
     func setupBackground() {
@@ -203,7 +214,24 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @objc
     func didTapLikeButton() {
-        likeButton.isSelected = !likeButton.isSelected
+        guard let userId = AWSMobileClient.default().userSub else { return }
+        if self.likeButton.isSelected {
+            userDataFecther.deleteUserVocabularySave(userId: userId, vocabularyId: self.vocabulary.identifier) { (unsaveSuccess, error) in
+                if (error == nil && unsaveSuccess) {
+                     DispatchQueue.main.async {
+                         self.likeButton.isSelected = false
+                     }
+                }
+            }
+        } else {
+            userDataFecther.createUserVocabularySave(userId: userId, vocabularyId: self.vocabulary.identifier) { (saveSuccess, error) in
+                if (error == nil && saveSuccess) {
+                     DispatchQueue.main.async {
+                         self.likeButton.isSelected = true
+                     }
+                }
+            }
+        }
     }
 
     @objc func didTapPronounceButton() {
