@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSMobileClient
 
 class DetailedNewsViewController: UIViewController {
 
@@ -30,6 +31,9 @@ class DetailedNewsViewController: UIViewController {
     private let languageToggleEnText = "ENG"
     private let languageToggleZhText = "中"
     private let sourceSubtitle = "Curated By Meho"
+
+    // MARK: - Datamodels
+    private let userDataFecther = UserDataFetcher.init()
 
     // MARK: - Properties
     private let news: News
@@ -83,6 +87,14 @@ class DetailedNewsViewController: UIViewController {
         setupBottomBarView() // this has to come before newsdetailview as newsdetailview has bottom constrain on barview's topanchor
         setUpInitialNewsDetailView()
 
+        guard let userId = AWSMobileClient.default().userSub else { return }
+        userDataFecther.getUserItemSave (userId: userId, itemId: self.news.identifier, completionHandler: { (isSaved, error) in
+            if (error == nil && isSaved) {
+                DispatchQueue.main.async {
+                    self.likeButton.isSelected = true
+                }
+            }
+        })
     }
 
     func setUpNavigationBar() {
@@ -201,6 +213,24 @@ class DetailedNewsViewController: UIViewController {
     // MARK: - Private buttom actions
     @objc
     func didTapLikeButton() {
+        guard let userId = AWSMobileClient.default().userSub else { return }
+        if self.likeButton.isSelected {
+            userDataFecther.deleteUserItemSave(userId: userId, itemId: self.news.identifier) { (unsaveSuccess, error) in
+                if (error == nil && unsaveSuccess) {
+                     DispatchQueue.main.async {
+                         self.likeButton.isSelected = false
+                     }
+                }
+            }
+        } else {
+            userDataFecther.createUserItemSave(userId: userId, itemId: self.news.identifier, itemType: "ARTICLE") { (saveSuccess, error) in
+                if (error == nil && saveSuccess) {
+                     DispatchQueue.main.async {
+                         self.likeButton.isSelected = true
+                     }
+                }
+            }
+        }
         likeButton.isSelected = !likeButton.isSelected
     }
 
