@@ -85,23 +85,22 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
                 DispatchQueue.main.async {
                     self.newsChapters = englishChapters!
                     self.hasFetchedNewsDetail = true
-                    self.chaptersCollectionView.reloadData()
-//                    self.tryReloadCollectionView()
+                    self.tryReloadCollectionView()
                 }
             }
         })
 
         // Fetch related news, preparing data for related news list in footer
         // Hide for Beta launch. Will resume
-        dataFecther.fetchNewsList (count: "3", completionHandler: { (newsList, error) in
-            if (error == nil && newsList != nil) {
-                DispatchQueue.main.async {
-                    self.relatedNewsList = newsList!
-                    self.hasFetchedNewsList = true
-                    self.tryReloadCollectionView()
-                }
-            }
-        })
+//        dataFecther.fetchNewsList (count: "3", completionHandler: { (newsList, error) in
+//            if (error == nil && newsList != nil) {
+//                DispatchQueue.main.async {
+//                    self.relatedNewsList = newsList!
+//                    self.hasFetchedNewsList = true
+//                    self.tryReloadCollectionView()
+//                }
+//            }
+//        })
     }
 
     // MARK: - Setup UI
@@ -226,7 +225,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
     }
 
     func tryReloadCollectionView() {
-        if !(hasFetchedNewsList && hasFetchedNewsDetail) {
+        if !(/* hasFetchedNewsList &&*/hasFetchedNewsDetail) {
             return;
         }
         sections.insert(.newsChapters, at: 0)

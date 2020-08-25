@@ -128,7 +128,6 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
             }
         }
 
-
         view.addSubview(chaptersCollectionView)
 
         // Sets up layout constraints
