@@ -191,8 +191,17 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                     DispatchQueue.main.async {
                         self.chaptersCollectionView.reloadData()
                         self.loadFirstChapter()
+                        let audioSession = AVAudioSession.sharedInstance()
+                        audioSession.requestRecordPermission { (allowed) in
+                            // TODO: Add UI if not allowed.
+                        }
                     }
                 }
+            }
+        } else {
+            let audioSession = AVAudioSession.sharedInstance()
+            audioSession.requestRecordPermission { (allowed) in
+                // TODO: Add UI if not allowed.
             }
         }
 
