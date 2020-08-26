@@ -24,9 +24,9 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
     let horizontalMarginToWidthRaitio = CGFloat(1.0/12.0)
     let labelTopMarginToHeightRaitio = CGFloat(1.0/5.0)
 
-    private let saveUnfilledImageName = "purple_saved_unfilled"
-    private let saveFilledImageName = "purple_saved_filled"
     private let pronounceButtonImageName = "stories_speaker"
+    let newsLikeHeartUnfilledImage = UIImage.init(named: "purple_saved_unfilled")
+    let newsLikeHeartFilledImage = UIImage.init(named: "purple_saved_filled")
 
     // MARK: - Properties
     let dimmingView = UIView.init(frame: .zero)
@@ -37,6 +37,8 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
     let vocabularyOptionalLabel = UILabel.init(frame: .zero)
     let likeButton = UIButton.init(frame: .zero)
     let prounceButton = UIButton.init(frame: .zero)
+
+    var isVocabularySaved:Bool
 
     // MARK: - Data
     private let userDataFecther = UserDataFetcher.init()
@@ -54,8 +56,9 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
         fatalError("Use init(allDifficulties: [Difficulty], currentDifficulty: Difficulty)")
     }
 
-    init(vocabulary: Vocabulary) {
+    init(vocabulary: Vocabulary, isSaved: Bool) {
         self.vocabulary = vocabulary
+        self.isVocabularySaved = isSaved
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -70,14 +73,15 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
         setupPronounceButton()
         // Do any additional setup after loading the view.
 
-        guard let userId = AWSMobileClient.default().userSub else { return }
-        userDataFecther.getUserVocabularySave (userId: userId, vocaularyId: self.vocabulary.identifier, completionHandler: { (isSaved, error) in
-            if (error == nil && isSaved) {
-                DispatchQueue.main.async {
-                    self.likeButton.isSelected = true
-                }
-            }
-        })
+//        guard let userId = AWSMobileClient.default().userSub else { return }
+//        userDataFecther.getUserVocabularySave (userId: userId, vocaularyId: self.vocabulary.identifier, completionHandler: { (isSaved, error) in
+//            if (error == nil && isSaved) {
+//                DispatchQueue.main.async {
+//                    self.isVocabularySaved = true
+//                    self.likeButton.setImage(self.newsLikeHeartFilledImage, for: .normal)
+//                }
+//            }
+//        })
     }
     
     func setupBackground() {
@@ -124,11 +128,14 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     func setupLikeButton() {
-        let newsLikeHeartUnfilledImage = UIImage.init(named: saveUnfilledImageName)
-        let newsLikeHeartFilledImag = UIImage.init(named: saveFilledImageName)
+
         likeButton.translatesAutoresizingMaskIntoConstraints = false
-        likeButton.setImage(newsLikeHeartUnfilledImage, for: UIControl.State.normal)
-        likeButton.setImage(newsLikeHeartFilledImag, for: UIControl.State.selected)
+        if isVocabularySaved {
+            likeButton.setImage(newsLikeHeartFilledImage, for: .normal)
+        } else {
+            likeButton.setImage(newsLikeHeartUnfilledImage, for: .normal)
+        }
+
         likeButton.addTarget(self, action: #selector(didTapLikeButton), for: .touchUpInside)
         contentView.addSubview(likeButton)
 
@@ -215,11 +222,12 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc
     func didTapLikeButton() {
         guard let userId = AWSMobileClient.default().userSub else { return }
-        if self.likeButton.isSelected {
+        if self.isVocabularySaved {
             userDataFecther.deleteUserVocabularySave(userId: userId, vocabularyId: self.vocabulary.identifier) { (unsaveSuccess, error) in
                 if (error == nil && unsaveSuccess) {
                      DispatchQueue.main.async {
-                         self.likeButton.isSelected = false
+                        self.isVocabularySaved = false
+                        self.likeButton.setImage(self.newsLikeHeartUnfilledImage, for: .normal)
                      }
                 }
             }
@@ -227,7 +235,8 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
             userDataFecther.createUserVocabularySave(userId: userId, vocabularyId: self.vocabulary.identifier) { (saveSuccess, error) in
                 if (error == nil && saveSuccess) {
                      DispatchQueue.main.async {
-                         self.likeButton.isSelected = true
+                        self.isVocabularySaved = true
+                        self.likeButton.setImage(self.newsLikeHeartFilledImage, for: .normal)
                      }
                 }
             }

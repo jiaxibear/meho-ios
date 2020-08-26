@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSMobileClient
 
 enum ChineseNewsSection: Int {
     case newsChapters
@@ -38,6 +39,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     private let newsRecapFooterCellReuseIdentifier = "newsRecapFooter"
 
     // MARK: - Datamodels
+    private let userDataFetcher = UserDataFetcher.init()
     private let dataFetcher = NewsDataFetcher.init()
     private var newsChapters:[NewsChapter] = []
     private var recapVocabularyList:[Vocabulary] = []
@@ -210,13 +212,26 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
     // MARK: - NewsChapterCollectionViewCellDelegate
     func NewsChapterCollectionViewCellDidTapVocabulary(vocabularyId: String) {
+        if let userId = AWSMobileClient.default().userSub {
+            self.userDataFetcher.getUserVocabularySave (userId: userId, vocaularyId: vocabularyId, completionHandler: { (isSaved, error) in
+                    DispatchQueue.main.async {
+                        let isSaved = error == nil && isSaved
+                        self.openUnsavedVocabPopUp(vocabularyId: vocabularyId, isSaved: isSaved)
+                    }
+                }
+            )
+        } else {
+            openUnsavedVocabPopUp(vocabularyId: vocabularyId, isSaved: false)
+        }
+    }
+
+    func openUnsavedVocabPopUp(vocabularyId: String, isSaved: Bool) {
         if let vocabulary = self.allVocabDict[vocabularyId] {
-            let vocabularyViewController = VocabularyViewController.init(vocabulary: vocabulary)
+            let vocabularyViewController = VocabularyViewController.init(vocabulary: vocabulary, isSaved: isSaved)
             vocabularyViewController.modalPresentationStyle = .overFullScreen
             vocabularyViewController.modalTransitionStyle = .crossDissolve
             self.navigationController?.present(vocabularyViewController, animated: true, completion: nil)
         }
-
     }
 
 }
