@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 enum ConversationSection: Int {
     case categories
@@ -156,6 +157,15 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
                 }
             }
         })
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_talks_home",
+            AnalyticsParameterScreenClass: "p_meho_talks_home",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 enum EnglishNewsSection: Int {
     case newsChapters
@@ -101,6 +102,15 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
 //                }
 //            }
 //        })
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_stories_english",
+            AnalyticsParameterScreenClass: "p_meho_stories_english",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
     }
 
     // MARK: - Setup UI

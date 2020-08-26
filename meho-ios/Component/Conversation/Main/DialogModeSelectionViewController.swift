@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 protocol DialogModeSelectionViewControllerDelegate: AnyObject {
     func dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialogID: String)
@@ -398,6 +399,15 @@ class DialogModeSelectionViewController: UIViewController {
         }
 
         preferredContentSize = CGSize.init(width: viewWidth, height: viewHeight)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_talks_preview",
+            AnalyticsParameterScreenClass: "p_meho_talks_preview",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
     }
 
     // MARK: - Private

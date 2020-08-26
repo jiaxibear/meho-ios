@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate  {
 
@@ -69,8 +70,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         fatalError("Use init")
     }
 
-    // MARK - UIViewController
-
+    // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -78,6 +78,15 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         setupNewsCollectionView()
 
         didRefresh()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_stories_home",
+            AnalyticsParameterScreenClass: "p_meho_stories_home",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
     }
 
     func setupNewsCollectionView() {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 protocol DuoFinalScoreViewControllerDelegate: AnyObject {
     func duoFinalScoreViewControllerDidFinish()
@@ -319,6 +320,15 @@ class DuoFinalScoreViewController: UIViewController {
             secondaryActionButton.trailingAnchor.constraint(equalTo: mainActionButton.trailingAnchor).isActive = true
             secondaryActionButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_talks_report",
+            AnalyticsParameterScreenClass: "p_meho_talks_report",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
     }
 
     // MARK: - Internal

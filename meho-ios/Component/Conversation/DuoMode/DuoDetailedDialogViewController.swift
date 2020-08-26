@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import FirebaseAnalytics
 
 class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AudioVisualizerViewDelegte, AVAudioRecorderDelegate, DuoYourRoleCollectionViewCellDelegate, DuoFinalScoreViewControllerDelegate {
 
@@ -237,6 +238,15 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         chaptersCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         chaptersCollectionView.bottomAnchor.constraint(equalTo: actionLabel.topAnchor, constant: -DuoDetailedDialogViewController.actionLabelAndChaptersCollectionViewMargin).isActive = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_talks_duo",
+            AnalyticsParameterScreenClass: "p_meho_talks_duo",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
     }
 
     // MARK: - UICollectionViewDataSource

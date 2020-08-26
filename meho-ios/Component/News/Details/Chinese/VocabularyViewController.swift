@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import AWSMobileClient
+import FirebaseAnalytics
 
 class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
 
@@ -82,6 +83,15 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
 //                }
 //            }
 //        })
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_stories_vocabulary",
+            AnalyticsParameterScreenClass: "p_meho_stories_vocabulary",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
     }
     
     func setupBackground() {

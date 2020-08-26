@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSMobileClient
+import FirebaseAnalytics
 
 enum ChineseNewsSection: Int {
     case newsChapters
@@ -92,8 +93,15 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
                 }
             }
         })
+    }
 
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_stories_chinese",
+            AnalyticsParameterScreenClass: "p_meho_stories_chinese",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
     }
 
     func setUpChapters() {

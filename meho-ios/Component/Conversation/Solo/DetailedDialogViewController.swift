@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import FirebaseAnalytics
 
 class DetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DuoModeFooterCollectionResuableViewDelegate {
 
@@ -135,6 +136,24 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         chaptersCollectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         chaptersCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if survivalPhraseCategoryIdentifier != nil {
+            let parameters = [
+                AnalyticsParameterScreenName: "p_meho_expressions_" + survivalPhraseCategoryIdentifier.lowercased(),
+                AnalyticsParameterScreenClass: "p_meho_expressions_details",
+            ]
+            Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        }
+        if dialogID != nil {
+            let parameters = [
+                AnalyticsParameterScreenName: "p_meho_talks_single",
+                AnalyticsParameterScreenClass: "p_meho_talks_single",
+            ]
+            Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        }
     }
 
     // MARK: - UICollectionViewDataSource

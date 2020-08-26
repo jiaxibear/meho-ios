@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 enum ExpressionSection: Int {
     case survivalPhrases
@@ -133,6 +134,15 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
                 }
             }
         })
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_expressions_home",
+            AnalyticsParameterScreenClass: "p_meho_expressions_home",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
     }
 
     private func setupTitleViewConstraint() {

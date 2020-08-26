@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 protocol DifficultyViewControllerDelegate {
     func didSelectDifficulty(_ difficulty:Difficulty)
@@ -95,6 +96,15 @@ class DifficultyViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: viewVerticalMargin).isActive = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_talks_diffculty",
+            AnalyticsParameterScreenClass: "p_meho_talks_diffculty",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
     }
 
     // MARK: - UITableViewDelegate
