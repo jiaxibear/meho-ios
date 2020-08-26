@@ -318,6 +318,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     func duoFinalScoreViewControllerDidContinueWithRole(role: String) {
         dismiss(animated: true, completion: nil)
+        didTapchangeRoleBarButtonItem()
     }
 
     // MARK: - Private

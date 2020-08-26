@@ -197,7 +197,7 @@ class DuoFinalScoreViewController: UIViewController {
             mainActionButton.addTarget(self, action: #selector(didTapFinishButton), for: .touchUpInside)
         } else {
             let mainActionButtonTitleFormat = NSLocalizedString("ContinueRoleButtonTitle", comment: "")
-            if self.scoreA != nil {
+            if self.scoreA == nil {
                 let roleAText = NSLocalizedString("RoleAText", comment: "")
                 mainActionButtonTitle = String.init(format: mainActionButtonTitleFormat, roleAText)
             } else {
