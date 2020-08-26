@@ -186,6 +186,7 @@ class UserDataFetcher: NSObject {
      public func getUserItemSave(userId: String, itemId: String, completionHandler: @escaping ( Bool, Error?) -> Void) {
          let userItemSaveId = userId + "+" + itemId
          let q = GetUserItemSaveQuery(id: userItemSaveId)
+        
          appSyncClient?.fetch(query: q) { (result, error) in
 
              print (error?.localizedDescription as Any)

@@ -9,6 +9,10 @@
 
 import UIKit
 
+protocol NewsRecapFooterCollectionReusableViewDelegate : AnyObject {
+    func NewsRecapFooterCollectionReusableViewDidTapMarkComplete()
+}
+
 class NewsRecapFooterCollectionReusableView: UICollectionReusableView {
     // MARK: - Constants
     private let buttonHeight = CGFloat(50)
@@ -25,6 +29,7 @@ class NewsRecapFooterCollectionReusableView: UICollectionReusableView {
     private let quizButton = UIButton.init(frame: .zero)
     private let markCompleteButton = UIButton.init(frame: .zero)
     private static var sizingView = NewsRecapFooterCollectionReusableView.init(frame: .zero)
+    private weak var delegate: NewsRecapFooterCollectionReusableViewDelegate?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -68,6 +73,7 @@ class NewsRecapFooterCollectionReusableView: UICollectionReusableView {
         markCompleteButton.titleLabel?.textColor = .white
         markCompleteButton.layer.cornerRadius = buttonCornerRadius
         markCompleteButton.setTitle(markCompleteButtonTitle, for: .normal)
+        markCompleteButton.addTarget(self, action: #selector(didTapMarkCompleteButton), for: .touchUpInside)
         addSubview(markCompleteButton)
 
         // change to the following line when resuming quiz function
@@ -78,11 +84,26 @@ class NewsRecapFooterCollectionReusableView: UICollectionReusableView {
         markCompleteButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
     }
 
+    // MARK: - Public
+    func setDelegate(delegate: NewsRecapFooterCollectionReusableViewDelegate) {
+        self.delegate = delegate
+    }
+
+    public func setCompleted() {
+        self.markCompleteButton.isHidden = true
+    }
+
     public class func cellHeight(with width: CGFloat) -> CGFloat {
         // when resuming quiz option, exchange with this
 //        return 2*sizingView.buttonHeight + sizingView.buttonInset + sizingView.bottomMargin
         return sizingView.buttonHeight + sizingView.buttonInset
 
+    }
+
+    @objc
+    func didTapMarkCompleteButton() {
+        delegate?.NewsRecapFooterCollectionReusableViewDidTapMarkComplete()
+        self.markCompleteButton.isHidden = true
     }
 
 }

@@ -15,7 +15,8 @@ enum ChineseNewsSection: Int {
     case recapVocabularyList
 }
 
-class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NewsChapterCollectionViewCellDelegate {
+class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NewsChapterCollectionViewCellDelegate, NewsRecapFooterCollectionReusableViewDelegate {
+
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(22)
@@ -28,6 +29,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
     // MARK: - Properties
     private let news: News
+    private var isCompleted:Bool?
 
     // MARK: - UI
     private var chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
@@ -93,6 +95,16 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
                 }
             }
         })
+
+        guard let userId = AWSMobileClient.default().userSub else { return }
+        userDataFetcher.getUserItemCompleted (userId: userId, itemId: self.news.identifier, completionHandler: { (isCompleted, error) in
+            if (error == nil && isCompleted) {
+                self.isCompleted = true
+            } else {
+                self.isCompleted = false
+            }
+            self.chaptersCollectionView.reloadData()
+        })
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -102,6 +114,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
             AnalyticsParameterScreenClass: "p_meho_stories_chinese",
         ]
         Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+
     }
 
     func setUpChapters() {
@@ -149,6 +162,12 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         } else if kind == UICollectionView.elementKindSectionFooter {
             if indexPath.section == 1 {
                 if let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: newsRecapFooterCellReuseIdentifier, for: indexPath) as? NewsRecapFooterCollectionReusableView {
+                    footerView.setDelegate(delegate: self)
+                    if let isArticleCompleted = self.isCompleted {
+                        if isArticleCompleted {
+                            footerView.setCompleted()
+                        }
+                    }
                     return footerView
                 }
             }
@@ -239,6 +258,28 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
             vocabularyViewController.modalPresentationStyle = .overFullScreen
             vocabularyViewController.modalTransitionStyle = .crossDissolve
             self.navigationController?.present(vocabularyViewController, animated: true, completion: nil)
+        }
+    }
+
+    // MARK: - NewsRecapFooterCollectionReusableViewDelegate
+    func NewsRecapFooterCollectionReusableViewDidTapMarkComplete() {
+        if let userId = AWSMobileClient.default().userSub {
+            self.userDataFetcher.deleteUserItemInProgress(userId: userId, itemId: self.news.identifier) { (removeInProgressSuccess, error) in
+                if (error == nil && removeInProgressSuccess) {
+                    // do nothing
+                    print("user:" + userId + ",article:" + self.news.identifier + " - remove inprogress successful")
+                } else {
+                    print("user:" + userId + ",article:" + self.news.identifier + " - remove inprogress failed")
+                }
+            }
+            self.userDataFetcher.createUserItemCompleted(userId: userId, itemId: self.news.identifier, itemType: "ARTICLE") { (createCompletedSuccess, error) in
+                if (error == nil && createCompletedSuccess) {
+                    // do nothing
+                    print("user:" + userId + ",article:" + self.news.identifier + " - added completed successful")
+                } else {
+                    print("user:" + userId + ",article:" + self.news.identifier + " - added completed failed")
+                }
+            }
         }
     }
 

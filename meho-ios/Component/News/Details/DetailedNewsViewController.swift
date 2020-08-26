@@ -33,7 +33,7 @@ class DetailedNewsViewController: UIViewController {
     private let sourceSubtitle = "Curated By Meho"
 
     // MARK: - Datamodels
-    private let userDataFecther = UserDataFetcher.init()
+    private let userDataFetcher = UserDataFetcher.init()
 
     // MARK: - Properties
     private let news: News
@@ -90,7 +90,7 @@ class DetailedNewsViewController: UIViewController {
         setUpInitialNewsDetailView()
 
         guard let userId = AWSMobileClient.default().userSub else { return }
-        userDataFecther.getUserItemSave (userId: userId, itemId: self.news.identifier, completionHandler: { (isSaved, error) in
+        userDataFetcher.getUserItemSave (userId: userId, itemId: self.news.identifier, completionHandler: { (isSaved, error) in
             if (error == nil && isSaved) {
                 DispatchQueue.main.async {
                     self.likeButton.isSelected = true
@@ -219,7 +219,7 @@ class DetailedNewsViewController: UIViewController {
     func didTapLikeButton() {
         guard let userId = AWSMobileClient.default().userSub else { return }
         if self.likeButton.isSelected {
-            userDataFecther.deleteUserItemSave(userId: userId, itemId: self.news.identifier) { (unsaveSuccess, error) in
+            userDataFetcher.deleteUserItemSave(userId: userId, itemId: self.news.identifier) { (unsaveSuccess, error) in
                 if (error == nil && unsaveSuccess) {
                      DispatchQueue.main.async {
                          self.likeButton.isSelected = false
@@ -227,7 +227,7 @@ class DetailedNewsViewController: UIViewController {
                 }
             }
         } else {
-            userDataFecther.createUserItemSave(userId: userId, itemId: self.news.identifier, itemType: "ARTICLE") { (saveSuccess, error) in
+            userDataFetcher.createUserItemSave(userId: userId, itemId: self.news.identifier, itemType: "ARTICLE") { (saveSuccess, error) in
                 if (error == nil && saveSuccess) {
                      DispatchQueue.main.async {
                          self.likeButton.isSelected = true
@@ -292,7 +292,7 @@ class DetailedNewsViewController: UIViewController {
 
     func checkArticleStatus() {
         guard let userId = AWSMobileClient.default().userSub else { return }
-        userDataFecther.getUserItemInProgress (userId: userId, itemId: self.news.identifier, completionHandler: { (isInProgress, error) in
+        userDataFetcher.getUserItemInProgress (userId: userId, itemId: self.news.identifier, completionHandler: { (isInProgress, error) in
             if (error == nil && isInProgress) {
                 self.isInProgress = true
             } else {
@@ -300,7 +300,7 @@ class DetailedNewsViewController: UIViewController {
             }
             self.startArticleProgressIfNeeded(userId: userId)
         })
-        userDataFecther.getUserItemCompleted (userId: userId, itemId: self.news.identifier, completionHandler: { (isCompleted, error) in
+        userDataFetcher.getUserItemCompleted (userId: userId, itemId: self.news.identifier, completionHandler: { (isCompleted, error) in
             if (error == nil && isCompleted) {
                 self.isCompleted = true
             } else {
@@ -314,7 +314,7 @@ class DetailedNewsViewController: UIViewController {
     func startArticleProgressIfNeeded(userId:String) {
         if let articleIsInProgress = self.isInProgress, let articleIsCompleted = self.isCompleted {
             if !articleIsInProgress && !articleIsCompleted {
-                userDataFecther.createUserItemInProgress(userId: userId, itemId: self.news.identifier, itemType: "ARTICLE") { (createInProgressSuccess, error) in
+                userDataFetcher.createUserItemInProgress(userId: userId, itemId: self.news.identifier, itemType: "ARTICLE") { (createInProgressSuccess, error) in
                     if (error == nil && createInProgressSuccess) {
                         // do nothing
                         print("user:" + userId + ",article:" + self.news.identifier + " - added inprogress successful")
