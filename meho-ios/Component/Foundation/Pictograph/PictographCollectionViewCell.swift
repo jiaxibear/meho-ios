@@ -19,8 +19,10 @@ class PictographCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Properties
     private let contentEnLabel = UILabel.init(frame: .zero)
+    private let contentPinyinLabel = UILabel.init(frame: .zero)
     private let cardBackgroundImageView = UIImageView.init(frame: .zero)
     private let gifImageView = UIImageView.init(frame: .zero)
+    private let enToPinyinDict:Dictionary<String, String> = ["fire":"huǒ", "wood":"mù", "mouth":"kǒu", "mountain":"shān", "human":"rén", "field":"tián", "cloud":"yún", "rain":"yǔ", "eye":"yǎn", "door":"mén", "fish":"yú", "earth":"tǔ", "hand":"shǒu", "goat":"yáng", "bird":"niǎo", "water":"shuǐ", "moon":"yuè", "sun":"rì"]
 
     // MARK: - Init
     @available(*, unavailable)
@@ -37,6 +39,7 @@ class PictographCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         // Sets up elements in the cell
         setupBackgroundImage()
+        setupContentPinyinLabelUI()
         setupContentEnLabelUI()
         setupGifView()
     }
@@ -58,12 +61,24 @@ class PictographCollectionViewCell: UICollectionViewCell {
         contentEnLabel.numberOfLines = 1
         contentEnLabel.translatesAutoresizingMaskIntoConstraints = false
         contentEnLabel.textColor = .white
-        contentEnLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(30))
+        contentEnLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(36))
         contentView.addSubview(contentEnLabel)
 
         // constraints
         contentEnLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         contentEnLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentView.bounds.height * 0.25).isActive = true
+    }
+
+    private func setupContentPinyinLabelUI() {
+        contentPinyinLabel.numberOfLines = 1
+        contentPinyinLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentPinyinLabel.textColor = .white
+        contentPinyinLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(50))
+        contentView.addSubview(contentPinyinLabel)
+
+        // constraints
+        contentPinyinLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        contentPinyinLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentView.bounds.height * 0.1).isActive = true
     }
 
     private func setupGifView() {
@@ -81,7 +96,14 @@ class PictographCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public
     public func setPictographCardData(pictograph: Pictograph, shouldReverse: Bool) {
-        contentEnLabel.text = pictograph.content_en
+        let enLabelText = pictograph.content_en.lowercased()
+        contentEnLabel.text = enLabelText
+        if let pinyinLabelText = self.enToPinyinDict[enLabelText] {
+            contentPinyinLabel.text = pinyinLabelText
+        } else {
+            contentPinyinLabel.text = "shoot"
+        }
+
         contentEnLabel.textColor = .white
         contentEnLabel.sizeToFit()
 
