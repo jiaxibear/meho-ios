@@ -124,6 +124,9 @@
 		EAD20B9E24F1CFB300C1ED89 /* IdiomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20B9C24F1CFB300C1ED89 /* IdiomViewController.swift */; };
 		EAD20B9F24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20B9D24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift */; };
 		EAD20BA124F1F4E400C1ED89 /* Idiom.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20BA024F1F4E400C1ED89 /* Idiom.swift */; };
+		EAD5222424F6375A002E0285 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAD5222324F6375A002E0285 /* GoogleService-Info.plist */; };
+		EAD5222524F6375A002E0285 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAD5222324F6375A002E0285 /* GoogleService-Info.plist */; };
+		EAD5222624F6375A002E0285 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAD5222324F6375A002E0285 /* GoogleService-Info.plist */; };
 		EAD7F76524BAA8B8008ADC1C /* DisplayScoreSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */; };
 		EAD7F76A24CE4472008ADC1C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F76924CE4472008ADC1C /* WebViewController.swift */; };
 		EAD7F77324D5265A008ADC1C /* TermsOfUse.html in Resources */ = {isa = PBXBuildFile; fileRef = EAD7F77124D52659008ADC1C /* TermsOfUse.html */; };
@@ -279,6 +282,7 @@
 		EAD20B9C24F1CFB300C1ED89 /* IdiomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdiomViewController.swift; sourceTree = "<group>"; };
 		EAD20B9D24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdiomCollectionViewCell.swift; sourceTree = "<group>"; };
 		EAD20BA024F1F4E400C1ED89 /* Idiom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Idiom.swift; sourceTree = "<group>"; };
+		EAD5222324F6375A002E0285 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayScoreSwitch.swift; sourceTree = "<group>"; };
 		EAD7F76924CE4472008ADC1C /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		EAD7F77124D52659008ADC1C /* TermsOfUse.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TermsOfUse.html; sourceTree = "<group>"; };
@@ -508,6 +512,7 @@
 		EA2FC5BE23EF7AD400E258BD /* meho-ios */ = {
 			isa = PBXGroup;
 			children = (
+				EAD5222324F6375A002E0285 /* GoogleService-Info.plist */,
 				EA54491624441FDF00C07D0A /* Meho.entitlements */,
 				EA7B730B23F0DBB10031093B /* AllResources */,
 				EA52FDB423EFAA5A008EB37B /* Library */,
@@ -921,6 +926,7 @@
 				EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */,
 				EA2FC5C923EF7AD600E258BD /* Preview Assets.xcassets in Resources */,
 				921A935124C5367B0064D846 /* graphql in Resources */,
+				EAD5222424F6375A002E0285 /* GoogleService-Info.plist in Resources */,
 				EA2FC5C623EF7AD600E258BD /* Assets.xcassets in Resources */,
 				EAD7F77324D5265A008ADC1C /* TermsOfUse.html in Resources */,
 			);
@@ -930,6 +936,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAD5222524F6375A002E0285 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -937,6 +944,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAD5222624F6375A002E0285 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

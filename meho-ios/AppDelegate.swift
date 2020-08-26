@@ -10,6 +10,7 @@ import UIKit
 import AWSMobileClient
 import AWSAppSync
 import AVFoundation
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -39,7 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appearance.tintColor = .wisteriaPurple
         // Override point for customization after application launch.
         AWSMobileClient.default().initialize { (userState, error) in
-            print(userState); print(error)
+            print(userState ?? "No user state from AWSMobileClient")
+            print(error ?? "No error from AWSMobileClient")
         }
         setupAppSyncClient()
 
@@ -49,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
 
         AWSServiceManager.default().defaultServiceConfiguration = configuration
-
+        FirebaseApp.configure()
         return true
     }
 
@@ -68,8 +70,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func setupAppSyncClient() {
-        let localCacheUrl = URL(fileURLWithPath: NSTemporaryDirectory() + "MehoCache.db")
-        
         do {
             let config = try AWSAppSyncClientConfiguration(appSyncServiceConfig: AWSAppSyncServiceConfig())
             appSyncClient = try AWSAppSyncClient(appSyncConfig: config)

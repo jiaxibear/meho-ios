@@ -7,7 +7,25 @@
 		<key>meho-ios.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>29</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>EA2FC5BB23EF7AD400E258BD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EA2FC5D123EF7AD600E258BD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EA2FC5DC23EF7AD600E258BD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

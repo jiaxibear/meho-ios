@@ -16,6 +16,11 @@ target 'meho-ios' do
 
   pod 'Toast-Swift', '~> 5.0.1'
 
+  # add the Firebase pod for Google Analytics
+  pod 'Firebase/Analytics'
+  # add pods for any other desired Firebase products
+  # https://firebase.google.com/docs/ios/setup#available-pods
+
   # 3rd party Auth
 #  pod 'AWSFacebookSignIn', '~> 2.14.2'
 #  pod 'AWSGoogleSignIn', '~> 2.12.0'

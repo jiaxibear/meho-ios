@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1062736067448-vqh5nc7u19shm73f2rumlil5acse7c5g.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1062736067448-vqh5nc7u19shm73f2rumlil5acse7c5g</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCVAvFs3wv2WuQPLRGZ_r0s7qn4DGpMLXU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1062736067448</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.meho.mehoapp</string>
+	<key>PROJECT_ID</key>
+	<string>mehoapp-7ce0a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mehoapp-7ce0a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1062736067448:ios:a4b99aaa0c835e2676a68d</string>
+	<key>DATABASE_URL</key>
+	<string>https://mehoapp-7ce0a.firebaseio.com</string>
+</dict>
+</plist>
