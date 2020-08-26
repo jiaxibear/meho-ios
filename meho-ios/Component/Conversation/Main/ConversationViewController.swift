@@ -34,6 +34,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let dialogCollectionViewCellHeight = CGFloat(110)
     private let dialogCollectionViewCellGroupSpacing = CGFloat(20)
     private let conversationTabBarItemImageName = "tabbar_conv_25pt"
+    private let numberOfMostPopularDialogs = 11
 
     // MARK: - Properties
     // MARK: UI
@@ -149,7 +150,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
             (dialogs, error) in
             if (error == nil && dialogs != nil) {
                 DispatchQueue.main.async {
-                    self.mostPopularDialogs = dialogs!
+                    self.mostPopularDialogs = Array(dialogs!.prefix(self.numberOfMostPopularDialogs))
                     self.sections.append(.mostPopluarDialogs)
                     self.conversationCollectionView.reloadData()
                 }
