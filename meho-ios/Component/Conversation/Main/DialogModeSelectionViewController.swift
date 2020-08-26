@@ -254,6 +254,7 @@ class DialogModeSelectionViewController: UIViewController {
         let saveButtonImage = UIImage.init(named: "purple_saved_unfilled")
         saveButton.setImage(saveButtonImage, for: .normal)
         saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
+        saveButton.isHidden = true
         return saveButton
     } ()
 
