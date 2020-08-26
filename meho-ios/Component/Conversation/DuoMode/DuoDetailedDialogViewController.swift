@@ -47,6 +47,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private var isYourRoleFirst = false
     private let conversationDataFetcher = ConversationDataFetcher.init()
     private let dialogID: String?
+    private var scoreA: Int?
+    private var scoreB: Int?
 
     // MARK: UI
     private lazy var progressView: UIProgressView = {
@@ -346,11 +348,26 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     func didTapNextButton() {
         if (currentScoredChapters.count == scoredChapters.count) {
             var score = 0
-            for scoredChapter in currentScoredChapters {
-                score = score + Int(scoredChapter.score)
+            var numberOfScores = 0
+            if isYourRoleFirst {
+                for (index, scoredChapter) in currentScoredChapters.enumerated() {
+                    if index % 2 == 0 {
+                        numberOfScores = numberOfScores + 1
+                        score = score + Int(scoredChapter.score)
+                    }
+                }
+                self.scoreA = score / numberOfScores
+            } else {
+                for (index, scoredChapter) in currentScoredChapters.enumerated() {
+                    if index % 2 == 1 {
+                        numberOfScores = numberOfScores + 1
+                        score = score + Int(scoredChapter.score)
+                    }
+                }
+                self.scoreB = score / numberOfScores
             }
-            score = score / currentScoredChapters.count
-            let duoFinalScoreViewController = DuoFinalScoreViewController.init(scoreA: nil, scoreB: score)
+
+            let duoFinalScoreViewController = DuoFinalScoreViewController.init(scoreA: scoreA, scoreB: scoreB)
             duoFinalScoreViewController.delegate = self
             let viewWidth = view.bounds.width - duoFinalScoreViewLeadingTrailingMargin * 2
             let viewHeight = duoFinalScoreViewController.viewHeight(width: viewWidth)

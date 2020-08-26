@@ -246,6 +246,9 @@ class ConversationDataFetcher: NSObject {
         if let title = dialogJSON["title"] as? String {
             dialog.title = title
         }
+        if let whyYouShouldLearn = dialogJSON["why_you_should_learn"] as? String {
+            dialog.whyYouShouldLearn = whyYouShouldLearn
+        }
         if let titleInLocalLanguage = dialogJSON["title_local_language"] as? String {
             dialog.titleInLocalLanguage = titleInLocalLanguage
         }

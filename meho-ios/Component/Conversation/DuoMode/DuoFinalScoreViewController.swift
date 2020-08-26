@@ -313,16 +313,21 @@ class DuoFinalScoreViewController: UIViewController {
         mainActionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonLeadingTrailingMargin).isActive = true
         mainActionButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
 
-        secondaryActionButton.topAnchor.constraint(equalTo: mainActionButton.bottomAnchor, constant: secondaryActionButtonTopMargin).isActive = true
-        secondaryActionButton.leadingAnchor.constraint(equalTo: mainActionButton.leadingAnchor).isActive = true
-        secondaryActionButton.trailingAnchor.constraint(equalTo: mainActionButton.trailingAnchor).isActive = true
-        secondaryActionButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
+        if self.scoreA == nil || self.scoreB == nil {
+            secondaryActionButton.topAnchor.constraint(equalTo: mainActionButton.bottomAnchor, constant: secondaryActionButtonTopMargin).isActive = true
+            secondaryActionButton.leadingAnchor.constraint(equalTo: mainActionButton.leadingAnchor).isActive = true
+            secondaryActionButton.trailingAnchor.constraint(equalTo: mainActionButton.trailingAnchor).isActive = true
+            secondaryActionButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
+        }
     }
 
     // MARK: - Internal
     func viewHeight(width: CGFloat) -> CGFloat {
         let fittingSize = CGSize.init(width: width, height: .greatestFiniteMagnitude)
-        let height = congratulationsLabelHeight + finishRoleLabel.sizeThatFits(fittingSize).height + scoreBackgroundContainerViewTopMargin + scoreBackgroundContainerViewHeight + reviewLabelTopMargin + reviewLabel.sizeThatFits(fittingSize).height + mainActionButtonTopMargin + buttonHeight * 2 + secondaryActionButtonTopMargin + secondaryActionButtonBottomMargin
+        var height = congratulationsLabelHeight + finishRoleLabel.sizeThatFits(fittingSize).height + scoreBackgroundContainerViewTopMargin + scoreBackgroundContainerViewHeight + reviewLabelTopMargin + reviewLabel.sizeThatFits(fittingSize).height + mainActionButtonTopMargin + buttonHeight + secondaryActionButtonBottomMargin
+        if self.scoreA == nil || self.scoreB == nil {
+            height = height + buttonHeight + secondaryActionButtonTopMargin
+        }
         return height
     }
 

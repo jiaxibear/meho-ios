@@ -120,7 +120,7 @@ class DialogModeSelectionViewController: UIViewController {
         introductionLabel.translatesAutoresizingMaskIntoConstraints = false
         introductionLabel.textColor = .darkGrayTwo
         introductionLabel.font = UIFont.systemFont(ofSize: introductionLabelFontSize)
-        introductionLabel.text = "Learn how to introduce yourself to collegues"
+        introductionLabel.text = dialog.whyYouShouldLearn
         introductionLabel.numberOfLines = 0
         // TODO: Use real text.
         return introductionLabel

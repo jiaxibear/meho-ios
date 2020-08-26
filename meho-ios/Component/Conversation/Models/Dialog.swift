@@ -15,4 +15,5 @@ struct Dialog {
     var coverImageURL:URL?
     var chapters: [Chapter] = []
     var difficulty = Difficulty.beginner
+    var whyYouShouldLearn = ""
 }
