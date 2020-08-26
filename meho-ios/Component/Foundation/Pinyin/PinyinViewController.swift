@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 enum PinyinSection: Int {
     case initials
@@ -97,7 +98,15 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         setupTopSection()
         setupDetailedPinyinView()
         setupPinyinCollectionView()
+    }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_foundations_pinyin",
+            AnalyticsParameterScreenClass: "p_meho_foundations_pinyin",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
     }
 
     // MARK: - UI elements setup

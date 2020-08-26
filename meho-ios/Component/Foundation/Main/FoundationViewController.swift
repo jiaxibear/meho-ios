@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import FirebaseAnalytics
 
 class FoundationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate {
     
@@ -60,6 +61,15 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
         setupFeatureCollectionViewUI()
         populateFeatureList()
         self.featuresCollectionView.reloadData()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_foundations_home",
+            AnalyticsParameterScreenClass: "p_meho_foundations_home",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
     }
     
     func populateFeatureList() {

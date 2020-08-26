@@ -8,6 +8,7 @@
 
 import UIKit
 import Toast_Swift
+import FirebaseAnalytics
 
 enum DialogStreamType {
     case mostPopular
@@ -85,6 +86,17 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         dialogsCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let title = category?.title {
+            let parameters = [
+                AnalyticsParameterScreenName: "p_meho_talks_" + title.lowercased(),
+                AnalyticsParameterScreenClass: "p_meho_talks_details",
+            ]
+            Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        }
+    }
+
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let dialogCell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCellReuseIdentifier, for: indexPath) as! DialogCollectionViewCell
@@ -125,6 +137,8 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         }
         return UICollectionReusableView.init(frame: .zero)
     }
+
+    
 
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

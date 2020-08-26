@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class IdiomViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -98,7 +99,15 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
         idiomCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         idiomCollectionView.heightAnchor.constraint(equalToConstant: cellHeight + 1).isActive = true
     }
-    
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let parameters = [
+            AnalyticsParameterScreenName: "p_meho_foundations_idioms",
+            AnalyticsParameterScreenClass: "p_meho_foundations_idioms",
+        ]
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+    }
 
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
