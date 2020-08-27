@@ -237,6 +237,9 @@
 /* Toast message disaplayed when the expression is saved successfully. */
 "saveSuccessfullyMessage" = "Added to Saved. View All in Profile";
 
+/* Toast message disaplayed when the expression is removed successfully. */
+"removeSuccessfullyMessage" = "Removed from Saved.";
+
 /* Title for the complete profile step 1 page. */
 "completeProfileStep1Title" = "Complete your profile (1/3)";
 

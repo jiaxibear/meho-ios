@@ -223,6 +223,7 @@ class DetailedNewsViewController: UIViewController {
                 if (error == nil && unsaveSuccess) {
                      DispatchQueue.main.async {
                          self.likeButton.isSelected = false
+                         self.view.makeToast(NSLocalizedString("removeSuccessfullyMessage", comment: ""))
                      }
                 }
             }
@@ -231,6 +232,7 @@ class DetailedNewsViewController: UIViewController {
                 if (error == nil && saveSuccess) {
                      DispatchQueue.main.async {
                          self.likeButton.isSelected = true
+                         self.view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
                      }
                 }
             }

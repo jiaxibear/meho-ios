@@ -24,7 +24,6 @@ class NewsRecapFooterCollectionReusableView: UICollectionReusableView {
     private let quizButtonTitle = "Would you like to take a quiz?"
     private let markCompleteButtonTitle = "Mark as complete"
 
-
     // MARK: - Properties
     private let quizButton = UIButton.init(frame: .zero)
     private let markCompleteButton = UIButton.init(frame: .zero)
