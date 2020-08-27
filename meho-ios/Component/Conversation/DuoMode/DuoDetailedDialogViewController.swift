@@ -414,7 +414,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
         } else {
             let currentRoleFormat = NSLocalizedString("CurrentRoleText", comment: "")
-            let currentRole = NSLocalizedString("RoleB", comment: "")
+            let currentRole = isYourRoleFirst ? NSLocalizedString("RoleAText", comment: "") : NSLocalizedString("RoleBText", comment: "")
             actionLabel.text = String.init(format: currentRoleFormat, currentRole)
         }
     }
@@ -430,6 +430,9 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         let nextButtonDisabledImage = UIImage.init(named: DuoDetailedDialogViewController.nextButtonDisabledImageName)
         nextButton.setImage(nextButtonDisabledImage, for: .disabled)
         refreshButtonStates()
+        let currentRoleFormat = NSLocalizedString("CurrentRoleText", comment: "")
+        let currentRole = isYourRoleFirst ? NSLocalizedString("RoleAText", comment: "") : NSLocalizedString("RoleBText", comment: "")
+        actionLabel.text = String.init(format: currentRoleFormat, currentRole)
         playCurrentChapter()
     }
 
@@ -549,7 +552,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             progressView.setProgress(progress, animated: false)
             refreshButtonStates()
             let currentRoleFormat = NSLocalizedString("CurrentRoleText", comment: "")
-            let currentRole = NSLocalizedString("RoleB", comment: "")
+            let currentRole = isYourRoleFirst ? NSLocalizedString("RoleAText", comment: "") : NSLocalizedString("RoleBText", comment: "")
             actionLabel.text = String.init(format: currentRoleFormat, currentRole)
             playCurrentChapter()
         }
