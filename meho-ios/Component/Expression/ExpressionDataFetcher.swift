@@ -55,7 +55,8 @@ class ExpressionDataFetcher: NSObject {
     func fetchSurvivalPhrases(category: String, completionHandler: @escaping (Result<Array<Chapter>, Error>) -> Void) {
         if var fetchTrendingPhraseURLComponent = URLComponents.init(string: fetchSurvivalPhraseByCategoryURLString) {
             let quertItem = URLQueryItem.init(name: "category", value: category)
-            fetchTrendingPhraseURLComponent.queryItems = [quertItem]
+            let limitQuertItem = URLQueryItem.init(name: "limit", value: "100")
+            fetchTrendingPhraseURLComponent.queryItems = [quertItem, limitQuertItem]
             if let trendingPhraseURLString = fetchTrendingPhraseURLComponent.url {
                 let dataCategoriesTask = session.dataTask(with: trendingPhraseURLString, completionHandler: { (data, URLResponse, error) in
                     if error != nil {
