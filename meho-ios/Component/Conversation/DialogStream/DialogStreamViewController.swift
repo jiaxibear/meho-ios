@@ -96,7 +96,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
             Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
         } else if streamType == DialogStreamType.mostPopular {
             let parameters = [
-                AnalyticsParameterScreenName: "p_meho_talks_",
+                AnalyticsParameterScreenName: "p_meho_talks_most_popular",
                 AnalyticsParameterScreenClass: "p_meho_talks_details",
             ]
             Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
