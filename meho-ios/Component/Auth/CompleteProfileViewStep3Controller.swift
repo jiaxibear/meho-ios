@@ -41,7 +41,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         let finance = ProfileQuestion.init(title: "Finance", subtitle: "(investment, banking, consulting, etc)", color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let trade = ProfileQuestion.init(title: "Trade", subtitle: "(import, export, ecommerce, etc)", color: .periwinkleBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let service = ProfileQuestion.init(title: "Service", subtitle: "(hospitality, retail, media, travel, etc)", color: .periwinkleBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let tech = ProfileQuestion.init(title: "Tech", subtitle: "(software, telecom, hardward, etc)", color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let tech = ProfileQuestion.init(title: "Tech", subtitle: "(software, telecom, hardware, etc)", color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let infrastructure = ProfileQuestion.init(title: "Infrastructure", subtitle: "(road, railway, energy, etc)", color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let others = ProfileQuestion.init(title: "Others", subtitle: nil, color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         return [academic, finance, trade, service, tech, infrastructure, others]

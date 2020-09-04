@@ -50,7 +50,7 @@ class CompleteProfileViewStep1Controller: UIViewController, UICollectionViewData
     private lazy var generalQuestions: [ProfileQuestion] = {
         let consumeContent = ProfileQuestion.init(title: "Consume Content", subtitle: nil, color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let travel = ProfileQuestion.init(title: "Travel", subtitle: nil, color: .periwinkleBlueTwo, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let work = ProfileQuestion.init(title: "Work for Chinses companies", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let work = ProfileQuestion.init(title: "Work for Chinese companies", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let checkItOut = ProfileQuestion.init(title: "Check it out", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         return [consumeContent, travel, work, checkItOut]
     } ()

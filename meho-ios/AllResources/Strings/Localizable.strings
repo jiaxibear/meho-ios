@@ -256,7 +256,7 @@
 "IndustryTitle" = "What best to describes the industry you are in? This will help us tailor our content to your needs:";
 
 /* Text displayed to the user to let them select who they are interested in communicating to. */
-"communicationSelectionsText" = "Communiate with:";
+"communicationSelectionsText" = "Communicate with:";
 
 /* Text displayed to the user to let them select what other actions they are interested in doing. */
 "otherSelectionsText" = "and/or to:";
