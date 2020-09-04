@@ -87,14 +87,13 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         let travelImage = UIImage.init(named: travelImageName)
         let travelSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Travel", titleFontSize:20, identifier:.travel, backgroundImage: travelImage, backgroundColor: nil)
         let dinningSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Dining", titleFontSize:14, identifier:.dining, backgroundImage: nil, backgroundColor: .wisteriaPurple)
-        let healthSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Health", titleFontSize:14, identifier:.health, backgroundImage: nil, backgroundColor: .greenBlue)
         let businessImage = UIImage.init(named: businessImageName)
         let businessSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Business", titleFontSize:20, identifier:.business, backgroundImage: businessImage, backgroundColor: nil)
         let entertainmentSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Entertainment",titleFontSize:18, identifier:.entertainment, backgroundImage: nil, backgroundColor: .skyBlue)
         let familySurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Family", titleFontSize:12, identifier:.family, backgroundImage: nil, backgroundColor: .greenBlue)
         let flirtingSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Flirting",titleFontSize:12, identifier:.flirting, backgroundImage: nil, backgroundColor: .wisteriaPurple)
         let festivitiesSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Festivities", titleFontSize:12, identifier:.festivities, backgroundImage: nil, backgroundColor: .dustyOrange)
-        return [basicSurvivalPhraseCategory, numbersSurvivalPhraseCategory, shoppingSurvivalPhraseCategory, travelSurvivalPhraseCategory, dinningSurvivalPhraseCategory, healthSurvivalPhraseCategory, businessSurvivalPhraseCategory, entertainmentSurvivalPhraseCategory, familySurvivalPhraseCategory, flirtingSurvivalPhraseCategory, festivitiesSurvivalPhraseCategory]
+        return [basicSurvivalPhraseCategory, numbersSurvivalPhraseCategory, shoppingSurvivalPhraseCategory, travelSurvivalPhraseCategory, dinningSurvivalPhraseCategory, businessSurvivalPhraseCategory, entertainmentSurvivalPhraseCategory, familySurvivalPhraseCategory, flirtingSurvivalPhraseCategory, festivitiesSurvivalPhraseCategory]
     } ()
 
     // MARK: - Init
@@ -267,10 +266,10 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         topLeftGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: survivalPhrasesItemInset)
 
         // Sets up the top right group.
-        let topRightFirstColumnFirstRowItemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/2))
+        let topRightFirstColumnFirstRowItemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1))
         let topRightFirstColumnFirstRowItem = NSCollectionLayoutItem.init(layoutSize: topRightFirstColumnFirstRowItemSize)
         let topRightFirstColumnFirstRowGroupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1))
-        let topRightFirstColumnFirstRowGroup = NSCollectionLayoutGroup.vertical(layoutSize: topRightFirstColumnFirstRowGroupSize, subitem: topRightFirstColumnFirstRowItem, count: 2)
+        let topRightFirstColumnFirstRowGroup = NSCollectionLayoutGroup.vertical(layoutSize: topRightFirstColumnFirstRowGroupSize, subitem: topRightFirstColumnFirstRowItem, count: 1)
         topRightFirstColumnFirstRowGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: survivalPhrasesItemInset)
         topRightFirstColumnFirstRowGroup.interItemSpacing = .fixed(survivalPhrasesGroupSpacing)
         let topRightSecondColumnFirstRowItemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(2/3), heightDimension: .fractionalHeight(1))

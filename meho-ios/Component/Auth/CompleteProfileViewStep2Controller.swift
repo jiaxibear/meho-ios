@@ -48,8 +48,7 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
         let reading = ProfileQuestion.init(title: "#Reading", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let sports = ProfileQuestion.init(title: "#Sports", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let society = ProfileQuestion.init(title: "#Society", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let health = ProfileQuestion.init(title: "#Health", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        return [business, tech, finance, networking, career, culture, travel, cuisine, shopping, transportation, history, hospitality, movie, reading, sports, society, health]
+        return [business, tech, finance, networking, career, culture, travel, cuisine, shopping, transportation, history, hospitality, movie, reading, sports, society]
     } ()
 
     // MARK: UI

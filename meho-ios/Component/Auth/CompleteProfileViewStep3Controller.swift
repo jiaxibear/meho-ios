@@ -40,7 +40,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         let academic = ProfileQuestion.init(title: "Academic", subtitle: "(student, scholar, researcher, etc)", color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let finance = ProfileQuestion.init(title: "Finance", subtitle: "(investment, banking, consulting, etc)", color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let trade = ProfileQuestion.init(title: "Trade", subtitle: "(import, export, ecommerce, etc)", color: .periwinkleBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let service = ProfileQuestion.init(title: "Service", subtitle: "(hospitality, retail, media, travel, medical, etc)", color: .periwinkleBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let service = ProfileQuestion.init(title: "Service", subtitle: "(hospitality, retail, media, travel, etc)", color: .periwinkleBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let tech = ProfileQuestion.init(title: "Tech", subtitle: "(software, telecom, hardward, etc)", color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let infrastructure = ProfileQuestion.init(title: "Infrastructure", subtitle: "(road, railway, energy, etc)", color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         let others = ProfileQuestion.init(title: "Others", subtitle: nil, color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)

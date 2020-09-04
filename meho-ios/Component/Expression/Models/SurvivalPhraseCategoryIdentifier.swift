@@ -14,7 +14,6 @@ enum SurvivalPhraseCategoryIdentifier: String {
     case shopping = "Shopping"
     case travel = "Travel"
     case dining = "Dining"
-    case health = "Health"
     case business = "Business"
     case entertainment = "Entertainment"
     case family = "Family"
