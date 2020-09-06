@@ -234,6 +234,13 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         if expressionSection == .survivalPhrases {
             let survivalPhrase = survivalPhraseCategories[indexPath.item]
             let survivalPhraseCategoryIdentifier = survivalPhrase.identifier.rawValue
+            let parameters = [
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_expressions_home-view_" + survivalPhraseCategoryIdentifier.lowercased(),
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_" + survivalPhraseCategoryIdentifier.lowercased(),
+                MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+            ]
+            Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
             let detailedNewsViewController = DetailedDialogViewController.init(survivalPhraseCategoryIdentifier: survivalPhraseCategoryIdentifier, title: survivalPhrase.title)
             navigationController?.pushViewController(detailedNewsViewController, animated: true)
         } else if expressionSection == .trendingPhrases {

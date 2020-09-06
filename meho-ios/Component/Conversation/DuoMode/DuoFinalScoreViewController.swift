@@ -349,11 +349,25 @@ class DuoFinalScoreViewController: UIViewController, MehoAnalytics {
     // MARK: - Private
     @objc
     private func didTapFinishButton() {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talk_reports-finish",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "finish",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         delegate?.duoFinalScoreViewControllerDidFinish()
     }
 
     @objc
     private func didTapContinueRoleButton() {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talk_reports-continue_next_role",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "continue_next_role",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         delegate?.duoFinalScoreViewControllerDidContinueWithRole(role: "")
     }
 }

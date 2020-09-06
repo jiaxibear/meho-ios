@@ -236,6 +236,13 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
 
     // MARK: - DuoModeFooterCollectionResuableViewDelegate
     func duoModeFooterCollectionResuableViewDidTapButton(_ view: DuoModeFooterCollectionResuableView) {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_solo-continue_with_duo",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "continue_with_duo",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         let duoDetailerDialogViewController = DuoDetailedDialogViewController.init(scoredChapters: scoredChapters)
         navigationController?.pushViewController(duoDetailerDialogViewController, animated: true)
     }

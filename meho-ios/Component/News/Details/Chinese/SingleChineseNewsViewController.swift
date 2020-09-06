@@ -244,6 +244,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         let parameters = [
             MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_stories_chinese-view_vocabulary",
             MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_vocabulary",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
             MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
@@ -275,6 +276,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
             let parameters = [
                 MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_storeis_chinese-mark_as_complete",
                 MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "mark_as_complete",
+                MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
                 MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
             ]
             Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)

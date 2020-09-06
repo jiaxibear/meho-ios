@@ -275,6 +275,7 @@ class DetailedNewsViewController: UIViewController {
         let parameters = [
             MehoAnalyticsUtils.MehoAnalyticsParameterControlID: itemID,
             MehoAnalyticsUtils.MehoAnalyticsParameterControlName: itemName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
             MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)

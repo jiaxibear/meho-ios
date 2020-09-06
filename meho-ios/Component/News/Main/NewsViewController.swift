@@ -194,6 +194,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         let parameters = [
             MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_stories_home-view_story",
             MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_story",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
             MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)

@@ -141,16 +141,31 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let foundationItem = features[indexPath.item]
+        var controlID = ""
+        var controlName = ""
         if foundationItem.name == "Pictography" {
             let pictographyViewController = PictographyViewController.init(featureName:foundationItem.name)
             navigationController?.pushViewController(pictographyViewController, animated: true)
+            controlID = "p_meho_foundations-view_foundations_graphics"
+            controlName = "view_foundations_graphics"
         } else if foundationItem.name == "Pinyin" {
             let pinyinViewController = PinyinViewController.init(featureName:foundationItem.name)
             navigationController?.pushViewController(pinyinViewController, animated: true)
+            controlID = "p_meho_foundations-view_foundations_pinyin"
+            controlName = "view_foundations_pinyin"
         } else if foundationItem.name == "Idoms" {
             let idomsViewController = IdiomViewController.init()
             navigationController?.pushViewController(idomsViewController, animated: true)
+            controlID = "p_meho_foundations-view_foundations_idioms"
+            controlName = "view_foundations_idioms"
         }
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: controlID,
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: controlName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
     }
 
 

@@ -194,9 +194,23 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
             let dialogStreamViewController = DialogStreamViewController.init(category: category)
             navigationController?.pushViewController(dialogStreamViewController, animated: true)
         case .featuredDialogs:
+            let parameters = [
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_home-view_talk",
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_talk",
+                MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+            ]
+            Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
             let dialog = featuredDialogs[indexPath.item]
             displayDialogModeSelectionViewController(dialog: dialog)
         case .mostPopluarDialogs:
+            let parameters = [
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_home-view_talk",
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_talk",
+                MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+            ]
+            Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
             let dialog = mostPopularDialogs[indexPath.item]
             displayDialogModeSelectionViewController(dialog: dialog)
             break
@@ -231,6 +245,13 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
             dialogStreamViewController = DialogStreamViewController.init(streamType: .featured)
         }
         if dialogStreamViewController != nil {
+            let parameters = [
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_home-see_more",
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "see_more",
+                MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+            ]
+            Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
             navigationController?.pushViewController(dialogStreamViewController!, animated: true)
         }
     }

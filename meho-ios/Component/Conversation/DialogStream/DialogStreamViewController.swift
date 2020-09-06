@@ -165,6 +165,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         let parameters = [
             MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_category-view_difficulty",
             MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_difficulty",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
             MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
@@ -181,6 +182,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         let parameters = [
             MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_category-view_talk",
             MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_talk",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
             MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)

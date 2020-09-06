@@ -17,5 +17,5 @@ class MehoAnalyticsUtils: NSObject {
     static let MehoAnalyticsParameterInteractionType = "interaction_type"
     static let MehoAnalyticsParameterControlName = "control_name"
     static let MehoAnalyticsParameterControlID = "control_id"
-    static let MehoAnalyticsParameterScreenName = "p_meho_stories_home"
+    static let MehoAnalyticsParameterScreenName = "screen_name"
 }

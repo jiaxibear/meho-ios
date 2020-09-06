@@ -418,11 +418,25 @@ class DialogModeSelectionViewController: UIViewController, MehoAnalytics {
     // MARK: - Private
     @objc
     func didTapSoloPracticeButton() {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_preview-view_solo",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_solo",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         delegate?.dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialogID: dialog.identifier)
     }
 
     @objc
     func didTapDuoRolePlayButton()  {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_preview-view_duo",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_duo",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         delegate?.dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialogID: dialog.identifier)
     }
 
