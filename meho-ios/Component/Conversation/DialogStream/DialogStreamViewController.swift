@@ -15,7 +15,7 @@ enum DialogStreamType {
     case featured
 }
 
-class DialogStreamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DialogStreamHeaderCollectionReusableViewDelegate, DifficultyViewControllerDelegate, DialogModeSelectionViewControllerDelegate {
+class DialogStreamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DialogStreamHeaderCollectionReusableViewDelegate, DifficultyViewControllerDelegate, DialogModeSelectionViewControllerDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let dialogCellReuseIdentifier = "dialogCellReuseIdentifier"
@@ -27,14 +27,31 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     private let dialogCollectionViewSectionHeaderEstimatedHeight = CGFloat(29)
 
     // MARK: - Properties
+    // MARK: UI
     private let dialogsCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-    private let conversationDataFetcher = ConversationDataFetcher.init()
     private lazy var dialogsCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: dialogsCollectionViewFlowLayout)
+
+    // MARK: Data
+    private let conversationDataFetcher = ConversationDataFetcher.init()
     private var category: Category?
     private var dialogs: [Dialog]
     private var streamType: DialogStreamType?
     private var difficulty = Difficulty.beginner
     private let allDifficulties = [Difficulty.beginner, Difficulty.intermediate, Difficulty.advanced]
+
+    // MARK: MehoAnalytics
+    var screenName: String {
+        if let title = category?.title {
+            return "p_meho_talks_" + title.lowercased()
+        } else if streamType == DialogStreamType.mostPopular {
+            return "p_meho_talks_most_popular"
+        }
+        return ""
+    }
+
+    var screenClass: String {
+        return "p_meho_talks_details"
+    }
 
     // MARK: - Init
     init() {
@@ -88,18 +105,8 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let title = category?.title {
-            let parameters = [
-                AnalyticsParameterScreenName: "p_meho_talks_" + title.lowercased(),
-                AnalyticsParameterScreenClass: "p_meho_talks_details",
-            ]
-            Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
-        } else if streamType == DialogStreamType.mostPopular {
-            let parameters = [
-                AnalyticsParameterScreenName: "p_meho_talks_most_popular",
-                AnalyticsParameterScreenClass: "p_meho_talks_details",
-            ]
-            Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        if screenName.count > 0 {
+            Analytics.logScreenViewEvent(viewController: self)
         }
     }
 
@@ -144,8 +151,6 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         return UICollectionReusableView.init(frame: .zero)
     }
 
-    
-
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize.init(width: collectionView.bounds.width - 2 * trailingLeadingMargin, height: dialogCollectionViewCellHeight)
@@ -157,6 +162,12 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: - DialogStreamHeaderCollectionReusableViewDelegate
     func dialogStreamHeaderCollectionReusableViewDidTapDifficultyButton(_ view: DialogStreamHeaderCollectionReusableView) {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_category-view_difficulty",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_difficulty",
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         let difficultyViewController = DifficultyViewController.init(allDifficulties: allDifficulties, currentDifficulty: difficulty)
         difficultyViewController.delegate = self
         let difficultyDialogViewController = DialogViewController.init(contentViewController: difficultyViewController)
@@ -167,6 +178,12 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_category-view_talk",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_talk",
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         let dialog = dialogs[indexPath.item]
         let dialogModeSelectionViewController = DialogModeSelectionViewController.init(dialog: dialog)
         dialogModeSelectionViewController.delegate = self

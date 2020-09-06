@@ -15,8 +15,7 @@ enum ChineseNewsSection: Int {
     case recapVocabularyList
 }
 
-class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NewsChapterCollectionViewCellDelegate, NewsRecapFooterCollectionReusableViewDelegate {
-
+class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NewsChapterCollectionViewCellDelegate, NewsRecapFooterCollectionReusableViewDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(22)
@@ -25,7 +24,6 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     private let chaptersToTitleMargin = CGFloat(18)
     private let recapListTitle = "Recap key vocabulary"
     private let sectionVerticalInsets = CGFloat(30)
-
 
     // MARK: - Properties
     private let news: News
@@ -48,6 +46,15 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     private var recapVocabularyList:[Vocabulary] = []
     private var allVocabDict:Dictionary<String, Vocabulary> = [:]
     private var sections:[ChineseNewsSection] = []
+
+    // MARK: MehoAnalytics
+    var screenName: String {
+        return "p_meho_stories_chinese"
+    }
+
+    var screenClass: String {
+        return "p_meho_stories_chinese"
+    }
 
     // MARK: - Init
     init() {
@@ -109,12 +116,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_stories_chinese",
-            AnalyticsParameterScreenClass: "p_meho_stories_chinese",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
-
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     func setUpChapters() {
@@ -239,6 +241,12 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
     // MARK: - NewsChapterCollectionViewCellDelegate
     func NewsChapterCollectionViewCellDidTapVocabulary(vocabularyId: String) {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_stories_chinese-view_vocabulary",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_vocabulary",
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         if let userId = AWSMobileClient.default().userSub {
             self.userDataFetcher.getUserVocabularySave (userId: userId, vocaularyId: vocabularyId, completionHandler: { (isSaved, error) in
                     DispatchQueue.main.async {
@@ -264,6 +272,12 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     // MARK: - NewsRecapFooterCollectionReusableViewDelegate
     func NewsRecapFooterCollectionReusableViewDidTapMarkComplete() {
         if let userId = AWSMobileClient.default().userSub {
+            let parameters = [
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_storeis_chinese-mark_as_complete",
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "mark_as_complete",
+                MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+            ]
+            Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
             self.userDataFetcher.deleteUserItemInProgress(userId: userId, itemId: self.news.identifier) { (removeInProgressSuccess, error) in
                 if (error == nil && removeInProgressSuccess) {
                     // do nothing

@@ -15,7 +15,7 @@ protocol DialogModeSelectionViewControllerDelegate: AnyObject {
     func dialogModeSelectionViewControllerDidTapSaveButton(dialogID: String)
 }
 
-class DialogModeSelectionViewController: UIViewController {
+class DialogModeSelectionViewController: UIViewController, MehoAnalytics {
 
     // MARK: - Constants
     // MARK: Shared
@@ -261,6 +261,15 @@ class DialogModeSelectionViewController: UIViewController {
 
     var delegate: DialogModeSelectionViewControllerDelegate?
 
+    // MARK: MehoAnalytics
+    var screenName: String {
+        return "p_meho_talks_preview"
+    }
+
+    var screenClass: String {
+        return "p_meho_talks_preview"
+    }
+
     // MARK: - Init
     init() {
         fatalError("init(dialog: Dialog)")
@@ -403,11 +412,7 @@ class DialogModeSelectionViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_talks_preview",
-            AnalyticsParameterScreenClass: "p_meho_talks_preview",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - Private

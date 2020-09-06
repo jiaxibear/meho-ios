@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import FirebaseAnalytics
 
-class DetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DuoModeFooterCollectionResuableViewDelegate {
+class DetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DuoModeFooterCollectionResuableViewDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let collapsedChapterCollectionViewCellReuseIdentifier = "collapsedChapterCollectionViewCellReuseIdentifier"
@@ -27,6 +27,27 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     private var currentChapterIndex = 0
     private var hasAutoPlayedAudio = false
     private let displayScoreSwitch: DisplayScoreSwitch?
+
+    // MARK: MehoAnalytics
+    var screenName: String {
+        if survivalPhraseCategoryIdentifier != nil {
+            return "p_meho_expressions_" + survivalPhraseCategoryIdentifier.lowercased()
+        }
+        if dialogID != nil {
+            return "p_meho_talks_single"
+        }
+        return ""
+    }
+
+    var screenClass: String {
+        if survivalPhraseCategoryIdentifier != nil {
+            return "p_meho_expressions_details"
+        }
+        if dialogID != nil {
+            return "p_meho_talks_single"
+        }
+        return ""
+    }
 
     // MARK: UI
     private lazy var chaptersCollectionViewFlowLayout: UICollectionViewFlowLayout = {
@@ -140,19 +161,8 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if survivalPhraseCategoryIdentifier != nil {
-            let parameters = [
-                AnalyticsParameterScreenName: "p_meho_expressions_" + survivalPhraseCategoryIdentifier.lowercased(),
-                AnalyticsParameterScreenClass: "p_meho_expressions_details",
-            ]
-            Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
-        }
-        if dialogID != nil {
-            let parameters = [
-                AnalyticsParameterScreenName: "p_meho_talks_single",
-                AnalyticsParameterScreenClass: "p_meho_talks_single",
-            ]
-            Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        if screenClass.count > 0 && screenName.count > 0 {
+            Analytics.logScreenViewEvent(viewController: self)
         }
     }
 

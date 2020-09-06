@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import FirebaseAnalytics
 
-class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AudioVisualizerViewDelegte, AVAudioRecorderDelegate, DuoYourRoleCollectionViewCellDelegate, DuoFinalScoreViewControllerDelegate {
+class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AudioVisualizerViewDelegte, AVAudioRecorderDelegate, DuoYourRoleCollectionViewCellDelegate, DuoFinalScoreViewControllerDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private static let replayButtonNormalImageName = "conversation_play_inactive"
@@ -140,6 +140,15 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         return audioVisualizerView
     } ()
 
+    // MARK: MehoAnalytics
+    var screenName: String {
+        return "p_meho_talks_duo"
+    }
+
+    var screenClass: String {
+        return "p_meho_talks_duo"
+    }
+
     // MARK: - Init
     init() {
         fatalError("Use init(scoredChapters: [ScoredChapter])")
@@ -242,11 +251,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_talks_duo",
-            AnalyticsParameterScreenClass: "p_meho_talks_duo",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - UICollectionViewDataSource

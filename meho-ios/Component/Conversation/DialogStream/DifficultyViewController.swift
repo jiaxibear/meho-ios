@@ -13,7 +13,7 @@ protocol DifficultyViewControllerDelegate {
     func didSelectDifficulty(_ difficulty:Difficulty)
 }
 
-class DifficultyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class DifficultyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MehoAnalytics {
 
     // MARK: - Constants
     let titleLabelFontSize = CGFloat(16)
@@ -27,12 +27,24 @@ class DifficultyViewController: UIViewController, UITableViewDelegate, UITableVi
     let cellFontSize = CGFloat(15)
 
     // MARK: - Properties
-    var allDifficulties:[Difficulty]
-    var currentDifficulty:Difficulty
+    // MARK: UI
     let titleLabel = UILabel.init(frame: .zero)
     let purpleView = UIView.init(frame: .zero)
     let tableView = UITableView.init(frame: .zero, style: .plain)
+
+    // MARK: Data
+    var allDifficulties:[Difficulty]
+    var currentDifficulty:Difficulty
     var delegate:DifficultyViewControllerDelegate?
+
+    // MARK: MehoAnalytics
+    var screenName: String {
+        return "p_meho_talks_diffculty"
+    }
+
+    var screenClass: String {
+        return "p_meho_talks_diffculty"
+    }
 
     // MARK: - Init
     init() {
@@ -100,11 +112,7 @@ class DifficultyViewController: UIViewController, UITableViewDelegate, UITableVi
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_talks_diffculty",
-            AnalyticsParameterScreenClass: "p_meho_talks_diffculty",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - UITableViewDelegate

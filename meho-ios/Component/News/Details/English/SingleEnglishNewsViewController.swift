@@ -14,7 +14,7 @@ enum EnglishNewsSection: Int {
 //    case relatedNewsList
 }
 
-class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
+class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MehoAnalytics  {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(22)
@@ -23,6 +23,14 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
     private let chaptersToTitleMargin = CGFloat(18)
     private let relatedNewsListTitle = "You might also like"
     private let sectionVerticalInsets = CGFloat(30)
+
+    var screenName: String {
+        return "p_meho_stories_english"
+    }
+
+    var screenClass: String {
+        return "p_meho_stories_english"
+    }
 
     // MARK: - Properties
     private let news: News
@@ -106,11 +114,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_stories_english",
-            AnalyticsParameterScreenClass: "p_meho_stories_english",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - Setup UI

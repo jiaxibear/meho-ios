@@ -14,7 +14,7 @@ enum ExpressionSection: Int {
     case trendingPhrases
 }
 
-class ExpressionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate {
+class ExpressionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let expressionTabBarItemImageName = "tabbar_expression_25pt"
@@ -75,7 +75,6 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     private var scrollDownTitleHiddenCollectionViewTopConstraint: NSLayoutConstraint!
     private var scrollUpTitleShownCollectionViewTopConstraint: NSLayoutConstraint!
 
-
     // MARK: - Datamodels
     private let dataFecther = ExpressionDataFetcher.init()
     private var trendingPhrases: [TrendingPhraseWrapper] = []
@@ -95,6 +94,15 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         let festivitiesSurvivalPhraseCategory = SurvivalPhraseCategory.init(title: "Festivities", titleFontSize:12, identifier:.festivities, backgroundImage: nil, backgroundColor: .dustyOrange)
         return [basicSurvivalPhraseCategory, numbersSurvivalPhraseCategory, shoppingSurvivalPhraseCategory, travelSurvivalPhraseCategory, dinningSurvivalPhraseCategory, businessSurvivalPhraseCategory, entertainmentSurvivalPhraseCategory, familySurvivalPhraseCategory, flirtingSurvivalPhraseCategory, festivitiesSurvivalPhraseCategory]
     } ()
+
+    // MARK: MehoAnalytics
+    var screenName: String {
+        return "p_meho_expressions_home"
+    }
+
+    var screenClass: String {
+        return "p_meho_expressions_home"
+    }
 
     // MARK: - Init
     init() {
@@ -137,11 +145,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_expressions_home",
-            AnalyticsParameterScreenClass: "p_meho_expressions_home",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     private func setupTitleViewConstraint() {

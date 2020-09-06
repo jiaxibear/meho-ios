@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import FirebaseAnalytics
 
-class FoundationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate {
+class FoundationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics {
     
     // MARK: - Constants
     private let foundationCoverTitle = "Foundations"
@@ -30,10 +30,22 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     private let featuresCollectionViewBottomMargin = CGFloat(18)
     
     // MARK: - Properties
+    // MARK: UI
     private let titleView = MainTabTitleView.init(frame: .zero)
     private let featuresCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var featuresCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:featuresCollectionViewFlowLayout)
+
+    // MARK: Data
     private var features:[Feature] = []
+
+    // MARK: MehoAnalytics
+    var screenName: String {
+        return "p_meho_foundations_home"
+    }
+
+    var screenClass: String {
+        return "p_meho_foundations_home"
+    }
     
     // MARK: - Init
     init() {
@@ -65,11 +77,7 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_foundations_home",
-            AnalyticsParameterScreenClass: "p_meho_foundations_home",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
     
     func populateFeatureList() {

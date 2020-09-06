@@ -11,7 +11,7 @@ import AVFoundation
 import AWSMobileClient
 import FirebaseAnalytics
 
-class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
+class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate, MehoAnalytics {
 
     // MARK: - Constants
     let dimmingViewAlpha = CGFloat(CGFloat(99)/256)
@@ -20,8 +20,6 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
     let zhLabelFontSize = CGFloat(22)
     let pinyinLabelFontSize = CGFloat(20)
     let enLabelFontSize = CGFloat(20)
-
-
     let horizontalMarginToWidthRaitio = CGFloat(1.0/12.0)
     let labelTopMarginToHeightRaitio = CGFloat(1.0/5.0)
 
@@ -29,7 +27,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
     let newsLikeHeartUnfilledImage = UIImage.init(named: "purple_saved_unfilled")
     let newsLikeHeartFilledImage = UIImage.init(named: "purple_saved_filled")
 
-    // MARK: - Properties
+    // MARK: Properties
     let dimmingView = UIView.init(frame: .zero)
     let contentView = UIView.init(frame: .zero)
     let vocabularyZhLabel = UILabel.init(frame: .zero)
@@ -41,10 +39,19 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
 
     var isVocabularySaved:Bool
 
-    // MARK: - Data
+    // MARK: Data
     private let userDataFecther = UserDataFetcher.init()
     private var vocabulary: Vocabulary
     private var player: AVPlayer?
+
+    // MARK: MehoAnalytics
+    var screenName: String {
+        return "p_meho_stories_vocabulary"
+    }
+
+    var screenClass: String {
+        return "p_meho_stories_vocabulary"
+    }
 
     // MARK: - Initializer
     @available(*, unavailable)
@@ -87,11 +94,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_stories_vocabulary",
-            AnalyticsParameterScreenClass: "p_meho_stories_vocabulary",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
     
     func setupBackground() {

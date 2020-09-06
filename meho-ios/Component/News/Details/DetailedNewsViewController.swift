@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSMobileClient
+import FirebaseAnalytics
 
 class DetailedNewsViewController: UIViewController {
 
@@ -258,13 +259,25 @@ class DetailedNewsViewController: UIViewController {
 
     @objc
     func didTapLanguageToggleButton() {
+        var itemID: String
+        var itemName: String
         if languageToggleButton.isOn {
             removeChildNewsController(controllerToRemove: singleEnNewsViewController)
             addChildNewsController(controllerToAdd: singleZhNewsViewController)
+            itemID = "p_meho_stories_english-toggle_storie_chinese"
+            itemName = "toggle_stories_chinese"
         } else {
             removeChildNewsController(controllerToRemove: singleZhNewsViewController)
             addChildNewsController(controllerToAdd: singleEnNewsViewController)
+            itemID = "p_meho_stories_chinese-toggle_english"
+            itemName = "toggle_stories_english"
         }
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: itemID,
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: itemName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         singleNewsView.translatesAutoresizingMaskIntoConstraints = false
         singleNewsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         singleNewsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true

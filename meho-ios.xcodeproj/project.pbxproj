@@ -116,6 +116,8 @@
 		EA6381F2245807FD00481B8B /* ContentEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381F1245807FD00481B8B /* ContentEvaluator.swift */; };
 		EA6381F42458081400481B8B /* ContentEvaluationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6381F32458081400481B8B /* ContentEvaluationResult.swift */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
+		EA9AC7B42502FE1D00524231 /* MehoAnalyticsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AC7B32502FE1D00524231 /* MehoAnalyticsUtils.swift */; };
+		EA9AC7B625030E1300524231 /* AnalyticsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AC7B525030E1300524231 /* AnalyticsExtension.swift */; };
 		EA9B5DD524A97A6C00D6CFBD /* BulletPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9B5DD424A97A6C00D6CFBD /* BulletPointView.swift */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
@@ -274,6 +276,8 @@
 		EA6381F1245807FD00481B8B /* ContentEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentEvaluator.swift; sourceTree = "<group>"; };
 		EA6381F32458081400481B8B /* ContentEvaluationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentEvaluationResult.swift; sourceTree = "<group>"; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EA9AC7B32502FE1D00524231 /* MehoAnalyticsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MehoAnalyticsUtils.swift; sourceTree = "<group>"; };
+		EA9AC7B525030E1300524231 /* AnalyticsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsExtension.swift; sourceTree = "<group>"; };
 		EA9B5DD424A97A6C00D6CFBD /* BulletPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletPointView.swift; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
@@ -471,6 +475,7 @@
 				EA01E6A723FA1A3600C0B0AE /* UIColorExtentsion.swift */,
 				92C5FE26244B894B004A3322 /* UIGifExtension.swift */,
 				92FE6CED245FC959000E69BC /* UITextFieldPadding.swift */,
+				EA9AC7B525030E1300524231 /* AnalyticsExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -671,6 +676,7 @@
 			isa = PBXGroup;
 			children = (
 				EA5449142442B12500C07D0A /* RoleUtils.swift */,
+				EA9AC7B32502FE1D00524231 /* MehoAnalyticsUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1105,6 +1111,7 @@
 				92F90BC824F1CD2200BEF7B7 /* UserDataFetcher.swift in Sources */,
 				92C5FE33244D4DB6004A3322 /* PinyinDetailView.swift in Sources */,
 				92C5FE3F24541FB7004A3322 /* TwoLineTitleHeaderCollectionReusableView.swift in Sources */,
+				EA9AC7B625030E1300524231 /* AnalyticsExtension.swift in Sources */,
 				92577B2724457ACA0097A445 /* NewsChapterCollectionViewCell.swift in Sources */,
 				92BAC71D243ADA1500862571 /* SingleEnglishNewsViewController.swift in Sources */,
 				92ADF89524495D22003D2D12 /* FoundationDataFetcher.swift in Sources */,
@@ -1115,6 +1122,7 @@
 				EA01E6B123FBD6F000C0B0AE /* DifficultyViewController.swift in Sources */,
 				921A935024C5367B0064D846 /* API.swift in Sources */,
 				9204700524F337A200DE1A2D /* MehoCoverIntroCollectionViewCell.swift in Sources */,
+				EA9AC7B42502FE1D00524231 /* MehoAnalyticsUtils.swift in Sources */,
 				EA52FDB823EFF416008EB37B /* CategoryCollectionViewCell.swift in Sources */,
 				EA54490A243B07FD00C07D0A /* ExpressionViewController.swift in Sources */,
 				92C5FE4124542F35004A3322 /* OneLineTitleHeaderCollectionReusableView.swift in Sources */,

@@ -15,7 +15,7 @@ enum ConversationSection: Int {
     case mostPopluarDialogs
 }
 
-class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SeeMoreFooterCollectionResuableViewDelegate, TriggerProfileViewDelegate, DialogModeSelectionViewControllerDelegate {
+class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SeeMoreFooterCollectionResuableViewDelegate, TriggerProfileViewDelegate, DialogModeSelectionViewControllerDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
@@ -46,12 +46,21 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private var scrollDownTitleHiddenCollectionViewTopConstraint: NSLayoutConstraint!
     private var scrollUpTitleShownCollectionViewTopConstraint: NSLayoutConstraint!
 
-    // MARK: MODEL
+    // MARK: Model
     private var categories:[Category] = []
     private var featuredDialogs:[Dialog] = []
     private var mostPopularDialogs:[Dialog] = []
     private var sections:[ConversationSection] = []
     private let dataFecther = ConversationDataFetcher.init()
+
+    // MARK: MehoAnalytics
+    var screenName: String {
+        return "p_meho_talks_home"
+    }
+
+    var screenClass: String {
+        return "p_meho_talks_home"
+    }
 
     // MARK: - Init
     init() {
@@ -161,11 +170,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_talks_home",
-            AnalyticsParameterScreenClass: "p_meho_talks_home",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

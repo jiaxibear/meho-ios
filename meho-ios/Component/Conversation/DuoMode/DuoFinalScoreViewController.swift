@@ -14,7 +14,7 @@ protocol DuoFinalScoreViewControllerDelegate: AnyObject {
     func duoFinalScoreViewControllerDidContinueWithRole(role: String)
 }
 
-class DuoFinalScoreViewController: UIViewController {
+class DuoFinalScoreViewController: UIViewController, MehoAnalytics {
     // MARK: - Constants
     private let congratulationsLabelFontSize = CGFloat(24)
     private let finishRoleLabelFontSize = CGFloat(14)
@@ -229,6 +229,15 @@ class DuoFinalScoreViewController: UIViewController {
         return secondaryActionButton
     } ()
 
+    // MARK: MehoAnalytics
+    var screenName: String {
+        return "p_meho_talks_report"
+    }
+
+    var screenClass: String {
+        return "p_meho_talks_report"
+    }
+
     // MARK: - Init
     init() {
         fatalError("Use init(scoreA: Int?, scoreB: Int?)")
@@ -324,11 +333,7 @@ class DuoFinalScoreViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_talks_report",
-            AnalyticsParameterScreenClass: "p_meho_talks_report",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - Internal

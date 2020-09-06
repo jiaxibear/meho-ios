@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAnalytics
 
-class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate  {
+class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics  {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
@@ -21,6 +21,14 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     private let horizontalMargin = CGFloat(15)
     private let verticalTopMargin = CGFloat(30)
     private let newsListTitle = NSLocalizedString("NewsTitle", comment: "")
+
+    var screenName: String {
+        return "p_meho_stories_home"
+    }
+
+    var screenClass: String {
+        return "p_meho_stories_home"
+    }
 
     // MARK: UI
     private lazy var titleView: MainTabTitleView = {
@@ -82,11 +90,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_stories_home",
-            AnalyticsParameterScreenClass: "p_meho_stories_home",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     func setupNewsCollectionView() {
@@ -187,10 +191,15 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_stories_home-view_story",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_story",
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         let newsItem = newsList[indexPath.item]
         let detailedNewsViewController = DetailedNewsViewController.init(news: newsItem)
         navigationController?.pushViewController(detailedNewsViewController, animated: true)
-
     }
 
     // rendertype is returned as one of [XS, S, L, XL], usually we respect it. S, L, XL all come with images while XS don't.  If one news is not marked XS but still does not come with image, we should still degrade to XS

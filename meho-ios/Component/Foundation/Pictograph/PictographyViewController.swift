@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAnalytics
 
-class PictographyViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class PictographyViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MehoAnalytics {
 
     // MARK: - Constant
     private let navigationHeaderText = "Pictography"
@@ -19,14 +19,24 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
     private let navTitleLabelFontSize = CGFloat(18)
 
     // MARK: - Properties
-    private let featureName: String
+    // MARK: UI
     private let navTitleLabel = UILabel.init(frame: .zero)
     private let pictographCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     private lazy var pictographCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:pictographCollectionViewFlowLayout)
 
-    // MARK: - Datamodels
+    // MARK: Datamodels
     private let dataFecther = FoundationDataFetcher.init()
     private var pictographList:[Pictograph] = []
+    private let featureName: String
+
+    // MARK: MehoAnalytics
+    var screenName: String {
+        return "p_meho_foundations_graphics"
+    }
+
+    var screenClass: String {
+        return "p_meho_foundations_graphics"
+    }
 
     // MARK: - Init
     init() {
@@ -68,11 +78,7 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_foundations_graphics",
-            AnalyticsParameterScreenClass: "p_meho_foundations_graphics",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - UI elements setup

@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAnalytics
 
-class IdiomViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class IdiomViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MehoAnalytics {
 
     // MARK: - Constant
     private let cardHorizontalInsets = CGFloat(30)
@@ -18,6 +18,7 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
     private let cellRatio = CGFloat(1.78)
 
     // MARK: - Properties
+    // MARK: UI
     private lazy var idiomCollectionViewFlowLayout: UICollectionViewFlowLayout = {
         let idiomCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
         idiomCollectionViewFlowLayout.scrollDirection = .horizontal
@@ -45,7 +46,16 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
         return min(cellWidth * cellRatio, view.bounds.height - view.layoutMargins.top - view.layoutMargins.bottom);
     } ()
 
-    // MARK: - Data Models
+    // MARK: MehoAnalytics
+    var screenName: String {
+        return "p_meho_foundations_idioms"
+    }
+
+    var screenClass: String {
+        return "p_meho_foundations_idioms"
+    }
+
+    // MARK: Data Models
     private lazy var idioms: [Idiom] = {
         let qqshImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/Foundation_1_%E7%90%B4%E6%A3%8B%E4%B9%A6%E7%94%BB.png")
         let qqshAudioURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/%E7%90%B4%E6%A3%8B%E4%B9%A6%E7%94%BB.mp3")
@@ -102,11 +112,7 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_foundations_idioms",
-            AnalyticsParameterScreenClass: "p_meho_foundations_idioms",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - UICollectionViewDataSource

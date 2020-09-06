@@ -14,7 +14,7 @@ enum PinyinSection: Int {
     case finals
 }
 
-class PinyinViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class PinyinViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MehoAnalytics {
 
     // MARK: - Constants
     private let navigationHeaderText = "拼音基础 Pinyin"
@@ -39,6 +39,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     private let finalCellReuseIdentifier = "ReusablefinalCell"
 
     // MARK: - Properties
+    // MARK: UI
     private let featureName: String
     private let navTitleLabel = UILabel.init(frame: .zero)
 
@@ -65,6 +66,15 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     private let noneSelectedIdx:Int = -1
     private var selectedInitialIdx:Int
     private var selectedFinalIdx:Int
+
+    // MARK: MehoAnalytics
+    var screenName: String {
+        return "p_meho_foundations_pinyin"
+    }
+
+    var screenClass: String {
+        return "p_meho_foundations_pinyin"
+    }
 
 
     // MARK: - Init
@@ -102,11 +112,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let parameters = [
-            AnalyticsParameterScreenName: "p_meho_foundations_pinyin",
-            AnalyticsParameterScreenClass: "p_meho_foundations_pinyin",
-        ]
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - UI elements setup
