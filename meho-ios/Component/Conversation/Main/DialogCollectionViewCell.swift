@@ -149,7 +149,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
             difficultyLabel.backgroundColor = .skyBlue
             break
         case .intermediate:
-            difficultyLabel.backgroundColor = .periwinkle
+            difficultyLabel.backgroundColor = .greenBlue
             break
         case .beginner:
             difficultyLabel.backgroundColor = .wisteriaPurple
