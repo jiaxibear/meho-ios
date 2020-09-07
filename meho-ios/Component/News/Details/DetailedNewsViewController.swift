@@ -261,16 +261,19 @@ class DetailedNewsViewController: UIViewController {
     func didTapLanguageToggleButton() {
         var itemID: String
         var itemName: String
+        var screenName: String
         if languageToggleButton.isOn {
             removeChildNewsController(controllerToRemove: singleEnNewsViewController)
             addChildNewsController(controllerToAdd: singleZhNewsViewController)
             itemID = "p_meho_stories_english-toggle_storie_chinese"
             itemName = "toggle_stories_chinese"
+            screenName = "p_meho_stories_english"
         } else {
             removeChildNewsController(controllerToRemove: singleZhNewsViewController)
             addChildNewsController(controllerToAdd: singleEnNewsViewController)
             itemID = "p_meho_stories_chinese-toggle_english"
             itemName = "toggle_stories_english"
+            screenName = "p_meho_stories_chinese"
         }
         let parameters = [
             MehoAnalyticsUtils.MehoAnalyticsParameterControlID: itemID,

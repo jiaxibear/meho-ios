@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSMobileClient
+import FirebaseAnalytics
 
 class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -205,6 +206,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
                 
                 switch state {
                 case .signedIn:
+                    Analytics.setUserID(AWSMobileClient.default().userSub)
                     self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
                 default:
                     print ("default")
