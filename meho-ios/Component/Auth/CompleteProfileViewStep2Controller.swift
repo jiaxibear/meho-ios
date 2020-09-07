@@ -67,7 +67,7 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
 
     private lazy var interestReasonLabel: UILabel = {
         let interestReasonLabel = UILabel.init(frame: .zero)
-        interestReasonLabel.text = NSLocalizedString("InterestReasonTitle", comment: "")
+        interestReasonLabel.text = NSLocalizedString("InterestTagsTitle", comment: "")
         interestReasonLabel.textColor = .darkGrayTwo
         let interestReasonLabelFontDescriptor = UIFont.systemFont(ofSize: interestReasonLabelFontSize).fontDescriptor.withDesign(.rounded)
         interestReasonLabel.font = UIFont.init(descriptor: interestReasonLabelFontDescriptor!, size: interestReasonLabelFontSize)
