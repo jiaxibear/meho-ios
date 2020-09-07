@@ -8,7 +8,15 @@
 
 import Foundation
 
-struct News {
+struct News: MehoContentAnalytics {
+    // MARK: - MehoContentAnalytics
+    let contentType = MehoAnalyticsContentType.story
+    var contentID: String {
+        return identifier
+    }
+    var contentTrackingID = UUID().uuidString
+
+    // MARK: - Main
     var identifier = ""
     var title_en = ""
     var title_zh = ""

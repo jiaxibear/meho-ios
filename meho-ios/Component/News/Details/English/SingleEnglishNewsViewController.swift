@@ -24,14 +24,6 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
     private let relatedNewsListTitle = "You might also like"
     private let sectionVerticalInsets = CGFloat(30)
 
-    var screenName: String {
-        return "p_meho_stories_english"
-    }
-
-    var screenClass: String {
-        return "p_meho_stories_english"
-    }
-
     // MARK: - Properties
     private let news: News
     private var hasFetchedNewsDetail = false
@@ -53,6 +45,10 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
     private var newsChapters:[NewsChapter] = []
     private var relatedNewsList:[News] = []
     private var sections:[EnglishNewsSection] = []
+
+    // MARK: MehoAnalytics
+    let screenName = "p_meho_stories_english"
+    let screenClass = "p_meho_stories_english"
 
     // MARK: - Init
     init() {

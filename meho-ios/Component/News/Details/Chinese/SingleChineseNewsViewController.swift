@@ -48,13 +48,8 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     private var sections:[ChineseNewsSection] = []
 
     // MARK: MehoAnalytics
-    var screenName: String {
-        return "p_meho_stories_chinese"
-    }
-
-    var screenClass: String {
-        return "p_meho_stories_chinese"
-    }
+    let screenName = "p_meho_stories_chinese"
+    let screenClass =  "p_meho_stories_chinese"
 
     // MARK: - Init
     init() {

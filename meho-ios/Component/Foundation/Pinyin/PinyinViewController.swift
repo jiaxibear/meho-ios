@@ -68,14 +68,8 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
     private var selectedFinalIdx:Int
 
     // MARK: MehoAnalytics
-    var screenName: String {
-        return "p_meho_foundations_pinyin"
-    }
-
-    var screenClass: String {
-        return "p_meho_foundations_pinyin"
-    }
-
+    let screenName = "p_meho_foundations_pinyin"
+    let screenClass = "p_meho_foundations_pinyin"
 
     // MARK: - Init
     init() {

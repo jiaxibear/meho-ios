@@ -30,13 +30,8 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
     private let featureName: String
 
     // MARK: MehoAnalytics
-    var screenName: String {
-        return "p_meho_foundations_graphics"
-    }
-
-    var screenClass: String {
-        return "p_meho_foundations_graphics"
-    }
+    let screenName = "p_meho_foundations_graphics"
+    let screenClass = "p_meho_foundations_graphics"
 
     // MARK: - Init
     init() {
@@ -79,6 +74,9 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Analytics.logScreenViewEvent(viewController: self)
+        for index in pictographList.indices {
+            pictographList[index].contentTrackingID = UUID().uuidString
+        }
     }
 
     // MARK: - UI elements setup
@@ -136,6 +134,13 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
         return CGSize(width: width, height: height)
     }
 
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let pictograph = pictographList[indexPath.item]
+        Analytics.logContentImpression(content: pictograph, screenName: screenName)
+    }
+
+    // MARK: - UIScrollViewDelegate
     // Scroll to next cell if half of current cell is moved out of screen
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         targetContentOffset.pointee = scrollView.contentOffset

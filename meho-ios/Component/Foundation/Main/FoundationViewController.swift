@@ -39,13 +39,8 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     private var features:[Feature] = []
 
     // MARK: MehoAnalytics
-    var screenName: String {
-        return "p_meho_foundations_home"
-    }
-
-    var screenClass: String {
-        return "p_meho_foundations_home"
-    }
+    let screenName = "p_meho_foundations_home"
+    let screenClass = "p_meho_foundations_home"
     
     // MARK: - Init
     init() {

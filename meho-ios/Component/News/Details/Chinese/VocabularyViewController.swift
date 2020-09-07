@@ -45,13 +45,8 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate, M
     private var player: AVPlayer?
 
     // MARK: MehoAnalytics
-    var screenName: String {
-        return "p_meho_stories_vocabulary"
-    }
-
-    var screenClass: String {
-        return "p_meho_stories_vocabulary"
-    }
+    let screenName = "p_meho_stories_vocabulary"
+    let screenClass = "p_meho_stories_vocabulary"
 
     // MARK: - Initializer
     @available(*, unavailable)

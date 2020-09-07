@@ -8,7 +8,15 @@
 
 import Foundation
 
-struct Idiom {
+struct Idiom: MehoContentAnalytics {
+    // MARK: - MehoContentAnalytics
+    let contentType = MehoAnalyticsContentType.idiom
+    var contentID: String {
+        return title
+    }
+    var contentTrackingID = UUID().uuidString
+
+    // MARK: - Main
     let title: String
     let explanation: String
     let backgroundImageURL: URL

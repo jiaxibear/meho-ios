@@ -8,7 +8,15 @@
 
 import Foundation
 
-struct Pictograph {
+struct Pictograph: MehoContentAnalytics {
+    // MARK: - MehoContentAnalytics
+    let contentType = MehoAnalyticsContentType.graphic
+    var contentID: String {
+        return content_en
+    }
+    var contentTrackingID = UUID().uuidString
+
+    // MARK: - Main
     var identifier = 0
     var content_en = ""
     var content_zh = ""

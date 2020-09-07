@@ -45,13 +45,13 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
             return "p_meho_talks_" + title.lowercased()
         } else if streamType == DialogStreamType.mostPopular {
             return "p_meho_talks_most_popular"
+        } else if streamType == DialogStreamType.featured {
+            return "p_meho_talks_featured"
         }
         return ""
     }
 
-    var screenClass: String {
-        return "p_meho_talks_details"
-    }
+    let screenClass = "p_meho_talks_details"
 
     // MARK: - Init
     init() {
@@ -108,6 +108,9 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         if screenName.count > 0 {
             Analytics.logScreenViewEvent(viewController: self)
         }
+        for index in dialogs.indices {
+            dialogs[index].contentTrackingID = UUID().uuidString
+        }
     }
 
     // MARK: - UICollectionViewDataSource
@@ -149,6 +152,12 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
             }
         }
         return UICollectionReusableView.init(frame: .zero)
+    }
+
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let dialog = dialogs[indexPath.item]
+        Analytics.logContentImpression(content: dialog, screenName: screenName)
     }
 
     // MARK: - UICollectionViewDelegateFlowLayout

@@ -164,6 +164,11 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         if screenClass.count > 0 && screenName.count > 0 {
             Analytics.logScreenViewEvent(viewController: self)
         }
+        if survivalPhraseCategoryIdentifier != nil {
+            for chapter in scoredChapters {
+                chapter.contentTrackingID = UUID().uuidString
+            }
+        }
     }
 
     // MARK: - UICollectionViewDataSource
@@ -193,6 +198,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         return CGSize.init(width: width, height: height)
     }
 
+    // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let chapterIndex = indexPath.item
         if chapterIndex == currentChapterIndex {
@@ -213,6 +219,10 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         if !hasAutoPlayedAudio && indexPath.item == 0, let expandedCell = cell as? ExpandedChapterCollectionViewCell {
             expandedCell.playAudio()
             hasAutoPlayedAudio = true;
+        }
+        if survivalPhraseCategoryIdentifier != nil {
+            let scoredChapter = scoredChapters[indexPath.item]
+            Analytics.logContentImpression(content: scoredChapter, screenName: screenName)
         }
     }
 

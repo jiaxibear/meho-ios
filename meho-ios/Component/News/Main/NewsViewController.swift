@@ -22,13 +22,9 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     private let verticalTopMargin = CGFloat(30)
     private let newsListTitle = NSLocalizedString("NewsTitle", comment: "")
 
-    var screenName: String {
-        return "p_meho_stories_home"
-    }
-
-    var screenClass: String {
-        return "p_meho_stories_home"
-    }
+    // MARK: MehoAnalytics
+    let screenName = "p_meho_stories_home"
+    let screenClass = "p_meho_stories_home"
 
     // MARK: UI
     private lazy var titleView: MainTabTitleView = {
@@ -91,6 +87,9 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Analytics.logScreenViewEvent(viewController: self)
+        for index in newsList.indices {
+            newsList[index].contentTrackingID = UUID().uuidString
+        }
     }
 
     func setupNewsCollectionView() {
@@ -144,7 +143,6 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
 
     // MARK: - UICollectionViewDataSource
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return newsList.count
     }
@@ -190,6 +188,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
 
+    // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let parameters = [
             MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_stories_home-view_story",
@@ -201,6 +200,11 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         let newsItem = newsList[indexPath.item]
         let detailedNewsViewController = DetailedNewsViewController.init(news: newsItem)
         navigationController?.pushViewController(detailedNewsViewController, animated: true)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let news = newsList[indexPath.item]
+        Analytics.logContentImpression(content: news, screenName: screenName)
     }
 
     // rendertype is returned as one of [XS, S, L, XL], usually we respect it. S, L, XL all come with images while XS don't.  If one news is not marked XS but still does not come with image, we should still degrade to XS

@@ -54,13 +54,8 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let dataFecther = ConversationDataFetcher.init()
 
     // MARK: MehoAnalytics
-    var screenName: String {
-        return "p_meho_talks_home"
-    }
-
-    var screenClass: String {
-        return "p_meho_talks_home"
-    }
+    let screenName = "p_meho_talks_home"
+    let screenClass = "p_meho_talks_home"
 
     // MARK: - Init
     init() {
@@ -171,6 +166,12 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Analytics.logScreenViewEvent(viewController: self)
+        for index in featuredDialogs.indices {
+            featuredDialogs[index].contentTrackingID = UUID().uuidString
+        }
+        for index in mostPopularDialogs.indices {
+            mostPopularDialogs[index].contentTrackingID = UUID().uuidString
+        }
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -193,6 +194,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
             let category = categories[indexPath.item]
             let dialogStreamViewController = DialogStreamViewController.init(category: category)
             navigationController?.pushViewController(dialogStreamViewController, animated: true)
+            break
         case .featuredDialogs:
             let parameters = [
                 MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_home-view_talk",
@@ -203,6 +205,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
             Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
             let dialog = featuredDialogs[indexPath.item]
             displayDialogModeSelectionViewController(dialog: dialog)
+            break
         case .mostPopluarDialogs:
             let parameters = [
                 MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_home-view_talk",
@@ -213,6 +216,22 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
             Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
             let dialog = mostPopularDialogs[indexPath.item]
             displayDialogModeSelectionViewController(dialog: dialog)
+            break
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let conversationSection = sections[indexPath.section]
+        switch conversationSection {
+        case .categories:
+            break
+        case .featuredDialogs:
+            let dialog = featuredDialogs[indexPath.item]
+            Analytics.logContentImpression(content: dialog, screenName: screenName)
+            break
+        case .mostPopluarDialogs:
+            let dialog = mostPopularDialogs[indexPath.item]
+            Analytics.logContentImpression(content: dialog, screenName: screenName)
             break
         }
     }

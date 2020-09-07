@@ -8,7 +8,15 @@
 
 import Foundation
 
-struct Dialog {
+struct Dialog: MehoContentAnalytics {
+    // MARK: - MehoContentAnalytics
+    var contentType = MehoAnalyticsContentType.talk
+    var contentID: String {
+        return identifier
+    }
+    var contentTrackingID = UUID().uuidString
+
+    // MARK: - Main
     var identifier = ""
     var title = ""
     var titleInLocalLanguage = ""

@@ -15,6 +15,12 @@ protocol MehoAnalytics {
     var screenClass: String { get }
 }
 
+protocol MehoContentAnalytics {
+    var contentType: MehoAnalyticsContentType { get }
+    var contentID: String { get }
+    var contentTrackingID: String { get }
+}
+
 extension Analytics {
     class func logScreenViewEvent(viewController: MehoAnalytics) {
         let parameters = [
@@ -22,5 +28,15 @@ extension Analytics {
             AnalyticsParameterScreenClass: viewController.screenClass,
         ]
         Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+    }
+
+    class func logContentImpression(content: MehoContentAnalytics, screenName: String) {
+        let parameters = [
+            AnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterContentID: content.contentID,
+            MehoAnalyticsUtils.MehoAnalyticsParameterContentType: content.contentType.rawValue,
+            MehoAnalyticsUtils.MehoAnalyticsParameterContentTrackingID: content.contentTrackingID
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventContentImpressions, parameters: parameters)
     }
 }

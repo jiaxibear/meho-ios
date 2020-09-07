@@ -230,13 +230,8 @@ class DuoFinalScoreViewController: UIViewController, MehoAnalytics {
     } ()
 
     // MARK: MehoAnalytics
-    var screenName: String {
-        return "p_meho_talks_report"
-    }
-
-    var screenClass: String {
-        return "p_meho_talks_report"
-    }
+    let screenName = "p_meho_talks_report"
+    let screenClass = "p_meho_talks_report"
 
     // MARK: - Init
     init() {

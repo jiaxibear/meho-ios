@@ -38,13 +38,8 @@ class DifficultyViewController: UIViewController, UITableViewDelegate, UITableVi
     var delegate:DifficultyViewControllerDelegate?
 
     // MARK: MehoAnalytics
-    var screenName: String {
-        return "p_meho_talks_diffculty"
-    }
-
-    var screenClass: String {
-        return "p_meho_talks_diffculty"
-    }
+    let screenName = "p_meho_talks_diffculty"
+    let screenClass = "p_meho_talks_diffculty"
 
     // MARK: - Init
     init() {

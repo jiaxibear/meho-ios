@@ -96,13 +96,8 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     } ()
 
     // MARK: MehoAnalytics
-    var screenName: String {
-        return "p_meho_expressions_home"
-    }
-
-    var screenClass: String {
-        return "p_meho_expressions_home"
-    }
+    let screenName = "p_meho_expressions_home"
+    let screenClass =  "p_meho_expressions_home"
 
     // MARK: - Init
     init() {

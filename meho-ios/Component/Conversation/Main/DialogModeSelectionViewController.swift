@@ -262,13 +262,8 @@ class DialogModeSelectionViewController: UIViewController, MehoAnalytics {
     var delegate: DialogModeSelectionViewControllerDelegate?
 
     // MARK: MehoAnalytics
-    var screenName: String {
-        return "p_meho_talks_preview"
-    }
-
-    var screenClass: String {
-        return "p_meho_talks_preview"
-    }
+    let screenName = "p_meho_talks_preview"
+    let screenClass = "p_meho_talks_preview"
 
     // MARK: - Init
     init() {

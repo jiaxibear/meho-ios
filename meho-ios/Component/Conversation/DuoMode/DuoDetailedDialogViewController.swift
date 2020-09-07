@@ -141,13 +141,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     } ()
 
     // MARK: MehoAnalytics
-    var screenName: String {
-        return "p_meho_talks_duo"
-    }
-
-    var screenClass: String {
-        return "p_meho_talks_duo"
-    }
+    let screenName = "p_meho_talks_duo"
+    let screenClass = "p_meho_talks_duo"
 
     // MARK: - Init
     init() {

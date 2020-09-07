@@ -47,13 +47,8 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
     } ()
 
     // MARK: MehoAnalytics
-    var screenName: String {
-        return "p_meho_foundations_idioms"
-    }
-
-    var screenClass: String {
-        return "p_meho_foundations_idioms"
-    }
+    let screenName = "p_meho_foundations_idioms"
+    let screenClass = "p_meho_foundations_idioms"
 
     // MARK: Data Models
     private lazy var idioms: [Idiom] = {
@@ -113,6 +108,9 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Analytics.logScreenViewEvent(viewController: self)
+        for index in idioms.indices {
+            idioms[index].contentTrackingID = UUID().uuidString
+        }
     }
 
     // MARK: - UICollectionViewDataSource
@@ -134,5 +132,11 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.init(top: 0, left: cardInterSpacing, bottom: 0, right: cardInterSpacing)
+    }
+
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let idiom = idioms[indexPath.item]
+        Analytics.logContentImpression(content: idiom, screenName: screenName)
     }
 }
