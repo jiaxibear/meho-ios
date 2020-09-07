@@ -26,6 +26,7 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
     private let questionsCollectionNumberOfCellsInRow = 3
     private let questionsCollectionViewMinimumLineSpacing = CGFloat(26)
     private let questionsCollectionViewCellTitleFontSize = CGFloat(14)
+    private let minNumberOfSelectedQuestion = 3
 
     // MARK: - Properties
     // MARK: Model
@@ -172,14 +173,13 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
     }
 
     func updateNextButton() {
-        var hasSelectedQuestion = false
+        var numberOfSelectedQuestion = 0
         for question in questions {
             if question.isSelected {
-                hasSelectedQuestion = true
-                break
+                numberOfSelectedQuestion = numberOfSelectedQuestion + 1
             }
         }
-        nextButton.isEnabled = hasSelectedQuestion
+        nextButton.isEnabled = numberOfSelectedQuestion >= minNumberOfSelectedQuestion
         if nextButton.isEnabled {
             nextButton.backgroundColor = .skyBlue
         } else {
