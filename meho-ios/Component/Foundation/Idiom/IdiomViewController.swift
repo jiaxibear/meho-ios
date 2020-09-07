@@ -32,9 +32,9 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
         idiomCollectionView.backgroundColor = .white
         idiomCollectionView.dataSource = self
         idiomCollectionView.delegate = self
-        idiomCollectionView.contentInset = UIEdgeInsets.init(top: 0, left: cardHorizontalInsets, bottom: 0, right: cardHorizontalInsets)
         idiomCollectionView.showsHorizontalScrollIndicator = false
         idiomCollectionView.register(IdiomCollectionViewCell.self, forCellWithReuseIdentifier:idiomCellReuseIdentifier)
+        idiomCollectionView.isPagingEnabled = true
         return idiomCollectionView
     } ()
 
@@ -131,17 +131,8 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
         return CGSize.init(width: cellWidth, height: cellHeight)
     }
 
-    // Scroll to next cell if half of current cell is moved out of screen
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        targetContentOffset.pointee = scrollView.contentOffset
-        var indexPaths = idiomCollectionView.indexPathsForVisibleItems
-        indexPaths.sort()
-        var index = indexPaths.first!
-        let currentCell = idiomCollectionView.cellForItem(at: index)!
-        let position = idiomCollectionView.contentOffset.x - currentCell.frame.origin.x
-        if position > (currentCell.frame.size.width / 2) {
-           index.row = index.row + 1
-        }
-        idiomCollectionView.scrollToItem(at: index, at: .left, animated: true )
+    // MARK: - UICollectionViewDelegateFlowLayout
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.init(top: 0, left: cardInterSpacing, bottom: 0, right: cardInterSpacing)
     }
 }

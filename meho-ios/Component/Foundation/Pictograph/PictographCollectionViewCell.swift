@@ -101,23 +101,16 @@ class PictographCollectionViewCell: UICollectionViewCell {
         if let pinyinLabelText = self.enToPinyinDict[enLabelText] {
             contentPinyinLabel.text = pinyinLabelText
         } else {
-            contentPinyinLabel.text = "shoot"
+            contentPinyinLabel.text = ""
         }
 
         contentEnLabel.textColor = .white
-        contentEnLabel.sizeToFit()
 
         let selectedCardBackgroundImageName = shouldReverse
             ? cardBackgroundReversedImageName : cardBackgroundImageName
         let cardBackgroundImage = UIImage.init(named: selectedCardBackgroundImageName)
         cardBackgroundImageView.image = cardBackgroundImage
 
-
         gifImageView.loadGifFromUrl(url: pictograph.gifImageURL)
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // Add stuff for rending that need view to be already setup
     }
 }

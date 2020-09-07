@@ -13,7 +13,7 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
 
     // MARK: - Constant
     private let navigationHeaderText = "Pictography"
-    private let cardHorizontalInsets = CGFloat(17)
+    private let cardHorizontalInsets = CGFloat(27)
     private let cardInterSpacing = CGFloat(14)
     private let pictographCellReuseIdentifier = "pictograph"
     private let navTitleLabelFontSize = CGFloat(18)
@@ -107,7 +107,7 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
 
         // collection layout
         pictographCollectionViewFlowLayout.scrollDirection = .horizontal
-        pictographCollectionViewFlowLayout.minimumInteritemSpacing = cardInterSpacing
+        pictographCollectionViewFlowLayout.minimumLineSpacing = cardInterSpacing
         pictographCollectionView.contentInset = UIEdgeInsets.init(top: 0, left: cardHorizontalInsets, bottom: 0, right: cardHorizontalInsets)
 
         // Sets up cell data
@@ -139,14 +139,16 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
     // Scroll to next cell if half of current cell is moved out of screen
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         targetContentOffset.pointee = scrollView.contentOffset
-        var indexPaths = pictographCollectionView.indexPathsForVisibleItems
-        indexPaths.sort()
-        var index = indexPaths.first!
-        let currentCell = pictographCollectionView.cellForItem(at: index)!
-        let position = pictographCollectionView.contentOffset.x - currentCell.frame.origin.x
-        if position > (currentCell.frame.size.width / 2) {
-           index.row = index.row + 1
+        let itemWidth = scrollView.bounds.width * 0.8 + cardInterSpacing
+        var index: Int
+        if velocity.x > 0 {
+            index = min(Int((scrollView.contentOffset.x + itemWidth) / itemWidth), pictographList.count - 1)
+        } else if velocity.x < 0 {
+            index = min(Int((scrollView.contentOffset.x) / itemWidth), pictographList.count - 1)
+        } else {
+            index = min(Int((scrollView.contentOffset.x + itemWidth / 2) / itemWidth), pictographList.count - 1)
         }
-        pictographCollectionView.scrollToItem(at: index, at: .left, animated: true )
+        let indexPath = IndexPath.init(item: index, section: 0)
+        pictographCollectionView.scrollToItem(at: indexPath, at: .left, animated: true )
     }
 }

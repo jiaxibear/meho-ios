@@ -13,16 +13,18 @@ extension UIImageView {
 
     public func loadGifFromLocal(name: String) {
         DispatchQueue.global().async {
+            let image = UIImage.loadGifFromLocal(name: name)
             DispatchQueue.main.async {
-                self.image = UIImage.loadGifFromLocal(name: name)
+                self.image = image
             }
         }
     }
 
     public func loadGifFromUrl(url: String) {
         DispatchQueue.global().async {
+            let image = UIImage.loadGifFromUrl(url: url)
             DispatchQueue.main.async {
-                self.image = UIImage.loadGifFromUrl(url: url)
+                self.image = image
             }
         }
     }

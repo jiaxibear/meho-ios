@@ -39,7 +39,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     private lazy var storiesCollectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = cardInsets
+        layout.minimumLineSpacing = cardInsets * 2
         return layout
     } ()
     
@@ -47,12 +47,12 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         let collectionView = UICollectionView.init(frame: .zero, collectionViewLayout:storiesCollectionViewFlowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets.init(top: 0, left: cardInsets, bottom: 0, right: cardInsets)
         // Sets up cell data
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(MehoCoverIntroCollectionViewCell.self, forCellWithReuseIdentifier:introCellReuseIdentifier)
+        collectionView.isPagingEnabled = true
         return collectionView
     } ()
 
@@ -159,24 +159,27 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         return cell
     }
 
+    // MARK: - UICollectionViewDelegateFlowLayout
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.init(top: 0, left: cardInsets, bottom: 0, right: cardInsets)
+    }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.bounds.width - 2 * cardInsets
         let height = collectionView.bounds.height
         return CGSize(width: width, height: height)
     }
 
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        targetContentOffset.pointee = scrollView.contentOffset
-        var indexPaths = storyCollectionView.indexPathsForVisibleItems
-        indexPaths.sort()
-        var index = indexPaths.first!
-        let currentCell = storyCollectionView.cellForItem(at: index)!
-        let position = storyCollectionView.contentOffset.x - currentCell.frame.origin.x
-        if position > (currentCell.frame.size.width / 2) {
-           index.row = index.row + 1
+    // MARK: - UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let width = scrollView.frame.width
+        if width == 0 {
+            return
         }
-        storyCollectionView.scrollToItem(at: index, at: .left, animated: true )
-        pageControl.currentPage = Int(index.row)
+        let offSet = scrollView.contentOffset.x
+        let horizontalCenter = width / 2
+
+        pageControl.currentPage = Int(offSet + horizontalCenter) / Int(width)
     }
 
     @objc
