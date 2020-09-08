@@ -147,12 +147,12 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         if kind == UICollectionView.elementKindSectionHeader {
             if indexPath.section == 0 {
                 if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier, for: indexPath) as? TwoLineTitleHeaderCollectionReusableView {
-                    headerView.setTitle(titleEn: news.title_en, titleZh: news.title_zh)
+                    headerView.setHeader(titleEn: news.title_en, titleZh: news.title_zh, maybeDate: news.date)
                     return headerView
                 }
             } else if indexPath.section == 1 {
                 if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: vocabularyRecapHeaderCellReuseIdentifier, for: indexPath) as? OneLineTitleHeaderCollectionReusableView {
-                    headerView.setTitle(title: recapListTitle)
+                    headerView.setHeader(title: recapListTitle)
                     return headerView
                 }
             }
@@ -174,9 +174,9 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {
-            return CGSize.init(width: 0, height: TwoLineTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, titleEn: news.title_en, titleZh: news.title_zh))
+            return CGSize.init(width: 0, height: TwoLineTitleHeaderCollectionReusableView.heightForHeader(with :collectionView.contentSize.width, titleEn: news.title_en, titleZh: news.title_zh, maybeDate:news.date))
         } else { // assuming only two sections!
-            return CGSize.init(width: 0, height: OneLineTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, title: news.title_en))
+            return CGSize.init(width: 0, height: OneLineTitleHeaderCollectionReusableView.heightForHeader(with :collectionView.contentSize.width, title: news.title_en))
         }
 
     }

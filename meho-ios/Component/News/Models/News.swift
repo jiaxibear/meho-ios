@@ -26,4 +26,5 @@ struct News: MehoContentAnalytics {
     var coverImageURL:URL?
     var image_bucket:String?
     var image_key:String?
+    var date = ""
 }

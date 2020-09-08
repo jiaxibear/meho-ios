@@ -144,14 +144,16 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         if kind == UICollectionView.elementKindSectionHeader {
             let detailedNewsSections = sections[indexPath.section]
             var sectionTitle = ""
+            var sectionDate = ""
             switch detailedNewsSections {
             case .newsChapters:
                 sectionTitle = news.title_en
+                sectionDate = news.date
 //            case .relatedNewsList:
 //                sectionTitle = relatedNewsListTitle
             }
             if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier, for: indexPath) as? OneLineTitleHeaderCollectionReusableView {
-                headerView.setTitle(title: sectionTitle)
+                headerView.setHeader(title: sectionTitle, maybeDate: sectionDate)
                 return headerView
             }
         }
@@ -161,13 +163,15 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let detailedNewsSections = sections[section]
         var sectionTitle = ""
+        var sectionDate = ""
         switch detailedNewsSections {
         case .newsChapters:
             sectionTitle = news.title_en
+            sectionDate = news.date
 //        case .relatedNewsList:
 //            sectionTitle = relatedNewsListTitle
         }
-        return CGSize.init(width: 0, height: OneLineTitleHeaderCollectionReusableView.heightForTitle(with :collectionView.contentSize.width, title: sectionTitle))
+        return CGSize.init(width: 0, height: OneLineTitleHeaderCollectionReusableView.heightForHeader(with :collectionView.contentSize.width, title: sectionTitle, maybeDate: sectionDate))
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

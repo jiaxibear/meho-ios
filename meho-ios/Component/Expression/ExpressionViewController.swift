@@ -217,7 +217,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
                 title = NSLocalizedString("TrendingPhrasesTitle", comment: "")
                 break
             }
-            headerView.setTitle(title: title)
+            headerView.setHeader(title: title)
             return headerView
         }
         return UICollectionReusableView.init(frame: .zero)

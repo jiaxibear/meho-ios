@@ -136,6 +136,7 @@ class NewsDataFetcher: NSObject {
                 news.title_en = article.titleEn
                 news.title_zh = article.titleZh
                 news.reason = article.whyYouShouldReadThisArticle
+                news.date = article.createdAt
                 if let sourcer = article.sourcer {
                     news.source = sourcer
                 }
