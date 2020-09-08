@@ -240,7 +240,16 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             navigationController?.pushViewController(detailedNewsViewController, animated: true)
         } else if expressionSection == .trendingPhrases {
             let trendingPhraseWrapper = trendingPhrases[indexPath.item]
-            trendingPhraseWrapper.isExpanded = !trendingPhraseWrapper.isExpanded
+            let newExpandedState = !trendingPhraseWrapper.isExpanded
+            trendingPhraseWrapper.isExpanded = newExpandedState
+            let controlName = newExpandedState ? "expand_phrase" : "collapse_phrase"
+            let parameters = [
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlID: screenName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlName: controlName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+            ]
+            Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
             UIView.performWithoutAnimation {
                 collectionView.reloadItems(at: [indexPath])
             }

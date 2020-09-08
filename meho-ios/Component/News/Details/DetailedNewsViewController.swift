@@ -219,7 +219,9 @@ class DetailedNewsViewController: UIViewController {
     @objc
     func didTapLikeButton() {
         guard let userId = AWSMobileClient.default().userSub else { return }
+        let screenName = languageToggleButton.isOn ? "p_meho_stories_chinese": "p_meho_stories_english"
         if self.likeButton.isSelected {
+            Analytics.logContentAction(content: news, screenName: screenName, action: .unBookmark)
             userDataFetcher.deleteUserItemSave(userId: userId, itemId: self.news.identifier) { (unsaveSuccess, error) in
                 if (error == nil && unsaveSuccess) {
                      DispatchQueue.main.async {
@@ -229,6 +231,7 @@ class DetailedNewsViewController: UIViewController {
                 }
             }
         } else {
+            Analytics.logContentAction(content: news, screenName: screenName, action: .bookmark)
             userDataFetcher.createUserItemSave(userId: userId, itemId: self.news.identifier, itemType: "ARTICLE") { (saveSuccess, error) in
                 if (error == nil && saveSuccess) {
                      DispatchQueue.main.async {

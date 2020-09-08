@@ -47,7 +47,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private var hasPlayedAudio = false
     private var isYourRoleFirst = false
     private let conversationDataFetcher = ConversationDataFetcher.init()
-    private let dialogID: String?
+    private let dialog: Dialog
     private var scoreA: Int?
     private var scoreB: Int?
 
@@ -159,19 +159,14 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         fatalError("Use init(scoredChapters: [ScoredChapter])")
     }
 
-    init(scoredChapters: [ScoredChapter]) {
+    init(scoredChapters: [ScoredChapter] = [], dialog: Dialog) {
         self.scoredChapters = scoredChapters
-        self.dialogID = nil
+        self.dialog = dialog
         super.init(nibName: nil, bundle: nil)
         setUpNavigationItem()
-        loadFirstChapter()
-    }
-
-    init(dialogID: String) {
-        self.scoredChapters = []
-        self.dialogID = dialogID
-        super.init(nibName: nil, bundle: nil)
-        setUpNavigationItem()
+        if scoredChapters.count > 0 {
+            loadFirstChapter()
+        }
     }
 
     override func viewDidLoad() {
@@ -187,8 +182,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         actionButtonsContainerView.addSubview(nextButton)
         view.addSubview(chaptersCollectionView)
 
-        if dialogID != nil {
-            conversationDataFetcher.fetchDetailedDialog(dialogID: dialogID!) { (dialog, error) in
+        if scoredChapters.count == 0 {
+            conversationDataFetcher.fetchDetailedDialog(dialogID: dialog.identifier) { (dialog, error) in
                 if (dialog != nil && error == nil) {
                     self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in
                         return ScoredChapter.init(chapter: chapter)
@@ -327,6 +322,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     // MARK: - DuoYourRoleCollectionViewCellDelegate
     func duoYourRoleCollectionViewCellDidTapSpeakerButton(_ view: DuoYourRoleCollectionViewCell) {
+        Analytics.logContentAction(content: dialog, screenName: screenName, action: .play)
         playCurrentChapter()
     }
 
@@ -343,6 +339,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     // MARK: - Private
     @objc func didTapReplayButton() {
         if audioFileURL != nil && FileManager.default.fileExists(atPath: audioFileURL!.path) {
+            Analytics.logContentAction(content: dialog, screenName: screenName, action: .replay)
             replayButton.isSelected = true
             recordButton.isSelected = false
             let playerItem = AVPlayerItem.init(url: audioFileURL!)
@@ -356,6 +353,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     @objc
     func didTapRecordButton() {
+        Analytics.logContentAction(content: dialog, screenName: screenName, action: .record)
         recordButton.isSelected = true
         actionLabel.isHidden = false
         actionLabel.text = NSLocalizedString("RecordActionText", comment: "")

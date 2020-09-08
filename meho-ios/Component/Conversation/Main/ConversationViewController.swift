@@ -237,21 +237,21 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     }
 
     // MARK: - DialogModeSelectionViewControllerDelegate
-    func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialogID: String) {
+    func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialog: Dialog) {
         dismiss(animated: true) {
-            let duoDetailedDialogViewController = DuoDetailedDialogViewController.init(dialogID: dialogID)
+            let duoDetailedDialogViewController = DuoDetailedDialogViewController.init(dialog: dialog)
             self.navigationController?.pushViewController(duoDetailedDialogViewController, animated: true)
         }
     }
 
-    func dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialogID: String) {
+    func dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialog: Dialog) {
         dismiss(animated: true) {
-            let detailedDialogViewController = DetailedDialogViewController.init(dialogID: dialogID)
+            let detailedDialogViewController = DetailedDialogViewController.init(dialog: dialog)
             self.navigationController?.pushViewController(detailedDialogViewController, animated: true)
         }
     }
 
-    func dialogModeSelectionViewControllerDidTapSaveButton(dialogID: String) {
+    func dialogModeSelectionViewControllerDidTapSaveButton(dialog: Dialog) {
         view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
     }
 

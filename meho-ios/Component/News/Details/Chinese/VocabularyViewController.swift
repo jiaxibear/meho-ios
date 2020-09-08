@@ -61,6 +61,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate, M
 
     init(vocabulary: Vocabulary, isSaved: Bool) {
         self.vocabulary = vocabulary
+        self.vocabulary.contentTrackingID = UUID().uuidString
         self.isVocabularySaved = isSaved
         super.init(nibName: nil, bundle: nil)
     }
@@ -136,7 +137,6 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate, M
     }
 
     func setupLikeButton() {
-
         likeButton.translatesAutoresizingMaskIntoConstraints = false
         if isVocabularySaved {
             likeButton.setImage(newsLikeHeartFilledImage, for: .normal)
@@ -231,6 +231,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate, M
     func didTapLikeButton() {
         guard let userId = AWSMobileClient.default().userSub else { return }
         if self.isVocabularySaved {
+            Analytics.logContentAction(content: vocabulary, screenName: screenName, action: .unBookmark)
             userDataFecther.deleteUserVocabularySave(userId: userId, vocabularyId: self.vocabulary.identifier) { (unsaveSuccess, error) in
                 if (error == nil && unsaveSuccess) {
                      DispatchQueue.main.async {
@@ -240,6 +241,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate, M
                 }
             }
         } else {
+            Analytics.logContentAction(content: vocabulary, screenName: screenName, action: .bookmark)
             userDataFecther.createUserVocabularySave(userId: userId, vocabularyId: self.vocabulary.identifier) { (saveSuccess, error) in
                 if (error == nil && saveSuccess) {
                      DispatchQueue.main.async {

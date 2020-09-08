@@ -10,9 +10,9 @@ import UIKit
 import FirebaseAnalytics
 
 protocol DialogModeSelectionViewControllerDelegate: AnyObject {
-    func dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialogID: String)
-    func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialogID: String)
-    func dialogModeSelectionViewControllerDidTapSaveButton(dialogID: String)
+    func dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialog: Dialog)
+    func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialog: Dialog)
+    func dialogModeSelectionViewControllerDidTapSaveButton(dialog: Dialog)
 }
 
 class DialogModeSelectionViewController: UIViewController, MehoAnalytics {
@@ -420,7 +420,7 @@ class DialogModeSelectionViewController: UIViewController, MehoAnalytics {
             MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
-        delegate?.dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialogID: dialog.identifier)
+        delegate?.dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialog: dialog)
     }
 
     @objc
@@ -432,11 +432,11 @@ class DialogModeSelectionViewController: UIViewController, MehoAnalytics {
             MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
-        delegate?.dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialogID: dialog.identifier)
+        delegate?.dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialog: dialog)
     }
 
     @objc
     func didTapSaveButton() {
-        delegate?.dialogModeSelectionViewControllerDidTapSaveButton(dialogID: dialog.identifier)
+        delegate?.dialogModeSelectionViewControllerDidTapSaveButton(dialog: dialog)
     }
 }

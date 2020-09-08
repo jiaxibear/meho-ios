@@ -18,11 +18,22 @@ enum MehoAnalyticsContentType: String {
     case expression = "EXPRESSION"
     case idiom = "IDIOM"
     case graphic = "GRAPHIC"
+    case vocabulary = "VOCABULARY"
+}
+
+enum MehoAnalyticsContentAction: String {
+    case play = "PLAY"
+    case bookmark = "BOOKMARK"
+    case unBookmark = "UNBOOKMARK"
+    case adjustPlay = "ADJUSTPLAY"
+    case record = "RECORD"
+    case replay = "REPLAY"
 }
 
 class MehoAnalyticsUtils: NSObject {
     static let MehoAnalyticsEventInteractions = "control_interactions"
     static let MehoAnalyticsEventContentImpressions = "content_impressions"
+    static let MehoAnalyticsEventContentActions = "content_actions"
     static let MehoAnalyticsParameterInteractionType = "interaction_type"
     static let MehoAnalyticsParameterControlName = "control_name"
     static let MehoAnalyticsParameterControlID = "control_id"
@@ -30,4 +41,5 @@ class MehoAnalyticsUtils: NSObject {
     static let MehoAnalyticsParameterContentID = "content_id"
     static let MehoAnalyticsParameterContentType = "content_type"
     static let MehoAnalyticsParameterContentTrackingID = "content_tracking_id"
+    static let MehoAnalyticsParameterContentActionCategory = "action_category"
 }

@@ -22,7 +22,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     private let conversationDataFetcher = ConversationDataFetcher.init()
     private let expressionDataFetcher = ExpressionDataFetcher.init()
     private var scoredChapters: [ScoredChapter] = []
-    private let dialogID: String!
+    private let dialog: Dialog!
     private let survivalPhraseCategoryIdentifier: String!
     private var currentChapterIndex = 0
     private var hasAutoPlayedAudio = false
@@ -33,7 +33,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         if survivalPhraseCategoryIdentifier != nil {
             return "p_meho_expressions_" + survivalPhraseCategoryIdentifier.lowercased()
         }
-        if dialogID != nil {
+        if dialog != nil {
             return "p_meho_talks_single"
         }
         return ""
@@ -43,7 +43,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         if survivalPhraseCategoryIdentifier != nil {
             return "p_meho_expressions_details"
         }
-        if dialogID != nil {
+        if dialog != nil {
             return "p_meho_talks_single"
         }
         return ""
@@ -62,7 +62,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         chaptersCollectionView.backgroundColor = .white
         chaptersCollectionView.register(CollapsedChapterCollectionViewCell.self, forCellWithReuseIdentifier: collapsedChapterCollectionViewCellReuseIdentifier)
         chaptersCollectionView.register(ExpandedChapterCollectionViewCell.self, forCellWithReuseIdentifier: expandedChapterCollectionViewCellReuseIdentifier)
-        if self.dialogID != nil {
+        if dialog != nil {
             chaptersCollectionView.register(DuoModeFooterCollectionResuableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: duoModeFooterCollectionResuableViewReuseIdentifier)
         }
         chaptersCollectionView.delegate = self
@@ -85,8 +85,8 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         fatalError("Use init(dialogID: String)")
     }
 
-    init(dialogID: String) {
-        self.dialogID = dialogID
+    init(dialog: Dialog) {
+        self.dialog = dialog
         survivalPhraseCategoryIdentifier = nil
         displayScoreSwitch = nil
         super.init(nibName: nil, bundle: nil)
@@ -94,7 +94,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
 
     init(survivalPhraseCategoryIdentifier: String, title: String) {
         self.survivalPhraseCategoryIdentifier = survivalPhraseCategoryIdentifier
-        dialogID = nil
+        dialog = nil
         displayScoreSwitch = DisplayScoreSwitch.init(frame: .zero)
         super.init(nibName: nil, bundle: nil)
         self.title = title
@@ -112,8 +112,8 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
             let displayScoreBarButtonItem = UIBarButtonItem.init(customView: displayScoreSwitch!)
             navigationItem.rightBarButtonItem = displayScoreBarButtonItem
         }
-        if dialogID != nil {
-            conversationDataFetcher.fetchDetailedDialog(dialogID: dialogID) { (dialog, error) in
+        if dialog != nil {
+            conversationDataFetcher.fetchDetailedDialog(dialogID: dialog.identifier) { (dialog, error) in
                 if (dialog != nil && error == nil) {
                     self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in
                         return ScoredChapter.init(chapter: chapter)
@@ -204,6 +204,13 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         if chapterIndex == currentChapterIndex {
             return
         }
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "expand_phrase",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         let previousCurrentChapterIndex = currentChapterIndex
         currentChapterIndex = indexPath.item
         UIView.performWithoutAnimation {
@@ -227,7 +234,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if scoredChapters.count == 0 || dialogID == nil {
+        if scoredChapters.count == 0 || dialog == nil {
             return CGSize.zero
         }
         let height = DuoModeFooterCollectionResuableView.viewHeight
@@ -253,7 +260,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
             MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
-        let duoDetailerDialogViewController = DuoDetailedDialogViewController.init(scoredChapters: scoredChapters)
+        let duoDetailerDialogViewController = DuoDetailedDialogViewController.init(scoredChapters: scoredChapters, dialog: dialog)
         navigationController?.pushViewController(duoDetailerDialogViewController, animated: true)
     }
 
@@ -262,6 +269,14 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     func displayScoreSwitchValueChanged() {
         let shouldDisplayScore = displayScoreSwitch?.toggleSwitch.isOn
         if shouldDisplayScore != nil {
+            let controlName = shouldDisplayScore! ? "toggle_score_on" : "toggle_score_off"
+            let parameters = [
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlID: screenName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlName: controlName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+            ]
+            Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
             for scoredChapter in scoredChapters {
                 scoredChapter.shouldDisplayScore = shouldDisplayScore!
                 chaptersCollectionView.reloadData()

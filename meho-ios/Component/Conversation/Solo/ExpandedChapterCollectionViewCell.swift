@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import TAISDK
+import FirebaseAnalytics
 
 enum AudioPlaySpeed : Float {
     case normal = 1.0

@@ -8,7 +8,15 @@
 
 import Foundation
 
-struct Vocabulary {
+struct Vocabulary: MehoContentAnalytics {
+    // MARK: - MehoContentAnalytics
+    let contentType = MehoAnalyticsContentType.vocabulary
+    var contentID: String {
+        return identifier
+    }
+    var contentTrackingID = UUID().uuidString
+
+    // MARK: - Main
     var identifier = ""
     var content_pinyin = ""
     var content_zh = ""

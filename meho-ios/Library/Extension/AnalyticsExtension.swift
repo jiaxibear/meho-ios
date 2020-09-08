@@ -39,4 +39,15 @@ extension Analytics {
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventContentImpressions, parameters: parameters)
     }
+
+    class func logContentAction(content: MehoContentAnalytics, screenName: String, action: MehoAnalyticsContentAction) {
+        let parameters = [
+            AnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterContentID: content.contentID,
+            MehoAnalyticsUtils.MehoAnalyticsParameterContentType: content.contentType.rawValue,
+            MehoAnalyticsUtils.MehoAnalyticsParameterContentTrackingID: content.contentTrackingID,
+            MehoAnalyticsUtils.MehoAnalyticsParameterContentActionCategory: action.rawValue
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventContentActions, parameters: parameters)
+    }
 }
