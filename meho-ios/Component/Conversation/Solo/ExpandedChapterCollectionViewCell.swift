@@ -9,7 +9,6 @@
 import UIKit
 import AVFoundation
 import TAISDK
-import FirebaseAnalytics
 
 enum AudioPlaySpeed : Float {
     case normal = 1.0
@@ -30,6 +29,13 @@ enum AudioPlaySpeed : Float {
             return .normal
         }
     }
+}
+
+protocol ExpandedChapterCollectionViewCellDelegate : AnyObject {
+    func expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: ScoredChapter)
+    func expandedChapterCollectionViewCellDidTapReplayButton(scoredChapter: ScoredChapter)
+    func expandedChapterCollectionViewCellDidTapRecordButton(scoredChapter: ScoredChapter)
+    func expandedChapterCollectionViewCellDidTapSpeedButton(scoredChapter: ScoredChapter)
 }
 
 class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AudioVisualizerViewDelegte {
@@ -230,6 +236,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
     private var currentAudioPlaySpeed = AudioPlaySpeed.normal
     private var timer: Timer?
     private let contentEvaluator = ContentEvaluator.init()
+    weak var delegate: ExpandedChapterCollectionViewCellDelegate?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -450,6 +457,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
             player?.rate = currentAudioPlaySpeed.rawValue
             actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
             actionLabel.isHidden = false
+            delegate?.expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: scoredChapter)
         }
     }
 
@@ -464,6 +472,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
             player?.play()
             actionLabel.isHidden = false
             actionLabel.text = NSLocalizedString("ReplayActionText", comment: "")
+            delegate?.expandedChapterCollectionViewCellDidTapReplayButton(scoredChapter: scoredChapter)
         }
     }
 
@@ -479,6 +488,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         startRecording()
         actionButtonsContainerView.isHidden = true
         audioVisualizerView.isHidden = false
+        delegate?.expandedChapterCollectionViewCellDidTapRecordButton(scoredChapter: scoredChapter)
     }
 
     @objc func didTapSpeedButton() {
@@ -487,6 +497,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         if player != nil {
             player?.rate = currentAudioPlaySpeed.rawValue
         }
+        delegate?.expandedChapterCollectionViewCellDidTapSpeedButton(scoredChapter: scoredChapter)
     }
 
     @objc

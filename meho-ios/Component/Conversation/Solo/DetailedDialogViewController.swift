@@ -10,8 +10,7 @@ import UIKit
 import AVFoundation
 import FirebaseAnalytics
 
-class DetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DuoModeFooterCollectionResuableViewDelegate, MehoAnalytics {
-
+class DetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DuoModeFooterCollectionResuableViewDelegate, MehoAnalytics, ExpandedChapterCollectionViewCellDelegate {
     // MARK: - Constants
     private let collapsedChapterCollectionViewCellReuseIdentifier = "collapsedChapterCollectionViewCellReuseIdentifier"
     private let expandedChapterCollectionViewCellReuseIdentifier = "expandedChapterCollectionViewCellReuseIdentifier"
@@ -180,6 +179,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         if (indexPath.item == currentChapterIndex) {
             let expandedChapterCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: expandedChapterCollectionViewCellReuseIdentifier, for: indexPath) as! ExpandedChapterCollectionViewCell
             expandedChapterCollectionViewCell.setScoredChapter(scoredChapters[currentChapterIndex], isSaveButtonHidden: true)
+            expandedChapterCollectionViewCell.delegate = self
             return expandedChapterCollectionViewCell
         }
         let collapsedChapterCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: collapsedChapterCollectionViewCellReuseIdentifier, for: indexPath) as! CollapsedChapterCollectionViewCell
@@ -262,6 +262,27 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         let duoDetailerDialogViewController = DuoDetailedDialogViewController.init(scoredChapters: scoredChapters, dialog: dialog)
         navigationController?.pushViewController(duoDetailerDialogViewController, animated: true)
+    }
+
+    // MARK: - ExpandedChapterCollectionViewCellDelegate
+    func expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: ScoredChapter) {
+        let content: MehoContentAnalytics = dialog ?? scoredChapter
+        Analytics.logContentAction(content: content, screenName: screenName, action: .play)
+    }
+
+    func expandedChapterCollectionViewCellDidTapReplayButton(scoredChapter: ScoredChapter) {
+        let content: MehoContentAnalytics = dialog ?? scoredChapter
+        Analytics.logContentAction(content: content, screenName: screenName, action: .replay)
+    }
+
+    func expandedChapterCollectionViewCellDidTapRecordButton(scoredChapter: ScoredChapter) {
+        let content: MehoContentAnalytics = dialog ?? scoredChapter
+        Analytics.logContentAction(content: content, screenName: screenName, action: .record)
+    }
+
+    func expandedChapterCollectionViewCellDidTapSpeedButton(scoredChapter: ScoredChapter) {
+        let content: MehoContentAnalytics = dialog ?? scoredChapter
+        Analytics.logContentAction(content: content, screenName: screenName, action: .adjustPlay)
     }
 
     // MARK: - Private
