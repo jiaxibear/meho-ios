@@ -8,6 +8,11 @@
 
 import UIKit
 import AVFoundation
+import FirebaseAnalytics
+
+protocol IdiomCollectionViewCellDelegate: AnyObject {
+    func idiomCollectionViewCellDidTapPlayButton(idiom: Idiom)
+}
 
 class IdiomCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
@@ -23,8 +28,10 @@ class IdiomCollectionViewCell: UICollectionViewCell {
     private let wordStackViewSpacing = CGFloat(4)
 
     // MARK: - Properties
+    weak var delegate: IdiomCollectionViewCellDelegate?
     private var audioURL: URL?
     private var player: AVPlayer?
+    private var idiom: Idiom!
     private lazy var backgroundImageView: WebImageView = {
         let backgroundImageView = WebImageView.init(frame: .zero)
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -159,6 +166,7 @@ class IdiomCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Internal
     func setIdiom(_ idiom: Idiom) {
+        self.idiom = idiom
         backgroundImageView.imageURL = idiom.backgroundImageURL
         titleLabel.text = idiom.title
         explanationLabel.text = idiom.explanation
@@ -191,6 +199,7 @@ class IdiomCollectionViewCell: UICollectionViewCell {
             player = AVPlayer.init(playerItem: playerItem)
             player!.rate = AudioPlaySpeed.normal.rawValue
             player!.play()
+            delegate?.idiomCollectionViewCellDidTapPlayButton(idiom: idiom)
         }
     }
 }

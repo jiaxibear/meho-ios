@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAnalytics
 
-class IdiomViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MehoAnalytics {
+class IdiomViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MehoAnalytics, IdiomCollectionViewCellDelegate {
 
     // MARK: - Constant
     private let cardHorizontalInsets = CGFloat(30)
@@ -122,6 +122,7 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: idiomCellReuseIdentifier, for: indexPath) as! IdiomCollectionViewCell
         let idiom = idioms[indexPath.item]
         cell.setIdiom(idiom)
+        cell.delegate = self
         return cell
     }
 
@@ -138,5 +139,10 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let idiom = idioms[indexPath.item]
         Analytics.logContentImpression(content: idiom, screenName: screenName)
+    }
+
+    // MARK: - IdiomCollectionViewCellDelegate
+    func idiomCollectionViewCellDidTapPlayButton(idiom: Idiom) {
+        Analytics.logContentAction(content: idiom, screenName: screenName, action: .play)
     }
 }
