@@ -115,7 +115,9 @@ class NewsDataFetcher: NSObject {
 
 
     public func fetchNewsList(count: String = "50", completionHandler: @escaping ( Array<News>?, Error?) -> Void) {
-        let q = ListArticlesQuery()
+        let q = GetArticlesByStatusQuery()
+        q.sortDirection = ModelSortDirection.desc
+        q.status = "PUBLISHED"
         q.limit = 50
         appSyncClient?.fetch(query: q) { (result, error) in
             print (error?.localizedDescription as Any)
@@ -123,7 +125,7 @@ class NewsDataFetcher: NSObject {
                 completionHandler(nil, nil)
                 return
             }
-            guard let items = result?.data?.listArticles?.items, items.count > 0 else {
+            guard let items = result?.data?.getArticlesByStatus?.items, items.count > 0 else {
                 completionHandler(nil, nil)
                 return
             }

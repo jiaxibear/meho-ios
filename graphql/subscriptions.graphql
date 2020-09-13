@@ -23,6 +23,7 @@ subscription OnCreateParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -47,6 +48,7 @@ subscription OnCreateParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -79,6 +81,7 @@ subscription OnCreateParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -88,11 +91,13 @@ subscription OnCreateParagraph {
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     content
@@ -102,6 +107,7 @@ subscription OnCreateParagraph {
       ...S3Object
     }
     contentImage_key
+    videoURL
     createdAt
     updatedAt
   }
@@ -130,6 +136,7 @@ subscription OnUpdateParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -154,6 +161,7 @@ subscription OnUpdateParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -186,6 +194,7 @@ subscription OnUpdateParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -195,11 +204,13 @@ subscription OnUpdateParagraph {
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     content
@@ -209,6 +220,7 @@ subscription OnUpdateParagraph {
       ...S3Object
     }
     contentImage_key
+    videoURL
     createdAt
     updatedAt
   }
@@ -237,6 +249,7 @@ subscription OnDeleteParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -261,6 +274,7 @@ subscription OnDeleteParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -293,6 +307,7 @@ subscription OnDeleteParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -302,11 +317,13 @@ subscription OnDeleteParagraph {
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     content
@@ -316,6 +333,52 @@ subscription OnDeleteParagraph {
       ...S3Object
     }
     contentImage_key
+    videoURL
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateExpression {
+  onCreateExpression {
+    id
+    label
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    audio_key
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateExpression {
+  onUpdateExpression {
+    id
+    label
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    audio_key
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteExpression {
+  onDeleteExpression {
+    id
+    label
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    audio_key
     createdAt
     updatedAt
   }
@@ -354,6 +417,7 @@ subscription OnCreateArticle {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -396,6 +460,7 @@ subscription OnCreateArticle {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -446,6 +511,7 @@ subscription OnCreateArticle {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         content
@@ -455,11 +521,13 @@ subscription OnCreateArticle {
           ...S3Object
         }
         contentImage_key
+        videoURL
         createdAt
         updatedAt
       }
       nextToken
     }
+    status
     updatedAt
   }
 }
@@ -497,6 +565,7 @@ subscription OnUpdateArticle {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -539,6 +608,7 @@ subscription OnUpdateArticle {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -589,6 +659,7 @@ subscription OnUpdateArticle {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         content
@@ -598,11 +669,13 @@ subscription OnUpdateArticle {
           ...S3Object
         }
         contentImage_key
+        videoURL
         createdAt
         updatedAt
       }
       nextToken
     }
+    status
     updatedAt
   }
 }
@@ -640,6 +713,7 @@ subscription OnDeleteArticle {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -682,6 +756,7 @@ subscription OnDeleteArticle {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -732,6 +807,7 @@ subscription OnDeleteArticle {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         content
@@ -741,11 +817,13 @@ subscription OnDeleteArticle {
           ...S3Object
         }
         contentImage_key
+        videoURL
         createdAt
         updatedAt
       }
       nextToken
     }
+    status
     updatedAt
   }
 }
@@ -784,6 +862,7 @@ subscription OnCreateVocabulary {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -849,6 +928,7 @@ subscription OnUpdateVocabulary {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -914,6 +994,7 @@ subscription OnDeleteVocabulary {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -968,6 +1049,7 @@ subscription OnCreateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -992,6 +1074,7 @@ subscription OnCreateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1024,6 +1107,7 @@ subscription OnCreateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -1033,11 +1117,13 @@ subscription OnCreateVocabularyArticle {
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     vocabulary {
@@ -1062,6 +1148,7 @@ subscription OnCreateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1115,6 +1202,7 @@ subscription OnUpdateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1139,6 +1227,7 @@ subscription OnUpdateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1171,6 +1260,7 @@ subscription OnUpdateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -1180,11 +1270,13 @@ subscription OnUpdateVocabularyArticle {
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     vocabulary {
@@ -1209,6 +1301,7 @@ subscription OnUpdateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1262,6 +1355,7 @@ subscription OnDeleteVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1286,6 +1380,7 @@ subscription OnDeleteVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1318,6 +1413,7 @@ subscription OnDeleteVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -1327,11 +1423,13 @@ subscription OnDeleteVocabularyArticle {
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     vocabulary {
@@ -1356,6 +1454,7 @@ subscription OnDeleteVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1412,6 +1511,7 @@ subscription OnCreateTag {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -1501,6 +1601,7 @@ subscription OnUpdateTag {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -1590,6 +1691,7 @@ subscription OnDeleteTag {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -1676,6 +1778,7 @@ subscription OnCreateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1700,6 +1803,7 @@ subscription OnCreateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1732,6 +1836,7 @@ subscription OnCreateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -1741,11 +1846,13 @@ subscription OnCreateTagArticle {
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     tag {
@@ -1762,6 +1869,7 @@ subscription OnCreateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1830,6 +1938,7 @@ subscription OnUpdateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1854,6 +1963,7 @@ subscription OnUpdateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1886,6 +1996,7 @@ subscription OnUpdateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -1895,11 +2006,13 @@ subscription OnUpdateTagArticle {
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     tag {
@@ -1916,6 +2029,7 @@ subscription OnUpdateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1984,6 +2098,7 @@ subscription OnDeleteTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -2008,6 +2123,7 @@ subscription OnDeleteTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -2040,6 +2156,7 @@ subscription OnDeleteTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -2049,11 +2166,13 @@ subscription OnDeleteTagArticle {
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     tag {
@@ -2070,6 +2189,7 @@ subscription OnDeleteTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -2755,6 +2875,7 @@ subscription OnCreateTagDialogue {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -2885,6 +3006,7 @@ subscription OnUpdateTagDialogue {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -3015,6 +3137,7 @@ subscription OnDeleteTagDialogue {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {

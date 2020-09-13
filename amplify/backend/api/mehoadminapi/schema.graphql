@@ -6,9 +6,26 @@ type Paragraph @model {
     seqNumber: Int!
     contentImage: S3Object
     contentImage_key: String # hack for android
+    videoURL: String
 }
 
-type Article @model {
+type Expression @model {
+    id: ID!
+    label: String
+    contentZh: String
+    contentPinyin: String
+    contentEn: String
+    audio: S3Object
+    audio_key: String
+}
+
+type Article @model
+@key(
+  name: "byStatus"
+  fields: ["status", "createdAt"]
+  queryField: "getArticlesByStatus"
+)
+{
     id: ID!
     coverImage: S3Object
     coverImage_key: String
@@ -19,7 +36,8 @@ type Article @model {
     tags: [TagArticle] @connection(name: "ArticleTag")
     vocabularies: [VocabularyArticle] @connection(name: "ArticleVocabulary")
     sourcer: String
-    paragraphs: [Paragraph] @connection(name: "ArticleParagraphs")        
+    paragraphs: [Paragraph] @connection(name: "ArticleParagraphs")
+    status: String!  
 } 
 
 type Vocabulary @model {
@@ -84,7 +102,7 @@ type Dialogue @model {
     whyYouShouldLearnThisDialogue: String    
     difficultyLevel: String
     tags: [TagDialogue] @connection(name: "DialogueTag")
-    chapters: [Chapter] @connection(name: "DialogueChapters")   
+    chapters: [Chapter] @connection(name: "DialogueChapters")
 }
 
 type TagDialogue @model {  #for many to many relationship

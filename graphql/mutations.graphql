@@ -26,6 +26,7 @@ mutation CreateParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -50,6 +51,7 @@ mutation CreateParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -82,6 +84,7 @@ mutation CreateParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -91,11 +94,13 @@ mutation CreateParagraph(
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     content
@@ -105,6 +110,7 @@ mutation CreateParagraph(
       ...S3Object
     }
     contentImage_key
+    videoURL
     createdAt
     updatedAt
   }
@@ -136,6 +142,7 @@ mutation UpdateParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -160,6 +167,7 @@ mutation UpdateParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -192,6 +200,7 @@ mutation UpdateParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -201,11 +210,13 @@ mutation UpdateParagraph(
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     content
@@ -215,6 +226,7 @@ mutation UpdateParagraph(
       ...S3Object
     }
     contentImage_key
+    videoURL
     createdAt
     updatedAt
   }
@@ -246,6 +258,7 @@ mutation DeleteParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -270,6 +283,7 @@ mutation DeleteParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -302,6 +316,7 @@ mutation DeleteParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -311,11 +326,13 @@ mutation DeleteParagraph(
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     content
@@ -325,6 +342,61 @@ mutation DeleteParagraph(
       ...S3Object
     }
     contentImage_key
+    videoURL
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateExpression(
+  $input: CreateExpressionInput!
+  $condition: ModelExpressionConditionInput
+) {
+  createExpression(input: $input, condition: $condition) {
+    id
+    label
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    audio_key
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateExpression(
+  $input: UpdateExpressionInput!
+  $condition: ModelExpressionConditionInput
+) {
+  updateExpression(input: $input, condition: $condition) {
+    id
+    label
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    audio_key
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteExpression(
+  $input: DeleteExpressionInput!
+  $condition: ModelExpressionConditionInput
+) {
+  deleteExpression(input: $input, condition: $condition) {
+    id
+    label
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    audio_key
     createdAt
     updatedAt
   }
@@ -366,6 +438,7 @@ mutation CreateArticle(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -408,6 +481,7 @@ mutation CreateArticle(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -458,6 +532,7 @@ mutation CreateArticle(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         content
@@ -467,11 +542,13 @@ mutation CreateArticle(
           ...S3Object
         }
         contentImage_key
+        videoURL
         createdAt
         updatedAt
       }
       nextToken
     }
+    status
     updatedAt
   }
 }
@@ -512,6 +589,7 @@ mutation UpdateArticle(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -554,6 +632,7 @@ mutation UpdateArticle(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -604,6 +683,7 @@ mutation UpdateArticle(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         content
@@ -613,11 +693,13 @@ mutation UpdateArticle(
           ...S3Object
         }
         contentImage_key
+        videoURL
         createdAt
         updatedAt
       }
       nextToken
     }
+    status
     updatedAt
   }
 }
@@ -658,6 +740,7 @@ mutation DeleteArticle(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -700,6 +783,7 @@ mutation DeleteArticle(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -750,6 +834,7 @@ mutation DeleteArticle(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         content
@@ -759,11 +844,13 @@ mutation DeleteArticle(
           ...S3Object
         }
         contentImage_key
+        videoURL
         createdAt
         updatedAt
       }
       nextToken
     }
+    status
     updatedAt
   }
 }
@@ -805,6 +892,7 @@ mutation CreateVocabulary(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -873,6 +961,7 @@ mutation UpdateVocabulary(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -941,6 +1030,7 @@ mutation DeleteVocabulary(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -998,6 +1088,7 @@ mutation CreateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1022,6 +1113,7 @@ mutation CreateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1054,6 +1146,7 @@ mutation CreateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -1063,11 +1156,13 @@ mutation CreateVocabularyArticle(
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     vocabulary {
@@ -1092,6 +1187,7 @@ mutation CreateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1148,6 +1244,7 @@ mutation UpdateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1172,6 +1269,7 @@ mutation UpdateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1204,6 +1302,7 @@ mutation UpdateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -1213,11 +1312,13 @@ mutation UpdateVocabularyArticle(
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     vocabulary {
@@ -1242,6 +1343,7 @@ mutation UpdateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1298,6 +1400,7 @@ mutation DeleteVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1322,6 +1425,7 @@ mutation DeleteVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1354,6 +1458,7 @@ mutation DeleteVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -1363,11 +1468,13 @@ mutation DeleteVocabularyArticle(
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     vocabulary {
@@ -1392,6 +1499,7 @@ mutation DeleteVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1451,6 +1559,7 @@ mutation CreateTag(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -1543,6 +1652,7 @@ mutation UpdateTag(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -1635,6 +1745,7 @@ mutation DeleteTag(
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -1724,6 +1835,7 @@ mutation CreateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1748,6 +1860,7 @@ mutation CreateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1780,6 +1893,7 @@ mutation CreateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -1789,11 +1903,13 @@ mutation CreateTagArticle(
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     tag {
@@ -1810,6 +1926,7 @@ mutation CreateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1881,6 +1998,7 @@ mutation UpdateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1905,6 +2023,7 @@ mutation UpdateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -1937,6 +2056,7 @@ mutation UpdateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -1946,11 +2066,13 @@ mutation UpdateTagArticle(
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     tag {
@@ -1967,6 +2089,7 @@ mutation UpdateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -2038,6 +2161,7 @@ mutation DeleteTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -2062,6 +2186,7 @@ mutation DeleteTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -2094,6 +2219,7 @@ mutation DeleteTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -2103,11 +2229,13 @@ mutation DeleteTagArticle(
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     tag {
@@ -2124,6 +2252,7 @@ mutation DeleteTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -2830,6 +2959,7 @@ mutation CreateTagDialogue(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -2963,6 +3093,7 @@ mutation UpdateTagDialogue(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -3096,6 +3227,7 @@ mutation DeleteTagDialogue(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {

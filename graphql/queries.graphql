@@ -23,6 +23,7 @@ query GetParagraph($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -47,6 +48,7 @@ query GetParagraph($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -79,6 +81,7 @@ query GetParagraph($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -88,11 +91,13 @@ query GetParagraph($id: ID!) {
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     content
@@ -102,6 +107,7 @@ query GetParagraph($id: ID!) {
       ...S3Object
     }
     contentImage_key
+    videoURL
     createdAt
     updatedAt
   }
@@ -150,11 +156,13 @@ query ListParagraphs(
             contentType
             seqNumber
             contentImage_key
+            videoURL
             createdAt
             updatedAt
           }
           nextToken
         }
+        status
         updatedAt
       }
       content
@@ -164,6 +172,44 @@ query ListParagraphs(
         ...S3Object
       }
       contentImage_key
+      videoURL
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetExpression($id: ID!) {
+  getExpression(id: $id) {
+    id
+    label
+    contentZh
+    contentPinyin
+    contentEn
+    audio {
+      ...S3Object
+    }
+    audio_key
+    createdAt
+    updatedAt
+  }
+}
+query ListExpressions(
+  $filter: ModelExpressionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listExpressions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      label
+      contentZh
+      contentPinyin
+      contentEn
+      audio {
+        ...S3Object
+      }
+      audio_key
       createdAt
       updatedAt
     }
@@ -204,6 +250,7 @@ query GetArticle($id: ID!) {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -246,6 +293,7 @@ query GetArticle($id: ID!) {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -296,6 +344,7 @@ query GetArticle($id: ID!) {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         content
@@ -305,11 +354,13 @@ query GetArticle($id: ID!) {
           ...S3Object
         }
         contentImage_key
+        videoURL
         createdAt
         updatedAt
       }
       nextToken
     }
+    status
     updatedAt
   }
 }
@@ -340,6 +391,7 @@ query ListArticles(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -364,6 +416,7 @@ query ListArticles(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -396,6 +449,7 @@ query ListArticles(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -405,14 +459,164 @@ query ListArticles(
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     nextToken
+  }
+}
+query BatchGetArticles($ids: [ID]) {
+  batchGetArticles(ids: $ids) {
+    id
+    coverImage {
+      ...S3Object
+    }
+    coverImage_key
+    titleEn
+    titleZh
+    whyYouShouldReadThisArticle
+    createdAt
+    tags {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          coverImage_key
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          status
+          updatedAt
+        }
+        tag {
+          id
+          content
+          articles {
+            nextToken
+          }
+          dialogues {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    vocabularies {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          coverImage_key
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          status
+          updatedAt
+        }
+        vocabulary {
+          id
+          contentZh
+          contentEn
+          contentPinyin
+          label
+          audio {
+            ...S3Object
+          }
+          audio_key
+          optionContent
+          articles {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        paragraphId
+        startIndex
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    sourcer
+    paragraphs {
+      items {
+        id
+        article {
+          id
+          coverImage {
+            ...S3Object
+          }
+          coverImage_key
+          titleEn
+          titleZh
+          whyYouShouldReadThisArticle
+          createdAt
+          tags {
+            nextToken
+          }
+          vocabularies {
+            nextToken
+          }
+          sourcer
+          paragraphs {
+            nextToken
+          }
+          status
+          updatedAt
+        }
+        content
+        contentType
+        seqNumber
+        contentImage {
+          ...S3Object
+        }
+        contentImage_key
+        videoURL
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    status
+    updatedAt
   }
 }
 query GetVocabulary($id: ID!) {
@@ -450,6 +654,7 @@ query GetVocabulary($id: ID!) {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         vocabulary {
@@ -508,6 +713,7 @@ query ListVocabularys(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -558,6 +764,7 @@ query GetVocabularyArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -582,6 +789,7 @@ query GetVocabularyArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -614,6 +822,7 @@ query GetVocabularyArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -623,11 +832,13 @@ query GetVocabularyArticle($id: ID!) {
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     vocabulary {
@@ -652,6 +863,7 @@ query GetVocabularyArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -729,11 +941,13 @@ query ListVocabularyArticles(
             contentType
             seqNumber
             contentImage_key
+            videoURL
             createdAt
             updatedAt
           }
           nextToken
         }
+        status
         updatedAt
       }
       vocabulary {
@@ -795,6 +1009,7 @@ query GetTag($id: ID!) {
           paragraphs {
             nextToken
           }
+          status
           updatedAt
         }
         tag {
@@ -873,6 +1088,7 @@ query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -940,6 +1156,7 @@ query GetTagArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -964,6 +1181,7 @@ query GetTagArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           vocabulary {
@@ -996,6 +1214,7 @@ query GetTagArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           content
@@ -1005,11 +1224,13 @@ query GetTagArticle($id: ID!) {
             ...S3Object
           }
           contentImage_key
+          videoURL
           createdAt
           updatedAt
         }
         nextToken
       }
+      status
       updatedAt
     }
     tag {
@@ -1026,6 +1247,7 @@ query GetTagArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -1114,11 +1336,13 @@ query ListTagArticles(
             contentType
             seqNumber
             contentImage_key
+            videoURL
             createdAt
             updatedAt
           }
           nextToken
         }
+        status
         updatedAt
       }
       tag {
@@ -1563,6 +1787,7 @@ query GetTagDialogue($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            status
             updatedAt
           }
           tag {
@@ -2677,6 +2902,123 @@ query ListUserVocabularySaves(
       }
       vocabularyID
       createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetArticlesByStatus(
+  $status: String
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelArticleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getArticlesByStatus(
+    status: $status
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      coverImage {
+        ...S3Object
+      }
+      coverImage_key
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            coverImage_key
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            status
+            updatedAt
+          }
+          tag {
+            id
+            content
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            coverImage_key
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            status
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            audio_key
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            coverImage_key
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            status
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          contentImage_key
+          videoURL
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      status
       updatedAt
     }
     nextToken
