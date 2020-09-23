@@ -140,6 +140,8 @@ class ProfileViewController: UIViewController {
     // MARK - Auth related
     @objc
     func logout() {
+//        let profileSettingViewController = ProfileSettingViewController.init()
+//        navigationController?.pushViewController(profileSettingViewController, animated: true)
         AWSMobileClient.default().signOut { (error) in
             guard error == nil else { return }
             self.checkSignIn()
