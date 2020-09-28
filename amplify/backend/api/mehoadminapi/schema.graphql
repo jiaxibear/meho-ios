@@ -131,15 +131,16 @@ type User @model {
     interests: [String!]
     profession: String
 
-    completedItems: [UserItemCompleted] @connection(name: "UserItemCompleted")
+    completedItems: [UserItemCompleted] @connection(keyName: "byUser", fields: ["id"])
     inProgressItems: [UserItemInProgress] @connection(name: "UserItemInProgress")
     savedItems: [UserItemSave] @connection(name: "UserItemSave")
     savedVocabularies: [UserVocabularySave] @connection(name: "UserVocabularySave")
 }
 
-type UserItemCompleted @model {
+type UserItemCompleted @model 
+    @key(name: "byUser", fields: ["itemType", "itemID"]) {
     id: ID!
-    user: User @connection(name: "UserItemCompleted")
+    userID: ID!
     itemType: String # STORY EXPRESSION TALK
     itemID: ID!
 }

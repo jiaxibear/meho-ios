@@ -32,6 +32,8 @@
 		92577B2B2446E8910097A445 /* PictographyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92577B2A2446E8910097A445 /* PictographyViewController.swift */; };
 		92577B2D2446F5B70097A445 /* PinyinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92577B2C2446F5B70097A445 /* PinyinViewController.swift */; };
 		92577B2F2446F90E0097A445 /* Pictograph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92577B2E2446F90E0097A445 /* Pictograph.swift */; };
+		925E3FF3250DDA700062606A /* ProfileDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925E3FF2250DDA700062606A /* ProfileDataFetcher.swift */; };
+		925E3FF6250DDD290062606A /* ProfileCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925E3FF5250DDD290062606A /* ProfileCard.swift */; };
 		9267EA1924316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267EA1824316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift */; };
 		9267EA1B243185E5009CA25D /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267EA1A243185E5009CA25D /* News.swift */; };
 		9267EA1D2431A5A2009CA25D /* NewsItemSizeSCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267EA1C2431A5A2009CA25D /* NewsItemSizeSCollectionViewCell.swift */; };
@@ -184,6 +186,8 @@
 		92577B2A2446E8910097A445 /* PictographyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictographyViewController.swift; sourceTree = "<group>"; };
 		92577B2C2446F5B70097A445 /* PinyinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinyinViewController.swift; sourceTree = "<group>"; };
 		92577B2E2446F90E0097A445 /* Pictograph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pictograph.swift; sourceTree = "<group>"; };
+		925E3FF2250DDA700062606A /* ProfileDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataFetcher.swift; sourceTree = "<group>"; };
+		925E3FF5250DDD290062606A /* ProfileCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCard.swift; sourceTree = "<group>"; };
 		9267EA1824316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemSizeXLCollectionViewCell.swift; sourceTree = "<group>"; };
 		9267EA1A243185E5009CA25D /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		9267EA1C2431A5A2009CA25D /* NewsItemSizeSCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemSizeSCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -366,6 +370,14 @@
 				92F90BC724F1CD2200BEF7B7 /* UserDataFetcher.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		925E3FF4250DDCE70062606A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				925E3FF5250DDD290062606A /* ProfileCard.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		92FE6CF2246286AF000E69BC /* Main */ = {
@@ -604,7 +616,9 @@
 			isa = PBXGroup;
 			children = (
 				EA644D3B250D869B005293EF /* Setting */,
+				925E3FF4250DDCE70062606A /* Models */,
 				EA52FDA723EF809D008EB37B /* ProfileViewController.swift */,
+				925E3FF2250DDA700062606A /* ProfileDataFetcher.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1093,9 +1107,11 @@
 				EA9B5DD524A97A6C00D6CFBD /* BulletPointView.swift in Sources */,
 				EA6381EB2455140900481B8B /* DuoDetailedDialogViewController.swift in Sources */,
 				EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */,
+				925E3FF3250DDA700062606A /* ProfileDataFetcher.swift in Sources */,
 				9267EA1924316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift in Sources */,
 				92C5FE5124565A7E004A3322 /* TrendingPhrase.swift in Sources */,
 				EAD20B9F24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift in Sources */,
+				925E3FF6250DDD290062606A /* ProfileCard.swift in Sources */,
 				9204700224F337A200DE1A2D /* CompleteProfileViewStep2Controller.swift in Sources */,
 				EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */,
 				92BAC71F243B12A100862571 /* SingleChineseNewsViewController.swift in Sources */,

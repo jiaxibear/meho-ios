@@ -66,7 +66,8 @@ class ProfileViewController: UIViewController {
 
     // MARK: - Datamodels
     private let userDataFetcher = UserDataFetcher.init()
-
+    private let profileDataFetcher = ProfileDataFetcher.init()
+    private var currentUser:BasicUser?
     
     // MARK: - Init
     init() {
@@ -130,6 +131,15 @@ class ProfileViewController: UIViewController {
                         self.usernameLabel.text = currentUser.username
                     }
                 }
+                // TODO add avatar related
+            }
+        })
+
+        profileDataFetcher.fetchUserInteractions (userId: userId, completionHandler: { (maybeCompletedIds, maybeInprogressContents, maybeSavedContents, error) in
+            if error == nil, let completedIds = maybeCompletedIds, completedIds.count == 3 {
+                let completedArticleIds = completedIds[0]
+                let completedExpressionIds = completedIds[1]
+                let completedConversationIds = completedIds[2]
                 // TODO add avatar related
             }
         })
