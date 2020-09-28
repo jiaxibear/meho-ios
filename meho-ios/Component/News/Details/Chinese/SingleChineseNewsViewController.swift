@@ -223,7 +223,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         case .newsChapters:
             let chapter = newsChapters[indexPath.item]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsChapterCellReuseIdentifier, for: indexPath) as! NewsChapterCollectionViewCell
-            cell.setNewsChapter(chapter)
+            cell.newsChapter = chapter
             cell.setDelegate(delegate: self)
             return cell
         case .recapVocabularyList:

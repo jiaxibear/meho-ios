@@ -21,13 +21,79 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
     private let contentImageViewCornerRadius = CGFloat(8)
 
     // MARK: - Properties
-    private let textView = UITextView.init(frame: .zero)
-    private let imageView = WebImageView.init(frame: .zero)
+    private lazy var textView: UITextView = {
+        let textView = UITextView.init(frame: .zero)
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isEditable = false
+        textView.isScrollEnabled = false
+        textView.dataDetectorTypes = UIDataDetectorTypes.link
+        textView.textColor = .textCharcoalGrey
+        textView.textContainer.lineFragmentPadding = 0
+        textView.delegate = self
+        let linkAttributes: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.foregroundColor: UIColor.wisteriaPurple,
+            NSAttributedString.Key.underlineColor: UIColor.lightGray,
+            NSAttributedString.Key.underlineStyle: NSUnderlineStyle.patternDot.rawValue | NSUnderlineStyle.byWord.rawValue
+        ]
+        textView.linkTextAttributes = linkAttributes
+        return textView
+    } ()
+
+    private lazy var imageView: WebImageView = {
+        let imageView = WebImageView.init(frame: .zero)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = contentImageViewCornerRadius
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.delegate = self
+        return imageView
+    } ()
+
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView.init(arrangedSubviews: [textView, imageView])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        return stackView
+    } ()
+
     private static var sizingCell = NewsChapterCollectionViewCell.init(frame: .zero);
-    private var imageViewHeightConstraint: NSLayoutConstraint!
-    private var imageViewToTextViewMarginConstraint: NSLayoutConstraint!
-    private var textViewBottomConstraint: NSLayoutConstraint!
+
+    private lazy var imageViewHeightConstraint: NSLayoutConstraint = {
+        return imageView.heightAnchor.constraint(equalToConstant: contentImageReservedHeight)
+    } ()
+
+    private lazy var textViewHeightConstraint: NSLayoutConstraint = {
+        return textView.heightAnchor.constraint(equalToConstant: 0)
+    } ()
+
     private weak var delegate: NewsChapterCollectionViewCellDelegate?
+
+    var newsChapter: NewsChapter! {
+        didSet {
+            let attributedContent = NewsChapterCollectionViewCell.getChapterTextWithAttribute(chapter: newsChapter)
+            textView.attributedText = attributedContent
+            textView.sizeToFit()
+            if newsChapter.language == "en-US" {
+                let contentfontDescriptor = UIFont.systemFont(ofSize: contentTextFontSize, weight: .light).fontDescriptor.withDesign(.rounded)
+                textView.font = UIFont.init(descriptor: contentfontDescriptor!, size: 0)
+            } else {
+                textView.font = UIFont.init(name: "PingFangSC-Light", size: contentTextFontSize)
+            }
+
+            // Downloads the image.
+            if let contentImageURL = newsChapter.contentImageURL {
+                imageView.imageURL = contentImageURL
+                imageView.isHidden = false
+            } else if let imageKey = newsChapter.image_key, let imageBucket = newsChapter.image_bucket {
+                let s3Key = S3ImageViewKey.init(bucket: imageBucket, key: imageKey)
+                imageView.imageKey = s3Key
+                imageView.isHidden = false
+            } else {
+                imageView.isHidden = true
+            }
+            stackView.spacing = textAndImageMargin
+        }
+    }
 
     // MARK: - Init
     @available(*, unavailable)
@@ -42,94 +108,42 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
 
     override func prepareForReuse() {
         imageView.image = nil
+        imageView.isHidden = true
         textView.text = nil
+        imageViewHeightConstraint.isActive = false
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
 
-        // Sets up content image view.
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = contentImageViewCornerRadius
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.delegate = self
-        contentView.addSubview(imageView)
-
-        // Sets up title label.
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isEditable = false
-        textView.isScrollEnabled = false
-        textView.dataDetectorTypes = UIDataDetectorTypes.link
-        textView.textColor = .textCharcoalGrey
-        textView.textContainer.lineFragmentPadding = 0
-
-        let linkAttributes: [NSAttributedString.Key : Any] = [
-            NSAttributedString.Key.foregroundColor: UIColor.wisteriaPurple,
-            NSAttributedString.Key.underlineColor: UIColor.lightGray,
-            NSAttributedString.Key.underlineStyle: NSUnderlineStyle.patternDot.rawValue | NSUnderlineStyle.byWord.rawValue
-        ]
-        textView.linkTextAttributes = linkAttributes
-
-
-        textView.delegate = self
-        contentView.addSubview(textView)
+        contentView.addSubview(stackView)
 
         // Constraint
-        textView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        stackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    }
 
-        imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        imageViewHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: contentImageReservedHeight)
-        imageViewHeightConstraint.isActive = true
-        imageViewToTextViewMarginConstraint = imageView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: textAndImageMargin)
+    override func updateConstraints() {
+        super.updateConstraints()
+        if newsChapter.contentImageURL != nil || (newsChapter.image_key != nil && newsChapter.image_bucket != nil) {
+            imageViewHeightConstraint.isActive = true
+        }
     }
 
     // MARK: - WebImageViewDelegate
     func webImageViewDidSetImage(webImageView: WebImageView) {
-        self.contentView.isHidden = false
+        imageView.isHidden = false
     }
 
-    // MARK: - Public
+    // MARK: - Internal
     func setDelegate(delegate: NewsChapterCollectionViewCellDelegate) {
         self.delegate = delegate
     }
 
-    public func setNewsChapter(_ newsChapter: NewsChapter) {
-        let attributedContent = NewsChapterCollectionViewCell.getChapterTextWithAttribute(chapter: newsChapter)
-        textView.attributedText = attributedContent
-        textView.sizeToFit()
-        if newsChapter.language == "en-US" {
-            let contentfontDescriptor = UIFont.systemFont(ofSize: contentTextFontSize, weight: .light).fontDescriptor.withDesign(.rounded)
-            textView.font = UIFont.init(descriptor: contentfontDescriptor!, size: 0)
-        } else {
-            textView.font = UIFont.init(name: "PingFangSC-Light", size: contentTextFontSize)
-        }
-
-        // Downloads the image.
-        if let contentImageURL = newsChapter.contentImageURL {
-            imageView.imageURL = contentImageURL
-            imageViewHeightConstraint.constant = contentImageReservedHeight
-            imageViewToTextViewMarginConstraint.isActive = true
-            textViewBottomConstraint.isActive = false
-        } else if let imageKey = newsChapter.image_key, let imageBucket = newsChapter.image_bucket {
-            let s3Key = S3ImageViewKey.init(bucket: imageBucket, key: imageKey)
-            imageView.imageKey = s3Key
-            imageViewHeightConstraint.constant = contentImageReservedHeight
-            imageViewToTextViewMarginConstraint.isActive = true
-            textViewBottomConstraint.isActive = false
-        } else {
-            imageViewHeightConstraint.constant = 0
-            imageViewToTextViewMarginConstraint.isActive = false
-            textViewBottomConstraint.isActive = true
-        }
-    }
-
-    public class func cellHeight(with width: CGFloat, newsChapter: NewsChapter) -> CGFloat {
+    class func cellHeight(with width: CGFloat, newsChapter: NewsChapter) -> CGFloat {
         let attributedContent = getChapterTextWithAttribute(chapter: newsChapter)
         sizingCell.textView.attributedText = attributedContent
         if newsChapter.language == "en-US" {
@@ -190,7 +204,6 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         delegate?.NewsChapterCollectionViewCellDidTapVocabulary(vocabularyId: id)
         return false // return true if you also want UIAlertController to pop up
     }
-
 }
 
 

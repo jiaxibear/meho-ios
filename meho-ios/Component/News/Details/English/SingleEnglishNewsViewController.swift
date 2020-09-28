@@ -214,7 +214,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         case .newsChapters:
             let chapter = newsChapters[indexPath.item]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsChapterCellReuseIdentifier, for: indexPath) as! NewsChapterCollectionViewCell
-            cell.setNewsChapter(chapter)
+            cell.newsChapter = chapter
             return cell
 //        case .relatedNewsList:
 //            let relatedNewsItem = relatedNewsList[indexPath.item]
