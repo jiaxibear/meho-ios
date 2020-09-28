@@ -50,6 +50,7 @@ class NewsDataFetcher: NSObject {
                 newsChapter.language = chapter.contentType
                 newsChapter.content = chapter.content
                 newsChapter.seq = chapter.seqNumber
+                newsChapter.videoURL = chapter.videoUrl
 
                 if let image_key = chapter.contentImage?.key {
                     newsChapter.image_key = image_key
@@ -227,7 +228,6 @@ class NewsDataFetcher: NSObject {
 
         return newsList
     }
-
 
     // MARK: - Rest based queries
     public func fetchNewsDetailRest(newsID: String, completionHandler: @escaping ( Array<NewsChapter>?, Array<NewsChapter>?, Error?) -> Void) {

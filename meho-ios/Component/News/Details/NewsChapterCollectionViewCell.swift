@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 protocol NewsChapterCollectionViewCellDelegate : AnyObject {
     func NewsChapterCollectionViewCellDidTapVocabulary(vocabularyId: String)
@@ -19,6 +20,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
     private let textAndImageMargin = CGFloat(18)
     private let contentImageReservedHeight = CGFloat(219)
     private let contentImageViewCornerRadius = CGFloat(8)
+    private let webViewHeight = CGFloat(240)
 
     // MARK: - Properties
     private lazy var textView: UITextView = {
@@ -49,8 +51,14 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         return imageView
     } ()
 
+    private lazy var webView: WKWebView = {
+        let webView = WKWebView.init(frame: .zero)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        return webView
+    } ()
+
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView.init(arrangedSubviews: [textView, imageView])
+        let stackView = UIStackView.init(arrangedSubviews: [textView, imageView, webView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         return stackView
@@ -62,8 +70,8 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         return imageView.heightAnchor.constraint(equalToConstant: contentImageReservedHeight)
     } ()
 
-    private lazy var textViewHeightConstraint: NSLayoutConstraint = {
-        return textView.heightAnchor.constraint(equalToConstant: 0)
+    private lazy var webViewHeightConstraint: NSLayoutConstraint = {
+        return webView.heightAnchor.constraint(equalToConstant: webViewHeight)
     } ()
 
     private weak var delegate: NewsChapterCollectionViewCellDelegate?
@@ -91,6 +99,13 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
             } else {
                 imageView.isHidden = true
             }
+
+            if let videoURL = newsChapter.videoURL, videoURL.count > 0 {
+                webView.isHidden = false
+                webView.loadHTMLString(videoURL, baseURL: nil)
+            } else {
+                webView.isHidden = true
+            }
             stackView.spacing = textAndImageMargin
         }
     }
@@ -109,8 +124,10 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
     override func prepareForReuse() {
         imageView.image = nil
         imageView.isHidden = true
+        webView.isHidden = true
         textView.text = nil
         imageViewHeightConstraint.isActive = false
+        webViewHeightConstraint.isActive = false
     }
 
     override init(frame: CGRect) {
@@ -130,6 +147,9 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         super.updateConstraints()
         if newsChapter.contentImageURL != nil || (newsChapter.image_key != nil && newsChapter.image_bucket != nil) {
             imageViewHeightConstraint.isActive = true
+        }
+        if let videoURL = newsChapter.videoURL, videoURL.count > 0 {
+            webViewHeightConstraint.isActive = true
         }
     }
 
@@ -157,6 +177,10 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
         if newsChapter.contentImageURL != nil || (newsChapter.image_key != nil && newsChapter.image_bucket != nil) {
             height += sizingCell.textAndImageMargin
             height += sizingCell.contentImageReservedHeight
+        }
+        if let videoURL = newsChapter.videoURL, videoURL.count > 0 {
+            height += sizingCell.textAndImageMargin
+            height += sizingCell.webViewHeight
         }
         return height
     }
