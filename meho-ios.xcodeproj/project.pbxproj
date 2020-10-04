@@ -80,6 +80,8 @@
 		EA2FC5CC23EF7AD600E258BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA2FC5CA23EF7AD600E258BD /* LaunchScreen.storyboard */; };
 		EA2FC5D723EF7AD600E258BD /* meho_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5D623EF7AD600E258BD /* meho_iosTests.swift */; };
 		EA2FC5E223EF7AD600E258BD /* meho_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5E123EF7AD600E258BD /* meho_iosUITests.swift */; };
+		EA3E00282529558C00B95A30 /* ProfileCompletedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3E00272529558C00B95A30 /* ProfileCompletedItem.swift */; };
+		EA3E002D25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3E002C25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift */; };
 		EA4206912467BD8200DA3F2A /* SurvivalPhraseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206902467BD8200DA3F2A /* SurvivalPhraseCategory.swift */; };
 		EA4206932467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206922467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift */; };
 		EA4206962468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206952468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift */; };
@@ -244,6 +246,8 @@
 		EA2FC5DD23EF7AD600E258BD /* meho-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "meho-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA2FC5E123EF7AD600E258BD /* meho_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = meho_iosUITests.swift; sourceTree = "<group>"; };
 		EA2FC5E323EF7AD600E258BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA3E00272529558C00B95A30 /* ProfileCompletedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCompletedItem.swift; sourceTree = "<group>"; };
+		EA3E002C25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCompletedItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA4206902467BD8200DA3F2A /* SurvivalPhraseCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCategory.swift; sourceTree = "<group>"; };
 		EA4206922467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA4206952468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCategoryIdentifier.swift; sourceTree = "<group>"; };
@@ -376,6 +380,7 @@
 			isa = PBXGroup;
 			children = (
 				925E3FF5250DDD290062606A /* ProfileCard.swift */,
+				EA3E00272529558C00B95A30 /* ProfileCompletedItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -619,6 +624,7 @@
 				925E3FF4250DDCE70062606A /* Models */,
 				EA52FDA723EF809D008EB37B /* ProfileViewController.swift */,
 				925E3FF2250DDA700062606A /* ProfileDataFetcher.swift */,
+				EA3E002C25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1100,6 +1106,7 @@
 			files = (
 				EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */,
 				92C5FE2F244D1621004A3322 /* PinyinSectionHeaderCollectionReusableView.swift in Sources */,
+				EA3E00282529558C00B95A30 /* ProfileCompletedItem.swift in Sources */,
 				92C5FE31244D2216004A3322 /* PinyinToneDetailCollectionViewCell.swift in Sources */,
 				EA544907243ADF5200C07D0A /* ChapterScoreView.swift in Sources */,
 				EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */,
@@ -1205,6 +1212,7 @@
 				92C5FE49245562BE004A3322 /* NewsRecapFooterCollectionReusableView.swift in Sources */,
 				EA4206A224A054E000DA3F2A /* TrendingPhraseWrapper.swift in Sources */,
 				EA5448BB2415D93500C07D0A /* SeeMoreFooterCollectionResuableView.swift in Sources */,
+				EA3E002D25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift in Sources */,
 				9267EA2324385FC2009CA25D /* NewsDataFetcher.swift in Sources */,
 				9267EA1D2431A5A2009CA25D /* NewsItemSizeSCollectionViewCell.swift in Sources */,
 				92C5FE2524496E7B004A3322 /* PictographCollectionViewCell.swift in Sources */,

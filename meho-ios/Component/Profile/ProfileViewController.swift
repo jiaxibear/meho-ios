@@ -9,7 +9,14 @@
 import UIKit
 import AWSMobileClient
 
-class ProfileViewController: UIViewController {
+enum ProfileSection: Int {
+    case completed
+    case inProgress
+    case savedItems
+    case savedVocabulary
+}
+
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK: - Constants
     private let profileTabBarItemImageName = "tabbar_profile_25pt"
@@ -21,6 +28,11 @@ class ProfileViewController: UIViewController {
     private let usernameLabelFontSize = CGFloat(20)
     private let profileImageViewSize = CGFloat(50)
     private let settingButtonSize = CGFloat(20)
+    private let completedCellHeight = CGFloat(90)
+    private let completedItemsLayoutSectionLeadingTrailingMargin = CGFloat(36)
+    private let profileCompletedItemCollectionViewCellReusableIdentifier = "profileCompletedItemCollectionViewCellReusableIdentifier"
+    private let collectionViewTopMargin = CGFloat(30)
+    private let completedItemColorAlpha = CGFloat(0.3)
     
     // MARK: - Properties
     private lazy var logoutButton:UIButton = {
@@ -64,10 +76,53 @@ class ProfileViewController: UIViewController {
         return button
     } ()
 
+    private lazy var collectionViewCompositionalLayout: UICollectionViewCompositionalLayout = {
+        let collectionViewCompositionalLayout = UICollectionViewCompositionalLayout.init { (section, environment) -> NSCollectionLayoutSection? in
+            let profileSection = self.sections[section]
+            switch profileSection {
+            case .completed:
+                return self.completedItemsLayoutSection()
+            case .inProgress:
+                fallthrough
+            case .savedItems:
+                fallthrough
+            case .savedVocabulary:
+                return nil
+            }
+        }
+        return collectionViewCompositionalLayout
+    } ()
+
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: collectionViewCompositionalLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .white
+        collectionView.register(ProfileCompletedItemCollectionViewCell.self, forCellWithReuseIdentifier: profileCompletedItemCollectionViewCellReusableIdentifier)
+        return collectionView
+    } ()
+
     // MARK: - Datamodels
     private let userDataFetcher = UserDataFetcher.init()
     private let profileDataFetcher = ProfileDataFetcher.init()
     private var currentUser:BasicUser?
+    private let sections: [ProfileSection] = [.completed, .inProgress, .savedItems, .savedVocabulary]
+    private lazy var completedItems: [ProfileCompletedItem] = {
+        return [completedStories, completedExpressions, completedTalks]
+    } ()
+
+    private lazy var completedStories: ProfileCompletedItem = {
+        return ProfileCompletedItem.init(title: "stories", count: 0, color: UIColor.skyBlue.withAlphaComponent(completedItemColorAlpha))
+    } ()
+
+    private lazy var completedExpressions: ProfileCompletedItem = {
+        return ProfileCompletedItem.init(title: "expressions", count: 0, color: UIColor.periwinkleBlue.withAlphaComponent(completedItemColorAlpha))
+    } ()
+
+    private lazy var completedTalks: ProfileCompletedItem = {
+        return ProfileCompletedItem.init(title: "talks", count: 0, color: UIColor.periwinkle.withAlphaComponent(completedItemColorAlpha))
+    } ()
     
     // MARK: - Init
     init() {
@@ -87,40 +142,42 @@ class ProfileViewController: UIViewController {
         fatalError("Use init")
     }
     
-    // MARK - UIViewController
-
+    // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         let margins = view.layoutMarginsGuide
 
+        view.addSubview(collectionView)
         view.addSubview(profileImageView)
+        view.addSubview(usernameLabel)
+        view.addSubview(settingButton)
+        view.addSubview(logoutButton)
+
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: collectionViewTopMargin).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: completedCellHeight).isActive = true
+
         profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: headerHorizontalMargin).isActive = true
         profileImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: headerTopMargin).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: profileImageViewSize).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: profileImageViewSize).isActive = true
 
-
-        view.addSubview(usernameLabel)
         usernameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: profileToUsernameMargin).isActive = true
         usernameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
         usernameLabel.heightAnchor.constraint(equalToConstant: profileImageViewSize).isActive = true
 
-        view.addSubview(settingButton)
         settingButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
         settingButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -headerHorizontalMargin).isActive = true
         settingButton.heightAnchor.constraint(equalToConstant: settingButtonSize).isActive = true
         settingButton.widthAnchor.constraint(equalToConstant: settingButtonSize).isActive = true
 
-
-        view.addSubview(logoutButton)
-
         logoutButton.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         logoutButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        logoutButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: CGFloat(30)).isActive = true
+        logoutButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: CGFloat(30)).isActive = true
         logoutButton.heightAnchor.constraint(equalToConstant: CGFloat(30)).isActive = true
-
 
         guard let userId = AWSMobileClient.default().userSub else { return }
         userDataFetcher.getUser (userId: userId, completionHandler: { (maybeUser, error) in
@@ -138,16 +195,50 @@ class ProfileViewController: UIViewController {
         profileDataFetcher.fetchUserInteractions (userId: userId, completionHandler: { (maybeCompletedIds, maybeInprogressContents, maybeSavedContents, error) in
             if error == nil, let completedIds = maybeCompletedIds, completedIds.count == 3 {
                 let completedArticleIds = completedIds[0]
+                self.completedStories.count = completedArticleIds.count
                 let completedExpressionIds = completedIds[1]
+                self.completedExpressions.count = completedExpressionIds.count
                 let completedConversationIds = completedIds[2]
-                // TODO add avatar related
+                self.completedTalks.count = completedConversationIds.count
+                self.collectionView.reloadData()
             }
         })
     }
 
+    // MARK: - UICollectionViewDataSource
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let profileSection = sections[indexPath.section]
+        switch profileSection {
+        case .completed:
+            if let completedItemCell = collectionView.dequeueReusableCell(withReuseIdentifier: profileCompletedItemCollectionViewCellReusableIdentifier, for: indexPath) as? ProfileCompletedItemCollectionViewCell {
+                completedItemCell.completedItem = completedItems[indexPath.item]
+                return completedItemCell
+            }
+        case .inProgress:
+            fallthrough
+        case .savedItems:
+            fallthrough
+        case .savedVocabulary:
+            return UICollectionViewCell.init(frame: .zero)
+        }
+        return UICollectionViewCell.init(frame: .zero)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let profileSection = sections[section]
+        switch profileSection {
+        case .completed:
+            return completedItems.count
+        case .inProgress:
+            fallthrough
+        case .savedItems:
+            fallthrough
+        case .savedVocabulary:
+            return 0
+        }
+    }
     
-    
-    // MARK - Auth related
+    // MARK: - Auth related
     @objc
     func logout() {
 //        let profileSettingViewController = ProfileSettingViewController.init()
@@ -165,5 +256,18 @@ class ProfileViewController: UIViewController {
         else {
             self.navigationController? .setViewControllers([MehoCoverViewController.init()], animated: false)
         }
+    }
+
+    // MARK: - Private
+    func completedItemsLayoutSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
+        let groupWidth = (collectionView.bounds.width - completedItemsLayoutSectionLeadingTrailingMargin * 2) / 3
+        let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(groupWidth), heightDimension: .absolute(completedCellHeight))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection.init(group: group)
+        section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: completedItemsLayoutSectionLeadingTrailingMargin, bottom: 0, trailing: completedItemsLayoutSectionLeadingTrailingMargin)
+        return section
     }
 }

@@ -319,7 +319,6 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         return section
     }
 
-
     // MARK: - Section Layouts
     private func trendingLayoutSection() -> NSCollectionLayoutSection {
         let cellWidth = self.view.bounds.width - 2 * horizontalMargin
