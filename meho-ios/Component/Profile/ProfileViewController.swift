@@ -29,10 +29,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let profileImageViewSize = CGFloat(50)
     private let settingButtonSize = CGFloat(20)
     private let completedCellHeight = CGFloat(90)
-    private let completedItemsLayoutSectionLeadingTrailingMargin = CGFloat(36)
+    private let completedItemsLayoutSectionLeadingTrailingMargin = CGFloat(18)
     private let profileCompletedItemCollectionViewCellReusableIdentifier = "profileCompletedItemCollectionViewCellReusableIdentifier"
     private let collectionViewTopMargin = CGFloat(30)
     private let completedItemColorAlpha = CGFloat(0.3)
+    private let profileSectionHeaderEstimatedHeight = CGFloat(60)
+    private let profileSectionHeaderReusableIdentifier = "profileSectionHeaderReusableIdentifier"
     
     // MARK: - Properties
     private lazy var logoutButton:UIButton = {
@@ -100,6 +102,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         collectionView.register(ProfileCompletedItemCollectionViewCell.self, forCellWithReuseIdentifier: profileCompletedItemCollectionViewCellReusableIdentifier)
+        collectionView.register(ProfileHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionHeaderReusableIdentifier)
         return collectionView
     } ()
 
@@ -158,7 +161,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: collectionViewTopMargin).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: completedCellHeight).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: completedCellHeight + profileSectionHeaderEstimatedHeight).isActive = true
 
         profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: headerHorizontalMargin).isActive = true
         profileImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: headerTopMargin).isActive = true
@@ -237,6 +240,15 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             return 0
         }
     }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionHeaderReusableIdentifier, for: indexPath) as! ProfileHeaderCollectionReusableView
+            headerView.profileHeader = ProfileHeader.init(title: "Your Completed Achivements", count: 0)
+            return headerView
+        }
+        return UICollectionReusableView.init(frame: .zero)
+    }
     
     // MARK: - Auth related
     @objc
@@ -268,6 +280,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let section = NSCollectionLayoutSection.init(group: group)
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: completedItemsLayoutSectionLeadingTrailingMargin, bottom: 0, trailing: completedItemsLayoutSectionLeadingTrailingMargin)
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(profileSectionHeaderEstimatedHeight))
+        let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        section.boundarySupplementaryItems = [headerElement]
+        section.supplementariesFollowContentInsets = false
         return section
     }
 }

@@ -82,6 +82,8 @@
 		EA2FC5E223EF7AD600E258BD /* meho_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5E123EF7AD600E258BD /* meho_iosUITests.swift */; };
 		EA3E00282529558C00B95A30 /* ProfileCompletedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3E00272529558C00B95A30 /* ProfileCompletedItem.swift */; };
 		EA3E002D25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3E002C25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift */; };
+		EA3E0032252A93B000B95A30 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3E0031252A93B000B95A30 /* ProfileHeaderCollectionReusableView.swift */; };
+		EA3E0037252A967100B95A30 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3E0036252A967100B95A30 /* ProfileHeader.swift */; };
 		EA4206912467BD8200DA3F2A /* SurvivalPhraseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206902467BD8200DA3F2A /* SurvivalPhraseCategory.swift */; };
 		EA4206932467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206922467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift */; };
 		EA4206962468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206952468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift */; };
@@ -248,6 +250,8 @@
 		EA2FC5E323EF7AD600E258BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA3E00272529558C00B95A30 /* ProfileCompletedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCompletedItem.swift; sourceTree = "<group>"; };
 		EA3E002C25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCompletedItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA3E0031252A93B000B95A30 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		EA3E0036252A967100B95A30 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		EA4206902467BD8200DA3F2A /* SurvivalPhraseCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCategory.swift; sourceTree = "<group>"; };
 		EA4206922467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA4206952468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCategoryIdentifier.swift; sourceTree = "<group>"; };
@@ -381,6 +385,7 @@
 			children = (
 				925E3FF5250DDD290062606A /* ProfileCard.swift */,
 				EA3E00272529558C00B95A30 /* ProfileCompletedItem.swift */,
+				EA3E0036252A967100B95A30 /* ProfileHeader.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -625,6 +630,7 @@
 				EA52FDA723EF809D008EB37B /* ProfileViewController.swift */,
 				925E3FF2250DDA700062606A /* ProfileDataFetcher.swift */,
 				EA3E002C25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift */,
+				EA3E0031252A93B000B95A30 /* ProfileHeaderCollectionReusableView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1112,6 +1118,7 @@
 				EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */,
 				9204700024F337A200DE1A2D /* CompleteProfileViewStep3Controller.swift in Sources */,
 				EA9B5DD524A97A6C00D6CFBD /* BulletPointView.swift in Sources */,
+				EA3E0037252A967100B95A30 /* ProfileHeader.swift in Sources */,
 				EA6381EB2455140900481B8B /* DuoDetailedDialogViewController.swift in Sources */,
 				EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */,
 				925E3FF3250DDA700062606A /* ProfileDataFetcher.swift in Sources */,
@@ -1184,6 +1191,7 @@
 				EA01E6AF23FBC25F00C0B0AE /* Difficulty.swift in Sources */,
 				92BAC7192439691200862571 /* NewsReasonView.swift in Sources */,
 				92C5FE2B244C3E0F004A3322 /* PinyinFinalCollectionViewCell.swift in Sources */,
+				EA3E0032252A93B000B95A30 /* ProfileHeaderCollectionReusableView.swift in Sources */,
 				92046FFF24F337A200DE1A2D /* BasicUser.swift in Sources */,
 				92577B2B2446E8910097A445 /* PictographyViewController.swift in Sources */,
 				EA4206912467BD8200DA3F2A /* SurvivalPhraseCategory.swift in Sources */,
