@@ -84,6 +84,7 @@
 		EA3E002D25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3E002C25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift */; };
 		EA3E0032252A93B000B95A30 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3E0031252A93B000B95A30 /* ProfileHeaderCollectionReusableView.swift */; };
 		EA3E0037252A967100B95A30 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3E0036252A967100B95A30 /* ProfileHeader.swift */; };
+		EA3E003C252AC1B300B95A30 /* ProfileCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3E003B252AC1B300B95A30 /* ProfileCardCollectionViewCell.swift */; };
 		EA4206912467BD8200DA3F2A /* SurvivalPhraseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206902467BD8200DA3F2A /* SurvivalPhraseCategory.swift */; };
 		EA4206932467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206922467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift */; };
 		EA4206962468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206952468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift */; };
@@ -252,6 +253,7 @@
 		EA3E002C25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCompletedItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA3E0031252A93B000B95A30 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		EA3E0036252A967100B95A30 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		EA3E003B252AC1B300B95A30 /* ProfileCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA4206902467BD8200DA3F2A /* SurvivalPhraseCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCategory.swift; sourceTree = "<group>"; };
 		EA4206922467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA4206952468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivalPhraseCategoryIdentifier.swift; sourceTree = "<group>"; };
@@ -631,6 +633,7 @@
 				925E3FF2250DDA700062606A /* ProfileDataFetcher.swift */,
 				EA3E002C25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift */,
 				EA3E0031252A93B000B95A30 /* ProfileHeaderCollectionReusableView.swift */,
+				EA3E003B252AC1B300B95A30 /* ProfileCardCollectionViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1114,6 +1117,7 @@
 				92C5FE2F244D1621004A3322 /* PinyinSectionHeaderCollectionReusableView.swift in Sources */,
 				EA3E00282529558C00B95A30 /* ProfileCompletedItem.swift in Sources */,
 				92C5FE31244D2216004A3322 /* PinyinToneDetailCollectionViewCell.swift in Sources */,
+				EA3E003C252AC1B300B95A30 /* ProfileCardCollectionViewCell.swift in Sources */,
 				EA544907243ADF5200C07D0A /* ChapterScoreView.swift in Sources */,
 				EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */,
 				9204700024F337A200DE1A2D /* CompleteProfileViewStep3Controller.swift in Sources */,

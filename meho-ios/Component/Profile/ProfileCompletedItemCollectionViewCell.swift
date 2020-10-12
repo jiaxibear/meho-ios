@@ -22,6 +22,7 @@ class ProfileCompletedItemCollectionViewCell: UICollectionViewCell {
             titleLabel.text = completedItem.title
             countLabel.text = String(completedItem.count)
             contentBackgroundView.backgroundColor = completedItem.color
+            setNeedsUpdateConstraints()
         }
     }
 

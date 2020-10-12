@@ -29,26 +29,30 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let profileImageViewSize = CGFloat(50)
     private let settingButtonSize = CGFloat(20)
     private let completedCellHeight = CGFloat(90)
-    private let completedItemsLayoutSectionLeadingTrailingMargin = CGFloat(18)
+    private let sectionLeadingTrailingMargin = CGFloat(18)
+    private let sectionTopMargin = CGFloat(18)
+    private let sectionInterGroupSpacing = CGFloat(16)
     private let profileCompletedItemCollectionViewCellReusableIdentifier = "profileCompletedItemCollectionViewCellReusableIdentifier"
+    private let profileCardCollectionViewCellReusableIdentifier = "profileCardCollectionViewCellReusableIdentifier"
     private let collectionViewTopMargin = CGFloat(30)
     private let completedItemColorAlpha = CGFloat(0.3)
     private let profileSectionHeaderEstimatedHeight = CGFloat(60)
     private let profileSectionHeaderReusableIdentifier = "profileSectionHeaderReusableIdentifier"
-    
+    private let profileCardWidth = CGFloat(110)
+    private let profileCardHeight = CGFloat(160)
+
     // MARK: - Properties
-    private lazy var logoutButton:UIButton = {
+    private lazy var logoutButton: UIButton = {
         let logoutButton = UIButton.init()
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
         logoutButton.setTitle("Logout ", for: UIControl.State.normal)
         logoutButton.sizeToFit()
         logoutButton.backgroundColor = .wisteriaPurple
-
         logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         return logoutButton
     } ()
 
-    private lazy var usernameLabel:UILabel = {
+    private lazy var usernameLabel: UILabel = {
         let label = UILabel.init(frame: .zero)
         label.text = "Welcome to Meho!"
         label.textColor = .wisteriaPurple
@@ -69,12 +73,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return view
     } ()
 
-    private lazy var settingButton:UIButton = {
+    private lazy var settingButton: UIButton = {
         let button = UIButton.init()
         let profileImage = UIImage.init(named:settingButtonImageName)
         button.setImage(profileImage, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-
         return button
     } ()
 
@@ -87,7 +90,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             case .inProgress:
                 fallthrough
             case .savedItems:
-                fallthrough
+                return self.profileCardsLayoutSection()
             case .savedVocabulary:
                 return nil
             }
@@ -102,6 +105,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         collectionView.register(ProfileCompletedItemCollectionViewCell.self, forCellWithReuseIdentifier: profileCompletedItemCollectionViewCellReusableIdentifier)
+        collectionView.register(ProfileCardCollectionViewCell.self, forCellWithReuseIdentifier: profileCardCollectionViewCellReusableIdentifier)
         collectionView.register(ProfileHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionHeaderReusableIdentifier)
         return collectionView
     } ()
@@ -126,6 +130,23 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private lazy var completedTalks: ProfileCompletedItem = {
         return ProfileCompletedItem.init(title: "talks", count: 0, color: UIColor.periwinkle.withAlphaComponent(completedItemColorAlpha))
     } ()
+
+    private lazy var inProgressContents: [ProfileCard] = {
+        let card1 = ProfileCard.init(identifier: "", contentType: "Story", titleEn: "Check-in and boarding", titleZh: "值机与登机", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "ab25a669-49c2-4b6d-8013-ead51c14143d支付宝1.jpg"))
+        let card2 = ProfileCard.init(identifier: "", contentType: "Expression", titleEn: "May I have the menu", titleZh: "请给我菜单好吗？", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "ae40fe25-01f9-4c13-a114-4d218adcd5e9木兰1.jpg"))
+        let card3 = ProfileCard.init(identifier: "", contentType: "Talk", titleEn: "Design Discussion", titleZh: "设计讨论", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "b39863d4-9783-455e-84e7-4afa3ae0ac6f大碗宽面1.jpeg"))
+        let card4 = ProfileCard.init(identifier: "", contentType: "Talk", titleEn: "Regional Cuisines in China", titleZh: "中国各地菜系", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "9580cb81-5821-4da5-9253-ef512f3611df姐姐.jpeg"))
+        return [card1, card2, card3, card4]
+    } ()
+
+    private lazy var savedItems: [ProfileCard] = {
+        let card1 = ProfileCard.init(identifier: "", contentType: "Story", titleEn: "Check-in and boarding", titleZh: "值机与登机", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "ab25a669-49c2-4b6d-8013-ead51c14143d支付宝1.jpg"))
+        let card2 = ProfileCard.init(identifier: "", contentType: "Expression", titleEn: "May I have the menu", titleZh: "请给我菜单好吗？", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "ae40fe25-01f9-4c13-a114-4d218adcd5e9木兰1.jpg"))
+        let card3 = ProfileCard.init(identifier: "", contentType: "Talk", titleEn: "Design Discussion", titleZh: "设计讨论", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "b39863d4-9783-455e-84e7-4afa3ae0ac6f大碗宽面1.jpeg"))
+        let card4 = ProfileCard.init(identifier: "", contentType: "Talk", titleEn: "Regional Cuisines in China", titleZh: "中国各地菜系", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "9580cb81-5821-4da5-9253-ef512f3611df姐姐.jpeg"))
+        return [card1, card2, card3, card4]
+    } ()
+
     
     // MARK: - Init
     init() {
@@ -161,7 +182,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: collectionViewTopMargin).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: completedCellHeight + profileSectionHeaderEstimatedHeight).isActive = true
 
         profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: headerHorizontalMargin).isActive = true
         profileImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: headerTopMargin).isActive = true
@@ -180,6 +200,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         logoutButton.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         logoutButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         logoutButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: CGFloat(30)).isActive = true
+        logoutButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -CGFloat(10)).isActive = true
         logoutButton.heightAnchor.constraint(equalToConstant: CGFloat(30)).isActive = true
 
         guard let userId = AWSMobileClient.default().userSub else { return }
@@ -218,9 +239,15 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 return completedItemCell
             }
         case .inProgress:
-            fallthrough
+            if let profileCardCell = collectionView.dequeueReusableCell(withReuseIdentifier: profileCardCollectionViewCellReusableIdentifier, for: indexPath) as? ProfileCardCollectionViewCell {
+                profileCardCell.profileCard = inProgressContents[indexPath.item]
+                return profileCardCell
+            }
         case .savedItems:
-            fallthrough
+            if let profileCardCell = collectionView.dequeueReusableCell(withReuseIdentifier: profileCardCollectionViewCellReusableIdentifier, for: indexPath) as? ProfileCardCollectionViewCell {
+                profileCardCell.profileCard = savedItems[indexPath.item]
+                return profileCardCell
+            }
         case .savedVocabulary:
             return UICollectionViewCell.init(frame: .zero)
         }
@@ -233,9 +260,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         case .completed:
             return completedItems.count
         case .inProgress:
-            fallthrough
+            return inProgressContents.count
         case .savedItems:
-            fallthrough
+            return savedItems.count
         case .savedVocabulary:
             return 0
         }
@@ -244,21 +271,40 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionHeaderReusableIdentifier, for: indexPath) as! ProfileHeaderCollectionReusableView
-            headerView.profileHeader = ProfileHeader.init(title: "Your Completed Achivements", count: 0)
+            var title = ""
+            switch sections[indexPath.section] {
+            case .completed:
+                title = "Your Completed Achivements"
+                break
+            case .inProgress:
+                title = "In Progress Contents"
+                break
+            case .savedItems:
+                title = "Saved Items"
+                break
+            case .savedVocabulary:
+                title = "Saved Vocabulary"
+                break
+            }
+            headerView.profileHeader = ProfileHeader.init(title: title, count: 0)
             return headerView
         }
         return UICollectionReusableView.init(frame: .zero)
+    }
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 3
     }
     
     // MARK: - Auth related
     @objc
     func logout() {
-//        let profileSettingViewController = ProfileSettingViewController.init()
-//        navigationController?.pushViewController(profileSettingViewController, animated: true)
-        AWSMobileClient.default().signOut { (error) in
-            guard error == nil else { return }
-            self.checkSignIn()
-        }
+        let profileSettingViewController = ProfileSettingViewController.init()
+        navigationController?.pushViewController(profileSettingViewController, animated: true)
+//        AWSMobileClient.default().signOut { (error) in
+//            guard error == nil else { return }
+//            self.checkSignIn()
+//        }
     }
     
     func checkSignIn() {
@@ -274,16 +320,32 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     func completedItemsLayoutSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
-        let groupWidth = (collectionView.bounds.width - completedItemsLayoutSectionLeadingTrailingMargin * 2) / 3
+        let groupWidth = (collectionView.bounds.width - sectionLeadingTrailingMargin * 2) / 3
         let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(groupWidth), heightDimension: .absolute(completedCellHeight))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection.init(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: completedItemsLayoutSectionLeadingTrailingMargin, bottom: 0, trailing: completedItemsLayoutSectionLeadingTrailingMargin)
+        section.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: sectionLeadingTrailingMargin, bottom: sectionTopMargin, trailing: sectionLeadingTrailingMargin)
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(profileSectionHeaderEstimatedHeight))
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         section.boundarySupplementaryItems = [headerElement]
         section.supplementariesFollowContentInsets = false
+        return section
+    }
+
+    func profileCardsLayoutSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(profileCardWidth), heightDimension: .absolute(profileCardHeight))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection.init(group: group)
+        section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: sectionLeadingTrailingMargin, bottom: sectionTopMargin, trailing: sectionLeadingTrailingMargin)
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(profileSectionHeaderEstimatedHeight))
+        let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        section.boundarySupplementaryItems = [headerElement]
+        section.supplementariesFollowContentInsets = false
+        section.interGroupSpacing = sectionInterGroupSpacing
         return section
     }
 }
