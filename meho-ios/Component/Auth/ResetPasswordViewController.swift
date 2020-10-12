@@ -318,6 +318,18 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
         navigationController?.pushViewController(webViewController, animated: true)
     }
 
+    func otherSignInViewDidTapFacebookButton() {
+
+    }
+
+    func otherSignInViewDidTapGoogleButton() {
+
+    }
+
+    func otherSignInViewDidTapAppleButton() {
+
+    }
+
     // MARK: - Private
     @objc
     func didTapSendCodeButton() {

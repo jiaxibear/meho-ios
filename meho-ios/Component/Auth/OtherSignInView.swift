@@ -10,6 +10,9 @@ import UIKit
 
 protocol OtherSignInViewDelegate: AnyObject {
     func otherSignInViewDidTapURL(_ URL: URL)
+    func otherSignInViewDidTapFacebookButton()
+    func otherSignInViewDidTapGoogleButton()
+    func otherSignInViewDidTapAppleButton()
 }
 
 class OtherSignInView: UIView, UITextViewDelegate {
@@ -69,6 +72,7 @@ class OtherSignInView: UIView, UITextViewDelegate {
         facebookButton.setTitleColor(.white, for: .normal)
         facebookButton.titleLabel?.font = UIFont.systemFont(ofSize: buttonTitleFontSize, weight: .semibold)
         facebookButton.setTitle(NSLocalizedString("FacebookButtonTitle", comment: ""), for: .normal)
+        facebookButton.addTarget(self, action: #selector(didTapFacebookButton), for: .touchUpInside)
         return facebookButton
     } ()
 
@@ -81,6 +85,7 @@ class OtherSignInView: UIView, UITextViewDelegate {
         googleButton.setTitleColor(.white, for: .normal)
         googleButton.titleLabel?.font = UIFont.systemFont(ofSize: buttonTitleFontSize, weight: .semibold)
         googleButton.setTitle(NSLocalizedString("GoogleButtonTitle", comment: ""), for: .normal)
+        googleButton.addTarget(self, action: #selector(didTapGoogleButton), for: .touchUpInside)
         return googleButton
     } ()
 
@@ -93,6 +98,7 @@ class OtherSignInView: UIView, UITextViewDelegate {
         appleButton.setTitleColor(.white, for: .normal)
         appleButton.titleLabel?.font = UIFont.systemFont(ofSize: buttonTitleFontSize, weight: .semibold)
         appleButton.setTitle(NSLocalizedString("AppleButtonTitle", comment: ""), for: .normal)
+        appleButton.addTarget(self, action: #selector(didTapAppleButton), for: .touchUpInside)
         return appleButton
     } ()
 
@@ -179,5 +185,21 @@ class OtherSignInView: UIView, UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         delegate?.otherSignInViewDidTapURL(URL)
         return false
+    }
+
+    // MARK: - Private Methods
+    @objc
+    func didTapGoogleButton() {
+        delegate?.otherSignInViewDidTapGoogleButton()
+    }
+
+    @objc
+    func didTapAppleButton() {
+        delegate?.otherSignInViewDidTapAppleButton()
+    }
+
+    @objc
+    func didTapFacebookButton() {
+        delegate?.otherSignInViewDidTapFacebookButton()
     }
 }

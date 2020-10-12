@@ -157,7 +157,6 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
     }
 
     // MARK: - UITextFieldDelegate
-
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
@@ -169,6 +168,18 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
         let webViewController = WebViewController.init(title: title, contentURL: URL)
         self.title = ""
         navigationController?.pushViewController(webViewController, animated: true)
+    }
+
+    func otherSignInViewDidTapFacebookButton() {
+
+    }
+
+    func otherSignInViewDidTapGoogleButton() {
+
+    }
+
+    func otherSignInViewDidTapAppleButton() {
+
     }
 
     // MARK: - Private Methods

@@ -228,6 +228,18 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         navigationController?.pushViewController(webViewController, animated: true)
     }
 
+    func otherSignInViewDidTapFacebookButton() {
+
+    }
+
+    func otherSignInViewDidTapGoogleButton() {
+
+    }
+
+    func otherSignInViewDidTapAppleButton() {
+        
+    }
+
     // MARK: - Private
     @objc
     func didTapNextButton() {
