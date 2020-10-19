@@ -9,9 +9,15 @@ type Paragraph @model {
     videoURL: String
 }
 
-type Expression @model {
+type Expression @model 
+@key(
+    name: "byLabel"
+    fields: ["label"]
+    queryField: "getExpressionsByLabel"
+)
+{
     id: ID!
-    label: String
+    label: String!
     contentZh: String
     contentPinyin: String
     contentEn: String
@@ -52,7 +58,12 @@ type Vocabulary @model {
     articles: [VocabularyArticle] @connection(name: "VocabularyArticle")
 }
 
-type VocabularyArticle @model {  
+type VocabularyArticle @model 
+@key(
+  name: "byParagraphId"
+  fields: ["paragraphId"]
+  queryField: "getVocabularyArticlesByParagraphId"
+){  
     id: ID!
     article: Article @connection(name: "ArticleVocabulary", sortField: "createdAt")
     vocabulary: Vocabulary @connection(name: "VocabularyArticle")
@@ -93,7 +104,12 @@ type Chapter @model {
     npcRole: String
     dialogue: Dialogue @connection(name: "DialogueChapters")
 }
-type Dialogue @model {
+type Dialogue @model 
+@key(
+  name: "byStatus"
+  fields: ["status", "createdAt"]
+  queryField: "getDialoguesByStatus"
+){ 
     id: ID!
     coverImage: S3Object
     coverImage_key: String
@@ -103,6 +119,9 @@ type Dialogue @model {
     difficultyLevel: String
     tags: [TagDialogue] @connection(name: "DialogueTag")
     chapters: [Chapter] @connection(name: "DialogueChapters")
+    status: String!
+    createdAt: String!
+    markAsMostPopular: Boolean 
 }
 
 type TagDialogue @model {  #for many to many relationship
@@ -131,16 +150,15 @@ type User @model {
     interests: [String!]
     profession: String
 
-    completedItems: [UserItemCompleted] @connection(keyName: "byUser", fields: ["id"])
+    completedItems: [UserItemCompleted] @connection(name: "UserItemCompleted")
     inProgressItems: [UserItemInProgress] @connection(name: "UserItemInProgress")
     savedItems: [UserItemSave] @connection(name: "UserItemSave")
     savedVocabularies: [UserVocabularySave] @connection(name: "UserVocabularySave")
 }
 
-type UserItemCompleted @model 
-    @key(name: "byUser", fields: ["itemType", "itemID"]) {
+type UserItemCompleted @model {
     id: ID!
-    userID: ID!
+    user: User @connection(name: "UserItemCompleted")
     itemType: String # STORY EXPRESSION TALK
     itemID: ID!
 }

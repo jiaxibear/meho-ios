@@ -29,5 +29,35 @@
                 "defaultAccessLevel": "guest"
             }
         }
+    },
+    "auth": {
+        "plugins": {
+            "awsCognitoAuthPlugin": {
+                "IdentityManager": {
+                    "Default": {}
+                },
+                "CredentialsProvider": {
+                    "CognitoIdentity": {
+                        "Default": {
+                            "PoolId": "us-west-2:c6cfa4af-876b-4eca-802f-da355b63fbe9",
+                            "Region": "us-west-2"
+                        }
+                    }
+                },
+                "CognitoUserPool": {
+                    "Default": {
+                        "PoolId": "[COGNITO USER POOL ID]",
+                        "AppClientId": "12elqc1ncgclimgud5pjb6dav",
+                        "AppClientSecret": "13spd53g21biadp592j10200g7ief4qp7t4b0dq38fqor7buitr2",
+                        "Region": "us-west-2"
+                    }
+                },
+                "Auth": {
+                    "Default": {
+                        "authenticationFlowType": "USER_SRP_AUTH"
+                    }
+                }
+            }
+        }
     }
 }

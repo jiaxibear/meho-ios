@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Amplify
 
 protocol OtherSignInViewDelegate: AnyObject {
     func otherSignInViewDidTapURL(_ URL: URL)

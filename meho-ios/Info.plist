@@ -25,6 +25,16 @@
 				<string>com.googleusercontent.apps.983399197555-m5b0kem8a98rp7khu0pkcofemsu37vgp</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>com.meho.mehoapp</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>meho</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>

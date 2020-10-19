@@ -10,6 +10,11 @@
             "StackName": "amplify-mehoadmin-mehoadmin-213338",
             "StackId": "arn:aws:cloudformation:us-west-2:296052403006:stack/amplify-mehoadmin-mehoadmin-213338/87599830-c266-11ea-8a1b-029123b1cc42",
             "AmplifyAppId": "d1zfqjd6e7r1fb"
+        },
+        "categories": {
+            "auth": {
+                "mehousers": {}
+            }
         }
     }
 }

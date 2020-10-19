@@ -9,6 +9,8 @@
 import UIKit
 import AWSMobileClient
 import AWSAppSync
+import Amplify
+import AmplifyPlugins
 import AVFoundation
 import Firebase
 
@@ -49,6 +51,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            identityPoolId:"us-west-2:c6cfa4af-876b-4eca-802f-da355b63fbe9")
 
         let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
+
+        do {
+            try Amplify.add(plugin: AWSCognitoAuthPlugin())
+            try Amplify.configure()
+            print("Amplify configured with auth plugin")
+        } catch {
+            print("Failed to initialize Amplify with \(error)")
+        }
 
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         FirebaseApp.configure()

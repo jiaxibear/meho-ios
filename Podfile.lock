@@ -1,51 +1,63 @@
 PODS:
-  - AppSyncRealTimeClient (1.2.0):
+  - Amplify (1.2.0):
+    - Amplify/Default (= 1.2.0)
+  - Amplify/Default (1.2.0)
+  - AmplifyPlugins/AWSCognitoAuthPlugin (1.2.0):
+    - AWSAuthCore (~> 2.15.0)
+    - AWSCore (~> 2.15.0)
+    - AWSMobileClient (~> 2.15.0)
+    - AWSPluginsCore (= 1.2.0)
+  - AppSyncRealTimeClient (1.4.1):
     - Starscream (~> 3.1.0)
-  - AWSAppSync (3.1.3):
-    - AppSyncRealTimeClient (~> 1.1)
-    - AWSCore (~> 2.14.0)
+  - AWSAppSync (3.1.5):
+    - AppSyncRealTimeClient (~> 1.4)
+    - AWSCore (~> 2.15.0)
     - ReachabilitySwift (~> 5.0.0)
     - SQLite.swift (~> 0.12.2)
-  - AWSAuthCore (2.14.2):
-    - AWSCore (= 2.14.2)
-  - AWSAuthUI (2.14.2):
-    - AWSAuthCore (= 2.14.2)
-    - AWSCore (= 2.14.2)
-  - AWSCognitoIdentityProvider (2.14.2):
-    - AWSCognitoIdentityProviderASF (= 1.0.1)
-    - AWSCore (= 2.14.2)
-  - AWSCognitoIdentityProviderASF (1.0.1)
-  - AWSCore (2.14.2)
-  - AWSMobileClient (2.14.2):
-    - AWSAuthCore (= 2.14.2)
-    - AWSCognitoIdentityProvider (= 2.14.2)
-  - AWSS3 (2.14.2):
-    - AWSCore (= 2.14.2)
-  - AWSUserPoolsSignIn (2.14.2):
-    - AWSAuthCore (= 2.14.2)
-    - AWSCognitoIdentityProvider (= 2.14.2)
-  - Firebase/Analytics (6.31.0):
+  - AWSAuthCore (2.15.3):
+    - AWSCore (= 2.15.3)
+  - AWSAuthUI (2.15.3):
+    - AWSAuthCore (= 2.15.3)
+    - AWSCore (= 2.15.3)
+  - AWSCognitoIdentityProvider (2.15.3):
+    - AWSCognitoIdentityProviderASF (= 1.0.2)
+    - AWSCore (= 2.15.3)
+  - AWSCognitoIdentityProviderASF (1.0.2)
+  - AWSCore (2.15.3)
+  - AWSMobileClient (2.15.3):
+    - AWSAuthCore (= 2.15.3)
+    - AWSCognitoIdentityProvider (= 2.15.3)
+  - AWSPluginsCore (1.2.0):
+    - Amplify (= 1.2.0)
+    - AWSCore (~> 2.15.0)
+    - AWSMobileClient (~> 2.15.0)
+  - AWSS3 (2.15.3):
+    - AWSCore (= 2.15.3)
+  - AWSUserPoolsSignIn (2.15.3):
+    - AWSAuthCore (= 2.15.3)
+    - AWSCognitoIdentityProvider (= 2.15.3)
+  - Firebase/Analytics (6.34.0):
     - Firebase/Core
-  - Firebase/Core (6.31.0):
+  - Firebase/Core (6.34.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.8.0)
-  - Firebase/CoreOnly (6.31.0):
-    - FirebaseCore (= 6.10.1)
-  - FirebaseAnalytics (6.8.0):
+    - FirebaseAnalytics (= 6.9.0)
+  - Firebase/CoreOnly (6.34.0):
+    - FirebaseCore (= 6.10.4)
+  - FirebaseAnalytics (6.9.0):
     - FirebaseCore (~> 6.10)
-    - FirebaseInstallations (~> 1.6)
-    - GoogleAppMeasurement (= 6.8.0)
+    - FirebaseInstallations (~> 1.7)
+    - GoogleAppMeasurement (= 6.9.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
     - GoogleUtilities/Network (~> 6.7)
     - "GoogleUtilities/NSData+zlib (~> 6.7)"
     - nanopb (~> 1.30906.0)
-  - FirebaseCore (6.10.1):
+  - FirebaseCore (6.10.4):
     - FirebaseCoreDiagnostics (~> 1.6)
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
-  - FirebaseCoreDiagnostics (1.6.0):
-    - GoogleDataTransport (~> 7.2)
+  - FirebaseCoreDiagnostics (1.7.0):
+    - GoogleDataTransport (~> 7.4)
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
     - nanopb (~> 1.30906.0)
@@ -54,13 +66,13 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
-  - GoogleAppMeasurement (6.8.0):
+  - GoogleAppMeasurement (6.9.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
     - GoogleUtilities/Network (~> 6.7)
     - "GoogleUtilities/NSData+zlib (~> 6.7)"
     - nanopb (~> 1.30906.0)
-  - GoogleDataTransport (7.3.0):
+  - GoogleDataTransport (7.5.1):
     - nanopb (~> 1.30906.0)
   - GoogleUtilities/AppDelegateSwizzler (6.7.2):
     - GoogleUtilities/Environment
@@ -86,7 +98,7 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
-  - PromisesObjC (1.2.10)
+  - PromisesObjC (1.2.11)
   - ReachabilitySwift (5.0.0)
   - SQLite.swift (0.12.2):
     - SQLite.swift/standard (= 0.12.2)
@@ -95,17 +107,21 @@ PODS:
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
-  - AWSAppSync (~> 3.1.3)
-  - AWSAuthUI (~> 2.14.2)
-  - AWSCore (~> 2.14.0)
-  - AWSMobileClient (~> 2.14.2)
-  - AWSS3 (~> 2.14.2)
-  - AWSUserPoolsSignIn (~> 2.14.2)
+  - Amplify (~> 1.2.0)
+  - AmplifyPlugins/AWSCognitoAuthPlugin (~> 1.2.0)
+  - AWSAppSync (~> 3.1.5)
+  - AWSAuthUI (~> 2.15.0)
+  - AWSCore (~> 2.15.0)
+  - AWSMobileClient (~> 2.15.0)
+  - AWSS3 (~> 2.15.0)
+  - AWSUserPoolsSignIn (~> 2.15.0)
   - Firebase/Analytics
   - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
   trunk:
+    - Amplify
+    - AmplifyPlugins
     - AppSyncRealTimeClient
     - AWSAppSync
     - AWSAuthCore
@@ -114,6 +130,7 @@ SPEC REPOS:
     - AWSCognitoIdentityProviderASF
     - AWSCore
     - AWSMobileClient
+    - AWSPluginsCore
     - AWSS3
     - AWSUserPoolsSignIn
     - Firebase
@@ -132,31 +149,34 @@ SPEC REPOS:
     - Toast-Swift
 
 SPEC CHECKSUMS:
-  AppSyncRealTimeClient: 3f95699ecb432b8f5856b1d58484e8d651debec0
-  AWSAppSync: f8cfbdcbca1e9bc5039371abe07bf390a60ae4da
-  AWSAuthCore: 7ab6f5ab60ba8bb91a4868581946a993cbbae76d
-  AWSAuthUI: dea9fe4eaefd623e88f02ae91bd3d8bc421eab38
-  AWSCognitoIdentityProvider: 609856c741ef86037055223b3a46f4eeb49319d0
-  AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
-  AWSCore: 80da498ab0979e77dbdc7690a61ceaaccfb0499a
-  AWSMobileClient: b80f21439aa95df2375e7acdde76d2f60c12f4b7
-  AWSS3: 2ea579ed91fb01a187f7d8d827e3936da488531e
-  AWSUserPoolsSignIn: 6cdca6deec183019640710af5e1665ad38a5e27a
-  Firebase: 87483fa19acfdf99244523f2389e931927b91457
-  FirebaseAnalytics: 0ca9aa2af7cc4dc92392b7a78bfc49feaa2eb60f
-  FirebaseCore: 6fb954e350af0885803d5aa49865d15d9a6b264c
-  FirebaseCoreDiagnostics: 7415bfb3883b3500c5a95c42b6ba66baae78f600
+  Amplify: 936bb160a853e94be153c2f3f8a250f7090c9ee0
+  AmplifyPlugins: dda20f2503c4a9e7175fd3d91223113f802f9526
+  AppSyncRealTimeClient: 879b9fa3ce3f335450ca06e0def279fa90af9e76
+  AWSAppSync: dcaa833096bd226e6df445f91da8429adc88f89c
+  AWSAuthCore: 598e8eb56e12799877414d10b04598de12a15992
+  AWSAuthUI: bafa4e28a80b0b337e242db708ebed622a61b677
+  AWSCognitoIdentityProvider: 4a721292eda37a8c3ef451e8fec28abe14aff18e
+  AWSCognitoIdentityProviderASF: 0fb6ea671c05a63276e320726f680cd880522442
+  AWSCore: 5a8f9d7461dbe5ea6a5473c41cf113b687e19136
+  AWSMobileClient: 5c29678413764ee3bcd528421331deb0a35b72fb
+  AWSPluginsCore: c413c27dece5dbf0e9530ae6c01a804998205eb7
+  AWSS3: 04a7e689791b382d2d1e29cda6852048e0555635
+  AWSUserPoolsSignIn: 3a6639a0e07630e5e47ab76a422ce30ed90bc890
+  Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
+  FirebaseAnalytics: 3bb096873ee0d7fa4b6c70f5e9166b6da413cc7f
+  FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
+  FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
-  GoogleAppMeasurement: ecc30d0ab5b66d7d18e85ce1b8e2b345db60626d
-  GoogleDataTransport: e85fb700c9b027079ce182c3d08e12e0f9618bb4
+  GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
+  GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
-  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: a2716ad528fb0d6215c2053abf85606eb2a9579e
+PODFILE CHECKSUM: df0f5755f11d50e5bb3cc05c6ba05bb1fbcd0e9b
 
 COCOAPODS: 1.8.4

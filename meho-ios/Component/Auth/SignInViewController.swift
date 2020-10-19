@@ -8,6 +8,8 @@
 
 import UIKit
 import AWSMobileClient
+import Amplify
+import AmplifyPlugins
 
 class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFieldDelegate {
 
@@ -210,6 +212,20 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
     }
 
     @objc
+    private func didTapSignInWithFacebook() {
+        Amplify.Auth.signInWithWebUI(for: .facebook, presentationAnchor: self.view.window!) { result in
+            switch result {
+            case .success:
+                print("Sign in succeeded")
+                let userId = AWSMobileClient.default().userSub!
+                self.completeProfileOrNavigateToApp(userId: userId, username: userId)
+            case .failure(let error):
+                print("Sign in failed \(error)")
+            }
+        }
+    }
+
+    @objc
     private func didTapSignInButton() {
         let un = emailAddressField.text
         passwordField.isSecureTextEntry = false
@@ -264,22 +280,27 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
                 switch state {
                     case .signedIn:
                         let userId = AWSMobileClient.default().userSub!
-                        self.userDataFecther.getUser(userId: userId) { (maybeUser, error) in
-                            if (maybeUser == nil) {
-                                // no user found case, this is new user login, we should create a new user and pop onboarding steps
-                                self.userDataFecther.createUser(userId: userId, username: un!, userEmail: un!) { (userCreated, error) in
-                                    if (error == nil && userCreated != nil && userCreated!.identifier == userId) {
-                                        self.navigationController?.setViewControllers([CompleteProfileViewStep1Controller.init()], animated: false)
-                                    }
-                                }
-                            } else {
-                                // user exist case, recurring user, we should pop main screen
-                                self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
-                            }
-                        }
+                        self.completeProfileOrNavigateToApp(userId: userId, username: un!)
                     default:
                         print ("default")
                 }
+            }
+        }
+    }
+
+    private func completeProfileOrNavigateToApp(userId:String, username: String) {
+
+        self.userDataFecther.getUser(userId: userId) { (maybeUser, error) in
+            if (maybeUser == nil) {
+                // no user found case, this is new user login, we should create a new user and pop onboarding steps
+                self.userDataFecther.createUser(userId: userId, username: username, userEmail: username) { (userCreated, error) in
+                    if (error == nil && userCreated != nil && userCreated!.identifier == userId) {
+                        self.navigationController?.setViewControllers([CompleteProfileViewStep1Controller.init()], animated: false)
+                    }
+                }
+            } else {
+                // user exist case, recurring user, we should pop main screen
+                self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
             }
         }
     }

@@ -63,7 +63,6 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         tabBarItem = newsTabBarItem
     }
 
-
     @available(*, unavailable)
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         fatalError("Use init")
