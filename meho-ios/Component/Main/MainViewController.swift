@@ -7,11 +7,32 @@
 //
 
 import UIKit
+import AWSMobileClient
+import FirebaseAnalytics
 
 class MainViewController: UITabBarController {
 
     // MARK: - Constants
     private let backBarButtonItemImageName = "arrow.left"
+
+    private let internalTestingEmailList: Set = [
+        "ppyzfbtesting@gmail.com",
+        "ppyzdsdafb@gmail.com",
+        "charlielaw48@gmail.com",
+        "therealchuhan@gmail.com",
+        "hanyue.jackie.zhao@gmail.com",
+        "ericyoung505@gmail.com",
+        "charlie.chang.liu@gmail.com",
+        "cw3nm@virginia.edu",
+        "hz2ay@virginia.edu",
+        "jiaxi.xiong.us@gmail.com",
+        "pingpingya@gmail.com",
+        "smartpiggylab@gmail.com",
+        "themehoapp@gmail.com",
+        "ppyzfb@gmail.com",
+        "raydeyang@gmail.com",
+        "jiaxi.xiong.meho@gmail.com"
+    ]
 
     // MARK: - UIViewController
     override func viewDidLoad() {
@@ -27,6 +48,20 @@ class MainViewController: UITabBarController {
         // Sets appearance of the tab bar.
         tabBar.barTintColor = .white
         tabBar.tintColor = .wisteriaPurple
+
+        // Disable Firebase Analytics for internal testing accounts.
+        let userDataFetcher = UserDataFetcher.init()
+        let userID = AWSMobileClient.default().userSub
+        guard userID != nil else {
+            return
+        }
+        userDataFetcher.getUser(userId: userID!) { (user, error) in
+            if let email = user?.email {
+                if self.internalTestingEmailList.contains(email) {
+                    Analytics.setAnalyticsCollectionEnabled(false)
+                }
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
