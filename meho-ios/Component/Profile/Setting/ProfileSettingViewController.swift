@@ -12,12 +12,15 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
 
     // MARK: - Constants
     private let collectionViewCellReuseIdentifier = "collectionViewCellReuseIdentifier"
+    private let collectionHeaderCellReuseIdentifier = "collectionHeaderCellReuseIdentifier"
+    private let sectionTopInset = CGFloat(12)
 
     // MARK: - Properties
     // MARK: UI
     private lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let collectionViewFlowLayout = UICollectionViewFlowLayout.init()
         collectionViewFlowLayout.minimumLineSpacing = 0
+        collectionViewFlowLayout.sectionInset = UIEdgeInsets.init(top: sectionTopInset, left: 0, bottom: 0, right: 0)
         return collectionViewFlowLayout
     } ()
 
@@ -28,6 +31,7 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(ProfileSettingCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellReuseIdentifier)
+        collectionView.register(ProfileSettingHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: collectionHeaderCellReuseIdentifier)
         return collectionView
     } ()
 
@@ -88,10 +92,23 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         return profileSettings.count
     }
 
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader else {
+            return UICollectionReusableView.init(frame: .zero)
+        }
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: collectionHeaderCellReuseIdentifier, for: indexPath)
+        return header
+    }
+
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.size.width - collectionView.contentInset.left - collectionView.contentInset.right
         let height = ProfileSettingCollectionViewCell.cellHeight(width: width, profileSetting: profileSettings[indexPath.item])
         return CGSize.init(width: width, height: height)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let width = collectionView.bounds.size.width - collectionView.contentInset.left - collectionView.contentInset.right
+        return CGSize.init(width: 0, height: ProfileSettingHeaderCollectionReusableView.viewHeight(width: width))
     }
 }
