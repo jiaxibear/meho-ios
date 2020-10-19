@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     // MARK: - Constants
     private let profileTabBarItemImageName = "tabbar_profile_25pt"
-    private let settingButtonImageName = "stories_heart_filled"
+    private let settingButtonImageName = "profile_setting_icon"
     private let defaultProfileImageName = "no_profile_pic"
     private let headerHorizontalMargin = CGFloat(24)
     private let headerTopMargin = CGFloat(22)
@@ -67,7 +67,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let view = UIImageView.init(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
-        view.layer.cornerRadius = profileImageViewSize/2
+        view.layer.cornerRadius = profileImageViewSize / 2
         let profileImage = UIImage.init(named:defaultProfileImageName)
         view.image = profileImage
         return view
@@ -78,6 +78,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let profileImage = UIImage.init(named:settingButtonImageName)
         button.setImage(profileImage, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didTapSettingButton), for: .touchUpInside)
         return button
     } ()
 
@@ -300,12 +301,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     // MARK: - Auth related
     @objc
     func logout() {
-        let profileSettingViewController = ProfileSettingViewController.init()
-        navigationController?.pushViewController(profileSettingViewController, animated: true)
-//        AWSMobileClient.default().signOut { (error) in
-//            guard error == nil else { return }
-//            self.checkSignIn()
-//        }
+        AWSMobileClient.default().signOut { (error) in
+            guard error == nil else { return }
+            self.checkSignIn()
+        }
     }
     
     func checkSignIn() {
@@ -348,5 +347,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         section.supplementariesFollowContentInsets = false
         section.interGroupSpacing = sectionInterGroupSpacing
         return section
+    }
+
+    @objc
+    func didTapSettingButton() {
+        let profileSettingViewController = ProfileSettingViewController.init()
+        navigationController?.pushViewController(profileSettingViewController, animated: true)
     }
 }
