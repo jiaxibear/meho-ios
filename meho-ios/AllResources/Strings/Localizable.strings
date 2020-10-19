@@ -323,3 +323,6 @@
 
 /* Title displayed in the navigation bar in the update goal screen. */
 "UpdateGoalTitle" = "Update Goal";
+
+/* Title displayed in the navigation bar in the update interests screen. */
+"UpdateInterestsTitle" = "Update Interests";

@@ -31,6 +31,7 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
     // MARK: - Properties
     // MARK: Model
     private let userDataFecther = UserDataFetcher.shared
+    private let isSingleStep: Bool
 
     private lazy var questions: [ProfileQuestion] = {
         let business = ProfileQuestion.init(title: "#Business", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
@@ -93,6 +94,31 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
         return questionsCollectionView
     } ()
 
+    // MARK: - Init
+    init(interests: [String]? = nil, isSingleStep: Bool = false) {
+        self.isSingleStep = isSingleStep
+        super.init(nibName: nil, bundle: nil)
+        if interests != nil {
+            for interest in interests! {
+                for (index, _) in questions.enumerated() {
+                    if questions[index].title == interest {
+                        questions[index].isSelected = true
+                    }
+                }
+            }
+        }
+    }
+
+    @available(*, unavailable)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        fatalError("Use init(goals: [String])")
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("Use init(goals: [String])")
+    }
+
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
@@ -150,7 +176,11 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        title = NSLocalizedString("completeProfileStep2Title", comment: "")
+        if isSingleStep {
+            title = NSLocalizedString("UpdateInterestsTitle", comment: "")
+        } else {
+            title = NSLocalizedString("completeProfileStep2Title", comment: "")
+        }
     }
 
     // MARK: - Private
@@ -166,8 +196,12 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
 
         userDataFecther.updateUser(id: userId, interests: interests) { (basicUser, error) in
             DispatchQueue.main.async {
-                self.title = ""
-                self.navigationController?.pushViewController(CompleteProfileViewStep3Controller.init(), animated: true)
+                if self.isSingleStep {
+                    self.navigationController?.popViewController(animated: true)
+                } else {
+                    self.title = ""
+                    self.navigationController?.pushViewController(CompleteProfileViewStep3Controller.init(), animated: true)
+                }
             }
         }
     }

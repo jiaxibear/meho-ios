@@ -54,14 +54,6 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         return [account, nickname, password, profiles, goals, interests, professions, appVersion, contact, privacyPolicy, userAgreement, signOut]
     } ()
 
-    private lazy var goalsProfileSetting: ProfileSetting = {
-        return ProfileSetting.init(title: "Update Goal", subtitle: "Communicated with Business Contacts", type: .goal, style: .item)
-    } ()
-
-    private lazy var interestsProfileSetting: ProfileSetting = {
-        return ProfileSetting.init(title: "Update Interests", subtitle: "#Business #Travel #Culture", type: .goal, style: .item)
-    } ()
-
     // MARK: - Init
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -157,6 +149,10 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         switch profileSetting.type {
         case .goal:
             let viewController = CompleteProfileViewStep1Controller.init(goals: profileSetting.subtitle?.components(separatedBy: ", "), isSingleStep: true)
+            navigationController?.pushViewController(viewController, animated: true)
+            break
+        case .interests:
+            let viewController = CompleteProfileViewStep2Controller.init(interests: profileSetting.subtitle?.components(separatedBy: ", "), isSingleStep: true)
             navigationController?.pushViewController(viewController, animated: true)
             break
         default:
