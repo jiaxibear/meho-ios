@@ -169,8 +169,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        title = ""
+        view.backgroundColor = .white
+        navigationController?.setNavigationBarHidden(false, animated: false)
         let margins = view.layoutMarginsGuide
 
         view.addSubview(collectionView)
