@@ -43,12 +43,15 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         let nickname = ProfileSetting.init(title: "Change Nickname", subtitle: nil, type: .nickname, style: .item)
         let password = ProfileSetting.init(title: "Change Password", subtitle: nil, type: .password, style: .item)
         let profiles = ProfileSetting.init(title: "Profiles", subtitle: nil, type: .profiles, style: .header)
+        let goals = ProfileSetting.init(title: "Update Goal", subtitle: "Communicated with Business Contacts", type: .goal, style: .item)
+        let interests = ProfileSetting.init(title: "Update Interests", subtitle: "#Business #Travel #Culture", type: .interests, style: .item)
+        let professions = ProfileSetting.init(title: "Update Professions", subtitle: "Service", type: .professions, style: .item)
         let appVersion = ProfileSetting.init(title: "App Version: 1.1.0", subtitle: nil, type: .appVersion, style: .appVersion)
         let contact = ProfileSetting.init(title: "Contact Meho", subtitle: nil, type: .contact, style: .header)
         let privacyPolicy = ProfileSetting.init(title: "Privacy Policy", subtitle: nil, type: .privacy, style: .header)
         let userAgreement = ProfileSetting.init(title: "User Agreement", subtitle: nil, type: .userAgreement, style: .header)
         let signOut = ProfileSetting.init(title: "Sign Out", subtitle: nil, type: .signOut, style: .header)
-        return [account, nickname, password, profiles, goalsProfileSetting, interestsProfileSetting, professionsProfileSetting, appVersion, contact, privacyPolicy, userAgreement, signOut]
+        return [account, nickname, password, profiles, goals, interests, professions, appVersion, contact, privacyPolicy, userAgreement, signOut]
     } ()
 
     private lazy var goalsProfileSetting: ProfileSetting = {
@@ -57,10 +60,6 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
 
     private lazy var interestsProfileSetting: ProfileSetting = {
         return ProfileSetting.init(title: "Update Interests", subtitle: "#Business #Travel #Culture", type: .goal, style: .item)
-    } ()
-
-    private lazy var professionsProfileSetting: ProfileSetting = {
-        return ProfileSetting.init(title: "Update Professions", subtitle: "Service", type: .goal, style: .item)
     } ()
 
     // MARK: - Init
@@ -81,22 +80,38 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = ""
         view.backgroundColor = .white
         view.addSubview(collectionView)
         collectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         guard let userID = AWSMobileClient.default().userSub else {
             return
         }
         UserDataFetcher.shared.getUser(userId: userID) { (basicUser, error) in
             if basicUser != nil && error == nil {
                 DispatchQueue.main.async {
-                    self.goalsProfileSetting.subtitle = basicUser?.goals.joined(separator: " ")
-                    self.professionsProfileSetting.subtitle = basicUser?.profession
-                    self.interestsProfileSetting.subtitle = basicUser?.interests.joined(separator: " ")
+                    for (index, _) in self.profileSettings.enumerated() {
+                        switch self.profileSettings[index].type {
+                        case .goal:
+                            self.profileSettings[index].subtitle = basicUser?.goals.joined(separator: ", ")
+                            break
+                        case .interests:
+                            self.profileSettings[index].subtitle = basicUser?.interests.joined(separator: ", ")
+                            break
+                        case .professions:
+                            self.profileSettings[index].subtitle = basicUser?.profession
+                            break
+                        default:
+                            break
+                        }
+                    }
                     self.collectionView.reloadData()
                 }
             }
@@ -134,5 +149,18 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = collectionView.bounds.size.width - collectionView.contentInset.left - collectionView.contentInset.right
         return CGSize.init(width: 0, height: ProfileSettingHeaderCollectionReusableView.viewHeight(width: width))
+    }
+
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let profileSetting = profileSettings[indexPath.item]
+        switch profileSetting.type {
+        case .goal:
+            let viewController = CompleteProfileViewStep1Controller.init(goals: profileSetting.subtitle?.components(separatedBy: ", "), isSingleStep: true)
+            navigationController?.pushViewController(viewController, animated: true)
+            break
+        default:
+            break
+        }
     }
 }

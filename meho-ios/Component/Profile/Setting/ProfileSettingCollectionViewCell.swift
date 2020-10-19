@@ -68,9 +68,6 @@ class ProfileSettingCollectionViewCell: UICollectionViewCell {
             titleLabel.text = profileSetting.title
             if let subtitle = profileSetting.subtitle {
                 subtitleLabel.text = subtitle
-                //subtitleLabel.isHidden = false
-            } else {
-                //subtitleLabel.isHidden = true
             }
             switch profileSetting.style {
             case .appVersion:
@@ -92,6 +89,7 @@ class ProfileSettingCollectionViewCell: UICollectionViewCell {
                 contentView.backgroundColor = .white
             }
             setNeedsLayout()
+            setNeedsUpdateConstraints()
         }
     }
 

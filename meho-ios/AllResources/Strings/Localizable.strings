@@ -183,6 +183,9 @@
 /* Title for the button to go the next step in the sign-up flow. */
 "NextButtonTitle" = "Next";
 
+/* Title for the button to save the changes in settings. */
+"SaveButtonTitle" = "Save";
+
 /* Error message shown to the user when the email address they input for sign up is invalid. */
 "InvalidEmailAddressErrorMessage" = "Please enter a legit email address";
 
@@ -317,3 +320,6 @@
 
 /* Placeholder text for the industry text field. */
 "industryPlaceholder" = "Please tell us more about your industry";
+
+/* Title displayed in the navigation bar in the update goal screen. */
+"UpdateGoalTitle" = "Update Goal";

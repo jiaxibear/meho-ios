@@ -37,6 +37,7 @@ class CompleteProfileViewStep1Controller: UIViewController, UICollectionViewData
 
     // MARK: - Properties
     // MARK: Model
+    private let isSingleStep: Bool
     private let userDataFecther = UserDataFetcher.shared
     private let sections = [CompleteProfileViewStep1Section.communication, CompleteProfileViewStep1Section.general]
 
@@ -59,7 +60,11 @@ class CompleteProfileViewStep1Controller: UIViewController, UICollectionViewData
     private lazy var nextButton: UIButton = {
         let nextButton = UIButton.init(frame: .zero)
         nextButton.isEnabled = false
-        nextButton.setTitle(NSLocalizedString("NextButtonTitle", comment: ""), for: .normal)
+        if isSingleStep {
+            nextButton.setTitle(NSLocalizedString("SaveButtonTitle", comment: ""), for: .normal)
+        } else {
+            nextButton.setTitle(NSLocalizedString("NextButtonTitle", comment: ""), for: .normal)
+        }
         nextButton.backgroundColor = .lightBlueGrey
         nextButton.setTitleColor(.white, for: .disabled)
         nextButton.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
@@ -121,6 +126,36 @@ class CompleteProfileViewStep1Controller: UIViewController, UICollectionViewData
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.init(top: questionsCollectionViewSectionTopBottomInset, left: 0, bottom: questionsCollectionViewSectionTopBottomInset, right: 0)
+    }
+
+    // MARK: - Init
+    init(goals: [String]? = nil, isSingleStep: Bool = false) {
+        self.isSingleStep = isSingleStep
+        super.init(nibName: nil, bundle: nil)
+        if goals != nil {
+            for goal in goals! {
+                for (index, _) in communicationQuestions.enumerated() {
+                    if communicationQuestions[index].title == goal {
+                        communicationQuestions[index].isSelected = true
+                    }
+                }
+                for (index, _) in generalQuestions.enumerated() {
+                    if generalQuestions[index].title == goal {
+                        generalQuestions[index].isSelected = true
+                    }
+                }
+            }
+        }
+    }
+
+    @available(*, unavailable)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        fatalError("Use init(goals: [String])")
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("Use init(goals: [String])")
     }
 
     // MARK: - UICollectionViewDelegate
@@ -205,7 +240,11 @@ class CompleteProfileViewStep1Controller: UIViewController, UICollectionViewData
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        title = NSLocalizedString("completeProfileStep1Title", comment: "")
+        if isSingleStep {
+            title = NSLocalizedString("UpdateGoalTitle", comment: "")
+        } else {
+            title = NSLocalizedString("completeProfileStep1Title", comment: "")
+        }
     }
 
     // MARK: - Private
@@ -226,8 +265,12 @@ class CompleteProfileViewStep1Controller: UIViewController, UICollectionViewData
 
         userDataFecther.updateUser(id: userId, goals: goals) { (basicUser, error) in
             DispatchQueue.main.async {
-                self.title = ""
-                self.navigationController?.pushViewController(CompleteProfileViewStep2Controller.init(), animated: true)
+                if self.isSingleStep {
+                    self.navigationController?.popViewController(animated: true)
+                } else {
+                    self.title = ""
+                    self.navigationController?.pushViewController(CompleteProfileViewStep2Controller.init(), animated: true)
+                }
             }
         }
     }
