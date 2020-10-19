@@ -66,6 +66,8 @@ class ProfileSettingHeaderCollectionReusableView: UICollectionReusableView {
         contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        avatarImageView.heightAnchor.constraint(equalToConstant: avatarImageViewHeight).isActive = true
+        avatarImageView.widthAnchor.constraint(equalToConstant: avatarImageViewWidth).isActive = true
     }
 
     // MARK: - Internal

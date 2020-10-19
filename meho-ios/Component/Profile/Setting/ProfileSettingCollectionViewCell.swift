@@ -24,6 +24,7 @@ class ProfileSettingCollectionViewCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel.init(frame: .zero)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return titleLabel
     } ()
 
@@ -67,14 +68,9 @@ class ProfileSettingCollectionViewCell: UICollectionViewCell {
             titleLabel.text = profileSetting.title
             if let subtitle = profileSetting.subtitle {
                 subtitleLabel.text = subtitle
-                contentStackView.addArrangedSubview(subtitleLabel)
-                contentStackViewTopConstraint.constant = twoLineTopBottomMargin
-                contentStackViewBottomConstraint.constant = -twoLineTopBottomMargin
+                //subtitleLabel.isHidden = false
             } else {
-                contentStackView.removeArrangedSubview(subtitleLabel)
-                subtitleLabel.removeFromSuperview()
-                contentStackViewTopConstraint.constant = oneLineTopBottomMargin
-                contentStackViewBottomConstraint.constant = -oneLineTopBottomMargin
+                //subtitleLabel.isHidden = true
             }
             switch profileSetting.style {
             case .appVersion:
@@ -95,6 +91,7 @@ class ProfileSettingCollectionViewCell: UICollectionViewCell {
                 titleLabel.textColor = .darkGrayTwo
                 contentView.backgroundColor = .white
             }
+            setNeedsLayout()
         }
     }
 
@@ -122,6 +119,33 @@ class ProfileSettingCollectionViewCell: UICollectionViewCell {
         bottomLineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         bottomLineView.heightAnchor.constraint(equalToConstant: bottomLineHeight).isActive = true
         bottomLineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = nil
+        subtitleLabel.text = nil
+        subtitleLabel.isHidden = true
+    }
+
+    override func updateConstraints() {
+        super.updateConstraints()
+        if profileSetting.subtitle != nil {
+            contentStackViewTopConstraint.constant = twoLineTopBottomMargin
+            contentStackViewBottomConstraint.constant = -twoLineTopBottomMargin
+        } else {
+            contentStackViewTopConstraint.constant = oneLineTopBottomMargin
+            contentStackViewBottomConstraint.constant = -oneLineTopBottomMargin
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if profileSetting.subtitle != nil {
+            subtitleLabel.isHidden = false
+        } else {
+            subtitleLabel.isHidden = true
+        }
     }
 
     // MARK: - Internal
