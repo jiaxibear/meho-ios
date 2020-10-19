@@ -40,7 +40,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate, M
     var isVocabularySaved:Bool
 
     // MARK: Data
-    private let userDataFecther = UserDataFetcher.init()
+    private let userDataFecther = UserDataFetcher.shared
     private var vocabulary: Vocabulary
     private var player: AVPlayer?
 

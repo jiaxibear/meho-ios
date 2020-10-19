@@ -50,7 +50,7 @@ class MainViewController: UITabBarController {
         tabBar.tintColor = .wisteriaPurple
 
         // Disable Firebase Analytics for internal testing accounts.
-        let userDataFetcher = UserDataFetcher.init()
+        let userDataFetcher = UserDataFetcher.shared
         let userID = AWSMobileClient.default().userSub
         guard userID != nil else {
             return

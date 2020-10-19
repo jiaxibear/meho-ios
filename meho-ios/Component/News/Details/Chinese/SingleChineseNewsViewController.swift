@@ -40,7 +40,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     private let newsRecapFooterCellReuseIdentifier = "newsRecapFooter"
 
     // MARK: - Datamodels
-    private let userDataFetcher = UserDataFetcher.init()
+    private let userDataFetcher = UserDataFetcher.shared
     private let dataFetcher = NewsDataFetcher.init()
     private var newsChapters:[NewsChapter] = []
     private var recapVocabularyList:[Vocabulary] = []

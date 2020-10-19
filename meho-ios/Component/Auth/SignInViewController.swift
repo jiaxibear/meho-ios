@@ -33,7 +33,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
     private let otherSignInViewBottomMargin = CGFloat(8)
 
     // MARK: - Datamodels
-    private let userDataFecther = UserDataFetcher.init()
+    private let userDataFecther = UserDataFetcher.shared
 
     // MARK: - Properties
     private lazy var emailAddressField: UITextFieldPadding = {

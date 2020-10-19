@@ -34,7 +34,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
 
     // MARK: - Properties
     // MARK: Model
-    private let userDataFecther = UserDataFetcher.init()
+    private let userDataFecther = UserDataFetcher.shared
 
     private lazy var questions: [ProfileQuestion] = {
         let academic = ProfileQuestion.init(title: "Academic", subtitle: "(student, scholar, researcher, etc)", color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)

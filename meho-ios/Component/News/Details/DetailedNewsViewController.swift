@@ -34,7 +34,7 @@ class DetailedNewsViewController: UIViewController {
     private let sourceSubtitle = "Curated By Meho"
 
     // MARK: - Datamodels
-    private let userDataFetcher = UserDataFetcher.init()
+    private let userDataFetcher = UserDataFetcher.shared
 
     // MARK: - Properties
     private let news: News

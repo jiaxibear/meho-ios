@@ -111,7 +111,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     } ()
 
     // MARK: - Datamodels
-    private let userDataFetcher = UserDataFetcher.init()
+    private let userDataFetcher = UserDataFetcher.shared
     private let profileDataFetcher = ProfileDataFetcher.init()
     private var currentUser:BasicUser?
     private let sections: [ProfileSection] = [.completed, .inProgress, .savedItems, .savedVocabulary]

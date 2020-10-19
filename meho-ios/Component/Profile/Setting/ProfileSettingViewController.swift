@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSMobileClient
 
 class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -42,15 +43,24 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         let nickname = ProfileSetting.init(title: "Change Nickname", subtitle: nil, type: .nickname, style: .item)
         let password = ProfileSetting.init(title: "Change Password", subtitle: nil, type: .password, style: .item)
         let profiles = ProfileSetting.init(title: "Profiles", subtitle: nil, type: .profiles, style: .header)
-        let goals = ProfileSetting.init(title: "Update Goal", subtitle: "Communicated with Business Contacts", type: .goal, style: .item)
-        let interests = ProfileSetting.init(title: "Update Interests", subtitle: "#Business #Travel #Culture", type: .goal, style: .item)
-        let professions = ProfileSetting.init(title: "Update Professions", subtitle: "Service", type: .goal, style: .item)
         let appVersion = ProfileSetting.init(title: "App Version: 1.1.0", subtitle: nil, type: .appVersion, style: .appVersion)
         let contact = ProfileSetting.init(title: "Contact Meho", subtitle: nil, type: .contact, style: .header)
         let privacyPolicy = ProfileSetting.init(title: "Privacy Policy", subtitle: nil, type: .privacy, style: .header)
         let userAgreement = ProfileSetting.init(title: "User Agreement", subtitle: nil, type: .userAgreement, style: .header)
         let signOut = ProfileSetting.init(title: "Sign Out", subtitle: nil, type: .signOut, style: .header)
-        return [account, nickname, password, profiles, goals, interests, professions, appVersion, contact, privacyPolicy, userAgreement, signOut]
+        return [account, nickname, password, profiles, goalsProfileSetting, interestsProfileSetting, professionsProfileSetting, appVersion, contact, privacyPolicy, userAgreement, signOut]
+    } ()
+
+    private lazy var goalsProfileSetting: ProfileSetting = {
+        return ProfileSetting.init(title: "Update Goal", subtitle: "Communicated with Business Contacts", type: .goal, style: .item)
+    } ()
+
+    private lazy var interestsProfileSetting: ProfileSetting = {
+        return ProfileSetting.init(title: "Update Interests", subtitle: "#Business #Travel #Culture", type: .goal, style: .item)
+    } ()
+
+    private lazy var professionsProfileSetting: ProfileSetting = {
+        return ProfileSetting.init(title: "Update Professions", subtitle: "Service", type: .goal, style: .item)
     } ()
 
     // MARK: - Init
@@ -77,6 +87,20 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+        UserDataFetcher.shared.getUser(userId: userID) { (basicUser, error) in
+            if basicUser != nil && error == nil {
+                DispatchQueue.main.async {
+                    self.goalsProfileSetting.subtitle = basicUser?.goals.joined(separator: " ")
+                    self.professionsProfileSetting.subtitle = basicUser?.profession
+                    self.interestsProfileSetting.subtitle = basicUser?.interests.joined(separator: " ")
+                    self.collectionView.reloadData()
+                }
+            }
+        }
     }
 
     // MARK: - UICollectionViewDataSource

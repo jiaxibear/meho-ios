@@ -30,7 +30,7 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
 
     // MARK: - Properties
     // MARK: Model
-    private let userDataFecther = UserDataFetcher.init()
+    private let userDataFecther = UserDataFetcher.shared
 
     private lazy var questions: [ProfileQuestion] = {
         let business = ProfileQuestion.init(title: "#Business", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)

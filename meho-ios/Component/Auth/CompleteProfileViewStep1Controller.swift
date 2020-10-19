@@ -37,7 +37,7 @@ class CompleteProfileViewStep1Controller: UIViewController, UICollectionViewData
 
     // MARK: - Properties
     // MARK: Model
-    private let userDataFecther = UserDataFetcher.init()
+    private let userDataFecther = UserDataFetcher.shared
     private let sections = [CompleteProfileViewStep1Section.communication, CompleteProfileViewStep1Section.general]
 
     private lazy var communicationQuestions: [ProfileQuestion] = {

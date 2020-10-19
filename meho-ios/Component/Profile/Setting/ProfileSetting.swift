@@ -31,7 +31,7 @@ enum ProfileSettingStyle {
 
 struct ProfileSetting {
     let title: String
-    let subtitle: String?
+    var subtitle: String?
     let type: ProfileSettingType
     let style: ProfileSettingStyle
 }

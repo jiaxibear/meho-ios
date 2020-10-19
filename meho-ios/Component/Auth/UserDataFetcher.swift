@@ -15,8 +15,11 @@ class UserDataFetcher: NSObject {
 
     private var appSyncClient: AWSAppSyncClient?
 
+    static let shared = UserDataFetcher.init()
+    private var currentUser: BasicUser?
+
     // MARK: - Init
-    override init() {
+    private override init() {
         appSyncClient = (UIApplication.shared.delegate as! AppDelegate).appSyncClient
     }
 
@@ -43,6 +46,10 @@ class UserDataFetcher: NSObject {
     }
 
     public func getUser(userId: String, completionHandler: @escaping ( BasicUser?, Error?) -> Void) {
+        if currentUser != nil {
+            completionHandler(currentUser, nil)
+            return
+        }
         let q = GetUserQuery(id: userId)
         appSyncClient?.fetch(query: q) { (result, error) in
 
@@ -79,6 +86,7 @@ class UserDataFetcher: NSObject {
             if let profession = remoteuser.profession {
                 basicUser.profession = profession
             }
+            self.currentUser = basicUser
             completionHandler(basicUser, nil)
         }
     }
@@ -119,7 +127,7 @@ class UserDataFetcher: NSObject {
             if let profession = remoteUser.profession {
                 updatedUser.profession = profession
             }
-
+            self.currentUser = updatedUser
             completionHandler(updatedUser, nil)
         }
     }
@@ -179,8 +187,6 @@ class UserDataFetcher: NSObject {
             completionHandler(true, nil)
         }
     }
-
-
 
     // MARK: - User item save related
      public func getUserItemSave(userId: String, itemId: String, completionHandler: @escaping ( Bool, Error?) -> Void) {
