@@ -57,7 +57,11 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
     private lazy var nextButton: UIButton = {
         let nextButton = UIButton.init(frame: .zero)
         nextButton.isEnabled = false
-        nextButton.setTitle(NSLocalizedString("NextButtonTitle", comment: ""), for: .normal)
+        if isSingleStep {
+            nextButton.setTitle(NSLocalizedString("SaveButtonTitle", comment: ""), for: .normal)
+        } else {
+            nextButton.setTitle(NSLocalizedString("NextButtonTitle", comment: ""), for: .normal)
+        }
         nextButton.backgroundColor = .lightBlueGrey
         nextButton.setTitleColor(.white, for: .disabled)
         nextButton.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)

@@ -35,6 +35,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     // MARK: - Properties
     // MARK: Model
     private let userDataFecther = UserDataFetcher.shared
+    private let isSingleStep: Bool
 
     private lazy var questions: [ProfileQuestion] = {
         let academic = ProfileQuestion.init(title: "Academic", subtitle: "(student, scholar, researcher, etc)", color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
@@ -54,7 +55,11 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     private lazy var nextButton: UIButton = {
         let nextButton = UIButton.init(frame: .zero)
         nextButton.isEnabled = false
-        nextButton.setTitle(NSLocalizedString("StartLearningButtonTitle", comment: ""), for: .normal)
+        if isSingleStep {
+            nextButton.setTitle(NSLocalizedString("SaveButtonTitle", comment: ""), for: .normal)
+        } else {
+            nextButton.setTitle(NSLocalizedString("StartLearningButtonTitle", comment: ""), for: .normal)
+        }
         nextButton.backgroundColor = .lightBlueGrey
         nextButton.setTitleColor(.white, for: .disabled)
         nextButton.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
@@ -130,6 +135,39 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         return questionsCollectionView.heightAnchor.constraint(equalToConstant: questionsCollectionViewHeight)
     } ()
 
+    // MARK: - Init
+    init(profession: String? = nil, isSingleStep: Bool = false) {
+        self.isSingleStep = isSingleStep
+        super.init(nibName: nil, bundle: nil)
+        if profession != nil {
+            var hasSelected = false
+            for (index, _) in questions.enumerated() {
+                if questions[index].title == profession {
+                    questions[index].isSelected = true
+                    hasSelected = true
+                    lastSelectedIndex = index
+                    break
+                }
+            }
+            if (!hasSelected) {
+                questions[questions.count - 1].isSelected = true
+                lastSelectedIndex = questions.count - 1
+                industryTextField.text = profession
+                industryStackView.isHidden = false
+            }
+        }
+    }
+
+    @available(*, unavailable)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        fatalError("Use init(goals: [String])")
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("Use init(goals: [String])")
+    }
+
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
@@ -157,11 +195,10 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
             }
             lastSelectedIndex = index
         }
-        if index == questions.count - 1 {
+        if index == questions.count - 1 && questions[index].isSelected {
             industryStackView.isHidden = false
         } else {
             industryStackView.isHidden = true
-            industryTextField.text = nil
         }
         updateNextButton()
     }
@@ -233,7 +270,11 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        title = NSLocalizedString("completeProfileStep3Title", comment: "")
+        if isSingleStep {
+            title = NSLocalizedString("UpdateProfessionTitle", comment: "")
+        } else {
+            title = NSLocalizedString("completeProfileStep3Title", comment: "")
+        }
     }
 
     // MARK: - Private
@@ -250,7 +291,11 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         if profession != nil {
             userDataFecther.updateUser(id: userId, profession: profession!) { (maybeUpdatedUser, error) in
                 DispatchQueue.main.async {
-                    self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
+                    if self.isSingleStep {
+                        self.navigationController?.popViewController(animated: true)
+                    } else {
+                        self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
+                    }
                 }
             }
         }

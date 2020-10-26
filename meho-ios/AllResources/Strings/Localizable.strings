@@ -326,3 +326,6 @@
 
 /* Title displayed in the navigation bar in the update interests screen. */
 "UpdateInterestsTitle" = "Update Interests";
+
+/* Title displayed in the navigation bar in the update profession screen. */
+"UpdateProfessionTitle" = "Update Profession";

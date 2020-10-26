@@ -155,6 +155,10 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
             let viewController = CompleteProfileViewStep2Controller.init(interests: profileSetting.subtitle?.components(separatedBy: ", "), isSingleStep: true)
             navigationController?.pushViewController(viewController, animated: true)
             break
+        case .professions:
+            let viewController = CompleteProfileViewStep3Controller.init(profession: profileSetting.subtitle, isSingleStep: true)
+            navigationController?.pushViewController(viewController, animated: true)
+            break
         default:
             break
         }
