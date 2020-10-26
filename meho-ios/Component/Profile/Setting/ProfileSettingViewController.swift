@@ -160,6 +160,18 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
             let viewController = CompleteProfileViewStep3Controller.init(profession: profileSetting.subtitle, isSingleStep: true)
             navigationController?.pushViewController(viewController, animated: true)
             break
+        case .userAgreement:
+            let title = NSLocalizedString("termsOfUse", comment: "")
+            let userAgreementURL = Bundle.main.url(forResource: "TermsOfUse", withExtension: "html")!
+            let webViewController = WebViewController.init(title: title, contentURL: userAgreementURL)
+            navigationController?.pushViewController(webViewController, animated: true)
+            break
+        case .privacy:
+            let title = NSLocalizedString("privacyPolicy", comment: "")
+            let userAgreementURL = Bundle.main.url(forResource: "PrivacyPolicy", withExtension: "html")!
+            let webViewController = WebViewController.init(title: title, contentURL: userAgreementURL)
+            navigationController?.pushViewController(webViewController, animated: true)
+            break
         default:
             break
         }
