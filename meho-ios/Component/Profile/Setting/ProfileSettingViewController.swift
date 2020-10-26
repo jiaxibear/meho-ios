@@ -46,7 +46,8 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         let goals = ProfileSetting.init(title: "Update Goal", subtitle: "Communicated with Business Contacts", type: .goal, style: .item)
         let interests = ProfileSetting.init(title: "Update Interests", subtitle: "#Business #Travel #Culture", type: .interests, style: .item)
         let professions = ProfileSetting.init(title: "Update Professions", subtitle: "Service", type: .professions, style: .item)
-        let appVersion = ProfileSetting.init(title: "App Version: 1.1.0", subtitle: nil, type: .appVersion, style: .appVersion)
+        let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        let appVersion = ProfileSetting.init(title: "App Version: \(versionNumber)", subtitle: nil, type: .appVersion, style: .appVersion)
         let contact = ProfileSetting.init(title: "Contact Meho", subtitle: nil, type: .contact, style: .header)
         let privacyPolicy = ProfileSetting.init(title: "Privacy Policy", subtitle: nil, type: .privacy, style: .header)
         let userAgreement = ProfileSetting.init(title: "User Agreement", subtitle: nil, type: .userAgreement, style: .header)
