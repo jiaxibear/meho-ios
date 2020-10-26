@@ -329,3 +329,9 @@
 
 /* Title displayed in the navigation bar in the update profession screen. */
 "UpdateProfessionTitle" = "Update Profession";
+
+/* Title displayed in the contact meho alert. */
+"contactMehoTitle" = "Contact Meho";
+
+/* Message displayed in the contact meho alert. */
+"contactMehoMessage" = "Please send email to team@wearemeho.com";

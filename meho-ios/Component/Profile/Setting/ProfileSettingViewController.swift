@@ -172,6 +172,13 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
             let webViewController = WebViewController.init(title: title, contentURL: userAgreementURL)
             navigationController?.pushViewController(webViewController, animated: true)
             break
+        case .contact:
+            let title = NSLocalizedString("contactMehoTitle", comment: "")
+            let message = NSLocalizedString("contactMehoMessage", comment: "")
+            let alertController = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+            let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
+            alertController.addAction(UIAlertAction.init(title: okTitle, style: .default, handler: nil))
+            present(alertController, animated: true, completion: nil)
         default:
             break
         }
