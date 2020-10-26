@@ -42,15 +42,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let profileCardHeight = CGFloat(160)
 
     // MARK: - Properties
-    private lazy var logoutButton: UIButton = {
-        let logoutButton = UIButton.init()
-        logoutButton.translatesAutoresizingMaskIntoConstraints = false
-        logoutButton.setTitle("Logout ", for: UIControl.State.normal)
-        logoutButton.sizeToFit()
-        logoutButton.backgroundColor = .wisteriaPurple
-        logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
-        return logoutButton
-    } ()
 
     private lazy var usernameLabel: UILabel = {
         let label = UILabel.init(frame: .zero)
@@ -179,11 +170,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         view.addSubview(profileImageView)
         view.addSubview(usernameLabel)
         view.addSubview(settingButton)
-        view.addSubview(logoutButton)
 
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: collectionViewTopMargin).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
 
         profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: headerHorizontalMargin).isActive = true
         profileImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: headerTopMargin).isActive = true
@@ -198,12 +189,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         settingButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -headerHorizontalMargin).isActive = true
         settingButton.heightAnchor.constraint(equalToConstant: settingButtonSize).isActive = true
         settingButton.widthAnchor.constraint(equalToConstant: settingButtonSize).isActive = true
-
-        logoutButton.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        logoutButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        logoutButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: CGFloat(30)).isActive = true
-        logoutButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -CGFloat(10)).isActive = true
-        logoutButton.heightAnchor.constraint(equalToConstant: CGFloat(30)).isActive = true
 
         guard let userId = AWSMobileClient.default().userSub else { return }
         userDataFetcher.getUser (userId: userId, completionHandler: { (maybeUser, error) in
@@ -296,24 +281,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 3
-    }
-    
-    // MARK: - Auth related
-    @objc
-    func logout() {
-        AWSMobileClient.default().signOut { (error) in
-            guard error == nil else { return }
-            self.checkSignIn()
-        }
-    }
-    
-    func checkSignIn() {
-        if AWSMobileClient.default().isSignedIn {
-            self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
-        }
-        else {
-            self.navigationController? .setViewControllers([MehoCoverViewController.init()], animated: false)
-        }
     }
 
     // MARK: - Private

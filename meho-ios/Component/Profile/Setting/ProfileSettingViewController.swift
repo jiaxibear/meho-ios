@@ -179,6 +179,17 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
             let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
             alertController.addAction(UIAlertAction.init(title: okTitle, style: .default, handler: nil))
             present(alertController, animated: true, completion: nil)
+            break
+        case .signOut:
+            AWSMobileClient.default().signOut { (error) in
+                guard error == nil else {
+                    return
+                }
+                if !AWSMobileClient.default().isSignedIn {
+                    self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
+                }
+            }
+            break
         default:
             break
         }
