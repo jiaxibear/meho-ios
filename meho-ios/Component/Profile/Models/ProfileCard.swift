@@ -9,9 +9,10 @@
 import UIKit
 
 struct ProfileCard {
-    let identifier: String
-    let contentType: String
-    let titleEn: String
-    let titleZh: String
-    let imageKey: S3ImageViewKey
+    var identifier: String?
+    var contentType: String?
+    var titleEn: String?
+    var titleZh: String?
+    var imageKey: S3ImageViewKey?
+    var subtitle: String?
 }

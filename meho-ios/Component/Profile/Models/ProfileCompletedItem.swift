@@ -13,4 +13,6 @@ struct ProfileCompletedItem {
     let title: String
     var count: Int
     let color: UIColor
+    let type: CompletedItemsType
+    var items: [ProfileCard] = []
 }

@@ -15,7 +15,7 @@ enum ConversationSection: Int {
     case mostPopluarDialogs
 }
 
-class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SeeMoreFooterCollectionResuableViewDelegate, TriggerProfileViewDelegate, DialogModeSelectionViewControllerDelegate, MehoAnalytics {
+class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, SeeMoreFooterCollectionResuableViewDelegate, TriggerProfileViewDelegate, DialogModeSelectionViewControllerDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)

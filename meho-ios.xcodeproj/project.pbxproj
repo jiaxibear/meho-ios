@@ -73,6 +73,11 @@
 		EA01E6AF23FBC25F00C0B0AE /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6AE23FBC25F00C0B0AE /* Difficulty.swift */; };
 		EA01E6B123FBD6F000C0B0AE /* DifficultyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6B023FBD6F000C0B0AE /* DifficultyViewController.swift */; };
 		EA01E6B324020CBF00C0B0AE /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA01E6B224020CBF00C0B0AE /* DialogViewController.swift */; };
+		EA1693672558DEA30074EE0D /* CompletedNewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1693662558DEA30074EE0D /* CompletedNewsCollectionViewCell.swift */; };
+		EA16936C2558F54B0074EE0D /* CompletedCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA16936B2558F54B0074EE0D /* CompletedCategoryCollectionViewCell.swift */; };
+		EA1693712558F83D0074EE0D /* CompletedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1693702558F83D0074EE0D /* CompletedItemsViewController.swift */; };
+		EA169376255908BA0074EE0D /* CompletedExpressionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA169375255908BA0074EE0D /* CompletedExpressionCollectionViewCell.swift */; };
+		EA16937E256215BB0074EE0D /* ProfileDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA16937D256215BB0074EE0D /* ProfileDetails.swift */; };
 		EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */; };
 		EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */; };
 		EA2FC5C623EF7AD600E258BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA2FC5C523EF7AD600E258BD /* Assets.xcassets */; };
@@ -236,6 +241,11 @@
 		EA01E6AE23FBC25F00C0B0AE /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
 		EA01E6B023FBD6F000C0B0AE /* DifficultyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyViewController.swift; sourceTree = "<group>"; };
 		EA01E6B224020CBF00C0B0AE /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
+		EA1693662558DEA30074EE0D /* CompletedNewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedNewsCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA16936B2558F54B0074EE0D /* CompletedCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA1693702558F83D0074EE0D /* CompletedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedItemsViewController.swift; sourceTree = "<group>"; };
+		EA169375255908BA0074EE0D /* CompletedExpressionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedExpressionCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA16937D256215BB0074EE0D /* ProfileDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetails.swift; sourceTree = "<group>"; };
 		EA2FC5BC23EF7AD400E258BD /* Meho.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meho.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -388,6 +398,7 @@
 				925E3FF5250DDD290062606A /* ProfileCard.swift */,
 				EA3E00272529558C00B95A30 /* ProfileCompletedItem.swift */,
 				EA3E0036252A967100B95A30 /* ProfileHeader.swift */,
+				EA16937D256215BB0074EE0D /* ProfileDetails.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -634,6 +645,10 @@
 				EA3E002C25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift */,
 				EA3E0031252A93B000B95A30 /* ProfileHeaderCollectionReusableView.swift */,
 				EA3E003B252AC1B300B95A30 /* ProfileCardCollectionViewCell.swift */,
+				EA1693662558DEA30074EE0D /* CompletedNewsCollectionViewCell.swift */,
+				EA16936B2558F54B0074EE0D /* CompletedCategoryCollectionViewCell.swift */,
+				EA1693702558F83D0074EE0D /* CompletedItemsViewController.swift */,
+				EA169375255908BA0074EE0D /* CompletedExpressionCollectionViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1152,7 +1167,9 @@
 				9204700124F337A200DE1A2D /* ProfileQuestion.swift in Sources */,
 				EAD20BA124F1F4E400C1ED89 /* Idiom.swift in Sources */,
 				92046FFD24F337A200DE1A2D /* OtherSignInView.swift in Sources */,
+				EA1693712558F83D0074EE0D /* CompletedItemsViewController.swift in Sources */,
 				EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */,
+				EA16937E256215BB0074EE0D /* ProfileDetails.swift in Sources */,
 				EA4206932467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift in Sources */,
 				EA6381ED2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift in Sources */,
 				EA52FDAF23EF8116008EB37B /* NewsViewController.swift in Sources */,
@@ -1170,6 +1187,7 @@
 				92BAC71D243ADA1500862571 /* SingleEnglishNewsViewController.swift in Sources */,
 				EA644D3D250D86BA005293EF /* ProfileSetting.swift in Sources */,
 				EA644D3F250D8FF4005293EF /* ProfileSettingHeaderCollectionReusableView.swift in Sources */,
+				EA169376255908BA0074EE0D /* CompletedExpressionCollectionViewCell.swift in Sources */,
 				92ADF89524495D22003D2D12 /* FoundationDataFetcher.swift in Sources */,
 				92046FFE24F337A200DE1A2D /* SignUpViewController.swift in Sources */,
 				92BAC71B2439B06B00862571 /* DetailedNewsViewController.swift in Sources */,
@@ -1190,6 +1208,7 @@
 				EAD20B9E24F1CFB300C1ED89 /* IdiomViewController.swift in Sources */,
 				EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */,
 				EA6381E72449913B00481B8B /* AudioVisualizerView.swift in Sources */,
+				EA1693672558DEA30074EE0D /* CompletedNewsCollectionViewCell.swift in Sources */,
 				EAA31792250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift in Sources */,
 				9204700324F337A200DE1A2D /* QuestionHeaderReusableView.swift in Sources */,
 				EA01E6AF23FBC25F00C0B0AE /* Difficulty.swift in Sources */,
@@ -1216,6 +1235,7 @@
 				EA01E6B324020CBF00C0B0AE /* DialogViewController.swift in Sources */,
 				92C5FE47245540FB004A3322 /* NewsRecapVocabularyCollectionViewCell.swift in Sources */,
 				92C5FE27244B894B004A3322 /* UIGifExtension.swift in Sources */,
+				EA16936C2558F54B0074EE0D /* CompletedCategoryCollectionViewCell.swift in Sources */,
 				EA42069A2472117400DA3F2A /* DuoFinalScoreViewController.swift in Sources */,
 				9204700824F337A200DE1A2D /* SignInViewController.swift in Sources */,
 				92577B2924457BFD0097A445 /* NewsChapter.swift in Sources */,
@@ -1397,7 +1417,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "meho-ios/Meho.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = LW56PXHU2T;
 				ENABLE_BITCODE = NO;
@@ -1429,7 +1449,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "meho-ios/Meho.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = LW56PXHU2T;
 				ENABLE_BITCODE = NO;

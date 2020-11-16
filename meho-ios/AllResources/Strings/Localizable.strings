@@ -335,3 +335,6 @@
 
 /* Message displayed in the contact meho alert. */
 "contactMehoMessage" = "Please send email to team@wearemeho.com";
+
+/* Title displayed in the completed stories. */
+"CompletedStoreisTitle" = "Completed Storeis";

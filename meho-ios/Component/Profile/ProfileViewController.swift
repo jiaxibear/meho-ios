@@ -42,7 +42,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let profileCardHeight = CGFloat(160)
 
     // MARK: - Properties
-
     private lazy var usernameLabel: UILabel = {
         let label = UILabel.init(frame: .zero)
         label.text = "Welcome to Meho!"
@@ -106,39 +105,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let userDataFetcher = UserDataFetcher.shared
     private let profileDataFetcher = ProfileDataFetcher.init()
     private var currentUser:BasicUser?
-    private let sections: [ProfileSection] = [.completed, .inProgress, .savedItems, .savedVocabulary]
-    private lazy var completedItems: [ProfileCompletedItem] = {
-        return [completedStories, completedExpressions, completedTalks]
-    } ()
+    private var sections: [ProfileSection] = [.completed, .inProgress, .savedItems, .savedVocabulary]
+    private var completedItems: [ProfileCard] = []
+    private var completedGroupedItems: [ProfileCompletedItem] = []
 
-    private lazy var completedStories: ProfileCompletedItem = {
-        return ProfileCompletedItem.init(title: "stories", count: 0, color: UIColor.skyBlue.withAlphaComponent(completedItemColorAlpha))
-    } ()
-
-    private lazy var completedExpressions: ProfileCompletedItem = {
-        return ProfileCompletedItem.init(title: "expressions", count: 0, color: UIColor.periwinkleBlue.withAlphaComponent(completedItemColorAlpha))
-    } ()
-
-    private lazy var completedTalks: ProfileCompletedItem = {
-        return ProfileCompletedItem.init(title: "talks", count: 0, color: UIColor.periwinkle.withAlphaComponent(completedItemColorAlpha))
-    } ()
-
-    private lazy var inProgressContents: [ProfileCard] = {
-        let card1 = ProfileCard.init(identifier: "", contentType: "Story", titleEn: "Check-in and boarding", titleZh: "值机与登机", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "ab25a669-49c2-4b6d-8013-ead51c14143d支付宝1.jpg"))
-        let card2 = ProfileCard.init(identifier: "", contentType: "Expression", titleEn: "May I have the menu", titleZh: "请给我菜单好吗？", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "ae40fe25-01f9-4c13-a114-4d218adcd5e9木兰1.jpg"))
-        let card3 = ProfileCard.init(identifier: "", contentType: "Talk", titleEn: "Design Discussion", titleZh: "设计讨论", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "b39863d4-9783-455e-84e7-4afa3ae0ac6f大碗宽面1.jpeg"))
-        let card4 = ProfileCard.init(identifier: "", contentType: "Talk", titleEn: "Regional Cuisines in China", titleZh: "中国各地菜系", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "9580cb81-5821-4da5-9253-ef512f3611df姐姐.jpeg"))
-        return [card1, card2, card3, card4]
-    } ()
-
-    private lazy var savedItems: [ProfileCard] = {
-        let card1 = ProfileCard.init(identifier: "", contentType: "Story", titleEn: "Check-in and boarding", titleZh: "值机与登机", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "ab25a669-49c2-4b6d-8013-ead51c14143d支付宝1.jpg"))
-        let card2 = ProfileCard.init(identifier: "", contentType: "Expression", titleEn: "May I have the menu", titleZh: "请给我菜单好吗？", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "ae40fe25-01f9-4c13-a114-4d218adcd5e9木兰1.jpg"))
-        let card3 = ProfileCard.init(identifier: "", contentType: "Talk", titleEn: "Design Discussion", titleZh: "设计讨论", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "b39863d4-9783-455e-84e7-4afa3ae0ac6f大碗宽面1.jpeg"))
-        let card4 = ProfileCard.init(identifier: "", contentType: "Talk", titleEn: "Regional Cuisines in China", titleZh: "中国各地菜系", imageKey: S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: "9580cb81-5821-4da5-9253-ef512f3611df姐姐.jpeg"))
-        return [card1, card2, card3, card4]
-    } ()
-
+    private var inProgressItems: [ProfileCard] = []
+    private var savedItems: [ProfileCard] = []
     
     // MARK: - Init
     init() {
@@ -203,17 +175,47 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
         })
 
-        profileDataFetcher.fetchUserInteractions (userId: userId, completionHandler: { (maybeCompletedIds, maybeInprogressContents, maybeSavedContents, error) in
-            if error == nil, let completedIds = maybeCompletedIds, completedIds.count == 3 {
-                let completedArticleIds = completedIds[0]
-                self.completedStories.count = completedArticleIds.count
-                let completedExpressionIds = completedIds[1]
-                self.completedExpressions.count = completedExpressionIds.count
-                let completedConversationIds = completedIds[2]
-                self.completedTalks.count = completedConversationIds.count
+        profileDataFetcher.fetchProfileDetail(userID: userId) { (profileDetails, error) in
+            guard error == nil && profileDetails != nil else {
+                return
+            }
+
+            self.completedItems = profileDetails!.completedItems
+            self.inProgressItems = profileDetails!.inProgressItems
+            self.savedItems = profileDetails!.savedItems
+            var completedStoriesItem = ProfileCompletedItem.init(title: "stories", count: 0, color: UIColor.skyBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
+            for completedItem in self.completedItems {
+                if completedItem.contentType == "Article" {
+                    completedStoriesItem.count += 1
+                    completedStoriesItem.items.append(completedItem)
+                }
+            }
+            let completedExpressionsItem = ProfileCompletedItem.init(title: "expressions", count: 0, color: UIColor.periwinkleBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedExpressions)
+            let completedTalksItem = ProfileCompletedItem.init(title: "talks", count: 0, color: UIColor.periwinkle.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
+            self.completedGroupedItems = [completedStoriesItem, completedExpressionsItem, completedTalksItem]
+            DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
-        })
+        }
+    }
+
+    // MARK: - UICollectionViewDataDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let profileSection = sections[indexPath.section]
+        switch profileSection {
+        case .completed:
+            let item = indexPath.item
+            let completedGroupItems = completedGroupedItems[item]
+            let completedItemsViewController = CompletedItemsViewController.init(completedItemsType: completedGroupItems.type, profileCards: completedGroupItems.items)
+            navigationController?.pushViewController(completedItemsViewController, animated: true)
+            break
+        case .inProgress:
+            break
+        case .savedItems:
+            break
+        case .savedVocabulary:
+            break
+        }
     }
 
     // MARK: - UICollectionViewDataSource
@@ -222,12 +224,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         switch profileSection {
         case .completed:
             if let completedItemCell = collectionView.dequeueReusableCell(withReuseIdentifier: profileCompletedItemCollectionViewCellReusableIdentifier, for: indexPath) as? ProfileCompletedItemCollectionViewCell {
-                completedItemCell.completedItem = completedItems[indexPath.item]
+                completedItemCell.completedItem = completedGroupedItems[indexPath.item]
                 return completedItemCell
             }
         case .inProgress:
             if let profileCardCell = collectionView.dequeueReusableCell(withReuseIdentifier: profileCardCollectionViewCellReusableIdentifier, for: indexPath) as? ProfileCardCollectionViewCell {
-                profileCardCell.profileCard = inProgressContents[indexPath.item]
+                profileCardCell.profileCard = inProgressItems[indexPath.item]
                 return profileCardCell
             }
         case .savedItems:
@@ -245,9 +247,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let profileSection = sections[section]
         switch profileSection {
         case .completed:
-            return completedItems.count
+            return completedGroupedItems.count
         case .inProgress:
-            return inProgressContents.count
+            return inProgressItems.count
         case .savedItems:
             return savedItems.count
         case .savedVocabulary:
@@ -280,7 +282,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return sections.count
     }
 
     // MARK: - Private

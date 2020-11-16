@@ -118,7 +118,6 @@ class ProfileCardCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - UIView
-
     override func updateConstraints() {
         super.updateConstraints()
         var height = imageViewHeight + contentTypeLabelHeight + contentStackViewSpacing * 3
