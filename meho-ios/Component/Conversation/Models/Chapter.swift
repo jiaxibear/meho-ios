@@ -13,6 +13,7 @@ struct Chapter {
     var contentPinyin = ""
     var contentInLocalLanguage = ""
     var contentAudioURL:URL?
+    var contentAudioKey:String?
     var sequence = -1
     var role = ""
     var identifier = ""

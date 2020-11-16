@@ -16,7 +16,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     private let titleLabelTotitleInLocalLanguageLabelMargin = CGFloat(15)
     private let titleInLocalLanguageLabelFontSize = CGFloat(15)
     private let coverImageViewCornerRadius = CGFloat(4)
-    private let coverImageViewWidth = CGFloat(98)
+    private let coverImageViewWidth = CGFloat(110)
     private let coverImageTrailingMargin = CGFloat(25)
     private let coverImageBorderWidth = CGFloat(1)
     private let arrowImageViewWidth = CGFloat(45)
@@ -141,6 +141,9 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         // Downloads the image.
         if let coverImageURL = dialog.coverImageURL {
             coverImageView.imageURL = coverImageURL
+        } else if let imageKey = dialog.coverImageKey {
+            let s3Key = S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: imageKey)
+            coverImageView.imageKey = s3Key
         }
 
         difficultyLabel.text = dialog.difficulty.title.uppercased()

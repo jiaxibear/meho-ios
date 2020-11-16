@@ -84,7 +84,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
-        fetechDialogs()
+        fetchDialogs()
 
         dialogsCollectionViewFlowLayout.minimumLineSpacing = dialogCollectionViewCellLineSpacing
         dialogsCollectionViewFlowLayout.sectionInset = dialogCollectionViewSectionInset
@@ -208,7 +208,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     func didSelectDifficulty(_ diffculty: Difficulty) {
         self.difficulty = diffculty
         dismiss(animated: true) {
-            self.fetechDialogs()
+            self.fetchDialogs()
         }
     }
 
@@ -232,10 +232,11 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     }
 
     // MARK: - Private
-    func fetechDialogs() {
+    func fetchDialogs() {
         let difficultyString = difficulty.identifier.rawValue
         if category != nil {
-            conversationDataFetcher.fetchDialogs(category: category!.identifier, difficulty: difficultyString) { (dialogs, error) in
+            let categoryId = category?.identifier
+            conversationDataFetcher.fetchDialoguesOfCategory(categoryID: categoryId!) { (dialogs, error) in
                 if error == nil && dialogs != nil {
                     self.dialogs = dialogs!.filter({ (dialog) -> Bool in
                         dialog.difficulty == self.difficulty
@@ -245,6 +246,16 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
                     }
                 }
             }
+//            conversationDataFetcher.fetchDialogs(category: category!.identifier, difficulty: difficultyString) { (dialogs, error) in
+//                if error == nil && dialogs != nil {
+//                    self.dialogs = dialogs!.filter({ (dialog) -> Bool in
+//                        dialog.difficulty == self.difficulty
+//                    })
+//                    DispatchQueue.main.async {
+//                        self.dialogsCollectionView.reloadData()
+//                    }
+//                }
+//            }
         } else {
             switch streamType {
             case .mostPopular:

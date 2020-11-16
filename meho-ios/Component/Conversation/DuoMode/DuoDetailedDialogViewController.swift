@@ -183,6 +183,17 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         view.addSubview(chaptersCollectionView)
 
         if scoredChapters.count == 0 {
+//            self.scoredChapters = dialog.chapters.map({ (chapter) -> ScoredChapter in
+//                return ScoredChapter.init(chapter: chapter)
+//            })
+//            self.chaptersCollectionView.reloadData()
+//            self.loadFirstChapter()
+//            let audioSession = AVAudioSession.sharedInstance()
+//            audioSession.requestRecordPermission { (allowed) in
+//                // TODO: Add UI if not allowed.
+//            }
+
+
             conversationDataFetcher.fetchDetailedDialog(dialogID: dialog.identifier) { (dialog, error) in
                 if (dialog != nil && error == nil) {
                     self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in
@@ -441,6 +452,18 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             player = AVPlayer.init(playerItem: playerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
             player?.play()
+        }
+        if let currentChapter = currentScoredChapters.last, let contentAudioKey = currentChapter.chapter.contentAudioKey {
+
+            let hackedUrlString = ("https://mehoassets213338-mehoadmin.s3-us-west-2.amazonaws.com/public/" + contentAudioKey).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            if let someURLComponent = URLComponents.init(string: hackedUrlString!) {
+                if let fetchNewsDetailURL = someURLComponent.url {
+                    let playerItem = AVPlayerItem.init(url: fetchNewsDetailURL)
+                    player = AVPlayer.init(playerItem: playerItem)
+                    NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+                    player?.play()
+                }
+            }
         }
     }
 

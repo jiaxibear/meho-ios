@@ -29,6 +29,10 @@ query GetParagraph($id: ID!) {
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -262,6 +266,16 @@ query GetArticle($id: ID!) {
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -397,6 +411,10 @@ query ListArticles(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -471,152 +489,27 @@ query ListArticles(
     nextToken
   }
 }
-query BatchGetArticles($ids: [ID]) {
-  batchGetArticles(ids: $ids) {
+query GetArticleSource($id: ID!) {
+  getArticleSource(id: $id) {
     id
-    coverImage {
-      ...S3Object
-    }
-    coverImage_key
-    titleEn
-    titleZh
-    whyYouShouldReadThisArticle
+    name
     createdAt
-    tags {
-      items {
-        id
-        article {
-          id
-          coverImage {
-            ...S3Object
-          }
-          coverImage_key
-          titleEn
-          titleZh
-          whyYouShouldReadThisArticle
-          createdAt
-          tags {
-            nextToken
-          }
-          vocabularies {
-            nextToken
-          }
-          sourcer
-          paragraphs {
-            nextToken
-          }
-          status
-          updatedAt
-        }
-        tag {
-          id
-          content
-          articles {
-            nextToken
-          }
-          dialogues {
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    vocabularies {
-      items {
-        id
-        article {
-          id
-          coverImage {
-            ...S3Object
-          }
-          coverImage_key
-          titleEn
-          titleZh
-          whyYouShouldReadThisArticle
-          createdAt
-          tags {
-            nextToken
-          }
-          vocabularies {
-            nextToken
-          }
-          sourcer
-          paragraphs {
-            nextToken
-          }
-          status
-          updatedAt
-        }
-        vocabulary {
-          id
-          contentZh
-          contentEn
-          contentPinyin
-          label
-          audio {
-            ...S3Object
-          }
-          audio_key
-          optionContent
-          articles {
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        paragraphId
-        startIndex
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    sourcer
-    paragraphs {
-      items {
-        id
-        article {
-          id
-          coverImage {
-            ...S3Object
-          }
-          coverImage_key
-          titleEn
-          titleZh
-          whyYouShouldReadThisArticle
-          createdAt
-          tags {
-            nextToken
-          }
-          vocabularies {
-            nextToken
-          }
-          sourcer
-          paragraphs {
-            nextToken
-          }
-          status
-          updatedAt
-        }
-        content
-        contentType
-        seqNumber
-        contentImage {
-          ...S3Object
-        }
-        contentImage_key
-        videoURL
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    status
     updatedAt
+  }
+}
+query ListArticleSources(
+  $filter: ModelArticleSourceFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listArticleSources(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+    nextToken
   }
 }
 query GetVocabulary($id: ID!) {
@@ -770,6 +663,10 @@ query GetVocabularyArticle($id: ID!) {
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1021,6 +918,16 @@ query GetTag($id: ID!) {
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -1048,7 +955,9 @@ query GetTag($id: ID!) {
           chapters {
             nextToken
           }
+          status
           createdAt
+          markAsMostPopular
           updatedAt
         }
         tag {
@@ -1060,6 +969,16 @@ query GetTag($id: ID!) {
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -1068,6 +987,16 @@ query GetTag($id: ID!) {
       }
       nextToken
     }
+    image {
+      ...S3Object
+    }
+    image_key
+    isFeatured
+    featuredSlogan
+    featuredImage {
+      ...S3Object
+    }
+    featuredImage_key
     createdAt
     updatedAt
   }
@@ -1094,6 +1023,10 @@ query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1112,12 +1045,18 @@ query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1126,6 +1065,16 @@ query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {
         }
         nextToken
       }
+      image {
+        ...S3Object
+      }
+      image_key
+      isFeatured
+      featuredSlogan
+      featuredImage {
+        ...S3Object
+      }
+      featuredImage_key
       createdAt
       updatedAt
     }
@@ -1162,6 +1111,10 @@ query GetTagArticle($id: ID!) {
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1253,6 +1206,10 @@ query GetTagArticle($id: ID!) {
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1271,12 +1228,18 @@ query GetTagArticle($id: ID!) {
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1285,6 +1248,16 @@ query GetTagArticle($id: ID!) {
         }
         nextToken
       }
+      image {
+        ...S3Object
+      }
+      image_key
+      isFeatured
+      featuredSlogan
+      featuredImage {
+        ...S3Object
+      }
+      featuredImage_key
       createdAt
       updatedAt
     }
@@ -1364,6 +1337,16 @@ query ListTagArticles(
           }
           nextToken
         }
+        image {
+          ...S3Object
+        }
+        image_key
+        isFeatured
+        featuredSlogan
+        featuredImage {
+          ...S3Object
+        }
+        featuredImage_key
         createdAt
         updatedAt
       }
@@ -1410,12 +1393,18 @@ query GetChapter($id: ID!) {
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1448,7 +1437,9 @@ query GetChapter($id: ID!) {
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           createdAt
@@ -1456,7 +1447,9 @@ query GetChapter($id: ID!) {
         }
         nextToken
       }
+      status
       createdAt
+      markAsMostPopular
       updatedAt
     }
     createdAt
@@ -1519,7 +1512,9 @@ query ListChapters(
           }
           nextToken
         }
+        status
         createdAt
+        markAsMostPopular
         updatedAt
       }
       createdAt
@@ -1558,7 +1553,9 @@ query GetDialogue($id: ID!) {
           chapters {
             nextToken
           }
+          status
           createdAt
+          markAsMostPopular
           updatedAt
         }
         tag {
@@ -1570,6 +1567,16 @@ query GetDialogue($id: ID!) {
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -1611,7 +1618,9 @@ query GetDialogue($id: ID!) {
           chapters {
             nextToken
           }
+          status
           createdAt
+          markAsMostPopular
           updatedAt
         }
         createdAt
@@ -1619,7 +1628,9 @@ query GetDialogue($id: ID!) {
       }
       nextToken
     }
+    status
     createdAt
+    markAsMostPopular
     updatedAt
   }
 }
@@ -1649,12 +1660,18 @@ query ListDialogues(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1687,7 +1704,9 @@ query ListDialogues(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           createdAt
@@ -1695,7 +1714,9 @@ query ListDialogues(
         }
         nextToken
       }
+      status
       createdAt
+      markAsMostPopular
       updatedAt
     }
     nextToken
@@ -1724,12 +1745,18 @@ query GetTagDialogue($id: ID!) {
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1762,7 +1789,9 @@ query GetTagDialogue($id: ID!) {
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           createdAt
@@ -1770,7 +1799,9 @@ query GetTagDialogue($id: ID!) {
         }
         nextToken
       }
+      status
       createdAt
+      markAsMostPopular
       updatedAt
     }
     tag {
@@ -1793,6 +1824,10 @@ query GetTagDialogue($id: ID!) {
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1811,12 +1846,18 @@ query GetTagDialogue($id: ID!) {
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1825,6 +1866,16 @@ query GetTagDialogue($id: ID!) {
         }
         nextToken
       }
+      image {
+        ...S3Object
+      }
+      image_key
+      isFeatured
+      featuredSlogan
+      featuredImage {
+        ...S3Object
+      }
+      featuredImage_key
       createdAt
       updatedAt
     }
@@ -1874,7 +1925,9 @@ query ListTagDialogues(
           }
           nextToken
         }
+        status
         createdAt
+        markAsMostPopular
         updatedAt
       }
       tag {
@@ -1896,6 +1949,16 @@ query ListTagDialogues(
           }
           nextToken
         }
+        image {
+          ...S3Object
+        }
+        image_key
+        isFeatured
+        featuredSlogan
+        featuredImage {
+          ...S3Object
+        }
+        featuredImage_key
         createdAt
         updatedAt
       }
@@ -2907,6 +2970,36 @@ query ListUserVocabularySaves(
     nextToken
   }
 }
+query GetExpressionsByLabel(
+  $label: String
+  $sortDirection: ModelSortDirection
+  $filter: ModelExpressionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getExpressionsByLabel(
+    label: $label
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      label
+      contentZh
+      contentPinyin
+      contentEn
+      audio {
+        ...S3Object
+      }
+      audio_key
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
 query GetArticlesByStatus(
   $status: String
   $createdAt: ModelStringKeyConditionInput
@@ -2950,6 +3043,10 @@ query GetArticlesByStatus(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -3019,6 +3116,197 @@ query GetArticlesByStatus(
         nextToken
       }
       status
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetVocabularyArticlesByParagraphId(
+  $paragraphId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelVocabularyArticleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getVocabularyArticlesByParagraphId(
+    paragraphId: $paragraphId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      article {
+        id
+        coverImage {
+          ...S3Object
+        }
+        coverImage_key
+        titleEn
+        titleZh
+        whyYouShouldReadThisArticle
+        createdAt
+        tags {
+          items {
+            id
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        vocabularies {
+          items {
+            id
+            paragraphId
+            startIndex
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        sourcer
+        paragraphs {
+          items {
+            id
+            content
+            contentType
+            seqNumber
+            contentImage_key
+            videoURL
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        status
+        updatedAt
+      }
+      vocabulary {
+        id
+        contentZh
+        contentEn
+        contentPinyin
+        label
+        audio {
+          ...S3Object
+        }
+        audio_key
+        optionContent
+        articles {
+          items {
+            id
+            paragraphId
+            startIndex
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      paragraphId
+      startIndex
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetDialoguesByStatus(
+  $status: String
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelDialogueFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getDialoguesByStatus(
+    status: $status
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      coverImage {
+        ...S3Object
+      }
+      coverImage_key
+      titleZh
+      titleEn
+      whyYouShouldLearnThisDialogue
+      difficultyLevel
+      tags {
+        items {
+          id
+          dialogue {
+            id
+            coverImage_key
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            status
+            createdAt
+            markAsMostPopular
+            updatedAt
+          }
+          tag {
+            id
+            content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      chapters {
+        items {
+          id
+          contentZh
+          contentPinyin
+          contentEn
+          audio {
+            ...S3Object
+          }
+          audio_key
+          seqNumber
+          npcName
+          npcAvatar {
+            ...S3Object
+          }
+          npcAvatar_key
+          npcRole
+          dialogue {
+            id
+            coverImage_key
+            titleZh
+            titleEn
+            whyYouShouldLearnThisDialogue
+            difficultyLevel
+            status
+            createdAt
+            markAsMostPopular
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      status
+      createdAt
+      markAsMostPopular
       updatedAt
     }
     nextToken

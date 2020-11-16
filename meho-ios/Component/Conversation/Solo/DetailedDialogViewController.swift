@@ -112,6 +112,16 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
             navigationItem.rightBarButtonItem = displayScoreBarButtonItem
         }
         if dialog != nil {
+
+//            self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in
+//                return ScoredChapter.init(chapter: chapter)
+//            })
+//            self.chaptersCollectionView.reloadData()
+//            let audioSession = AVAudioSession.sharedInstance()
+//            audioSession.requestRecordPermission { (allowed) in
+//                // TODO: Add UI if not allowed.
+//            }
+
             conversationDataFetcher.fetchDetailedDialog(dialogID: dialog.identifier) { (dialog, error) in
                 if (dialog != nil && error == nil) {
                     self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in

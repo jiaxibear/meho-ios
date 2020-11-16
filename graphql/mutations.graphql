@@ -32,6 +32,10 @@ mutation CreateParagraph(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -148,6 +152,10 @@ mutation UpdateParagraph(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -264,6 +272,10 @@ mutation DeleteParagraph(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -450,6 +462,16 @@ mutation CreateArticle(
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -601,6 +623,16 @@ mutation UpdateArticle(
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -752,6 +784,16 @@ mutation DeleteArticle(
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -851,6 +893,39 @@ mutation DeleteArticle(
       nextToken
     }
     status
+    updatedAt
+  }
+}
+mutation CreateArticleSource(
+  $input: CreateArticleSourceInput!
+  $condition: ModelArticleSourceConditionInput
+) {
+  createArticleSource(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateArticleSource(
+  $input: UpdateArticleSourceInput!
+  $condition: ModelArticleSourceConditionInput
+) {
+  updateArticleSource(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteArticleSource(
+  $input: DeleteArticleSourceInput!
+  $condition: ModelArticleSourceConditionInput
+) {
+  deleteArticleSource(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
     updatedAt
   }
 }
@@ -1094,6 +1169,10 @@ mutation CreateVocabularyArticle(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1250,6 +1329,10 @@ mutation UpdateVocabularyArticle(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1406,6 +1489,10 @@ mutation DeleteVocabularyArticle(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1571,6 +1658,16 @@ mutation CreateTag(
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -1598,7 +1695,9 @@ mutation CreateTag(
           chapters {
             nextToken
           }
+          status
           createdAt
+          markAsMostPopular
           updatedAt
         }
         tag {
@@ -1610,6 +1709,16 @@ mutation CreateTag(
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -1618,6 +1727,16 @@ mutation CreateTag(
       }
       nextToken
     }
+    image {
+      ...S3Object
+    }
+    image_key
+    isFeatured
+    featuredSlogan
+    featuredImage {
+      ...S3Object
+    }
+    featuredImage_key
     createdAt
     updatedAt
   }
@@ -1664,6 +1783,16 @@ mutation UpdateTag(
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -1691,7 +1820,9 @@ mutation UpdateTag(
           chapters {
             nextToken
           }
+          status
           createdAt
+          markAsMostPopular
           updatedAt
         }
         tag {
@@ -1703,6 +1834,16 @@ mutation UpdateTag(
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -1711,6 +1852,16 @@ mutation UpdateTag(
       }
       nextToken
     }
+    image {
+      ...S3Object
+    }
+    image_key
+    isFeatured
+    featuredSlogan
+    featuredImage {
+      ...S3Object
+    }
+    featuredImage_key
     createdAt
     updatedAt
   }
@@ -1757,6 +1908,16 @@ mutation DeleteTag(
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -1784,7 +1945,9 @@ mutation DeleteTag(
           chapters {
             nextToken
           }
+          status
           createdAt
+          markAsMostPopular
           updatedAt
         }
         tag {
@@ -1796,6 +1959,16 @@ mutation DeleteTag(
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -1804,6 +1977,16 @@ mutation DeleteTag(
       }
       nextToken
     }
+    image {
+      ...S3Object
+    }
+    image_key
+    isFeatured
+    featuredSlogan
+    featuredImage {
+      ...S3Object
+    }
+    featuredImage_key
     createdAt
     updatedAt
   }
@@ -1841,6 +2024,10 @@ mutation CreateTagArticle(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1932,6 +2119,10 @@ mutation CreateTagArticle(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1950,12 +2141,18 @@ mutation CreateTagArticle(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -1964,6 +2161,16 @@ mutation CreateTagArticle(
         }
         nextToken
       }
+      image {
+        ...S3Object
+      }
+      image_key
+      isFeatured
+      featuredSlogan
+      featuredImage {
+        ...S3Object
+      }
+      featuredImage_key
       createdAt
       updatedAt
     }
@@ -2004,6 +2211,10 @@ mutation UpdateTagArticle(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -2095,6 +2306,10 @@ mutation UpdateTagArticle(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -2113,12 +2328,18 @@ mutation UpdateTagArticle(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -2127,6 +2348,16 @@ mutation UpdateTagArticle(
         }
         nextToken
       }
+      image {
+        ...S3Object
+      }
+      image_key
+      isFeatured
+      featuredSlogan
+      featuredImage {
+        ...S3Object
+      }
+      featuredImage_key
       createdAt
       updatedAt
     }
@@ -2167,6 +2398,10 @@ mutation DeleteTagArticle(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -2258,6 +2493,10 @@ mutation DeleteTagArticle(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -2276,12 +2515,18 @@ mutation DeleteTagArticle(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -2290,6 +2535,16 @@ mutation DeleteTagArticle(
         }
         nextToken
       }
+      image {
+        ...S3Object
+      }
+      image_key
+      isFeatured
+      featuredSlogan
+      featuredImage {
+        ...S3Object
+      }
+      featuredImage_key
       createdAt
       updatedAt
     }
@@ -2337,12 +2592,18 @@ mutation CreateChapter(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -2375,7 +2636,9 @@ mutation CreateChapter(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           createdAt
@@ -2383,7 +2646,9 @@ mutation CreateChapter(
         }
         nextToken
       }
+      status
       createdAt
+      markAsMostPopular
       updatedAt
     }
     createdAt
@@ -2430,12 +2695,18 @@ mutation UpdateChapter(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -2468,7 +2739,9 @@ mutation UpdateChapter(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           createdAt
@@ -2476,7 +2749,9 @@ mutation UpdateChapter(
         }
         nextToken
       }
+      status
       createdAt
+      markAsMostPopular
       updatedAt
     }
     createdAt
@@ -2523,12 +2798,18 @@ mutation DeleteChapter(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -2561,7 +2842,9 @@ mutation DeleteChapter(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           createdAt
@@ -2569,7 +2852,9 @@ mutation DeleteChapter(
         }
         nextToken
       }
+      status
       createdAt
+      markAsMostPopular
       updatedAt
     }
     createdAt
@@ -2609,7 +2894,9 @@ mutation CreateDialogue(
           chapters {
             nextToken
           }
+          status
           createdAt
+          markAsMostPopular
           updatedAt
         }
         tag {
@@ -2621,6 +2908,16 @@ mutation CreateDialogue(
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -2662,7 +2959,9 @@ mutation CreateDialogue(
           chapters {
             nextToken
           }
+          status
           createdAt
+          markAsMostPopular
           updatedAt
         }
         createdAt
@@ -2670,7 +2969,9 @@ mutation CreateDialogue(
       }
       nextToken
     }
+    status
     createdAt
+    markAsMostPopular
     updatedAt
   }
 }
@@ -2707,7 +3008,9 @@ mutation UpdateDialogue(
           chapters {
             nextToken
           }
+          status
           createdAt
+          markAsMostPopular
           updatedAt
         }
         tag {
@@ -2719,6 +3022,16 @@ mutation UpdateDialogue(
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -2760,7 +3073,9 @@ mutation UpdateDialogue(
           chapters {
             nextToken
           }
+          status
           createdAt
+          markAsMostPopular
           updatedAt
         }
         createdAt
@@ -2768,7 +3083,9 @@ mutation UpdateDialogue(
       }
       nextToken
     }
+    status
     createdAt
+    markAsMostPopular
     updatedAt
   }
 }
@@ -2805,7 +3122,9 @@ mutation DeleteDialogue(
           chapters {
             nextToken
           }
+          status
           createdAt
+          markAsMostPopular
           updatedAt
         }
         tag {
@@ -2817,6 +3136,16 @@ mutation DeleteDialogue(
           dialogues {
             nextToken
           }
+          image {
+            ...S3Object
+          }
+          image_key
+          isFeatured
+          featuredSlogan
+          featuredImage {
+            ...S3Object
+          }
+          featuredImage_key
           createdAt
           updatedAt
         }
@@ -2858,7 +3187,9 @@ mutation DeleteDialogue(
           chapters {
             nextToken
           }
+          status
           createdAt
+          markAsMostPopular
           updatedAt
         }
         createdAt
@@ -2866,7 +3197,9 @@ mutation DeleteDialogue(
       }
       nextToken
     }
+    status
     createdAt
+    markAsMostPopular
     updatedAt
   }
 }
@@ -2896,12 +3229,18 @@ mutation CreateTagDialogue(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -2934,7 +3273,9 @@ mutation CreateTagDialogue(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           createdAt
@@ -2942,7 +3283,9 @@ mutation CreateTagDialogue(
         }
         nextToken
       }
+      status
       createdAt
+      markAsMostPopular
       updatedAt
     }
     tag {
@@ -2965,6 +3308,10 @@ mutation CreateTagDialogue(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -2983,12 +3330,18 @@ mutation CreateTagDialogue(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -2997,6 +3350,16 @@ mutation CreateTagDialogue(
         }
         nextToken
       }
+      image {
+        ...S3Object
+      }
+      image_key
+      isFeatured
+      featuredSlogan
+      featuredImage {
+        ...S3Object
+      }
+      featuredImage_key
       createdAt
       updatedAt
     }
@@ -3030,12 +3393,18 @@ mutation UpdateTagDialogue(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -3068,7 +3437,9 @@ mutation UpdateTagDialogue(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           createdAt
@@ -3076,7 +3447,9 @@ mutation UpdateTagDialogue(
         }
         nextToken
       }
+      status
       createdAt
+      markAsMostPopular
       updatedAt
     }
     tag {
@@ -3099,6 +3472,10 @@ mutation UpdateTagDialogue(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -3117,12 +3494,18 @@ mutation UpdateTagDialogue(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -3131,6 +3514,16 @@ mutation UpdateTagDialogue(
         }
         nextToken
       }
+      image {
+        ...S3Object
+      }
+      image_key
+      isFeatured
+      featuredSlogan
+      featuredImage {
+        ...S3Object
+      }
+      featuredImage_key
       createdAt
       updatedAt
     }
@@ -3164,12 +3557,18 @@ mutation DeleteTagDialogue(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -3202,7 +3601,9 @@ mutation DeleteTagDialogue(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           createdAt
@@ -3210,7 +3611,9 @@ mutation DeleteTagDialogue(
         }
         nextToken
       }
+      status
       createdAt
+      markAsMostPopular
       updatedAt
     }
     tag {
@@ -3233,6 +3636,10 @@ mutation DeleteTagDialogue(
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -3251,12 +3658,18 @@ mutation DeleteTagDialogue(
             titleEn
             whyYouShouldLearnThisDialogue
             difficultyLevel
+            status
             createdAt
+            markAsMostPopular
             updatedAt
           }
           tag {
             id
             content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
             createdAt
             updatedAt
           }
@@ -3265,6 +3678,16 @@ mutation DeleteTagDialogue(
         }
         nextToken
       }
+      image {
+        ...S3Object
+      }
+      image_key
+      isFeatured
+      featuredSlogan
+      featuredImage {
+        ...S3Object
+      }
+      featuredImage_key
       createdAt
       updatedAt
     }

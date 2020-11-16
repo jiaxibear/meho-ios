@@ -459,6 +459,21 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
             actionLabel.isHidden = false
             delegate?.expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: scoredChapter)
         }
+        if let audioKey = scoredChapter.chapter.contentAudioKey {
+            let hackedUrlString = ("https://mehoassets213338-mehoadmin.s3-us-west-2.amazonaws.com/public/" + audioKey).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            if let someURLComponent = URLComponents.init(string: hackedUrlString!) {
+                if let fetchNewsDetailURL = someURLComponent.url {
+                    let playerItem = AVPlayerItem.init(url: fetchNewsDetailURL)
+                    player = AVPlayer.init(playerItem: playerItem)
+                    player?.rate = currentAudioPlaySpeed.rawValue
+                    player?.play()
+                    player?.rate = currentAudioPlaySpeed.rawValue
+                    actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
+                    actionLabel.isHidden = false
+                    delegate?.expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: scoredChapter)
+                }
+            }
+        }
     }
 
     @objc func didTapReplayButton() {

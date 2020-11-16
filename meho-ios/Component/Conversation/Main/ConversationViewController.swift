@@ -27,9 +27,9 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private let categoryCellReuseIdentifier = "Categories"
     private let dialogCellReuseIdentifier = "Dialogs"
     private let conversationsCollectionViewSectionTopBottomMargin = CGFloat(16)
-    private let categorieCollectionViewCellWidth = CGFloat(165)
-    private let categorieCollectionViewCellHeight = CGFloat(134)
-    private let categorieCollectionViewCellGroupSpacing = CGFloat(16)
+    private let categorieCollectionViewCellWidth = CGFloat(100)
+    private let categorieCollectionViewCellHeight = CGFloat(80)
+    private let categorieCollectionViewCellGroupSpacing = CGFloat(12)
     private let categorieCollectionViewSectionHeaderEstimatedHeight = CGFloat(29)
     private let categorieCollectionViewSectionFooterEstimatedHeight = CGFloat(52)
     private let dialogCollectionViewCellHeight = CGFloat(110)
@@ -126,15 +126,21 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         conversationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         conversationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
-        dataFecther.fetchCategories { (categories, error) in
+        dataFecther.fetchCategories(maybeLimit: 4, completionHandler:  { (categories, error) in
             if (error == nil && categories != nil) {
+                var seeAllCategoryCard = Category.init()
+                seeAllCategoryCard.title = "See All"
+                seeAllCategoryCard.identifier = "seeallcard"
+                var localCategories = categories!
+                localCategories.append(seeAllCategoryCard)
+
                 DispatchQueue.main.async {
-                    self.categories = categories!
+                    self.categories = localCategories
                     self.sections.insert(.categories, at: 0)
                     self.conversationCollectionView.reloadData()
                 }
             }
-        }
+        })
 
         dataFecther.fetchFeaturedDialogs(difficulty: nil, completionHandler: {
             (dialogs, error) in
@@ -192,8 +198,14 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         switch conversationSection {
         case .categories:
             let category = categories[indexPath.item]
-            let dialogStreamViewController = DialogStreamViewController.init(category: category)
-            navigationController?.pushViewController(dialogStreamViewController, animated: true)
+            switch category.identifier {
+            case "seeallcard":
+                let listedCategoriesController = ListedCategoryViewController.init()
+                navigationController?.pushViewController(listedCategoriesController, animated: true)
+            default:
+                let dialogStreamViewController = DialogStreamViewController.init(category: category)
+                navigationController?.pushViewController(dialogStreamViewController, animated: true)
+            }
             break
         case .featuredDialogs:
             let parameters = [

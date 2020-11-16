@@ -21,6 +21,7 @@ struct Dialog: MehoContentAnalytics {
     var title = ""
     var titleInLocalLanguage = ""
     var coverImageURL:URL?
+    var coverImageKey:String?
     var chapters: [Chapter] = []
     var difficulty = Difficulty.beginner
     var whyYouShouldLearn = ""

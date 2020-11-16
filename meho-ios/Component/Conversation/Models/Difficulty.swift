@@ -26,7 +26,7 @@ struct Difficulty : Equatable {
 }
 
 enum DifficultyIdentifier : String {
-    case beginner = "BEGINNER"
-    case intermediate = "INTERMEDIATE"
-    case advanced = "ADVANCED"
+    case beginner = "Beginner"
+    case intermediate = "Medium"
+    case advanced = "Advanced"
 }

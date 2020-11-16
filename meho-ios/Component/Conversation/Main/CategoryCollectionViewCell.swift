@@ -12,10 +12,12 @@ import Foundation
 class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
 
     // MARK: - Constants
-    private let titleLabelFontSize = CGFloat(16)
-    private let coverImageViewHeight = CGFloat(92)
-    private let titleLabelVerticalMargin = CGFloat(12)
-    private let titleLabelLeadingMargin = CGFloat(11)
+    private let titleLabelFontSize = CGFloat(12)
+
+    private let coverImageViewVerticalMargin = CGFloat(10)
+    private let coverImageViewHeight = CGFloat(40)
+    private let titleToImageMargin = CGFloat(10)
+    private let titleBottomMargin = CGFloat(6)
     private let contentViewCornerRadius = CGFloat(10)
     private let contentViewShadowRadius = CGFloat(3)
     private let contentViewShadowSpread = CGFloat(3)
@@ -48,7 +50,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
 
         // Sets up cover image view.
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
-        coverImageView.contentMode = .scaleAspectFill
+        coverImageView.contentMode = .scaleAspectFit
         coverImageView.delegate = self
         contentView.addSubview(coverImageView)
 
@@ -61,13 +63,14 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         contentView.addSubview(titleLabel)
 
         // Sets up constraints
-        coverImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        coverImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        coverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        coverImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: coverImageViewVerticalMargin).isActive = true
+        coverImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         coverImageView.heightAnchor.constraint(equalToConstant: coverImageViewHeight).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: titleLabelLeadingMargin).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: titleLabelVerticalMargin).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -titleLabelVerticalMargin).isActive = true
+        coverImageView.widthAnchor.constraint(equalToConstant: coverImageViewHeight).isActive = true
+
+        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: titleToImageMargin).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -titleBottomMargin).isActive = true
         self.contentView.isHidden = true
     }
 
@@ -87,10 +90,16 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         // Sets the text for the title label.
         titleLabel.text = category.title
         titleLabel.sizeToFit()
+
         
         // Downloads the image.
         if let coverImageURL = category.coverImageURL {
             coverImageView.imageURL = coverImageURL
+        } else if let imageKey = category.coverImageKey {
+            let s3Key = S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: imageKey)
+            coverImageView.imageKey = s3Key
+        } else {
+            coverImageView.image = UIImage.init(named: "tag_see_all")
         }
     }
 }

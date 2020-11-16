@@ -48,6 +48,12 @@ class WebImageView: UIImageView {
         }
     }
 
+    override var image: UIImage? {
+        didSet {
+            self.delegate?.webImageViewDidSetImage(webImageView: self)
+        }
+    }
+
     var imageKey: S3ImageViewKey? {
         didSet {
             if self.imageKey != nil {
