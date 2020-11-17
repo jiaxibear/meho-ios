@@ -97,9 +97,8 @@ class NewsItemSizeSCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
         if let coverImageURL = news.coverImageURL {
             thumbnailImageView.imageURL = coverImageURL
         }
-        if let imageKey = news.image_key, let imageBucket = news.image_bucket {
-            let s3Key = S3ImageViewKey.init(bucket: imageBucket, key: imageKey)
-            thumbnailImageView.imageKey = s3Key
+        if let imageKey = news.imageKey {
+            thumbnailImageView.imageKey = imageKey
         }
     }
 

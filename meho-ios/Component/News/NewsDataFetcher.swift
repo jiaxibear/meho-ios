@@ -143,11 +143,8 @@ class NewsDataFetcher: NSObject {
                 if let sourcer = article.sourcer {
                     news.source = sourcer
                 }
-                if let image_key = article.coverImage?.key {
-                    news.image_key = image_key
-                }
-                if let image_bucket = article.coverImage?.bucket {
-                    news.image_bucket = image_bucket
+                if let key = article.coverImage?.key, let bucket = article.coverImage?.bucket {
+                    news.imageKey = S3ImageViewKey.init(bucket: bucket, key: key)
                 }
                 news.renderType = "S"
                 newsList.append(news)

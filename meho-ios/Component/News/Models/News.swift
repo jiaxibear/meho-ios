@@ -23,8 +23,7 @@ struct News: MehoContentAnalytics {
     var reason = ""
     var source = ""
     var renderType = ""
-    var coverImageURL:URL?
-    var image_bucket:String?
-    var image_key:String?
+    var coverImageURL: URL?
+    var imageKey: S3ImageViewKey?
     var date = ""
 }
