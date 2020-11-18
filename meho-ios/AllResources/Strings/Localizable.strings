@@ -338,3 +338,12 @@
 
 /* Title displayed in the completed stories. */
 "CompletedStoreisTitle" = "Completed Stories";
+
+/* Title for the button to see all the items. */
+"SeeAllText" = "See All(%@)";
+
+/* Subtitle displayed in the saved contents section header when there is no saved contents. */
+"SavedContentsSubtitle" = "Save content you’re interested in so you always have a list of things to learn";
+
+/* Subtitle displayed in the in progress contents section header when there is no saved contents. */
+"InProgressContentsSubtitle" = "Start learning so you always have a list of in progress contents to learn";

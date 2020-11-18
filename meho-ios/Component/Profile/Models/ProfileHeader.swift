@@ -10,5 +10,6 @@ import Foundation
 
 struct ProfileHeader {
     let title: String
+    let subtitle: String?
     let count: Int
 }

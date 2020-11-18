@@ -12,7 +12,7 @@ class ProfileCardCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Constants
     private let titleLabelFontSize = CGFloat(10)
-    private let titleInChineseLabelFontSize = CGFloat(10)
+    private let subtitleLabelFontSize = CGFloat(10)
     private let imageViewHeight = CGFloat(80)
     private let contentTypeLabelCornerRadius = CGFloat(2)
     private let contentTypeLabelWidth = CGFloat(50)
@@ -23,16 +23,22 @@ class ProfileCardCollectionViewCell: UICollectionViewCell {
     // MARK: - Model
     var profileCard: ProfileCard! {
         didSet {
-            titleLabel.text = profileCard.titleEn
-            titleInChineseLabel.text = profileCard.titleZh
+            titleLabel.text = profileCard.title
+            subtitleLabel.text = profileCard.subtitle
             imageView.imageKey = profileCard.imageKey
-            contentTypeLabel.text = profileCard.contentType
-            if contentTypeLabel.text == "Talk" {
-                contentTypeLabel.backgroundColor = .wisteriaPurple
-            } else if contentTypeLabel.text == "Story" {
-                contentTypeLabel.backgroundColor = .skyBlue
-            } else {
+            switch profileCard.profileCardType {
+            case .expression:
+                contentTypeLabel.text = "Expression"
                 contentTypeLabel.backgroundColor = .periwinkleBlue
+                break
+            case .story:
+                contentTypeLabel.text = "Story"
+                contentTypeLabel.backgroundColor = .skyBlue
+                break
+            case .talk:
+                contentTypeLabel.text = "Talk"
+                contentTypeLabel.backgroundColor = .wisteriaPurple
+                break
             }
             setNeedsUpdateConstraints()
         }
@@ -67,18 +73,18 @@ class ProfileCardCollectionViewCell: UICollectionViewCell {
         return titleLabel
     } ()
 
-    private lazy var titleInChineseLabel: UILabel = {
-        let titleInChineseLabel = UILabel.init(frame: .zero)
-        titleInChineseLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleInChineseLabel.textColor = .darkGrayTwo
-        titleInChineseLabel.font = UIFont.init(name: "PingFangSC-Regular", size: titleInChineseLabelFontSize)
-        titleInChineseLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        titleInChineseLabel.numberOfLines = 0
-        return titleInChineseLabel
+    private lazy var subtitleLabel: UILabel = {
+        let subtitleLabel = UILabel.init(frame: .zero)
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subtitleLabel.textColor = .darkGrayTwo
+        subtitleLabel.font = UIFont.init(name: "PingFangSC-Regular", size: subtitleLabelFontSize)
+        subtitleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        subtitleLabel.numberOfLines = 0
+        return subtitleLabel
     } ()
 
     private lazy var contentStackView: UIStackView = {
-        let contentStackView = UIStackView.init(arrangedSubviews: [imageView, contentTypeLabel, titleInChineseLabel, titleLabel])
+        let contentStackView = UIStackView.init(arrangedSubviews: [imageView, contentTypeLabel, titleLabel, subtitleLabel])
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
         contentStackView.axis = .vertical
         contentStackView.distribution = .fill
@@ -123,7 +129,7 @@ class ProfileCardCollectionViewCell: UICollectionViewCell {
         var height = imageViewHeight + contentTypeLabelHeight + contentStackViewSpacing * 3
         let labelFittingSize = CGSize.init(width: bounds.width, height: .greatestFiniteMagnitude)
         height += titleLabel.sizeThatFits(labelFittingSize).height
-        height += titleInChineseLabel.sizeThatFits(labelFittingSize).height
+        height += subtitleLabel.sizeThatFits(labelFittingSize).height
         contentStackViewHeightConstraint.constant = height
         contentStackViewHeightConstraint.isActive = true
     }

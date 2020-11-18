@@ -132,6 +132,7 @@
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EA9AC7B42502FE1D00524231 /* MehoAnalyticsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AC7B32502FE1D00524231 /* MehoAnalyticsUtils.swift */; };
 		EA9AC7B625030E1300524231 /* AnalyticsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AC7B525030E1300524231 /* AnalyticsExtension.swift */; };
+		EA9AD89E25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AD89D25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift */; };
 		EA9B5DD524A97A6C00D6CFBD /* BulletPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9B5DD424A97A6C00D6CFBD /* BulletPointView.swift */; };
 		EAA31790250DBAA5007A4017 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA3178F250DBAA5007A4017 /* ProfileSettingViewController.swift */; };
 		EAA31792250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA31791250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift */; };
@@ -308,6 +309,7 @@
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EA9AC7B32502FE1D00524231 /* MehoAnalyticsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MehoAnalyticsUtils.swift; sourceTree = "<group>"; };
 		EA9AC7B525030E1300524231 /* AnalyticsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsExtension.swift; sourceTree = "<group>"; };
+		EA9AD89D25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDummyCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA9B5DD424A97A6C00D6CFBD /* BulletPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletPointView.swift; sourceTree = "<group>"; };
 		EAA3178F250DBAA5007A4017 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		EAA31791250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -649,6 +651,7 @@
 				EA16936B2558F54B0074EE0D /* CompletedCategoryCollectionViewCell.swift */,
 				EA1693702558F83D0074EE0D /* CompletedItemsViewController.swift */,
 				EA169375255908BA0074EE0D /* CompletedExpressionCollectionViewCell.swift */,
+				EA9AD89D25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1129,6 +1132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */,
+				EA9AD89E25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift in Sources */,
 				92C5FE2F244D1621004A3322 /* PinyinSectionHeaderCollectionReusableView.swift in Sources */,
 				EA3E00282529558C00B95A30 /* ProfileCompletedItem.swift in Sources */,
 				92C5FE31244D2216004A3322 /* PinyinToneDetailCollectionViewCell.swift in Sources */,

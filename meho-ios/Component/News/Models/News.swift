@@ -8,7 +8,17 @@
 
 import Foundation
 
-struct News: MehoContentAnalytics {
+struct News: MehoContentAnalytics, ProfileCard {
+
+    // MARK: - ProfileCard
+    var profileCardType = ProfileCardType.story
+    var title: String {
+        return title_zh
+    }
+    var subtitle: String {
+        return title_en
+    }
+
     // MARK: - MehoContentAnalytics
     let contentType = MehoAnalyticsContentType.story
     var contentID: String {

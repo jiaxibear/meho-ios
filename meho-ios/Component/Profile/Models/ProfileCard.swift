@@ -8,11 +8,26 @@
 
 import UIKit
 
-struct ProfileCard {
-    var identifier: String?
-    var contentType: String?
-    var titleEn: String?
-    var titleZh: String?
-    var imageKey: S3ImageViewKey?
-    var subtitle: String?
+enum ProfileCardType {
+    case story
+    case expression
+    case talk
+}
+
+protocol ProfileCard {
+    var identifier: String {
+        get
+    }
+    var profileCardType: ProfileCardType {
+        get
+    }
+    var title: String {
+        get
+    }
+    var imageKey: S3ImageViewKey? {
+        get
+    }
+    var subtitle: String {
+        get
+    }
 }

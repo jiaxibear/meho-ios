@@ -33,7 +33,7 @@ class ProfileDataFetcher: NSObject {
         do {
             var request = URLRequest.init(url: fetchProfileDetailURL)
             request.httpMethod = "POST"
-            let bodyDictionary = [ "userId" : "28743420-f2e3-4935-b015-847a3d527f4b" ]
+            let bodyDictionary = [ "userId" : userID ]
             let bodyJSONString = try JSONSerialization.data(withJSONObject: bodyDictionary, options: .prettyPrinted)
             request.httpBody = bodyJSONString
             request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
@@ -71,44 +71,62 @@ class ProfileDataFetcher: NSObject {
         if let completedItemsJSONArray = profileDetailsDict["completed_items"] as? [[String : Any]] {
             var completedItems: [ProfileCard] = []
             for completedItemJSONObject in completedItemsJSONArray {
-                completedItems.append(parseProfileCard(profileCardJSONObject: completedItemJSONObject))
+                if let profileCard = parseProfileCard(profileCardJSONObject: completedItemJSONObject) {
+                    completedItems.append(profileCard)
+                }
             }
             profileDetails.completedItems = completedItems
         }
         if let inProgressItemsJSONArray = profileDetailsDict["in_progress_items"] as? [[String : Any]] {
             var inProgressItems: [ProfileCard] = []
             for inProgressItemJSONObject in inProgressItemsJSONArray {
-                inProgressItems.append(parseProfileCard(profileCardJSONObject: inProgressItemJSONObject))
+                if let profileCard = parseProfileCard(profileCardJSONObject: inProgressItemJSONObject) {
+                    inProgressItems.append(profileCard)
+                }
             }
             profileDetails.inProgressItems = inProgressItems
         }
         if let savedItemsJSONArray = profileDetailsDict["saved_items"] as? [[String : Any]] {
             var savedItems: [ProfileCard] = []
             for savedItemJSONObject in savedItemsJSONArray {
-                savedItems.append(parseProfileCard(profileCardJSONObject: savedItemJSONObject))
+                if let profileCard = parseProfileCard(profileCardJSONObject: savedItemJSONObject) {
+                    savedItems.append(profileCard)
+                }
             }
             profileDetails.savedItems = savedItems
         }
         return profileDetails
     }
 
-    private func parseProfileCard(profileCardJSONObject: [String: Any]) -> ProfileCard {
-        var profileCard = ProfileCard.init()
-        if let typeName = profileCardJSONObject["__typename"] as? String {
-            profileCard.contentType = typeName
+    private func parseProfileCard(profileCardJSONObject: [String: Any]) -> ProfileCard? {
+        guard let typeName = profileCardJSONObject["__typename"] as? String else {
+            return nil
         }
-        if let coverImageDict = profileCardJSONObject["coverImage"] as? [String: String], let bucket = coverImageDict["bucket"], let key = coverImageDict["key"] {
-            profileCard.imageKey = S3ImageViewKey.init(bucket: bucket, key: key)
+        if typeName == "Article" {
+            var news = News.init()
+            if let coverImageDict = profileCardJSONObject["coverImage"] as? [String: String], let bucket = coverImageDict["bucket"], let key = coverImageDict["key"] {
+                news.imageKey = S3ImageViewKey.init(bucket: bucket, key: key)
+            }
+            if let titleEn = profileCardJSONObject["titleEn"] as? String {
+                news.title_en = titleEn
+            }
+            if let titleZh = profileCardJSONObject["titleZh"] as? String {
+                news.title_zh = titleZh
+            }
+            if let subtitle = profileCardJSONObject["whyYouShouldReadThisArticle"] as? String {
+                news.reason = subtitle
+            }
+            if let source = profileCardJSONObject["sourcer"] as? String {
+                news.source = source
+            }
+            if let identifier = profileCardJSONObject["id"] as? String {
+                news.identifier = identifier
+            }
+            if let date = profileCardJSONObject["createdAt"] as? String {
+                news.date = date
+            }
+            return news
         }
-        if let titleEn = profileCardJSONObject["titleEn"] as? String {
-            profileCard.titleEn = titleEn
-        }
-        if let titleZh = profileCardJSONObject["titleZh"] as? String {
-            profileCard.titleZh = titleZh
-        }
-        if let subtitle = profileCardJSONObject["whyYouShouldReadThisArticle"] as? String {
-            profileCard.subtitle = subtitle
-        }
-        return profileCard
+        return nil
     }
 }

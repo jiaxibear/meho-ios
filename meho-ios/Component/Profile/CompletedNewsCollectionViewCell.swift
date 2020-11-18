@@ -63,7 +63,7 @@ class CompletedNewsCollectionViewCell: UICollectionViewCell {
 
     var profileCard: ProfileCard! {
         didSet {
-            titleLabel.text = profileCard.titleEn
+            titleLabel.text = profileCard.title
             subtitleLabel.text = profileCard.subtitle
             imageView.imageKey = profileCard.imageKey
         }
