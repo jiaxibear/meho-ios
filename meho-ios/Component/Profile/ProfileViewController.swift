@@ -214,8 +214,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         case .completed:
             let item = indexPath.item
             let completedGroupItems = completedGroupedItems[item]
-            let completedItemsViewController = CompletedItemsViewController.init(completedItemsType: completedGroupItems.type, profileCards: completedGroupItems.items)
-            navigationController?.pushViewController(completedItemsViewController, animated: true)
+            let items = completedGroupItems.items
+            if items.count > 0 {
+                let completedItemsViewController = CompletedItemsViewController.init(completedItemsType: completedGroupItems.type, profileCards: completedGroupItems.items)
+                navigationController?.pushViewController(completedItemsViewController, animated: true)
+            }
             break
         case .inProgress:
             break
