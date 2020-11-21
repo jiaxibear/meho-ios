@@ -357,4 +357,53 @@ class UserDataFetcher: NSObject {
              completionHandler(true, nil)
          }
      }
+
+
+
+    func startItemProgressIfNeeded(userId: String, itemId: String, itemType: String) {
+        var isInProgressFlag: Bool?
+        var isCompletedFlag: Bool?
+        getUserItemInProgress (userId: userId, itemId: itemId, completionHandler: { (isInProgress, error) in
+            if (error == nil && isInProgress) {
+                isInProgressFlag = true
+            } else {
+                isInProgressFlag = false
+            }
+            self.startProgressIfNeeded(userId: userId, itemId: itemId, itemType: itemType, isInProgress: isInProgressFlag, isCompleted: isCompletedFlag)
+        })
+        getUserItemCompleted (userId: userId, itemId: itemId, completionHandler: { (isCompleted, error) in
+            if (error == nil && isCompleted) {
+                isCompletedFlag = true
+            } else {
+                isCompletedFlag = false
+            }
+            self.startProgressIfNeeded(userId: userId, itemId: itemId, itemType: itemType, isInProgress: isInProgressFlag, isCompleted: isCompletedFlag)
+        })
+
+    }
+
+    func startProgressIfNeeded(userId:String, itemId:String, itemType: String, isInProgress:Bool?, isCompleted:Bool?) {
+        if let isInProgressFlag = isInProgress, let isCompletedFlag = isCompleted {
+            if !isInProgressFlag && !isCompletedFlag {
+                createUserItemInProgress(userId: userId, itemId: itemId, itemType: itemType) { (createInProgressSuccess, error) in
+                    if (error == nil && createInProgressSuccess) {
+                        // do nothing
+                        print("user:" + userId + ",item " + itemType + ":" + itemId + " - added inprogress successful")
+                    } else {
+                        print("user:" + userId + ",item " + itemType + ":" + itemId + " - added inprogress failed")
+                    }
+                }
+            } else {
+                var status = "not started"
+                if isInProgressFlag {
+                    status = "in progress"
+                } else if isCompletedFlag {
+                    status = "completed"
+                }
+                print("user:" + userId + ",item " + itemType + ":" + itemId + ", status:" + status)
+            }
+        } else {
+            print("user:" + userId + ",item " + itemType + ":" + itemId + " - not all status fetched yet, do nothing")
+        }
+    }
 }

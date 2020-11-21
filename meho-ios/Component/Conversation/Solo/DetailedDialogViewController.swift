@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import FirebaseAnalytics
+import AWSMobileClient
 
 class DetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DuoModeFooterCollectionResuableViewDelegate, MehoAnalytics, ExpandedChapterCollectionViewCellDelegate {
     // MARK: - Constants
@@ -19,6 +20,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     // MARK: - Properties
     // MARK: Model
     private let conversationDataFetcher = ConversationDataFetcher.init()
+    private let userDataFetcher = UserDataFetcher.shared
     private let expressionDataFetcher = ExpressionDataFetcher.init()
     private var scoredChapters: [ScoredChapter] = []
     private let dialog: Dialog!
@@ -136,6 +138,9 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
                     }
                 }
             }
+
+            guard let userId = AWSMobileClient.default().userSub else { return }
+            userDataFetcher.startItemProgressIfNeeded(userId: userId, itemId: dialog.identifier, itemType: "DIALOG")
         } else if survivalPhraseCategoryIdentifier != nil {
             expressionDataFetcher.fetchSurvivalPhrases(category: survivalPhraseCategoryIdentifier) { (result) in
                 switch result {

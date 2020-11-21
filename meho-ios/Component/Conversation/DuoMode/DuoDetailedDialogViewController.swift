@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import FirebaseAnalytics
+import AWSMobileClient
 
 class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AudioVisualizerViewDelegte, AVAudioRecorderDelegate, DuoYourRoleCollectionViewCellDelegate, DuoFinalScoreViewControllerDelegate, MehoAnalytics {
 
@@ -47,6 +48,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private var hasPlayedAudio = false
     private var isYourRoleFirst = false
     private let conversationDataFetcher = ConversationDataFetcher.init()
+    private let userDataFetcher = UserDataFetcher.shared
     private let dialog: Dialog
     private var scoreA: Int?
     private var scoreB: Int?
@@ -209,6 +211,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                     }
                 }
             }
+            guard let userId = AWSMobileClient.default().userSub else { return }
+            userDataFetcher.startItemProgressIfNeeded(userId: userId, itemId: dialog.identifier, itemType: "DIALOG")
         } else {
             let audioSession = AVAudioSession.sharedInstance()
             audioSession.requestRecordPermission { (allowed) in
