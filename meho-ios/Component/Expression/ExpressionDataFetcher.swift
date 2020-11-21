@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSAppSync
 
 class ExpressionDataFetcher: NSObject {
     // MARK: - URLs
@@ -14,7 +15,53 @@ class ExpressionDataFetcher: NSObject {
     private let fetchSurvivalPhraseByCategoryURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/foundation/survival/"
 
     // MARK: - Properties
+    private var appSyncClient: AWSAppSyncClient?
     private let session = URLSession(configuration: .default)
+
+    // MARK: - Init
+    override init() {
+        appSyncClient = (UIApplication.shared.delegate as! AppDelegate).appSyncClient
+    }
+
+    public func fetchSurvivalPhrases(category: String, completionHandler: @escaping (Swift.Result<Array<Chapter>, Error>) -> Void) {
+        let q = GetExpressionsByLabelQuery()
+        q.label = category
+        q.limit = 100
+        appSyncClient?.fetch(query: q) { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {
+                print("There is an error getting the response of survival phrases")
+                completionHandler(.failure(error!))
+                return
+            }
+            guard let items = result?.data?.getExpressionsByLabel?.items, items.count > 0 else {
+                print("The response of survival phrase is empty")
+                completionHandler(.success([]))
+                return
+            }
+
+            var chapterList:[Chapter] = []
+            for maybeRemoteChapter in items {
+                guard let remoteChapter = maybeRemoteChapter else { continue }
+                var chapter = Chapter.init()
+                chapter.identifier = remoteChapter.id
+                if let contentEn = remoteChapter.contentEn {
+                    chapter.contentInLocalLanguage = contentEn
+                }
+                if let contentPinyin = remoteChapter.contentPinyin {
+                    chapter.contentPinyin = contentPinyin
+                }
+                if let contentInLocalLanguage = remoteChapter.contentZh {
+                    chapter.content = contentInLocalLanguage
+                }
+                if let audioKey = remoteChapter.audio?.key {
+                    chapter.contentAudioKey = audioKey
+                }
+                chapterList.append(chapter)
+            }
+            completionHandler(.success(chapterList))
+        }
+    }
 
     // MARK: - Internal
     func fetchTrendingPhrases(count: String = "5", completionHandler: @escaping ( Array<TrendingPhrase>?, Error?) -> Void) {
@@ -52,7 +99,7 @@ class ExpressionDataFetcher: NSObject {
         }
     }
 
-    func fetchSurvivalPhrases(category: String, completionHandler: @escaping (Result<Array<Chapter>, Error>) -> Void) {
+    func fetchSurvivalPhrasesRest(category: String, completionHandler: @escaping (Swift.Result<Array<Chapter>, Error>) -> Void) {
         if var fetchTrendingPhraseURLComponent = URLComponents.init(string: fetchSurvivalPhraseByCategoryURLString) {
             let quertItem = URLQueryItem.init(name: "category", value: category)
             let limitQuertItem = URLQueryItem.init(name: "limit", value: "100")
