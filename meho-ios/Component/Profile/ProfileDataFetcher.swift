@@ -126,6 +126,33 @@ class ProfileDataFetcher: NSObject {
                 news.date = date
             }
             return news
+        } else if typeName == "Dialogue" {
+            var dialog = Dialog.init()
+            if let titleZh = profileCardJSONObject["titleZh"] as? String {
+                dialog.title = titleZh
+            }
+            if let titleEn = profileCardJSONObject["titleEn"] as? String {
+                dialog.titleInLocalLanguage = titleEn
+            }
+            if let difficultyLevel = profileCardJSONObject["difficultyLevel"] as? String {
+                if difficultyLevel == DifficultyIdentifier.advanced.rawValue {
+                    dialog.difficulty = .advanced
+                } else if difficultyLevel == DifficultyIdentifier.intermediate.rawValue {
+                    dialog.difficulty = .intermediate
+                } else if difficultyLevel == DifficultyIdentifier.beginner.rawValue {
+                    dialog.difficulty = .beginner
+                }
+            }
+            if let whyYouShouldLearnThisDialogue = profileCardJSONObject["whyYouShouldLearnThisDialogue"] as? String {
+                dialog.whyYouShouldLearn = whyYouShouldLearnThisDialogue
+            }
+            if let identifier = profileCardJSONObject["id"] as? String {
+                dialog.identifier = identifier
+            }
+            if let coverImageDict = profileCardJSONObject["coverImage"] as? [String: String], let bucket = coverImageDict["bucket"], let key = coverImageDict["key"] {
+                dialog.imageKey = S3ImageViewKey.init(bucket: bucket, key: key)
+            }
+            return dialog
         }
         return nil
     }

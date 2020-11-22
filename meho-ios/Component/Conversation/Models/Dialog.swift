@@ -8,7 +8,13 @@
 
 import Foundation
 
-struct Dialog: MehoContentAnalytics {
+struct Dialog: MehoContentAnalytics, ProfileCard {
+    // MARK: - ProfileCard
+    var profileCardType = ProfileCardType.talk
+    var subtitle: String {
+        return titleInLocalLanguage
+    }
+
     // MARK: - MehoContentAnalytics
     var contentType = MehoAnalyticsContentType.talk
     var contentID: String {
@@ -25,4 +31,5 @@ struct Dialog: MehoContentAnalytics {
     var chapters: [Chapter] = []
     var difficulty = Difficulty.beginner
     var whyYouShouldLearn = ""
+    var imageKey: S3ImageViewKey?
 }
