@@ -212,7 +212,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                 }
             }
             guard let userId = AWSMobileClient.default().userSub else { return }
-            userDataFetcher.startItemProgressIfNeeded(userId: userId, itemId: dialog.identifier, itemType: "DIALOG")
+            userDataFetcher.startItemProgressIfNeeded(userId: userId, itemId: dialog.identifier, itemType: "DIALOGUE")
         } else {
             let audioSession = AVAudioSession.sharedInstance()
             audioSession.requestRecordPermission { (allowed) in

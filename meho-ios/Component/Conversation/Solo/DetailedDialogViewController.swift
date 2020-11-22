@@ -140,7 +140,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
             }
 
             guard let userId = AWSMobileClient.default().userSub else { return }
-            userDataFetcher.startItemProgressIfNeeded(userId: userId, itemId: dialog.identifier, itemType: "DIALOG")
+            userDataFetcher.startItemProgressIfNeeded(userId: userId, itemId: dialog.identifier, itemType: "DIALOGUE")
         } else if survivalPhraseCategoryIdentifier != nil {
             expressionDataFetcher.fetchSurvivalPhrases(category: survivalPhraseCategoryIdentifier) { (result) in
                 switch result {
