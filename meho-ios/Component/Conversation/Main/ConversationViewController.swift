@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSMobileClient
 import FirebaseAnalytics
 
 enum ConversationSection: Int {
@@ -47,6 +48,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private var scrollUpTitleShownCollectionViewTopConstraint: NSLayoutConstraint!
 
     // MARK: Model
+    private let userDataFetcher = UserDataFetcher.shared
     private var categories:[Category] = []
     private var featuredDialogs:[Dialog] = []
     private var mostPopularDialogs:[Dialog] = []
@@ -263,8 +265,13 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         }
     }
 
-    func dialogModeSelectionViewControllerDidTapSaveButton(dialog: Dialog) {
-        view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
+    func dialogModeSelectionViewControllerDidTapSaveButton(isSaved: Bool) {
+        if isSaved {
+            view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
+        } else {
+            view.makeToast(NSLocalizedString("removeSuccessfullyMessage", comment: ""))
+        }
+
     }
 
     // MARK: - SeeMoreFooterCollectionResuableViewDelegate
@@ -392,11 +399,21 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     }
 
     func displayDialogModeSelectionViewController(dialog: Dialog) {
-        let dialogModeSelectionViewController = DialogModeSelectionViewController.init(dialog: dialog)
-        dialogModeSelectionViewController.delegate = self
-        let dialogViewController = DialogViewController.init(contentViewController: dialogModeSelectionViewController)
-        dialogViewController.modalPresentationStyle = .overFullScreen
-        dialogViewController.modalTransitionStyle = .crossDissolve
-        navigationController?.present(dialogViewController, animated: true, completion: nil)
+        guard let userId = AWSMobileClient.default().userSub else { return }
+        userDataFetcher.getUserItemSave (userId: userId, itemId: dialog.identifier, completionHandler: { (isSaved, error) in
+            var maybeIsSaved: Bool?
+            if (error == nil) {
+                maybeIsSaved = isSaved
+            }
+            let dialogModeSelectionViewController = DialogModeSelectionViewController.init(dialog: dialog, maybeIsSaved: maybeIsSaved)
+            dialogModeSelectionViewController.delegate = self
+            let dialogViewController = DialogViewController.init(contentViewController: dialogModeSelectionViewController)
+            dialogViewController.modalPresentationStyle = .overFullScreen
+            dialogViewController.modalTransitionStyle = .crossDissolve
+
+            DispatchQueue.main.async {
+                self.navigationController?.present(dialogViewController, animated: true, completion: nil)
+            }
+        })
     }
 }

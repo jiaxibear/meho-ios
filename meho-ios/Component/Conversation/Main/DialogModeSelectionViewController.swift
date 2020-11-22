@@ -8,11 +8,12 @@
 
 import UIKit
 import FirebaseAnalytics
+import AWSMobileClient
 
 protocol DialogModeSelectionViewControllerDelegate: AnyObject {
     func dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialog: Dialog)
     func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialog: Dialog)
-    func dialogModeSelectionViewControllerDidTapSaveButton(dialog: Dialog)
+    func dialogModeSelectionViewControllerDidTapSaveButton(isSaved: Bool)
 }
 
 class DialogModeSelectionViewController: UIViewController, MehoAnalytics {
@@ -66,9 +67,11 @@ class DialogModeSelectionViewController: UIViewController, MehoAnalytics {
 
     // MARK: - Property
     // MARK: Data Models
+    private let userDataFetcher = UserDataFetcher.shared
     let dialog: Dialog
     // TODO: Change the value based on NSUserDefaults
     let isFirstTime: Bool
+    var isSaved: Bool?
 
     // MARK: UI
     private lazy var difficultyLabel: UILabel = {
@@ -252,8 +255,10 @@ class DialogModeSelectionViewController: UIViewController, MehoAnalytics {
     private lazy var saveButton: UIButton = {
         let saveButton = UIButton.init(frame: .zero)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
-        let saveButtonImage = UIImage.init(named: "purple_saved_unfilled")
-        saveButton.setImage(saveButtonImage, for: .normal)
+        let saveButtonNormalImage = UIImage.init(named: "purple_saved_unfilled")
+        let saveButtonSelectedImage = UIImage.init(named: "purple_saved_filled")
+        saveButton.setImage(saveButtonNormalImage, for: .normal)
+        saveButton.setImage(saveButtonSelectedImage, for: .selected)
         saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
         saveButton.isHidden = true
         return saveButton
@@ -270,8 +275,11 @@ class DialogModeSelectionViewController: UIViewController, MehoAnalytics {
         fatalError("init(dialog: Dialog)")
     }
 
-    init(dialog: Dialog) {
+    init(dialog: Dialog, maybeIsSaved: Bool? = nil) {
         self.dialog = dialog
+        if let isSaved = maybeIsSaved {
+            self.isSaved = isSaved
+        }
         let defaults = UserDefaults.standard
         self.isFirstTime = !defaults.bool(forKey: hasSeenDialogModeSelectionKey)
         super.init(nibName: nil, bundle: nil)
@@ -320,6 +328,10 @@ class DialogModeSelectionViewController: UIViewController, MehoAnalytics {
         saveButton.widthAnchor.constraint(equalToConstant: saveButtonWidth).isActive = true
         saveButton.heightAnchor.constraint(equalToConstant: saveButtonHeight).isActive = true
         saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -saveButtonTrailingMargin).isActive = true
+        if let isSaveButtonSelected = self.isSaved {
+            saveButton.isHidden = false
+            saveButton.isSelected = isSaveButtonSelected
+        }
         if isFirstTime {
             viewHeight = viewHeight + introductionLabelBottomMargin
             contentStackViewBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -437,6 +449,25 @@ class DialogModeSelectionViewController: UIViewController, MehoAnalytics {
 
     @objc
     func didTapSaveButton() {
-        delegate?.dialogModeSelectionViewControllerDidTapSaveButton(dialog: dialog)
+        // we can cast isSaved value because if isSaved value was not successfully fetched initially, isSaved value won't be set and this button is hidden. thus if the user can tap on it, it means we have a valid isSaved value.
+        guard let userId = AWSMobileClient.default().userSub else { return }
+        if self.isSaved! {
+            userDataFetcher.deleteUserItemSave(userId: userId, itemId: dialog.identifier) { (unsaveSuccess, error) in
+                if (error == nil && unsaveSuccess) {
+                    self.isSaved = false
+                    self.saveButton.isSelected = false
+                    self.delegate?.dialogModeSelectionViewControllerDidTapSaveButton(isSaved: false)
+                }
+            }
+        } else {
+            userDataFetcher.createUserItemSave(userId: userId, itemId: dialog.identifier, itemType: "DIALOGUE") { (saveSuccess, error) in
+                if (error == nil && saveSuccess) {
+                    self.isSaved = true
+                    self.saveButton.isSelected = true
+                    self.delegate?.dialogModeSelectionViewControllerDidTapSaveButton(isSaved: true)
+                }
+            }
+        }
+        saveButton.isSelected = !saveButton.isSelected
     }
 }
