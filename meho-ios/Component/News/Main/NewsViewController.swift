@@ -59,7 +59,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     init() {
         super.init(nibName: nil, bundle: nil)
         let newsTabBarItemImage = UIImage.init(named: newsTabBarItemImageName)
-        let newsTabBarItem = UITabBarItem.init(title: nil, image: newsTabBarItemImage, tag: 0)
+        let newsTabBarItem = UITabBarItem.init(title: "", image: newsTabBarItemImage, tag: 0)
         tabBarItem = newsTabBarItem
     }
 

@@ -119,7 +119,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     init() {
         super.init(nibName: nil, bundle: nil)
         let profileTabBarItemImage = UIImage.init(named: profileTabBarItemImageName)
-        let profileTabBarItem = UITabBarItem.init(title: nil, image: profileTabBarItemImage, tag: 0)
+        let profileTabBarItem = UITabBarItem.init(title: "", image: profileTabBarItemImage, tag: 0)
         tabBarItem = profileTabBarItem
     }
     
@@ -138,7 +138,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         title = ""
         view.backgroundColor = .white
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        if let count = navigationController?.viewControllers.count, count > 1 {
+            navigationController?.setNavigationBarHidden(false, animated: false)
+        }
         let margins = view.layoutMarginsGuide
 
         view.addSubview(collectionView)
@@ -222,6 +224,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             break
         case .inProgress:
             let item = indexPath.item
+            if item >= inProgressItems.count {
+                return
+            }
             let profileCard = inProgressItems[item]
             switch profileCard.profileCardType {
             case .story:

@@ -43,7 +43,8 @@ class MainViewController: UITabBarController {
         let expressionViewController = ExpressionViewController.init()
         let conversationViewController = ConversationViewController.init()
         let foundationViewController = FoundationViewController.init()
-        viewControllers = [newsViewController, expressionViewController, conversationViewController, foundationViewController]
+        let profileViewController = ProfileViewController.init()
+        viewControllers = [newsViewController, expressionViewController, conversationViewController, foundationViewController, profileViewController]
         
         // Sets appearance of the tab bar.
         tabBar.barTintColor = .white

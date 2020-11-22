@@ -46,7 +46,7 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     init() {
         super.init(nibName: nil, bundle: nil)
         let foundationTabBarItemImage = UIImage.init(named: foundationTabBarItemImageName)
-        let foundationTabBarItem = UITabBarItem.init(title: nil, image: foundationTabBarItemImage, tag: 0)
+        let foundationTabBarItem = UITabBarItem.init(title: "", image: foundationTabBarItemImage, tag: 0)
         tabBarItem = foundationTabBarItem
     }
     

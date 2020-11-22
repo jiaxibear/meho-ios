@@ -61,7 +61,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     init() {
         super.init(nibName: nil, bundle: nil)
         let conversationTabBarItemImage = UIImage.init(named: conversationTabBarItemImageName)
-        let conversationTabBarItem = UITabBarItem.init(title: nil, image: conversationTabBarItemImage, tag: 0)
+        let conversationTabBarItem = UITabBarItem.init(title: "", image: conversationTabBarItemImage, tag: 0)
         tabBarItem = conversationTabBarItem
 
         conversationCollectionViewCompositionalLayout = UICollectionViewCompositionalLayout { (sectionIndex: Int,

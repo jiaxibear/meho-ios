@@ -103,7 +103,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     init() {
         super.init(nibName: nil, bundle: nil)
         let expressionTabBarItemImage = UIImage.init(named: expressionTabBarItemImageName)
-        let expressionTabBarItem = UITabBarItem.init(title: nil, image: expressionTabBarItemImage, tag: 0)
+        let expressionTabBarItem = UITabBarItem.init(title: "", image: expressionTabBarItemImage, tag: 0)
         tabBarItem = expressionTabBarItem
     }
 
