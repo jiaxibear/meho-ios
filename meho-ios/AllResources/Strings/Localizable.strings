@@ -347,3 +347,9 @@
 
 /* Subtitle displayed in the in progress contents section header when there is no saved contents. */
 "InProgressContentsSubtitle" = "Start learning so you always have a list of in progress contents to learn";
+
+/* Title displayed in the navigation bar in the change nickname screen. */
+"ChangeNicknameTitle" = "Change Nickname";
+
+/* The default nickname of the user. */
+"UserDefaultNickname" = "Welcome to Meho!";

@@ -255,6 +255,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
                         case let .invalidPassword(message):
                             errorMessage = message
                             break
+                        case let .userNotConfirmed(message):
+                            errorMessage = message
+                            break
                         default:
                             errorMessage = NSLocalizedString("genericSignUpErrorMessage", comment: "")
                         }

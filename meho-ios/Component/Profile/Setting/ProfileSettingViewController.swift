@@ -55,6 +55,8 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         return [account, nickname, password, profiles, goals, interests, professions, appVersion, contact, privacyPolicy, userAgreement, signOut]
     } ()
 
+    var userNickname: String?
+
     // MARK: - Init
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -105,6 +107,7 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
                             break
                         }
                     }
+                    self.userNickname = basicUser?.username
                     self.collectionView.reloadData()
                 }
             }
@@ -128,7 +131,10 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         guard kind == UICollectionView.elementKindSectionHeader else {
             return UICollectionReusableView.init(frame: .zero)
         }
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: collectionHeaderCellReuseIdentifier, for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: collectionHeaderCellReuseIdentifier, for: indexPath) as! ProfileSettingHeaderCollectionReusableView
+        if userNickname != nil {
+            header.userNickName = userNickname!
+        }
         return header
     }
 
@@ -189,6 +195,10 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
                     self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
                 }
             }
+            break
+        case .nickname:
+            let updateNicknameViewController = UpdateNicknameViewController.init()
+            navigationController?.pushViewController(updateNicknameViewController, animated: true)
             break
         default:
             break

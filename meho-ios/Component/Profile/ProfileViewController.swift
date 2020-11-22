@@ -47,7 +47,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     // MARK: - Properties
     private lazy var usernameLabel: UILabel = {
         let label = UILabel.init(frame: .zero)
-        label.text = "Welcome to Meho!"
+        label.text = NSLocalizedString("UserDefaultNickname", comment: "")
         label.textColor = .wisteriaPurple
         let fontDescriptor = UIFont.systemFont(ofSize: usernameLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         label.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
@@ -108,7 +108,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     // MARK: - Datamodels
     private let userDataFetcher = UserDataFetcher.shared
     private let profileDataFetcher = ProfileDataFetcher.init()
-    private var currentUser:BasicUser?
     private var sections: [ProfileSection] = [.completed, .inProgress, .savedItems, .savedVocabulary]
     private var completedItems: [ProfileCard] = []
     private var completedGroupedItems: [ProfileCompletedItem] = []
@@ -166,20 +165,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         settingButton.heightAnchor.constraint(equalToConstant: settingButtonSize).isActive = true
         settingButton.widthAnchor.constraint(equalToConstant: settingButtonSize).isActive = true
 
-        guard let userId = AWSMobileClient.default().userSub else { return }
-        userDataFetcher.getUser (userId: userId, completionHandler: { (maybeUser, error) in
-            if error == nil, let currentUser = maybeUser {
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+        updateUserNickName(userID: userID)
 
-                if currentUser.username != currentUser.email {
-                    DispatchQueue.main.async {
-                        self.usernameLabel.text = currentUser.username
-                    }
-                }
-                // TODO add avatar related
-            }
-        })
-
-        profileDataFetcher.fetchProfileDetail(userID: userId) { (profileDetails, error) in
+        profileDataFetcher.fetchProfileDetail(userID: userID) { (profileDetails, error) in
             guard error == nil && profileDetails != nil else {
                 return
             }
@@ -205,6 +196,15 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 self.collectionView.reloadData()
             }
         }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+        updateUserNickName(userID: userID)
     }
 
     // MARK: - UICollectionViewDataDelegate
@@ -347,5 +347,17 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     func didTapSettingButton() {
         let profileSettingViewController = ProfileSettingViewController.init()
         navigationController?.pushViewController(profileSettingViewController, animated: true)
+    }
+
+    func updateUserNickName(userID: String) {
+        userDataFetcher.getUser (userId: userID, completionHandler: { (maybeUser, error) in
+            if error == nil, let currentUser = maybeUser {
+                if currentUser.username != currentUser.email {
+                    DispatchQueue.main.async {
+                        self.usernameLabel.text = currentUser.username
+                    }
+                }
+            }
+        })
     }
 }

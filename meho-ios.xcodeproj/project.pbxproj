@@ -99,6 +99,7 @@
 		EA42069A2472117400DA3F2A /* DuoFinalScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206992472117400DA3F2A /* DuoFinalScoreViewController.swift */; };
 		EA4206A224A054E000DA3F2A /* TrendingPhraseWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206A124A054E000DA3F2A /* TrendingPhraseWrapper.swift */; };
 		EA4206A424A05BD700DA3F2A /* DialogModeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206A324A05BD700DA3F2A /* DialogModeSelectionViewController.swift */; };
+		EA45BD0525678A3100EF27E4 /* UpdateNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45BD0425678A3100EF27E4 /* UpdateNicknameViewController.swift */; };
 		EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA223EF7D4D008EB37B /* MainViewController.swift */; };
 		EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA723EF809D008EB37B /* ProfileViewController.swift */; };
 		EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */; };
@@ -277,6 +278,7 @@
 		EA4206992472117400DA3F2A /* DuoFinalScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoFinalScoreViewController.swift; sourceTree = "<group>"; };
 		EA4206A124A054E000DA3F2A /* TrendingPhraseWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingPhraseWrapper.swift; sourceTree = "<group>"; };
 		EA4206A324A05BD700DA3F2A /* DialogModeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogModeSelectionViewController.swift; sourceTree = "<group>"; };
+		EA45BD0425678A3100EF27E4 /* UpdateNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNicknameViewController.swift; sourceTree = "<group>"; };
 		EA52FDA223EF7D4D008EB37B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA52FDA723EF809D008EB37B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 				EA644D3E250D8FF4005293EF /* ProfileSettingHeaderCollectionReusableView.swift */,
 				EAA3178F250DBAA5007A4017 /* ProfileSettingViewController.swift */,
 				EAA31791250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift */,
+				EA45BD0425678A3100EF27E4 /* UpdateNicknameViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1209,6 +1212,7 @@
 				92FE6CE6245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift in Sources */,
 				EA5448C724283D6900C07D0A /* ExpandedChapterCollectionViewCell.swift in Sources */,
 				EA01E6B123FBD6F000C0B0AE /* DifficultyViewController.swift in Sources */,
+				EA45BD0525678A3100EF27E4 /* UpdateNicknameViewController.swift in Sources */,
 				921A935024C5367B0064D846 /* API.swift in Sources */,
 				9204700524F337A200DE1A2D /* MehoCoverIntroCollectionViewCell.swift in Sources */,
 				EA9AC7B42502FE1D00524231 /* MehoAnalyticsUtils.swift in Sources */,

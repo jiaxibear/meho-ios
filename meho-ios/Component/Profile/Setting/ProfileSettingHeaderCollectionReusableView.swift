@@ -30,7 +30,7 @@ class ProfileSettingHeaderCollectionReusableView: UICollectionReusableView {
         let nameLabel = UILabel.init(frame: .zero)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         // TODO: Use the real nick name
-        nameLabel.text = "Welcome to Meho!"
+        nameLabel.text = userNickName
         nameLabel.textColor = .wisteriaPurple
         let nameLabelFontDescriptor = UIFont.systemFont(ofSize: nameLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)!
         nameLabel.font = UIFont.init(descriptor: nameLabelFontDescriptor, size: nameLabelFontSize)
@@ -48,6 +48,12 @@ class ProfileSettingHeaderCollectionReusableView: UICollectionReusableView {
         return contentStackView
     } ()
 
+    var userNickName: String {
+        didSet {
+            nameLabel.text = userNickName
+        }
+    }
+
     // MARK: - Init
     @available(*, unavailable)
     init() {
@@ -60,6 +66,7 @@ class ProfileSettingHeaderCollectionReusableView: UICollectionReusableView {
     }
 
     override init(frame: CGRect) {
+        self.userNickName = NSLocalizedString("UserDefaultNickname", comment: "")
         super.init(frame: frame)
         addSubview(contentStackView)
         contentStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
