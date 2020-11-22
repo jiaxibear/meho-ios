@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import AVFoundation
 
 class CompletedExpressionCollectionViewCell: UICollectionViewCell {
 
+    // MARK: - Constants
     private let difficultyLabelCornerRadius = CGFloat(2)
     private let difficultyLabelWidth = CGFloat(60)
     private let difficultyLabelHeight = CGFloat(20)
@@ -22,7 +24,11 @@ class CompletedExpressionCollectionViewCell: UICollectionViewCell {
     private let contentLeadingTrailingMargin = CGFloat(20)
     private let contentTopMargin = CGFloat(20)
     private let contentBottomMargin = CGFloat(18)
+    private let listenButtonWidth = CGFloat(30)
+    private let listenButtonHeight = CGFloat(30)
+    private let listenButtonTrailingMargin = CGFloat(24)
 
+    // MARK: - Properties
     private lazy var difficultyLabel: UILabel = {
         let difficultyLabel = UILabel.init(frame: .zero)
         difficultyLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +79,24 @@ class CompletedExpressionCollectionViewCell: UICollectionViewCell {
         return labelsStackView
     } ()
 
+    private lazy var listenButton: UIButton = {
+        let listenButton = UIButton.init(frame: .zero)
+        listenButton.translatesAutoresizingMaskIntoConstraints = false
+        let listenButtonImage = UIImage.init(named: "stories_speaker")
+        listenButton.setImage(listenButtonImage, for: .normal)
+        return listenButton
+    } ()
+
+    private var player: AVPlayer?
+
+    var expression: Chapter? {
+        didSet {
+            if expression != nil {
+               
+            }
+        }
+    }
+
     // MARK: - Init
     @available(*, unavailable)
     init() {
@@ -95,5 +119,10 @@ class CompletedExpressionCollectionViewCell: UICollectionViewCell {
 
         difficultyLabel.widthAnchor.constraint(equalToConstant: difficultyLabelWidth).isActive = true
         difficultyLabel.heightAnchor.constraint(equalToConstant: difficultyLabelHeight).isActive = true
+
+        listenButton.widthAnchor.constraint(equalToConstant: listenButtonWidth).isActive = true
+        listenButton.heightAnchor.constraint(equalToConstant: listenButtonHeight).isActive = true
+        listenButton.topAnchor.constraint(equalTo: labelsStackView.topAnchor).isActive = true
+        listenButton.trailingAnchor.constraint(equalTo: labelsStackView.trailingAnchor, constant: -listenButtonTrailingMargin).isActive = true
     }
 }

@@ -20,13 +20,54 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
     private let pronounceButtonImageName = "stories_speaker"
 
     // MARK: - Properties
-    let vocabularyZhLabel = UILabel.init(frame: .zero)
-    let vocabularyPinyinLabel = UILabel.init(frame: .zero)
-    let vocabularyEnLabel = UILabel.init(frame: .zero)
-    let prounceButton = UIButton.init(frame: .zero)
+    private lazy var vocabularyZhLabel: UILabel = {
+        let vocabularyZhLabel = UILabel.init(frame: .zero)
+        vocabularyZhLabel.translatesAutoresizingMaskIntoConstraints = false
+        vocabularyZhLabel.textColor = .darkGrayTwo
+        vocabularyZhLabel.font = UIFont.init(name: "PingFangSC-Medium", size: labelFontSize)
+        vocabularyZhLabel.numberOfLines = 1
+        return vocabularyZhLabel
+    } ()
+
+    private lazy var vocabularyPinyinLabel: UILabel = {
+        let vocabularyPinyinLabel = UILabel.init(frame: .zero)
+        vocabularyPinyinLabel.translatesAutoresizingMaskIntoConstraints = false
+        vocabularyPinyinLabel.textColor = .darkGrayTwo
+        if let pinyinfontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded) {
+            vocabularyPinyinLabel.font = UIFont.init(descriptor: pinyinfontDescriptor, size: labelFontSize)
+        }
+        vocabularyPinyinLabel.numberOfLines = 1
+        return vocabularyPinyinLabel
+    } ()
+
+    private lazy var vocabularyEnLabel: UILabel = {
+        let vocabularyEnLabel = UILabel.init(frame: .zero)
+        vocabularyEnLabel.translatesAutoresizingMaskIntoConstraints = false
+        vocabularyEnLabel.textColor = .textBlueGray
+        let enfontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
+        vocabularyEnLabel.font = UIFont.init(descriptor: enfontDescriptor!, size: 0)
+        vocabularyEnLabel.numberOfLines = 0
+        return vocabularyEnLabel
+    } ()
+
+    private lazy var prounceButton: UIButton = {
+        let prounceButton = UIButton.init(frame: .zero)
+        let pronounceSpeakerImage = UIImage.init(named: pronounceButtonImageName)
+        prounceButton.translatesAutoresizingMaskIntoConstraints = false
+        prounceButton.setImage(pronounceSpeakerImage, for: UIControl.State.normal)
+        prounceButton.addTarget(self, action: #selector(didTapPronounceButton), for: .touchUpInside)
+        return prounceButton
+    } ()
+
+    private lazy var topLineStackView: UIStackView = {
+        let topLineStackView = UIStackView.init(arrangedSubviews: [vocabularyZhLabel, vocabularyPinyinLabel, prounceButton])
+        topLineStackView.translatesAutoresizingMaskIntoConstraints = false
+        topLineStackView.axis = .horizontal
+        topLineStackView.alignment = .center
+        return topLineStackView
+    } ()
 
     private static var sizingCell = NewsRecapVocabularyCollectionViewCell.init(frame: .zero);
-
 
     // MARK: - Data
     private var player: AVPlayer?
@@ -49,61 +90,18 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setupZhLabel()
-        setupPinyinLabel()
-        setupPronounceButton()
-        setupeEnLabel()
-
-    }
-
-    func setupZhLabel() {
-        vocabularyZhLabel.translatesAutoresizingMaskIntoConstraints = false
-        vocabularyZhLabel.textColor = .darkGrayTwo
-        vocabularyZhLabel.font = UIFont.init(name: "PingFangSC-Medium", size: labelFontSize)
-        vocabularyZhLabel.numberOfLines = 1
-        contentView.addSubview(vocabularyZhLabel)
-
-        vocabularyZhLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        vocabularyZhLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-    }
-
-    func setupPinyinLabel() {
-        vocabularyPinyinLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        vocabularyPinyinLabel.textColor = .darkGrayTwo
-        let pinyinfontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
-        vocabularyPinyinLabel.font = UIFont.init(descriptor: pinyinfontDescriptor!, size: 0)
-        vocabularyPinyinLabel.numberOfLines = 1
-        contentView.addSubview(vocabularyPinyinLabel)
-
-        vocabularyPinyinLabel.leadingAnchor.constraint(equalTo: vocabularyZhLabel.trailingAnchor).isActive = true
-        vocabularyPinyinLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-    }
-
-    func setupPronounceButton() {
-        let pronounceSpeakerImage = UIImage.init(named: pronounceButtonImageName)
-        prounceButton.translatesAutoresizingMaskIntoConstraints = false
-        prounceButton.setImage(pronounceSpeakerImage, for: UIControl.State.normal)
-        prounceButton.setImage(pronounceSpeakerImage, for: UIControl.State.selected)
-        prounceButton.addTarget(self, action: #selector(didTapPronounceButton), for: .touchUpInside)
-        contentView.addSubview(prounceButton)
-
-        prounceButton.leadingAnchor.constraint(equalTo: vocabularyPinyinLabel.trailingAnchor).isActive = true
-        prounceButton.centerYAnchor.constraint(equalTo: vocabularyPinyinLabel.centerYAnchor).isActive = true
+        addSubview(topLineStackView)
+        topLineStackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        topLineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         prounceButton.widthAnchor.constraint(equalToConstant: pronounceSpeakerSize).isActive = true
         prounceButton.heightAnchor.constraint(equalToConstant: pronounceSpeakerSize).isActive = true
+        setupeEnLabel()
     }
 
     func setupeEnLabel() {
-        vocabularyEnLabel.translatesAutoresizingMaskIntoConstraints = false
-        vocabularyEnLabel.textColor = .textBlueGray
-        let enfontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
-        vocabularyEnLabel.font = UIFont.init(descriptor: enfontDescriptor!, size: 0)
-        vocabularyEnLabel.numberOfLines = 0
         contentView.addSubview(vocabularyEnLabel)
 
-
-        vocabularyEnLabel.topAnchor.constraint(equalTo: vocabularyZhLabel.bottomAnchor, constant: labelToExplainMargin).isActive = true
+        vocabularyEnLabel.topAnchor.constraint(equalTo: topLineStackView.bottomAnchor, constant: labelToExplainMargin).isActive = true
         vocabularyEnLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         vocabularyEnLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
     }

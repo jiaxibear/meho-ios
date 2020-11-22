@@ -53,7 +53,6 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         let pronounceSpeakerImage = UIImage.init(named: TrendingPhraseCollectionViewCell.pronounceButtonImageName)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(pronounceSpeakerImage, for: UIControl.State.normal)
-        button.setImage(pronounceSpeakerImage, for: UIControl.State.selected)
         button.addTarget(self, action: #selector(didTapPronounceButton), for: .touchUpInside)
         return button
     } ()
