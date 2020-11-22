@@ -39,10 +39,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let completedItemColorAlpha = CGFloat(0.3)
     private let profileSectionHeaderEstimatedHeight = CGFloat(60)
     private let profileSectionHeaderReusableIdentifier = "profileSectionHeaderReusableIdentifier"
-    private let profileCardWidth = CGFloat(110)
-    private let profileCardHeight = CGFloat(160)
-    private let profileDummyCardWidth = CGFloat(110)
-    private let profileDummyCardHeight = CGFloat(80)
+    private let profileCardWidth = CGFloat(150)
+    private let profileCardHeight = CGFloat(210)
+    private let profileDummyCardWidth = CGFloat(150)
+    private let profileDummyCardHeight = CGFloat(100)
 
     // MARK: - Properties
     private lazy var usernameLabel: UILabel = {
@@ -138,9 +138,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         title = ""
         view.backgroundColor = .white
-        if let count = navigationController?.viewControllers.count, count > 1 {
-            navigationController?.setNavigationBarHidden(false, animated: false)
-        }
         let margins = view.layoutMarginsGuide
 
         view.addSubview(collectionView)
@@ -203,6 +200,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        if let count = navigationController?.viewControllers.count, count > 1 {
+            navigationController?.setNavigationBarHidden(false, animated: false)
+        } else {
+            navigationController?.setNavigationBarHidden(true, animated: false)
+        }
         guard let userID = AWSMobileClient.default().userSub else {
             return
         }

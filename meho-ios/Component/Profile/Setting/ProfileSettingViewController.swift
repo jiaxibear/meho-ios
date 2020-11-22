@@ -86,6 +86,7 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
         guard let userID = AWSMobileClient.default().userSub else {
             return
         }

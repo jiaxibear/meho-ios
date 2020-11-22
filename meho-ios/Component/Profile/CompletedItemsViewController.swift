@@ -129,6 +129,11 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch sections[indexPath.section] {

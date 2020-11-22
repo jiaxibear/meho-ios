@@ -95,23 +95,17 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
 
         contentView.addSubview(topLineStackView)
+        contentView.addSubview(vocabularyEnLabel)
         topLineStackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         topLineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         topLineStackViewHeightAnchor.isActive = true
         prounceButton.widthAnchor.constraint(equalToConstant: pronounceSpeakerSize).isActive = true
         prounceButton.heightAnchor.constraint(equalToConstant: pronounceSpeakerSize).isActive = true
-        setupeEnLabel()
-    }
-
-    func setupeEnLabel() {
-        contentView.addSubview(vocabularyEnLabel)
-
         vocabularyEnLabel.topAnchor.constraint(equalTo: topLineStackView.bottomAnchor, constant: vocabularyEnLabelTopMargin).isActive = true
         vocabularyEnLabel.leadingAnchor.constraint(equalTo: topLineStackView.leadingAnchor).isActive = true
         vocabularyEnLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         vocabularyEnLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
-
 
     // MARK: - Public
     public func setVocabulary(_ vocabulary: Vocabulary) {

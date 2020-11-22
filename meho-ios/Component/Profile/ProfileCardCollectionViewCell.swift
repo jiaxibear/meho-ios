@@ -13,7 +13,7 @@ class ProfileCardCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
     private let titleLabelFontSize = CGFloat(10)
     private let subtitleLabelFontSize = CGFloat(10)
-    private let imageViewHeight = CGFloat(80)
+    private let imageViewHeight = CGFloat(100)
     private let contentTypeLabelCornerRadius = CGFloat(2)
     private let contentTypeLabelWidth = CGFloat(50)
     private let contentTypeLabelHeight = CGFloat(16)

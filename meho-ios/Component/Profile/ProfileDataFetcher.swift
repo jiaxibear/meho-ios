@@ -153,6 +153,8 @@ class ProfileDataFetcher: NSObject {
                 dialog.imageKey = S3ImageViewKey.init(bucket: bucket, key: key)
             }
             return dialog
+        } else {
+            
         }
         return nil
     }
