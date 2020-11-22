@@ -221,6 +221,24 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             break
         case .inProgress:
+            let item = indexPath.item
+            let profileCard = inProgressItems[item]
+            switch profileCard.profileCardType {
+            case .story:
+                if let news = profileCard as? News {
+                    let detailedNewsViewController = DetailedNewsViewController.init(news: news)
+                    navigationController?.pushViewController(detailedNewsViewController, animated: true)
+                }
+                break
+            case .talk:
+                if let dialog = profileCard as? Dialog {
+                    let detailedDialogViewController = DetailedDialogViewController.init(dialog: dialog)
+                    navigationController?.pushViewController(detailedDialogViewController, animated: true)
+                }
+                break
+            default:
+                break
+            }
             break
         case .savedItems:
             break
