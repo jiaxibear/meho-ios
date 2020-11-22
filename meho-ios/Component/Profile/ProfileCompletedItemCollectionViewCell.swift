@@ -11,8 +11,8 @@ import UIKit
 class ProfileCompletedItemCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Constants
-    private let contentHeight = CGFloat(90)
-    private let contentWidth = CGFloat(90)
+    private let contentHeight = CGFloat(100)
+    private let contentWidth = CGFloat(100)
     private let titleLabelFontSize = CGFloat(14)
     private let countLabelFontSize = CGFloat(20)
 

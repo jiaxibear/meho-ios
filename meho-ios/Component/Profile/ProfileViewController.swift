@@ -305,7 +305,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             var subtitle: String?
             switch sections[indexPath.section] {
             case .completed:
-                title = "Your Completed Achivements"
+                title = "Your Achivements"
                 break
             case .inProgress:
                 title = "In Progress Contents"

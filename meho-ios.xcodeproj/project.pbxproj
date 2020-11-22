@@ -99,6 +99,7 @@
 		EA42069A2472117400DA3F2A /* DuoFinalScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206992472117400DA3F2A /* DuoFinalScoreViewController.swift */; };
 		EA4206A224A054E000DA3F2A /* TrendingPhraseWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206A124A054E000DA3F2A /* TrendingPhraseWrapper.swift */; };
 		EA4206A424A05BD700DA3F2A /* DialogModeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4206A324A05BD700DA3F2A /* DialogModeSelectionViewController.swift */; };
+		EA43D6C6256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43D6C5256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift */; };
 		EA45BD0525678A3100EF27E4 /* UpdateNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45BD0425678A3100EF27E4 /* UpdateNicknameViewController.swift */; };
 		EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA223EF7D4D008EB37B /* MainViewController.swift */; };
 		EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA723EF809D008EB37B /* ProfileViewController.swift */; };
@@ -278,6 +279,7 @@
 		EA4206992472117400DA3F2A /* DuoFinalScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoFinalScoreViewController.swift; sourceTree = "<group>"; };
 		EA4206A124A054E000DA3F2A /* TrendingPhraseWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingPhraseWrapper.swift; sourceTree = "<group>"; };
 		EA4206A324A05BD700DA3F2A /* DialogModeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogModeSelectionViewController.swift; sourceTree = "<group>"; };
+		EA43D6C5256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedVocabularyCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA45BD0425678A3100EF27E4 /* UpdateNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNicknameViewController.swift; sourceTree = "<group>"; };
 		EA52FDA223EF7D4D008EB37B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA52FDA723EF809D008EB37B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -660,6 +662,7 @@
 				EA1693702558F83D0074EE0D /* CompletedItemsViewController.swift */,
 				EA169375255908BA0074EE0D /* CompletedExpressionCollectionViewCell.swift */,
 				EA9AD89D25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift */,
+				EA43D6C5256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1192,6 +1195,7 @@
 				EA6381ED2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift in Sources */,
 				EA52FDAF23EF8116008EB37B /* NewsViewController.swift in Sources */,
 				92C5FE37244D93BE004A3322 /* Vocabulary.swift in Sources */,
+				EA43D6C6256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift in Sources */,
 				92183A6023F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift in Sources */,
 				92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */,
 				9204700A24F337A200DE1A2D /* MehoCoverViewController.swift in Sources */,

@@ -1,31 +1,35 @@
 //
-//  NewsRecapVocabularyCollectionViewCell.swift
+//  CompletedVocabularyCollectionViewCell.swift
 //  meho-ios
-//  Holds UI logic for showing
 //
-//  Created by Jiaxi Xiong on 4/25/20.
+//  Created by Meho Dev on 11/22/20.
 //  Copyright © 2020 Meho. All rights reserved.
 //
 
 import UIKit
-import AVFoundation
-import AWSS3
+import AVKit
 
-class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
-
+class CompletedVocabularyCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
-    private let labelFontSize = CGFloat(18)
-    private let vocabularyEnLabelTopMargin = CGFloat(10)
-    private let pronounceSpeakerSize = CGFloat(25)
+    private let vocabularyEnLabelTopMargin = CGFloat(5)
+    private let pronounceButtonSize = CGFloat(25)
     private let pronounceButtonImageName = "stories_speaker"
+    private let topLineStackViewSpacing = CGFloat(10)
+    private let vocabularyZhLabelFontSize = CGFloat(20)
+    private let vocabularyPinyinLabelFontSize = CGFloat(16)
+    private let contentViewCornerRadius = CGFloat(8)
+    private let contentViewShadowRadius = CGFloat(3)
+    private let contentViewShadowSpread = CGFloat(2)
+    private let contentTopBottomMargin = CGFloat(14)
+    private let contentLeadingTrailingMargin = CGFloat(20)
 
     // MARK: - Properties
     private lazy var vocabularyZhLabel: UILabel = {
         let vocabularyZhLabel = UILabel.init(frame: .zero)
         vocabularyZhLabel.translatesAutoresizingMaskIntoConstraints = false
         vocabularyZhLabel.numberOfLines = 1
-        vocabularyZhLabel.textColor = .darkGray
-        vocabularyZhLabel.font = UIFont.init(name: "PingFangSC-Medium", size: labelFontSize)
+        vocabularyZhLabel.textColor = .wisteriaPurple
+        vocabularyZhLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: vocabularyZhLabelFontSize)
         return vocabularyZhLabel
     } ()
 
@@ -34,8 +38,8 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
         vocabularyPinyinLabel.translatesAutoresizingMaskIntoConstraints = false
         vocabularyPinyinLabel.textColor = .darkGrayTwo
         vocabularyPinyinLabel.numberOfLines = 1
-        if let pinyinfontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded) {
-            vocabularyPinyinLabel.font = UIFont.init(descriptor: pinyinfontDescriptor, size: labelFontSize)
+        if let pinyinfontDescriptor = UIFont.systemFont(ofSize: vocabularyZhLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded) {
+            vocabularyPinyinLabel.font = UIFont.init(descriptor: pinyinfontDescriptor, size: vocabularyZhLabelFontSize)
         }
         return vocabularyPinyinLabel
     } ()
@@ -44,10 +48,10 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
         let vocabularyEnLabel = UILabel.init(frame: .zero)
         vocabularyEnLabel.translatesAutoresizingMaskIntoConstraints = false
         vocabularyEnLabel.numberOfLines = 0
-        if let enfontDescriptor = UIFont.systemFont(ofSize: labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded) {
-            vocabularyEnLabel.font = UIFont.init(descriptor: enfontDescriptor, size: 0)
+        vocabularyEnLabel.textColor = .darkGrayTwo
+        if let enfontDescriptor = UIFont.systemFont(ofSize: vocabularyPinyinLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded) {
+            vocabularyEnLabel.font = UIFont.init(descriptor: enfontDescriptor, size: vocabularyPinyinLabelFontSize)
         }
-        vocabularyEnLabel.textColor = .textBlueGray
         return vocabularyEnLabel
     } ()
 
@@ -65,6 +69,7 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
         topLineStackView.translatesAutoresizingMaskIntoConstraints = false
         topLineStackView.axis = .horizontal
         topLineStackView.alignment = .center
+        topLineStackView.spacing = topLineStackViewSpacing
         return topLineStackView
     } ()
 
@@ -72,7 +77,7 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
         return topLineStackView.heightAnchor.constraint(equalToConstant: 0)
     } ()
 
-    private static var sizingCell = NewsRecapVocabularyCollectionViewCell.init(frame: .zero);
+    private static var sizingCell = CompletedVocabularyCollectionViewCell.init(frame: .zero);
 
     // MARK: - Data
     private var player: AVPlayer?
@@ -94,24 +99,31 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        layer.shadowColor = UIColor.paleLilac.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.masksToBounds = false
+        layer.shadowRadius = contentViewShadowRadius
+        layer.shadowOpacity = 1.0
+        layer.backgroundColor = UIColor.clear.cgColor
+
+        contentView.layer.borderWidth = 0.5
+        contentView.layer.borderColor = UIColor.paleLilac.cgColor
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = contentViewCornerRadius
+        contentView.backgroundColor = .white
+
         contentView.addSubview(topLineStackView)
-        topLineStackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        topLineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        topLineStackViewHeightAnchor.isActive = true
-        prounceButton.widthAnchor.constraint(equalToConstant: pronounceSpeakerSize).isActive = true
-        prounceButton.heightAnchor.constraint(equalToConstant: pronounceSpeakerSize).isActive = true
-        setupeEnLabel()
-    }
-
-    func setupeEnLabel() {
         contentView.addSubview(vocabularyEnLabel)
-
+        topLineStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentTopBottomMargin).isActive = true
+        topLineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
+        topLineStackViewHeightAnchor.isActive = true
+        prounceButton.widthAnchor.constraint(equalToConstant: pronounceButtonSize).isActive = true
+        prounceButton.heightAnchor.constraint(equalToConstant: pronounceButtonSize).isActive = true
         vocabularyEnLabel.topAnchor.constraint(equalTo: topLineStackView.bottomAnchor, constant: vocabularyEnLabelTopMargin).isActive = true
         vocabularyEnLabel.leadingAnchor.constraint(equalTo: topLineStackView.leadingAnchor).isActive = true
-        vocabularyEnLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        vocabularyEnLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        vocabularyEnLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
+        vocabularyEnLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -contentTopBottomMargin).isActive = true
     }
-
 
     // MARK: - Public
     public func setVocabulary(_ vocabulary: Vocabulary) {
@@ -126,21 +138,22 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
         maybePronounceAudioKey = vocabulary.audio_key
         maybePronounceAudioBucket = vocabulary.audio_bucket
         let contentFittingSize = self.contentFittingSize(with: contentView.bounds.width)
-        topLineStackViewHeightAnchor.constant = max(vocabularyZhLabel.sizeThatFits(contentFittingSize).height, pronounceSpeakerSize)
+        topLineStackViewHeightAnchor.constant = max(vocabularyZhLabel.sizeThatFits(contentFittingSize).height, pronounceButtonSize)
         setNeedsUpdateConstraints()
     }
 
     public class func cellHeight(with width: CGFloat, vocabulary: Vocabulary) -> CGFloat {
         sizingCell.setVocabulary(vocabulary)
-        var height = sizingCell.vocabularyEnLabelTopMargin
+        var height = sizingCell.vocabularyEnLabelTopMargin + 2 * sizingCell.contentTopBottomMargin
         let contentFittingSize = sizingCell.contentFittingSize(with: width)
-        height += max(sizingCell.vocabularyZhLabel.sizeThatFits(contentFittingSize).height, sizingCell.pronounceSpeakerSize)
+        height += max(sizingCell.vocabularyZhLabel.sizeThatFits(contentFittingSize).height, sizingCell.pronounceButtonSize)
         height += sizingCell.vocabularyEnLabel.sizeThatFits(contentFittingSize).height
         return height
     }
 
     private func contentFittingSize(with width: CGFloat) -> CGSize {
-        return CGSize.init(width: width, height: .greatestFiniteMagnitude)
+        let contentWidth = width - 2 * contentLeadingTrailingMargin
+        return CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)
     }
 
     // MARK: - Private
@@ -161,31 +174,6 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
                     player?.play()
                 }
             }
-
-            /* The following code generate presignedurl like this - seems the signed part is not created properly, need to revisit; Also, need to abstract into some shared WebAudioPlayer
-             "<Message>Query-string authentication version 4 requires the X-Amz-Algorithm, X-Amz-Credential, X-Amz-Signature, X-Amz-Date, X-Amz-SignedHeaders, and X-Amz-Expires parameters.</Message>"
-             https://mehoassets213338-mehoadmin.s3-us-west-2.amazonaws.com/public/60a2853d-bcdc-4cab-9b9d-485b843b0e9c%E8%84%B8%E8%B0%B1.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAUJ3QZFM7CCH7GZ4V%2F20200820%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20200820T092137Z&X-Amz-Expires=3593&X-Amz-SignedHeaders=host&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFkaCXVzLXdlc3QtMiJGMEQCICo84H%2B9pf%2BaL1%2FjExFKa94TP1qQWQGd7wFkHAUh4RroAiBeMqjr550BZSJ55bY1FIf2MC22yt4FnKEHQLT1mqvlIyqQBghCEAIaDDI5NjA1MjQwMzAwNiIMOYQiy%2FZzLtNWPsRrKu0FdpVGn3LSNzWAAjXsRHjrZus31%2Fo2EtxSdQOUbd9WOqyV2oOKIwcTvNFuUopRjMinSNSwGl%2BDW6WZnw6smyV3qSBpPzy3e9r7Lj3xgNpW6otAixo5WyP3SKSm9VJ9qJUwbXh4eM4GRF6SS3S6wNP23Y%2BEIIj5mPiNyFJTX2GTWQiBg5y7eum5IuRQ1nLi7WZnfrJxXJsJGz%2BtaITAnH6P1Z0cY%2Fg5A867uQ5avIX6g7toVkJTNNh1NvFlv131FlOeaT69Cv3hbU8JSaHYkOSTdj8JXWngLueIPGVfK9jmDefX2NdvzRgcQbZwIdjdHZrQMkqyW7nV%2FRO0kxdblQvQw1a%2FIAwSf1dQAl7SPcqQEMeDi1XTD78PYpzOsSirELPFIqDWlEusaxRNXzPGv%2FnuGNXlKccfjDk1SLaOrAsdniA%2BBCG%2BrAS8MN7opB92shjEQpY0ODGDtcdiVe4XRJU2%2BbgHFnWPsL
-             */
-//            let getPreSignedURLRequest = AWSS3GetPreSignedURLRequest()
-//            getPreSignedURLRequest.bucket = audioBucket
-//            getPreSignedURLRequest.key = "public/" + audioKey
-//            getPreSignedURLRequest.httpMethod = .GET
-//            getPreSignedURLRequest.expires = Date(timeIntervalSinceNow: 3600)
-//
-//            AWSS3PreSignedURLBuilder.default().getPreSignedURL(getPreSignedURLRequest).continueWith { (task:AWSTask<NSURL>) -> Any? in
-//                if let error = task.error as? Error {
-//                    print("Error: \(error)")
-//                    return nil
-//                }
-//
-//                let presignedURL = task.result
-//                let playerItem = AVPlayerItem.init(url: presignedURL as! URL)
-//                self.player = AVPlayer.init(playerItem: playerItem)
-//                self.player?.rate = AudioPlaySpeed.normal.rawValue
-//                self.player?.play()
-//
-//                return nil;
-//            }
         }
     }
 }
