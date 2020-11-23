@@ -142,7 +142,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             return cell
         case .items:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedNewsCollectionViewCellIdentifier, for: indexPath) as! CompletedNewsCollectionViewCell
-            cell.profileCard = profileCards[indexPath.item]
+            if let news = profileCards[indexPath.item] as? News {
+                cell.news = news
+            }
             return cell
         }
     }

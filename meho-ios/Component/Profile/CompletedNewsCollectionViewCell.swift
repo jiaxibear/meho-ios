@@ -15,7 +15,6 @@ class CompletedNewsCollectionViewCell: UICollectionViewCell {
     private let subtitleLabelFontSize = CGFloat(14)
     private let labelsStackViewSpacing = CGFloat(12)
     private let labelsStackViewImageViewMargin = CGFloat(40)
-    private let labelsStackViewBottomMargin = CGFloat(12)
     private let titleLabelNumberOfLines = 3
     private let subtitleLabelNumberOfLines = 2
     private let imageViewWidth = CGFloat(120)
@@ -61,11 +60,11 @@ class CompletedNewsCollectionViewCell: UICollectionViewCell {
         return labelsStackView
     } ()
 
-    var profileCard: ProfileCard! {
+    var news: News! {
         didSet {
-            titleLabel.text = profileCard.title
-            subtitleLabel.text = profileCard.subtitle
-            imageView.imageKey = profileCard.imageKey
+            titleLabel.text = news.title_en
+            subtitleLabel.text = news.reason
+            imageView.imageKey = news.imageKey
         }
     }
 
@@ -87,7 +86,6 @@ class CompletedNewsCollectionViewCell: UICollectionViewCell {
 
         labelsStackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         labelsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        labelsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -labelsStackViewBottomMargin).isActive = true
         labelsStackView.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -labelsStackViewImageViewMargin).isActive = true
 
         imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
