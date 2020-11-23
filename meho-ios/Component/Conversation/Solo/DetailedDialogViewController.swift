@@ -146,7 +146,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
                 switch result {
                 case .success(let chapters):
                 self.scoredChapters = chapters.map({ (chapter) -> ScoredChapter in
-                    return ScoredChapter.init(chapter: chapter)
+                    return ScoredChapter.init(chapter: chapter, displaySaveButton: true)
                 })
                 DispatchQueue.main.async {
                     self.hasAutoPlayedAudio = true
@@ -192,8 +192,9 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if (indexPath.item == currentChapterIndex) {
+            let scoredChapter = scoredChapters[indexPath.item]
             let expandedChapterCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: expandedChapterCollectionViewCellReuseIdentifier, for: indexPath) as! ExpandedChapterCollectionViewCell
-            expandedChapterCollectionViewCell.setScoredChapter(scoredChapters[currentChapterIndex], isSaveButtonHidden: true)
+            expandedChapterCollectionViewCell.setScoredChapter(scoredChapters[currentChapterIndex], isSaveButtonHidden: !scoredChapter.shouldDisplaySaveButton)
             expandedChapterCollectionViewCell.delegate = self
             return expandedChapterCollectionViewCell
         }
@@ -228,23 +229,34 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         let previousCurrentChapterIndex = currentChapterIndex
         currentChapterIndex = indexPath.item
-        UIView.performWithoutAnimation {
-            collectionView.reloadItems(at: [IndexPath.init(item: previousCurrentChapterIndex, section: 0), IndexPath.init(item: currentChapterIndex, section: 0)])
-        }
-        collectionView.scrollToItem(at: IndexPath.init(item: currentChapterIndex, section: 0), at: .top, animated: true)
-        if let expandedChapterCollectionViewCell = collectionView.cellForItem(at: indexPath) as? ExpandedChapterCollectionViewCell {
-            expandedChapterCollectionViewCell.playAudio()
-        }
-    }
 
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if !hasAutoPlayedAudio && indexPath.item == 0, let expandedCell = cell as? ExpandedChapterCollectionViewCell {
-            expandedCell.playAudio()
-            hasAutoPlayedAudio = true;
-        }
-        if survivalPhraseCategoryIdentifier != nil {
-            let scoredChapter = scoredChapters[indexPath.item]
-            Analytics.logContentImpression(content: scoredChapter, screenName: screenName)
+        let scoredChapter = scoredChapters[currentChapterIndex]
+        if scoredChapter.shouldDisplaySaveButton, let userId = AWSMobileClient.default().userSub {
+            userDataFetcher.getUserItemSave (userId: userId, itemId: scoredChapter.chapter.identifier, completionHandler: { (isSaved, error) in
+                var maybeIsSaved: Bool?
+                if (error == nil) {
+                    maybeIsSaved = isSaved
+                }
+
+                DispatchQueue.main.async {
+                    UIView.performWithoutAnimation {
+                        collectionView.reloadItems(at: [IndexPath.init(item: previousCurrentChapterIndex, section: 0), IndexPath.init(item: self.currentChapterIndex, section: 0)])
+                    }
+                    collectionView.scrollToItem(at: IndexPath.init(item: self.currentChapterIndex, section: 0), at: .top, animated: true)
+                    if let expandedChapterCollectionViewCell = collectionView.cellForItem(at: indexPath) as? ExpandedChapterCollectionViewCell {
+                        expandedChapterCollectionViewCell.setInitialSaveButton(maybeIsSaved: maybeIsSaved)
+                        expandedChapterCollectionViewCell.playAudio()
+                    }
+                }
+            })
+        } else {
+            UIView.performWithoutAnimation {
+                collectionView.reloadItems(at: [IndexPath.init(item: previousCurrentChapterIndex, section: 0), IndexPath.init(item: currentChapterIndex, section: 0)])
+            }
+            collectionView.scrollToItem(at: IndexPath.init(item: currentChapterIndex, section: 0), at: .top, animated: true)
+            if let expandedChapterCollectionViewCell = collectionView.cellForItem(at: indexPath) as? ExpandedChapterCollectionViewCell {
+                expandedChapterCollectionViewCell.playAudio()
+            }
         }
     }
 
@@ -298,6 +310,24 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     func expandedChapterCollectionViewCellDidTapSpeedButton(scoredChapter: ScoredChapter) {
         let content: MehoContentAnalytics = dialog ?? scoredChapter
         Analytics.logContentAction(content: content, screenName: screenName, action: .adjustPlay)
+    }
+
+    func expandedChapterCollectionViewCellDidTapSaveButton(scoredChapter: ScoredChapter, currentIsSaved: Bool) {
+        guard let userId = AWSMobileClient.default().userSub else { return }
+        if currentIsSaved {
+            userDataFetcher.deleteUserItemSave(userId: userId, itemId: scoredChapter.chapter.identifier) { (unsaveSuccess, error) in
+                if (error == nil && unsaveSuccess) {
+                    self.view.makeToast(NSLocalizedString("removeSuccessfullyMessage", comment: ""))
+
+                }
+            }
+        } else {
+            userDataFetcher.createUserItemSave(userId: userId, itemId: scoredChapter.chapter.identifier, itemType: "EXPRESSION") { (saveSuccess, error) in
+                if (error == nil && saveSuccess) {
+                    self.view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
+                }
+            }
+        }
     }
 
     // MARK: - Private

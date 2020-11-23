@@ -36,6 +36,7 @@ protocol ExpandedChapterCollectionViewCellDelegate : AnyObject {
     func expandedChapterCollectionViewCellDidTapReplayButton(scoredChapter: ScoredChapter)
     func expandedChapterCollectionViewCellDidTapRecordButton(scoredChapter: ScoredChapter)
     func expandedChapterCollectionViewCellDidTapSpeedButton(scoredChapter: ScoredChapter)
+    func expandedChapterCollectionViewCellDidTapSaveButton(scoredChapter: ScoredChapter, currentIsSaved: Bool)
 }
 
 class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDelegate, AudioVisualizerViewDelegte {
@@ -219,8 +220,10 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
     private lazy var saveButton: UIButton = {
         let saveButton = UIButton.init(frame: .zero)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
-        let saveButtonImage = UIImage.init(named: "purple_saved_unfilled")
-        saveButton.setImage(saveButtonImage, for: .normal)
+        let saveButtonUnsavedImage = UIImage.init(named: "purple_saved_unfilled")
+        let saveButtonSavedImage = UIImage.init(named: "purple_saved_filled")
+        saveButton.setImage(saveButtonUnsavedImage, for: .normal)
+        saveButton.setImage(saveButtonSavedImage, for: .selected)
         saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
         saveButton.isHidden = true
         return saveButton
@@ -518,6 +521,15 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
     @objc
     func didTapSaveButton() {
         // TODO: Implement
+        delegate?.expandedChapterCollectionViewCellDidTapSaveButton(scoredChapter: scoredChapter, currentIsSaved: saveButton.isSelected)
+        saveButton.isSelected = !saveButton.isSelected
+    }
+
+    func setInitialSaveButton(maybeIsSaved: Bool?) {
+        if let isSaved = maybeIsSaved {
+            saveButton.isHidden = false
+            saveButton.isSelected = isSaved
+        }
     }
 
     @objc func playerDidFinishPlaying() {
