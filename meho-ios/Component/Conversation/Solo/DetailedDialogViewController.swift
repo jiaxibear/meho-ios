@@ -114,16 +114,6 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
             navigationItem.rightBarButtonItem = displayScoreBarButtonItem
         }
         if dialog != nil {
-
-//            self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in
-//                return ScoredChapter.init(chapter: chapter)
-//            })
-//            self.chaptersCollectionView.reloadData()
-//            let audioSession = AVAudioSession.sharedInstance()
-//            audioSession.requestRecordPermission { (allowed) in
-//                // TODO: Add UI if not allowed.
-//            }
-
             conversationDataFetcher.fetchDetailedDialog(dialogID: dialog.identifier) { (dialog, error) in
                 if (dialog != nil && error == nil) {
                     self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in
@@ -305,6 +295,17 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     func expandedChapterCollectionViewCellDidTapRecordButton(scoredChapter: ScoredChapter) {
         let content: MehoContentAnalytics = dialog ?? scoredChapter
         Analytics.logContentAction(content: content, screenName: screenName, action: .record)
+        if let userId = AWSMobileClient.default().userSub {
+            let expressionId = scoredChapter.chapter.identifier
+            userDataFetcher.createUserItemCompleted(userId: userId, itemId: expressionId, itemType: "EXPRESSION") { (createCompletedSuccess, error) in
+                if (error == nil && createCompletedSuccess) {
+                    // do nothing
+                    print("user:" + userId + ",expression:" + expressionId + " - added completed successful")
+                } else {
+                    print("user:" + userId + ",article:" + expressionId + " - added completed failed")
+                }
+            }
+        }
     }
 
     func expandedChapterCollectionViewCellDidTapSpeedButton(scoredChapter: ScoredChapter) {
