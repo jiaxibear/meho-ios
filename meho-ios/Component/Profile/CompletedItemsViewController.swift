@@ -85,9 +85,16 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
 
     private var sections: [CompletedItemsSection] = []
     private let completedItemsType: CompletedItemsType
-    private var contentCategories: [ProfileContentCategory] = []
+    private var contentCategories: [ProfileContentCategory] = {
+        let story = ProfileContentCategory.init(contentType: .story, title: "Story")
+        let expression = ProfileContentCategory.init(contentType: .expression, title: "Expression")
+        let talk = ProfileContentCategory.init(contentType: .talk, title: "Talk")
+        return [story, expression, talk]
+    } ()
     private var stories: [News] = []
     private var talks: [Dialog] = []
+    private var filteredStories: [News] = []
+    private var filteredTalks: [Dialog] = []
 
     // MARK: - Init
     init() {
@@ -107,12 +114,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             break
         case .inProgressAll:
             title = NSLocalizedString("InProgressItemsTitle", comment: "")
-            sections.append(.contentCategories)
-            contentCategories = updateContentCategories()
             break
         case .savedAll:
-            sections.append(.contentCategories)
-            contentCategories = updateContentCategories()
             break
         }
 
@@ -124,13 +127,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 talks.append(dialogue)
             }
         }
-        if stories.count > 0 {
-            sections.append(.stories)
-        }
-        if talks.count > 0 {
-            sections.append(.talks)
-        }
-        collectionView.reloadData()
+        filteredTalks = talks
+        filteredStories = stories
+        updateSections()
     }
 
     @available(*, unavailable)
@@ -164,10 +163,10 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         switch sections[indexPath.section] {
         case .contentCategories:
             contentCategories[indexPath.item].isSelected = !contentCategories[indexPath.item].isSelected
-            collectionView.reloadData()
+            updateSections()
             break
         case .stories:
-            let news = stories[indexPath.item]
+            let news = filteredStories[indexPath.item]
             let detailedNewsViewController = DetailedNewsViewController.init(news: news)
             navigationController?.pushViewController(detailedNewsViewController, animated: true)
             break
@@ -185,11 +184,11 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             return cell
         case .stories:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedNewsCollectionViewCellIdentifier, for: indexPath) as! CompletedNewsCollectionViewCell
-            cell.news = stories[indexPath.item]
+            cell.news = filteredStories[indexPath.item]
             return cell
         case .talks:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCollectionViewCellIdentifier, for: indexPath) as! DialogCollectionViewCell
-            cell.setDialog(talks[indexPath.item])
+            cell.setDialog(filteredTalks[indexPath.item])
             return cell
         case .expressions:
             return UICollectionViewCell.init(frame: .zero)
@@ -201,9 +200,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         case .contentCategories:
             return contentCategories.count
         case .stories:
-            return stories.count
+            return filteredStories.count
         case .talks:
-            return talks.count
+            return filteredTalks.count
         default:
             return 0
         }
@@ -214,7 +213,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     }
 
     // MARK: - Private
-    func filterLayoutSection() -> NSCollectionLayoutSection {
+    private func filterLayoutSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize.init(widthDimension: .absolute(contentCategoryColelctionViewCellWidth), heightDimension: .absolute(contentCategoryColelctionViewCellHeight))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(contentCategoryColelctionViewCellWidth), heightDimension: .absolute(contentCategoryColelctionViewCellHeight))
@@ -229,7 +228,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         return section
     }
 
-    func storiesSection() -> NSCollectionLayoutSection {
+    private func storiesSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(itemColelctionViewCellHeight))
@@ -240,10 +239,38 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         return section
     }
 
-    func updateContentCategories() -> [ProfileContentCategory] {
-        let story = ProfileContentCategory.init(contentType: .story, title: "Story")
-        let expression = ProfileContentCategory.init(contentType: .expression, title: "Expression")
-        let talk = ProfileContentCategory.init(contentType: .talk, title: "Talk")
-        return [story, expression, talk]
+    private func updateSections() {
+        sections.removeAll()
+        switch completedItemsType {
+        case .completedExpressions:
+            break
+        case .completedTalks:
+            break
+        case .completedStories:
+            break
+        case .inProgressAll:
+            sections.append(.contentCategories)
+            break
+        case .savedAll:
+            sections.append(.contentCategories)
+            break
+        }
+        if !contentCategories[0].isSelected {
+            filteredStories = []
+        } else {
+            filteredStories = stories
+        }
+        if filteredStories.count > 0 {
+            sections.append(.stories)
+        }
+        if !contentCategories[2].isSelected {
+            filteredTalks = []
+        } else {
+            filteredTalks = talks
+        }
+        if filteredTalks.count > 0 {
+            sections.append(.talks)
+        }
+        collectionView.reloadData()
     }
 }
