@@ -10,10 +10,13 @@ import UIKit
 
 class CompletedCategoryCollectionViewCell: UICollectionViewCell {
 
+    // MARK: - Constants
     private let titleLabelNumberOfLines = 1
     private let titleLabelCornerRadius = CGFloat(8)
     private let titleLabelBorderWidth = CGFloat(1)
+    private let titleLabelFontSize = CGFloat(12)
 
+    // MARK: - Properties
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel.init(frame: .zero)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -21,9 +24,27 @@ class CompletedCategoryCollectionViewCell: UICollectionViewCell {
         titleLabel.clipsToBounds = true
         titleLabel.layer.cornerRadius = titleLabelCornerRadius
         titleLabel.layer.borderWidth = titleLabelBorderWidth
+        titleLabel.layer.borderColor = UIColor.wisteriaPurple.cgColor
+        titleLabel.textAlignment = .center
+        if let titleLabelFontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+            titleLabel.font = UIFont.init(descriptor: titleLabelFontDescriptor, size: titleLabelFontSize)
+        }
         return titleLabel
     } ()
 
+    var contentCategory: ProfileContentCategory! {
+        didSet {
+            titleLabel.text = contentCategory.title
+            if contentCategory.isSelected {
+                titleLabel.backgroundColor = .wisteriaPurple
+                titleLabel.textColor = .white
+            } else {
+                titleLabel.backgroundColor = .white
+                titleLabel.textColor = .wisteriaPurple
+            }
+        }
+    }
+    
     // MARK: - Init
     @available(*, unavailable)
     init() {
@@ -43,11 +64,5 @@ class CompletedCategoryCollectionViewCell: UICollectionViewCell {
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-    }
-
-    override var isSelected: Bool {
-        didSet {
-            
-        }
     }
 }

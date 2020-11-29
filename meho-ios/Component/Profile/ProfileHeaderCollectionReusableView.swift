@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject {
+    func didTapSeeAllButton(profileHeader: ProfileHeader)
+}
+
 class ProfileHeaderCollectionReusableView: UICollectionReusableView {
 
     // MARK: - Constants
@@ -88,6 +92,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         if let seeAllButtonFontDescriptor = UIFont.systemFont(ofSize: seeAllButtonFontSize, weight: .medium).fontDescriptor.withDesign(.rounded) {
             seeAllButton.titleLabel?.font = UIFont.init(descriptor: seeAllButtonFontDescriptor, size: seeAllButtonFontSize)
         }
+        seeAllButton.addTarget(self, action: #selector(didTapSeeAllButton), for: .touchUpInside)
         return seeAllButton
     } ()
 
@@ -102,6 +107,8 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     private lazy var labelsStackViewTrailingToSeeAllButtonConstraint: NSLayoutConstraint = {
         return labelsStackView.trailingAnchor.constraint(equalTo: seeAllButton.leadingAnchor, constant: -labelLeadingTrailingMargin)
     } ()
+
+    weak var deleagte: ProfileHeaderCollectionReusableViewDelegate?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -148,5 +155,11 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
             labelsStackViewTrailingToViewConstraint.isActive = false
             labelsStackViewTrailingToSeeAllButtonConstraint.isActive = true
         }
+    }
+
+    // MARK: - Private
+    @objc
+    private func didTapSeeAllButton() {
+        deleagte?.didTapSeeAllButton(profileHeader: profileHeader)
     }
 }

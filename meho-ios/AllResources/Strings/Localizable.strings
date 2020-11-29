@@ -353,3 +353,6 @@
 
 /* The default nickname of the user. */
 "UserDefaultNickname" = "Welcome to Meho!";
+
+/* Title displayed in the in progress items screen. */
+"InProgressItemsTitle" = "In Progress Items";

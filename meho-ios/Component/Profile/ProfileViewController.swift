@@ -16,7 +16,7 @@ enum ProfileSection: Int {
     case savedVocabulary
 }
 
-class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProfileHeaderCollectionReusableViewDelegate {
     
     // MARK: - Constants
     private let profileTabBarItemImageName = "tabbar_profile_25pt"
@@ -305,6 +305,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             var title = ""
             var count = 0
             var subtitle: String?
+            var itemsType = CompletedItemsType.completedExpressions
             switch sections[indexPath.section] {
             case .completed:
                 title = "Your Achivements"
@@ -313,17 +314,20 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 title = "In Progress Contents"
                 count = inProgressItems.count
                 subtitle = NSLocalizedString("InProgressContentsSubtitle", comment: "")
+                itemsType = .inProgressAll
                 break
             case .savedItems:
                 title = "Saved Contents"
                 count = savedItems.count
                 subtitle = NSLocalizedString("SavedContentsSubtitle", comment: "")
+                itemsType = .savedAll
                 break
             case .savedVocabulary:
                 title = "Saved Vocabulary"
                 break
             }
-            headerView.profileHeader = ProfileHeader.init(title: title, subtitle: subtitle, count: count)
+            headerView.profileHeader = ProfileHeader.init(title: title, subtitle: subtitle, count: count, itemsType: itemsType)
+            headerView.deleagte = self
             return headerView
         }
         return UICollectionReusableView.init(frame: .zero)
@@ -331,6 +335,24 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
+    }
+
+    // MARK: - ProfileHeaderCollectionReusableViewDelegate
+    func didTapSeeAllButton(profileHeader: ProfileHeader) {
+        var profileCards: [ProfileCard] = []
+        let itemsType = profileHeader.itemsType
+        switch itemsType {
+        case .inProgressAll:
+            profileCards = inProgressItems
+            break
+        case .savedAll:
+            profileCards = savedItems
+            break
+        default:
+            break
+        }
+        let completedItemsViewController = CompletedItemsViewController.init(completedItemsType: itemsType, profileCards: profileCards)
+        navigationController?.pushViewController(completedItemsViewController, animated: true)
     }
 
     // MARK: - Private

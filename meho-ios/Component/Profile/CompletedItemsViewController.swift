@@ -18,9 +18,9 @@ enum CompletedItemsType: Int {
 
 class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    private let filterColelctionViewCellWidth = CGFloat(60)
-    private let filterColelctionViewCellHeight = CGFloat(24)
-    private let filterCollectionViewCellGroupSpacing = CGFloat(8)
+    private let contentCategoryColelctionViewCellWidth = CGFloat(80)
+    private let contentCategoryColelctionViewCellHeight = CGFloat(30)
+    private let contentCategoryCollectionViewCellGroupSpacing = CGFloat(12)
     private let filterCollectionViewSectionHeaderEstimatedHeight = CGFloat(14)
     private let filterCollectionViewSectionTrailingLeadingMargin = CGFloat(24)
     private let filterCollectionViewSectionTopBottomMargin = CGFloat(16)
@@ -32,17 +32,21 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private let CompletedNewsCollectionViewCellIdentifier = "CompletedNewsCollectionViewCellIdentifier"
 
     enum CompletedItemsSection: Int {
-        case filter
-        case items
+        case contentCategories
+        case stories
+        case expressions
+        case talks
     }
 
     private lazy var collectionViewCompositionalLayout: UICollectionViewCompositionalLayout = {
         let collectionViewCompositionalLayout = UICollectionViewCompositionalLayout.init { (section, environment) -> NSCollectionLayoutSection? in
             switch self.sections[section] {
-            case .filter:
+            case .contentCategories:
                 return self.filterLayoutSection()
-            case .items:
-                return self.itemsSection()
+            case .stories:
+                return self.storiesSection()
+            default:
+                return self.storiesSection()
             }
         }
         return collectionViewCompositionalLayout
@@ -65,9 +69,11 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             break
         case .inProgressAll:
             collectionView.register(CompletedCategoryCollectionViewCell.self, forCellWithReuseIdentifier: CompletedCategoryCollectionViewCellIdentifier)
+            collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: CompletedNewsCollectionViewCellIdentifier)
             break
         case .savedAll:
             collectionView.register(CompletedCategoryCollectionViewCell.self, forCellWithReuseIdentifier: CompletedCategoryCollectionViewCellIdentifier)
+            collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: CompletedNewsCollectionViewCellIdentifier)
             break
         }
 
@@ -75,8 +81,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     } ()
 
     private var sections: [CompletedItemsSection] = []
-    private var profileCards: [ProfileCard] = []
     private let completedItemsType: CompletedItemsType
+    private var contentCategories: [ProfileContentCategory] = []
+    private var stories: [News] = []
 
     // MARK: - Init
     init() {
@@ -92,20 +99,28 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         case .completedTalks:
             break
         case .completedStories:
-            self.title = NSLocalizedString("CompletedStoreisTitle", comment: "")
+            title = NSLocalizedString("CompletedStoreisTitle", comment: "")
             break
         case .inProgressAll:
-            sections.append(.filter)
+            title = NSLocalizedString("InProgressItemsTitle", comment: "")
+            sections.append(.contentCategories)
+            contentCategories = updateContentCategories()
             break
         case .savedAll:
-            sections.append(.filter)
+            sections.append(.contentCategories)
+            contentCategories = updateContentCategories()
             break
         }
 
-        if profileCards.count > 0 {
-            self.profileCards = profileCards
-            sections.append(.items)
+        for profileCard in profileCards {
+            if let news = profileCard as? News {
+                stories.append(news)
+            }
         }
+        if stories.count > 0 {
+            sections.append(.stories)
+        }
+        collectionView.reloadData()
     }
 
     @available(*, unavailable)
@@ -134,27 +149,49 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch sections[indexPath.section] {
+        case .contentCategories:
+            contentCategories[indexPath.item].isSelected = !contentCategories[indexPath.item].isSelected
+            collectionView.reloadData()
+            break
+        case .stories:
+            let news = stories[indexPath.item]
+            let detailedNewsViewController = DetailedNewsViewController.init(news: news)
+            navigationController?.pushViewController(detailedNewsViewController, animated: true)
+            break
+        default:
+            break
+        }
+    }
+
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch sections[indexPath.section] {
-        case .filter:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedCategoryCollectionViewCellIdentifier, for: indexPath)
+        case .contentCategories:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
+            cell.contentCategory = contentCategories[indexPath.item]
             return cell
-        case .items:
+        case .stories:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedNewsCollectionViewCellIdentifier, for: indexPath) as! CompletedNewsCollectionViewCell
-            if let news = profileCards[indexPath.item] as? News {
-                cell.news = news
-            }
+            cell.news = stories[indexPath.item]
             return cell
+        case .talks:
+            return UICollectionViewCell.init(frame: .zero)
+        case .expressions:
+            return UICollectionViewCell.init(frame: .zero)
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch sections[section] {
-        case .filter:
-            return 1
-        case .items:
-            return profileCards.count
+        case .contentCategories:
+            return contentCategories.count
+        case .stories:
+            return stories.count
+        default:
+            return 0
         }
     }
 
@@ -164,13 +201,13 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
 
     // MARK: - Private
     func filterLayoutSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize.init(widthDimension: .absolute(filterColelctionViewCellWidth), heightDimension: .absolute(filterColelctionViewCellHeight))
+        let itemSize = NSCollectionLayoutSize.init(widthDimension: .absolute(contentCategoryColelctionViewCellWidth), heightDimension: .absolute(contentCategoryColelctionViewCellHeight))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(filterColelctionViewCellWidth), heightDimension: .absolute(filterColelctionViewCellHeight))
+        let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(contentCategoryColelctionViewCellWidth), heightDimension: .absolute(contentCategoryColelctionViewCellHeight))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection.init(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.interGroupSpacing = filterCollectionViewCellGroupSpacing
+        section.interGroupSpacing = contentCategoryCollectionViewCellGroupSpacing
         section.contentInsets = NSDirectionalEdgeInsets.init(top: filterCollectionViewSectionTopBottomMargin, leading: filterCollectionViewSectionTrailingLeadingMargin, bottom: filterCollectionViewSectionTopBottomMargin, trailing: filterCollectionViewSectionTrailingLeadingMargin)
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(filterCollectionViewSectionHeaderEstimatedHeight))
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
@@ -178,7 +215,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         return section
     }
 
-    func itemsSection() -> NSCollectionLayoutSection {
+    func storiesSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(itemColelctionViewCellHeight))
@@ -187,5 +224,12 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         section.interGroupSpacing = itemCollectionViewCellGroupSpacing
         section.contentInsets = NSDirectionalEdgeInsets.init(top: itemCollectionViewSectionTopBottomMargin, leading: itemCollectionViewSectionTrailingLeadingMargin, bottom: itemCollectionViewSectionTopBottomMargin, trailing: itemCollectionViewSectionTrailingLeadingMargin)
         return section
+    }
+
+    func updateContentCategories() -> [ProfileContentCategory] {
+        let story = ProfileContentCategory.init(contentType: .story, title: "Story")
+        let expression = ProfileContentCategory.init(contentType: .expression, title: "Expression")
+        let talk = ProfileContentCategory.init(contentType: .talk, title: "Talk")
+        return [story, expression, talk]
     }
 }
