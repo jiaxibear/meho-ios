@@ -184,7 +184,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         if (indexPath.item == currentChapterIndex) {
             let scoredChapter = scoredChapters[indexPath.item]
             let expandedChapterCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: expandedChapterCollectionViewCellReuseIdentifier, for: indexPath) as! ExpandedChapterCollectionViewCell
-            expandedChapterCollectionViewCell.setScoredChapter(scoredChapters[currentChapterIndex], isSaveButtonHidden: !scoredChapter.shouldDisplaySaveButton)
+            expandedChapterCollectionViewCell.setScoredChapter(scoredChapters[currentChapterIndex], isSaveButtonHidden: !scoredChapter.isExpressionChapter)
             expandedChapterCollectionViewCell.delegate = self
             return expandedChapterCollectionViewCell
         }
@@ -221,7 +221,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         currentChapterIndex = indexPath.item
 
         let scoredChapter = scoredChapters[currentChapterIndex]
-        if scoredChapter.shouldDisplaySaveButton, let userId = AWSMobileClient.default().userSub {
+        if scoredChapter.isExpressionChapter, let userId = AWSMobileClient.default().userSub {
             userDataFetcher.getUserItemSave (userId: userId, itemId: scoredChapter.chapter.identifier, completionHandler: { (isSaved, error) in
                 var maybeIsSaved: Bool?
                 if (error == nil) {
@@ -295,7 +295,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     func expandedChapterCollectionViewCellDidTapRecordButton(scoredChapter: ScoredChapter) {
         let content: MehoContentAnalytics = dialog ?? scoredChapter
         Analytics.logContentAction(content: content, screenName: screenName, action: .record)
-        if let userId = AWSMobileClient.default().userSub {
+        if let userId = AWSMobileClient.default().userSub, scoredChapter.isExpressionChapter {
             let expressionId = scoredChapter.chapter.identifier
             userDataFetcher.createUserItemCompleted(userId: userId, itemId: expressionId, itemType: "EXPRESSION") { (createCompletedSuccess, error) in
                 if (error == nil && createCompletedSuccess) {
