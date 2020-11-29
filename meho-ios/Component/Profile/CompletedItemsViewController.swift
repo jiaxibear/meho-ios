@@ -28,8 +28,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private let itemCollectionViewCellGroupSpacing = CGFloat(30)
     private let itemCollectionViewSectionTrailingLeadingMargin = CGFloat(16)
     private let itemCollectionViewSectionTopBottomMargin = CGFloat(8)
-    private let CompletedCategoryCollectionViewCellIdentifier = "CompletedCategoryCollectionViewCellIdentifier"
-    private let CompletedNewsCollectionViewCellIdentifier = "CompletedNewsCollectionViewCellIdentifier"
+    private let completedCategoryCollectionViewCellIdentifier = "CompletedCategoryCollectionViewCellIdentifier"
+    private let completedNewsCollectionViewCellIdentifier = "CompletedNewsCollectionViewCellIdentifier"
+    private let dialogCollectionViewCellIdentifier = "DialogCollectionViewCellIdentifier"
 
     enum CompletedItemsSection: Int {
         case contentCategories
@@ -65,15 +66,17 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         case .completedTalks:
             break
         case .completedStories:
-            collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: CompletedNewsCollectionViewCellIdentifier)
+            collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: completedNewsCollectionViewCellIdentifier)
             break
         case .inProgressAll:
-            collectionView.register(CompletedCategoryCollectionViewCell.self, forCellWithReuseIdentifier: CompletedCategoryCollectionViewCellIdentifier)
-            collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: CompletedNewsCollectionViewCellIdentifier)
+            collectionView.register(CompletedCategoryCollectionViewCell.self, forCellWithReuseIdentifier: completedCategoryCollectionViewCellIdentifier)
+            collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: completedNewsCollectionViewCellIdentifier)
+            collectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCollectionViewCellIdentifier)
             break
         case .savedAll:
-            collectionView.register(CompletedCategoryCollectionViewCell.self, forCellWithReuseIdentifier: CompletedCategoryCollectionViewCellIdentifier)
-            collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: CompletedNewsCollectionViewCellIdentifier)
+            collectionView.register(CompletedCategoryCollectionViewCell.self, forCellWithReuseIdentifier: completedCategoryCollectionViewCellIdentifier)
+            collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: completedNewsCollectionViewCellIdentifier)
+            collectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCollectionViewCellIdentifier)
             break
         }
 
@@ -84,6 +87,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private let completedItemsType: CompletedItemsType
     private var contentCategories: [ProfileContentCategory] = []
     private var stories: [News] = []
+    private var talks: [Dialog] = []
 
     // MARK: - Init
     init() {
@@ -116,9 +120,15 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             if let news = profileCard as? News {
                 stories.append(news)
             }
+            if let dialogue = profileCard as? Dialog {
+                talks.append(dialogue)
+            }
         }
         if stories.count > 0 {
             sections.append(.stories)
+        }
+        if talks.count > 0 {
+            sections.append(.talks)
         }
         collectionView.reloadData()
     }
@@ -170,15 +180,17 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch sections[indexPath.section] {
         case .contentCategories:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
             cell.contentCategory = contentCategories[indexPath.item]
             return cell
         case .stories:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedNewsCollectionViewCellIdentifier, for: indexPath) as! CompletedNewsCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedNewsCollectionViewCellIdentifier, for: indexPath) as! CompletedNewsCollectionViewCell
             cell.news = stories[indexPath.item]
             return cell
         case .talks:
-            return UICollectionViewCell.init(frame: .zero)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCollectionViewCellIdentifier, for: indexPath) as! DialogCollectionViewCell
+            cell.setDialog(talks[indexPath.item])
+            return cell
         case .expressions:
             return UICollectionViewCell.init(frame: .zero)
         }
@@ -190,6 +202,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             return contentCategories.count
         case .stories:
             return stories.count
+        case .talks:
+            return talks.count
         default:
             return 0
         }

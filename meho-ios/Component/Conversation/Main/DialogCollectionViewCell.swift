@@ -144,6 +144,8 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         } else if let imageKey = dialog.coverImageKey {
             let s3Key = S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: imageKey)
             coverImageView.imageKey = s3Key
+        } else if let imageKey = dialog.imageKey {
+            coverImageView.imageKey = imageKey
         }
 
         difficultyLabel.text = dialog.difficulty.title.uppercased()
