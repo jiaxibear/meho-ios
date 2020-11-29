@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSMobileClient
 
 enum CompletedItemsType: Int {
     case completedStories
@@ -16,7 +17,7 @@ enum CompletedItemsType: Int {
     case savedAll
 }
 
-class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DialogModeSelectionViewControllerDelegate {
 
     private let contentCategoryColelctionViewCellWidth = CGFloat(80)
     private let contentCategoryColelctionViewCellHeight = CGFloat(30)
@@ -95,6 +96,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private var talks: [Dialog] = []
     private var filteredStories: [News] = []
     private var filteredTalks: [Dialog] = []
+    private let userDataFetcher = UserDataFetcher.shared
 
     // MARK: - Init
     init() {
@@ -171,6 +173,28 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             let detailedNewsViewController = DetailedNewsViewController.init(news: news)
             navigationController?.pushViewController(detailedNewsViewController, animated: true)
             break
+        case .talks:
+            let dialog = filteredTalks[indexPath.item]
+            guard let userID = AWSMobileClient.default().userSub else {
+                return
+            }
+            userDataFetcher.getUserItemSave (userId: userID, itemId: dialog.identifier, completionHandler: { (isSaved, error) in
+                if (error == nil && isSaved) {
+                    var maybeIsSaved: Bool?
+                    if (error == nil) {
+                        maybeIsSaved = isSaved
+                    }
+                    let dialogModeSelectionViewController = DialogModeSelectionViewController.init(dialog: dialog, maybeIsSaved: maybeIsSaved)
+                    dialogModeSelectionViewController.delegate = self
+                    let dialogViewController = DialogViewController.init(contentViewController: dialogModeSelectionViewController)
+                    dialogViewController.modalPresentationStyle = .overFullScreen
+                    dialogViewController.modalTransitionStyle = .crossDissolve
+
+                    DispatchQueue.main.async {
+                        self.navigationController?.present(dialogViewController, animated: true, completion: nil)
+                    }
+                }
+            })
         default:
             break
         }
@@ -211,6 +235,29 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
+    }
+
+    // MARK: - DialogModeSelectionViewControllerDelegate
+    func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialog: Dialog) {
+        dismiss(animated: true) {
+            let duoDetailedDialogViewController = DuoDetailedDialogViewController.init(dialog: dialog)
+            self.navigationController?.pushViewController(duoDetailedDialogViewController, animated: true)
+        }
+    }
+
+    func dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialog: Dialog) {
+        dismiss(animated: true) {
+            let detailedDialogViewController = DetailedDialogViewController.init(dialog: dialog)
+            self.navigationController?.pushViewController(detailedDialogViewController, animated: true)
+        }
+    }
+
+    func dialogModeSelectionViewControllerDidTapSaveButton(isSaved: Bool) {
+        if isSaved {
+            view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
+        } else {
+            view.makeToast(NSLocalizedString("removeSuccessfullyMessage", comment: ""))
+        }
     }
 
     // MARK: - Private
