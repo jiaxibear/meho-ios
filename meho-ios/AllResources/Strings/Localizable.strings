@@ -356,3 +356,6 @@
 
 /* Title displayed in the in progress items screen. */
 "InProgressItemsTitle" = "In Progress Items";
+
+/* Title displayed in the saved items screen. */
+"SavedItemsTitle" = "Saved Items";

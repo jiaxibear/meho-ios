@@ -116,6 +116,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             title = NSLocalizedString("InProgressItemsTitle", comment: "")
             break
         case .savedAll:
+            title = NSLocalizedString("SavedItemsTitle", comment: "")
             break
         }
 
