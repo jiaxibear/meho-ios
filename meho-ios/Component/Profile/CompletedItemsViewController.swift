@@ -33,8 +33,10 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private let itemCollectionViewCellGroupSpacing = CGFloat(30)
     private let itemCollectionViewSectionTrailingLeadingMargin = CGFloat(16)
     private let itemCollectionViewSectionTopMargin = CGFloat(24)
+    private let expressionColelctionViewCellHeight = CGFloat(150)
     private let completedCategoryCollectionViewCellIdentifier = "CompletedCategoryCollectionViewCellIdentifier"
     private let completedNewsCollectionViewCellIdentifier = "CompletedNewsCollectionViewCellIdentifier"
+    private let completedExpressionCollectionViewCellIdentifier = "completedExpressionCollectionViewCellIdentifier"
     private let dialogCollectionViewCellIdentifier = "DialogCollectionViewCellIdentifier"
 
     enum CompletedItemsSection: Int {
@@ -53,9 +55,11 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             case .storyCategories:
                 return self.filterLayoutSection(width: self.subTypeContentCategoryCollectionViewCellWidth, height: self.subTypeContentCategoryCollectionViewCellHeight, spacing: self.subTypeContentCategoryCollectionViewCellGroupSpacing, topMargin: self.subTypeFilterCollectionViewSectionTopMargin)
             case .stories:
-                return self.storiesSection()
-            default:
-                return self.storiesSection()
+                return self.itemsSection(cellHeight: self.itemColelctionViewCellHeight)
+            case .expressions:
+                return self.itemsSection(cellHeight: self.expressionColelctionViewCellHeight)
+            case .talks:
+                return self.itemsSection(cellHeight: self.itemColelctionViewCellHeight)
             }
         }
         return collectionViewCompositionalLayout
@@ -79,11 +83,13 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         case .inProgressAll:
             collectionView.register(CompletedCategoryCollectionViewCell.self, forCellWithReuseIdentifier: completedCategoryCollectionViewCellIdentifier)
             collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: completedNewsCollectionViewCellIdentifier)
+            collectionView.register(CompletedExpressionCollectionViewCell.self, forCellWithReuseIdentifier: completedExpressionCollectionViewCellIdentifier)
             collectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCollectionViewCellIdentifier)
             break
         case .savedAll:
             collectionView.register(CompletedCategoryCollectionViewCell.self, forCellWithReuseIdentifier: completedCategoryCollectionViewCellIdentifier)
             collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: completedNewsCollectionViewCellIdentifier)
+            collectionView.register(CompletedExpressionCollectionViewCell.self, forCellWithReuseIdentifier: completedExpressionCollectionViewCellIdentifier)
             collectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCollectionViewCellIdentifier)
             break
         }
@@ -102,8 +108,10 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private var storyCategories: [ProfileContentCategory] = []
     private var stories: [News] = []
     private var talks: [Dialog] = []
+    private var expressions: [Expression] = []
     private var filteredStories: [News] = []
     private var filteredTalks: [Dialog] = []
+    private var filteredExpressions: [Expression] = []
     private let userDataFetcher = UserDataFetcher.shared
     private let conversationDataFetcher = ConversationDataFetcher.init()
 
@@ -138,9 +146,13 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             if let dialogue = profileCard as? Dialog {
                 talks.append(dialogue)
             }
+            if let expression = profileCard as? Expression {
+                expressions.append(expression)
+            }
         }
         filteredTalks = talks
         filteredStories = stories
+        filteredExpressions = expressions
         updateSections()
     }
 
@@ -229,7 +241,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             cell.setDialog(filteredTalks[indexPath.item])
             return cell
         case .expressions:
-            return UICollectionViewCell.init(frame: .zero)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedExpressionCollectionViewCellIdentifier, for: indexPath) as! CompletedExpressionCollectionViewCell
+            cell.expression = filteredExpressions[indexPath.item]
+            return cell
         case .storyCategories:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
             cell.contentCategory = storyCategories[indexPath.item]
@@ -247,8 +261,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             return filteredStories.count
         case .talks:
             return filteredTalks.count
-        default:
-            return 0
+        case .expressions:
+            return filteredExpressions.count
         }
     }
 
@@ -295,10 +309,10 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         return section
     }
 
-    private func storiesSection() -> NSCollectionLayoutSection {
+    private func itemsSection(cellHeight: CGFloat) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(itemColelctionViewCellHeight))
+        let groupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(cellHeight))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection.init(group: group)
         section.interGroupSpacing = itemCollectionViewCellGroupSpacing
@@ -329,6 +343,14 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         }
         if filteredStories.count > 0 {
             sections.append(.stories)
+        }
+        if !contentCategories[1].isSelected {
+            filteredExpressions = []
+        } else {
+            filteredExpressions = expressions
+        }
+        if filteredExpressions.count > 0 {
+            sections.append(.expressions)
         }
         if !contentCategories[2].isSelected {
             filteredTalks = []

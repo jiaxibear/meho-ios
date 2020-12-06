@@ -12,34 +12,38 @@ import AVFoundation
 class CompletedExpressionCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Constants
-    private let difficultyLabelCornerRadius = CGFloat(2)
-    private let difficultyLabelWidth = CGFloat(60)
-    private let difficultyLabelHeight = CGFloat(20)
-    private let difficultyLabelFontSize = CGFloat(10)
+    private let categoryLabelCornerRadius = CGFloat(2)
+    private let categoryLabelWidth = CGFloat(60)
+    private let categoryLabelHeight = CGFloat(20)
+    private let categoryLabelFontSize = CGFloat(10)
     private let titleLabelFontSize = CGFloat(20)
     private let pinyinLabelFontSize = CGFloat(16)
     private let titleEnLabelFontSize = CGFloat(16)
-    private let difficultyLabelSpacing = CGFloat(12)
+    private let categoryLabelSpacing = CGFloat(12)
     private let labelSpacing = CGFloat(8)
     private let contentLeadingTrailingMargin = CGFloat(20)
     private let contentTopMargin = CGFloat(20)
     private let contentBottomMargin = CGFloat(18)
     private let listenButtonWidth = CGFloat(30)
     private let listenButtonHeight = CGFloat(30)
-    private let listenButtonTrailingMargin = CGFloat(24)
+    private let listenButtonTrailingMargin = CGFloat(4)
+    private let contentViewCornerRadius = CGFloat(8)
+    private let contentViewShadowRadius = CGFloat(3)
+    private let contentViewShadowSpread = CGFloat(2)
 
     // MARK: - Properties
-    private lazy var difficultyLabel: UILabel = {
-        let difficultyLabel = UILabel.init(frame: .zero)
-        difficultyLabel.translatesAutoresizingMaskIntoConstraints = false
-        difficultyLabel.clipsToBounds = true
-        difficultyLabel.layer.cornerRadius = difficultyLabelCornerRadius
-        difficultyLabel.textColor = .white
-        difficultyLabel.backgroundColor = .wisteriaPurple
-        if let difficultyLabelFontDescriptor = UIFont.systemFont(ofSize: difficultyLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
-            difficultyLabel.font = UIFont.init(descriptor: difficultyLabelFontDescriptor, size: difficultyLabelFontSize)
+    private lazy var categoryLabel: UILabel = {
+        let categoryLabel = UILabel.init(frame: .zero)
+        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
+        categoryLabel.clipsToBounds = true
+        categoryLabel.layer.cornerRadius = categoryLabelCornerRadius
+        categoryLabel.textColor = .white
+        categoryLabel.backgroundColor = .wisteriaPurple
+        categoryLabel.textAlignment = .center
+        if let categoryLabelFontDescriptor = UIFont.systemFont(ofSize: categoryLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+            categoryLabel.font = UIFont.init(descriptor: categoryLabelFontDescriptor, size: categoryLabelFontSize)
         }
-        return difficultyLabel
+        return categoryLabel
     } ()
 
     private lazy var titleLabel: UILabel = {
@@ -71,11 +75,11 @@ class CompletedExpressionCollectionViewCell: UICollectionViewCell {
     } ()
 
     private lazy var labelsStackView: UIStackView = {
-        let labelsStackView = UIStackView.init(arrangedSubviews: [difficultyLabel, titleLabel, pinyinLabel, titleEnLabel])
+        let labelsStackView = UIStackView.init(arrangedSubviews: [titleLabel, pinyinLabel, titleEnLabel])
         labelsStackView.translatesAutoresizingMaskIntoConstraints = false
         labelsStackView.axis = .vertical
-        labelsStackView.setCustomSpacing(difficultyLabelSpacing, after: difficultyLabel)
-        labelsStackView.spacing = labelSpacing
+        labelsStackView.alignment = .leading
+        labelsStackView.distribution = .equalSpacing
         return labelsStackView
     } ()
 
@@ -89,11 +93,12 @@ class CompletedExpressionCollectionViewCell: UICollectionViewCell {
 
     private var player: AVPlayer?
 
-    var expression: Chapter? {
+    var expression: Expression! {
         didSet {
-            if expression != nil {
-               
-            }
+            titleLabel.text = expression.contentZh
+            pinyinLabel.text = expression.contentPinyin
+            titleEnLabel.text = expression.contentEn
+            categoryLabel.text = expression.category.rawValue
         }
     }
 
@@ -110,15 +115,31 @@ class CompletedExpressionCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(labelsStackView)
+        layer.shadowColor = UIColor.paleLilac.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.masksToBounds = false
+        layer.shadowRadius = contentViewShadowRadius
+        layer.shadowOpacity = 1.0
+        layer.backgroundColor = UIColor.clear.cgColor
 
-        labelsStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentTopMargin).isActive = true
-        labelsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
+        contentView.layer.borderWidth = 0.5
+        contentView.layer.borderColor = UIColor.paleLilac.cgColor
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = contentViewCornerRadius
+        contentView.backgroundColor = .white
+        contentView.addSubview(labelsStackView)
+        contentView.addSubview(listenButton)
+        contentView.addSubview(categoryLabel)
+
+        categoryLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentTopMargin).isActive = true
+        categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
+        categoryLabel.widthAnchor.constraint(equalToConstant: categoryLabelWidth).isActive = true
+        categoryLabel.heightAnchor.constraint(equalToConstant: categoryLabelHeight).isActive = true
+
+        labelsStackView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: categoryLabelSpacing).isActive = true
+        labelsStackView.leadingAnchor.constraint(equalTo: categoryLabel.leadingAnchor).isActive = true
         labelsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
         labelsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -contentBottomMargin).isActive = true
-
-        difficultyLabel.widthAnchor.constraint(equalToConstant: difficultyLabelWidth).isActive = true
-        difficultyLabel.heightAnchor.constraint(equalToConstant: difficultyLabelHeight).isActive = true
 
         listenButton.widthAnchor.constraint(equalToConstant: listenButtonWidth).isActive = true
         listenButton.heightAnchor.constraint(equalToConstant: listenButtonHeight).isActive = true
