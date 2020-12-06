@@ -12,4 +12,5 @@ struct ProfileContentCategory {
     let contentType: ProfileCardType
     let title: String
     var isSelected = true
+    let isSubType: Bool
 }

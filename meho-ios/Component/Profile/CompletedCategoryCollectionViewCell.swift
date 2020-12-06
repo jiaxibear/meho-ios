@@ -15,6 +15,7 @@ class CompletedCategoryCollectionViewCell: UICollectionViewCell {
     private let titleLabelCornerRadius = CGFloat(8)
     private let titleLabelBorderWidth = CGFloat(1)
     private let titleLabelFontSize = CGFloat(12)
+    private let subTypeTitleLabelFontSize = CGFloat(8)
 
     // MARK: - Properties
     private lazy var titleLabel: UILabel = {
@@ -24,23 +25,38 @@ class CompletedCategoryCollectionViewCell: UICollectionViewCell {
         titleLabel.clipsToBounds = true
         titleLabel.layer.cornerRadius = titleLabelCornerRadius
         titleLabel.layer.borderWidth = titleLabelBorderWidth
-        titleLabel.layer.borderColor = UIColor.wisteriaPurple.cgColor
         titleLabel.textAlignment = .center
-        if let titleLabelFontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
-            titleLabel.font = UIFont.init(descriptor: titleLabelFontDescriptor, size: titleLabelFontSize)
-        }
         return titleLabel
     } ()
 
     var contentCategory: ProfileContentCategory! {
         didSet {
             titleLabel.text = contentCategory.title
+            if contentCategory.isSubType {
+                if let titleLabelFontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+                    titleLabel.font = UIFont.init(descriptor: titleLabelFontDescriptor, size: subTypeTitleLabelFontSize)
+                }
+                titleLabel.layer.borderColor = UIColor.skyBlue.cgColor
+            } else {
+                if let titleLabelFontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+                    titleLabel.font = UIFont.init(descriptor: titleLabelFontDescriptor, size: titleLabelFontSize)
+                }
+                titleLabel.layer.borderColor = UIColor.wisteriaPurple.cgColor
+            }
             if contentCategory.isSelected {
-                titleLabel.backgroundColor = .wisteriaPurple
+                if contentCategory.isSubType {
+                    titleLabel.backgroundColor = .skyBlue
+                } else {
+                    titleLabel.backgroundColor = .wisteriaPurple
+                }
                 titleLabel.textColor = .white
             } else {
                 titleLabel.backgroundColor = .white
-                titleLabel.textColor = .wisteriaPurple
+                if contentCategory.isSubType {
+                    titleLabel.textColor = .skyBlue
+                } else {
+                    titleLabel.textColor = .wisteriaPurple
+                }
             }
         }
     }

@@ -19,22 +19,27 @@ enum CompletedItemsType: Int {
 
 class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DialogModeSelectionViewControllerDelegate {
 
-    private let contentCategoryColelctionViewCellWidth = CGFloat(80)
-    private let contentCategoryColelctionViewCellHeight = CGFloat(30)
+    private let contentCategoryCollectionViewCellWidth = CGFloat(80)
+    private let contentCategoryCollectionViewCellHeight = CGFloat(30)
     private let contentCategoryCollectionViewCellGroupSpacing = CGFloat(12)
+    private let subTypeContentCategoryCollectionViewCellWidth = CGFloat(60)
+    private let subTypeContentCategoryCollectionViewCellHeight = CGFloat(24)
+    private let subTypeContentCategoryCollectionViewCellGroupSpacing = CGFloat(8)
     private let filterCollectionViewSectionHeaderEstimatedHeight = CGFloat(14)
     private let filterCollectionViewSectionTrailingLeadingMargin = CGFloat(24)
-    private let filterCollectionViewSectionTopBottomMargin = CGFloat(16)
+    private let filterCollectionViewSectionTopMargin = CGFloat(16)
+    private let subTypeFilterCollectionViewSectionTopMargin = CGFloat(12)
     private let itemColelctionViewCellHeight = CGFloat(120)
     private let itemCollectionViewCellGroupSpacing = CGFloat(30)
     private let itemCollectionViewSectionTrailingLeadingMargin = CGFloat(16)
-    private let itemCollectionViewSectionTopBottomMargin = CGFloat(8)
+    private let itemCollectionViewSectionTopMargin = CGFloat(24)
     private let completedCategoryCollectionViewCellIdentifier = "CompletedCategoryCollectionViewCellIdentifier"
     private let completedNewsCollectionViewCellIdentifier = "CompletedNewsCollectionViewCellIdentifier"
     private let dialogCollectionViewCellIdentifier = "DialogCollectionViewCellIdentifier"
 
     enum CompletedItemsSection: Int {
         case contentCategories
+        case storyCategories
         case stories
         case expressions
         case talks
@@ -44,7 +49,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         let collectionViewCompositionalLayout = UICollectionViewCompositionalLayout.init { (section, environment) -> NSCollectionLayoutSection? in
             switch self.sections[section] {
             case .contentCategories:
-                return self.filterLayoutSection()
+                return self.filterLayoutSection(width: self.contentCategoryCollectionViewCellWidth, height: self.contentCategoryCollectionViewCellHeight, spacing: self.contentCategoryCollectionViewCellGroupSpacing, topMargin: self.filterCollectionViewSectionTopMargin)
+            case .storyCategories:
+                return self.filterLayoutSection(width: self.subTypeContentCategoryCollectionViewCellWidth, height: self.subTypeContentCategoryCollectionViewCellHeight, spacing: self.subTypeContentCategoryCollectionViewCellGroupSpacing, topMargin: self.subTypeFilterCollectionViewSectionTopMargin)
             case .stories:
                 return self.storiesSection()
             default:
@@ -87,16 +94,18 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private var sections: [CompletedItemsSection] = []
     private let completedItemsType: CompletedItemsType
     private var contentCategories: [ProfileContentCategory] = {
-        let story = ProfileContentCategory.init(contentType: .story, title: "Story")
-        let expression = ProfileContentCategory.init(contentType: .expression, title: "Expression")
-        let talk = ProfileContentCategory.init(contentType: .talk, title: "Talk")
+        let story = ProfileContentCategory.init(contentType: .story, title: "Story", isSubType: false)
+        let expression = ProfileContentCategory.init(contentType: .expression, title: "Expression", isSubType: false)
+        let talk = ProfileContentCategory.init(contentType: .talk, title: "Talk", isSubType: false)
         return [story, expression, talk]
     } ()
+    private var storyCategories: [ProfileContentCategory] = []
     private var stories: [News] = []
     private var talks: [Dialog] = []
     private var filteredStories: [News] = []
     private var filteredTalks: [Dialog] = []
     private let userDataFetcher = UserDataFetcher.shared
+    private let conversationDataFetcher = ConversationDataFetcher.init()
 
     // MARK: - Init
     init() {
@@ -168,6 +177,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             contentCategories[indexPath.item].isSelected = !contentCategories[indexPath.item].isSelected
             updateSections()
             break
+        case .storyCategories:
+            storyCategories[indexPath.item].isSelected = !storyCategories[indexPath.item].isSelected
+            updateSections()
         case .stories:
             let news = filteredStories[indexPath.item]
             let detailedNewsViewController = DetailedNewsViewController.init(news: news)
@@ -195,6 +207,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                     }
                 }
             })
+            break
         default:
             break
         }
@@ -217,6 +230,10 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             return cell
         case .expressions:
             return UICollectionViewCell.init(frame: .zero)
+        case .storyCategories:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
+            cell.contentCategory = storyCategories[indexPath.item]
+            return cell
         }
     }
 
@@ -224,6 +241,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         switch sections[section] {
         case .contentCategories:
             return contentCategories.count
+        case .storyCategories:
+            return storyCategories.count
         case .stories:
             return filteredStories.count
         case .talks:
@@ -261,18 +280,18 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     }
 
     // MARK: - Private
-    private func filterLayoutSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize.init(widthDimension: .absolute(contentCategoryColelctionViewCellWidth), heightDimension: .absolute(contentCategoryColelctionViewCellHeight))
+    private func filterLayoutSection(width: CGFloat, height: CGFloat, spacing: CGFloat, topMargin: CGFloat) -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize.init(widthDimension: .absolute(width), heightDimension: .absolute(height))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(contentCategoryColelctionViewCellWidth), heightDimension: .absolute(contentCategoryColelctionViewCellHeight))
+        let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(width), heightDimension: .absolute(height))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection.init(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.interGroupSpacing = contentCategoryCollectionViewCellGroupSpacing
-        section.contentInsets = NSDirectionalEdgeInsets.init(top: filterCollectionViewSectionTopBottomMargin, leading: filterCollectionViewSectionTrailingLeadingMargin, bottom: filterCollectionViewSectionTopBottomMargin, trailing: filterCollectionViewSectionTrailingLeadingMargin)
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(filterCollectionViewSectionHeaderEstimatedHeight))
-        let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-        section.boundarySupplementaryItems = [headerElement]
+        section.interGroupSpacing = spacing
+        section.contentInsets = NSDirectionalEdgeInsets.init(top: topMargin, leading: filterCollectionViewSectionTrailingLeadingMargin, bottom: 0, trailing: filterCollectionViewSectionTrailingLeadingMargin)
+//        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(filterCollectionViewSectionHeaderEstimatedHeight))
+//        let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+//        section.boundarySupplementaryItems = [headerElement]
         return section
     }
 
@@ -283,7 +302,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection.init(group: group)
         section.interGroupSpacing = itemCollectionViewCellGroupSpacing
-        section.contentInsets = NSDirectionalEdgeInsets.init(top: itemCollectionViewSectionTopBottomMargin, leading: itemCollectionViewSectionTrailingLeadingMargin, bottom: itemCollectionViewSectionTopBottomMargin, trailing: itemCollectionViewSectionTrailingLeadingMargin)
+        section.contentInsets = NSDirectionalEdgeInsets.init(top: itemCollectionViewSectionTopMargin, leading: itemCollectionViewSectionTrailingLeadingMargin, bottom: 0, trailing: itemCollectionViewSectionTrailingLeadingMargin)
         return section
     }
 
@@ -319,6 +338,29 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         if filteredTalks.count > 0 {
             sections.append(.talks)
         }
+        if contentCategories[2].isSelected && !contentCategories[0].isSelected && !contentCategories[1].isSelected {
+            if storyCategories.count == 0 {
+                conversationDataFetcher.fetchCategories(maybeLimit: nil) { (categories, error) in
+                    guard categories != nil else {
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        var categoriesSet: Set<String> = []
+                        for category in categories! {
+                            let title = category.title
+                            let profileContentCategory = ProfileContentCategory.init(contentType: .story, title: title, isSubType: true)
+                            self.storyCategories.append(profileContentCategory)
+                            categoriesSet.insert(title)
+                        }
+                        self.sections.insert(.storyCategories, at: 1)
+                        self.collectionView.reloadData()
+                    }
+                }
+            } else {
+                self.sections.insert(.storyCategories, at: 1)
+            }
+        }
+
         collectionView.reloadData()
     }
 }

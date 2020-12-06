@@ -16,7 +16,7 @@ enum ProfileSection: Int {
     case savedVocabulary
 }
 
-class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProfileHeaderCollectionReusableViewDelegate {
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProfileHeaderCollectionReusableViewDelegate, DialogModeSelectionViewControllerDelegate {
     
     // MARK: - Constants
     private let profileTabBarItemImageName = "tabbar_profile_25pt"
@@ -230,24 +230,15 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 return
             }
             let profileCard = inProgressItems[item]
-            switch profileCard.profileCardType {
-            case .story:
-                if let news = profileCard as? News {
-                    let detailedNewsViewController = DetailedNewsViewController.init(news: news)
-                    navigationController?.pushViewController(detailedNewsViewController, animated: true)
-                }
-                break
-            case .talk:
-                if let dialog = profileCard as? Dialog {
-                    let detailedDialogViewController = DetailedDialogViewController.init(dialog: dialog)
-                    navigationController?.pushViewController(detailedDialogViewController, animated: true)
-                }
-                break
-            default:
-                break
-            }
+            didSelectProfileCard(profileCard)
             break
         case .savedItems:
+            let item = indexPath.item
+            if item >= savedItems.count {
+                return
+            }
+            let profileCard = savedItems[item]
+            didSelectProfileCard(profileCard)
             break
         case .savedVocabulary:
             break
@@ -337,6 +328,30 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return sections.count
     }
 
+
+    // MARK: - DialogModeSelectionViewControllerDelegate
+    func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialog: Dialog) {
+        dismiss(animated: true) {
+            let duoDetailedDialogViewController = DuoDetailedDialogViewController.init(dialog: dialog)
+            self.navigationController?.pushViewController(duoDetailedDialogViewController, animated: true)
+        }
+    }
+
+    func dialogModeSelectionViewControllerDidTapSoloPracticeButton(dialog: Dialog) {
+        dismiss(animated: true) {
+            let detailedDialogViewController = DetailedDialogViewController.init(dialog: dialog)
+            self.navigationController?.pushViewController(detailedDialogViewController, animated: true)
+        }
+    }
+
+    func dialogModeSelectionViewControllerDidTapSaveButton(isSaved: Bool) {
+        if isSaved {
+            view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
+        } else {
+            view.makeToast(NSLocalizedString("removeSuccessfullyMessage", comment: ""))
+        }
+    }
+
     // MARK: - ProfileHeaderCollectionReusableViewDelegate
     func didTapSeeAllButton(profileHeader: ProfileHeader) {
         var profileCards: [ProfileCard] = []
@@ -356,7 +371,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
 
     // MARK: - Private
-    func completedItemsLayoutSection() -> NSCollectionLayoutSection {
+    private func completedItemsLayoutSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
         let groupWidth = (collectionView.bounds.width - sectionLeadingTrailingMargin * 2) / 3
@@ -372,7 +387,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return section
     }
 
-    func profileCardsLayoutSection(hasCards: Bool) -> NSCollectionLayoutSection {
+    private func profileCardsLayoutSection(hasCards: Bool) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
         let groupWidth = hasCards ? profileCardWidth : profileDummyCardWidth
@@ -391,18 +406,59 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
 
     @objc
-    func didTapSettingButton() {
+    private func didTapSettingButton() {
         let profileSettingViewController = ProfileSettingViewController.init()
         navigationController?.pushViewController(profileSettingViewController, animated: true)
     }
 
-    func updateUserNickName(userID: String) {
+    private func updateUserNickName(userID: String) {
         userDataFetcher.getUser (userId: userID, completionHandler: { (maybeUser, error) in
             if error == nil, let currentUser = maybeUser {
                 if currentUser.username != currentUser.email {
                     DispatchQueue.main.async {
                         self.usernameLabel.text = currentUser.username
                     }
+                }
+            }
+        })
+    }
+
+    private func didSelectProfileCard(_ profileCard: ProfileCard) {
+        switch profileCard.profileCardType {
+        case .story:
+            if let news = profileCard as? News {
+                let detailedNewsViewController = DetailedNewsViewController.init(news: news)
+                navigationController?.pushViewController(detailedNewsViewController, animated: true)
+            }
+            break
+        case .talk:
+            if let dialog = profileCard as? Dialog {
+                presentDialogModeSelectionViewController(dialog: dialog)
+            }
+            break
+        default:
+            break
+        }
+    }
+
+    private func presentDialogModeSelectionViewController(dialog: Dialog) {
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+        userDataFetcher.getUserItemSave (userId: userID, itemId: dialog.identifier, completionHandler: { (isSaved, error) in
+            if (error == nil && isSaved) {
+                var maybeIsSaved: Bool?
+                if (error == nil) {
+                    maybeIsSaved = isSaved
+                }
+                let dialogModeSelectionViewController = DialogModeSelectionViewController.init(dialog: dialog, maybeIsSaved: maybeIsSaved)
+                dialogModeSelectionViewController.delegate = self
+                let dialogViewController = DialogViewController.init(contentViewController: dialogModeSelectionViewController)
+                dialogViewController.modalPresentationStyle = .overFullScreen
+                dialogViewController.modalTransitionStyle = .crossDissolve
+
+                DispatchQueue.main.async {
+                    self.navigationController?.present(dialogViewController, animated: true, completion: nil)
                 }
             }
         })

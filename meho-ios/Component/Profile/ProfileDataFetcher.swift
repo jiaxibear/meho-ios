@@ -17,7 +17,7 @@ class ProfileDataFetcher: NSObject {
     private var appSyncClient: AWSAppSyncClient?
     private let session = URLSession(configuration: .default)
 
-    private let fetchProfileDetailURLString = "https://4taqoyya3m.execute-api.us-west-2.amazonaws.com/dev/getProfileDetail"
+    private let fetchProfileDetailURLString = "https://np6vw6ipgk.execute-api.us-west-2.amazonaws.com/dev/profile/"
 
     // MARK: - Init
     override init() {
@@ -25,45 +25,37 @@ class ProfileDataFetcher: NSObject {
     }
 
     public func fetchProfileDetail(userID: String, completionHandler: @escaping ( ProfileDetails?, Error?) -> Void) {
-        guard let fetchProfileDetailURL = URL.init(string: fetchProfileDetailURLString) else {
+
+        guard let fetchProfileDetailURL = URL.init(string: fetchProfileDetailURLString.appending(userID)) else {
             completionHandler(nil, nil)
             return
         }
 
-        do {
-            var request = URLRequest.init(url: fetchProfileDetailURL)
-            request.httpMethod = "POST"
-            let bodyDictionary = [ "userId" : userID ]
-            let bodyJSONString = try JSONSerialization.data(withJSONObject: bodyDictionary, options: .prettyPrinted)
-            request.httpBody = bodyJSONString
-            request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-            session.dataTask(with: request) { (data, response, error) in
-                guard error == nil else {
-                    completionHandler(nil, error)
-                    return
-                }
-                guard data != nil else {
+        let request = URLRequest.init(url: fetchProfileDetailURL)
+        session.dataTask(with: request) { (data, response, error) in
+            guard error == nil else {
+                completionHandler(nil, error)
+                return
+            }
+            guard data != nil else {
+                completionHandler(nil, nil)
+                return
+            }
+            do {
+                if let responseDict = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any], let profileDetails = self.parseProfileDetails(responseDict: responseDict) {
+                    completionHandler(profileDetails, nil)
+                } else {
                     completionHandler(nil, nil)
-                    return
                 }
-                do {
-                    if let responseDict = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any], let profileDetails = self.parseProfileDetails(responseDict: responseDict) {
-                        completionHandler(profileDetails, nil)
-                    } else {
-                        completionHandler(nil, nil)
-                    }
-                }
-                catch {
-                    completionHandler(nil, error)
-                }
-            }.resume()
-        } catch {
-            completionHandler(nil, error)
-        }
+            }
+            catch {
+                completionHandler(nil, error)
+            }
+        }.resume()
     }
 
     private func parseProfileDetails(responseDict: [String: Any]) -> ProfileDetails? {
-        guard let profileDetailsDict = responseDict["response"] as? [String: Any] else {
+        guard let profileDetailsDict = responseDict["detail"] as? [String: Any] else {
             return nil
         }
 
@@ -153,8 +145,64 @@ class ProfileDataFetcher: NSObject {
                 dialog.imageKey = S3ImageViewKey.init(bucket: bucket, key: key)
             }
             return dialog
-        } else {
-            
+        } else if typeName == "Expression" {
+            var expression = Expression.init()
+            if let contentEn = profileCardJSONObject["contentEn"] as? String {
+                expression.contentEn = contentEn
+            }
+            if let audioKeyURLString = profileCardJSONObject["audio_key"] as? String, let audioKeyURL = URL.init(string: audioKeyURLString){
+                expression.audioKey = audioKeyURL
+            }
+            if let identifier = profileCardJSONObject["id"] as? String {
+                expression.identifier = identifier
+            }
+            if let contentPinyin = profileCardJSONObject["contentPinyin"] as? String {
+                expression.contentPinyin = contentPinyin
+            }
+            if let contentZh = profileCardJSONObject["contentZh"] as? String {
+                expression.contentZh = contentZh
+            }
+            if let categoryString = profileCardJSONObject["type"] as? String {
+                var category: SurvivalPhraseCategoryIdentifier?
+                switch categoryString {
+                case "Basic":
+                    category = .basic
+                    break
+                case "Number":
+                    category = .numbers
+                    break
+                case "Shopping":
+                    category = .shopping
+                    break
+                case "Travel":
+                    category = .travel
+                    break
+                case "Dining":
+                    category = .dining
+                    break
+                case "Business":
+                    category = .business
+                    break
+                case "Entertainment":
+                    category = .entertainment
+                    break
+                case "Family":
+                    category = .family
+                    break
+                case "Flirting":
+                    category = .flirting
+                    break
+                case "Festivities":
+                    category = .festivities
+                    break
+                default:
+                    break
+                }
+                if category != nil {
+                    expression.category = category!
+                }
+            }
+            return expression
         }
         return nil
     }

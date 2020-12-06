@@ -19,6 +19,7 @@ class ProfileCardCollectionViewCell: UICollectionViewCell {
     private let contentTypeLabelHeight = CGFloat(16)
     private let contentTypeLabelFontSize = CGFloat(8)
     private let contentStackViewSpacing = CGFloat(8)
+    private let categoryLabelFontSize = CGFloat(14)
 
     // MARK: - Model
     var profileCard: ProfileCard! {
@@ -30,14 +31,23 @@ class ProfileCardCollectionViewCell: UICollectionViewCell {
             case .expression:
                 contentTypeLabel.text = "Expression"
                 contentTypeLabel.backgroundColor = .periwinkleBlue
+                imageView.isHidden = true
+                categoryLabel.isHidden = false
+                if let expression = profileCard as? Expression {
+                    categoryLabel.text = expression.category.rawValue
+                }
                 break
             case .story:
                 contentTypeLabel.text = "Story"
                 contentTypeLabel.backgroundColor = .skyBlue
+                imageView.isHidden = false
+                categoryLabel.isHidden = true
                 break
             case .talk:
                 contentTypeLabel.text = "Talk"
                 contentTypeLabel.backgroundColor = .wisteriaPurple
+                imageView.isHidden = false
+                categoryLabel.isHidden = true
                 break
             }
             setNeedsUpdateConstraints()
@@ -49,6 +59,24 @@ class ProfileCardCollectionViewCell: UICollectionViewCell {
         let imageView = WebImageView.init(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    } ()
+
+    private lazy var categoryLabel: UILabel = {
+        let categoryLabel = UILabel.init(frame: .zero)
+        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
+        categoryLabel.backgroundColor = .wisteriaPurple
+        categoryLabel.textColor = .white
+        categoryLabel.textAlignment = .center
+        if let categoryLabelFontDescriptor = UIFont.systemFont(ofSize: categoryLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded) {
+            categoryLabel.font = UIFont.init(descriptor: categoryLabelFontDescriptor, size: categoryLabelFontSize)
+        }
+        return categoryLabel
+    } ()
+
+    private lazy var topView: UIView = {
+        let topView = UIView.init(frame: .zero)
+        topView.translatesAutoresizingMaskIntoConstraints = false
+        return topView
     } ()
 
     private lazy var contentTypeLabel: UILabel = {
@@ -84,7 +112,7 @@ class ProfileCardCollectionViewCell: UICollectionViewCell {
     } ()
 
     private lazy var contentStackView: UIStackView = {
-        let contentStackView = UIStackView.init(arrangedSubviews: [imageView, contentTypeLabel, titleLabel, subtitleLabel])
+        let contentStackView = UIStackView.init(arrangedSubviews: [topView, contentTypeLabel, titleLabel, subtitleLabel])
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
         contentStackView.axis = .vertical
         contentStackView.distribution = .fill
@@ -111,13 +139,23 @@ class ProfileCardCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(contentStackView)
+        topView.addSubview(imageView)
+        topView.addSubview(categoryLabel)
 
         contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         contentStackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
 
-        imageView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: imageViewHeight).isActive = true
+        topView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor).isActive = true
+        topView.heightAnchor.constraint(equalToConstant: imageViewHeight).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: topView.leadingAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: topView.topAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: topView.bottomAnchor).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: topView.trailingAnchor).isActive = true
+        categoryLabel.leadingAnchor.constraint(equalTo: topView.leadingAnchor).isActive = true
+        categoryLabel.topAnchor.constraint(equalTo: topView.topAnchor).isActive = true
+        categoryLabel.bottomAnchor.constraint(equalTo: topView.bottomAnchor).isActive = true
+        categoryLabel.trailingAnchor.constraint(equalTo: topView.trailingAnchor).isActive = true
 
         contentTypeLabel.widthAnchor.constraint(equalToConstant: contentTypeLabelWidth).isActive = true
         contentTypeLabel.heightAnchor.constraint(equalToConstant: contentTypeLabelHeight).isActive = true
