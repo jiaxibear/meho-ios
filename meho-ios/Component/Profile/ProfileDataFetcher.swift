@@ -87,6 +87,14 @@ class ProfileDataFetcher: NSObject {
             }
             profileDetails.savedItems = savedItems
         }
+        if let savedVocabulariesJSONArray = profileDetailsDict["saved_vocabs"] as? [[String : Any]] {
+            var savedVocabularies: [Vocabulary] = []
+            for vocabularyJSONObject in savedVocabulariesJSONArray {
+                let vocabulary = parseVocabulary(vocabularyJson: vocabularyJSONObject)
+                savedVocabularies.append(vocabulary)
+            }
+            profileDetails.savedVocabularies = savedVocabularies
+        }
         return profileDetails
     }
 
@@ -205,5 +213,22 @@ class ProfileDataFetcher: NSObject {
             return expression
         }
         return nil
+    }
+
+    private func parseVocabulary(vocabularyJson: [String: Any]) -> Vocabulary {
+        var vocabulary = Vocabulary.init()
+        if let contentPinyin = vocabularyJson["contentPinyin"] as? String {
+            vocabulary.content_pinyin = contentPinyin
+        }
+        if let contentZh = vocabularyJson["contentZh"] as? String {
+            vocabulary.content_zh = contentZh
+        }
+        if let contentEn = vocabularyJson["contentEn"] as? String {
+            vocabulary.content_en = contentEn
+        }
+        if let identifier = vocabularyJson["id"] as? String {
+            vocabulary.identifier = identifier
+        }
+        return vocabulary
     }
 }

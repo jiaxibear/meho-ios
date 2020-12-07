@@ -13,7 +13,7 @@ enum ProfileSection: Int {
     case completed
     case inProgress
     case savedItems
-    case savedVocabulary
+    case savedVocabularies
 }
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProfileHeaderCollectionReusableViewDelegate, DialogModeSelectionViewControllerDelegate {
@@ -85,8 +85,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 return self.profileCardsLayoutSection(hasCards: self.inProgressItems.count > 0)
             case .savedItems:
                 return self.profileCardsLayoutSection(hasCards: self.savedItems.count > 0)
-            case .savedVocabulary:
-                return nil
+            case .savedVocabularies:
+                return self.profileCardsLayoutSection(cardWidth: 0, cardHeight: 0)
             }
         }
         return collectionViewCompositionalLayout
@@ -108,12 +108,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     // MARK: - Datamodels
     private let userDataFetcher = UserDataFetcher.shared
     private let profileDataFetcher = ProfileDataFetcher.init()
-    private var sections: [ProfileSection] = [.completed, .inProgress, .savedItems, .savedVocabulary]
+    private var sections: [ProfileSection] = [.completed, .inProgress, .savedItems, .savedVocabularies]
     private var completedItems: [ProfileCard] = []
     private var completedGroupedItems: [ProfileCompletedItem] = []
 
     private var inProgressItems: [ProfileCard] = []
     private var savedItems: [ProfileCard] = []
+    private var saveVocabularies: [Vocabulary] = []
     
     // MARK: - Init
     init() {
@@ -177,6 +178,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.completedItems = profileDetails!.completedItems
             self.inProgressItems = profileDetails!.inProgressItems
             self.savedItems = profileDetails!.savedItems
+            self.saveVocabularies = profileDetails!.savedVocabularies
             var completedStoriesItem = ProfileCompletedItem.init(title: "stories", count: 0, color: UIColor.skyBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
             for completedItem in self.completedItems {
                 switch completedItem.profileCardType {
@@ -240,7 +242,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             let profileCard = savedItems[item]
             didSelectProfileCard(profileCard)
             break
-        case .savedVocabulary:
+        case .savedVocabularies:
             break
         }
     }
@@ -268,7 +270,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 profileCardCell.profileCard = savedItems[indexPath.item]
                 return profileCardCell
             }
-        case .savedVocabulary:
+        case .savedVocabularies:
             return UICollectionViewCell.init(frame: .zero)
         }
         return UICollectionViewCell.init(frame: .zero)
@@ -285,7 +287,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         case .savedItems:
             let count = savedItems.count
             return count > 0 ? count : 1
-        case .savedVocabulary:
+        case .savedVocabularies:
             return 0
         }
     }
@@ -313,8 +315,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 subtitle = NSLocalizedString("SavedContentsSubtitle", comment: "")
                 itemsType = .savedAll
                 break
-            case .savedVocabulary:
+            case .savedVocabularies:
                 title = "Saved Vocabulary"
+                count = saveVocabularies.count
                 break
             }
             headerView.profileHeader = ProfileHeader.init(title: title, subtitle: subtitle, count: count, itemsType: itemsType)
@@ -327,7 +330,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
     }
-
 
     // MARK: - DialogModeSelectionViewControllerDelegate
     func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialog: Dialog) {
@@ -387,12 +389,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return section
     }
 
-    private func profileCardsLayoutSection(hasCards: Bool) -> NSCollectionLayoutSection {
+    private func profileCardsLayoutSection(cardWidth: CGFloat, cardHeight: CGFloat) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
-        let groupWidth = hasCards ? profileCardWidth : profileDummyCardWidth
-        let groupHeight = hasCards ? profileCardHeight : profileDummyCardHeight
-        let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(groupWidth), heightDimension: .absolute(groupHeight))
+        let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(cardWidth), heightDimension: .absolute(cardHeight))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection.init(group: group)
         section.orthogonalScrollingBehavior = .continuous
@@ -403,6 +403,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         section.supplementariesFollowContentInsets = false
         section.interGroupSpacing = sectionInterGroupSpacing
         return section
+    }
+
+    private func profileCardsLayoutSection(hasCards: Bool) -> NSCollectionLayoutSection {
+        let groupWidth = hasCards ? profileCardWidth : profileDummyCardWidth
+        let groupHeight = hasCards ? profileCardHeight : profileDummyCardHeight
+        return profileCardsLayoutSection(cardWidth: groupWidth, cardHeight: groupHeight)
     }
 
     @objc

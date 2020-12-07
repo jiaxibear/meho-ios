@@ -12,4 +12,5 @@ struct ProfileDetails {
     var completedItems: [ProfileCard] = []
     var inProgressItems: [ProfileCard] = []
     var savedItems: [ProfileCard] = []
+    var savedVocabularies: [Vocabulary] = []
 }
