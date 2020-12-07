@@ -158,7 +158,7 @@ class ProfileDataFetcher: NSObject {
             if let contentEn = profileCardJSONObject["contentEn"] as? String {
                 expression.contentEn = contentEn
             }
-            if let audioKeyURLString = profileCardJSONObject["audio_key"] as? String, let audioKeyURL = URL.init(string: audioKeyURLString){
+            if let audioKeyJSONObject = profileCardJSONObject["audio"] as? [String: Any], let audioKeyURL = parseAudioKey(audioKeyJSONObject: audioKeyJSONObject){
                 expression.audioKey = audioKeyURL
             }
             if let identifier = profileCardJSONObject["id"] as? String {
@@ -230,5 +230,13 @@ class ProfileDataFetcher: NSObject {
             vocabulary.identifier = identifier
         }
         return vocabulary
+    }
+
+    private func parseAudioKey(audioKeyJSONObject: [String: Any]) -> URL? {
+        if let key = audioKeyJSONObject["key"] as? String, let bucket = audioKeyJSONObject["bucket"] as? String {
+            let hackedUrlString = ("https://" + bucket + ".s3-us-west-2.amazonaws.com/public/" + key).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            return URL.init(string: hackedUrlString!)
+        }
+        return nil
     }
 }

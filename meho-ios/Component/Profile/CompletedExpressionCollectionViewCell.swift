@@ -88,6 +88,7 @@ class CompletedExpressionCollectionViewCell: UICollectionViewCell {
         listenButton.translatesAutoresizingMaskIntoConstraints = false
         let listenButtonImage = UIImage.init(named: "stories_speaker")
         listenButton.setImage(listenButtonImage, for: .normal)
+        listenButton.addTarget(self, action: #selector(didTapListenButton), for: .touchUpInside)
         return listenButton
     } ()
 
@@ -143,7 +144,18 @@ class CompletedExpressionCollectionViewCell: UICollectionViewCell {
 
         listenButton.widthAnchor.constraint(equalToConstant: listenButtonWidth).isActive = true
         listenButton.heightAnchor.constraint(equalToConstant: listenButtonHeight).isActive = true
-        listenButton.topAnchor.constraint(equalTo: labelsStackView.topAnchor).isActive = true
+        listenButton.topAnchor.constraint(equalTo: categoryLabel.topAnchor).isActive = true
         listenButton.trailingAnchor.constraint(equalTo: labelsStackView.trailingAnchor, constant: -listenButtonTrailingMargin).isActive = true
+    }
+
+    // MARK: - Private
+    @objc
+    private func didTapListenButton() {
+        if let audioKey = expression.audioKey {
+            let playerItem = AVPlayerItem.init(url: audioKey)
+            player = AVPlayer.init(playerItem: playerItem)
+            player?.rate = AudioPlaySpeed.normal.rawValue
+            player?.play()
+        }
     }
 }
