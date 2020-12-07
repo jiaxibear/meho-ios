@@ -318,6 +318,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             case .savedVocabularies:
                 title = "Saved Vocabulary"
                 count = saveVocabularies.count
+                itemsType = .savedVocabularies
                 break
             }
             headerView.profileHeader = ProfileHeader.init(title: title, subtitle: subtitle, count: count, itemsType: itemsType)
@@ -366,6 +367,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             profileCards = savedItems
             break
         default:
+            profileCards = saveVocabularies
             break
         }
         let completedItemsViewController = CompletedItemsViewController.init(completedItemsType: itemsType, profileCards: profileCards)

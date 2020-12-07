@@ -15,6 +15,7 @@ enum CompletedItemsType: Int {
     case completedTalks
     case inProgressAll
     case savedAll
+    case savedVocabularies
 }
 
 class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DialogModeSelectionViewControllerDelegate {
@@ -34,10 +35,12 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private let itemCollectionViewSectionTrailingLeadingMargin = CGFloat(16)
     private let itemCollectionViewSectionTopMargin = CGFloat(24)
     private let expressionColelctionViewCellHeight = CGFloat(150)
+    private let vocabularyColelctionViewCellHeight = CGFloat(100)
     private let completedCategoryCollectionViewCellIdentifier = "CompletedCategoryCollectionViewCellIdentifier"
     private let completedNewsCollectionViewCellIdentifier = "CompletedNewsCollectionViewCellIdentifier"
     private let completedExpressionCollectionViewCellIdentifier = "completedExpressionCollectionViewCellIdentifier"
     private let dialogCollectionViewCellIdentifier = "DialogCollectionViewCellIdentifier"
+    private let completedVocabularyCollectionViewCellIdentifier  = "completedVocabularyCollectionViewCellIdentifier "
 
     enum CompletedItemsSection: Int {
         case contentCategories
@@ -45,6 +48,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         case stories
         case expressions
         case talks
+        case vocabularies
     }
 
     private lazy var collectionViewCompositionalLayout: UICollectionViewCompositionalLayout = {
@@ -60,6 +64,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 return self.itemsSection(cellHeight: self.expressionColelctionViewCellHeight)
             case .talks:
                 return self.itemsSection(cellHeight: self.itemColelctionViewCellHeight)
+            case .vocabularies:
+                return self.itemsSection(cellHeight: self.vocabularyColelctionViewCellHeight)
             }
         }
         return collectionViewCompositionalLayout
@@ -92,6 +98,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             collectionView.register(CompletedExpressionCollectionViewCell.self, forCellWithReuseIdentifier: completedExpressionCollectionViewCellIdentifier)
             collectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCollectionViewCellIdentifier)
             break
+        case .savedVocabularies:
+            collectionView.register(CompletedVocabularyCollectionViewCell.self, forCellWithReuseIdentifier: completedVocabularyCollectionViewCellIdentifier)
         }
 
         return collectionView
@@ -109,6 +117,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private var stories: [News] = []
     private var talks: [Dialog] = []
     private var expressions: [Expression] = []
+    private var vocabularies: [Vocabulary] = []
     private var filteredStories: [News] = []
     private var filteredTalks: [Dialog] = []
     private var filteredExpressions: [Expression] = []
@@ -137,6 +146,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         case .savedAll:
             title = NSLocalizedString("SavedItemsTitle", comment: "")
             break
+        case .savedVocabularies:
+            title = NSLocalizedString("SavedVocabulariesTitle", comment: "")
+            break
         }
 
         for profileCard in profileCards {
@@ -148,6 +160,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             }
             if let expression = profileCard as? Expression {
                 expressions.append(expression)
+            }
+            if let vocabulary = profileCard as? Vocabulary {
+                vocabularies.append(vocabulary)
             }
         }
         filteredTalks = talks
@@ -248,6 +263,10 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
             cell.contentCategory = storyCategories[indexPath.item]
             return cell
+        case .vocabularies:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedVocabularyCollectionViewCellIdentifier, for: indexPath) as! CompletedVocabularyCollectionViewCell
+            cell.setVocabulary(vocabularies[indexPath.item])
+            return cell
         }
     }
 
@@ -263,6 +282,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             return filteredTalks.count
         case .expressions:
             return filteredExpressions.count
+        case .vocabularies:
+            return vocabularies.count
         }
     }
 
@@ -335,6 +356,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         case .savedAll:
             sections.append(.contentCategories)
             break
+        case .savedVocabularies:
+            sections.append(.vocabularies)
+            return
         }
         if !contentCategories[0].isSelected {
             filteredStories = []

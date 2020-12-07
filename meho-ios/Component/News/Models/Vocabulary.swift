@@ -8,13 +8,28 @@
 
 import Foundation
 
-struct Vocabulary: MehoContentAnalytics {
+struct Vocabulary: MehoContentAnalytics, ProfileCard {
     // MARK: - MehoContentAnalytics
     let contentType = MehoAnalyticsContentType.vocabulary
     var contentID: String {
         return identifier
     }
     var contentTrackingID = UUID().uuidString
+
+    // MARK: - MehoContentAnalytics
+    let profileCardType: ProfileCardType = .vocabulary
+
+    var title: String {
+        return content_zh
+    }
+
+    var imageKey: S3ImageViewKey? {
+        return nil
+    }
+
+    var subtitle: String {
+        return content_en
+    }
 
     // MARK: - Main
     var identifier = ""

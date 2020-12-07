@@ -12,6 +12,7 @@ enum ProfileCardType {
     case story
     case expression
     case talk
+    case vocabulary
 }
 
 protocol ProfileCard {

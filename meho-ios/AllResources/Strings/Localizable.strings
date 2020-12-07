@@ -359,3 +359,6 @@
 
 /* Title displayed in the saved items screen. */
 "SavedItemsTitle" = "Saved Items";
+
+/* Title displayed in the saved vocabularies screen. */
+"SavedVocabulariesTitle" = "Saved Vocabularies";

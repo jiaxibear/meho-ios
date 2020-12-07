@@ -49,6 +49,8 @@ class ProfileCardCollectionViewCell: UICollectionViewCell {
                 imageView.isHidden = false
                 categoryLabel.isHidden = true
                 break
+            case .vocabulary:
+                break
             }
             setNeedsUpdateConstraints()
         }
