@@ -8,6 +8,8 @@
 
 import UIKit
 import AVFoundation
+import Amplify
+import AmplifyPlugins
 import TAISDK
 
 enum AudioPlaySpeed : Float {
@@ -463,17 +465,19 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
             delegate?.expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: scoredChapter)
         }
         if let audioKey = scoredChapter.chapter.contentAudioKey {
-            let hackedUrlString = ("https://mehoassets213338-mehoadmin.s3-us-west-2.amazonaws.com/public/" + audioKey).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            if let someURLComponent = URLComponents.init(string: hackedUrlString!) {
-                if let fetchNewsDetailURL = someURLComponent.url {
-                    let playerItem = AVPlayerItem.init(url: fetchNewsDetailURL)
-                    player = AVPlayer.init(playerItem: playerItem)
-                    player?.rate = currentAudioPlaySpeed.rawValue
-                    player?.play()
-                    player?.rate = currentAudioPlaySpeed.rawValue
-                    actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
-                    actionLabel.isHidden = false
-                    delegate?.expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: scoredChapter)
+            Amplify.Storage.getURL(key: audioKey) { event in
+                switch event {
+                case let .success(url):
+                    let playerItem = AVPlayerItem.init(url: url)
+                    self.player = AVPlayer.init(playerItem: playerItem)
+                    self.player?.rate = self.currentAudioPlaySpeed.rawValue
+                    self.player?.play()
+                    self.player?.rate = self.currentAudioPlaySpeed.rawValue
+                    self.actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
+                    self.actionLabel.isHidden = false
+                    self.delegate?.expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: self.scoredChapter)
+                case let .failure(storageError):
+                    print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
                 }
             }
         }

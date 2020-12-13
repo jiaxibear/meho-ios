@@ -9,6 +9,8 @@
 import UIKit
 import Foundation
 import AWSS3
+import Amplify
+import AmplifyPlugins
 
 protocol WebImageViewDelegate : AnyObject {
     func webImageViewDidSetImage(webImageView: WebImageView)
@@ -58,10 +60,13 @@ class WebImageView: UIImageView {
         didSet {
             if self.imageKey != nil {
                 let imageKey = self.imageKey!
-                let hackedUrlString = ("https://" + imageKey.bucket + ".s3-us-west-2.amazonaws.com/public/" + imageKey.key).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                if let someURLComponent = URLComponents.init(string: hackedUrlString!) {
-                    if let fetchNewsDetailURL = someURLComponent.url {
-                        self.imageDataSession.dataTask(with: fetchNewsDetailURL, completionHandler: { (data, request, error) in
+
+
+                Amplify.Storage.getURL(key: imageKey.key) { event in
+                    switch event {
+                    case let .success(url):
+                        print("Completed: \(url)")
+                        self.imageDataSession.dataTask(with: url, completionHandler: { (data, request, error) in
                             if error != nil {
                                 print("There is an error getting the image")
                                 return
@@ -70,7 +75,7 @@ class WebImageView: UIImageView {
                                 print("The image is empty")
                                 return
                             }
-                            if request?.url == someURLComponent.url {
+                            if request?.url == url {
                                 if let image = UIImage.init(data: data!) {
                                     DispatchQueue.main.async {
                                         self.image = image
@@ -79,31 +84,10 @@ class WebImageView: UIImageView {
                                 }
                             }
                             }).resume()
+                    case let .failure(storageError):
+                        print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
                     }
                 }
-
-
-//                let transferUtility = AWSS3TransferUtility.default()
-//                let imageKey = self.imageKey!
-//                let expression = AWSS3TransferUtilityDownloadExpression()
-//                transferUtility.downloadData(fromBucket:imageKey.bucket, key:"public/" + imageKey.key, expression: expression) { (task, url, data, error) in
-//                    if error != nil {
-//                        print("There is an error getting the image")
-//                        return
-//                    }
-//                    if data == nil {
-//                        print("The image is empty")
-//                        return
-//                    }
-//                    if task.bucket == imageKey.bucket {
-//                        if let image = UIImage.init(data: data!) {
-//                            DispatchQueue.main.async {
-//                                self.image = image
-//                                self.delegate?.webImageViewDidSetImage(webImageView: self)
-//                            }
-//                        }
-//                    }
-//                }
             }
         }
     }

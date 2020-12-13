@@ -15,6 +15,8 @@ target 'meho-ios' do
   pod 'AWSS3', '~> 2.15.0'
   pod 'Amplify', '~> 1.2.0'
   pod 'AmplifyPlugins/AWSCognitoAuthPlugin', '~> 1.2.0'
+  pod 'AmplifyPlugins/AWSS3StoragePlugin', '~> 1.2.0'
+  pod 'AmplifyPlugins/AWSCognitoAuthPlugin', '~> 1.2.0'
 
   pod 'Toast-Swift', '~> 5.0.1'
 
@@ -27,7 +29,6 @@ target 'meho-ios' do
 #  pod 'AWSFacebookSignIn', '~> 2.14.2'
 #  pod 'AWSGoogleSignIn', '~> 2.12.0'
 #  pod 'GoogleSignIn', '~> 4.0'
-
 
   target 'meho-iosTests' do
     inherit! :search_paths

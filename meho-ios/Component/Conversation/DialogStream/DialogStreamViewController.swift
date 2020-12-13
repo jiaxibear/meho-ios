@@ -201,7 +201,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
 
         guard let userId = AWSMobileClient.default().userSub else { return }
         userDataFetcher.getUserItemSave (userId: userId, itemId: dialog.identifier, completionHandler: { (isSaved, error) in
-            if (error == nil && isSaved) {
+            if (error == nil) {
                 var maybeIsSaved: Bool?
                 if (error == nil) {
                     maybeIsSaved = isSaved

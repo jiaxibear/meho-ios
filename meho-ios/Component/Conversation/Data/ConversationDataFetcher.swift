@@ -197,6 +197,7 @@ class ConversationDataFetcher: NSObject {
                 }
                 chapterList.append(chapter)
             }
+            chapterList.sort{ $0.sequence < $1.sequence }
             dialog.chapters = chapterList
 
             // default graphQL generation doesn't include detailed chapers

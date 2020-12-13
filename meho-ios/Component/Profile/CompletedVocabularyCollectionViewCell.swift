@@ -8,6 +8,8 @@
 
 import UIKit
 import AVKit
+import Amplify
+import AmplifyPlugins
 
 class CompletedVocabularyCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
@@ -164,14 +166,16 @@ class CompletedVocabularyCollectionViewCell: UICollectionViewCell {
             player?.rate = AudioPlaySpeed.normal.rawValue
             player?.play()
         }
-        if let audioKey = maybePronounceAudioKey, let audioBucket = maybePronounceAudioBucket {
-            let hackedUrlString = ("https://" + audioBucket + ".s3-us-west-2.amazonaws.com/public/" + audioKey).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            if let someURLComponent = URLComponents.init(string: hackedUrlString!) {
-                if let fetchNewsDetailURL = someURLComponent.url {
-                    let playerItem = AVPlayerItem.init(url: fetchNewsDetailURL)
-                    player = AVPlayer.init(playerItem: playerItem)
-                    player?.rate = AudioPlaySpeed.normal.rawValue
-                    player?.play()
+        if let audioKey = maybePronounceAudioKey {
+            Amplify.Storage.getURL(key: audioKey) { event in
+                switch event {
+                case let .success(url):
+                    let playerItem = AVPlayerItem.init(url: url)
+                    self.player = AVPlayer.init(playerItem: playerItem)
+                    self.player?.rate = AudioPlaySpeed.normal.rawValue
+                    self.player?.play()
+                case let .failure(storageError):
+                    print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
                 }
             }
         }

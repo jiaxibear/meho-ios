@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 import FirebaseAnalytics
 import AWSMobileClient
+import Amplify
+import AmplifyPlugins
 
 class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AudioVisualizerViewDelegte, AVAudioRecorderDelegate, DuoYourRoleCollectionViewCellDelegate, DuoFinalScoreViewControllerDelegate, MehoAnalytics {
 
@@ -458,17 +460,19 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             player?.play()
         }
         if let currentChapter = currentScoredChapters.last, let contentAudioKey = currentChapter.chapter.contentAudioKey {
-
-            let hackedUrlString = ("https://mehoassets213338-mehoadmin.s3-us-west-2.amazonaws.com/public/" + contentAudioKey).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            if let someURLComponent = URLComponents.init(string: hackedUrlString!) {
-                if let fetchNewsDetailURL = someURLComponent.url {
-                    let playerItem = AVPlayerItem.init(url: fetchNewsDetailURL)
-                    player = AVPlayer.init(playerItem: playerItem)
-                    NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
-                    player?.play()
+            Amplify.Storage.getURL(key: contentAudioKey) { event in
+                switch event {
+                case let .success(url):
+                    let playerItem = AVPlayerItem.init(url: url)
+                    self.player = AVPlayer.init(playerItem: playerItem)
+                    NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+                    self.player?.play()
+                case let .failure(storageError):
+                    print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
                 }
             }
         }
+
     }
 
     @objc func playerDidFinishPlaying() {
