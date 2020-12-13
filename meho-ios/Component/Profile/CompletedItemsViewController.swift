@@ -20,7 +20,7 @@ enum CompletedItemsType: Int {
 
 class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DialogModeSelectionViewControllerDelegate {
 
-    private let contentCategoryCollectionViewCellWidth = CGFloat(80)
+    private let contentCategoryCollectionViewCellWidth = CGFloat(40)
     private let contentCategoryCollectionViewCellHeight = CGFloat(30)
     private let contentCategoryCollectionViewCellGroupSpacing = CGFloat(12)
     private let subTypeContentCategoryCollectionViewCellWidth = CGFloat(60)
@@ -308,9 +308,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
 
     // MARK: - Private
     private func filterLayoutSection(width: CGFloat, height: CGFloat, spacing: CGFloat, topMargin: CGFloat) -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize.init(widthDimension: .absolute(width), heightDimension: .absolute(height))
+        let itemSize = NSCollectionLayoutSize.init(widthDimension: .estimated(width), heightDimension: .absolute(height))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(width), heightDimension: .absolute(height))
+        let groupSize = NSCollectionLayoutSize.init(widthDimension: .estimated(width), heightDimension: .absolute(height))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection.init(group: group)
         section.orthogonalScrollingBehavior = .continuous
