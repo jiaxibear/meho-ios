@@ -101,7 +101,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         coverImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
         coverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         coverImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        var coverImageViewHeightConstraint = coverImageView.heightAnchor.constraint(equalToConstant: coverImageViewHeight)
+        let coverImageViewHeightConstraint = coverImageView.heightAnchor.constraint(equalToConstant: coverImageViewHeight)
         coverImageViewHeightConstraint.priority = .defaultHigh
         coverImageViewHeightConstraint.isActive = true
 

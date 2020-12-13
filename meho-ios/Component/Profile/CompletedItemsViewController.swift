@@ -45,10 +45,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     enum CompletedItemsSection: Int {
         case contentCategories
         case storyCategories
-        case stories
-        case expressions
-        case talks
-        case vocabularies
+        case items
     }
 
     private lazy var collectionViewCompositionalLayout: UICollectionViewCompositionalLayout = {
@@ -58,14 +55,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 return self.filterLayoutSection(width: self.contentCategoryCollectionViewCellWidth, height: self.contentCategoryCollectionViewCellHeight, spacing: self.contentCategoryCollectionViewCellGroupSpacing, topMargin: self.filterCollectionViewSectionTopMargin)
             case .storyCategories:
                 return self.filterLayoutSection(width: self.subTypeContentCategoryCollectionViewCellWidth, height: self.subTypeContentCategoryCollectionViewCellHeight, spacing: self.subTypeContentCategoryCollectionViewCellGroupSpacing, topMargin: self.subTypeFilterCollectionViewSectionTopMargin)
-            case .stories:
-                return self.itemsSection(cellHeight: self.itemColelctionViewCellHeight)
-            case .expressions:
-                return self.itemsSection(cellHeight: self.itemColelctionViewCellHeight)
-            case .talks:
-                return self.itemsSection(cellHeight: self.itemColelctionViewCellHeight)
-            case .vocabularies:
-                return self.itemsSection(cellHeight: self.vocabularyColelctionViewCellHeight)
+            case .items:
+                return self.itemsSection()
             }
         }
         return collectionViewCompositionalLayout
@@ -122,9 +113,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private var talks: [Dialog] = []
     private var expressions: [Expression] = []
     private var vocabularies: [Vocabulary] = []
-    private var filteredStories: [News] = []
-    private var filteredTalks: [Dialog] = []
-    private var filteredExpressions: [Expression] = []
+    private var filteredItems: [ProfileCard] = []
     private let userDataFetcher = UserDataFetcher.shared
     private let conversationDataFetcher = ConversationDataFetcher.init()
 
@@ -169,9 +158,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 vocabularies.append(vocabulary)
             }
         }
-        filteredTalks = talks
-        filteredStories = stories
-        filteredExpressions = expressions
+        filteredItems = profileCards
         updateSections()
     }
 
@@ -216,35 +203,33 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 storyCategoriesTitleSet.remove(storyCategories[indexPath.item].title)
             }
             updateSections()
-        case .stories:
-            let news = filteredStories[indexPath.item]
-            let detailedNewsViewController = DetailedNewsViewController.init(news: news)
-            navigationController?.pushViewController(detailedNewsViewController, animated: true)
             break
-        case .talks:
-            let dialog = filteredTalks[indexPath.item]
-            guard let userID = AWSMobileClient.default().userSub else {
-                return
-            }
-            userDataFetcher.getUserItemSave (userId: userID, itemId: dialog.identifier, completionHandler: { (isSaved, error) in
-                if (error == nil && isSaved) {
-                    var maybeIsSaved: Bool?
-                    if (error == nil) {
-                        maybeIsSaved = isSaved
-                    }
-                    let dialogModeSelectionViewController = DialogModeSelectionViewController.init(dialog: dialog, maybeIsSaved: maybeIsSaved)
-                    dialogModeSelectionViewController.delegate = self
-                    let dialogViewController = DialogViewController.init(contentViewController: dialogModeSelectionViewController)
-                    dialogViewController.modalPresentationStyle = .overFullScreen
-                    dialogViewController.modalTransitionStyle = .crossDissolve
-
-                    DispatchQueue.main.async {
-                        self.navigationController?.present(dialogViewController, animated: true, completion: nil)
-                    }
+        case .items:
+            if let news = filteredItems[indexPath.item] as? News {
+                let detailedNewsViewController = DetailedNewsViewController.init(news: news)
+                navigationController?.pushViewController(detailedNewsViewController, animated: true)
+            } else if let dialog = filteredItems[indexPath.item] as? Dialog {
+                guard let userID = AWSMobileClient.default().userSub else {
+                    return
                 }
-            })
-            break
-        default:
+                userDataFetcher.getUserItemSave (userId: userID, itemId: dialog.identifier, completionHandler: { (isSaved, error) in
+                    if (error == nil && isSaved) {
+                        var maybeIsSaved: Bool?
+                        if (error == nil) {
+                            maybeIsSaved = isSaved
+                        }
+                        let dialogModeSelectionViewController = DialogModeSelectionViewController.init(dialog: dialog, maybeIsSaved: maybeIsSaved)
+                        dialogModeSelectionViewController.delegate = self
+                        let dialogViewController = DialogViewController.init(contentViewController: dialogModeSelectionViewController)
+                        dialogViewController.modalPresentationStyle = .overFullScreen
+                        dialogViewController.modalTransitionStyle = .crossDissolve
+
+                        DispatchQueue.main.async {
+                            self.navigationController?.present(dialogViewController, animated: true, completion: nil)
+                        }
+                    }
+                })
+            }
             break
         }
     }
@@ -256,27 +241,31 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
             cell.contentCategory = contentCategories[indexPath.item]
             return cell
-        case .stories:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedNewsCollectionViewCellIdentifier, for: indexPath) as! CompletedNewsCollectionViewCell
-            cell.news = filteredStories[indexPath.item]
-            return cell
-        case .talks:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCollectionViewCellIdentifier, for: indexPath) as! DialogCollectionViewCell
-            cell.setDialog(filteredTalks[indexPath.item])
-            return cell
-        case .expressions:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedExpressionCollectionViewCellIdentifier, for: indexPath) as! CompletedExpressionCollectionViewCell
-            cell.expression = filteredExpressions[indexPath.item]
-            return cell
+        case .items:
+            let profileCard = filteredItems[indexPath.item]
+            if let news = profileCard as? News {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedNewsCollectionViewCellIdentifier, for: indexPath) as! CompletedNewsCollectionViewCell
+                cell.news = news
+                return cell
+            } else if let talk = profileCard as? Dialog {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCollectionViewCellIdentifier, for: indexPath) as! DialogCollectionViewCell
+                cell.setDialog(talk)
+                return cell
+            } else if let expression = profileCard as? Expression {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedExpressionCollectionViewCellIdentifier, for: indexPath) as! CompletedExpressionCollectionViewCell
+                cell.expression = expression
+                return cell
+            } else if let vocabulary = profileCard as? Vocabulary {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedVocabularyCollectionViewCellIdentifier, for: indexPath) as! CompletedVocabularyCollectionViewCell
+                cell.setVocabulary(vocabulary)
+                return cell
+            }
         case .storyCategories:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
             cell.contentCategory = storyCategories[indexPath.item]
             return cell
-        case .vocabularies:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedVocabularyCollectionViewCellIdentifier, for: indexPath) as! CompletedVocabularyCollectionViewCell
-            cell.setVocabulary(vocabularies[indexPath.item])
-            return cell
         }
+        return UICollectionViewCell.init(frame: .zero)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -285,14 +274,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             return contentCategories.count
         case .storyCategories:
             return storyCategories.count
-        case .stories:
-            return filteredStories.count
-        case .talks:
-            return filteredTalks.count
-        case .expressions:
-            return filteredExpressions.count
-        case .vocabularies:
-            return vocabularies.count
+        case .items:
+            return filteredItems.count
         }
     }
 
@@ -339,10 +322,10 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         return section
     }
 
-    private func itemsSection(cellHeight: CGFloat) -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(cellHeight))
+    private func itemsSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(itemColelctionViewCellHeight))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(cellHeight))
+        let groupSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(itemColelctionViewCellHeight))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection.init(group: group)
         section.interGroupSpacing = itemCollectionViewCellGroupSpacing
@@ -366,61 +349,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             sections.append(.contentCategories)
             break
         case .savedVocabularies:
-            sections.append(.vocabularies)
-            return
+            break
         }
-        if !contentCategories[0].isSelected {
-            filteredStories = []
-        } else {
-            filteredStories = stories
-        }
-        if filteredStories.count > 0 {
-            sections.append(.stories)
-        }
-        if !contentCategories[1].isSelected {
-            filteredExpressions = []
-        } else {
-            filteredExpressions = expressions
-        }
-        if filteredExpressions.count > 0 {
-            sections.append(.expressions)
-        }
-        if !contentCategories[2].isSelected {
-            filteredTalks = []
-        } else {
-            filteredTalks = talks
-        }
-        if filteredTalks.count > 0 {
-            sections.append(.talks)
-        }
-        if contentCategories[2].isSelected && !contentCategories[0].isSelected && !contentCategories[1].isSelected {
-            if storyCategories.count == 0 {
-                conversationDataFetcher.fetchCategories(maybeLimit: nil) { (categories, error) in
-                    guard categories != nil else {
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        for category in categories! {
-                            let title = category.title
-                            let profileContentCategory = ProfileContentCategory.init(contentType: .story, title: title, isSubType: true)
-                            self.storyCategories.append(profileContentCategory)
-                            self.storyCategoriesTitleSet.insert(title)
-                        }
-                        self.sections.insert(.storyCategories, at: 1)
-                        self.collectionView.reloadData()
-                    }
-                }
-            } else {
-                self.sections.insert(.storyCategories, at: 1)
-                self.filteredTalks = []
-                for talk in self.talks {
-                    if let categoryTitle = talk.category?.title, self.storyCategoriesTitleSet.contains(categoryTitle) {
-                        self.filteredTalks.append(talk)
-                    }
-                }
-            }
-        }
-
+        sections.append(.items)
         collectionView.reloadData()
     }
 }
