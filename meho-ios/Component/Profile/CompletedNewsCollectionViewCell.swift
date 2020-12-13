@@ -18,6 +18,7 @@ class CompletedNewsCollectionViewCell: UICollectionViewCell {
     private let titleLabelNumberOfLines = 3
     private let subtitleLabelNumberOfLines = 2
     private let imageViewWidth = CGFloat(120)
+    private let imageViewHeight = CGFloat(120)
 
     private lazy var imageView: WebImageView = {
         let imageView = WebImageView.init(frame: .zero)
@@ -92,5 +93,8 @@ class CompletedNewsCollectionViewCell: UICollectionViewCell {
         imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: imageViewWidth).isActive = true
+        let imageViewHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: imageViewHeight)
+        imageViewHeightConstraint.priority = .defaultHigh
+        imageViewHeightConstraint.isActive = true
     }
 }

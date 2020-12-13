@@ -32,4 +32,5 @@ struct Dialog: MehoContentAnalytics, ProfileCard {
     var difficulty = Difficulty.beginner
     var whyYouShouldLearn = ""
     var imageKey: S3ImageViewKey?
+    var category: Category?
 }

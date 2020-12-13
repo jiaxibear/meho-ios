@@ -141,6 +141,9 @@ class CompletedExpressionCollectionViewCell: UICollectionViewCell {
         labelsStackView.leadingAnchor.constraint(equalTo: categoryLabel.leadingAnchor).isActive = true
         labelsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
         labelsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -contentBottomMargin).isActive = true
+        let labelsStackViewHeightConstraint = labelsStackView.heightAnchor.constraint(equalToConstant: labelsStackViewHeight())
+        labelsStackViewHeightConstraint.priority = .defaultHigh
+        labelsStackViewHeightConstraint.isActive = true
 
         listenButton.widthAnchor.constraint(equalToConstant: listenButtonWidth).isActive = true
         listenButton.heightAnchor.constraint(equalToConstant: listenButtonHeight).isActive = true
@@ -157,5 +160,16 @@ class CompletedExpressionCollectionViewCell: UICollectionViewCell {
             player?.rate = AudioPlaySpeed.normal.rawValue
             player?.play()
         }
+    }
+
+    private func labelsStackViewHeight() -> CGFloat {
+        var height = categoryLabelSpacing + contentBottomMargin
+        let width = contentView.bounds.width - 2 * contentLeadingTrailingMargin
+        let labelFittingSize = CGSize.init(width: width, height: .greatestFiniteMagnitude)
+        height += categoryLabelHeight + categoryLabelSpacing
+        height += titleLabel.sizeThatFits(labelFittingSize).height + labelSpacing
+        height += pinyinLabel.sizeThatFits(labelFittingSize).height + labelSpacing
+        height += titleEnLabel.sizeThatFits(labelFittingSize).height
+        return height
     }
 }

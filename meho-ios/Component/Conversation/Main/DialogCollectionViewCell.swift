@@ -17,6 +17,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     private let titleInLocalLanguageLabelFontSize = CGFloat(15)
     private let coverImageViewCornerRadius = CGFloat(4)
     private let coverImageViewWidth = CGFloat(110)
+    private let coverImageViewHeight = CGFloat(110)
     private let coverImageTrailingMargin = CGFloat(25)
     private let coverImageBorderWidth = CGFloat(1)
     private let arrowImageViewWidth = CGFloat(45)
@@ -100,6 +101,9 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         coverImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
         coverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         coverImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        var coverImageViewHeightConstraint = coverImageView.heightAnchor.constraint(equalToConstant: coverImageViewHeight)
+        coverImageViewHeightConstraint.priority = .defaultHigh
+        coverImageViewHeightConstraint.isActive = true
 
         difficultyLabel.leadingAnchor.constraint(equalTo: coverImageView.trailingAnchor, constant: titleLabelLeadingTrailingMargin).isActive = true
         difficultyLabel.topAnchor.constraint(equalTo: coverImageView.topAnchor, constant: difficultyLabelTopMargin).isActive = true

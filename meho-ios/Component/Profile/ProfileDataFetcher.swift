@@ -152,6 +152,10 @@ class ProfileDataFetcher: NSObject {
             if let coverImageDict = profileCardJSONObject["coverImage"] as? [String: String], let bucket = coverImageDict["bucket"], let key = coverImageDict["key"] {
                 dialog.imageKey = S3ImageViewKey.init(bucket: bucket, key: key)
             }
+            if let categoryJSONArray = profileCardJSONObject["tags"] as? [[String: Any]] {
+                let category = parseCategory(categoryJSONObject: categoryJSONArray[0])
+                dialog.category = category
+            }
             return dialog
         } else if typeName == "Expression" {
             var expression = Expression.init()
@@ -238,5 +242,13 @@ class ProfileDataFetcher: NSObject {
             return URL.init(string: hackedUrlString!)
         }
         return nil
+    }
+
+    private func parseCategory(categoryJSONObject: [String: Any]) -> Category {
+        var category = Category.init()
+        if let content = categoryJSONObject["content"] as? String {
+            category.title = content
+        }
+        return category
     }
 }

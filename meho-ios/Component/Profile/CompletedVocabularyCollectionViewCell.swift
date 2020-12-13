@@ -75,8 +75,14 @@ class CompletedVocabularyCollectionViewCell: UICollectionViewCell {
         return topLineStackView
     } ()
 
-    private lazy var topLineStackViewHeightAnchor: NSLayoutConstraint = {
+    private lazy var topLineStackViewHeightConstraint: NSLayoutConstraint = {
         return topLineStackView.heightAnchor.constraint(equalToConstant: 0)
+    } ()
+
+    private lazy var vocabularyEnLabelHeightConstraint: NSLayoutConstraint = {
+        var vocabularyEnLabelHeightConstraint = vocabularyEnLabel.heightAnchor.constraint(equalToConstant: 0)
+        vocabularyEnLabelHeightConstraint.priority = .defaultHigh
+        return vocabularyEnLabelHeightConstraint
     } ()
 
     private static var sizingCell = CompletedVocabularyCollectionViewCell.init(frame: .zero);
@@ -118,13 +124,14 @@ class CompletedVocabularyCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(vocabularyEnLabel)
         topLineStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentTopBottomMargin).isActive = true
         topLineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
-        topLineStackViewHeightAnchor.isActive = true
+        topLineStackViewHeightConstraint.isActive = true
         prounceButton.widthAnchor.constraint(equalToConstant: pronounceButtonSize).isActive = true
         prounceButton.heightAnchor.constraint(equalToConstant: pronounceButtonSize).isActive = true
         vocabularyEnLabel.topAnchor.constraint(equalTo: topLineStackView.bottomAnchor, constant: vocabularyEnLabelTopMargin).isActive = true
         vocabularyEnLabel.leadingAnchor.constraint(equalTo: topLineStackView.leadingAnchor).isActive = true
         vocabularyEnLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
         vocabularyEnLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -contentTopBottomMargin).isActive = true
+        vocabularyEnLabelHeightConstraint.isActive = true
     }
 
     // MARK: - Public
@@ -140,17 +147,9 @@ class CompletedVocabularyCollectionViewCell: UICollectionViewCell {
         maybePronounceAudioKey = vocabulary.audio_key
         maybePronounceAudioBucket = vocabulary.audio_bucket
         let contentFittingSize = self.contentFittingSize(with: contentView.bounds.width)
-        topLineStackViewHeightAnchor.constant = max(vocabularyZhLabel.sizeThatFits(contentFittingSize).height, pronounceButtonSize)
+        topLineStackViewHeightConstraint.constant = max(vocabularyZhLabel.sizeThatFits(contentFittingSize).height, pronounceButtonSize)
+        vocabularyEnLabelHeightConstraint.constant = vocabularyEnLabel.sizeThatFits(contentFittingSize).height
         setNeedsUpdateConstraints()
-    }
-
-    public class func cellHeight(with width: CGFloat, vocabulary: Vocabulary) -> CGFloat {
-        sizingCell.setVocabulary(vocabulary)
-        var height = sizingCell.vocabularyEnLabelTopMargin + 2 * sizingCell.contentTopBottomMargin
-        let contentFittingSize = sizingCell.contentFittingSize(with: width)
-        height += max(sizingCell.vocabularyZhLabel.sizeThatFits(contentFittingSize).height, sizingCell.pronounceButtonSize)
-        height += sizingCell.vocabularyEnLabel.sizeThatFits(contentFittingSize).height
-        return height
     }
 
     private func contentFittingSize(with width: CGFloat) -> CGSize {
