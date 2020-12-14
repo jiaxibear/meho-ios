@@ -99,16 +99,41 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private var sections: [CompletedItemsSection] = []
     private let completedItemsType: CompletedItemsType
     private var contentCategories: [ProfileContentCategory] = {
-        let story = ProfileContentCategory.init(contentType: .story, title: "Story", isSubType: false)
-        let expression = ProfileContentCategory.init(contentType: .expression, title: "Expression", isSubType: false)
-        let talk = ProfileContentCategory.init(contentType: .talk, title: "Talk", isSubType: false)
-        return [story, expression, talk]
+        var all = ProfileContentCategory.init(categoryType: .all, title: "All", isSubType: false)
+        all.isSelected = true
+        let story = ProfileContentCategory.init(categoryType: .story, title: "Story", isSubType: false)
+        let expression = ProfileContentCategory.init(categoryType: .expression, title: "Expression", isSubType: false)
+        let talk = ProfileContentCategory.init(categoryType: .talk, title: "Talk", isSubType: false)
+        return [all, story, expression, talk]
     } ()
+
+    private var selectedContentCategoryIndex: Int = 0 {
+        didSet {
+            contentCategories[oldValue].isSelected = false
+            contentCategories[selectedContentCategoryIndex].isSelected = true
+            switch contentCategories[selectedContentCategoryIndex].categoryType {
+            case .all:
+                filteredItems = items
+                break
+            case .story:
+                filteredItems = stories
+                break
+            case .expression:
+                filteredItems = expressions
+                break
+            case .talk:
+                filteredItems = talks
+                break
+            }
+            collectionView.reloadData()
+        }
+    }
     private var storyCategories: [ProfileContentCategory] = []
     private var storyCategoriesTitleSet: Set<String> = []
 //    private lazy var expressionCategories: [ProfileContentCategory] = {
 //
 //    } ()
+    private var items: [ProfileCard] = []
     private var stories: [News] = []
     private var talks: [Dialog] = []
     private var expressions: [Expression] = []
@@ -125,25 +150,6 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     init(completedItemsType: CompletedItemsType, profileCards: [ProfileCard]) {
         self.completedItemsType = completedItemsType
         super.init(nibName: nil, bundle: nil)
-        switch completedItemsType {
-        case .completedExpressions:
-            break
-        case .completedTalks:
-            break
-        case .completedStories:
-            title = NSLocalizedString("CompletedStoreisTitle", comment: "")
-            break
-        case .inProgressAll:
-            title = NSLocalizedString("InProgressItemsTitle", comment: "")
-            break
-        case .savedAll:
-            title = NSLocalizedString("SavedItemsTitle", comment: "")
-            break
-        case .savedVocabularies:
-            title = NSLocalizedString("SavedVocabulariesTitle", comment: "")
-            break
-        }
-
         for profileCard in profileCards {
             if let news = profileCard as? News {
                 stories.append(news)
@@ -158,8 +164,30 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 vocabularies.append(vocabulary)
             }
         }
-        filteredItems = profileCards
-        updateSections()
+        switch completedItemsType {
+        case .completedExpressions:
+            break
+        case .completedTalks:
+            break
+        case .completedStories:
+            title = NSLocalizedString("CompletedStoreisTitle", comment: "")
+            break
+        case .inProgressAll:
+            title = NSLocalizedString("InProgressItemsTitle", comment: "")
+            sections.append(.contentCategories)
+            break
+        case .savedAll:
+            title = NSLocalizedString("SavedItemsTitle", comment: "")
+            sections.append(.contentCategories)
+            break
+        case .savedVocabularies:
+            title = NSLocalizedString("SavedVocabulariesTitle", comment: "")
+            break
+        }
+        sections.append(.items)
+        items = profileCards
+        filteredItems = items
+        collectionView.reloadData()
     }
 
     @available(*, unavailable)
@@ -192,8 +220,10 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
         case .contentCategories:
-            contentCategories[indexPath.item].isSelected = !contentCategories[indexPath.item].isSelected
-            updateSections()
+            let item = indexPath.item
+            if item != selectedContentCategoryIndex {
+                selectedContentCategoryIndex = item
+            }
             break
         case .storyCategories:
             storyCategories[indexPath.item].isSelected = !storyCategories[indexPath.item].isSelected

@@ -8,9 +8,16 @@
 
 import Foundation
 
+enum ProfileContentCategoryType {
+    case all
+    case story
+    case expression
+    case talk
+}
+
 struct ProfileContentCategory {
-    let contentType: ProfileCardType
+    let categoryType: ProfileContentCategoryType
     let title: String
-    var isSelected = true
+    var isSelected = false
     let isSubType: Bool
 }
