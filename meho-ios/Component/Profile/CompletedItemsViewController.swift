@@ -45,6 +45,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     enum CompletedItemsSection: Int {
         case contentCategories
         case storyCategories
+        case expressionCategories
         case items
     }
 
@@ -53,6 +54,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             switch self.sections[section] {
             case .contentCategories:
                 return self.filterLayoutSection(width: self.contentCategoryCollectionViewCellWidth, height: self.contentCategoryCollectionViewCellHeight, spacing: self.contentCategoryCollectionViewCellGroupSpacing, topMargin: self.filterCollectionViewSectionTopMargin)
+            case .expressionCategories:
+                fallthrough
             case .storyCategories:
                 return self.filterLayoutSection(width: self.subTypeContentCategoryCollectionViewCellWidth, height: self.subTypeContentCategoryCollectionViewCellHeight, spacing: self.subTypeContentCategoryCollectionViewCellGroupSpacing, topMargin: self.subTypeFilterCollectionViewSectionTopMargin)
             case .items:
@@ -117,19 +120,22 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             switch contentCategories[selectedContentCategoryIndex].categoryType {
             case .all:
                 filteredItems = items
+                collectionView.reloadData()
                 break
             case .story:
                 filteredItems = stories
+                collectionView.reloadData()
                 break
             case .expression:
-                filteredItems = expressions
+                self.sections.insert(.expressionCategories, at: 1)
+                selectedExpressionContentCategoryIndex = 0
                 break
             case .talk:
-                filteredItems = talks
                 if talkCategories.count == 0 {
                     conversationDataFetcher.fetchCategories(maybeLimit: nil) { (categories, error) in
                         guard categories != nil else {
                             DispatchQueue.main.async {
+                                self.filteredItems = self.talks
                                 self.collectionView.reloadData()
                             }
                             return
@@ -144,16 +150,15 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                                 self.talkCategories.append(profileContentCategory)
                             }
                             self.sections.insert(.storyCategories, at: 1)
-                            self.collectionView.reloadData()
+                            self.selectedTalkContentCategoryIndex = 0
                         }
                     }
                 } else {
                     self.sections.insert(.storyCategories, at: 1)
-                    collectionView.reloadData()
+                    self.selectedTalkContentCategoryIndex = 0
                 }
                 break
             }
-            collectionView.reloadData()
         }
     }
 
@@ -177,9 +182,38 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             collectionView.reloadData()
         }
     }
-//    private lazy var expressionCategories: [ProfileContentCategory] = {
-//
-//    } ()
+
+    private lazy var expressionCategories: [ProfileContentCategory] = {
+        var expressionCategories: [ProfileContentCategory] = []
+        var allCategory = ProfileContentCategory.init(categoryType: .expression, title: "All", isSubType: true)
+        allCategory.isSelected = true
+        expressionCategories.append(allCategory)
+        for value in SurvivalPhraseCategoryIdentifier.allCases {
+            let category = ProfileContentCategory.init(categoryType: .expression, title: value.rawValue, isSubType: true)
+            expressionCategories.append(category)
+        }
+        return expressionCategories
+    } ()
+
+    private var selectedExpressionContentCategoryIndex: Int = 0 {
+        didSet {
+            expressionCategories[oldValue].isSelected = false
+            expressionCategories[selectedExpressionContentCategoryIndex].isSelected = true
+            if selectedExpressionContentCategoryIndex == 0 {
+                filteredItems = expressions
+            } else {
+                filteredItems.removeAll()
+                let title = expressionCategories[selectedExpressionContentCategoryIndex].title
+                for expression in expressions {
+                    if expression.category.rawValue == title {
+                        filteredItems.append(expression)
+                    }
+                }
+            }
+            collectionView.reloadData()
+        }
+    }
+
     private var items: [ProfileCard] = []
     private var stories: [News] = []
     private var talks: [Dialog] = []
@@ -278,6 +312,12 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 selectedTalkContentCategoryIndex = item
             }
             break
+        case .expressionCategories:
+            let item = indexPath.item
+            if item != selectedExpressionContentCategoryIndex {
+                selectedExpressionContentCategoryIndex = item
+            }
+            break
         case .items:
             if let news = filteredItems[indexPath.item] as? News {
                 let detailedNewsViewController = DetailedNewsViewController.init(news: news)
@@ -338,6 +378,10 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
             cell.contentCategory = talkCategories[indexPath.item]
             return cell
+        case .expressionCategories:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
+            cell.contentCategory = expressionCategories[indexPath.item]
+            return cell
         }
         return UICollectionViewCell.init(frame: .zero)
     }
@@ -348,6 +392,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             return contentCategories.count
         case .storyCategories:
             return talkCategories.count
+        case .expressionCategories:
+            return expressionCategories.count
         case .items:
             return filteredItems.count
         }

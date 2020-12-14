@@ -33,26 +33,26 @@ class CompletedCategoryCollectionViewCell: UICollectionViewCell {
                 if let titleLabelFontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
                     titleLabel.font = UIFont.init(descriptor: titleLabelFontDescriptor, size: subTypeTitleLabelFontSize)
                 }
-                contentView.layer.borderColor = UIColor.skyBlue.cgColor
+                contentView.layer.borderColor = UIColor.greenBlue.cgColor
             } else {
                 if let titleLabelFontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
                     titleLabel.font = UIFont.init(descriptor: titleLabelFontDescriptor, size: titleLabelFontSize)
                 }
-                contentView.layer.borderColor = UIColor.wisteriaPurple.cgColor
+                contentView.layer.borderColor = UIColor.skyBlue.cgColor
             }
             if contentCategory.isSelected {
                 if contentCategory.isSubType {
-                    contentView.backgroundColor = .skyBlue
+                    contentView.backgroundColor = .greenBlue
                 } else {
-                    contentView.backgroundColor = .wisteriaPurple
+                    contentView.backgroundColor = .skyBlue
                 }
                 titleLabel.textColor = .white
             } else {
                 contentView.backgroundColor = .white
                 if contentCategory.isSubType {
-                    titleLabel.textColor = .skyBlue
+                    titleLabel.textColor = .greenBlue
                 } else {
-                    titleLabel.textColor = .wisteriaPurple
+                    titleLabel.textColor = .skyBlue
                 }
             }
         }
