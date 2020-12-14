@@ -16,13 +16,15 @@ class CompletedCategoryCollectionViewCell: UICollectionViewCell {
     private let contentViewBorderWidth = CGFloat(1)
     private let titleLabelFontSize = CGFloat(12)
     private let titleLabelLeadingTrailingMargin = CGFloat(12)
-    private let subTypeTitleLabelFontSize = CGFloat(8)
 
     // MARK: - Properties
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel.init(frame: .zero)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.numberOfLines = titleLabelNumberOfLines
+        if let titleLabelFontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+            titleLabel.font = UIFont.init(descriptor: titleLabelFontDescriptor, size: titleLabelFontSize)
+        }
         return titleLabel
     } ()
 
@@ -30,14 +32,8 @@ class CompletedCategoryCollectionViewCell: UICollectionViewCell {
         didSet {
             titleLabel.text = contentCategory.title
             if contentCategory.isSubType {
-                if let titleLabelFontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
-                    titleLabel.font = UIFont.init(descriptor: titleLabelFontDescriptor, size: subTypeTitleLabelFontSize)
-                }
                 contentView.layer.borderColor = UIColor.greenBlue.cgColor
             } else {
-                if let titleLabelFontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
-                    titleLabel.font = UIFont.init(descriptor: titleLabelFontDescriptor, size: titleLabelFontSize)
-                }
                 contentView.layer.borderColor = UIColor.skyBlue.cgColor
             }
             if contentCategory.isSelected {
