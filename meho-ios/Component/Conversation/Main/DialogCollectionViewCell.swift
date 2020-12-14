@@ -131,6 +131,12 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         fatalError("Use init(frame: CGRect)")
     }
 
+    // MARK: - UICollectionViewCell
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        coverImageView.image = nil
+    }
+
     // MARK - WebImageViewDelegate
     func webImageViewDidSetImage(webImageView: WebImageView) {
         self.contentView.isHidden = false

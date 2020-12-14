@@ -97,4 +97,10 @@ class CompletedNewsCollectionViewCell: UICollectionViewCell {
         imageViewHeightConstraint.priority = .defaultHigh
         imageViewHeightConstraint.isActive = true
     }
+
+    // MARK: - UICollectionViewCell
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
 }
