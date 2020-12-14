@@ -152,7 +152,7 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         if let coverImageURL = dialog.coverImageURL {
             coverImageView.imageURL = coverImageURL
         } else if let imageKey = dialog.coverImageKey {
-            let s3Key = S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: imageKey)
+            let s3Key = S3ResourceKey.init(bucket: "mehoassets213338-mehoadmin", key: imageKey)
             coverImageView.imageKey = s3Key
         } else if let imageKey = dialog.imageKey {
             coverImageView.imageKey = imageKey

@@ -105,7 +105,7 @@ class ProfileDataFetcher: NSObject {
         if typeName == "Article" {
             var news = News.init()
             if let coverImageDict = profileCardJSONObject["coverImage"] as? [String: String], let bucket = coverImageDict["bucket"], let key = coverImageDict["key"] {
-                news.imageKey = S3ImageViewKey.init(bucket: bucket, key: key)
+                news.imageKey = S3ResourceKey.init(bucket: bucket, key: key)
             }
             if let titleEn = profileCardJSONObject["titleEn"] as? String {
                 news.title_en = titleEn
@@ -150,7 +150,7 @@ class ProfileDataFetcher: NSObject {
                 dialog.identifier = identifier
             }
             if let coverImageDict = profileCardJSONObject["coverImage"] as? [String: String], let bucket = coverImageDict["bucket"], let key = coverImageDict["key"] {
-                dialog.imageKey = S3ImageViewKey.init(bucket: bucket, key: key)
+                dialog.imageKey = S3ResourceKey.init(bucket: bucket, key: key)
             }
             if let categoryJSONArray = profileCardJSONObject["tags"] as? [[String: Any]] {
                 let category = parseCategory(categoryJSONObject: categoryJSONArray[0])

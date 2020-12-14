@@ -96,7 +96,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         if let coverImageURL = category.coverImageURL {
             coverImageView.imageURL = coverImageURL
         } else if let imageKey = category.coverImageKey {
-            let s3Key = S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: imageKey)
+            let s3Key = S3ResourceKey.init(bucket: "mehoassets213338-mehoadmin", key: imageKey)
             coverImageView.imageKey = s3Key
         } else {
             coverImageView.image = UIImage.init(named: "tag_see_all")

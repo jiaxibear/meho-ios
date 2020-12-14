@@ -93,7 +93,7 @@ class NewsChapterCollectionViewCell: UICollectionViewCell, WebImageViewDelegate,
                 imageView.imageURL = contentImageURL
                 imageView.isHidden = false
             } else if let imageKey = newsChapter.image_key, let imageBucket = newsChapter.image_bucket {
-                let s3Key = S3ImageViewKey.init(bucket: imageBucket, key: imageKey)
+                let s3Key = S3ResourceKey.init(bucket: imageBucket, key: imageKey)
                 imageView.imageKey = s3Key
                 imageView.isHidden = false
             } else {

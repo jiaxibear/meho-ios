@@ -88,7 +88,7 @@ class ListedNormalCategoryCollectionViewCell: UICollectionViewCell, WebImageView
         titleLabel.text = category.title
 
         if let imageKey = category.coverImageKey {
-            let s3Key = S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: imageKey)
+            let s3Key = S3ResourceKey.init(bucket: "mehoassets213338-mehoadmin", key: imageKey)
             categoryImageView.imageKey = s3Key
         }
     }

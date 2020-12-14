@@ -16,7 +16,7 @@ protocol WebImageViewDelegate : AnyObject {
     func webImageViewDidSetImage(webImageView: WebImageView)
 }
 
-struct S3ImageViewKey {
+struct S3ResourceKey {
     let bucket: String
     let key: String
 }
@@ -56,7 +56,7 @@ class WebImageView: UIImageView {
         }
     }
 
-    var imageKey: S3ImageViewKey? {
+    var imageKey: S3ResourceKey? {
         didSet {
             if self.imageKey != nil {
                 let imageKey = self.imageKey!

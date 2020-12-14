@@ -23,7 +23,7 @@ struct Vocabulary: MehoContentAnalytics, ProfileCard {
         return content_zh
     }
 
-    var imageKey: S3ImageViewKey? {
+    var imageKey: S3ResourceKey? {
         return nil
     }
 

@@ -25,7 +25,7 @@ protocol ProfileCard {
     var title: String {
         get
     }
-    var imageKey: S3ImageViewKey? {
+    var imageKey: S3ResourceKey? {
         get
     }
     var subtitle: String {

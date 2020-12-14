@@ -19,7 +19,7 @@ struct Expression: ProfileCard {
         return contentEn
     }
 
-    var imageKey: S3ImageViewKey?
+    var imageKey: S3ResourceKey?
     var identifier = ""
     var contentZh = ""
     var contentPinyin = ""

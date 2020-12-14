@@ -101,7 +101,7 @@ class ListedFeaturedCategoryCollectionViewCell: UICollectionViewCell, WebImageVi
         }
 
         if let imageKey = category.featuredImageKey {
-            let s3Key = S3ImageViewKey.init(bucket: "mehoassets213338-mehoadmin", key: imageKey)
+            let s3Key = S3ResourceKey.init(bucket: "mehoassets213338-mehoadmin", key: imageKey)
             featuredImageView.imageKey = s3Key
         }
     }
