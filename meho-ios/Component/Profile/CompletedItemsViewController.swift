@@ -111,6 +111,9 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         didSet {
             contentCategories[oldValue].isSelected = false
             contentCategories[selectedContentCategoryIndex].isSelected = true
+            if sections.count == 3 {
+                sections.remove(at: 1)
+            }
             switch contentCategories[selectedContentCategoryIndex].categoryType {
             case .all:
                 filteredItems = items
@@ -123,13 +126,57 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 break
             case .talk:
                 filteredItems = talks
+                if talkCategories.count == 0 {
+                    conversationDataFetcher.fetchCategories(maybeLimit: nil) { (categories, error) in
+                        guard categories != nil else {
+                            DispatchQueue.main.async {
+                                self.collectionView.reloadData()
+                            }
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            var allContentCategory = ProfileContentCategory.init(categoryType: .story, title: "All", isSubType: true)
+                            allContentCategory.isSelected = true
+                            self.talkCategories.append(allContentCategory)
+                            for category in categories! {
+                                let title = category.title
+                                let profileContentCategory = ProfileContentCategory.init(categoryType: .story, title: title, isSubType: true)
+                                self.talkCategories.append(profileContentCategory)
+                            }
+                            self.sections.insert(.storyCategories, at: 1)
+                            self.collectionView.reloadData()
+                        }
+                    }
+                } else {
+                    self.sections.insert(.storyCategories, at: 1)
+                    collectionView.reloadData()
+                }
                 break
             }
             collectionView.reloadData()
         }
     }
-    private var storyCategories: [ProfileContentCategory] = []
-    private var storyCategoriesTitleSet: Set<String> = []
+
+    private var talkCategories: [ProfileContentCategory] = []
+
+    private var selectedTalkContentCategoryIndex: Int = 0 {
+        didSet {
+            talkCategories[oldValue].isSelected = false
+            talkCategories[selectedTalkContentCategoryIndex].isSelected = true
+            if selectedTalkContentCategoryIndex == 0 {
+                filteredItems = talks
+            } else {
+                filteredItems.removeAll()
+                let title = talkCategories[selectedTalkContentCategoryIndex].title
+                for talk in talks {
+                    if talk.category?.title == title {
+                        filteredItems.append(talk)
+                    }
+                }
+            }
+            collectionView.reloadData()
+        }
+    }
 //    private lazy var expressionCategories: [ProfileContentCategory] = {
 //
 //    } ()
@@ -226,13 +273,10 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             }
             break
         case .storyCategories:
-            storyCategories[indexPath.item].isSelected = !storyCategories[indexPath.item].isSelected
-            if storyCategories[indexPath.item].isSelected {
-                storyCategoriesTitleSet.insert(storyCategories[indexPath.item].title)
-            } else {
-                storyCategoriesTitleSet.remove(storyCategories[indexPath.item].title)
+            let item = indexPath.item
+            if item != selectedTalkContentCategoryIndex {
+                selectedTalkContentCategoryIndex = item
             }
-            updateSections()
             break
         case .items:
             if let news = filteredItems[indexPath.item] as? News {
@@ -292,7 +336,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             }
         case .storyCategories:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
-            cell.contentCategory = storyCategories[indexPath.item]
+            cell.contentCategory = talkCategories[indexPath.item]
             return cell
         }
         return UICollectionViewCell.init(frame: .zero)
@@ -303,7 +347,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         case .contentCategories:
             return contentCategories.count
         case .storyCategories:
-            return storyCategories.count
+            return talkCategories.count
         case .items:
             return filteredItems.count
         }
@@ -361,27 +405,5 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         section.interGroupSpacing = itemCollectionViewCellGroupSpacing
         section.contentInsets = NSDirectionalEdgeInsets.init(top: itemCollectionViewSectionTopMargin, leading: itemCollectionViewSectionTrailingLeadingMargin, bottom: 0, trailing: itemCollectionViewSectionTrailingLeadingMargin)
         return section
-    }
-
-    private func updateSections() {
-        sections.removeAll()
-        switch completedItemsType {
-        case .completedExpressions:
-            break
-        case .completedTalks:
-            break
-        case .completedStories:
-            break
-        case .inProgressAll:
-            sections.append(.contentCategories)
-            break
-        case .savedAll:
-            sections.append(.contentCategories)
-            break
-        case .savedVocabularies:
-            break
-        }
-        sections.append(.items)
-        collectionView.reloadData()
     }
 }
