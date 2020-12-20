@@ -333,27 +333,40 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         }
     }
 
-    func expandedChapterCollectionViewCellDidTapAudioVisulizerInside(audioFileURL: URL, chapterId: String, score: Float?, scoreDetail: String?) {
+    func expandedChapterCollectionViewCellDidTapAudioVisulizerInside(audioFileURL: URL, scoredChapter: ScoredChapter) {
         guard let userId = AWSMobileClient.default().userSub else { return }
-        let scoreD = score == nil ? nil : Double(score!).rounded(.towardZero)
-        userDataFetcher.createUserChapterRecording(userId: userId, chapterId: chapterId, mode: "solo", score: scoreD) { (maybeRecordingId, maybeError) in
-            if let recordingId = maybeRecordingId, maybeError == nil {
-                let options = StorageUploadFileRequest.Options(accessLevel: .private)
-                Amplify.Storage.uploadFile(
-                    key: recordingId + ".caf",
-                    local: audioFileURL,
-                    options: options,
-                    resultListener: { event in
-                        switch event {
-                        case let .success(data):
-                            break
-                        case let .failure(storageError):
-                            print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
-                        }
-                    }
-                )
+        let scoreD = Double(scoredChapter.score).rounded(.towardZero)
+        if (scoredChapter.isExpressionChapter) {
+            userDataFetcher.createUserExpressionRecording(userId: userId, expressionId: scoredChapter.chapter.identifier, score: scoreD) { (maybeRecordingId, maybeError) in
+                if let recordingId = maybeRecordingId, maybeError == nil {
+                    self.uploadRecordingToS3(audioFileURL: audioFileURL, recordingId: recordingId)
+                }
+            }
+        } else {
+            userDataFetcher.createUserChapterRecording(userId: userId, chapterId: scoredChapter.chapter.identifier, mode: "SOLO", score: scoreD) { (maybeRecordingId, maybeError) in
+                if let recordingId = maybeRecordingId, maybeError == nil {
+                    self.uploadRecordingToS3(audioFileURL: audioFileURL, recordingId: recordingId)
+                }
             }
         }
+
+    }
+
+    func uploadRecordingToS3(audioFileURL: URL, recordingId: String) {
+        let options = StorageUploadFileRequest.Options(accessLevel: .private)
+        Amplify.Storage.uploadFile(
+            key: recordingId + ".caf",
+            local: audioFileURL,
+            options: options,
+            resultListener: { event in
+                switch event {
+                case let .success(data):
+                    break
+                case let .failure(storageError):
+                    print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+                }
+            }
+        )
     }
 
     // MARK: - Private

@@ -343,7 +343,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
         guard let userId = AWSMobileClient.default().userSub else { return }
         let scoreD = score == nil ? nil : Double(score!).rounded(.towardZero)
-        userDataFetcher.createUserChapterRecording(userId: userId, chapterId: chapterId, mode: "duo", score: scoreD) { (maybeRecordingId, maybeError) in
+        userDataFetcher.createUserChapterRecording(userId: userId, chapterId: chapterId, mode: "DUO", score: scoreD) { (maybeRecordingId, maybeError) in
             if let recordingId = maybeRecordingId, maybeError == nil {
                 let options = StorageUploadFileRequest.Options(accessLevel: .private)
                 Amplify.Storage.uploadFile(

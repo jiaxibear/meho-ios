@@ -417,12 +417,32 @@ class UserDataFetcher: NSObject {
                 completionHandler(nil, error)
                 return
             }
-            guard let createdUser = result?.data?.createUserChapterRecording else {
+            guard let createdUserChapterRecording = result?.data?.createUserChapterRecording else {
                 completionHandler(nil, nil)
                 return
             }
 
-            completionHandler(createdUser.id, nil)
+            completionHandler(createdUserChapterRecording.id, nil)
+        })
+    }
+
+    public func createUserExpressionRecording(userId: String, expressionId: String, score:Double? = nil, scoreDetail:String? = nil, completionHandler: @escaping ( String?, Error?) -> Void) {
+        let createUserExpressionRecordingInput = CreateUserExpressionRecordingInput(userId: userId, expressionId: expressionId, score: score, scoreDetail: scoreDetail)
+
+
+        let m = CreateUserExpressionRecordingMutation(input: createUserExpressionRecordingInput)
+        appSyncClient?.perform(mutation: m, resultHandler:  { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {
+                completionHandler(nil, error)
+                return
+            }
+            guard let createdUserExpressionRecording = result?.data?.createUserExpressionRecording else {
+                completionHandler(nil, nil)
+                return
+            }
+
+            completionHandler(createdUserExpressionRecording.id, nil)
         })
     }
 }
