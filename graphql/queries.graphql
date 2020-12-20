@@ -1722,6 +1722,86 @@ query ListDialogues(
     nextToken
   }
 }
+query GetUserChapterRecording($id: ID!) {
+  getUserChapterRecording(id: $id) {
+    id
+    user_id
+    chapter_id
+    mode
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListUserChapterRecordings(
+  $filter: ModelUserChapterRecordingFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserChapterRecordings(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      user_id
+      chapter_id
+      mode
+      score
+      score_detail
+      user_record {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetUserExpressionRecording($id: ID!) {
+  getUserExpressionRecording(id: $id) {
+    id
+    user_id
+    expression_id
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListUserExpressionRecordings(
+  $filter: ModelUserExpressionRecordingFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserExpressionRecordings(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      user_id
+      expression_id
+      score
+      score_detail
+      user_record {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
 query GetTagDialogue($id: ID!) {
   getTagDialogue(id: $id) {
     id
@@ -3307,6 +3387,69 @@ query GetDialoguesByStatus(
       status
       createdAt
       markAsMostPopular
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetChapterRecordingByUserAndChapter(
+  $user_id: String
+  $chapter_id: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelUserChapterRecordingFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getChapterRecordingByUserAndChapter(
+    user_id: $user_id
+    chapter_id: $chapter_id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      user_id
+      chapter_id
+      mode
+      score
+      score_detail
+      user_record {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetExpressionRecordingByUserAndExpression(
+  $user_id: String
+  $expression_id: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelUserExpressionRecordingFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getExpressionRecordingByUserAndExpression(
+    user_id: $user_id
+    expression_id: $expression_id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      user_id
+      expression_id
+      score
+      score_detail
+      user_record {
+        ...S3Object
+      }
+      createdAt
       updatedAt
     }
     nextToken

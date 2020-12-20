@@ -37,6 +37,7 @@ protocol ExpandedChapterCollectionViewCellDelegate : AnyObject {
     func expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: ScoredChapter)
     func expandedChapterCollectionViewCellDidTapReplayButton(scoredChapter: ScoredChapter)
     func expandedChapterCollectionViewCellDidTapRecordButton(scoredChapter: ScoredChapter)
+    func expandedChapterCollectionViewCellDidTapAudioVisulizerInside(audioFileURL: URL, chapterId: String, score: Float?, scoreDetail: String?)
     func expandedChapterCollectionViewCellDidTapSpeedButton(scoredChapter: ScoredChapter)
     func expandedChapterCollectionViewCellDidTapSaveButton(scoredChapter: ScoredChapter, currentIsSaved: Bool)
 }
@@ -436,6 +437,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
                     } else {
                         self.actionLabel.text = NSLocalizedString("ReplayWithoutScorePromptActionText", comment: "")
                     }
+                    self.delegate?.expandedChapterCollectionViewCellDidTapAudioVisulizerInside(audioFileURL: self.audioFileURL!, chapterId:self.scoredChapter.chapter.identifier, score: suggestedScore, scoreDetail: nil)
                     break
                 case .failure(let error):
                     self.recordButton.isSelected = false

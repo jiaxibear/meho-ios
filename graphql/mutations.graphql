@@ -3203,6 +3203,111 @@ mutation DeleteDialogue(
     updatedAt
   }
 }
+mutation CreateUserChapterRecording(
+  $input: CreateUserChapterRecordingInput!
+  $condition: ModelUserChapterRecordingConditionInput
+) {
+  createUserChapterRecording(input: $input, condition: $condition) {
+    id
+    user_id
+    chapter_id
+    mode
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUserChapterRecording(
+  $input: UpdateUserChapterRecordingInput!
+  $condition: ModelUserChapterRecordingConditionInput
+) {
+  updateUserChapterRecording(input: $input, condition: $condition) {
+    id
+    user_id
+    chapter_id
+    mode
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUserChapterRecording(
+  $input: DeleteUserChapterRecordingInput!
+  $condition: ModelUserChapterRecordingConditionInput
+) {
+  deleteUserChapterRecording(input: $input, condition: $condition) {
+    id
+    user_id
+    chapter_id
+    mode
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateUserExpressionRecording(
+  $input: CreateUserExpressionRecordingInput!
+  $condition: ModelUserExpressionRecordingConditionInput
+) {
+  createUserExpressionRecording(input: $input, condition: $condition) {
+    id
+    user_id
+    expression_id
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUserExpressionRecording(
+  $input: UpdateUserExpressionRecordingInput!
+  $condition: ModelUserExpressionRecordingConditionInput
+) {
+  updateUserExpressionRecording(input: $input, condition: $condition) {
+    id
+    user_id
+    expression_id
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUserExpressionRecording(
+  $input: DeleteUserExpressionRecordingInput!
+  $condition: ModelUserExpressionRecordingConditionInput
+) {
+  deleteUserExpressionRecording(input: $input, condition: $condition) {
+    id
+    user_id
+    expression_id
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
 mutation CreateTagDialogue(
   $input: CreateTagDialogueInput!
   $condition: ModelTagDialogueConditionInput

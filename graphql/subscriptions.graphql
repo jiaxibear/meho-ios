@@ -3113,6 +3113,93 @@ subscription OnDeleteDialogue {
     updatedAt
   }
 }
+subscription OnCreateUserChapterRecording {
+  onCreateUserChapterRecording {
+    id
+    user_id
+    chapter_id
+    mode
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUserChapterRecording {
+  onUpdateUserChapterRecording {
+    id
+    user_id
+    chapter_id
+    mode
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUserChapterRecording {
+  onDeleteUserChapterRecording {
+    id
+    user_id
+    chapter_id
+    mode
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateUserExpressionRecording {
+  onCreateUserExpressionRecording {
+    id
+    user_id
+    expression_id
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUserExpressionRecording {
+  onUpdateUserExpressionRecording {
+    id
+    user_id
+    expression_id
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUserExpressionRecording {
+  onDeleteUserExpressionRecording {
+    id
+    user_id
+    expression_id
+    score
+    score_detail
+    user_record {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
 subscription OnCreateTagDialogue {
   onCreateTagDialogue {
     id

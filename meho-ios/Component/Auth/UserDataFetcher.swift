@@ -406,4 +406,23 @@ class UserDataFetcher: NSObject {
             print("user:" + userId + ",item " + itemType + ":" + itemId + " - not all status fetched yet, do nothing")
         }
     }
+
+    public func createUserChapterRecording(userId: String, chapterId: String, mode: String, score:Double? = nil, scoreDetail:String? = nil, completionHandler: @escaping ( String?, Error?) -> Void) {
+        let createUserChapterRecordingInput = CreateUserChapterRecordingInput(userId: userId, chapterId: chapterId, mode: mode, score: score, scoreDetail: scoreDetail)
+
+        let m = CreateUserChapterRecordingMutation(input: createUserChapterRecordingInput)
+        appSyncClient?.perform(mutation: m, resultHandler:  { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {
+                completionHandler(nil, error)
+                return
+            }
+            guard let createdUser = result?.data?.createUserChapterRecording else {
+                completionHandler(nil, nil)
+                return
+            }
+
+            completionHandler(createdUser.id, nil)
+        })
+    }
 }

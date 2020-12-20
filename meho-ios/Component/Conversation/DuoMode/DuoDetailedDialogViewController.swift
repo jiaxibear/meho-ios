@@ -324,6 +324,8 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                             let currentIndexPath = IndexPath.init(item: self.currentScoredChapters.count - 1, section: 0)
                             self.chaptersCollectionView.reloadItems(at: [currentIndexPath])
                             self.refreshButtonStates()
+
+                            self.storeRecording(audioFileURL: self.audioFileURL!, chapterId: scoredChapter.chapter.identifier, score: contentEvaluationResult.score, scoreDetail: "something")
                         }
                         break
                     case .failure(let error):
@@ -333,6 +335,30 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                         break
                     }
                 }
+            }
+        }
+    }
+
+    func storeRecording(audioFileURL: URL, chapterId: String, score: Float? = nil, scoreDetail: String? = nil) {
+
+        guard let userId = AWSMobileClient.default().userSub else { return }
+        let scoreD = score == nil ? nil : Double(score!).rounded(.towardZero)
+        userDataFetcher.createUserChapterRecording(userId: userId, chapterId: chapterId, mode: "duo", score: scoreD) { (maybeRecordingId, maybeError) in
+            if let recordingId = maybeRecordingId, maybeError == nil {
+                let options = StorageUploadFileRequest.Options(accessLevel: .private)
+                Amplify.Storage.uploadFile(
+                    key: recordingId + ".caf",
+                    local: audioFileURL,
+                    options: options,
+                    resultListener: { event in
+                        switch event {
+                        case let .success(data):
+                            break
+                        case let .failure(storageError):
+                            print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+                        }
+                    }
+                )
             }
         }
     }
@@ -366,6 +392,27 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             actionLabel.isHidden = false
             actionLabel.text = NSLocalizedString("ReplayActionText", comment: "")
         }
+        /* Below is an operation if one day we'd like to replay from s3 url, now play from local memory is more efficient
+        let options = StorageGetURLRequest.Options(accessLevel: .private)
+        Amplify.Storage.getURL(key: "s3keyname", options: options) { event in
+            switch event {
+            case let .success(url):
+                print("Completed: \(url)")
+                Analytics.logContentAction(content: self.dialog, screenName: self.screenName, action: .replay)
+                DispatchQueue.main.async {
+                    self.replayButton.isSelected = true
+                    self.recordButton.isSelected = false
+                    let playerItem = AVPlayerItem.init(url: url)
+                    self.player = AVPlayer.init(playerItem: playerItem)
+                    NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+                    self.player?.play()
+                    self.actionLabel.isHidden = false
+                    self.actionLabel.text = NSLocalizedString("ReplayActionText", comment: "")
+                }
+            case let .failure(storageError):
+                print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+            }
+        } */
     }
 
     @objc

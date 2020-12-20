@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 import FirebaseAnalytics
 import AWSMobileClient
+import Amplify
+import AmplifyPlugins
 
 class DetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DuoModeFooterCollectionResuableViewDelegate, MehoAnalytics, ExpandedChapterCollectionViewCellDelegate {
     // MARK: - Constants
@@ -327,6 +329,29 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
                 if (error == nil && saveSuccess) {
                     self.view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
                 }
+            }
+        }
+    }
+
+    func expandedChapterCollectionViewCellDidTapAudioVisulizerInside(audioFileURL: URL, chapterId: String, score: Float?, scoreDetail: String?) {
+        guard let userId = AWSMobileClient.default().userSub else { return }
+        let scoreD = score == nil ? nil : Double(score!).rounded(.towardZero)
+        userDataFetcher.createUserChapterRecording(userId: userId, chapterId: chapterId, mode: "solo", score: scoreD) { (maybeRecordingId, maybeError) in
+            if let recordingId = maybeRecordingId, maybeError == nil {
+                let options = StorageUploadFileRequest.Options(accessLevel: .private)
+                Amplify.Storage.uploadFile(
+                    key: recordingId + ".caf",
+                    local: audioFileURL,
+                    options: options,
+                    resultListener: { event in
+                        switch event {
+                        case let .success(data):
+                            break
+                        case let .failure(storageError):
+                            print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+                        }
+                    }
+                )
             }
         }
     }
