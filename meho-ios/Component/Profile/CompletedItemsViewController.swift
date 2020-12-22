@@ -371,7 +371,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 return cell
             } else if let vocabulary = profileCard as? Vocabulary {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedVocabularyCollectionViewCellIdentifier, for: indexPath) as! CompletedVocabularyCollectionViewCell
-                cell.setVocabulary(vocabulary)
+                cell.vocabulary = vocabulary
                 return cell
             }
         case .storyCategories:

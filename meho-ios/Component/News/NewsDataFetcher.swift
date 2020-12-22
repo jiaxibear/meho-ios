@@ -85,11 +85,8 @@ class NewsDataFetcher: NSObject {
                 if let contentOptional = remoteVocab.optionContent {
                     vocab.content_optional = contentOptional
                 }
-                if let audio_key = remoteVocab.audio?.key {
-                    vocab.audio_key = audio_key
-                }
-                if let audio_bucket = remoteVocab.audio?.bucket {
-                    vocab.audio_bucket = audio_bucket
+                if let key = remoteVocab.audio?.key, let bucket = remoteVocab.audio?.bucket {
+                    vocab.audioKey = S3ResourceKey.init(bucket: bucket, key: key)
                 }
 
                 if let startIndex = articleVocab.startIndex {
@@ -297,102 +294,5 @@ class NewsDataFetcher: NSObject {
         }
 
         return (englishNewsChapters, chineseNewsChapters)
-    }
-
-    public func fetchRecapVocabularies(completionHandler: @escaping ( Array<Vocabulary>?, Error?) -> Void) {
-        if let fetchRecapVocabularyListURLComponent = URLComponents.init(string: fetchRecapVocabulariesURLString) {
-            if let recapVocabulariesUrl = fetchRecapVocabularyListURLComponent.url {
-                let dataCategoriesTask = session.dataTask(with: recapVocabulariesUrl, completionHandler: { (data, URLResponse, error) in
-                    if error != nil {
-                        print("There is an error getting the response of news list")
-                        completionHandler(nil, error)
-                        return
-                    }
-                    if data == nil {
-                        print("The response of news list is empty")
-                        completionHandler(nil, nil)
-                        return
-                    }
-                    do {
-                        if let vocabulariesJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                            let newsList = self.parseVocabularies(vocabulariesJson: vocabulariesJson)
-                            completionHandler(newsList, nil)
-                        }
-                    } catch let JSONError as NSError {
-                        print("Failed to parse news list JSON: \(JSONError.localizedDescription)")
-                        completionHandler(nil, JSONError)
-                    }
-                })
-                dataCategoriesTask.resume()
-            }
-        }
-
-    }
-
-    private func parseVocabularies(vocabulariesJson: [String: Any]) -> Array<Vocabulary> {
-        var vocabularies:[Vocabulary] = []
-        if let vocabularyListJson = vocabulariesJson["results"] as? [Dictionary<String, Any>] {
-            for vocabularyJson in vocabularyListJson {
-                let vocabulary = parseVocabulary(vocabularyJson: vocabularyJson)
-                vocabularies.append(vocabulary)
-            }
-        }
-        return vocabularies
-    }
-
-    public func fetchVocabulary(vocabularyId: String, completionHandler: @escaping ( Vocabulary?, Error?) -> Void) {
-        let vocabularyUrlString = fetchVocabulariesURLString + vocabularyId
-        if let fetchVocabularyURLComponent = URLComponents.init(string: vocabularyUrlString) {
-            if let vocabularyUrl = fetchVocabularyURLComponent.url {
-                let dataCategoriesTask = session.dataTask(with: vocabularyUrl, completionHandler: { (data, URLResponse, error) in
-                    if error != nil {
-                        print("There is an error getting the response of news list")
-                        completionHandler(nil, error)
-                        return
-                    }
-                    if data == nil {
-                        print("The response of news list is empty")
-                        completionHandler(nil, nil)
-                        return
-                    }
-                    do {
-                        if let vocabularyJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                            let vocabulary = self.parseVocabulary(vocabularyJson: vocabularyJson)
-                            completionHandler(vocabulary, nil)
-                        }
-                    } catch let JSONError as NSError {
-                        print("Failed to parse news list JSON: \(JSONError.localizedDescription)")
-                        completionHandler(nil, JSONError)
-                    }
-                })
-                dataCategoriesTask.resume()
-            }
-        }
-    }
-
-    private func parseVocabulary(vocabularyJson: [String: Any]) -> Vocabulary {
-
-        var vocabulary = Vocabulary.init()
-
-        if let content_zh_pinyin = vocabularyJson["content_zh_pinyin"] as? String {
-            vocabulary.content_pinyin = content_zh_pinyin
-        }
-        if let content_zh_CN = vocabularyJson["content_zh_CN"] as? String {
-            vocabulary.content_zh = content_zh_CN
-        }
-        if let content_en_US = vocabularyJson["content_en_US"] as? String {
-            vocabulary.content_en = content_en_US
-        }
-        if let optional_content = vocabularyJson["optional_content"] as? String {
-            vocabulary.content_optional = optional_content
-        }
-        if let identifier = vocabularyJson["id"] as? String {
-            vocabulary.identifier = identifier
-        }
-        if let pronounceURLString = vocabularyJson["pronounce"] as? String {
-            let audioURL = URL.init(string: pronounceURLString)
-            vocabulary.audioURL = audioURL
-        }
-        return vocabulary
     }
 }

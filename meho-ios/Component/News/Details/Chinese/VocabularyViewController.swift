@@ -217,7 +217,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate, M
         prounceButton.widthAnchor.constraint(equalToConstant: vocabularyPinyinLabel.bounds.height).isActive = true
         prounceButton.heightAnchor.constraint(equalToConstant: vocabularyPinyinLabel.bounds.height).isActive = true
 
-        if vocabulary.audioURL != nil || (vocabulary.audio_bucket != nil && vocabulary.audio_key != nil) {
+        if vocabulary.audioKey != nil {
             prounceButton.isHidden = false
         } else {
             prounceButton.isHidden = true
@@ -256,13 +256,7 @@ class VocabularyViewController: UIViewController, UIGestureRecognizerDelegate, M
     }
 
     @objc func didTapPronounceButton() {
-        if let pronounceURL = vocabulary.audioURL {
-            let playerItem = AVPlayerItem.init(url: pronounceURL)
-            player = AVPlayer.init(playerItem: playerItem)
-            player?.rate = AudioPlaySpeed.normal.rawValue
-            player?.play()
-        }
-        if let audioKey = vocabulary.audio_key {
+        if let audioKey = vocabulary.audioKey?.key {
             Amplify.Storage.getURL(key: audioKey) { event in
                 switch event {
                 case let .success(url):

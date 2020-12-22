@@ -229,7 +229,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
         case .recapVocabularyList:
             let vocabulary = recapVocabularyList[indexPath.item]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsRecapVocabularyCellReuseIdentifier, for: indexPath) as! NewsRecapVocabularyCollectionViewCell
-            cell.setVocabulary(vocabulary)
+            cell.vocabulary = vocabulary
             return cell
         }
     }

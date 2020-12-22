@@ -233,6 +233,9 @@ class ProfileDataFetcher: NSObject {
         if let identifier = vocabularyJson["id"] as? String {
             vocabulary.identifier = identifier
         }
+        if let audioKeyDict = vocabularyJson["audio"] as? [String: String], let bucket = audioKeyDict["bucket"], let key = audioKeyDict["key"] {
+            vocabulary.audioKey = S3ResourceKey.init(bucket: bucket, key: key)
+        }
         return vocabulary
     }
 

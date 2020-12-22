@@ -22,6 +22,21 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
     private let pronounceButtonImageName = "stories_speaker"
 
     // MARK: - Properties
+    var vocabulary: Vocabulary! {
+        didSet {
+            vocabularyZhLabel.text = vocabulary.content_zh
+            vocabularyPinyinLabel.text = " /" + vocabulary.content_pinyin + "/  "
+            var explanation = vocabulary.content_en
+            if vocabulary.content_optional != "" {
+                explanation = explanation + "\n" + vocabulary.content_optional
+            }
+            vocabularyEnLabel.text = explanation
+            let contentFittingSize = self.contentFittingSize(with: contentView.bounds.width)
+            topLineStackViewHeightAnchor.constant = max(vocabularyZhLabel.sizeThatFits(contentFittingSize).height, pronounceSpeakerSize)
+            setNeedsUpdateConstraints()
+        }
+    }
+
     private lazy var vocabularyZhLabel: UILabel = {
         let vocabularyZhLabel = UILabel.init(frame: .zero)
         vocabularyZhLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -78,9 +93,6 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Data
     private var player: AVPlayer?
-    private var maybePronounceAudioUrl: URL?
-    private var maybePronounceAudioBucket: String?
-    private var maybePronounceAudioKey: String?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -110,24 +122,8 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - Public
-    public func setVocabulary(_ vocabulary: Vocabulary) {
-        vocabularyZhLabel.text = vocabulary.content_zh
-        vocabularyPinyinLabel.text = " /" + vocabulary.content_pinyin + "/  "
-        var explanation = vocabulary.content_en
-        if vocabulary.content_optional != "" {
-            explanation = explanation + "\n" + vocabulary.content_optional
-        }
-        vocabularyEnLabel.text = explanation
-        maybePronounceAudioUrl = vocabulary.audioURL
-        maybePronounceAudioKey = vocabulary.audio_key
-        maybePronounceAudioBucket = vocabulary.audio_bucket
-        let contentFittingSize = self.contentFittingSize(with: contentView.bounds.width)
-        topLineStackViewHeightAnchor.constant = max(vocabularyZhLabel.sizeThatFits(contentFittingSize).height, pronounceSpeakerSize)
-        setNeedsUpdateConstraints()
-    }
-
     public class func cellHeight(with width: CGFloat, vocabulary: Vocabulary) -> CGFloat {
-        sizingCell.setVocabulary(vocabulary)
+        sizingCell.vocabulary = vocabulary
         var height = sizingCell.vocabularyEnLabelTopMargin
         let contentFittingSize = sizingCell.contentFittingSize(with: width)
         height += max(sizingCell.vocabularyZhLabel.sizeThatFits(contentFittingSize).height, sizingCell.pronounceSpeakerSize)
@@ -141,13 +137,7 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Private
     @objc func didTapPronounceButton() {
-        if let pronounceURL = maybePronounceAudioUrl {
-            let playerItem = AVPlayerItem.init(url: pronounceURL)
-            player = AVPlayer.init(playerItem: playerItem)
-            player?.rate = AudioPlaySpeed.normal.rawValue
-            player?.play()
-        }
-        if let audioKey = maybePronounceAudioKey {
+        if let audioKey = vocabulary.audioKey?.key {
             Amplify.Storage.getURL(key: audioKey) { event in
                 switch event {
                 case let .success(url):
