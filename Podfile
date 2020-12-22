@@ -19,6 +19,7 @@ target 'meho-ios' do
   pod 'AmplifyPlugins/AWSCognitoAuthPlugin', '~> 1.2.0'
 
   pod 'Toast-Swift', '~> 5.0.1'
+  pod 'Kingfisher', '~> 5.15'
 
   # add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'

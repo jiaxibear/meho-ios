@@ -11,6 +11,7 @@ import Foundation
 import AWSS3
 import Amplify
 import AmplifyPlugins
+import Kingfisher
 
 protocol WebImageViewDelegate : AnyObject {
     func webImageViewDidSetImage(webImageView: WebImageView)
@@ -23,72 +24,73 @@ struct S3ResourceKey {
 
 class WebImageView: UIImageView {
 
-    let imageDataSession = URLSession.init(configuration: .default)
     weak var delegate: WebImageViewDelegate?
     var imageURL: URL? {
         didSet {
             if self.imageURL != nil {
-                self.imageDataSession.dataTask(with: self.imageURL!, completionHandler: { (data, request, error) in
-                    if error != nil {
-                        print("There is an error getting the image")
-                        return
+                self.kf.setImage(with: imageURL, placeholder: nil, options: nil, progressBlock: nil) { result in
+                    switch result {
+                    case .success(_):
+                        break
+                    case .failure(let error):
+                        print("There is an error getting the image: \(error)")
+                        break
                     }
-                    if data == nil {
-                        print("The image is empty")
-                        return
-                    }
-                    if request?.url == self.imageURL {
-                        if let image = UIImage.init(data: data!) {
-                            DispatchQueue.main.async {
-                                self.image = image
-                                self.delegate?.webImageViewDidSetImage(webImageView: self)
-                            }
-                        }
-                    }
-                    }).resume()
+                }
             }
         }
     }
 
     override var image: UIImage? {
         didSet {
-            self.delegate?.webImageViewDidSetImage(webImageView: self)
+            if image != nil {
+                self.notifyDelegate()
+            }
         }
     }
 
     var imageKey: S3ResourceKey? {
         didSet {
-            if self.imageKey != nil {
-                let imageKey = self.imageKey!
+            guard let key = imageKey?.key else {
+                return
+            }
 
-
-                Amplify.Storage.getURL(key: imageKey.key) { event in
+            let imageCache = ImageCache.default
+            if imageCache.isCached(forKey: key) {
+                imageCache.retrieveImage(forKey: key) { result in
+                    switch result {
+                    case .success(let value):
+                        self.image = value.image
+                    case .failure(let error):
+                        print("There is an error getting the image: \(error)")
+                    }
+                }
+            } else {
+                Amplify.Storage.getURL(key: key) { event in
                     switch event {
-                    case let .success(url):
-                        print("Completed: \(url)")
-                        self.imageDataSession.dataTask(with: url, completionHandler: { (data, request, error) in
-                            if error != nil {
-                                print("There is an error getting the image")
-                                return
-                            }
-                            if data == nil {
-                                print("The image is empty")
-                                return
-                            }
-                            if request?.url == url {
-                                if let image = UIImage.init(data: data!) {
-                                    DispatchQueue.main.async {
-                                        self.image = image
-                                        self.delegate?.webImageViewDidSetImage(webImageView: self)
-                                    }
+                    case let .success(imageURL):
+                        let imageResource = ImageResource.init(downloadURL: imageURL, cacheKey: key)
+                        DispatchQueue.main.async {
+                            self.kf.setImage(with: imageResource, placeholder: nil, options: nil, progressBlock: nil) { result in
+                                switch result {
+                                case .success(_):
+                                    break
+                                case .failure(let error):
+                                    print("There is an error getting the image: \(error)")
                                 }
                             }
-                            }).resume()
+                        }
                     case let .failure(storageError):
                         print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
                     }
                 }
             }
+        }
+    }
+
+    func notifyDelegate() {
+        DispatchQueue.main.async {
+            self.delegate?.webImageViewDidSetImage(webImageView: self)
         }
     }
 }
