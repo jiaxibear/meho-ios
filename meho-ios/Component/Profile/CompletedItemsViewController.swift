@@ -40,13 +40,15 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private let completedNewsCollectionViewCellIdentifier = "CompletedNewsCollectionViewCellIdentifier"
     private let completedExpressionCollectionViewCellIdentifier = "completedExpressionCollectionViewCellIdentifier"
     private let dialogCollectionViewCellIdentifier = "DialogCollectionViewCellIdentifier"
-    private let completedVocabularyCollectionViewCellIdentifier  = "completedVocabularyCollectionViewCellIdentifier "
+    private let completedVocabularyCollectionViewCellIdentifier  = "completedVocabularyCollectionViewCellIdentifier"
+    private let completedEmptyCollectionViewCellIdentifier = "CompletedEmptyCollectionViewCellIdentifier"
 
     enum CompletedItemsSection: Int {
         case contentCategories
         case storyCategories
         case expressionCategories
         case items
+        case empty
     }
 
     private lazy var collectionViewCompositionalLayout: UICollectionViewCompositionalLayout = {
@@ -58,6 +60,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 fallthrough
             case .storyCategories:
                 return self.filterLayoutSection(width: self.subTypeContentCategoryCollectionViewCellWidth, height: self.subTypeContentCategoryCollectionViewCellHeight, spacing: self.subTypeContentCategoryCollectionViewCellGroupSpacing, topMargin: self.subTypeFilterCollectionViewSectionTopMargin)
+            case .empty:
+                fallthrough
             case .items:
                 return self.itemsSection()
             }
@@ -85,15 +89,18 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: completedNewsCollectionViewCellIdentifier)
             collectionView.register(CompletedExpressionCollectionViewCell.self, forCellWithReuseIdentifier: completedExpressionCollectionViewCellIdentifier)
             collectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCollectionViewCellIdentifier)
+            collectionView.register(CompletedEmptyCollectionViewCell.self, forCellWithReuseIdentifier: completedEmptyCollectionViewCellIdentifier)
             break
         case .savedAll:
             collectionView.register(CompletedCategoryCollectionViewCell.self, forCellWithReuseIdentifier: completedCategoryCollectionViewCellIdentifier)
             collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: completedNewsCollectionViewCellIdentifier)
             collectionView.register(CompletedExpressionCollectionViewCell.self, forCellWithReuseIdentifier: completedExpressionCollectionViewCellIdentifier)
             collectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCollectionViewCellIdentifier)
+            collectionView.register(CompletedEmptyCollectionViewCell.self, forCellWithReuseIdentifier: completedEmptyCollectionViewCellIdentifier)
             break
         case .savedVocabularies:
             collectionView.register(CompletedVocabularyCollectionViewCell.self, forCellWithReuseIdentifier: completedVocabularyCollectionViewCellIdentifier)
+            break
         }
 
         return collectionView
@@ -120,11 +127,11 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             switch contentCategories[selectedContentCategoryIndex].categoryType {
             case .all:
                 filteredItems = items
-                collectionView.reloadData()
+                reloadData()
                 break
             case .story:
                 filteredItems = stories
-                collectionView.reloadData()
+                reloadData()
                 break
             case .expression:
                 self.sections.insert(.expressionCategories, at: 1)
@@ -136,7 +143,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                         guard categories != nil else {
                             DispatchQueue.main.async {
                                 self.filteredItems = self.talks
-                                self.collectionView.reloadData()
+                                self.reloadData()
                             }
                             return
                         }
@@ -179,7 +186,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                     }
                 }
             }
-            collectionView.reloadData()
+            reloadData()
         }
     }
 
@@ -210,7 +217,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                     }
                 }
             }
-            collectionView.reloadData()
+            reloadData()
         }
     }
 
@@ -265,9 +272,13 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             title = NSLocalizedString("SavedVocabulariesTitle", comment: "")
             break
         }
-        sections.append(.items)
         items = profileCards
         filteredItems = items
+        if filteredItems.count > 0 {
+            sections.append(.items)
+        } else {
+            sections.append(.empty)
+        }
         collectionView.reloadData()
     }
 
@@ -345,6 +356,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 })
             }
             break
+        case .empty:
+            break
         }
     }
 
@@ -382,6 +395,25 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
             cell.contentCategory = expressionCategories[indexPath.item]
             return cell
+        case .empty:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedEmptyCollectionViewCellIdentifier, for: indexPath) as! CompletedEmptyCollectionViewCell
+            var subCategory: ProfileContentCategory?
+            let category = contentCategories[selectedContentCategoryIndex]
+            switch category.categoryType {
+            case .all:
+                break
+            case .expression:
+                subCategory = expressionCategories[selectedExpressionContentCategoryIndex]
+                break
+            case .talk:
+                subCategory = talkCategories[selectedTalkContentCategoryIndex]
+                break
+            case .story:
+                break
+            }
+            let completedNavigation = CompletedNavigation.init(category: category, subCategory: subCategory)
+            cell.completedNavigation = completedNavigation
+            return cell
         }
         return UICollectionViewCell.init(frame: .zero)
     }
@@ -396,6 +428,8 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             return expressionCategories.count
         case .items:
             return filteredItems.count
+        case .empty:
+            return 1
         }
     }
 
@@ -451,5 +485,25 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         section.interGroupSpacing = itemCollectionViewCellGroupSpacing
         section.contentInsets = NSDirectionalEdgeInsets.init(top: itemCollectionViewSectionTopMargin, leading: itemCollectionViewSectionTrailingLeadingMargin, bottom: 0, trailing: itemCollectionViewSectionTrailingLeadingMargin)
         return section
+    }
+
+    private func reloadData() {
+        let isEmpty = filteredItems.count == 0
+        if let lastSection = sections.last {
+            if isEmpty && lastSection == .items {
+                sections.removeLast()
+                sections.append(.empty)
+            } else if !isEmpty && lastSection == .empty {
+                sections.removeLast()
+                sections.append(.items)
+            }
+        } else {
+            if isEmpty {
+                sections.append(.empty)
+            } else {
+                sections.append(.items)
+            }
+        }
+        collectionView.reloadData()
     }
 }

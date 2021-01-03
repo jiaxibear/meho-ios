@@ -362,3 +362,21 @@
 
 /* Title displayed in the saved vocabularies screen. */
 "SavedVocabulariesTitle" = "Saved Vocabularies";
+
+/* Title for the button that navigates the user to the corresponding screen. */
+"ViewButtonTitle" = "View %@";
+
+/* Text displayed if there is no saved stories. */
+"NoSavedStoriesText" = "You currently don’t have any stories saved. Check out Story and save the ones interest you.";
+
+/* Text displayed if there is no saved talks. */
+"NoSavedTalksText" = "You currently don’t have any talks saved. Check out Talk and save the ones interest you.";
+
+/* Text displayed if there is no saved stories for the specefic category. */
+"NoSavedTalksWithCategoryText" = "You currently don’t have any talks related to %@ saved. Check out Talk and save the ones interest you.";
+
+/* Text displayed if there is no saved expressions. */
+"NoSavedExpressionsText" = "You currently don’t have any expressions saved. Check out Expression and save the ones interest you.";
+
+/* Text displayed if there is no saved expressions for the specefic category. */
+"NoSavedExpressionsWithCategoryText" = "You currently don’t have any expressions related to %@ saved. Check out Expression and save the ones interest you.";
