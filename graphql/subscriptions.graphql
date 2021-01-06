@@ -95,6 +95,7 @@ subscription OnCreateParagraph {
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -111,6 +112,7 @@ subscription OnCreateParagraph {
       ...S3Object
     }
     contentImage_key
+    audio_key
     videoURL
     createdAt
     updatedAt
@@ -212,6 +214,7 @@ subscription OnUpdateParagraph {
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -228,6 +231,7 @@ subscription OnUpdateParagraph {
       ...S3Object
     }
     contentImage_key
+    audio_key
     videoURL
     createdAt
     updatedAt
@@ -329,6 +333,7 @@ subscription OnDeleteParagraph {
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -345,6 +350,7 @@ subscription OnDeleteParagraph {
       ...S3Object
     }
     contentImage_key
+    audio_key
     videoURL
     createdAt
     updatedAt
@@ -543,6 +549,7 @@ subscription OnCreateArticle {
           ...S3Object
         }
         contentImage_key
+        audio_key
         videoURL
         createdAt
         updatedAt
@@ -701,6 +708,7 @@ subscription OnUpdateArticle {
           ...S3Object
         }
         contentImage_key
+        audio_key
         videoURL
         createdAt
         updatedAt
@@ -859,6 +867,7 @@ subscription OnDeleteArticle {
           ...S3Object
         }
         contentImage_key
+        audio_key
         videoURL
         createdAt
         updatedAt
@@ -1187,6 +1196,7 @@ subscription OnCreateVocabularyArticle {
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -1344,6 +1354,7 @@ subscription OnUpdateVocabularyArticle {
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -1501,6 +1512,7 @@ subscription OnDeleteVocabularyArticle {
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -2024,6 +2036,7 @@ subscription OnCreateTagArticle {
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -2208,6 +2221,7 @@ subscription OnUpdateTagArticle {
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -2392,6 +2406,7 @@ subscription OnDeleteTagArticle {
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -3121,9 +3136,6 @@ subscription OnCreateUserChapterRecording {
     mode
     score
     score_detail
-    user_record {
-      ...S3Object
-    }
     createdAt
     updatedAt
   }
@@ -3136,9 +3148,6 @@ subscription OnUpdateUserChapterRecording {
     mode
     score
     score_detail
-    user_record {
-      ...S3Object
-    }
     createdAt
     updatedAt
   }
@@ -3151,9 +3160,6 @@ subscription OnDeleteUserChapterRecording {
     mode
     score
     score_detail
-    user_record {
-      ...S3Object
-    }
     createdAt
     updatedAt
   }

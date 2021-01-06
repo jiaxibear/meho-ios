@@ -95,6 +95,7 @@ query GetParagraph($id: ID!) {
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -111,6 +112,7 @@ query GetParagraph($id: ID!) {
       ...S3Object
     }
     contentImage_key
+    audio_key
     videoURL
     createdAt
     updatedAt
@@ -160,6 +162,7 @@ query ListParagraphs(
             contentType
             seqNumber
             contentImage_key
+            audio_key
             videoURL
             createdAt
             updatedAt
@@ -176,6 +179,7 @@ query ListParagraphs(
         ...S3Object
       }
       contentImage_key
+      audio_key
       videoURL
       createdAt
       updatedAt
@@ -368,6 +372,7 @@ query GetArticle($id: ID!) {
           ...S3Object
         }
         contentImage_key
+        audio_key
         videoURL
         createdAt
         updatedAt
@@ -477,6 +482,7 @@ query ListArticles(
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -729,6 +735,7 @@ query GetVocabularyArticle($id: ID!) {
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -838,6 +845,7 @@ query ListVocabularyArticles(
             contentType
             seqNumber
             contentImage_key
+            audio_key
             videoURL
             createdAt
             updatedAt
@@ -1177,6 +1185,7 @@ query GetTagArticle($id: ID!) {
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -1309,6 +1318,7 @@ query ListTagArticles(
             contentType
             seqNumber
             contentImage_key
+            audio_key
             videoURL
             createdAt
             updatedAt
@@ -1730,9 +1740,6 @@ query GetUserChapterRecording($id: ID!) {
     mode
     score
     score_detail
-    user_record {
-      ...S3Object
-    }
     createdAt
     updatedAt
   }
@@ -1754,9 +1761,6 @@ query ListUserChapterRecordings(
       mode
       score
       score_detail
-      user_record {
-        ...S3Object
-      }
       createdAt
       updatedAt
     }
@@ -3189,6 +3193,7 @@ query GetArticlesByStatus(
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -3253,6 +3258,7 @@ query GetVocabularyArticlesByParagraphId(
             contentType
             seqNumber
             contentImage_key
+            audio_key
             videoURL
             createdAt
             updatedAt
@@ -3415,9 +3421,6 @@ query GetChapterRecordingByUserAndChapter(
       mode
       score
       score_detail
-      user_record {
-        ...S3Object
-      }
       createdAt
       updatedAt
     }

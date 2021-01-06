@@ -5,8 +5,8 @@ import AWSAppSync
 public struct CreateParagraphInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID? = nil, content: String, contentType: String, seqNumber: Int, contentImage: S3ObjectInput? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, paragraphArticleId: GraphQLID? = nil) {
-    graphQLMap = ["id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage, "contentImage_key": contentImageKey, "videoURL": videoUrl, "paragraphArticleId": paragraphArticleId]
+  public init(id: GraphQLID? = nil, content: String, contentType: String, seqNumber: Int, contentImage: S3ObjectInput? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, paragraphArticleId: GraphQLID? = nil) {
+    graphQLMap = ["id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "paragraphArticleId": paragraphArticleId]
   }
 
   public var id: GraphQLID? {
@@ -60,6 +60,15 @@ public struct CreateParagraphInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contentImage_key")
+    }
+  }
+
+  public var audioKey: String? {
+    get {
+      return graphQLMap["audio_key"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "audio_key")
     }
   }
 
@@ -138,8 +147,8 @@ public struct S3ObjectInput: GraphQLMapConvertible {
 public struct ModelParagraphConditionInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(content: ModelStringInput? = nil, contentType: ModelStringInput? = nil, seqNumber: ModelIntInput? = nil, contentImageKey: ModelStringInput? = nil, videoUrl: ModelStringInput? = nil, and: [ModelParagraphConditionInput?]? = nil, or: [ModelParagraphConditionInput?]? = nil, not: ModelParagraphConditionInput? = nil) {
-    graphQLMap = ["content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "videoURL": videoUrl, "and": and, "or": or, "not": not]
+  public init(content: ModelStringInput? = nil, contentType: ModelStringInput? = nil, seqNumber: ModelIntInput? = nil, contentImageKey: ModelStringInput? = nil, audioKey: ModelStringInput? = nil, videoUrl: ModelStringInput? = nil, and: [ModelParagraphConditionInput?]? = nil, or: [ModelParagraphConditionInput?]? = nil, not: ModelParagraphConditionInput? = nil) {
+    graphQLMap = ["content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "and": and, "or": or, "not": not]
   }
 
   public var content: ModelStringInput? {
@@ -175,6 +184,15 @@ public struct ModelParagraphConditionInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contentImage_key")
+    }
+  }
+
+  public var audioKey: ModelStringInput? {
+    get {
+      return graphQLMap["audio_key"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "audio_key")
     }
   }
 
@@ -568,8 +586,8 @@ public struct ModelIntInput: GraphQLMapConvertible {
 public struct UpdateParagraphInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID, content: String? = nil, contentType: String? = nil, seqNumber: Int? = nil, contentImage: S3ObjectInput? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, paragraphArticleId: GraphQLID? = nil) {
-    graphQLMap = ["id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage, "contentImage_key": contentImageKey, "videoURL": videoUrl, "paragraphArticleId": paragraphArticleId]
+  public init(id: GraphQLID, content: String? = nil, contentType: String? = nil, seqNumber: Int? = nil, contentImage: S3ObjectInput? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, paragraphArticleId: GraphQLID? = nil) {
+    graphQLMap = ["id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "paragraphArticleId": paragraphArticleId]
   }
 
   public var id: GraphQLID {
@@ -623,6 +641,15 @@ public struct UpdateParagraphInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contentImage_key")
+    }
+  }
+
+  public var audioKey: String? {
+    get {
+      return graphQLMap["audio_key"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "audio_key")
     }
   }
 
@@ -2976,8 +3003,8 @@ public struct DeleteDialogueInput: GraphQLMapConvertible {
 public struct CreateUserChapterRecordingInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID? = nil, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, userRecord: S3ObjectInput? = nil) {
-    graphQLMap = ["id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "user_record": userRecord]
+  public init(id: GraphQLID? = nil, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil) {
+    graphQLMap = ["id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail]
   }
 
   public var id: GraphQLID? {
@@ -3031,15 +3058,6 @@ public struct CreateUserChapterRecordingInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "score_detail")
-    }
-  }
-
-  public var userRecord: S3ObjectInput? {
-    get {
-      return graphQLMap["user_record"] as! S3ObjectInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "user_record")
     }
   }
 }
@@ -3216,8 +3234,8 @@ public struct ModelFloatInput: GraphQLMapConvertible {
 public struct UpdateUserChapterRecordingInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID, userId: String? = nil, chapterId: String? = nil, mode: String? = nil, score: Double? = nil, scoreDetail: String? = nil, userRecord: S3ObjectInput? = nil) {
-    graphQLMap = ["id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "user_record": userRecord]
+  public init(id: GraphQLID, userId: String? = nil, chapterId: String? = nil, mode: String? = nil, score: Double? = nil, scoreDetail: String? = nil) {
+    graphQLMap = ["id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail]
   }
 
   public var id: GraphQLID {
@@ -3271,15 +3289,6 @@ public struct UpdateUserChapterRecordingInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "score_detail")
-    }
-  }
-
-  public var userRecord: S3ObjectInput? {
-    get {
-      return graphQLMap["user_record"] as! S3ObjectInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "user_record")
     }
   }
 }
@@ -4667,8 +4676,8 @@ public struct DeleteUserVocabularySaveInput: GraphQLMapConvertible {
 public struct ModelParagraphFilterInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: ModelIDInput? = nil, content: ModelStringInput? = nil, contentType: ModelStringInput? = nil, seqNumber: ModelIntInput? = nil, contentImageKey: ModelStringInput? = nil, videoUrl: ModelStringInput? = nil, and: [ModelParagraphFilterInput?]? = nil, or: [ModelParagraphFilterInput?]? = nil, not: ModelParagraphFilterInput? = nil) {
-    graphQLMap = ["id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "videoURL": videoUrl, "and": and, "or": or, "not": not]
+  public init(id: ModelIDInput? = nil, content: ModelStringInput? = nil, contentType: ModelStringInput? = nil, seqNumber: ModelIntInput? = nil, contentImageKey: ModelStringInput? = nil, audioKey: ModelStringInput? = nil, videoUrl: ModelStringInput? = nil, and: [ModelParagraphFilterInput?]? = nil, or: [ModelParagraphFilterInput?]? = nil, not: ModelParagraphFilterInput? = nil) {
+    graphQLMap = ["id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "and": and, "or": or, "not": not]
   }
 
   public var id: ModelIDInput? {
@@ -4713,6 +4722,15 @@ public struct ModelParagraphFilterInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contentImage_key")
+    }
+  }
+
+  public var audioKey: ModelStringInput? {
+    get {
+      return graphQLMap["audio_key"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "audio_key")
     }
   }
 
@@ -6245,7 +6263,7 @@ public struct ModelStringKeyConditionInput: GraphQLMapConvertible {
 
 public final class CreateParagraphMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateParagraph($input: CreateParagraphInput!, $condition: ModelParagraphConditionInput) {\n  createParagraph(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateParagraph($input: CreateParagraphInput!, $condition: ModelParagraphConditionInput) {\n  createParagraph(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -6299,6 +6317,7 @@ public final class CreateParagraphMutation: GraphQLMutation {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -6310,8 +6329,8 @@ public final class CreateParagraphMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -6383,6 +6402,15 @@ public final class CreateParagraphMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "contentImage_key")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audio_key"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audio_key")
         }
       }
 
@@ -7433,6 +7461,7 @@ public final class CreateParagraphMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -7444,8 +7473,8 @@ public final class CreateParagraphMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -7517,6 +7546,15 @@ public final class CreateParagraphMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -7832,7 +7870,7 @@ public final class CreateParagraphMutation: GraphQLMutation {
 
 public final class UpdateParagraphMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateParagraph($input: UpdateParagraphInput!, $condition: ModelParagraphConditionInput) {\n  updateParagraph(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateParagraph($input: UpdateParagraphInput!, $condition: ModelParagraphConditionInput) {\n  updateParagraph(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -7886,6 +7924,7 @@ public final class UpdateParagraphMutation: GraphQLMutation {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -7897,8 +7936,8 @@ public final class UpdateParagraphMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -7970,6 +8009,15 @@ public final class UpdateParagraphMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "contentImage_key")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audio_key"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audio_key")
         }
       }
 
@@ -9020,6 +9068,7 @@ public final class UpdateParagraphMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -9031,8 +9080,8 @@ public final class UpdateParagraphMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -9104,6 +9153,15 @@ public final class UpdateParagraphMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -9419,7 +9477,7 @@ public final class UpdateParagraphMutation: GraphQLMutation {
 
 public final class DeleteParagraphMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteParagraph($input: DeleteParagraphInput!, $condition: ModelParagraphConditionInput) {\n  deleteParagraph(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteParagraph($input: DeleteParagraphInput!, $condition: ModelParagraphConditionInput) {\n  deleteParagraph(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -9473,6 +9531,7 @@ public final class DeleteParagraphMutation: GraphQLMutation {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -9484,8 +9543,8 @@ public final class DeleteParagraphMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -9557,6 +9616,15 @@ public final class DeleteParagraphMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "contentImage_key")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audio_key"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audio_key")
         }
       }
 
@@ -10607,6 +10675,7 @@ public final class DeleteParagraphMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -10618,8 +10687,8 @@ public final class DeleteParagraphMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -10691,6 +10760,15 @@ public final class DeleteParagraphMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -11735,7 +11813,7 @@ public final class DeleteExpressionMutation: GraphQLMutation {
 
 public final class CreateArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateArticle($input: CreateArticleInput!, $condition: ModelArticleConditionInput) {\n  createArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "mutation CreateArticle($input: CreateArticleInput!, $condition: ModelArticleConditionInput) {\n  createArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -13670,6 +13748,7 @@ public final class CreateArticleMutation: GraphQLMutation {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
             GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -13681,8 +13760,8 @@ public final class CreateArticleMutation: GraphQLMutation {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -13754,6 +13833,15 @@ public final class CreateArticleMutation: GraphQLMutation {
             }
             set {
               snapshot.updateValue(newValue, forKey: "contentImage_key")
+            }
+          }
+
+          public var audioKey: String? {
+            get {
+              return snapshot["audio_key"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "audio_key")
             }
           }
 
@@ -14219,7 +14307,7 @@ public final class CreateArticleMutation: GraphQLMutation {
 
 public final class UpdateArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateArticle($input: UpdateArticleInput!, $condition: ModelArticleConditionInput) {\n  updateArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "mutation UpdateArticle($input: UpdateArticleInput!, $condition: ModelArticleConditionInput) {\n  updateArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -16154,6 +16242,7 @@ public final class UpdateArticleMutation: GraphQLMutation {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
             GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -16165,8 +16254,8 @@ public final class UpdateArticleMutation: GraphQLMutation {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -16238,6 +16327,15 @@ public final class UpdateArticleMutation: GraphQLMutation {
             }
             set {
               snapshot.updateValue(newValue, forKey: "contentImage_key")
+            }
+          }
+
+          public var audioKey: String? {
+            get {
+              return snapshot["audio_key"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "audio_key")
             }
           }
 
@@ -16703,7 +16801,7 @@ public final class UpdateArticleMutation: GraphQLMutation {
 
 public final class DeleteArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteArticle($input: DeleteArticleInput!, $condition: ModelArticleConditionInput) {\n  deleteArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "mutation DeleteArticle($input: DeleteArticleInput!, $condition: ModelArticleConditionInput) {\n  deleteArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -18638,6 +18736,7 @@ public final class DeleteArticleMutation: GraphQLMutation {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
             GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -18649,8 +18748,8 @@ public final class DeleteArticleMutation: GraphQLMutation {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -18722,6 +18821,15 @@ public final class DeleteArticleMutation: GraphQLMutation {
             }
             set {
               snapshot.updateValue(newValue, forKey: "contentImage_key")
+            }
+          }
+
+          public var audioKey: String? {
+            get {
+              return snapshot["audio_key"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "audio_key")
             }
           }
 
@@ -22547,7 +22655,7 @@ public final class DeleteVocabularyMutation: GraphQLMutation {
 
 public final class CreateVocabularyArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateVocabularyArticle($input: CreateVocabularyArticleInput!, $condition: ModelVocabularyArticleConditionInput) {\n  createVocabularyArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateVocabularyArticle($input: CreateVocabularyArticleInput!, $condition: ModelVocabularyArticleConditionInput) {\n  createVocabularyArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -23705,6 +23813,7 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -23716,8 +23825,8 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -23789,6 +23898,15 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -24619,7 +24737,7 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
 
 public final class UpdateVocabularyArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateVocabularyArticle($input: UpdateVocabularyArticleInput!, $condition: ModelVocabularyArticleConditionInput) {\n  updateVocabularyArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateVocabularyArticle($input: UpdateVocabularyArticleInput!, $condition: ModelVocabularyArticleConditionInput) {\n  updateVocabularyArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -25777,6 +25895,7 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -25788,8 +25907,8 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -25861,6 +25980,15 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -26691,7 +26819,7 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
 
 public final class DeleteVocabularyArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteVocabularyArticle($input: DeleteVocabularyArticleInput!, $condition: ModelVocabularyArticleConditionInput) {\n  deleteVocabularyArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteVocabularyArticle($input: DeleteVocabularyArticleInput!, $condition: ModelVocabularyArticleConditionInput) {\n  deleteVocabularyArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -27849,6 +27977,7 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -27860,8 +27989,8 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -27933,6 +28062,15 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -34829,7 +34967,7 @@ public final class DeleteTagMutation: GraphQLMutation {
 
 public final class CreateTagArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateTagArticle($input: CreateTagArticleInput!, $condition: ModelTagArticleConditionInput) {\n  createTagArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateTagArticle($input: CreateTagArticleInput!, $condition: ModelTagArticleConditionInput) {\n  createTagArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -35967,6 +36105,7 @@ public final class CreateTagArticleMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -35978,8 +36117,8 @@ public final class CreateTagArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -36051,6 +36190,15 @@ public final class CreateTagArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -37299,7 +37447,7 @@ public final class CreateTagArticleMutation: GraphQLMutation {
 
 public final class UpdateTagArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateTagArticle($input: UpdateTagArticleInput!, $condition: ModelTagArticleConditionInput) {\n  updateTagArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateTagArticle($input: UpdateTagArticleInput!, $condition: ModelTagArticleConditionInput) {\n  updateTagArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -38437,6 +38585,7 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -38448,8 +38597,8 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -38521,6 +38670,15 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -39769,7 +39927,7 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
 
 public final class DeleteTagArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteTagArticle($input: DeleteTagArticleInput!, $condition: ModelTagArticleConditionInput) {\n  deleteTagArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteTagArticle($input: DeleteTagArticleInput!, $condition: ModelTagArticleConditionInput) {\n  deleteTagArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -40907,6 +41065,7 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -40918,8 +41077,8 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -40991,6 +41150,15 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -51998,9 +52166,7 @@ public final class DeleteDialogueMutation: GraphQLMutation {
 
 public final class CreateUserChapterRecordingMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateUserChapterRecording($input: CreateUserChapterRecordingInput!, $condition: ModelUserChapterRecordingConditionInput) {\n  createUserChapterRecording(input: $input, condition: $condition) {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    user_record {\n      __typename\n      ...S3Object\n    }\n    createdAt\n    updatedAt\n  }\n}"
-
-  public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
+    "mutation CreateUserChapterRecording($input: CreateUserChapterRecordingInput!, $condition: ModelUserChapterRecordingConditionInput) {\n  createUserChapterRecording(input: $input, condition: $condition) {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    createdAt\n    updatedAt\n  }\n}"
 
   public var input: CreateUserChapterRecordingInput
   public var condition: ModelUserChapterRecordingConditionInput?
@@ -52051,7 +52217,6 @@ public final class CreateUserChapterRecordingMutation: GraphQLMutation {
         GraphQLField("mode", type: .nonNull(.scalar(String.self))),
         GraphQLField("score", type: .scalar(Double.self)),
         GraphQLField("score_detail", type: .scalar(String.self)),
-        GraphQLField("user_record", type: .object(UserRecord.selections)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
@@ -52062,8 +52227,8 @@ public final class CreateUserChapterRecordingMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, userRecord: UserRecord? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "user_record": userRecord.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -52129,15 +52294,6 @@ public final class CreateUserChapterRecordingMutation: GraphQLMutation {
         }
       }
 
-      public var userRecord: UserRecord? {
-        get {
-          return (snapshot["user_record"] as? Snapshot).flatMap { UserRecord(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "user_record")
-        }
-      }
-
       public var createdAt: String {
         get {
           return snapshot["createdAt"]! as! String
@@ -52155,95 +52311,13 @@ public final class CreateUserChapterRecordingMutation: GraphQLMutation {
           snapshot.updateValue(newValue, forKey: "updatedAt")
         }
       }
-
-      public struct UserRecord: GraphQLSelectionSet {
-        public static let possibleTypes = ["S3Object"]
-
-        public static let selections: [GraphQLSelection] = [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
-          GraphQLField("region", type: .nonNull(.scalar(String.self))),
-          GraphQLField("key", type: .nonNull(.scalar(String.self))),
-        ]
-
-        public var snapshot: Snapshot
-
-        public init(snapshot: Snapshot) {
-          self.snapshot = snapshot
-        }
-
-        public init(bucket: String, region: String, key: String) {
-          self.init(snapshot: ["__typename": "S3Object", "bucket": bucket, "region": region, "key": key])
-        }
-
-        public var __typename: String {
-          get {
-            return snapshot["__typename"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        public var bucket: String {
-          get {
-            return snapshot["bucket"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "bucket")
-          }
-        }
-
-        public var region: String {
-          get {
-            return snapshot["region"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "region")
-          }
-        }
-
-        public var key: String {
-          get {
-            return snapshot["key"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "key")
-          }
-        }
-
-        public var fragments: Fragments {
-          get {
-            return Fragments(snapshot: snapshot)
-          }
-          set {
-            snapshot += newValue.snapshot
-          }
-        }
-
-        public struct Fragments {
-          public var snapshot: Snapshot
-
-          public var s3Object: S3Object {
-            get {
-              return S3Object(snapshot: snapshot)
-            }
-            set {
-              snapshot += newValue.snapshot
-            }
-          }
-        }
-      }
     }
   }
 }
 
 public final class UpdateUserChapterRecordingMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateUserChapterRecording($input: UpdateUserChapterRecordingInput!, $condition: ModelUserChapterRecordingConditionInput) {\n  updateUserChapterRecording(input: $input, condition: $condition) {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    user_record {\n      __typename\n      ...S3Object\n    }\n    createdAt\n    updatedAt\n  }\n}"
-
-  public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
+    "mutation UpdateUserChapterRecording($input: UpdateUserChapterRecordingInput!, $condition: ModelUserChapterRecordingConditionInput) {\n  updateUserChapterRecording(input: $input, condition: $condition) {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    createdAt\n    updatedAt\n  }\n}"
 
   public var input: UpdateUserChapterRecordingInput
   public var condition: ModelUserChapterRecordingConditionInput?
@@ -52294,7 +52368,6 @@ public final class UpdateUserChapterRecordingMutation: GraphQLMutation {
         GraphQLField("mode", type: .nonNull(.scalar(String.self))),
         GraphQLField("score", type: .scalar(Double.self)),
         GraphQLField("score_detail", type: .scalar(String.self)),
-        GraphQLField("user_record", type: .object(UserRecord.selections)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
@@ -52305,8 +52378,8 @@ public final class UpdateUserChapterRecordingMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, userRecord: UserRecord? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "user_record": userRecord.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -52372,15 +52445,6 @@ public final class UpdateUserChapterRecordingMutation: GraphQLMutation {
         }
       }
 
-      public var userRecord: UserRecord? {
-        get {
-          return (snapshot["user_record"] as? Snapshot).flatMap { UserRecord(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "user_record")
-        }
-      }
-
       public var createdAt: String {
         get {
           return snapshot["createdAt"]! as! String
@@ -52398,95 +52462,13 @@ public final class UpdateUserChapterRecordingMutation: GraphQLMutation {
           snapshot.updateValue(newValue, forKey: "updatedAt")
         }
       }
-
-      public struct UserRecord: GraphQLSelectionSet {
-        public static let possibleTypes = ["S3Object"]
-
-        public static let selections: [GraphQLSelection] = [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
-          GraphQLField("region", type: .nonNull(.scalar(String.self))),
-          GraphQLField("key", type: .nonNull(.scalar(String.self))),
-        ]
-
-        public var snapshot: Snapshot
-
-        public init(snapshot: Snapshot) {
-          self.snapshot = snapshot
-        }
-
-        public init(bucket: String, region: String, key: String) {
-          self.init(snapshot: ["__typename": "S3Object", "bucket": bucket, "region": region, "key": key])
-        }
-
-        public var __typename: String {
-          get {
-            return snapshot["__typename"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        public var bucket: String {
-          get {
-            return snapshot["bucket"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "bucket")
-          }
-        }
-
-        public var region: String {
-          get {
-            return snapshot["region"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "region")
-          }
-        }
-
-        public var key: String {
-          get {
-            return snapshot["key"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "key")
-          }
-        }
-
-        public var fragments: Fragments {
-          get {
-            return Fragments(snapshot: snapshot)
-          }
-          set {
-            snapshot += newValue.snapshot
-          }
-        }
-
-        public struct Fragments {
-          public var snapshot: Snapshot
-
-          public var s3Object: S3Object {
-            get {
-              return S3Object(snapshot: snapshot)
-            }
-            set {
-              snapshot += newValue.snapshot
-            }
-          }
-        }
-      }
     }
   }
 }
 
 public final class DeleteUserChapterRecordingMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteUserChapterRecording($input: DeleteUserChapterRecordingInput!, $condition: ModelUserChapterRecordingConditionInput) {\n  deleteUserChapterRecording(input: $input, condition: $condition) {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    user_record {\n      __typename\n      ...S3Object\n    }\n    createdAt\n    updatedAt\n  }\n}"
-
-  public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
+    "mutation DeleteUserChapterRecording($input: DeleteUserChapterRecordingInput!, $condition: ModelUserChapterRecordingConditionInput) {\n  deleteUserChapterRecording(input: $input, condition: $condition) {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    createdAt\n    updatedAt\n  }\n}"
 
   public var input: DeleteUserChapterRecordingInput
   public var condition: ModelUserChapterRecordingConditionInput?
@@ -52537,7 +52519,6 @@ public final class DeleteUserChapterRecordingMutation: GraphQLMutation {
         GraphQLField("mode", type: .nonNull(.scalar(String.self))),
         GraphQLField("score", type: .scalar(Double.self)),
         GraphQLField("score_detail", type: .scalar(String.self)),
-        GraphQLField("user_record", type: .object(UserRecord.selections)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
@@ -52548,8 +52529,8 @@ public final class DeleteUserChapterRecordingMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, userRecord: UserRecord? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "user_record": userRecord.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -52615,15 +52596,6 @@ public final class DeleteUserChapterRecordingMutation: GraphQLMutation {
         }
       }
 
-      public var userRecord: UserRecord? {
-        get {
-          return (snapshot["user_record"] as? Snapshot).flatMap { UserRecord(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "user_record")
-        }
-      }
-
       public var createdAt: String {
         get {
           return snapshot["createdAt"]! as! String
@@ -52639,86 +52611,6 @@ public final class DeleteUserChapterRecordingMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "updatedAt")
-        }
-      }
-
-      public struct UserRecord: GraphQLSelectionSet {
-        public static let possibleTypes = ["S3Object"]
-
-        public static let selections: [GraphQLSelection] = [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
-          GraphQLField("region", type: .nonNull(.scalar(String.self))),
-          GraphQLField("key", type: .nonNull(.scalar(String.self))),
-        ]
-
-        public var snapshot: Snapshot
-
-        public init(snapshot: Snapshot) {
-          self.snapshot = snapshot
-        }
-
-        public init(bucket: String, region: String, key: String) {
-          self.init(snapshot: ["__typename": "S3Object", "bucket": bucket, "region": region, "key": key])
-        }
-
-        public var __typename: String {
-          get {
-            return snapshot["__typename"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        public var bucket: String {
-          get {
-            return snapshot["bucket"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "bucket")
-          }
-        }
-
-        public var region: String {
-          get {
-            return snapshot["region"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "region")
-          }
-        }
-
-        public var key: String {
-          get {
-            return snapshot["key"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "key")
-          }
-        }
-
-        public var fragments: Fragments {
-          get {
-            return Fragments(snapshot: snapshot)
-          }
-          set {
-            snapshot += newValue.snapshot
-          }
-        }
-
-        public struct Fragments {
-          public var snapshot: Snapshot
-
-          public var s3Object: S3Object {
-            get {
-              return S3Object(snapshot: snapshot)
-            }
-            set {
-              snapshot += newValue.snapshot
-            }
-          }
         }
       }
     }
@@ -84416,7 +84308,7 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
 
 public final class GetParagraphQuery: GraphQLQuery {
   public static let operationString =
-    "query GetParagraph($id: ID!) {\n  getParagraph(id: $id) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetParagraph($id: ID!) {\n  getParagraph(id: $id) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -84468,6 +84360,7 @@ public final class GetParagraphQuery: GraphQLQuery {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -84479,8 +84372,8 @@ public final class GetParagraphQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -84552,6 +84445,15 @@ public final class GetParagraphQuery: GraphQLQuery {
         }
         set {
           snapshot.updateValue(newValue, forKey: "contentImage_key")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audio_key"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audio_key")
         }
       }
 
@@ -85602,6 +85504,7 @@ public final class GetParagraphQuery: GraphQLQuery {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -85613,8 +85516,8 @@ public final class GetParagraphQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -85686,6 +85589,15 @@ public final class GetParagraphQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -86001,7 +85913,7 @@ public final class GetParagraphQuery: GraphQLQuery {
 
 public final class ListParagraphsQuery: GraphQLQuery {
   public static let operationString =
-    "query ListParagraphs($filter: ModelParagraphFilterInput, $limit: Int, $nextToken: String) {\n  listParagraphs(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      content\n      contentType\n      seqNumber\n      contentImage {\n        __typename\n        ...S3Object\n      }\n      contentImage_key\n      videoURL\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListParagraphs($filter: ModelParagraphFilterInput, $limit: Int, $nextToken: String) {\n  listParagraphs(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      content\n      contentType\n      seqNumber\n      contentImage {\n        __typename\n        ...S3Object\n      }\n      contentImage_key\n      audio_key\n      videoURL\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -86103,6 +86015,7 @@ public final class ListParagraphsQuery: GraphQLQuery {
           GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
           GraphQLField("contentImage", type: .object(ContentImage.selections)),
           GraphQLField("contentImage_key", type: .scalar(String.self)),
+          GraphQLField("audio_key", type: .scalar(String.self)),
           GraphQLField("videoURL", type: .scalar(String.self)),
           GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
           GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -86114,8 +86027,8 @@ public final class ListParagraphsQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -86187,6 +86100,15 @@ public final class ListParagraphsQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "contentImage_key")
+          }
+        }
+
+        public var audioKey: String? {
+          get {
+            return snapshot["audio_key"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "audio_key")
           }
         }
 
@@ -86737,6 +86659,7 @@ public final class ListParagraphsQuery: GraphQLQuery {
                 GraphQLField("contentType", type: .nonNull(.scalar(String.self))),
                 GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
                 GraphQLField("contentImage_key", type: .scalar(String.self)),
+                GraphQLField("audio_key", type: .scalar(String.self)),
                 GraphQLField("videoURL", type: .scalar(String.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -86748,8 +86671,8 @@ public final class ListParagraphsQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -86803,6 +86726,15 @@ public final class ListParagraphsQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "contentImage_key")
+                }
+              }
+
+              public var audioKey: String? {
+                get {
+                  return snapshot["audio_key"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "audio_key")
                 }
               }
 
@@ -87455,7 +87387,7 @@ public final class ListExpressionsQuery: GraphQLQuery {
 
 public final class GetArticleQuery: GraphQLQuery {
   public static let operationString =
-    "query GetArticle($id: ID!) {\n  getArticle(id: $id) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "query GetArticle($id: ID!) {\n  getArticle(id: $id) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -89388,6 +89320,7 @@ public final class GetArticleQuery: GraphQLQuery {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
             GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -89399,8 +89332,8 @@ public final class GetArticleQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -89472,6 +89405,15 @@ public final class GetArticleQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue, forKey: "contentImage_key")
+            }
+          }
+
+          public var audioKey: String? {
+            get {
+              return snapshot["audio_key"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "audio_key")
             }
           }
 
@@ -89937,7 +89879,7 @@ public final class GetArticleQuery: GraphQLQuery {
 
 public final class ListArticlesQuery: GraphQLQuery {
   public static let operationString =
-    "query ListArticles($filter: ModelArticleFilterInput, $limit: Int, $nextToken: String) {\n  listArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListArticles($filter: ModelArticleFilterInput, $limit: Int, $nextToken: String) {\n  listArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -91047,6 +90989,7 @@ public final class ListArticlesQuery: GraphQLQuery {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -91058,8 +91001,8 @@ public final class ListArticlesQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -91131,6 +91074,15 @@ public final class ListArticlesQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -93332,7 +93284,7 @@ public final class ListVocabularysQuery: GraphQLQuery {
 
 public final class GetVocabularyArticleQuery: GraphQLQuery {
   public static let operationString =
-    "query GetVocabularyArticle($id: ID!) {\n  getVocabularyArticle(id: $id) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetVocabularyArticle($id: ID!) {\n  getVocabularyArticle(id: $id) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -94488,6 +94440,7 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -94499,8 +94452,8 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -94572,6 +94525,15 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -95402,7 +95364,7 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
 
 public final class ListVocabularyArticlesQuery: GraphQLQuery {
   public static let operationString =
-    "query ListVocabularyArticles($filter: ModelVocabularyArticleFilterInput, $limit: Int, $nextToken: String) {\n  listVocabularyArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      vocabulary {\n        __typename\n        id\n        contentZh\n        contentEn\n        contentPinyin\n        label\n        audio {\n          __typename\n          ...S3Object\n        }\n        audio_key\n        optionContent\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      paragraphId\n      startIndex\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListVocabularyArticles($filter: ModelVocabularyArticleFilterInput, $limit: Int, $nextToken: String) {\n  listVocabularyArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      vocabulary {\n        __typename\n        id\n        contentZh\n        contentEn\n        contentPinyin\n        label\n        audio {\n          __typename\n          ...S3Object\n        }\n        audio_key\n        optionContent\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      paragraphId\n      startIndex\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -96108,6 +96070,7 @@ public final class ListVocabularyArticlesQuery: GraphQLQuery {
                 GraphQLField("contentType", type: .nonNull(.scalar(String.self))),
                 GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
                 GraphQLField("contentImage_key", type: .scalar(String.self)),
+                GraphQLField("audio_key", type: .scalar(String.self)),
                 GraphQLField("videoURL", type: .scalar(String.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -96119,8 +96082,8 @@ public final class ListVocabularyArticlesQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -96174,6 +96137,15 @@ public final class ListVocabularyArticlesQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "contentImage_key")
+                }
+              }
+
+              public var audioKey: String? {
+                get {
+                  return snapshot["audio_key"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "audio_key")
                 }
               }
 
@@ -99682,7 +99654,7 @@ public final class ListTagsQuery: GraphQLQuery {
 
 public final class GetTagArticleQuery: GraphQLQuery {
   public static let operationString =
-    "query GetTagArticle($id: ID!) {\n  getTagArticle(id: $id) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetTagArticle($id: ID!) {\n  getTagArticle(id: $id) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -100818,6 +100790,7 @@ public final class GetTagArticleQuery: GraphQLQuery {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -100829,8 +100802,8 @@ public final class GetTagArticleQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -100902,6 +100875,15 @@ public final class GetTagArticleQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -102150,7 +102132,7 @@ public final class GetTagArticleQuery: GraphQLQuery {
 
 public final class ListTagArticlesQuery: GraphQLQuery {
   public static let operationString =
-    "query ListTagArticles($filter: ModelTagArticleFilterInput, $limit: Int, $nextToken: String) {\n  listTagArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      tag {\n        __typename\n        id\n        content\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        dialogues {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        image {\n          __typename\n          ...S3Object\n        }\n        image_key\n        isFeatured\n        featuredSlogan\n        featuredImage {\n          __typename\n          ...S3Object\n        }\n        featuredImage_key\n        createdAt\n        updatedAt\n      }\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListTagArticles($filter: ModelTagArticleFilterInput, $limit: Int, $nextToken: String) {\n  listTagArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      tag {\n        __typename\n        id\n        content\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        dialogues {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        image {\n          __typename\n          ...S3Object\n        }\n        image_key\n        isFeatured\n        featuredSlogan\n        featuredImage {\n          __typename\n          ...S3Object\n        }\n        featuredImage_key\n        createdAt\n        updatedAt\n      }\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -102836,6 +102818,7 @@ public final class ListTagArticlesQuery: GraphQLQuery {
                 GraphQLField("contentType", type: .nonNull(.scalar(String.self))),
                 GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
                 GraphQLField("contentImage_key", type: .scalar(String.self)),
+                GraphQLField("audio_key", type: .scalar(String.self)),
                 GraphQLField("videoURL", type: .scalar(String.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -102847,8 +102830,8 @@ public final class ListTagArticlesQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -102902,6 +102885,15 @@ public final class ListTagArticlesQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "contentImage_key")
+                }
+              }
+
+              public var audioKey: String? {
+                get {
+                  return snapshot["audio_key"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "audio_key")
                 }
               }
 
@@ -108843,9 +108835,7 @@ public final class ListDialoguesQuery: GraphQLQuery {
 
 public final class GetUserChapterRecordingQuery: GraphQLQuery {
   public static let operationString =
-    "query GetUserChapterRecording($id: ID!) {\n  getUserChapterRecording(id: $id) {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    user_record {\n      __typename\n      ...S3Object\n    }\n    createdAt\n    updatedAt\n  }\n}"
-
-  public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
+    "query GetUserChapterRecording($id: ID!) {\n  getUserChapterRecording(id: $id) {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    createdAt\n    updatedAt\n  }\n}"
 
   public var id: GraphQLID
 
@@ -108894,7 +108884,6 @@ public final class GetUserChapterRecordingQuery: GraphQLQuery {
         GraphQLField("mode", type: .nonNull(.scalar(String.self))),
         GraphQLField("score", type: .scalar(Double.self)),
         GraphQLField("score_detail", type: .scalar(String.self)),
-        GraphQLField("user_record", type: .object(UserRecord.selections)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
@@ -108905,8 +108894,8 @@ public final class GetUserChapterRecordingQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, userRecord: UserRecord? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "user_record": userRecord.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -108972,15 +108961,6 @@ public final class GetUserChapterRecordingQuery: GraphQLQuery {
         }
       }
 
-      public var userRecord: UserRecord? {
-        get {
-          return (snapshot["user_record"] as? Snapshot).flatMap { UserRecord(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "user_record")
-        }
-      }
-
       public var createdAt: String {
         get {
           return snapshot["createdAt"]! as! String
@@ -108998,95 +108978,13 @@ public final class GetUserChapterRecordingQuery: GraphQLQuery {
           snapshot.updateValue(newValue, forKey: "updatedAt")
         }
       }
-
-      public struct UserRecord: GraphQLSelectionSet {
-        public static let possibleTypes = ["S3Object"]
-
-        public static let selections: [GraphQLSelection] = [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
-          GraphQLField("region", type: .nonNull(.scalar(String.self))),
-          GraphQLField("key", type: .nonNull(.scalar(String.self))),
-        ]
-
-        public var snapshot: Snapshot
-
-        public init(snapshot: Snapshot) {
-          self.snapshot = snapshot
-        }
-
-        public init(bucket: String, region: String, key: String) {
-          self.init(snapshot: ["__typename": "S3Object", "bucket": bucket, "region": region, "key": key])
-        }
-
-        public var __typename: String {
-          get {
-            return snapshot["__typename"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        public var bucket: String {
-          get {
-            return snapshot["bucket"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "bucket")
-          }
-        }
-
-        public var region: String {
-          get {
-            return snapshot["region"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "region")
-          }
-        }
-
-        public var key: String {
-          get {
-            return snapshot["key"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "key")
-          }
-        }
-
-        public var fragments: Fragments {
-          get {
-            return Fragments(snapshot: snapshot)
-          }
-          set {
-            snapshot += newValue.snapshot
-          }
-        }
-
-        public struct Fragments {
-          public var snapshot: Snapshot
-
-          public var s3Object: S3Object {
-            get {
-              return S3Object(snapshot: snapshot)
-            }
-            set {
-              snapshot += newValue.snapshot
-            }
-          }
-        }
-      }
     }
   }
 }
 
 public final class ListUserChapterRecordingsQuery: GraphQLQuery {
   public static let operationString =
-    "query ListUserChapterRecordings($filter: ModelUserChapterRecordingFilterInput, $limit: Int, $nextToken: String) {\n  listUserChapterRecordings(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      user_id\n      chapter_id\n      mode\n      score\n      score_detail\n      user_record {\n        __typename\n        ...S3Object\n      }\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
-
-  public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
+    "query ListUserChapterRecordings($filter: ModelUserChapterRecordingFilterInput, $limit: Int, $nextToken: String) {\n  listUserChapterRecordings(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      user_id\n      chapter_id\n      mode\n      score\n      score_detail\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public var filter: ModelUserChapterRecordingFilterInput?
   public var limit: Int?
@@ -109185,7 +109083,6 @@ public final class ListUserChapterRecordingsQuery: GraphQLQuery {
           GraphQLField("mode", type: .nonNull(.scalar(String.self))),
           GraphQLField("score", type: .scalar(Double.self)),
           GraphQLField("score_detail", type: .scalar(String.self)),
-          GraphQLField("user_record", type: .object(UserRecord.selections)),
           GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
           GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
         ]
@@ -109196,8 +109093,8 @@ public final class ListUserChapterRecordingsQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, userRecord: UserRecord? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "user_record": userRecord.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -109263,15 +109160,6 @@ public final class ListUserChapterRecordingsQuery: GraphQLQuery {
           }
         }
 
-        public var userRecord: UserRecord? {
-          get {
-            return (snapshot["user_record"] as? Snapshot).flatMap { UserRecord(snapshot: $0) }
-          }
-          set {
-            snapshot.updateValue(newValue?.snapshot, forKey: "user_record")
-          }
-        }
-
         public var createdAt: String {
           get {
             return snapshot["createdAt"]! as! String
@@ -109287,86 +109175,6 @@ public final class ListUserChapterRecordingsQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "updatedAt")
-          }
-        }
-
-        public struct UserRecord: GraphQLSelectionSet {
-          public static let possibleTypes = ["S3Object"]
-
-          public static let selections: [GraphQLSelection] = [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
-            GraphQLField("region", type: .nonNull(.scalar(String.self))),
-            GraphQLField("key", type: .nonNull(.scalar(String.self))),
-          ]
-
-          public var snapshot: Snapshot
-
-          public init(snapshot: Snapshot) {
-            self.snapshot = snapshot
-          }
-
-          public init(bucket: String, region: String, key: String) {
-            self.init(snapshot: ["__typename": "S3Object", "bucket": bucket, "region": region, "key": key])
-          }
-
-          public var __typename: String {
-            get {
-              return snapshot["__typename"]! as! String
-            }
-            set {
-              snapshot.updateValue(newValue, forKey: "__typename")
-            }
-          }
-
-          public var bucket: String {
-            get {
-              return snapshot["bucket"]! as! String
-            }
-            set {
-              snapshot.updateValue(newValue, forKey: "bucket")
-            }
-          }
-
-          public var region: String {
-            get {
-              return snapshot["region"]! as! String
-            }
-            set {
-              snapshot.updateValue(newValue, forKey: "region")
-            }
-          }
-
-          public var key: String {
-            get {
-              return snapshot["key"]! as! String
-            }
-            set {
-              snapshot.updateValue(newValue, forKey: "key")
-            }
-          }
-
-          public var fragments: Fragments {
-            get {
-              return Fragments(snapshot: snapshot)
-            }
-            set {
-              snapshot += newValue.snapshot
-            }
-          }
-
-          public struct Fragments {
-            public var snapshot: Snapshot
-
-            public var s3Object: S3Object {
-              get {
-                return S3Object(snapshot: snapshot)
-              }
-              set {
-                snapshot += newValue.snapshot
-              }
-            }
           }
         }
       }
@@ -126961,7 +126769,7 @@ public final class GetExpressionsByLabelQuery: GraphQLQuery {
 
 public final class GetArticlesByStatusQuery: GraphQLQuery {
   public static let operationString =
-    "query GetArticlesByStatus($status: String, $createdAt: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelArticleFilterInput, $limit: Int, $nextToken: String) {\n  getArticlesByStatus(status: $status, createdAt: $createdAt, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query GetArticlesByStatus($status: String, $createdAt: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelArticleFilterInput, $limit: Int, $nextToken: String) {\n  getArticlesByStatus(status: $status, createdAt: $createdAt, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -128077,6 +127885,7 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -128088,8 +127897,8 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -128161,6 +127970,15 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -128396,7 +128214,7 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
 
 public final class GetVocabularyArticlesByParagraphIdQuery: GraphQLQuery {
   public static let operationString =
-    "query GetVocabularyArticlesByParagraphId($paragraphId: ID, $sortDirection: ModelSortDirection, $filter: ModelVocabularyArticleFilterInput, $limit: Int, $nextToken: String) {\n  getVocabularyArticlesByParagraphId(paragraphId: $paragraphId, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      vocabulary {\n        __typename\n        id\n        contentZh\n        contentEn\n        contentPinyin\n        label\n        audio {\n          __typename\n          ...S3Object\n        }\n        audio_key\n        optionContent\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      paragraphId\n      startIndex\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query GetVocabularyArticlesByParagraphId($paragraphId: ID, $sortDirection: ModelSortDirection, $filter: ModelVocabularyArticleFilterInput, $limit: Int, $nextToken: String) {\n  getVocabularyArticlesByParagraphId(paragraphId: $paragraphId, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      vocabulary {\n        __typename\n        id\n        contentZh\n        contentEn\n        contentPinyin\n        label\n        audio {\n          __typename\n          ...S3Object\n        }\n        audio_key\n        optionContent\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      paragraphId\n      startIndex\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -129106,6 +128924,7 @@ public final class GetVocabularyArticlesByParagraphIdQuery: GraphQLQuery {
                 GraphQLField("contentType", type: .nonNull(.scalar(String.self))),
                 GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
                 GraphQLField("contentImage_key", type: .scalar(String.self)),
+                GraphQLField("audio_key", type: .scalar(String.self)),
                 GraphQLField("videoURL", type: .scalar(String.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -129117,8 +128936,8 @@ public final class GetVocabularyArticlesByParagraphIdQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -129172,6 +128991,15 @@ public final class GetVocabularyArticlesByParagraphIdQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "contentImage_key")
+                }
+              }
+
+              public var audioKey: String? {
+                get {
+                  return snapshot["audio_key"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "audio_key")
                 }
               }
 
@@ -130749,9 +130577,7 @@ public final class GetDialoguesByStatusQuery: GraphQLQuery {
 
 public final class GetChapterRecordingByUserAndChapterQuery: GraphQLQuery {
   public static let operationString =
-    "query GetChapterRecordingByUserAndChapter($user_id: String, $chapter_id: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelUserChapterRecordingFilterInput, $limit: Int, $nextToken: String) {\n  getChapterRecordingByUserAndChapter(user_id: $user_id, chapter_id: $chapter_id, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      user_id\n      chapter_id\n      mode\n      score\n      score_detail\n      user_record {\n        __typename\n        ...S3Object\n      }\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
-
-  public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
+    "query GetChapterRecordingByUserAndChapter($user_id: String, $chapter_id: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelUserChapterRecordingFilterInput, $limit: Int, $nextToken: String) {\n  getChapterRecordingByUserAndChapter(user_id: $user_id, chapter_id: $chapter_id, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      user_id\n      chapter_id\n      mode\n      score\n      score_detail\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public var user_id: String?
   public var chapter_id: ModelStringKeyConditionInput?
@@ -130856,7 +130682,6 @@ public final class GetChapterRecordingByUserAndChapterQuery: GraphQLQuery {
           GraphQLField("mode", type: .nonNull(.scalar(String.self))),
           GraphQLField("score", type: .scalar(Double.self)),
           GraphQLField("score_detail", type: .scalar(String.self)),
-          GraphQLField("user_record", type: .object(UserRecord.selections)),
           GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
           GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
         ]
@@ -130867,8 +130692,8 @@ public final class GetChapterRecordingByUserAndChapterQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, userRecord: UserRecord? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "user_record": userRecord.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -130934,15 +130759,6 @@ public final class GetChapterRecordingByUserAndChapterQuery: GraphQLQuery {
           }
         }
 
-        public var userRecord: UserRecord? {
-          get {
-            return (snapshot["user_record"] as? Snapshot).flatMap { UserRecord(snapshot: $0) }
-          }
-          set {
-            snapshot.updateValue(newValue?.snapshot, forKey: "user_record")
-          }
-        }
-
         public var createdAt: String {
           get {
             return snapshot["createdAt"]! as! String
@@ -130958,86 +130774,6 @@ public final class GetChapterRecordingByUserAndChapterQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "updatedAt")
-          }
-        }
-
-        public struct UserRecord: GraphQLSelectionSet {
-          public static let possibleTypes = ["S3Object"]
-
-          public static let selections: [GraphQLSelection] = [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
-            GraphQLField("region", type: .nonNull(.scalar(String.self))),
-            GraphQLField("key", type: .nonNull(.scalar(String.self))),
-          ]
-
-          public var snapshot: Snapshot
-
-          public init(snapshot: Snapshot) {
-            self.snapshot = snapshot
-          }
-
-          public init(bucket: String, region: String, key: String) {
-            self.init(snapshot: ["__typename": "S3Object", "bucket": bucket, "region": region, "key": key])
-          }
-
-          public var __typename: String {
-            get {
-              return snapshot["__typename"]! as! String
-            }
-            set {
-              snapshot.updateValue(newValue, forKey: "__typename")
-            }
-          }
-
-          public var bucket: String {
-            get {
-              return snapshot["bucket"]! as! String
-            }
-            set {
-              snapshot.updateValue(newValue, forKey: "bucket")
-            }
-          }
-
-          public var region: String {
-            get {
-              return snapshot["region"]! as! String
-            }
-            set {
-              snapshot.updateValue(newValue, forKey: "region")
-            }
-          }
-
-          public var key: String {
-            get {
-              return snapshot["key"]! as! String
-            }
-            set {
-              snapshot.updateValue(newValue, forKey: "key")
-            }
-          }
-
-          public var fragments: Fragments {
-            get {
-              return Fragments(snapshot: snapshot)
-            }
-            set {
-              snapshot += newValue.snapshot
-            }
-          }
-
-          public struct Fragments {
-            public var snapshot: Snapshot
-
-            public var s3Object: S3Object {
-              get {
-                return S3Object(snapshot: snapshot)
-              }
-              set {
-                snapshot += newValue.snapshot
-              }
-            }
           }
         }
       }
@@ -131335,7 +131071,7 @@ public final class GetExpressionRecordingByUserAndExpressionQuery: GraphQLQuery 
 
 public final class OnCreateParagraphSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateParagraph {\n  onCreateParagraph {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateParagraph {\n  onCreateParagraph {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -131380,6 +131116,7 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -131391,8 +131128,8 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -131464,6 +131201,15 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "contentImage_key")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audio_key"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audio_key")
         }
       }
 
@@ -132514,6 +132260,7 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -132525,8 +132272,8 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -132598,6 +132345,15 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -132913,7 +132669,7 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
 
 public final class OnUpdateParagraphSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateParagraph {\n  onUpdateParagraph {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateParagraph {\n  onUpdateParagraph {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -132958,6 +132714,7 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -132969,8 +132726,8 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -133042,6 +132799,15 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "contentImage_key")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audio_key"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audio_key")
         }
       }
 
@@ -134092,6 +133858,7 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -134103,8 +133870,8 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -134176,6 +133943,15 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -134491,7 +134267,7 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
 
 public final class OnDeleteParagraphSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteParagraph {\n  onDeleteParagraph {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteParagraph {\n  onDeleteParagraph {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -134536,6 +134312,7 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -134547,8 +134324,8 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -134620,6 +134397,15 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "contentImage_key")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audio_key"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audio_key")
         }
       }
 
@@ -135670,6 +135456,7 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -135681,8 +135468,8 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -135754,6 +135541,15 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -136771,7 +136567,7 @@ public final class OnDeleteExpressionSubscription: GraphQLSubscription {
 
 public final class OnCreateArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateArticle {\n  onCreateArticle {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "subscription OnCreateArticle {\n  onCreateArticle {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -138697,6 +138493,7 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
             GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -138708,8 +138505,8 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -138781,6 +138578,15 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
             }
             set {
               snapshot.updateValue(newValue, forKey: "contentImage_key")
+            }
+          }
+
+          public var audioKey: String? {
+            get {
+              return snapshot["audio_key"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "audio_key")
             }
           }
 
@@ -139246,7 +139052,7 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
 
 public final class OnUpdateArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateArticle {\n  onUpdateArticle {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "subscription OnUpdateArticle {\n  onUpdateArticle {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -141172,6 +140978,7 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
             GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -141183,8 +140990,8 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -141256,6 +141063,15 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
             }
             set {
               snapshot.updateValue(newValue, forKey: "contentImage_key")
+            }
+          }
+
+          public var audioKey: String? {
+            get {
+              return snapshot["audio_key"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "audio_key")
             }
           }
 
@@ -141721,7 +141537,7 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
 
 public final class OnDeleteArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteArticle {\n  onDeleteArticle {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "subscription OnDeleteArticle {\n  onDeleteArticle {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -143647,6 +143463,7 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
             GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -143658,8 +143475,8 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -143731,6 +143548,15 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
             }
             set {
               snapshot.updateValue(newValue, forKey: "contentImage_key")
+            }
+          }
+
+          public var audioKey: String? {
+            get {
+              return snapshot["audio_key"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "audio_key")
             }
           }
 
@@ -147502,7 +147328,7 @@ public final class OnDeleteVocabularySubscription: GraphQLSubscription {
 
 public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateVocabularyArticle {\n  onCreateVocabularyArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateVocabularyArticle {\n  onCreateVocabularyArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -148651,6 +148477,7 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -148662,8 +148489,8 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -148735,6 +148562,15 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -149565,7 +149401,7 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
 
 public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateVocabularyArticle {\n  onUpdateVocabularyArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateVocabularyArticle {\n  onUpdateVocabularyArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -150714,6 +150550,7 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -150725,8 +150562,8 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -150798,6 +150635,15 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -151628,7 +151474,7 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
 
 public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteVocabularyArticle {\n  onDeleteVocabularyArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteVocabularyArticle {\n  onDeleteVocabularyArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -152777,6 +152623,7 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -152788,8 +152635,8 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -152861,6 +152708,15 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -159730,7 +159586,7 @@ public final class OnDeleteTagSubscription: GraphQLSubscription {
 
 public final class OnCreateTagArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateTagArticle {\n  onCreateTagArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateTagArticle {\n  onCreateTagArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -160859,6 +160715,7 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -160870,8 +160727,8 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -160943,6 +160800,15 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -162191,7 +162057,7 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
 
 public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateTagArticle {\n  onUpdateTagArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateTagArticle {\n  onUpdateTagArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -163320,6 +163186,7 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -163331,8 +163198,8 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -163404,6 +163271,15 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -164652,7 +164528,7 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
 
 public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteTagArticle {\n  onDeleteTagArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteTagArticle {\n  onDeleteTagArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -165781,6 +165657,7 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
               GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -165792,8 +165669,8 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -165865,6 +165742,15 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "contentImage_key")
+              }
+            }
+
+            public var audioKey: String? {
+              get {
+                return snapshot["audio_key"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "audio_key")
               }
             }
 
@@ -176818,9 +176704,7 @@ public final class OnDeleteDialogueSubscription: GraphQLSubscription {
 
 public final class OnCreateUserChapterRecordingSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateUserChapterRecording {\n  onCreateUserChapterRecording {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    user_record {\n      __typename\n      ...S3Object\n    }\n    createdAt\n    updatedAt\n  }\n}"
-
-  public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
+    "subscription OnCreateUserChapterRecording {\n  onCreateUserChapterRecording {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    createdAt\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -176862,7 +176746,6 @@ public final class OnCreateUserChapterRecordingSubscription: GraphQLSubscription
         GraphQLField("mode", type: .nonNull(.scalar(String.self))),
         GraphQLField("score", type: .scalar(Double.self)),
         GraphQLField("score_detail", type: .scalar(String.self)),
-        GraphQLField("user_record", type: .object(UserRecord.selections)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
@@ -176873,8 +176756,8 @@ public final class OnCreateUserChapterRecordingSubscription: GraphQLSubscription
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, userRecord: UserRecord? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "user_record": userRecord.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -176940,15 +176823,6 @@ public final class OnCreateUserChapterRecordingSubscription: GraphQLSubscription
         }
       }
 
-      public var userRecord: UserRecord? {
-        get {
-          return (snapshot["user_record"] as? Snapshot).flatMap { UserRecord(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "user_record")
-        }
-      }
-
       public var createdAt: String {
         get {
           return snapshot["createdAt"]! as! String
@@ -176966,95 +176840,13 @@ public final class OnCreateUserChapterRecordingSubscription: GraphQLSubscription
           snapshot.updateValue(newValue, forKey: "updatedAt")
         }
       }
-
-      public struct UserRecord: GraphQLSelectionSet {
-        public static let possibleTypes = ["S3Object"]
-
-        public static let selections: [GraphQLSelection] = [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
-          GraphQLField("region", type: .nonNull(.scalar(String.self))),
-          GraphQLField("key", type: .nonNull(.scalar(String.self))),
-        ]
-
-        public var snapshot: Snapshot
-
-        public init(snapshot: Snapshot) {
-          self.snapshot = snapshot
-        }
-
-        public init(bucket: String, region: String, key: String) {
-          self.init(snapshot: ["__typename": "S3Object", "bucket": bucket, "region": region, "key": key])
-        }
-
-        public var __typename: String {
-          get {
-            return snapshot["__typename"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        public var bucket: String {
-          get {
-            return snapshot["bucket"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "bucket")
-          }
-        }
-
-        public var region: String {
-          get {
-            return snapshot["region"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "region")
-          }
-        }
-
-        public var key: String {
-          get {
-            return snapshot["key"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "key")
-          }
-        }
-
-        public var fragments: Fragments {
-          get {
-            return Fragments(snapshot: snapshot)
-          }
-          set {
-            snapshot += newValue.snapshot
-          }
-        }
-
-        public struct Fragments {
-          public var snapshot: Snapshot
-
-          public var s3Object: S3Object {
-            get {
-              return S3Object(snapshot: snapshot)
-            }
-            set {
-              snapshot += newValue.snapshot
-            }
-          }
-        }
-      }
     }
   }
 }
 
 public final class OnUpdateUserChapterRecordingSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateUserChapterRecording {\n  onUpdateUserChapterRecording {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    user_record {\n      __typename\n      ...S3Object\n    }\n    createdAt\n    updatedAt\n  }\n}"
-
-  public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
+    "subscription OnUpdateUserChapterRecording {\n  onUpdateUserChapterRecording {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    createdAt\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -177096,7 +176888,6 @@ public final class OnUpdateUserChapterRecordingSubscription: GraphQLSubscription
         GraphQLField("mode", type: .nonNull(.scalar(String.self))),
         GraphQLField("score", type: .scalar(Double.self)),
         GraphQLField("score_detail", type: .scalar(String.self)),
-        GraphQLField("user_record", type: .object(UserRecord.selections)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
@@ -177107,8 +176898,8 @@ public final class OnUpdateUserChapterRecordingSubscription: GraphQLSubscription
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, userRecord: UserRecord? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "user_record": userRecord.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -177174,15 +176965,6 @@ public final class OnUpdateUserChapterRecordingSubscription: GraphQLSubscription
         }
       }
 
-      public var userRecord: UserRecord? {
-        get {
-          return (snapshot["user_record"] as? Snapshot).flatMap { UserRecord(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "user_record")
-        }
-      }
-
       public var createdAt: String {
         get {
           return snapshot["createdAt"]! as! String
@@ -177200,95 +176982,13 @@ public final class OnUpdateUserChapterRecordingSubscription: GraphQLSubscription
           snapshot.updateValue(newValue, forKey: "updatedAt")
         }
       }
-
-      public struct UserRecord: GraphQLSelectionSet {
-        public static let possibleTypes = ["S3Object"]
-
-        public static let selections: [GraphQLSelection] = [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
-          GraphQLField("region", type: .nonNull(.scalar(String.self))),
-          GraphQLField("key", type: .nonNull(.scalar(String.self))),
-        ]
-
-        public var snapshot: Snapshot
-
-        public init(snapshot: Snapshot) {
-          self.snapshot = snapshot
-        }
-
-        public init(bucket: String, region: String, key: String) {
-          self.init(snapshot: ["__typename": "S3Object", "bucket": bucket, "region": region, "key": key])
-        }
-
-        public var __typename: String {
-          get {
-            return snapshot["__typename"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        public var bucket: String {
-          get {
-            return snapshot["bucket"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "bucket")
-          }
-        }
-
-        public var region: String {
-          get {
-            return snapshot["region"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "region")
-          }
-        }
-
-        public var key: String {
-          get {
-            return snapshot["key"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "key")
-          }
-        }
-
-        public var fragments: Fragments {
-          get {
-            return Fragments(snapshot: snapshot)
-          }
-          set {
-            snapshot += newValue.snapshot
-          }
-        }
-
-        public struct Fragments {
-          public var snapshot: Snapshot
-
-          public var s3Object: S3Object {
-            get {
-              return S3Object(snapshot: snapshot)
-            }
-            set {
-              snapshot += newValue.snapshot
-            }
-          }
-        }
-      }
     }
   }
 }
 
 public final class OnDeleteUserChapterRecordingSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteUserChapterRecording {\n  onDeleteUserChapterRecording {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    user_record {\n      __typename\n      ...S3Object\n    }\n    createdAt\n    updatedAt\n  }\n}"
-
-  public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
+    "subscription OnDeleteUserChapterRecording {\n  onDeleteUserChapterRecording {\n    __typename\n    id\n    user_id\n    chapter_id\n    mode\n    score\n    score_detail\n    createdAt\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -177330,7 +177030,6 @@ public final class OnDeleteUserChapterRecordingSubscription: GraphQLSubscription
         GraphQLField("mode", type: .nonNull(.scalar(String.self))),
         GraphQLField("score", type: .scalar(Double.self)),
         GraphQLField("score_detail", type: .scalar(String.self)),
-        GraphQLField("user_record", type: .object(UserRecord.selections)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
@@ -177341,8 +177040,8 @@ public final class OnDeleteUserChapterRecordingSubscription: GraphQLSubscription
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, userRecord: UserRecord? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "user_record": userRecord.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: String, chapterId: String, mode: String, score: Double? = nil, scoreDetail: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserChapterRecording", "id": id, "user_id": userId, "chapter_id": chapterId, "mode": mode, "score": score, "score_detail": scoreDetail, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -177408,15 +177107,6 @@ public final class OnDeleteUserChapterRecordingSubscription: GraphQLSubscription
         }
       }
 
-      public var userRecord: UserRecord? {
-        get {
-          return (snapshot["user_record"] as? Snapshot).flatMap { UserRecord(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "user_record")
-        }
-      }
-
       public var createdAt: String {
         get {
           return snapshot["createdAt"]! as! String
@@ -177432,86 +177122,6 @@ public final class OnDeleteUserChapterRecordingSubscription: GraphQLSubscription
         }
         set {
           snapshot.updateValue(newValue, forKey: "updatedAt")
-        }
-      }
-
-      public struct UserRecord: GraphQLSelectionSet {
-        public static let possibleTypes = ["S3Object"]
-
-        public static let selections: [GraphQLSelection] = [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
-          GraphQLField("region", type: .nonNull(.scalar(String.self))),
-          GraphQLField("key", type: .nonNull(.scalar(String.self))),
-        ]
-
-        public var snapshot: Snapshot
-
-        public init(snapshot: Snapshot) {
-          self.snapshot = snapshot
-        }
-
-        public init(bucket: String, region: String, key: String) {
-          self.init(snapshot: ["__typename": "S3Object", "bucket": bucket, "region": region, "key": key])
-        }
-
-        public var __typename: String {
-          get {
-            return snapshot["__typename"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        public var bucket: String {
-          get {
-            return snapshot["bucket"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "bucket")
-          }
-        }
-
-        public var region: String {
-          get {
-            return snapshot["region"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "region")
-          }
-        }
-
-        public var key: String {
-          get {
-            return snapshot["key"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "key")
-          }
-        }
-
-        public var fragments: Fragments {
-          get {
-            return Fragments(snapshot: snapshot)
-          }
-          set {
-            snapshot += newValue.snapshot
-          }
-        }
-
-        public struct Fragments {
-          public var snapshot: Snapshot
-
-          public var s3Object: S3Object {
-            get {
-              return S3Object(snapshot: snapshot)
-            }
-            set {
-              snapshot += newValue.snapshot
-            }
-          }
         }
       }
     }

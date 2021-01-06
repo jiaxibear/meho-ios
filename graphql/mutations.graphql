@@ -98,6 +98,7 @@ mutation CreateParagraph(
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -114,6 +115,7 @@ mutation CreateParagraph(
       ...S3Object
     }
     contentImage_key
+    audio_key
     videoURL
     createdAt
     updatedAt
@@ -218,6 +220,7 @@ mutation UpdateParagraph(
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -234,6 +237,7 @@ mutation UpdateParagraph(
       ...S3Object
     }
     contentImage_key
+    audio_key
     videoURL
     createdAt
     updatedAt
@@ -338,6 +342,7 @@ mutation DeleteParagraph(
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -354,6 +359,7 @@ mutation DeleteParagraph(
       ...S3Object
     }
     contentImage_key
+    audio_key
     videoURL
     createdAt
     updatedAt
@@ -564,6 +570,7 @@ mutation CreateArticle(
           ...S3Object
         }
         contentImage_key
+        audio_key
         videoURL
         createdAt
         updatedAt
@@ -725,6 +732,7 @@ mutation UpdateArticle(
           ...S3Object
         }
         contentImage_key
+        audio_key
         videoURL
         createdAt
         updatedAt
@@ -886,6 +894,7 @@ mutation DeleteArticle(
           ...S3Object
         }
         contentImage_key
+        audio_key
         videoURL
         createdAt
         updatedAt
@@ -1235,6 +1244,7 @@ mutation CreateVocabularyArticle(
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -1395,6 +1405,7 @@ mutation UpdateVocabularyArticle(
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -1555,6 +1566,7 @@ mutation DeleteVocabularyArticle(
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -2090,6 +2102,7 @@ mutation CreateTagArticle(
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -2277,6 +2290,7 @@ mutation UpdateTagArticle(
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -2464,6 +2478,7 @@ mutation DeleteTagArticle(
             ...S3Object
           }
           contentImage_key
+          audio_key
           videoURL
           createdAt
           updatedAt
@@ -3214,9 +3229,6 @@ mutation CreateUserChapterRecording(
     mode
     score
     score_detail
-    user_record {
-      ...S3Object
-    }
     createdAt
     updatedAt
   }
@@ -3232,9 +3244,6 @@ mutation UpdateUserChapterRecording(
     mode
     score
     score_detail
-    user_record {
-      ...S3Object
-    }
     createdAt
     updatedAt
   }
@@ -3250,9 +3259,6 @@ mutation DeleteUserChapterRecording(
     mode
     score
     score_detail
-    user_record {
-      ...S3Object
-    }
     createdAt
     updatedAt
   }
