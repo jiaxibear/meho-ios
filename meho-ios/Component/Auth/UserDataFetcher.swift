@@ -14,9 +14,11 @@ import AWSMobileClient
 class UserDataFetcher: NSObject {
 
     private var appSyncClient: AWSAppSyncClient?
+    private let session = URLSession(configuration: .default)
 
     static let shared = UserDataFetcher.init()
     private var currentUser: BasicUser?
+    private let dialogRecordingHistoryUrlPrefix = "https://np6vw6ipgk.execute-api.us-west-2.amazonaws.com/dev/profile/user_score_history/dialogue/"
 
     // MARK: - Init
     private override init() {
@@ -444,5 +446,70 @@ class UserDataFetcher: NSObject {
 
             completionHandler(createdUserExpressionRecording.id, nil)
         })
+    }
+
+    // MARK: - Restful APIs for customized logic
+    public func fetchLatestDuoScoresOfDialogRest(dialogID: String, userID: String, completionHandler: @escaping ( Dictionary<String, Double>?, Error?) -> Void) {
+        if var fetchLatestDuoScoresURLComponent = URLComponents.init(string: dialogRecordingHistoryUrlPrefix) {
+            let dialogIdQueryItem = URLQueryItem.init(name: "dialogue", value: dialogID)
+            let userIdQueryItem = URLQueryItem.init(name: "user", value: userID)
+            fetchLatestDuoScoresURLComponent.queryItems = [dialogIdQueryItem, userIdQueryItem]
+            if let fetchLatestDuoScoresUrl = fetchLatestDuoScoresURLComponent.url {
+                let dataCategoriesTask = session.dataTask(with: fetchLatestDuoScoresUrl, completionHandler: { (data, URLResponse, error) in
+                    if error != nil {
+                        print("There is an error getting the response of news list")
+                        completionHandler(nil, error)
+                        return
+                    }
+                    if data == nil {
+                        print("The response of news list is empty")
+                        completionHandler(nil, nil)
+                        return
+                    }
+                    do {
+                        if let scoreHistoriesJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                            let newsList = self.parseDuoScoresOfDialog(scoreHistoriesJson: scoreHistoriesJson)
+                            completionHandler(newsList, nil)
+                        }
+                    } catch let JSONError as NSError {
+                        print("Failed to parse news list JSON: \(JSONError.localizedDescription)")
+                        completionHandler(nil, JSONError)
+                    }
+                })
+                dataCategoriesTask.resume()
+            } else {
+                completionHandler(nil, nil)
+            }
+        } else {
+            completionHandler(nil, nil)
+        }
+    }
+
+    private func parseDuoScoresOfDialog(scoreHistoriesJson: [String: Any]) -> Dictionary<String, Double> {
+        var chapterIdToScores:[String:Double] = [:]
+        guard let recordsMapJson = scoreHistoriesJson["records"] as? [String: Any] else {
+            return chapterIdToScores
+        }
+
+        guard let duoItemsArrayJson = recordsMapJson["DUO"] as? [[String: Any]] else {
+            return chapterIdToScores
+        }
+
+        for duoItemJson in duoItemsArrayJson {
+            if let chapterId = duoItemJson["chapter_id"] as? String,
+               let historicalScores = duoItemJson["history_scores"] as? [[String: Any]],
+               historicalScores.count > 0 {
+
+                if let firstRecord = historicalScores.first,
+                   let scoreS = firstRecord["score"] as? String,
+                   let scoreD = Double(scoreS) {
+                    chapterIdToScores[chapterId] = scoreD
+                }
+
+                print("huh")
+            }
+        }
+
+        return chapterIdToScores
     }
 }

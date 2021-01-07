@@ -449,7 +449,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                 self.scoreB = score / numberOfScores
             }
 
-            let duoFinalScoreViewController = DuoFinalScoreViewController.init(scoreA: scoreA, scoreB: scoreB)
+            let duoFinalScoreViewController = DuoFinalScoreViewController.init(dialog: dialog, scoredChapters: scoredChapters, scoreA: scoreA, scoreB: scoreB)
             duoFinalScoreViewController.delegate = self
             let viewWidth = view.bounds.width - duoFinalScoreViewLeadingTrailingMargin * 2
             let viewHeight = duoFinalScoreViewController.viewHeight(width: viewWidth)

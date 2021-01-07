@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSMobileClient
 import FirebaseAnalytics
 
 protocol DuoFinalScoreViewControllerDelegate: AnyObject {
@@ -47,6 +48,9 @@ class DuoFinalScoreViewController: UIViewController, MehoAnalytics {
 
     // MARK: - Properties
     // MARK: Models
+    private let userDataFetcher = UserDataFetcher.shared
+    private let dialog: Dialog
+    private var scoredChapters: [ScoredChapter];
     private let scoreA: Int?
     private let scoreB: Int?
     var delegate: DuoFinalScoreViewControllerDelegate?
@@ -248,7 +252,9 @@ class DuoFinalScoreViewController: UIViewController, MehoAnalytics {
         fatalError("Use init(scoreA: Int?, scoreB: Int?)")
     }
 
-    init(scoreA: Int?, scoreB: Int?) {
+    init(dialog: Dialog, scoredChapters: [ScoredChapter], scoreA: Int?, scoreB: Int?) {
+        self.dialog = dialog
+        self.scoredChapters = scoredChapters
         self.scoreA = scoreA
         self.scoreB = scoreB
         super.init(nibName: nil, bundle: nil)
@@ -256,7 +262,7 @@ class DuoFinalScoreViewController: UIViewController, MehoAnalytics {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        updateDialogCompletionIfNeeded()
         view.backgroundColor = .white
         view.addSubview(congratulationsLabel)
         view.addSubview(finishRoleLabel)
@@ -329,6 +335,41 @@ class DuoFinalScoreViewController: UIViewController, MehoAnalytics {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Analytics.logScreenViewEvent(viewController: self)
+    }
+
+    // MARK: - Async Processing of dialog completion state
+    func updateDialogCompletionIfNeeded() {
+        guard let userID = AWSMobileClient.default().userSub else { return }
+        let dialogID = dialog.identifier
+        userDataFetcher.fetchLatestDuoScoresOfDialogRest(dialogID: dialogID, userID: userID) { (maybeDuoScoresMap, maybeError) in
+            if maybeError == nil, let duoScoreMap = maybeDuoScoresMap, self.isDialogCompleted(duoScoreMap: duoScoreMap) {
+                self.userDataFetcher.deleteUserItemInProgress(userId: userID, itemId: self.dialog.identifier) { (removeInProgressSuccess, error) in
+                    if (error == nil && removeInProgressSuccess) {
+                        // do nothing
+                        print("user:" + userID + ", dialog:" + self.dialog.identifier + " - remove inprogress successful")
+                    } else {
+                        print("user:" + userID + ", dialog:" + self.dialog.identifier + " - remove inprogress failed")
+                    }
+                }
+                self.userDataFetcher.createUserItemCompleted(userId: userID, itemId: self.dialog.identifier, itemType: "DIALOGUE") { (createCompletedSuccess, error) in
+                    if (error == nil && createCompletedSuccess) {
+                        // do nothing
+                        print("user:" + userID + ", dialog:" + self.dialog.identifier + " - added completed successful")
+                    } else {
+                        print("user:" + userID + ", dialog:" + self.dialog.identifier + " - added completed failed")
+                    }
+                }
+            }
+        }
+    }
+
+    func isDialogCompleted(duoScoreMap:[String:Double]) -> Bool {
+        for scoredChapter in scoredChapters {
+            if duoScoreMap[scoredChapter.chapter.identifier] == nil {
+                return false
+            }
+        }
+        return true
     }
 
     // MARK: - Internal
