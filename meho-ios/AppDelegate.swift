@@ -28,11 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Sets appearance of the navigation bar.
         try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: .defaultToSpeaker)
         try? AVAudioSession.sharedInstance().setActive(true)
+        // Sets appearance of the navigation bar.
         let navigationBarAppearance = UINavigationBarAppearance()
         let backBarButtonItemImage = UIImage.init(systemName: backBarButtonItemImageName)?.withTintColor(.wisteriaPurple).withAlignmentRectInsets(UIEdgeInsets.init(top: 0, left: 0, bottom: 2, right: 0))
         navigationBarAppearance.setBackIndicatorImage(backBarButtonItemImage, transitionMaskImage: backBarButtonItemImage)
-        navigationBarAppearance.backgroundColor = .white
-        navigationBarAppearance.shadowColor = .white
+        navigationBarAppearance.configureWithTransparentBackground()
         let fontDescriptor = UIFont.systemFont(ofSize: navigationBarTitleFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
         let navigationBarTitleFont = UIFont.init(descriptor: fontDescriptor!, size: 0)
         navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.wisteriaPurple, NSAttributedString.Key.font: navigationBarTitleFont]
@@ -84,7 +84,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             let config = try AWSAppSyncClientConfiguration(appSyncServiceConfig: AWSAppSyncServiceConfig())
             appSyncClient = try AWSAppSyncClient(appSyncConfig: config)
-
         } catch {
             print(error.localizedDescription)
         }

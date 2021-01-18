@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSMobileClient
 
 class MainTabTitleView: UIView {
 
@@ -15,10 +16,12 @@ class MainTabTitleView: UIView {
     private let titleLabelFontSize = CGFloat(34)
     private let titleLableTopMargin = CGFloat(8)
     private let viewHeight = CGFloat(40)
+    private let profileButtonFontSize = CGFloat(24)
 
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
     private let profileButton = UIButton.init(frame: .zero)
+    private let userDataFetcher = UserDataFetcher.shared
     private weak var delegate: TriggerProfileViewDelegate?
 
     // MARK: - Init
@@ -36,6 +39,27 @@ class MainTabTitleView: UIView {
         super.init(frame: frame)
         setupTitleLabel()
         setupProfileButton()
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+        userDataFetcher.getUser(userId: userID) { (basicUser, error) in
+            if error == nil, let currentUser = basicUser {
+                let currentUserName = currentUser.username
+                if currentUserName != currentUser.email {
+                    DispatchQueue.main.async {
+                        var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
+                        if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: self.profileButtonFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+                            textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: self.profileButtonFontSize)
+                        } else {
+                            textAttributes[.font] = UIFont.systemFont(ofSize: self.profileButtonFontSize, weight: .semibold)
+                        }
+                        let imageView = UIImageView.init(frame: self.profileButton.frame)
+                        imageView.setImageForName(currentUserName, backgroundColor: .greenBlue, circular: true, textAttributes: textAttributes, gradient: false)
+                        self.profileButton.setImage(imageView.image, for: .normal)
+                    }
+                }
+            }
+        }
     }
 
     private func setupTitleLabel() {

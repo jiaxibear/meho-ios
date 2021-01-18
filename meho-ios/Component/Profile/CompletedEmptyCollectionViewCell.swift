@@ -60,6 +60,8 @@ class CompletedEmptyCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    weak var delegate: CompletedEmptyCollectionViewCellDelegate?
+
     // MARK: - Views
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel.init(frame: .zero)
@@ -110,6 +112,12 @@ class CompletedEmptyCollectionViewCell: UICollectionViewCell {
         viewButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         viewButton.heightAnchor.constraint(equalToConstant: viewButtonHeight).isActive = true
         viewButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        viewButton.addTarget(self, action: #selector(didTapViewButton), for: .touchUpInside)
         viewButtonWidthConstraint.isActive = true
+    }
+
+    @objc
+    private func didTapViewButton() {
+        delegate?.completedEmptyCollectionViewCellDidTapButton(navigation: completedNavigation)
     }
 }

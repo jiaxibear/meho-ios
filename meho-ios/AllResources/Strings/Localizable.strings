@@ -380,3 +380,12 @@
 
 /* Text displayed if there is no saved expressions for the specefic category. */
 "NoSavedExpressionsWithCategoryText" = "You currently don’t have any expressions related to %@ saved. Check out Expression and save the ones interest you.";
+
+/* Title for the take photo button. */
+"takePhotoButtonTitle" = "Take Photo";
+
+/* Title for the upload photo button. */
+"uploadPhotoButtonTitle" = "Upload Photo";
+
+/* Title for the profile photo screen. */
+"ProfilePhotoTitle" = "Profile Photo";

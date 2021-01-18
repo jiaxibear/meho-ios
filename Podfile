@@ -20,6 +20,7 @@ target 'meho-ios' do
 
   pod 'Toast-Swift', '~> 5.0.1'
   pod 'Kingfisher', '~> 5.15'
+  pod 'InitialsImageView', '~> 0.7.0'
 
   # add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'

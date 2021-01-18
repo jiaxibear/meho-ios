@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSMobileClient
+import InitialsImageView
 
 enum ProfileSection: Int {
     case completed
@@ -27,6 +28,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let profileToUsernameMargin = CGFloat(15)
     private let usernameLabelFontSize = CGFloat(20)
     private let profileImageViewSize = CGFloat(50)
+    private let profileImageViewFontSize = CGFloat(24)
     private let settingButtonSize = CGFloat(20)
     private let completedCellHeight = CGFloat(90)
     private let sectionLeadingTrailingMargin = CGFloat(18)
@@ -43,6 +45,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let profileCardHeight = CGFloat(210)
     private let profileDummyCardWidth = CGFloat(150)
     private let profileDummyCardHeight = CGFloat(100)
+    private let profilePhotoButtonSideLength = CGFloat(16)
+    private let profilePhotoImageEdgeInset = CGFloat(4)
+    private let profilePhotoButtonBorderWidth = CGFloat(1)
 
     // MARK: - Properties
     private lazy var usernameLabel: UILabel = {
@@ -73,6 +78,22 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(didTapSettingButton), for: .touchUpInside)
         return button
+    } ()
+
+    private lazy var profilePhotoButton: UIButton = {
+        let profilePhotoButton = UIButton.init(frame: .zero)
+        profilePhotoButton.translatesAutoresizingMaskIntoConstraints = false
+        let profilePhotoButtonImage = UIImage.init(named: "profile_edit_penceil")
+        profilePhotoButton.setImage(profilePhotoButtonImage, for: .normal)
+        profilePhotoButton.clipsToBounds = true
+        profilePhotoButton.imageEdgeInsets = UIEdgeInsets.init(top: profilePhotoImageEdgeInset, left: profilePhotoImageEdgeInset, bottom: profilePhotoImageEdgeInset, right: profilePhotoImageEdgeInset)
+        profilePhotoButton.imageView?.contentMode = .scaleAspectFit
+        profilePhotoButton.layer.cornerRadius = profilePhotoButtonSideLength / 2
+        profilePhotoButton.layer.borderColor = UIColor.paleLilac.cgColor
+        profilePhotoButton.layer.borderWidth = profilePhotoButtonBorderWidth
+        profilePhotoButton.addTarget(self, action: #selector(didTapProfilePhotoButton), for: .touchUpInside)
+        profilePhotoButton.backgroundColor = .white
+        return profilePhotoButton
     } ()
 
     private lazy var collectionViewCompositionalLayout: UICollectionViewCompositionalLayout = {
@@ -143,27 +164,35 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
         view.addSubview(collectionView)
         view.addSubview(profileImageView)
+        view.addSubview(profilePhotoButton)
         view.addSubview(usernameLabel)
         view.addSubview(settingButton)
 
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        collectionView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: collectionViewTopMargin).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: collectionViewTopMargin),
+            collectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
 
-        profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: headerHorizontalMargin).isActive = true
-        profileImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: headerTopMargin).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: profileImageViewSize).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: profileImageViewSize).isActive = true
+            profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: headerHorizontalMargin),
+            profileImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: headerTopMargin),
+            profileImageView.heightAnchor.constraint(equalToConstant: profileImageViewSize),
+            profileImageView.widthAnchor.constraint(equalToConstant: profileImageViewSize),
 
-        usernameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: profileToUsernameMargin).isActive = true
-        usernameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
-        usernameLabel.heightAnchor.constraint(equalToConstant: profileImageViewSize).isActive = true
+            profilePhotoButton.widthAnchor.constraint(equalToConstant: profilePhotoButtonSideLength),
+            profilePhotoButton.heightAnchor.constraint(equalToConstant: profilePhotoButtonSideLength),
+            profilePhotoButton.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor),
+            profilePhotoButton.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor),
 
-        settingButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
-        settingButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -headerHorizontalMargin).isActive = true
-        settingButton.heightAnchor.constraint(equalToConstant: settingButtonSize).isActive = true
-        settingButton.widthAnchor.constraint(equalToConstant: settingButtonSize).isActive = true
+            usernameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: profileToUsernameMargin),
+            usernameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
+            usernameLabel.heightAnchor.constraint(equalToConstant: profileImageViewSize),
+
+            settingButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
+            settingButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -headerHorizontalMargin),
+            settingButton.heightAnchor.constraint(equalToConstant: settingButtonSize),
+            settingButton.widthAnchor.constraint(equalToConstant: settingButtonSize)
+        ])
 
         guard let userID = AWSMobileClient.default().userSub else {
             return
@@ -422,9 +451,17 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private func updateUserNickName(userID: String) {
         userDataFetcher.getUser (userId: userID, completionHandler: { (maybeUser, error) in
             if error == nil, let currentUser = maybeUser {
-                if currentUser.username != currentUser.email {
+                let currentUserName = currentUser.username
+                if currentUserName != currentUser.email {
                     DispatchQueue.main.async {
-                        self.usernameLabel.text = currentUser.username
+                        self.usernameLabel.text = currentUserName
+                        var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
+                        if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+                            textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: self.profileImageViewFontSize)
+                        } else {
+                            textAttributes[.font] = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold)
+                        }
+                        self.profileImageView.setImageForName(currentUserName, backgroundColor: .greenBlue, circular: true, textAttributes: textAttributes, gradient: false)
                     }
                 }
             }
@@ -470,5 +507,23 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 }
             }
         })
+    }
+
+    @objc
+    private func didTapProfilePhotoButton() {
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+        userDataFetcher.getUser(userId: userID) { (basicUser, error) in
+            DispatchQueue.main.async {
+                let profilePhotoViewController: ProfilePhotoViewController
+                if basicUser?.avatar_key != nil {
+                    profilePhotoViewController = ProfilePhotoViewController.init(profilePhoto: self.profileImageView.image)
+                } else {
+                    profilePhotoViewController = ProfilePhotoViewController.init(userName: self.usernameLabel.text)
+                }
+                self.navigationController?.pushViewController(profilePhotoViewController, animated: true)
+            }
+        }
     }
 }

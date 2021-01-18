@@ -158,6 +158,8 @@
 		EAD7F77324D5265A008ADC1C /* TermsOfUse.html in Resources */ = {isa = PBXBuildFile; fileRef = EAD7F77124D52659008ADC1C /* TermsOfUse.html */; };
 		EAD7F77424D5265A008ADC1C /* PrivacyPolicy.html in Resources */ = {isa = PBXBuildFile; fileRef = EAD7F77224D5265A008ADC1C /* PrivacyPolicy.html */; };
 		EADFAA21259940DD00C6344A /* CompletedEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADFAA20259940DD00C6344A /* CompletedEmptyCollectionViewCell.swift */; };
+		EADFAA2625AE955A00C6344A /* ProfilePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADFAA2525AE955A00C6344A /* ProfilePhotoViewController.swift */; };
+		EADFAA2B25AEB86000C6344A /* ImageTopAndTitleDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADFAA2A25AEB86000C6344A /* ImageTopAndTitleDownButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -341,6 +343,8 @@
 		EAD7F77124D52659008ADC1C /* TermsOfUse.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TermsOfUse.html; sourceTree = "<group>"; };
 		EAD7F77224D5265A008ADC1C /* PrivacyPolicy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PrivacyPolicy.html; sourceTree = "<group>"; };
 		EADFAA20259940DD00C6344A /* CompletedEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
+		EADFAA2525AE955A00C6344A /* ProfilePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoViewController.swift; sourceTree = "<group>"; };
+		EADFAA2A25AEB86000C6344A /* ImageTopAndTitleDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTopAndTitleDownButton.swift; sourceTree = "<group>"; };
 		F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.release.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -672,6 +676,7 @@
 				EA9AD89D25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift */,
 				EA43D6C5256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift */,
 				EADFAA20259940DD00C6344A /* CompletedEmptyCollectionViewCell.swift */,
+				EADFAA2525AE955A00C6344A /* ProfilePhotoViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -883,6 +888,7 @@
 				92C5FE4A24557931004A3322 /* MainTabTitleView.swift */,
 				EA9B5DD424A97A6C00D6CFBD /* BulletPointView.swift */,
 				EAD7F76924CE4472008ADC1C /* WebViewController.swift */,
+				EADFAA2A25AEB86000C6344A /* ImageTopAndTitleDownButton.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1195,6 +1201,7 @@
 				92C5FE4B24557931004A3322 /* MainTabTitleView.swift in Sources */,
 				EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */,
 				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,
+				EADFAA2B25AEB86000C6344A /* ImageTopAndTitleDownButton.swift in Sources */,
 				EAD7F76524BAA8B8008ADC1C /* DisplayScoreSwitch.swift in Sources */,
 				9204700124F337A200DE1A2D /* ProfileQuestion.swift in Sources */,
 				EAD20BA124F1F4E400C1ED89 /* Idiom.swift in Sources */,
@@ -1204,6 +1211,7 @@
 				EA16937E256215BB0074EE0D /* ProfileDetails.swift in Sources */,
 				EA4206932467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift in Sources */,
 				EA6381ED2455551700481B8B /* DuoOtherRoleCollectionViewCell.swift in Sources */,
+				EADFAA2625AE955A00C6344A /* ProfilePhotoViewController.swift in Sources */,
 				EA52FDAF23EF8116008EB37B /* NewsViewController.swift in Sources */,
 				92C5FE37244D93BE004A3322 /* Vocabulary.swift in Sources */,
 				EA43D6C6256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift in Sources */,

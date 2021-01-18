@@ -18,7 +18,7 @@ enum CompletedItemsType: Int {
     case savedVocabularies
 }
 
-class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DialogModeSelectionViewControllerDelegate {
+class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DialogModeSelectionViewControllerDelegate, CompletedEmptyCollectionViewCellDelegate {
 
     private let contentCategoryCollectionViewCellWidth = CGFloat(40)
     private let contentCategoryCollectionViewCellHeight = CGFloat(30)
@@ -138,7 +138,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 selectedExpressionContentCategoryIndex = 0
                 break
             case .talk:
-                if talkCategories.count == 0 {
+                if talkProfileCategories.count == 0 {
                     conversationDataFetcher.fetchCategories(maybeLimit: nil) { (categories, error) in
                         guard categories != nil else {
                             DispatchQueue.main.async {
@@ -150,11 +150,12 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                         DispatchQueue.main.async {
                             var allContentCategory = ProfileContentCategory.init(categoryType: .story, title: "All", isSubType: true)
                             allContentCategory.isSelected = true
-                            self.talkCategories.append(allContentCategory)
+                            self.talkProfileCategories.append(allContentCategory)
+                            self.talkCategories = categories!
                             for category in categories! {
                                 let title = category.title
                                 let profileContentCategory = ProfileContentCategory.init(categoryType: .story, title: title, isSubType: true)
-                                self.talkCategories.append(profileContentCategory)
+                                self.talkProfileCategories.append(profileContentCategory)
                             }
                             self.sections.insert(.storyCategories, at: 1)
                             self.selectedTalkContentCategoryIndex = 0
@@ -169,17 +170,18 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
 
-    private var talkCategories: [ProfileContentCategory] = []
+    private var talkProfileCategories: [ProfileContentCategory] = []
+    private var talkCategories: [Category] = []
 
     private var selectedTalkContentCategoryIndex: Int = 0 {
         didSet {
-            talkCategories[oldValue].isSelected = false
-            talkCategories[selectedTalkContentCategoryIndex].isSelected = true
+            talkProfileCategories[oldValue].isSelected = false
+            talkProfileCategories[selectedTalkContentCategoryIndex].isSelected = true
             if selectedTalkContentCategoryIndex == 0 {
                 filteredItems = talks
             } else {
                 filteredItems.removeAll()
-                let title = talkCategories[selectedTalkContentCategoryIndex].title
+                let title = talkProfileCategories[selectedTalkContentCategoryIndex].title
                 for talk in talks {
                     if talk.category?.title == title {
                         filteredItems.append(talk)
@@ -389,7 +391,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             }
         case .storyCategories:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
-            cell.contentCategory = talkCategories[indexPath.item]
+            cell.contentCategory = talkProfileCategories[indexPath.item]
             return cell
         case .expressionCategories:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: completedCategoryCollectionViewCellIdentifier, for: indexPath) as! CompletedCategoryCollectionViewCell
@@ -406,13 +408,14 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                 subCategory = expressionCategories[selectedExpressionContentCategoryIndex]
                 break
             case .talk:
-                subCategory = talkCategories[selectedTalkContentCategoryIndex]
+                subCategory = talkProfileCategories[selectedTalkContentCategoryIndex]
                 break
             case .story:
                 break
             }
             let completedNavigation = CompletedNavigation.init(category: category, subCategory: subCategory)
             cell.completedNavigation = completedNavigation
+            cell.delegate = self
             return cell
         }
         return UICollectionViewCell.init(frame: .zero)
@@ -423,7 +426,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         case .contentCategories:
             return contentCategories.count
         case .storyCategories:
-            return talkCategories.count
+            return talkProfileCategories.count
         case .expressionCategories:
             return expressionCategories.count
         case .items:
@@ -457,6 +460,42 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
         } else {
             view.makeToast(NSLocalizedString("removeSuccessfullyMessage", comment: ""))
+        }
+    }
+
+    // MARK: - CompletedEmptyCollectionViewCellDelegate
+    func completedEmptyCollectionViewCellDidTapButton(navigation: CompletedNavigation) {
+        let category = navigation.category
+        switch category.categoryType {
+        case .talk:
+            if selectedTalkContentCategoryIndex == 0 {
+                let conversationViewController = ConversationViewController.init()
+                navigationController?.pushViewController(conversationViewController, animated: true)
+            } else {
+                let talkCategory = talkCategories[selectedTalkContentCategoryIndex - 1]
+                let dialogStreamViewController = DialogStreamViewController.init(category: talkCategory)
+                navigationController?.pushViewController(dialogStreamViewController, animated: true)
+            }
+            break
+        case .story:
+            let newsViewController = NewsViewController.init()
+            navigationController?.pushViewController(newsViewController, animated: true)
+            break
+        case .all:
+            assertionFailure()
+            break
+        case .expression:
+            if selectedExpressionContentCategoryIndex == 0 {
+                let expressionViewController = ExpressionViewController.init()
+                navigationController?.pushViewController(expressionViewController, animated: true)
+            } else {
+                let title = expressionCategories[selectedExpressionContentCategoryIndex].title
+                if title != "All" {
+                    let detailedDialogViewController = DetailedDialogViewController.init(survivalPhraseCategoryIdentifier: title, title: title)
+                    navigationController?.pushViewController(detailedDialogViewController, animated: true)
+                }
+            }
+            break
         }
     }
 
