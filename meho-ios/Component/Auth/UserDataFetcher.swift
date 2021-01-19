@@ -10,6 +10,7 @@ import UIKit
 import AWSAppSync
 import AWSCore
 import AWSMobileClient
+import Signals
 
 class UserDataFetcher: NSObject {
 
@@ -19,6 +20,8 @@ class UserDataFetcher: NSObject {
     static let shared = UserDataFetcher.init()
     private var currentUser: BasicUser?
     private let dialogRecordingHistoryUrlPrefix = "https://np6vw6ipgk.execute-api.us-west-2.amazonaws.com/dev/profile/user_score_history/dialogue/"
+
+    let userSignal = Signal<BasicUser>.init()
 
     // MARK: - Init
     private override init() {
@@ -70,11 +73,10 @@ class UserDataFetcher: NSObject {
             basicUser.email = remoteuser.email
             basicUser.username = remoteuser.username
 
-            if let avatar_key = remoteuser.avatar?.key {
-                basicUser.avatar_key = avatar_key
-            }
-            if let avatar_bucket = remoteuser.avatar?.bucket {
-                basicUser.avatar_bucket = avatar_bucket
+            if let avatar_key = remoteuser.avatar?.key, let avatar_bucket = remoteuser.avatar?.bucket {
+                basicUser.avatarImageKey = S3ResourceKey.init(bucket: avatar_bucket, key: avatar_key)
+            } else if let avatarKey = remoteuser.avatarKey {
+                basicUser.avatarImageKey = S3ResourceKey.init(bucket: "", key: avatarKey)
             }
 
             if let goals = remoteuser.goals {
@@ -111,11 +113,10 @@ class UserDataFetcher: NSObject {
             updatedUser.username = remoteUser.username
             updatedUser.email = remoteUser.email
 
-            if let avatar_key = remoteUser.avatar?.key {
-                updatedUser.avatar_key = avatar_key
-            }
-            if let avatar_bucket = remoteUser.avatar?.bucket {
-                updatedUser.avatar_bucket = avatar_bucket
+            if let avatar_key = remoteUser.avatar?.key, let avatar_bucket = remoteUser.avatar?.bucket {
+                updatedUser.avatarImageKey = S3ResourceKey.init(bucket: avatar_bucket, key: avatar_key)
+            } else if let avatarKey = remoteUser.avatarKey {
+                updatedUser.avatarImageKey = S3ResourceKey.init(bucket: "", key: avatarKey)
             }
 
             if let goals = remoteUser.goals {
@@ -130,6 +131,7 @@ class UserDataFetcher: NSObject {
                 updatedUser.profession = profession
             }
             self.currentUser = updatedUser
+            self.userSignal.fire(updatedUser)
             completionHandler(updatedUser, nil)
         }
     }

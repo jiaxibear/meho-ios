@@ -15,6 +15,5 @@ struct BasicUser {
     var profession = ""
     var goals:[String] = []
     var interests:[String] = []
-    var avatar_bucket:String?
-    var avatar_key:String?
+    var avatarImageKey: S3ResourceKey?
 }

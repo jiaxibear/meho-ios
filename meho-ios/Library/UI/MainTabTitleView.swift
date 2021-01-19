@@ -19,10 +19,33 @@ class MainTabTitleView: UIView {
     private let profileButtonFontSize = CGFloat(24)
 
     // MARK: - Properties
-    private let titleLabel = UILabel.init(frame: .zero)
-    private let profileButton = UIButton.init(frame: .zero)
     private let userDataFetcher = UserDataFetcher.shared
     private weak var delegate: TriggerProfileViewDelegate?
+
+    private lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel.init(frame: .zero)
+        titleLabel.textColor = .wisteriaPurple
+        titleLabel.textAlignment = .left
+        titleLabel.backgroundColor = .white
+        if let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded) {
+            titleLabel.font = UIFont.init(descriptor: fontDescriptor, size: titleLabelFontSize)
+        }
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return titleLabel
+    } ()
+
+    private lazy var profilePhotoImageView: WebImageView = {
+        let profilePhotoImageView = WebImageView.init(frame: .zero)
+        let profileImage = UIImage.init(named:dummypProfileImageName)
+        profilePhotoImageView.translatesAutoresizingMaskIntoConstraints = false
+        profilePhotoImageView.image = profileImage
+        profilePhotoImageView.isUserInteractionEnabled = true
+        profilePhotoImageView.layer.masksToBounds = true
+        profilePhotoImageView.layer.cornerRadius = viewHeight / 2
+        let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(didTapProfilePhotoImageView))
+        profilePhotoImageView.addGestureRecognizer(tapGestureRecognizer)
+        return profilePhotoImageView
+    } ()
 
     // MARK: - Init
     @available(*, unavailable)
@@ -37,58 +60,33 @@ class MainTabTitleView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupTitleLabel()
-        setupProfileButton()
+
+        addSubview(titleLabel)
+        addSubview(profilePhotoImageView)
+
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleLableTopMargin),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+            profilePhotoImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            profilePhotoImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            profilePhotoImageView.heightAnchor.constraint(equalToConstant: viewHeight),
+            profilePhotoImageView.widthAnchor.constraint(equalToConstant: viewHeight)
+        ])
+
         guard let userID = AWSMobileClient.default().userSub else {
             return
         }
+
         userDataFetcher.getUser(userId: userID) { (basicUser, error) in
             if error == nil, let currentUser = basicUser {
-                let currentUserName = currentUser.username
-                if currentUserName != currentUser.email {
-                    DispatchQueue.main.async {
-                        var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
-                        if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: self.profileButtonFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
-                            textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: self.profileButtonFontSize)
-                        } else {
-                            textAttributes[.font] = UIFont.systemFont(ofSize: self.profileButtonFontSize, weight: .semibold)
-                        }
-                        let imageView = UIImageView.init(frame: self.profileButton.frame)
-                        imageView.setImageForName(currentUserName, backgroundColor: .greenBlue, circular: true, textAttributes: textAttributes, gradient: false)
-                        self.profileButton.setImage(imageView.image, for: .normal)
-                    }
-                }
+                self.updateProfilePhoto(basicUser: currentUser)
             }
         }
-    }
-
-    private func setupTitleLabel() {
-        // Sets up the title
-        titleLabel.textColor = .wisteriaPurple
-        titleLabel.textAlignment = .left
-        titleLabel.backgroundColor = .white
-        let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        titleLabel.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(titleLabel)
-
-        // Sets up layout constrainsts.
-        titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleLableTopMargin).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-    }
-
-    private func setupProfileButton() {
-        let profileImage = UIImage.init(named:dummypProfileImageName)
-        profileButton.translatesAutoresizingMaskIntoConstraints = false
-        profileButton.setImage(profileImage, for: .normal)
-        profileButton.addTarget(self, action: #selector(didTapProfileImage), for: .touchUpInside)
-        addSubview(profileButton)
-
-        profileButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        profileButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
-        profileButton.heightAnchor.constraint(equalToConstant: viewHeight).isActive = true
-        profileButton.widthAnchor.constraint(equalToConstant: viewHeight).isActive = true
+        userDataFetcher.userSignal.subscribe(with: self) { (basicUser) in
+            self.updateProfilePhoto(basicUser: basicUser)
+        }
     }
 
     public func setTitleText(text: String) {
@@ -104,8 +102,27 @@ class MainTabTitleView: UIView {
     }
 
     @objc
-    private func didTapProfileImage() {
+    private func didTapProfilePhotoImageView() {
         delegate?.MainTitleViewDidTapProfileImage()
+    }
+
+    private func updateProfilePhoto(basicUser: BasicUser) {
+        if let avatarImageKey = basicUser.avatarImageKey {
+            self.profilePhotoImageView.imageKey = avatarImageKey
+        } else {
+            let currentUserName = basicUser.username
+            if currentUserName != basicUser.email {
+                DispatchQueue.main.async {
+                    var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
+                    if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: self.profileButtonFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+                        textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: self.profileButtonFontSize)
+                    } else {
+                        textAttributes[.font] = UIFont.systemFont(ofSize: self.profileButtonFontSize, weight: .semibold)
+                    }
+                    self.profilePhotoImageView.setImageForName(currentUserName, backgroundColor: .greenBlue, circular: true, textAttributes: textAttributes, gradient: false)
+                }
+            }
+        }
     }
 }
 

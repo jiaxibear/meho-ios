@@ -8,8 +8,11 @@
 
 import UIKit
 import InitialsImageView
+import PhotosUI
+import Amplify
+import AWSMobileClient
 
-class ProfilePhotoViewController: UIViewController {
+class ProfilePhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     // MARK: - Constants
     private let defaultProfileImageName = "no_profile_pic"
@@ -23,6 +26,7 @@ class ProfilePhotoViewController: UIViewController {
     private let profileImageViewFontSize = CGFloat(250)
 
     private let userName: String?
+    private var userPhoto: UIImage?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -65,6 +69,7 @@ class ProfilePhotoViewController: UIViewController {
         let takePhotoButtonImage = UIImage.init(named: "profile_photo_camara")
         takePhotoButton.setImage(takePhotoButtonImage, for: .normal)
         takePhotoButton.imageView?.contentMode = .scaleAspectFit
+        takePhotoButton.addTarget(self, action: #selector(didTapTakePhotoButton), for: .touchUpInside)
         return takePhotoButton
     } ()
 
@@ -80,6 +85,7 @@ class ProfilePhotoViewController: UIViewController {
         let uploadPhotoButtonImage = UIImage.init(named: "profile_photo_upload")
         uploadPhotoButton.setImage(uploadPhotoButtonImage, for: .normal)
         uploadPhotoButton.imageView?.contentMode = .scaleAspectFit
+        uploadPhotoButton.addTarget(self, action: #selector(didTapUploadPhotoButton), for: .touchUpInside)
         return uploadPhotoButton
     } ()
 
@@ -88,16 +94,16 @@ class ProfilePhotoViewController: UIViewController {
         super.viewDidLayoutSubviews()
 
         profilePhotoImageView.layer.cornerRadius = profilePhotoImageView.bounds.width / 2
-        if userName != nil {
-                var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
-                if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: profileImageViewFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
-                    textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: self.profileImageViewFontSize)
-                } else {
-                    textAttributes[.font] = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold)
-                }
-                profilePhotoImageView.setImageForName(userName!, backgroundColor: .greenBlue, circular: true, textAttributes: textAttributes, gradient: false)
-                profilePhotoImageView.layer.borderColor = UIColor.white.cgColor
-                profilePhotoImageView.layer.borderWidth = 2
+        if userName != nil && userPhoto == nil {
+            var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
+            if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: profileImageViewFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+                textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: self.profileImageViewFontSize)
+            } else {
+                textAttributes[.font] = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold)
+            }
+            profilePhotoImageView.setImageForName(userName!, backgroundColor: .greenBlue, circular: true, textAttributes: textAttributes, gradient: false)
+            profilePhotoImageView.layer.borderColor = UIColor.white.cgColor
+            profilePhotoImageView.layer.borderWidth = 2
         }
     }
 
@@ -109,10 +115,19 @@ class ProfilePhotoViewController: UIViewController {
         view.backgroundColor = .textCharcoalGrey
         title = NSLocalizedString("ProfilePhotoTitle", comment: "")
         let saveBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("SaveButtonTitle", comment: ""), style: .plain, target: self, action: #selector(didTapSaveButton))
+        saveBarButtonItem.isEnabled = false
         navigationItem.rightBarButtonItem = saveBarButtonItem
+        if let navigationBar = navigationController?.navigationBar {
+            navigationItem.standardAppearance = navigationBar.standardAppearance
+            navigationItem.scrollEdgeAppearance = navigationBar.scrollEdgeAppearance
+            navigationItem.standardAppearance?.titleTextAttributes[NSAttributedString.Key.foregroundColor] = UIColor.white
+            navigationItem.scrollEdgeAppearance?.titleTextAttributes[NSAttributedString.Key.foregroundColor] = UIColor.white
+        }
+
         if let saveBarButtonItemFontDescriptor = UIFont.systemFont(ofSize: saveButtonFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
             saveBarButtonItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.init(descriptor: saveBarButtonItemFontDescriptor, size: saveButtonFontSize)], for: .normal)
         }
+        navigationController?.setNavigationBarHidden(false, animated: true)
 
         let layoutMarginsGuide = view.layoutMarginsGuide
         NSLayoutConstraint.activate([
@@ -130,28 +145,73 @@ class ProfilePhotoViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        super.viewWillDisappear(animated)
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.tintColor = .white
-            navigationBar.standardAppearance.titleTextAttributes[NSAttributedString.Key.foregroundColor] = UIColor.white
-            navigationBar.scrollEdgeAppearance?.titleTextAttributes[NSAttributedString.Key.foregroundColor] = UIColor.white
         }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
-        if let navigationBar = navigationController?.navigationBar {
+        if let navigationBar = navigationController?.navigationBar, presentedViewController == nil {
             navigationBar.tintColor = .wisteriaPurple
-            navigationBar.standardAppearance.titleTextAttributes[NSAttributedString.Key.foregroundColor] = UIColor.wisteriaPurple
-            navigationBar.scrollEdgeAppearance?.titleTextAttributes[NSAttributedString.Key.foregroundColor] = UIColor.wisteriaPurple
+        }
+    }
+
+    // MARK: - UIImagePickerControllerDelegate
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true) {
+            if let image = info[.editedImage] as? UIImage {
+                self.profilePhotoImageView.image = image
+                self.profilePhotoImageView.layer.borderWidth = 0
+                self.userPhoto = image
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
+            }
         }
     }
 
     @objc
     func didTapSaveButton() {
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+        guard let userPhotoData = userPhoto?.pngData() else {
+            return
+        }
+        let newProfilePhotoKey = userID + "_profilePhoto" + String(Date.init().timeIntervalSince1970)
+        Amplify.Storage.uploadData(key: newProfilePhotoKey, data: userPhotoData) { (result) in
+            switch result {
+            case .success(_):
+                UserDataFetcher.shared.updateUser(id: userID, avatarKey: newProfilePhotoKey) { (basicUser, error) in 
+                    if error == nil {
+                        DispatchQueue.main.async {
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }
+                }
+                break
+            case let .failure(storageError):
+                print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+                break
+            }
+        }
+    }
 
+    @objc
+    func didTapTakePhotoButton() {
+        let imagePickerController = UIImagePickerController.init()
+        imagePickerController.allowsEditing = true
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .camera
+        present(imagePickerController, animated: true, completion: nil)
+    }
+
+    @objc
+    func didTapUploadPhotoButton() {
+        let imagePickerController = UIImagePickerController.init()
+        imagePickerController.allowsEditing = true
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
     }
 }

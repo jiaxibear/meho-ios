@@ -61,14 +61,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return label
     } ()
 
-    private lazy var profileImageView: UIImageView = {
-        let view = UIImageView.init(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.clipsToBounds = true
-        view.layer.cornerRadius = profileImageViewSize / 2
+    private lazy var profileImageView: WebImageView = {
+        let profileImageView = WebImageView.init(frame: .zero)
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        profileImageView.clipsToBounds = true
+        profileImageView.layer.cornerRadius = profileImageViewSize / 2
         let profileImage = UIImage.init(named:defaultProfileImageName)
-        view.image = profileImage
-        return view
+        profileImageView.image = profileImage
+        return profileImageView
     } ()
 
     private lazy var settingButton: UIButton = {
@@ -197,7 +197,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         guard let userID = AWSMobileClient.default().userSub else {
             return
         }
-        updateUserNickName(userID: userID)
+
+        userDataFetcher.userSignal.subscribe(with: self) { (basicUser) in
+            self.updateProfile(basicUser: basicUser)
+        }
 
         profileDataFetcher.fetchProfileDetail(userID: userID) { (profileDetails, error) in
             guard error == nil && profileDetails != nil else {
@@ -236,10 +239,19 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         } else {
             navigationController?.setNavigationBarHidden(true, animated: false)
         }
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         guard let userID = AWSMobileClient.default().userSub else {
             return
         }
-        updateUserNickName(userID: userID)
+        userDataFetcher.getUser(userId: userID) { (basicUser, error) in
+            guard let currentUser = basicUser else {
+                return
+            }
+            self.updateProfile(basicUser: currentUser)
+        }
     }
 
     // MARK: - UICollectionViewDataDelegate
@@ -448,26 +460,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         navigationController?.pushViewController(profileSettingViewController, animated: true)
     }
 
-    private func updateUserNickName(userID: String) {
-        userDataFetcher.getUser (userId: userID, completionHandler: { (maybeUser, error) in
-            if error == nil, let currentUser = maybeUser {
-                let currentUserName = currentUser.username
-                if currentUserName != currentUser.email {
-                    DispatchQueue.main.async {
-                        self.usernameLabel.text = currentUserName
-                        var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
-                        if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
-                            textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: self.profileImageViewFontSize)
-                        } else {
-                            textAttributes[.font] = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold)
-                        }
-                        self.profileImageView.setImageForName(currentUserName, backgroundColor: .greenBlue, circular: true, textAttributes: textAttributes, gradient: false)
-                    }
-                }
-            }
-        })
-    }
-
     private func didSelectProfileCard(_ profileCard: ProfileCard) {
         switch profileCard.profileCardType {
         case .story:
@@ -517,12 +509,33 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         userDataFetcher.getUser(userId: userID) { (basicUser, error) in
             DispatchQueue.main.async {
                 let profilePhotoViewController: ProfilePhotoViewController
-                if basicUser?.avatar_key != nil {
+                if basicUser?.avatarImageKey != nil {
                     profilePhotoViewController = ProfilePhotoViewController.init(profilePhoto: self.profileImageView.image)
                 } else {
                     profilePhotoViewController = ProfilePhotoViewController.init(userName: self.usernameLabel.text)
                 }
                 self.navigationController?.pushViewController(profilePhotoViewController, animated: true)
+            }
+        }
+    }
+
+    private func updateProfile(basicUser: BasicUser) {
+        DispatchQueue.main.async {
+            let currentUserName = basicUser.username
+            let hasUserSetNickname = currentUserName != basicUser.email
+            if hasUserSetNickname {
+                self.usernameLabel.text = currentUserName
+            }
+            if let avatarImageKey = basicUser.avatarImageKey {
+                self.profileImageView.imageKey = avatarImageKey
+            } else if hasUserSetNickname {
+                var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
+                if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+                    textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: self.profileImageViewFontSize)
+                } else {
+                    textAttributes[.font] = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold)
+                }
+                self.profileImageView.setImageForName(currentUserName, backgroundColor: .greenBlue, circular: true, textAttributes: textAttributes, gradient: false)
             }
         }
     }

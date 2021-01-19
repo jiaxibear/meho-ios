@@ -94,11 +94,27 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         return button
     } ()
 
+    private lazy var activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView.init()
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicatorView
+    } ()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        if AWSMobileClient.default().isSignedIn {
+        let mobileClient = AWSMobileClient.default()
+        if mobileClient.isSignedIn {
             // sign in func
-            self.navigationController? .setViewControllers([MainViewController.init()], animated: false)
+            mobileClient.getTokens { (tokens, error) in
+                if tokens != nil && error == nil {
+                    DispatchQueue.main.async {
+                        self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
+                    }
+                } else {
+                    self.activityIndicatorView.stopAnimating()
+                    self.activityIndicatorView.isHidden = true
+                }
+            }
         }
         title = ""
         view.backgroundColor = .white
@@ -106,6 +122,14 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         setupPageControl()
         setupSignUpButton()
         setupSignInButton()
+        view.addSubview(activityIndicatorView)
+        NSLayoutConstraint.activate([
+            activityIndicatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            activityIndicatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            activityIndicatorView.topAnchor.constraint(equalTo: view.topAnchor),
+            activityIndicatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        activityIndicatorView.startAnimating()
     }
 
     override func viewWillAppear(_ animated: Bool) {
