@@ -156,15 +156,15 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         let profileSetting = profileSettings[indexPath.item]
         switch profileSetting.type {
         case .goal:
-            let viewController = CompleteProfileViewStep1Controller.init(goals: profileSetting.subtitle?.components(separatedBy: ", "), isSingleStep: true)
+            let viewController = CompleteProfileViewStep2Controller.init(goals: profileSetting.subtitle?.components(separatedBy: ", "), isSingleStep: true)
             navigationController?.pushViewController(viewController, animated: true)
             break
         case .interests:
-            let viewController = CompleteProfileViewStep2Controller.init(interests: profileSetting.subtitle?.components(separatedBy: ", "), isSingleStep: true)
+            let viewController = CompleteProfileViewStep3Controller.init(interests: profileSetting.subtitle?.components(separatedBy: ", "), isSingleStep: true)
             navigationController?.pushViewController(viewController, animated: true)
             break
         case .professions:
-            let viewController = CompleteProfileViewStep3Controller.init(profession: profileSetting.subtitle, isSingleStep: true)
+            let viewController = CompleteProfileViewStep4Controller.init(profession: profileSetting.subtitle, isSingleStep: true)
             navigationController?.pushViewController(viewController, animated: true)
             break
         case .userAgreement:

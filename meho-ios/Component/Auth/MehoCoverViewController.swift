@@ -97,6 +97,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     private lazy var activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView.init()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.backgroundColor = .white
         return activityIndicatorView
     } ()
 
@@ -104,15 +105,18 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         super.viewDidLoad()
         let mobileClient = AWSMobileClient.default()
         if mobileClient.isSignedIn {
+            activityIndicatorView.startAnimating()
             // sign in func
             mobileClient.getTokens { (tokens, error) in
                 if tokens != nil && error == nil {
                     DispatchQueue.main.async {
+                        self.activityIndicatorView.stopAnimating()
                         self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
                     }
                 } else {
-                    self.activityIndicatorView.stopAnimating()
-                    self.activityIndicatorView.isHidden = true
+                    DispatchQueue.main.async {
+                        self.activityIndicatorView.stopAnimating()
+                    }
                 }
             }
         }
@@ -129,7 +133,6 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
             activityIndicatorView.topAnchor.constraint(equalTo: view.topAnchor),
             activityIndicatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        activityIndicatorView.startAnimating()
     }
 
     override func viewWillAppear(_ animated: Bool) {

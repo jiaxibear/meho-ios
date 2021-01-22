@@ -9,7 +9,7 @@
 import UIKit
 import AWSMobileClient
 
-class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Constants
     private let nextButtonWidth = CGFloat(200)
@@ -22,15 +22,11 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     private let questionCollectionViewCellReuseIdentifier = "questionCollectionViewCellReuseIdentifier"
     private let questionsCollectionViewTopBottomMargin = CGFloat(24)
     private let questionsCollectionViewCellSpacing = CGFloat(20)
-    private let questionsCollectionViewCellHeight = CGFloat(86)
-    private let questionsCollectionViewSpecialCellHeight = CGFloat(40)
-    private let questionsCollectionNumberOfCellsInRow = 2
-    private let questionsCollectionViewMinimumLineSpacing = CGFloat(40)
-    private let questionsCollectionViewCellTitleFontSize = CGFloat(18)
-    private let industryBottomLineHeight = CGFloat(3)
-    private let industryStackViewTopMargin = CGFloat(30)
-    private let industryStackViewBottomMargin = CGFloat(16)
-    private let industryPlaceholderFontSize = CGFloat(16)
+    private let questionsCollectionViewCellHeight = CGFloat(36)
+    private let questionsCollectionNumberOfCellsInRow = 3
+    private let questionsCollectionViewMinimumLineSpacing = CGFloat(26)
+    private let questionsCollectionViewCellTitleFontSize = CGFloat(14)
+    private let minNumberOfSelectedQuestion = 3
 
     // MARK: - Properties
     // MARK: Model
@@ -38,18 +34,24 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     private let isSingleStep: Bool
 
     private lazy var questions: [ProfileQuestion] = {
-        let academic = ProfileQuestion.init(title: "Academic", subtitle: "(student, scholar, researcher, etc)", color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let finance = ProfileQuestion.init(title: "Finance", subtitle: "(investment, banking, consulting, etc)", color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let trade = ProfileQuestion.init(title: "Trade", subtitle: "(import, export, ecommerce, etc)", color: .periwinkleBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let service = ProfileQuestion.init(title: "Service", subtitle: "(hospitality, retail, media, travel, etc)", color: .periwinkleBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let tech = ProfileQuestion.init(title: "Tech", subtitle: "(software, telecom, hardware, etc)", color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let infrastructure = ProfileQuestion.init(title: "Infrastructure", subtitle: "(road, railway, energy, etc)", color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let others = ProfileQuestion.init(title: "Others", subtitle: nil, color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        return [academic, finance, trade, service, tech, infrastructure, others]
+        let business = ProfileQuestion.init(title: "#Business", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let tech = ProfileQuestion.init(title: "#Tech", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let finance = ProfileQuestion.init(title: "#Finance", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let networking = ProfileQuestion.init(title: "#Networking", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let career = ProfileQuestion.init(title: "#Career", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let culture = ProfileQuestion.init(title: "#Culture", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let travel = ProfileQuestion.init(title: "#Travel", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let cuisine = ProfileQuestion.init(title: "#Cuisine", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let shopping = ProfileQuestion.init(title: "#Shopping", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let transportation = ProfileQuestion.init(title: "#Transportation", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let history = ProfileQuestion.init(title: "#History", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let hospitality = ProfileQuestion.init(title: "#Hospitality", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let movie = ProfileQuestion.init(title: "#Movie", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let reading = ProfileQuestion.init(title: "#Reading", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let sports = ProfileQuestion.init(title: "#Sports", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let society = ProfileQuestion.init(title: "#Society", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        return [business, tech, finance, networking, career, culture, travel, cuisine, shopping, transportation, history, hospitality, movie, reading, sports, society]
     } ()
-
-    private var lastSelectedIndex = -1
-    private var questionsCollectionViewHeight = CGFloat(0)
 
     // MARK: UI
     private lazy var nextButton: UIButton = {
@@ -58,7 +60,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         if isSingleStep {
             nextButton.setTitle(NSLocalizedString("SaveButtonTitle", comment: ""), for: .normal)
         } else {
-            nextButton.setTitle(NSLocalizedString("StartLearningButtonTitle", comment: ""), for: .normal)
+            nextButton.setTitle(NSLocalizedString("NextButtonTitle", comment: ""), for: .normal)
         }
         nextButton.backgroundColor = .lightBlueGrey
         nextButton.setTitleColor(.white, for: .disabled)
@@ -71,7 +73,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
 
     private lazy var interestReasonLabel: UILabel = {
         let interestReasonLabel = UILabel.init(frame: .zero)
-        interestReasonLabel.text = NSLocalizedString("IndustryTitle", comment: "")
+        interestReasonLabel.text = NSLocalizedString("InterestTagsTitle", comment: "")
         interestReasonLabel.textColor = .darkGrayTwo
         let interestReasonLabelFontDescriptor = UIFont.systemFont(ofSize: interestReasonLabelFontSize).fontDescriptor.withDesign(.rounded)
         interestReasonLabel.font = UIFont.init(descriptor: interestReasonLabelFontDescriptor!, size: interestReasonLabelFontSize)
@@ -96,64 +98,17 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         return questionsCollectionView
     } ()
 
-    private lazy var industryTextField: UITextField = {
-        let industryTextField = UITextField.init(frame: .zero)
-        industryTextField.translatesAutoresizingMaskIntoConstraints = false
-        industryTextField.borderStyle = .none
-        industryTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        industryTextField.delegate = self
-        let centeredParagraphStyle = NSMutableParagraphStyle()
-        centeredParagraphStyle.alignment = .center
-        let industryPlaceholderFontDescriptor = UIFont.systemFont(ofSize: industryPlaceholderFontSize, weight: .light).fontDescriptor.withDesign(.rounded)
-        let attributes = [
-            NSAttributedString.Key.paragraphStyle: centeredParagraphStyle,
-            NSAttributedString.Key.foregroundColor : UIColor.textBlueGray,
-            NSAttributedString.Key.font : UIFont.init(descriptor: industryPlaceholderFontDescriptor!, size: industryPlaceholderFontSize)
-        ]
-        let attributedPlaceholder = NSAttributedString(string: NSLocalizedString("industryPlaceholder", comment: ""), attributes: attributes)
-        industryTextField.attributedPlaceholder = attributedPlaceholder
-        industryTextField.textAlignment = .center
-        return industryTextField
-    } ()
-
-    private lazy var industryBottomLine: UIView = {
-        let industryBottomLine = UIView.init(frame: .zero)
-        industryBottomLine.translatesAutoresizingMaskIntoConstraints = false
-        industryBottomLine.backgroundColor = .wisteriaPurple
-        return industryBottomLine
-    } ()
-
-    private lazy var industryStackView: UIStackView = {
-        let industryStackView = UIStackView.init(arrangedSubviews: [industryTextField, industryBottomLine])
-        industryStackView.translatesAutoresizingMaskIntoConstraints = false
-        industryStackView.axis = .vertical
-        industryStackView.isHidden = true
-        return industryStackView
-    } ()
-
-    private lazy var questionsCollectionViewHeightConstraint: NSLayoutConstraint = {
-        return questionsCollectionView.heightAnchor.constraint(equalToConstant: questionsCollectionViewHeight)
-    } ()
-
     // MARK: - Init
-    init(profession: String? = nil, isSingleStep: Bool = false) {
+    init(interests: [String]? = nil, isSingleStep: Bool = false) {
         self.isSingleStep = isSingleStep
         super.init(nibName: nil, bundle: nil)
-        if profession != nil {
-            var hasSelected = false
-            for (index, _) in questions.enumerated() {
-                if questions[index].title == profession {
-                    questions[index].isSelected = true
-                    hasSelected = true
-                    lastSelectedIndex = index
-                    break
+        if interests != nil {
+            for interest in interests! {
+                for (index, _) in questions.enumerated() {
+                    if questions[index].title == interest {
+                        questions[index].isSelected = true
+                    }
                 }
-            }
-            if (!hasSelected) {
-                questions[questions.count - 1].isSelected = true
-                lastSelectedIndex = questions.count - 1
-                industryTextField.text = profession
-                industryStackView.isHidden = false
             }
         }
     }
@@ -171,35 +126,14 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
-        if indexPath.item == questions.count - 1 {
-            return CGSize.init(width: availableWidth, height: questionsCollectionViewSpecialCellHeight)
-        }
         let cellWidth = (availableWidth - CGFloat(questionsCollectionNumberOfCellsInRow - 1) * questionsCollectionViewCellSpacing) / CGFloat(questionsCollectionNumberOfCellsInRow)
         return CGSize.init(width: cellWidth, height: questionsCollectionViewCellHeight)
     }
 
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let index = indexPath.item
-        if index == lastSelectedIndex {
-            lastSelectedIndex = -1
-            questions[index].isSelected = false
-            collectionView.reloadItems(at: [indexPath])
-        } else {
-            questions[index].isSelected = true
-            if (lastSelectedIndex != -1) {
-                questions[lastSelectedIndex].isSelected = false
-                collectionView.reloadItems(at: [indexPath, IndexPath.init(item: lastSelectedIndex, section: 0)])
-            } else {
-                collectionView.reloadItems(at: [indexPath])
-            }
-            lastSelectedIndex = index
-        }
-        if index == questions.count - 1 && questions[index].isSelected {
-            industryStackView.isHidden = false
-        } else {
-            industryStackView.isHidden = true
-        }
+        questions[indexPath.item].isSelected = !questions[indexPath.item].isSelected
+        collectionView.reloadItems(at: [indexPath])
         updateNextButton()
     }
 
@@ -220,23 +154,14 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         return 1
     }
 
-    // MARK: - UITextFieldDelegate
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return false
-    }
-
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         view.addSubview(questionsCollectionView)
         view.addSubview(interestReasonLabel)
         view.addSubview(nextButton)
-        view.addSubview(industryStackView)
 
         interestReasonLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
         interestReasonLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
@@ -247,33 +172,18 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         nextButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -nextButtonBottomMargin).isActive = true
         nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
-        industryStackView.leadingAnchor.constraint(equalTo: questionsCollectionView.leadingAnchor).isActive = true
-        industryStackView.trailingAnchor.constraint(equalTo: questionsCollectionView.trailingAnchor).isActive = true
-        let industryStackViewHeight = industryTextField.intrinsicContentSize.height + industryBottomLineHeight
-        industryStackView.heightAnchor.constraint(equalToConstant: industryStackViewHeight).isActive = true
-        industryStackView.topAnchor.constraint(equalTo: questionsCollectionView.bottomAnchor, constant: industryStackViewTopMargin).isActive = true
-
         questionsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true
         questionsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentLeadingTrailingMargin).isActive = true
         questionsCollectionView.topAnchor.constraint(equalTo: interestReasonLabel.bottomAnchor, constant: questionsCollectionViewTopBottomMargin).isActive = true
-        let viewHeight = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.layoutMarginsGuide.layoutFrame.height ?? view.bounds.height
-        let interestReasonLabelHeight = interestReasonLabel.sizeThatFits(CGSize.init(width: view.bounds.width, height: .greatestFiniteMagnitude)).height
-        let navigationBarHeight = navigationController?.navigationBar.frame.size.height ?? 0
-        let questionsCollectionViewTop = interestReasonLabelHeight + interestReasonLabelTopMargin + questionsCollectionViewTopBottomMargin + navigationBarHeight
-        let questionsCollectionViewBottom = nextButtonHeight + nextButtonBottomMargin + industryStackViewHeight + industryStackViewTopMargin + industryStackViewBottomMargin
-        let availableQuestionsCollectionViewHeight = viewHeight - questionsCollectionViewTop - questionsCollectionViewBottom
-        let questionsCollectionViewIdealHeight = (questionsCollectionViewCellHeight + questionsCollectionViewMinimumLineSpacing) * CGFloat((questions.count - 1) / questionsCollectionNumberOfCellsInRow) + questionsCollectionViewSpecialCellHeight
-        questionsCollectionViewHeight = min(availableQuestionsCollectionViewHeight, questionsCollectionViewIdealHeight)
-        questionsCollectionViewHeightConstraint.constant = questionsCollectionViewHeight
-        questionsCollectionViewHeightConstraint.isActive = true
+        questionsCollectionView.bottomAnchor.constraint(equalTo: nextButton.topAnchor, constant: -questionsCollectionViewTopBottomMargin).isActive = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isSingleStep {
-            title = NSLocalizedString("UpdateProfessionTitle", comment: "")
+            title = NSLocalizedString("UpdateInterestsTitle", comment: "")
         } else {
-            title = NSLocalizedString("completeProfileStep3Title", comment: "")
+            title = NSLocalizedString("completeProfileStep2Title", comment: "")
         }
     }
 
@@ -281,55 +191,33 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     @objc
     func didTapNextButton() {
         guard let userId = AWSMobileClient.default().userSub else { return }
-
-        let profession: String?
-        if lastSelectedIndex != questions.count - 1 {
-            profession = questions[lastSelectedIndex].title
-        } else {
-            profession = industryTextField.text
+        var interests: [String] = []
+        for question in questions {
+            if question.isSelected {
+                interests.append(question.title)
+            }
         }
-        if profession != nil {
-            userDataFecther.updateUser(id: userId, profession: profession!) { (maybeUpdatedUser, error) in
-                DispatchQueue.main.async {
-                    if self.isSingleStep {
-                        self.navigationController?.popViewController(animated: true)
-                    } else {
-                        self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
-                    }
+
+        userDataFecther.updateUser(id: userId, interests: interests) { (basicUser, error) in
+            DispatchQueue.main.async {
+                if self.isSingleStep {
+                    self.navigationController?.popViewController(animated: true)
+                } else {
+                    self.title = ""
+                    self.navigationController?.pushViewController(CompleteProfileViewStep4Controller.init(profession: nil, isSingleStep: false), animated: true)
                 }
             }
         }
     }
 
-    @objc
-    private func textFieldDidChange() {
-        updateNextButton()
-    }
-
-    @objc
-    func keyboardWillShow() {
-        questionsCollectionViewHeightConstraint.constant = questionsCollectionViewSpecialCellHeight
-        view.layoutIfNeeded()
-        questionsCollectionView.scrollToItem(at: IndexPath.init(item: questions.count - 1, section: 0), at: .bottom, animated: true)
-    }
-
-    @objc
-    func keyboardWillHide() {
-        questionsCollectionViewHeightConstraint.constant = questionsCollectionViewHeight
-    }
-
     func updateNextButton() {
-        var hasSelectedQuestion = false
+        var numberOfSelectedQuestion = 0
         for question in questions {
             if question.isSelected {
-                hasSelectedQuestion = true
-                break
+                numberOfSelectedQuestion = numberOfSelectedQuestion + 1
             }
         }
-        if !industryStackView.isHidden {
-            hasSelectedQuestion = hasSelectedQuestion && industryTextField.text != nil && industryTextField.text!.count > 0
-        }
-        nextButton.isEnabled = hasSelectedQuestion
+        nextButton.isEnabled = numberOfSelectedQuestion >= minNumberOfSelectedQuestion
         if nextButton.isEnabled {
             nextButton.backgroundColor = .skyBlue
         } else {
@@ -337,3 +225,4 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         }
     }
 }
+

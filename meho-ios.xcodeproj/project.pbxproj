@@ -12,13 +12,13 @@
 		92046FFD24F337A200DE1A2D /* OtherSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FEF24F337A000DE1A2D /* OtherSignInView.swift */; };
 		92046FFE24F337A200DE1A2D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF024F337A000DE1A2D /* SignUpViewController.swift */; };
 		92046FFF24F337A200DE1A2D /* BasicUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF124F337A000DE1A2D /* BasicUser.swift */; };
-		9204700024F337A200DE1A2D /* CompleteProfileViewStep3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF224F337A100DE1A2D /* CompleteProfileViewStep3Controller.swift */; };
+		9204700024F337A200DE1A2D /* CompleteProfileViewStep4Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF224F337A100DE1A2D /* CompleteProfileViewStep4Controller.swift */; };
 		9204700124F337A200DE1A2D /* ProfileQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF324F337A100DE1A2D /* ProfileQuestion.swift */; };
-		9204700224F337A200DE1A2D /* CompleteProfileViewStep2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF424F337A100DE1A2D /* CompleteProfileViewStep2Controller.swift */; };
+		9204700224F337A200DE1A2D /* CompleteProfileViewStep3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF424F337A100DE1A2D /* CompleteProfileViewStep3Controller.swift */; };
 		9204700324F337A200DE1A2D /* QuestionHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF524F337A100DE1A2D /* QuestionHeaderReusableView.swift */; };
 		9204700424F337A200DE1A2D /* SignUpTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF624F337A100DE1A2D /* SignUpTextField.swift */; };
 		9204700524F337A200DE1A2D /* MehoCoverIntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF724F337A100DE1A2D /* MehoCoverIntroCollectionViewCell.swift */; };
-		9204700624F337A200DE1A2D /* CompleteProfileViewStep1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF824F337A100DE1A2D /* CompleteProfileViewStep1Controller.swift */; };
+		9204700624F337A200DE1A2D /* CompleteProfileViewStep2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF824F337A100DE1A2D /* CompleteProfileViewStep2Controller.swift */; };
 		9204700724F337A200DE1A2D /* QuestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FF924F337A100DE1A2D /* QuestionCollectionViewCell.swift */; };
 		9204700824F337A200DE1A2D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FFA24F337A100DE1A2D /* SignInViewController.swift */; };
 		9204700A24F337A200DE1A2D /* MehoCoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92046FFC24F337A200DE1A2D /* MehoCoverViewController.swift */; };
@@ -160,6 +160,7 @@
 		EADFAA21259940DD00C6344A /* CompletedEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADFAA20259940DD00C6344A /* CompletedEmptyCollectionViewCell.swift */; };
 		EADFAA2625AE955A00C6344A /* ProfilePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADFAA2525AE955A00C6344A /* ProfilePhotoViewController.swift */; };
 		EADFAA2B25AEB86000C6344A /* ImageTopAndTitleDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADFAA2A25AEB86000C6344A /* ImageTopAndTitleDownButton.swift */; };
+		EADFAAA925B7EE5F00C6344A /* CompleteProfileViewStep1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADFAAA825B7EE5F00C6344A /* CompleteProfileViewStep1Controller.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,13 +188,13 @@
 		92046FEF24F337A000DE1A2D /* OtherSignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherSignInView.swift; sourceTree = "<group>"; };
 		92046FF024F337A000DE1A2D /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		92046FF124F337A000DE1A2D /* BasicUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicUser.swift; sourceTree = "<group>"; };
-		92046FF224F337A100DE1A2D /* CompleteProfileViewStep3Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteProfileViewStep3Controller.swift; sourceTree = "<group>"; };
+		92046FF224F337A100DE1A2D /* CompleteProfileViewStep4Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteProfileViewStep4Controller.swift; sourceTree = "<group>"; };
 		92046FF324F337A100DE1A2D /* ProfileQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileQuestion.swift; sourceTree = "<group>"; };
-		92046FF424F337A100DE1A2D /* CompleteProfileViewStep2Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteProfileViewStep2Controller.swift; sourceTree = "<group>"; };
+		92046FF424F337A100DE1A2D /* CompleteProfileViewStep3Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteProfileViewStep3Controller.swift; sourceTree = "<group>"; };
 		92046FF524F337A100DE1A2D /* QuestionHeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionHeaderReusableView.swift; sourceTree = "<group>"; };
 		92046FF624F337A100DE1A2D /* SignUpTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTextField.swift; sourceTree = "<group>"; };
 		92046FF724F337A100DE1A2D /* MehoCoverIntroCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MehoCoverIntroCollectionViewCell.swift; sourceTree = "<group>"; };
-		92046FF824F337A100DE1A2D /* CompleteProfileViewStep1Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteProfileViewStep1Controller.swift; sourceTree = "<group>"; };
+		92046FF824F337A100DE1A2D /* CompleteProfileViewStep2Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteProfileViewStep2Controller.swift; sourceTree = "<group>"; };
 		92046FF924F337A100DE1A2D /* QuestionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		92046FFA24F337A100DE1A2D /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		92046FFC24F337A200DE1A2D /* MehoCoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MehoCoverViewController.swift; sourceTree = "<group>"; };
@@ -345,6 +346,7 @@
 		EADFAA20259940DD00C6344A /* CompletedEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
 		EADFAA2525AE955A00C6344A /* ProfilePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoViewController.swift; sourceTree = "<group>"; };
 		EADFAA2A25AEB86000C6344A /* ImageTopAndTitleDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTopAndTitleDownButton.swift; sourceTree = "<group>"; };
+		EADFAAA825B7EE5F00C6344A /* CompleteProfileViewStep1Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteProfileViewStep1Controller.swift; sourceTree = "<group>"; };
 		F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.release.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -397,10 +399,10 @@
 			children = (
 				EA57D7C924F377E200E7BEFF /* ResetPasswordViewController.swift */,
 				92046FF924F337A100DE1A2D /* QuestionCollectionViewCell.swift */,
-				92046FF824F337A100DE1A2D /* CompleteProfileViewStep1Controller.swift */,
-				92046FF424F337A100DE1A2D /* CompleteProfileViewStep2Controller.swift */,
+				92046FF824F337A100DE1A2D /* CompleteProfileViewStep2Controller.swift */,
+				92046FF424F337A100DE1A2D /* CompleteProfileViewStep3Controller.swift */,
 				92046FF124F337A000DE1A2D /* BasicUser.swift */,
-				92046FF224F337A100DE1A2D /* CompleteProfileViewStep3Controller.swift */,
+				92046FF224F337A100DE1A2D /* CompleteProfileViewStep4Controller.swift */,
 				92046FF724F337A100DE1A2D /* MehoCoverIntroCollectionViewCell.swift */,
 				92046FFC24F337A200DE1A2D /* MehoCoverViewController.swift */,
 				92046FFA24F337A100DE1A2D /* SignInViewController.swift */,
@@ -410,6 +412,7 @@
 				92046FEF24F337A000DE1A2D /* OtherSignInView.swift */,
 				92046FF024F337A000DE1A2D /* SignUpViewController.swift */,
 				92F90BC724F1CD2200BEF7B7 /* UserDataFetcher.swift */,
+				EADFAAA825B7EE5F00C6344A /* CompleteProfileViewStep1Controller.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1170,7 +1173,7 @@
 				EA544907243ADF5200C07D0A /* ChapterScoreView.swift in Sources */,
 				EA43D6CE256B7E7F0090634C /* ProfileContentCategory.swift in Sources */,
 				EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */,
-				9204700024F337A200DE1A2D /* CompleteProfileViewStep3Controller.swift in Sources */,
+				9204700024F337A200DE1A2D /* CompleteProfileViewStep4Controller.swift in Sources */,
 				92818AB725626FE6003D9A6E /* ListedFeaturedCategoryCollectionViewCell.swift in Sources */,
 				EA9B5DD524A97A6C00D6CFBD /* BulletPointView.swift in Sources */,
 				EA3E0037252A967100B95A30 /* ProfileHeader.swift in Sources */,
@@ -1182,7 +1185,7 @@
 				92C5FE5124565A7E004A3322 /* TrendingPhrase.swift in Sources */,
 				EAD20B9F24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift in Sources */,
 				925E3FF6250DDD290062606A /* ProfileCard.swift in Sources */,
-				9204700224F337A200DE1A2D /* CompleteProfileViewStep2Controller.swift in Sources */,
+				9204700224F337A200DE1A2D /* CompleteProfileViewStep3Controller.swift in Sources */,
 				EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */,
 				92BAC71F243B12A100862571 /* SingleChineseNewsViewController.swift in Sources */,
 				EA6381F42458081400481B8B /* ContentEvaluationResult.swift in Sources */,
@@ -1192,7 +1195,7 @@
 				EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */,
 				EA5448BF2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift in Sources */,
 				92C5FE3924502FAC004A3322 /* PinyinDelimiterView.swift in Sources */,
-				9204700624F337A200DE1A2D /* CompleteProfileViewStep1Controller.swift in Sources */,
+				9204700624F337A200DE1A2D /* CompleteProfileViewStep2Controller.swift in Sources */,
 				EA6381E92454EC1F00481B8B /* DuoModeFooterCollectionReusableView.swift in Sources */,
 				92C5FE2D244C56AF004A3322 /* Pinyin.swift in Sources */,
 				92F9016025623DF7008A919E /* ListedNormalCategoryCollectionViewCell.swift in Sources */,
@@ -1242,6 +1245,7 @@
 				EA52FDB823EFF416008EB37B /* CategoryCollectionViewCell.swift in Sources */,
 				EA54490A243B07FD00C07D0A /* ExpressionViewController.swift in Sources */,
 				92C5FE4124542F35004A3322 /* OneLineTitleHeaderCollectionReusableView.swift in Sources */,
+				EADFAAA925B7EE5F00C6344A /* CompleteProfileViewStep1Controller.swift in Sources */,
 				EA544904243AC6BE00C07D0A /* AudioConverter.m in Sources */,
 				9204700724F337A200DE1A2D /* QuestionCollectionViewCell.swift in Sources */,
 				EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */,

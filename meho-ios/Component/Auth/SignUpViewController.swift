@@ -28,14 +28,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
     private let passwordMinLength = 8
 
     // MARK: - Properties
-    private lazy var nickNameTextField: SignUpTextField = {
-        let nickNameTextField = SignUpTextField.init(frame: .zero)
-        nickNameTextField.translatesAutoresizingMaskIntoConstraints = false
-        nickNameTextField.textField.placeholder = NSLocalizedString("NickNamePlaceholder", comment: "")
-        nickNameTextField.textField.delegate = self
-        return nickNameTextField
-    } ()
-
     private lazy var emailAddressTextField: SignUpTextField = {
         let emailAddressTextField = SignUpTextField.init(frame: .zero)
         emailAddressTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +67,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
     } ()
 
     private lazy var textFieldsStackView: UIStackView = {
-        let textFieldsStackView = UIStackView.init(arrangedSubviews: [/* nickNameTextField, */ emailAddressTextField, createPasswordTextField, repeatPasswordTextField])
+        let textFieldsStackView = UIStackView.init(arrangedSubviews: [ emailAddressTextField, createPasswordTextField, repeatPasswordTextField])
         textFieldsStackView.translatesAutoresizingMaskIntoConstraints = false
         textFieldsStackView.axis = .vertical
         textFieldsStackView.distribution = .equalSpacing
@@ -143,7 +135,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
 
         if textFieldsStackViewTopMargin + textFieldsStackViewHeight + otherSignInViewBottomMargin + otherSignInView.intrinsicContentSize.height + errorMessageLabelTopMargin + nextButtonHeight + nextButtonTopMargin > view.bounds.height {
             textFieldsStackViewTopConstraint.constant = textFieldsStackViewTopMargin / 2
-            /* nickNameTextField.isCompact = true */
             emailAddressTextField.isCompact = true
             createPasswordTextField.isCompact = true
             repeatPasswordTextField.isCompact = true
