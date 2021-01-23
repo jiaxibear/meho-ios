@@ -11,6 +11,7 @@ mutation CreateParagraph(
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -21,6 +22,7 @@ mutation CreateParagraph(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -50,6 +52,7 @@ mutation CreateParagraph(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -83,6 +86,7 @@ mutation CreateParagraph(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -98,6 +102,7 @@ mutation CreateParagraph(
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -115,6 +120,7 @@ mutation CreateParagraph(
       ...S3Object
     }
     contentImage_key
+    contentImageAlt
     audio_key
     videoURL
     createdAt
@@ -133,6 +139,7 @@ mutation UpdateParagraph(
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -143,6 +150,7 @@ mutation UpdateParagraph(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -172,6 +180,7 @@ mutation UpdateParagraph(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -205,6 +214,7 @@ mutation UpdateParagraph(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -220,6 +230,7 @@ mutation UpdateParagraph(
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -237,6 +248,7 @@ mutation UpdateParagraph(
       ...S3Object
     }
     contentImage_key
+    contentImageAlt
     audio_key
     videoURL
     createdAt
@@ -255,6 +267,7 @@ mutation DeleteParagraph(
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -265,6 +278,7 @@ mutation DeleteParagraph(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -294,6 +308,7 @@ mutation DeleteParagraph(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -327,6 +342,7 @@ mutation DeleteParagraph(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -342,6 +358,7 @@ mutation DeleteParagraph(
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -359,6 +376,7 @@ mutation DeleteParagraph(
       ...S3Object
     }
     contentImage_key
+    contentImageAlt
     audio_key
     videoURL
     createdAt
@@ -429,6 +447,7 @@ mutation CreateArticle(
       ...S3Object
     }
     coverImage_key
+    coverImageAlt
     titleEn
     titleZh
     whyYouShouldReadThisArticle
@@ -442,6 +461,7 @@ mutation CreateArticle(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -495,6 +515,7 @@ mutation CreateArticle(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -546,6 +567,7 @@ mutation CreateArticle(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -570,6 +592,7 @@ mutation CreateArticle(
           ...S3Object
         }
         contentImage_key
+        contentImageAlt
         audio_key
         videoURL
         createdAt
@@ -591,6 +614,7 @@ mutation UpdateArticle(
       ...S3Object
     }
     coverImage_key
+    coverImageAlt
     titleEn
     titleZh
     whyYouShouldReadThisArticle
@@ -604,6 +628,7 @@ mutation UpdateArticle(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -657,6 +682,7 @@ mutation UpdateArticle(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -708,6 +734,7 @@ mutation UpdateArticle(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -732,6 +759,7 @@ mutation UpdateArticle(
           ...S3Object
         }
         contentImage_key
+        contentImageAlt
         audio_key
         videoURL
         createdAt
@@ -753,6 +781,7 @@ mutation DeleteArticle(
       ...S3Object
     }
     coverImage_key
+    coverImageAlt
     titleEn
     titleZh
     whyYouShouldReadThisArticle
@@ -766,6 +795,7 @@ mutation DeleteArticle(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -819,6 +849,7 @@ mutation DeleteArticle(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -870,6 +901,7 @@ mutation DeleteArticle(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -894,6 +926,7 @@ mutation DeleteArticle(
           ...S3Object
         }
         contentImage_key
+        contentImageAlt
         audio_key
         videoURL
         createdAt
@@ -962,6 +995,7 @@ mutation CreateVocabulary(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1031,6 +1065,7 @@ mutation UpdateVocabulary(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1100,6 +1135,7 @@ mutation DeleteVocabulary(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1145,6 +1181,48 @@ mutation DeleteVocabulary(
     updatedAt
   }
 }
+mutation CreateTrendingPhrase(
+  $input: CreateTrendingPhraseInput!
+  $condition: ModelTrendingPhraseConditionInput
+) {
+  createTrendingPhrase(input: $input, condition: $condition) {
+    id
+    contentZh
+    contentPinyin
+    audioKey
+    description
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateTrendingPhrase(
+  $input: UpdateTrendingPhraseInput!
+  $condition: ModelTrendingPhraseConditionInput
+) {
+  updateTrendingPhrase(input: $input, condition: $condition) {
+    id
+    contentZh
+    contentPinyin
+    audioKey
+    description
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteTrendingPhrase(
+  $input: DeleteTrendingPhraseInput!
+  $condition: ModelTrendingPhraseConditionInput
+) {
+  deleteTrendingPhrase(input: $input, condition: $condition) {
+    id
+    contentZh
+    contentPinyin
+    audioKey
+    description
+    createdAt
+    updatedAt
+  }
+}
 mutation CreateVocabularyArticle(
   $input: CreateVocabularyArticleInput!
   $condition: ModelVocabularyArticleConditionInput
@@ -1157,6 +1235,7 @@ mutation CreateVocabularyArticle(
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1167,6 +1246,7 @@ mutation CreateVocabularyArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1196,6 +1276,7 @@ mutation CreateVocabularyArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1229,6 +1310,7 @@ mutation CreateVocabularyArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1244,6 +1326,7 @@ mutation CreateVocabularyArticle(
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -1271,6 +1354,7 @@ mutation CreateVocabularyArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1318,6 +1402,7 @@ mutation UpdateVocabularyArticle(
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1328,6 +1413,7 @@ mutation UpdateVocabularyArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1357,6 +1443,7 @@ mutation UpdateVocabularyArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1390,6 +1477,7 @@ mutation UpdateVocabularyArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1405,6 +1493,7 @@ mutation UpdateVocabularyArticle(
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -1432,6 +1521,7 @@ mutation UpdateVocabularyArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1479,6 +1569,7 @@ mutation DeleteVocabularyArticle(
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1489,6 +1580,7 @@ mutation DeleteVocabularyArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1518,6 +1610,7 @@ mutation DeleteVocabularyArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1551,6 +1644,7 @@ mutation DeleteVocabularyArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1566,6 +1660,7 @@ mutation DeleteVocabularyArticle(
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -1593,6 +1688,7 @@ mutation DeleteVocabularyArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1644,6 +1740,7 @@ mutation CreateTag(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1769,6 +1866,7 @@ mutation UpdateTag(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1894,6 +1992,7 @@ mutation DeleteTag(
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -2015,6 +2114,7 @@ mutation CreateTagArticle(
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -2025,6 +2125,7 @@ mutation CreateTagArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2054,6 +2155,7 @@ mutation CreateTagArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2087,6 +2189,7 @@ mutation CreateTagArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2102,6 +2205,7 @@ mutation CreateTagArticle(
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -2121,6 +2225,7 @@ mutation CreateTagArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2203,6 +2308,7 @@ mutation UpdateTagArticle(
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -2213,6 +2319,7 @@ mutation UpdateTagArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2242,6 +2349,7 @@ mutation UpdateTagArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2275,6 +2383,7 @@ mutation UpdateTagArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2290,6 +2399,7 @@ mutation UpdateTagArticle(
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -2309,6 +2419,7 @@ mutation UpdateTagArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2391,6 +2502,7 @@ mutation DeleteTagArticle(
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -2401,6 +2513,7 @@ mutation DeleteTagArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2430,6 +2543,7 @@ mutation DeleteTagArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2463,6 +2577,7 @@ mutation DeleteTagArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -2478,6 +2593,7 @@ mutation DeleteTagArticle(
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -2497,6 +2613,7 @@ mutation DeleteTagArticle(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -3408,6 +3525,7 @@ mutation CreateTagDialogue(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -3572,6 +3690,7 @@ mutation UpdateTagDialogue(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -3736,6 +3855,7 @@ mutation DeleteTagDialogue(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle

@@ -8,6 +8,7 @@ query GetParagraph($id: ID!) {
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -18,6 +19,7 @@ query GetParagraph($id: ID!) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -47,6 +49,7 @@ query GetParagraph($id: ID!) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -80,6 +83,7 @@ query GetParagraph($id: ID!) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -95,6 +99,7 @@ query GetParagraph($id: ID!) {
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -112,6 +117,7 @@ query GetParagraph($id: ID!) {
       ...S3Object
     }
     contentImage_key
+    contentImageAlt
     audio_key
     videoURL
     createdAt
@@ -132,6 +138,7 @@ query ListParagraphs(
           ...S3Object
         }
         coverImage_key
+        coverImageAlt
         titleEn
         titleZh
         whyYouShouldReadThisArticle
@@ -162,6 +169,7 @@ query ListParagraphs(
             contentType
             seqNumber
             contentImage_key
+            contentImageAlt
             audio_key
             videoURL
             createdAt
@@ -179,6 +187,7 @@ query ListParagraphs(
         ...S3Object
       }
       contentImage_key
+      contentImageAlt
       audio_key
       videoURL
       createdAt
@@ -231,6 +240,7 @@ query GetArticle($id: ID!) {
       ...S3Object
     }
     coverImage_key
+    coverImageAlt
     titleEn
     titleZh
     whyYouShouldReadThisArticle
@@ -244,6 +254,7 @@ query GetArticle($id: ID!) {
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -297,6 +308,7 @@ query GetArticle($id: ID!) {
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -348,6 +360,7 @@ query GetArticle($id: ID!) {
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -372,6 +385,7 @@ query GetArticle($id: ID!) {
           ...S3Object
         }
         contentImage_key
+        contentImageAlt
         audio_key
         videoURL
         createdAt
@@ -395,6 +409,7 @@ query ListArticles(
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -405,6 +420,7 @@ query ListArticles(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -434,6 +450,7 @@ query ListArticles(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -467,6 +484,7 @@ query ListArticles(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -482,6 +500,7 @@ query ListArticles(
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -539,6 +558,7 @@ query GetVocabulary($id: ID!) {
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -607,6 +627,7 @@ query ListVocabularys(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -639,6 +660,35 @@ query ListVocabularys(
     nextToken
   }
 }
+query GetTrendingPhrase($id: ID!) {
+  getTrendingPhrase(id: $id) {
+    id
+    contentZh
+    contentPinyin
+    audioKey
+    description
+    createdAt
+    updatedAt
+  }
+}
+query ListTrendingPhrases(
+  $filter: ModelTrendingPhraseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTrendingPhrases(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      contentZh
+      contentPinyin
+      audioKey
+      description
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
 query GetVocabularyArticle($id: ID!) {
   getVocabularyArticle(id: $id) {
     id
@@ -648,6 +698,7 @@ query GetVocabularyArticle($id: ID!) {
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -658,6 +709,7 @@ query GetVocabularyArticle($id: ID!) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -687,6 +739,7 @@ query GetVocabularyArticle($id: ID!) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -720,6 +773,7 @@ query GetVocabularyArticle($id: ID!) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -735,6 +789,7 @@ query GetVocabularyArticle($id: ID!) {
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -762,6 +817,7 @@ query GetVocabularyArticle($id: ID!) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -815,6 +871,7 @@ query ListVocabularyArticles(
           ...S3Object
         }
         coverImage_key
+        coverImageAlt
         titleEn
         titleZh
         whyYouShouldReadThisArticle
@@ -845,6 +902,7 @@ query ListVocabularyArticles(
             contentType
             seqNumber
             contentImage_key
+            contentImageAlt
             audio_key
             videoURL
             createdAt
@@ -900,6 +958,7 @@ query GetTag($id: ID!) {
             ...S3Object
           }
           coverImage_key
+          coverImageAlt
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1020,6 +1079,7 @@ query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1098,6 +1158,7 @@ query GetTagArticle($id: ID!) {
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1108,6 +1169,7 @@ query GetTagArticle($id: ID!) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1137,6 +1199,7 @@ query GetTagArticle($id: ID!) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1170,6 +1233,7 @@ query GetTagArticle($id: ID!) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1185,6 +1249,7 @@ query GetTagArticle($id: ID!) {
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -1204,6 +1269,7 @@ query GetTagArticle($id: ID!) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1288,6 +1354,7 @@ query ListTagArticles(
           ...S3Object
         }
         coverImage_key
+        coverImageAlt
         titleEn
         titleZh
         whyYouShouldReadThisArticle
@@ -1318,6 +1385,7 @@ query ListTagArticles(
             contentType
             seqNumber
             contentImage_key
+            contentImageAlt
             audio_key
             videoURL
             createdAt
@@ -1897,6 +1965,7 @@ query GetTagDialogue($id: ID!) {
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -3106,6 +3175,7 @@ query GetArticlesByStatus(
         ...S3Object
       }
       coverImage_key
+      coverImageAlt
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -3116,6 +3186,7 @@ query GetArticlesByStatus(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -3145,6 +3216,7 @@ query GetArticlesByStatus(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -3178,6 +3250,7 @@ query GetArticlesByStatus(
           article {
             id
             coverImage_key
+            coverImageAlt
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -3193,6 +3266,7 @@ query GetArticlesByStatus(
             ...S3Object
           }
           contentImage_key
+          contentImageAlt
           audio_key
           videoURL
           createdAt
@@ -3228,6 +3302,7 @@ query GetVocabularyArticlesByParagraphId(
           ...S3Object
         }
         coverImage_key
+        coverImageAlt
         titleEn
         titleZh
         whyYouShouldReadThisArticle
@@ -3258,6 +3333,7 @@ query GetVocabularyArticlesByParagraphId(
             contentType
             seqNumber
             contentImage_key
+            contentImageAlt
             audio_key
             videoURL
             createdAt

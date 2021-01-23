@@ -5,7 +5,9 @@ type Paragraph @model {
     contentType: String!
     seqNumber: Int!
     contentImage: S3Object
-    contentImage_key: String # hack for android
+    contentImage_key: String
+    contentImageAlt: String
+    audio_key: String
     videoURL: String
 }
 
@@ -35,6 +37,7 @@ type Article @model
     id: ID!
     coverImage: S3Object
     coverImage_key: String
+    coverImageAlt: String
     titleEn: String!
     titleZh: String!
     whyYouShouldReadThisArticle: String!
@@ -46,6 +49,12 @@ type Article @model
     status: String!  
 } 
 
+type ArticleSource @model
+{
+    id: ID!
+    name: String
+}
+
 type Vocabulary @model {
     id: ID!
     contentZh: String!
@@ -56,6 +65,14 @@ type Vocabulary @model {
     audio_key: String
     optionContent: String
     articles: [VocabularyArticle] @connection(name: "VocabularyArticle")
+}
+
+type TrendingPhrase @model {
+    id: ID!
+    contentZh: String!
+    contentPinyin: String
+    audioKey: String
+    description: String
 }
 
 type VocabularyArticle @model 
@@ -76,6 +93,12 @@ type Tag @model {
     content: String!
     articles: [TagArticle] @connection(name: "TagArticle")
     dialogues: [TagDialogue] @connection(name: "TagDialogue")
+    image: S3Object
+    image_key: String
+    isFeatured: Boolean
+    featuredSlogan: String
+    featuredImage: S3Object
+    featuredImage_key: String
 }
 
 type TagArticle @model {  #for many to many relationship
@@ -104,6 +127,7 @@ type Chapter @model {
     npcRole: String
     dialogue: Dialogue @connection(name: "DialogueChapters")
 }
+
 type Dialogue @model 
 @key(
   name: "byStatus"
@@ -123,6 +147,38 @@ type Dialogue @model
     createdAt: String!
     markAsMostPopular: Boolean 
 }
+
+
+type UserChapterRecording @model
+@key(
+    name: "findByUserChapter"
+    fields: ["user_id", "chapter_id"]
+    queryField: "getChapterRecordingByUserAndChapter"
+)
+{
+    id: ID!
+    user_id: String!
+    chapter_id: String!
+    mode: String! # SOLO or DUO
+    score: Float
+    score_detail: String
+}
+
+type UserExpressionRecording @model
+@key(
+    name: "findByUserExpression"
+    fields: ["user_id", "expression_id"]
+    queryField: "getExpressionRecordingByUserAndExpression"
+)
+{
+    id: ID!
+    user_id: String!
+    expression_id: String!
+    score: Float
+    score_detail: String
+    user_record: S3Object
+}
+
 
 type TagDialogue @model {  #for many to many relationship
     id: ID!
@@ -182,3 +238,4 @@ type UserVocabularySave @model {
     users: User @connection(name: "UserVocabularySave")
     vocabularyID: ID!
 }
+

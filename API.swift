@@ -5,8 +5,8 @@ import AWSAppSync
 public struct CreateParagraphInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID? = nil, content: String, contentType: String, seqNumber: Int, contentImage: S3ObjectInput? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, paragraphArticleId: GraphQLID? = nil) {
-    graphQLMap = ["id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "paragraphArticleId": paragraphArticleId]
+  public init(id: GraphQLID? = nil, content: String, contentType: String, seqNumber: Int, contentImage: S3ObjectInput? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, paragraphArticleId: GraphQLID? = nil) {
+    graphQLMap = ["id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "paragraphArticleId": paragraphArticleId]
   }
 
   public var id: GraphQLID? {
@@ -60,6 +60,15 @@ public struct CreateParagraphInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contentImage_key")
+    }
+  }
+
+  public var contentImageAlt: String? {
+    get {
+      return graphQLMap["contentImageAlt"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contentImageAlt")
     }
   }
 
@@ -147,8 +156,8 @@ public struct S3ObjectInput: GraphQLMapConvertible {
 public struct ModelParagraphConditionInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(content: ModelStringInput? = nil, contentType: ModelStringInput? = nil, seqNumber: ModelIntInput? = nil, contentImageKey: ModelStringInput? = nil, audioKey: ModelStringInput? = nil, videoUrl: ModelStringInput? = nil, and: [ModelParagraphConditionInput?]? = nil, or: [ModelParagraphConditionInput?]? = nil, not: ModelParagraphConditionInput? = nil) {
-    graphQLMap = ["content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "and": and, "or": or, "not": not]
+  public init(content: ModelStringInput? = nil, contentType: ModelStringInput? = nil, seqNumber: ModelIntInput? = nil, contentImageKey: ModelStringInput? = nil, contentImageAlt: ModelStringInput? = nil, audioKey: ModelStringInput? = nil, videoUrl: ModelStringInput? = nil, and: [ModelParagraphConditionInput?]? = nil, or: [ModelParagraphConditionInput?]? = nil, not: ModelParagraphConditionInput? = nil) {
+    graphQLMap = ["content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "and": and, "or": or, "not": not]
   }
 
   public var content: ModelStringInput? {
@@ -184,6 +193,15 @@ public struct ModelParagraphConditionInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contentImage_key")
+    }
+  }
+
+  public var contentImageAlt: ModelStringInput? {
+    get {
+      return graphQLMap["contentImageAlt"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contentImageAlt")
     }
   }
 
@@ -586,8 +604,8 @@ public struct ModelIntInput: GraphQLMapConvertible {
 public struct UpdateParagraphInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID, content: String? = nil, contentType: String? = nil, seqNumber: Int? = nil, contentImage: S3ObjectInput? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, paragraphArticleId: GraphQLID? = nil) {
-    graphQLMap = ["id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "paragraphArticleId": paragraphArticleId]
+  public init(id: GraphQLID, content: String? = nil, contentType: String? = nil, seqNumber: Int? = nil, contentImage: S3ObjectInput? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, paragraphArticleId: GraphQLID? = nil) {
+    graphQLMap = ["id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "paragraphArticleId": paragraphArticleId]
   }
 
   public var id: GraphQLID {
@@ -641,6 +659,15 @@ public struct UpdateParagraphInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contentImage_key")
+    }
+  }
+
+  public var contentImageAlt: String? {
+    get {
+      return graphQLMap["contentImageAlt"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contentImageAlt")
     }
   }
 
@@ -931,8 +958,8 @@ public struct DeleteExpressionInput: GraphQLMapConvertible {
 public struct CreateArticleInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID? = nil, coverImage: S3ObjectInput? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String? = nil, sourcer: String? = nil, status: String) {
-    graphQLMap = ["id": id, "coverImage": coverImage, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status]
+  public init(id: GraphQLID? = nil, coverImage: S3ObjectInput? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String? = nil, sourcer: String? = nil, status: String) {
+    graphQLMap = ["id": id, "coverImage": coverImage, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status]
   }
 
   public var id: GraphQLID? {
@@ -959,6 +986,15 @@ public struct CreateArticleInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "coverImage_key")
+    }
+  }
+
+  public var coverImageAlt: String? {
+    get {
+      return graphQLMap["coverImageAlt"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "coverImageAlt")
     }
   }
 
@@ -1020,8 +1056,8 @@ public struct CreateArticleInput: GraphQLMapConvertible {
 public struct ModelArticleConditionInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(coverImageKey: ModelStringInput? = nil, titleEn: ModelStringInput? = nil, titleZh: ModelStringInput? = nil, whyYouShouldReadThisArticle: ModelStringInput? = nil, createdAt: ModelStringInput? = nil, sourcer: ModelStringInput? = nil, status: ModelStringInput? = nil, and: [ModelArticleConditionInput?]? = nil, or: [ModelArticleConditionInput?]? = nil, not: ModelArticleConditionInput? = nil) {
-    graphQLMap = ["coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "and": and, "or": or, "not": not]
+  public init(coverImageKey: ModelStringInput? = nil, coverImageAlt: ModelStringInput? = nil, titleEn: ModelStringInput? = nil, titleZh: ModelStringInput? = nil, whyYouShouldReadThisArticle: ModelStringInput? = nil, createdAt: ModelStringInput? = nil, sourcer: ModelStringInput? = nil, status: ModelStringInput? = nil, and: [ModelArticleConditionInput?]? = nil, or: [ModelArticleConditionInput?]? = nil, not: ModelArticleConditionInput? = nil) {
+    graphQLMap = ["coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "and": and, "or": or, "not": not]
   }
 
   public var coverImageKey: ModelStringInput? {
@@ -1030,6 +1066,15 @@ public struct ModelArticleConditionInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "coverImage_key")
+    }
+  }
+
+  public var coverImageAlt: ModelStringInput? {
+    get {
+      return graphQLMap["coverImageAlt"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "coverImageAlt")
     }
   }
 
@@ -1118,8 +1163,8 @@ public struct ModelArticleConditionInput: GraphQLMapConvertible {
 public struct UpdateArticleInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID, coverImage: S3ObjectInput? = nil, coverImageKey: String? = nil, titleEn: String? = nil, titleZh: String? = nil, whyYouShouldReadThisArticle: String? = nil, createdAt: String? = nil, sourcer: String? = nil, status: String? = nil) {
-    graphQLMap = ["id": id, "coverImage": coverImage, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status]
+  public init(id: GraphQLID, coverImage: S3ObjectInput? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String? = nil, titleZh: String? = nil, whyYouShouldReadThisArticle: String? = nil, createdAt: String? = nil, sourcer: String? = nil, status: String? = nil) {
+    graphQLMap = ["id": id, "coverImage": coverImage, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status]
   }
 
   public var id: GraphQLID {
@@ -1146,6 +1191,15 @@ public struct UpdateArticleInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "coverImage_key")
+    }
+  }
+
+  public var coverImageAlt: String? {
+    get {
+      return graphQLMap["coverImageAlt"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "coverImageAlt")
     }
   }
 
@@ -1584,6 +1638,200 @@ public struct UpdateVocabularyInput: GraphQLMapConvertible {
 }
 
 public struct DeleteVocabularyInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(id: GraphQLID? = nil) {
+    graphQLMap = ["id": id]
+  }
+
+  public var id: GraphQLID? {
+    get {
+      return graphQLMap["id"] as! GraphQLID?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "id")
+    }
+  }
+}
+
+public struct CreateTrendingPhraseInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(id: GraphQLID? = nil, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil) {
+    graphQLMap = ["id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description]
+  }
+
+  public var id: GraphQLID? {
+    get {
+      return graphQLMap["id"] as! GraphQLID?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  public var contentZh: String {
+    get {
+      return graphQLMap["contentZh"] as! String
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contentZh")
+    }
+  }
+
+  public var contentPinyin: String? {
+    get {
+      return graphQLMap["contentPinyin"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contentPinyin")
+    }
+  }
+
+  public var audioKey: String? {
+    get {
+      return graphQLMap["audioKey"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "audioKey")
+    }
+  }
+
+  public var description: String? {
+    get {
+      return graphQLMap["description"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "description")
+    }
+  }
+}
+
+public struct ModelTrendingPhraseConditionInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(contentZh: ModelStringInput? = nil, contentPinyin: ModelStringInput? = nil, audioKey: ModelStringInput? = nil, description: ModelStringInput? = nil, and: [ModelTrendingPhraseConditionInput?]? = nil, or: [ModelTrendingPhraseConditionInput?]? = nil, not: ModelTrendingPhraseConditionInput? = nil) {
+    graphQLMap = ["contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "and": and, "or": or, "not": not]
+  }
+
+  public var contentZh: ModelStringInput? {
+    get {
+      return graphQLMap["contentZh"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contentZh")
+    }
+  }
+
+  public var contentPinyin: ModelStringInput? {
+    get {
+      return graphQLMap["contentPinyin"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contentPinyin")
+    }
+  }
+
+  public var audioKey: ModelStringInput? {
+    get {
+      return graphQLMap["audioKey"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "audioKey")
+    }
+  }
+
+  public var description: ModelStringInput? {
+    get {
+      return graphQLMap["description"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "description")
+    }
+  }
+
+  public var and: [ModelTrendingPhraseConditionInput?]? {
+    get {
+      return graphQLMap["and"] as! [ModelTrendingPhraseConditionInput?]?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "and")
+    }
+  }
+
+  public var or: [ModelTrendingPhraseConditionInput?]? {
+    get {
+      return graphQLMap["or"] as! [ModelTrendingPhraseConditionInput?]?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "or")
+    }
+  }
+
+  public var not: ModelTrendingPhraseConditionInput? {
+    get {
+      return graphQLMap["not"] as! ModelTrendingPhraseConditionInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "not")
+    }
+  }
+}
+
+public struct UpdateTrendingPhraseInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(id: GraphQLID, contentZh: String? = nil, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil) {
+    graphQLMap = ["id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description]
+  }
+
+  public var id: GraphQLID {
+    get {
+      return graphQLMap["id"] as! GraphQLID
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  public var contentZh: String? {
+    get {
+      return graphQLMap["contentZh"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contentZh")
+    }
+  }
+
+  public var contentPinyin: String? {
+    get {
+      return graphQLMap["contentPinyin"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contentPinyin")
+    }
+  }
+
+  public var audioKey: String? {
+    get {
+      return graphQLMap["audioKey"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "audioKey")
+    }
+  }
+
+  public var description: String? {
+    get {
+      return graphQLMap["description"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "description")
+    }
+  }
+}
+
+public struct DeleteTrendingPhraseInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
   public init(id: GraphQLID? = nil) {
@@ -4676,8 +4924,8 @@ public struct DeleteUserVocabularySaveInput: GraphQLMapConvertible {
 public struct ModelParagraphFilterInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: ModelIDInput? = nil, content: ModelStringInput? = nil, contentType: ModelStringInput? = nil, seqNumber: ModelIntInput? = nil, contentImageKey: ModelStringInput? = nil, audioKey: ModelStringInput? = nil, videoUrl: ModelStringInput? = nil, and: [ModelParagraphFilterInput?]? = nil, or: [ModelParagraphFilterInput?]? = nil, not: ModelParagraphFilterInput? = nil) {
-    graphQLMap = ["id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "and": and, "or": or, "not": not]
+  public init(id: ModelIDInput? = nil, content: ModelStringInput? = nil, contentType: ModelStringInput? = nil, seqNumber: ModelIntInput? = nil, contentImageKey: ModelStringInput? = nil, contentImageAlt: ModelStringInput? = nil, audioKey: ModelStringInput? = nil, videoUrl: ModelStringInput? = nil, and: [ModelParagraphFilterInput?]? = nil, or: [ModelParagraphFilterInput?]? = nil, not: ModelParagraphFilterInput? = nil) {
+    graphQLMap = ["id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "and": and, "or": or, "not": not]
   }
 
   public var id: ModelIDInput? {
@@ -4722,6 +4970,15 @@ public struct ModelParagraphFilterInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contentImage_key")
+    }
+  }
+
+  public var contentImageAlt: ModelStringInput? {
+    get {
+      return graphQLMap["contentImageAlt"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contentImageAlt")
     }
   }
 
@@ -4863,8 +5120,8 @@ public struct ModelExpressionFilterInput: GraphQLMapConvertible {
 public struct ModelArticleFilterInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: ModelIDInput? = nil, coverImageKey: ModelStringInput? = nil, titleEn: ModelStringInput? = nil, titleZh: ModelStringInput? = nil, whyYouShouldReadThisArticle: ModelStringInput? = nil, createdAt: ModelStringInput? = nil, sourcer: ModelStringInput? = nil, status: ModelStringInput? = nil, and: [ModelArticleFilterInput?]? = nil, or: [ModelArticleFilterInput?]? = nil, not: ModelArticleFilterInput? = nil) {
-    graphQLMap = ["id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "and": and, "or": or, "not": not]
+  public init(id: ModelIDInput? = nil, coverImageKey: ModelStringInput? = nil, coverImageAlt: ModelStringInput? = nil, titleEn: ModelStringInput? = nil, titleZh: ModelStringInput? = nil, whyYouShouldReadThisArticle: ModelStringInput? = nil, createdAt: ModelStringInput? = nil, sourcer: ModelStringInput? = nil, status: ModelStringInput? = nil, and: [ModelArticleFilterInput?]? = nil, or: [ModelArticleFilterInput?]? = nil, not: ModelArticleFilterInput? = nil) {
+    graphQLMap = ["id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "and": and, "or": or, "not": not]
   }
 
   public var id: ModelIDInput? {
@@ -4882,6 +5139,15 @@ public struct ModelArticleFilterInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "coverImage_key")
+    }
+  }
+
+  public var coverImageAlt: ModelStringInput? {
+    get {
+      return graphQLMap["coverImageAlt"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "coverImageAlt")
     }
   }
 
@@ -5111,6 +5377,86 @@ public struct ModelVocabularyFilterInput: GraphQLMapConvertible {
   public var not: ModelVocabularyFilterInput? {
     get {
       return graphQLMap["not"] as! ModelVocabularyFilterInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "not")
+    }
+  }
+}
+
+public struct ModelTrendingPhraseFilterInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(id: ModelIDInput? = nil, contentZh: ModelStringInput? = nil, contentPinyin: ModelStringInput? = nil, audioKey: ModelStringInput? = nil, description: ModelStringInput? = nil, and: [ModelTrendingPhraseFilterInput?]? = nil, or: [ModelTrendingPhraseFilterInput?]? = nil, not: ModelTrendingPhraseFilterInput? = nil) {
+    graphQLMap = ["id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "and": and, "or": or, "not": not]
+  }
+
+  public var id: ModelIDInput? {
+    get {
+      return graphQLMap["id"] as! ModelIDInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  public var contentZh: ModelStringInput? {
+    get {
+      return graphQLMap["contentZh"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contentZh")
+    }
+  }
+
+  public var contentPinyin: ModelStringInput? {
+    get {
+      return graphQLMap["contentPinyin"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contentPinyin")
+    }
+  }
+
+  public var audioKey: ModelStringInput? {
+    get {
+      return graphQLMap["audioKey"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "audioKey")
+    }
+  }
+
+  public var description: ModelStringInput? {
+    get {
+      return graphQLMap["description"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "description")
+    }
+  }
+
+  public var and: [ModelTrendingPhraseFilterInput?]? {
+    get {
+      return graphQLMap["and"] as! [ModelTrendingPhraseFilterInput?]?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "and")
+    }
+  }
+
+  public var or: [ModelTrendingPhraseFilterInput?]? {
+    get {
+      return graphQLMap["or"] as! [ModelTrendingPhraseFilterInput?]?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "or")
+    }
+  }
+
+  public var not: ModelTrendingPhraseFilterInput? {
+    get {
+      return graphQLMap["not"] as! ModelTrendingPhraseFilterInput?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "not")
@@ -6263,7 +6609,7 @@ public struct ModelStringKeyConditionInput: GraphQLMapConvertible {
 
 public final class CreateParagraphMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateParagraph($input: CreateParagraphInput!, $condition: ModelParagraphConditionInput) {\n  createParagraph(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateParagraph($input: CreateParagraphInput!, $condition: ModelParagraphConditionInput) {\n  createParagraph(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    contentImageAlt\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -6317,6 +6663,7 @@ public final class CreateParagraphMutation: GraphQLMutation {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("contentImageAlt", type: .scalar(String.self)),
         GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -6329,8 +6676,8 @@ public final class CreateParagraphMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -6405,6 +6752,15 @@ public final class CreateParagraphMutation: GraphQLMutation {
         }
       }
 
+      public var contentImageAlt: String? {
+        get {
+          return snapshot["contentImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentImageAlt")
+        }
+      }
+
       public var audioKey: String? {
         get {
           return snapshot["audio_key"] as? String
@@ -6449,6 +6805,7 @@ public final class CreateParagraphMutation: GraphQLMutation {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -6467,8 +6824,8 @@ public final class CreateParagraphMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -6504,6 +6861,15 @@ public final class CreateParagraphMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -6806,6 +7172,7 @@ public final class CreateParagraphMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -6821,8 +7188,8 @@ public final class CreateParagraphMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -6849,6 +7216,15 @@ public final class CreateParagraphMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -7174,6 +7550,7 @@ public final class CreateParagraphMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -7189,8 +7566,8 @@ public final class CreateParagraphMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -7217,6 +7594,15 @@ public final class CreateParagraphMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -7461,6 +7847,7 @@ public final class CreateParagraphMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -7473,8 +7860,8 @@ public final class CreateParagraphMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -7549,6 +7936,15 @@ public final class CreateParagraphMutation: GraphQLMutation {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -7592,6 +7988,7 @@ public final class CreateParagraphMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -7607,8 +8004,8 @@ public final class CreateParagraphMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -7635,6 +8032,15 @@ public final class CreateParagraphMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -7870,7 +8276,7 @@ public final class CreateParagraphMutation: GraphQLMutation {
 
 public final class UpdateParagraphMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateParagraph($input: UpdateParagraphInput!, $condition: ModelParagraphConditionInput) {\n  updateParagraph(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateParagraph($input: UpdateParagraphInput!, $condition: ModelParagraphConditionInput) {\n  updateParagraph(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    contentImageAlt\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -7924,6 +8330,7 @@ public final class UpdateParagraphMutation: GraphQLMutation {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("contentImageAlt", type: .scalar(String.self)),
         GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -7936,8 +8343,8 @@ public final class UpdateParagraphMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -8012,6 +8419,15 @@ public final class UpdateParagraphMutation: GraphQLMutation {
         }
       }
 
+      public var contentImageAlt: String? {
+        get {
+          return snapshot["contentImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentImageAlt")
+        }
+      }
+
       public var audioKey: String? {
         get {
           return snapshot["audio_key"] as? String
@@ -8056,6 +8472,7 @@ public final class UpdateParagraphMutation: GraphQLMutation {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -8074,8 +8491,8 @@ public final class UpdateParagraphMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -8111,6 +8528,15 @@ public final class UpdateParagraphMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -8413,6 +8839,7 @@ public final class UpdateParagraphMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -8428,8 +8855,8 @@ public final class UpdateParagraphMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -8456,6 +8883,15 @@ public final class UpdateParagraphMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -8781,6 +9217,7 @@ public final class UpdateParagraphMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -8796,8 +9233,8 @@ public final class UpdateParagraphMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -8824,6 +9261,15 @@ public final class UpdateParagraphMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -9068,6 +9514,7 @@ public final class UpdateParagraphMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -9080,8 +9527,8 @@ public final class UpdateParagraphMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -9156,6 +9603,15 @@ public final class UpdateParagraphMutation: GraphQLMutation {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -9199,6 +9655,7 @@ public final class UpdateParagraphMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -9214,8 +9671,8 @@ public final class UpdateParagraphMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -9242,6 +9699,15 @@ public final class UpdateParagraphMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -9477,7 +9943,7 @@ public final class UpdateParagraphMutation: GraphQLMutation {
 
 public final class DeleteParagraphMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteParagraph($input: DeleteParagraphInput!, $condition: ModelParagraphConditionInput) {\n  deleteParagraph(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteParagraph($input: DeleteParagraphInput!, $condition: ModelParagraphConditionInput) {\n  deleteParagraph(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    contentImageAlt\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -9531,6 +9997,7 @@ public final class DeleteParagraphMutation: GraphQLMutation {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("contentImageAlt", type: .scalar(String.self)),
         GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -9543,8 +10010,8 @@ public final class DeleteParagraphMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -9619,6 +10086,15 @@ public final class DeleteParagraphMutation: GraphQLMutation {
         }
       }
 
+      public var contentImageAlt: String? {
+        get {
+          return snapshot["contentImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentImageAlt")
+        }
+      }
+
       public var audioKey: String? {
         get {
           return snapshot["audio_key"] as? String
@@ -9663,6 +10139,7 @@ public final class DeleteParagraphMutation: GraphQLMutation {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -9681,8 +10158,8 @@ public final class DeleteParagraphMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -9718,6 +10195,15 @@ public final class DeleteParagraphMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -10020,6 +10506,7 @@ public final class DeleteParagraphMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -10035,8 +10522,8 @@ public final class DeleteParagraphMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -10063,6 +10550,15 @@ public final class DeleteParagraphMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -10388,6 +10884,7 @@ public final class DeleteParagraphMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -10403,8 +10900,8 @@ public final class DeleteParagraphMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -10431,6 +10928,15 @@ public final class DeleteParagraphMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -10675,6 +11181,7 @@ public final class DeleteParagraphMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -10687,8 +11194,8 @@ public final class DeleteParagraphMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -10763,6 +11270,15 @@ public final class DeleteParagraphMutation: GraphQLMutation {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -10806,6 +11322,7 @@ public final class DeleteParagraphMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -10821,8 +11338,8 @@ public final class DeleteParagraphMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -10849,6 +11366,15 @@ public final class DeleteParagraphMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -11813,7 +12339,7 @@ public final class DeleteExpressionMutation: GraphQLMutation {
 
 public final class CreateArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateArticle($input: CreateArticleInput!, $condition: ModelArticleConditionInput) {\n  createArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "mutation CreateArticle($input: CreateArticleInput!, $condition: ModelArticleConditionInput) {\n  createArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    coverImageAlt\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        contentImageAlt\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -11863,6 +12389,7 @@ public final class CreateArticleMutation: GraphQLMutation {
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("coverImage", type: .object(CoverImage.selections)),
         GraphQLField("coverImage_key", type: .scalar(String.self)),
+        GraphQLField("coverImageAlt", type: .scalar(String.self)),
         GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
         GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
         GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -11881,8 +12408,8 @@ public final class CreateArticleMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -11918,6 +12445,15 @@ public final class CreateArticleMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "coverImage_key")
+        }
+      }
+
+      public var coverImageAlt: String? {
+        get {
+          return snapshot["coverImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "coverImageAlt")
         }
       }
 
@@ -12221,6 +12757,7 @@ public final class CreateArticleMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -12239,8 +12776,8 @@ public final class CreateArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -12276,6 +12813,15 @@ public final class CreateArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -13094,6 +13640,7 @@ public final class CreateArticleMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -13112,8 +13659,8 @@ public final class CreateArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -13149,6 +13696,15 @@ public final class CreateArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -13748,6 +14304,7 @@ public final class CreateArticleMutation: GraphQLMutation {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("contentImageAlt", type: .scalar(String.self)),
             GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -13760,8 +14317,8 @@ public final class CreateArticleMutation: GraphQLMutation {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -13836,6 +14393,15 @@ public final class CreateArticleMutation: GraphQLMutation {
             }
           }
 
+          public var contentImageAlt: String? {
+            get {
+              return snapshot["contentImageAlt"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "contentImageAlt")
+            }
+          }
+
           public var audioKey: String? {
             get {
               return snapshot["audio_key"] as? String
@@ -13880,6 +14446,7 @@ public final class CreateArticleMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -13898,8 +14465,8 @@ public final class CreateArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -13935,6 +14502,15 @@ public final class CreateArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -14307,7 +14883,7 @@ public final class CreateArticleMutation: GraphQLMutation {
 
 public final class UpdateArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateArticle($input: UpdateArticleInput!, $condition: ModelArticleConditionInput) {\n  updateArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "mutation UpdateArticle($input: UpdateArticleInput!, $condition: ModelArticleConditionInput) {\n  updateArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    coverImageAlt\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        contentImageAlt\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -14357,6 +14933,7 @@ public final class UpdateArticleMutation: GraphQLMutation {
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("coverImage", type: .object(CoverImage.selections)),
         GraphQLField("coverImage_key", type: .scalar(String.self)),
+        GraphQLField("coverImageAlt", type: .scalar(String.self)),
         GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
         GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
         GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -14375,8 +14952,8 @@ public final class UpdateArticleMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -14412,6 +14989,15 @@ public final class UpdateArticleMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "coverImage_key")
+        }
+      }
+
+      public var coverImageAlt: String? {
+        get {
+          return snapshot["coverImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "coverImageAlt")
         }
       }
 
@@ -14715,6 +15301,7 @@ public final class UpdateArticleMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -14733,8 +15320,8 @@ public final class UpdateArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -14770,6 +15357,15 @@ public final class UpdateArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -15588,6 +16184,7 @@ public final class UpdateArticleMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -15606,8 +16203,8 @@ public final class UpdateArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -15643,6 +16240,15 @@ public final class UpdateArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -16242,6 +16848,7 @@ public final class UpdateArticleMutation: GraphQLMutation {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("contentImageAlt", type: .scalar(String.self)),
             GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -16254,8 +16861,8 @@ public final class UpdateArticleMutation: GraphQLMutation {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -16330,6 +16937,15 @@ public final class UpdateArticleMutation: GraphQLMutation {
             }
           }
 
+          public var contentImageAlt: String? {
+            get {
+              return snapshot["contentImageAlt"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "contentImageAlt")
+            }
+          }
+
           public var audioKey: String? {
             get {
               return snapshot["audio_key"] as? String
@@ -16374,6 +16990,7 @@ public final class UpdateArticleMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -16392,8 +17009,8 @@ public final class UpdateArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -16429,6 +17046,15 @@ public final class UpdateArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -16801,7 +17427,7 @@ public final class UpdateArticleMutation: GraphQLMutation {
 
 public final class DeleteArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteArticle($input: DeleteArticleInput!, $condition: ModelArticleConditionInput) {\n  deleteArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "mutation DeleteArticle($input: DeleteArticleInput!, $condition: ModelArticleConditionInput) {\n  deleteArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    coverImageAlt\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        contentImageAlt\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -16851,6 +17477,7 @@ public final class DeleteArticleMutation: GraphQLMutation {
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("coverImage", type: .object(CoverImage.selections)),
         GraphQLField("coverImage_key", type: .scalar(String.self)),
+        GraphQLField("coverImageAlt", type: .scalar(String.self)),
         GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
         GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
         GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -16869,8 +17496,8 @@ public final class DeleteArticleMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -16906,6 +17533,15 @@ public final class DeleteArticleMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "coverImage_key")
+        }
+      }
+
+      public var coverImageAlt: String? {
+        get {
+          return snapshot["coverImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "coverImageAlt")
         }
       }
 
@@ -17209,6 +17845,7 @@ public final class DeleteArticleMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -17227,8 +17864,8 @@ public final class DeleteArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -17264,6 +17901,15 @@ public final class DeleteArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -18082,6 +18728,7 @@ public final class DeleteArticleMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -18100,8 +18747,8 @@ public final class DeleteArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -18137,6 +18784,15 @@ public final class DeleteArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -18736,6 +19392,7 @@ public final class DeleteArticleMutation: GraphQLMutation {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("contentImageAlt", type: .scalar(String.self)),
             GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -18748,8 +19405,8 @@ public final class DeleteArticleMutation: GraphQLMutation {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -18824,6 +19481,15 @@ public final class DeleteArticleMutation: GraphQLMutation {
             }
           }
 
+          public var contentImageAlt: String? {
+            get {
+              return snapshot["contentImageAlt"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "contentImageAlt")
+            }
+          }
+
           public var audioKey: String? {
             get {
               return snapshot["audio_key"] as? String
@@ -18868,6 +19534,7 @@ public final class DeleteArticleMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -18886,8 +19553,8 @@ public final class DeleteArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -18923,6 +19590,15 @@ public final class DeleteArticleMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -19628,7 +20304,7 @@ public final class DeleteArticleSourceMutation: GraphQLMutation {
 
 public final class CreateVocabularyMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateVocabulary($input: CreateVocabularyInput!, $condition: ModelVocabularyConditionInput) {\n  createVocabulary(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateVocabulary($input: CreateVocabularyInput!, $condition: ModelVocabularyConditionInput) {\n  createVocabulary(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -20036,6 +20712,7 @@ public final class CreateVocabularyMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -20054,8 +20731,8 @@ public final class CreateVocabularyMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -20091,6 +20768,15 @@ public final class CreateVocabularyMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -20637,7 +21323,7 @@ public final class CreateVocabularyMutation: GraphQLMutation {
 
 public final class UpdateVocabularyMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateVocabulary($input: UpdateVocabularyInput!, $condition: ModelVocabularyConditionInput) {\n  updateVocabulary(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateVocabulary($input: UpdateVocabularyInput!, $condition: ModelVocabularyConditionInput) {\n  updateVocabulary(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -21045,6 +21731,7 @@ public final class UpdateVocabularyMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -21063,8 +21750,8 @@ public final class UpdateVocabularyMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -21100,6 +21787,15 @@ public final class UpdateVocabularyMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -21646,7 +22342,7 @@ public final class UpdateVocabularyMutation: GraphQLMutation {
 
 public final class DeleteVocabularyMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteVocabulary($input: DeleteVocabularyInput!, $condition: ModelVocabularyConditionInput) {\n  deleteVocabulary(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteVocabulary($input: DeleteVocabularyInput!, $condition: ModelVocabularyConditionInput) {\n  deleteVocabulary(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -22054,6 +22750,7 @@ public final class DeleteVocabularyMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -22072,8 +22769,8 @@ public final class DeleteVocabularyMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -22109,6 +22806,15 @@ public final class DeleteVocabularyMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -22653,9 +23359,432 @@ public final class DeleteVocabularyMutation: GraphQLMutation {
   }
 }
 
+public final class CreateTrendingPhraseMutation: GraphQLMutation {
+  public static let operationString =
+    "mutation CreateTrendingPhrase($input: CreateTrendingPhraseInput!, $condition: ModelTrendingPhraseConditionInput) {\n  createTrendingPhrase(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+
+  public var input: CreateTrendingPhraseInput
+  public var condition: ModelTrendingPhraseConditionInput?
+
+  public init(input: CreateTrendingPhraseInput, condition: ModelTrendingPhraseConditionInput? = nil) {
+    self.input = input
+    self.condition = condition
+  }
+
+  public var variables: GraphQLMap? {
+    return ["input": input, "condition": condition]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("createTrendingPhrase", arguments: ["input": GraphQLVariable("input"), "condition": GraphQLVariable("condition")], type: .object(CreateTrendingPhrase.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(createTrendingPhrase: CreateTrendingPhrase? = nil) {
+      self.init(snapshot: ["__typename": "Mutation", "createTrendingPhrase": createTrendingPhrase.flatMap { $0.snapshot }])
+    }
+
+    public var createTrendingPhrase: CreateTrendingPhrase? {
+      get {
+        return (snapshot["createTrendingPhrase"] as? Snapshot).flatMap { CreateTrendingPhrase(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "createTrendingPhrase")
+      }
+    }
+
+    public struct CreateTrendingPhrase: GraphQLSelectionSet {
+      public static let possibleTypes = ["TrendingPhrase"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("contentPinyin", type: .scalar(String.self)),
+        GraphQLField("audioKey", type: .scalar(String.self)),
+        GraphQLField("description", type: .scalar(String.self)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var contentZh: String {
+        get {
+          return snapshot["contentZh"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentZh")
+        }
+      }
+
+      public var contentPinyin: String? {
+        get {
+          return snapshot["contentPinyin"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentPinyin")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audioKey"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audioKey")
+        }
+      }
+
+      public var description: String? {
+        get {
+          return snapshot["description"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "description")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+    }
+  }
+}
+
+public final class UpdateTrendingPhraseMutation: GraphQLMutation {
+  public static let operationString =
+    "mutation UpdateTrendingPhrase($input: UpdateTrendingPhraseInput!, $condition: ModelTrendingPhraseConditionInput) {\n  updateTrendingPhrase(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+
+  public var input: UpdateTrendingPhraseInput
+  public var condition: ModelTrendingPhraseConditionInput?
+
+  public init(input: UpdateTrendingPhraseInput, condition: ModelTrendingPhraseConditionInput? = nil) {
+    self.input = input
+    self.condition = condition
+  }
+
+  public var variables: GraphQLMap? {
+    return ["input": input, "condition": condition]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("updateTrendingPhrase", arguments: ["input": GraphQLVariable("input"), "condition": GraphQLVariable("condition")], type: .object(UpdateTrendingPhrase.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(updateTrendingPhrase: UpdateTrendingPhrase? = nil) {
+      self.init(snapshot: ["__typename": "Mutation", "updateTrendingPhrase": updateTrendingPhrase.flatMap { $0.snapshot }])
+    }
+
+    public var updateTrendingPhrase: UpdateTrendingPhrase? {
+      get {
+        return (snapshot["updateTrendingPhrase"] as? Snapshot).flatMap { UpdateTrendingPhrase(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "updateTrendingPhrase")
+      }
+    }
+
+    public struct UpdateTrendingPhrase: GraphQLSelectionSet {
+      public static let possibleTypes = ["TrendingPhrase"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("contentPinyin", type: .scalar(String.self)),
+        GraphQLField("audioKey", type: .scalar(String.self)),
+        GraphQLField("description", type: .scalar(String.self)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var contentZh: String {
+        get {
+          return snapshot["contentZh"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentZh")
+        }
+      }
+
+      public var contentPinyin: String? {
+        get {
+          return snapshot["contentPinyin"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentPinyin")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audioKey"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audioKey")
+        }
+      }
+
+      public var description: String? {
+        get {
+          return snapshot["description"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "description")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+    }
+  }
+}
+
+public final class DeleteTrendingPhraseMutation: GraphQLMutation {
+  public static let operationString =
+    "mutation DeleteTrendingPhrase($input: DeleteTrendingPhraseInput!, $condition: ModelTrendingPhraseConditionInput) {\n  deleteTrendingPhrase(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+
+  public var input: DeleteTrendingPhraseInput
+  public var condition: ModelTrendingPhraseConditionInput?
+
+  public init(input: DeleteTrendingPhraseInput, condition: ModelTrendingPhraseConditionInput? = nil) {
+    self.input = input
+    self.condition = condition
+  }
+
+  public var variables: GraphQLMap? {
+    return ["input": input, "condition": condition]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("deleteTrendingPhrase", arguments: ["input": GraphQLVariable("input"), "condition": GraphQLVariable("condition")], type: .object(DeleteTrendingPhrase.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(deleteTrendingPhrase: DeleteTrendingPhrase? = nil) {
+      self.init(snapshot: ["__typename": "Mutation", "deleteTrendingPhrase": deleteTrendingPhrase.flatMap { $0.snapshot }])
+    }
+
+    public var deleteTrendingPhrase: DeleteTrendingPhrase? {
+      get {
+        return (snapshot["deleteTrendingPhrase"] as? Snapshot).flatMap { DeleteTrendingPhrase(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "deleteTrendingPhrase")
+      }
+    }
+
+    public struct DeleteTrendingPhrase: GraphQLSelectionSet {
+      public static let possibleTypes = ["TrendingPhrase"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("contentPinyin", type: .scalar(String.self)),
+        GraphQLField("audioKey", type: .scalar(String.self)),
+        GraphQLField("description", type: .scalar(String.self)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var contentZh: String {
+        get {
+          return snapshot["contentZh"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentZh")
+        }
+      }
+
+      public var contentPinyin: String? {
+        get {
+          return snapshot["contentPinyin"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentPinyin")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audioKey"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audioKey")
+        }
+      }
+
+      public var description: String? {
+        get {
+          return snapshot["description"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "description")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+    }
+  }
+}
+
 public final class CreateVocabularyArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateVocabularyArticle($input: CreateVocabularyArticleInput!, $condition: ModelVocabularyArticleConditionInput) {\n  createVocabularyArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateVocabularyArticle($input: CreateVocabularyArticleInput!, $condition: ModelVocabularyArticleConditionInput) {\n  createVocabularyArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -22801,6 +23930,7 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -22819,8 +23949,8 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -22856,6 +23986,15 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -23158,6 +24297,7 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -23173,8 +24313,8 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -23201,6 +24341,15 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -23526,6 +24675,7 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -23541,8 +24691,8 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -23569,6 +24719,15 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -23813,6 +24972,7 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -23825,8 +24985,8 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -23901,6 +25061,15 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -23944,6 +25113,7 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -23959,8 +25129,8 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -23987,6 +25157,15 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -24502,6 +25681,7 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -24517,8 +25697,8 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -24545,6 +25725,15 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -24737,7 +25926,7 @@ public final class CreateVocabularyArticleMutation: GraphQLMutation {
 
 public final class UpdateVocabularyArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateVocabularyArticle($input: UpdateVocabularyArticleInput!, $condition: ModelVocabularyArticleConditionInput) {\n  updateVocabularyArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateVocabularyArticle($input: UpdateVocabularyArticleInput!, $condition: ModelVocabularyArticleConditionInput) {\n  updateVocabularyArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -24883,6 +26072,7 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -24901,8 +26091,8 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -24938,6 +26128,15 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -25240,6 +26439,7 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -25255,8 +26455,8 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -25283,6 +26483,15 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -25608,6 +26817,7 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -25623,8 +26833,8 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -25651,6 +26861,15 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -25895,6 +27114,7 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -25907,8 +27127,8 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -25983,6 +27203,15 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -26026,6 +27255,7 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -26041,8 +27271,8 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -26069,6 +27299,15 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -26584,6 +27823,7 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -26599,8 +27839,8 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -26627,6 +27867,15 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -26819,7 +28068,7 @@ public final class UpdateVocabularyArticleMutation: GraphQLMutation {
 
 public final class DeleteVocabularyArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteVocabularyArticle($input: DeleteVocabularyArticleInput!, $condition: ModelVocabularyArticleConditionInput) {\n  deleteVocabularyArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteVocabularyArticle($input: DeleteVocabularyArticleInput!, $condition: ModelVocabularyArticleConditionInput) {\n  deleteVocabularyArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -26965,6 +28214,7 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -26983,8 +28233,8 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -27020,6 +28270,15 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -27322,6 +28581,7 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -27337,8 +28597,8 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -27365,6 +28625,15 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -27690,6 +28959,7 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -27705,8 +28975,8 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -27733,6 +29003,15 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -27977,6 +29256,7 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -27989,8 +29269,8 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -28065,6 +29345,15 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -28108,6 +29397,7 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -28123,8 +29413,8 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -28151,6 +29441,15 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -28666,6 +29965,7 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -28681,8 +29981,8 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -28709,6 +30009,15 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -28901,7 +30210,7 @@ public final class DeleteVocabularyArticleMutation: GraphQLMutation {
 
 public final class CreateTagMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateTag($input: CreateTagInput!, $condition: ModelTagConditionInput) {\n  createTag(input: $input, condition: $condition) {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateTag($input: CreateTagInput!, $condition: ModelTagConditionInput) {\n  createTag(input: $input, condition: $condition) {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -29219,6 +30528,7 @@ public final class CreateTagMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -29237,8 +30547,8 @@ public final class CreateTagMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -29274,6 +30584,15 @@ public final class CreateTagMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -30923,7 +32242,7 @@ public final class CreateTagMutation: GraphQLMutation {
 
 public final class UpdateTagMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateTag($input: UpdateTagInput!, $condition: ModelTagConditionInput) {\n  updateTag(input: $input, condition: $condition) {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateTag($input: UpdateTagInput!, $condition: ModelTagConditionInput) {\n  updateTag(input: $input, condition: $condition) {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -31241,6 +32560,7 @@ public final class UpdateTagMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -31259,8 +32579,8 @@ public final class UpdateTagMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -31296,6 +32616,15 @@ public final class UpdateTagMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -32945,7 +34274,7 @@ public final class UpdateTagMutation: GraphQLMutation {
 
 public final class DeleteTagMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteTag($input: DeleteTagInput!, $condition: ModelTagConditionInput) {\n  deleteTag(input: $input, condition: $condition) {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteTag($input: DeleteTagInput!, $condition: ModelTagConditionInput) {\n  deleteTag(input: $input, condition: $condition) {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -33263,6 +34592,7 @@ public final class DeleteTagMutation: GraphQLMutation {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -33281,8 +34611,8 @@ public final class DeleteTagMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -33318,6 +34648,15 @@ public final class DeleteTagMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -34967,7 +36306,7 @@ public final class DeleteTagMutation: GraphQLMutation {
 
 public final class CreateTagArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateTagArticle($input: CreateTagArticleInput!, $condition: ModelTagArticleConditionInput) {\n  createTagArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateTagArticle($input: CreateTagArticleInput!, $condition: ModelTagArticleConditionInput) {\n  createTagArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -35093,6 +36432,7 @@ public final class CreateTagArticleMutation: GraphQLMutation {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -35111,8 +36451,8 @@ public final class CreateTagArticleMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -35148,6 +36488,15 @@ public final class CreateTagArticleMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -35450,6 +36799,7 @@ public final class CreateTagArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -35465,8 +36815,8 @@ public final class CreateTagArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -35493,6 +36843,15 @@ public final class CreateTagArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -35818,6 +37177,7 @@ public final class CreateTagArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -35833,8 +37193,8 @@ public final class CreateTagArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -35861,6 +37221,15 @@ public final class CreateTagArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -36105,6 +37474,7 @@ public final class CreateTagArticleMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -36117,8 +37487,8 @@ public final class CreateTagArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -36193,6 +37563,15 @@ public final class CreateTagArticleMutation: GraphQLMutation {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -36236,6 +37615,7 @@ public final class CreateTagArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -36251,8 +37631,8 @@ public final class CreateTagArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -36279,6 +37659,15 @@ public final class CreateTagArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -36704,6 +38093,7 @@ public final class CreateTagArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -36719,8 +38109,8 @@ public final class CreateTagArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -36747,6 +38137,15 @@ public final class CreateTagArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -37447,7 +38846,7 @@ public final class CreateTagArticleMutation: GraphQLMutation {
 
 public final class UpdateTagArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateTagArticle($input: UpdateTagArticleInput!, $condition: ModelTagArticleConditionInput) {\n  updateTagArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateTagArticle($input: UpdateTagArticleInput!, $condition: ModelTagArticleConditionInput) {\n  updateTagArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -37573,6 +38972,7 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -37591,8 +38991,8 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -37628,6 +39028,15 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -37930,6 +39339,7 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -37945,8 +39355,8 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -37973,6 +39383,15 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -38298,6 +39717,7 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -38313,8 +39733,8 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -38341,6 +39761,15 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -38585,6 +40014,7 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -38597,8 +40027,8 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -38673,6 +40103,15 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -38716,6 +40155,7 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -38731,8 +40171,8 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -38759,6 +40199,15 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -39184,6 +40633,7 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -39199,8 +40649,8 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -39227,6 +40677,15 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -39927,7 +41386,7 @@ public final class UpdateTagArticleMutation: GraphQLMutation {
 
 public final class DeleteTagArticleMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteTagArticle($input: DeleteTagArticleInput!, $condition: ModelTagArticleConditionInput) {\n  deleteTagArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteTagArticle($input: DeleteTagArticleInput!, $condition: ModelTagArticleConditionInput) {\n  deleteTagArticle(input: $input, condition: $condition) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -40053,6 +41512,7 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -40071,8 +41531,8 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -40108,6 +41568,15 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -40410,6 +41879,7 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -40425,8 +41895,8 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -40453,6 +41923,15 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -40778,6 +42257,7 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -40793,8 +42273,8 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -40821,6 +42301,15 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -41065,6 +42554,7 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -41077,8 +42567,8 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -41153,6 +42643,15 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -41196,6 +42695,7 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -41211,8 +42711,8 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -41239,6 +42739,15 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -41664,6 +43173,7 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -41679,8 +43189,8 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -41707,6 +43217,15 @@ public final class DeleteTagArticleMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -53318,7 +54837,7 @@ public final class DeleteUserExpressionRecordingMutation: GraphQLMutation {
 
 public final class CreateTagDialogueMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateTagDialogue($input: CreateTagDialogueInput!, $condition: ModelTagDialogueConditionInput) {\n  createTagDialogue(input: $input, condition: $condition) {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateTagDialogue($input: CreateTagDialogueInput!, $condition: ModelTagDialogueConditionInput) {\n  createTagDialogue(input: $input, condition: $condition) {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -54807,6 +56326,7 @@ public final class CreateTagDialogueMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -54822,8 +56342,8 @@ public final class CreateTagDialogueMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -54850,6 +56370,15 @@ public final class CreateTagDialogueMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -55550,7 +57079,7 @@ public final class CreateTagDialogueMutation: GraphQLMutation {
 
 public final class UpdateTagDialogueMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateTagDialogue($input: UpdateTagDialogueInput!, $condition: ModelTagDialogueConditionInput) {\n  updateTagDialogue(input: $input, condition: $condition) {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateTagDialogue($input: UpdateTagDialogueInput!, $condition: ModelTagDialogueConditionInput) {\n  updateTagDialogue(input: $input, condition: $condition) {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -57039,6 +58568,7 @@ public final class UpdateTagDialogueMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -57054,8 +58584,8 @@ public final class UpdateTagDialogueMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -57082,6 +58612,15 @@ public final class UpdateTagDialogueMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -57782,7 +59321,7 @@ public final class UpdateTagDialogueMutation: GraphQLMutation {
 
 public final class DeleteTagDialogueMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteTagDialogue($input: DeleteTagDialogueInput!, $condition: ModelTagDialogueConditionInput) {\n  deleteTagDialogue(input: $input, condition: $condition) {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteTagDialogue($input: DeleteTagDialogueInput!, $condition: ModelTagDialogueConditionInput) {\n  deleteTagDialogue(input: $input, condition: $condition) {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -59271,6 +60810,7 @@ public final class DeleteTagDialogueMutation: GraphQLMutation {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -59286,8 +60826,8 @@ public final class DeleteTagDialogueMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -59314,6 +60854,15 @@ public final class DeleteTagDialogueMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -84308,7 +85857,7 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
 
 public final class GetParagraphQuery: GraphQLQuery {
   public static let operationString =
-    "query GetParagraph($id: ID!) {\n  getParagraph(id: $id) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetParagraph($id: ID!) {\n  getParagraph(id: $id) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    contentImageAlt\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -84360,6 +85909,7 @@ public final class GetParagraphQuery: GraphQLQuery {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("contentImageAlt", type: .scalar(String.self)),
         GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -84372,8 +85922,8 @@ public final class GetParagraphQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -84448,6 +85998,15 @@ public final class GetParagraphQuery: GraphQLQuery {
         }
       }
 
+      public var contentImageAlt: String? {
+        get {
+          return snapshot["contentImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentImageAlt")
+        }
+      }
+
       public var audioKey: String? {
         get {
           return snapshot["audio_key"] as? String
@@ -84492,6 +86051,7 @@ public final class GetParagraphQuery: GraphQLQuery {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -84510,8 +86070,8 @@ public final class GetParagraphQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -84547,6 +86107,15 @@ public final class GetParagraphQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -84849,6 +86418,7 @@ public final class GetParagraphQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -84864,8 +86434,8 @@ public final class GetParagraphQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -84892,6 +86462,15 @@ public final class GetParagraphQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -85217,6 +86796,7 @@ public final class GetParagraphQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -85232,8 +86812,8 @@ public final class GetParagraphQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -85260,6 +86840,15 @@ public final class GetParagraphQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -85504,6 +87093,7 @@ public final class GetParagraphQuery: GraphQLQuery {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -85516,8 +87106,8 @@ public final class GetParagraphQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -85592,6 +87182,15 @@ public final class GetParagraphQuery: GraphQLQuery {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -85635,6 +87234,7 @@ public final class GetParagraphQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -85650,8 +87250,8 @@ public final class GetParagraphQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -85678,6 +87278,15 @@ public final class GetParagraphQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -85913,7 +87522,7 @@ public final class GetParagraphQuery: GraphQLQuery {
 
 public final class ListParagraphsQuery: GraphQLQuery {
   public static let operationString =
-    "query ListParagraphs($filter: ModelParagraphFilterInput, $limit: Int, $nextToken: String) {\n  listParagraphs(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      content\n      contentType\n      seqNumber\n      contentImage {\n        __typename\n        ...S3Object\n      }\n      contentImage_key\n      audio_key\n      videoURL\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListParagraphs($filter: ModelParagraphFilterInput, $limit: Int, $nextToken: String) {\n  listParagraphs(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        coverImageAlt\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            contentImageAlt\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      content\n      contentType\n      seqNumber\n      contentImage {\n        __typename\n        ...S3Object\n      }\n      contentImage_key\n      contentImageAlt\n      audio_key\n      videoURL\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -86015,6 +87624,7 @@ public final class ListParagraphsQuery: GraphQLQuery {
           GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
           GraphQLField("contentImage", type: .object(ContentImage.selections)),
           GraphQLField("contentImage_key", type: .scalar(String.self)),
+          GraphQLField("contentImageAlt", type: .scalar(String.self)),
           GraphQLField("audio_key", type: .scalar(String.self)),
           GraphQLField("videoURL", type: .scalar(String.self)),
           GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -86027,8 +87637,8 @@ public final class ListParagraphsQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -86103,6 +87713,15 @@ public final class ListParagraphsQuery: GraphQLQuery {
           }
         }
 
+        public var contentImageAlt: String? {
+          get {
+            return snapshot["contentImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "contentImageAlt")
+          }
+        }
+
         public var audioKey: String? {
           get {
             return snapshot["audio_key"] as? String
@@ -86147,6 +87766,7 @@ public final class ListParagraphsQuery: GraphQLQuery {
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("coverImage", type: .object(CoverImage.selections)),
             GraphQLField("coverImage_key", type: .scalar(String.self)),
+            GraphQLField("coverImageAlt", type: .scalar(String.self)),
             GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
             GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
             GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -86165,8 +87785,8 @@ public final class ListParagraphsQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+          public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -86202,6 +87822,15 @@ public final class ListParagraphsQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue, forKey: "coverImage_key")
+            }
+          }
+
+          public var coverImageAlt: String? {
+            get {
+              return snapshot["coverImageAlt"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "coverImageAlt")
             }
           }
 
@@ -86659,6 +88288,7 @@ public final class ListParagraphsQuery: GraphQLQuery {
                 GraphQLField("contentType", type: .nonNull(.scalar(String.self))),
                 GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
                 GraphQLField("contentImage_key", type: .scalar(String.self)),
+                GraphQLField("contentImageAlt", type: .scalar(String.self)),
                 GraphQLField("audio_key", type: .scalar(String.self)),
                 GraphQLField("videoURL", type: .scalar(String.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -86671,8 +88301,8 @@ public final class ListParagraphsQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -86726,6 +88356,15 @@ public final class ListParagraphsQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "contentImage_key")
+                }
+              }
+
+              public var contentImageAlt: String? {
+                get {
+                  return snapshot["contentImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "contentImageAlt")
                 }
               }
 
@@ -87387,7 +89026,7 @@ public final class ListExpressionsQuery: GraphQLQuery {
 
 public final class GetArticleQuery: GraphQLQuery {
   public static let operationString =
-    "query GetArticle($id: ID!) {\n  getArticle(id: $id) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "query GetArticle($id: ID!) {\n  getArticle(id: $id) {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    coverImageAlt\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        contentImageAlt\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -87435,6 +89074,7 @@ public final class GetArticleQuery: GraphQLQuery {
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("coverImage", type: .object(CoverImage.selections)),
         GraphQLField("coverImage_key", type: .scalar(String.self)),
+        GraphQLField("coverImageAlt", type: .scalar(String.self)),
         GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
         GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
         GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -87453,8 +89093,8 @@ public final class GetArticleQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -87490,6 +89130,15 @@ public final class GetArticleQuery: GraphQLQuery {
         }
         set {
           snapshot.updateValue(newValue, forKey: "coverImage_key")
+        }
+      }
+
+      public var coverImageAlt: String? {
+        get {
+          return snapshot["coverImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "coverImageAlt")
         }
       }
 
@@ -87793,6 +89442,7 @@ public final class GetArticleQuery: GraphQLQuery {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -87811,8 +89461,8 @@ public final class GetArticleQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -87848,6 +89498,15 @@ public final class GetArticleQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -88666,6 +90325,7 @@ public final class GetArticleQuery: GraphQLQuery {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -88684,8 +90344,8 @@ public final class GetArticleQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -88721,6 +90381,15 @@ public final class GetArticleQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -89320,6 +90989,7 @@ public final class GetArticleQuery: GraphQLQuery {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("contentImageAlt", type: .scalar(String.self)),
             GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -89332,8 +91002,8 @@ public final class GetArticleQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -89408,6 +91078,15 @@ public final class GetArticleQuery: GraphQLQuery {
             }
           }
 
+          public var contentImageAlt: String? {
+            get {
+              return snapshot["contentImageAlt"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "contentImageAlt")
+            }
+          }
+
           public var audioKey: String? {
             get {
               return snapshot["audio_key"] as? String
@@ -89452,6 +91131,7 @@ public final class GetArticleQuery: GraphQLQuery {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -89470,8 +91150,8 @@ public final class GetArticleQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -89507,6 +91187,15 @@ public final class GetArticleQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -89879,7 +91568,7 @@ public final class GetArticleQuery: GraphQLQuery {
 
 public final class ListArticlesQuery: GraphQLQuery {
   public static let operationString =
-    "query ListArticles($filter: ModelArticleFilterInput, $limit: Int, $nextToken: String) {\n  listArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListArticles($filter: ModelArticleFilterInput, $limit: Int, $nextToken: String) {\n  listArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -89977,6 +91666,7 @@ public final class ListArticlesQuery: GraphQLQuery {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -89995,8 +91685,8 @@ public final class ListArticlesQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -90032,6 +91722,15 @@ public final class ListArticlesQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -90334,6 +92033,7 @@ public final class ListArticlesQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -90349,8 +92049,8 @@ public final class ListArticlesQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -90377,6 +92077,15 @@ public final class ListArticlesQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -90702,6 +92411,7 @@ public final class ListArticlesQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -90717,8 +92427,8 @@ public final class ListArticlesQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -90745,6 +92455,15 @@ public final class ListArticlesQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -90989,6 +92708,7 @@ public final class ListArticlesQuery: GraphQLQuery {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -91001,8 +92721,8 @@ public final class ListArticlesQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -91077,6 +92797,15 @@ public final class ListArticlesQuery: GraphQLQuery {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -91120,6 +92849,7 @@ public final class ListArticlesQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -91135,8 +92865,8 @@ public final class ListArticlesQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -91163,6 +92893,15 @@ public final class ListArticlesQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -91587,7 +93326,7 @@ public final class ListArticleSourcesQuery: GraphQLQuery {
 
 public final class GetVocabularyQuery: GraphQLQuery {
   public static let operationString =
-    "query GetVocabulary($id: ID!) {\n  getVocabulary(id: $id) {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetVocabulary($id: ID!) {\n  getVocabulary(id: $id) {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -91993,6 +93732,7 @@ public final class GetVocabularyQuery: GraphQLQuery {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -92011,8 +93751,8 @@ public final class GetVocabularyQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -92048,6 +93788,15 @@ public final class GetVocabularyQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -92594,7 +94343,7 @@ public final class GetVocabularyQuery: GraphQLQuery {
 
 public final class ListVocabularysQuery: GraphQLQuery {
   public static let operationString =
-    "query ListVocabularys($filter: ModelVocabularyFilterInput, $limit: Int, $nextToken: String) {\n  listVocabularys(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListVocabularys($filter: ModelVocabularyFilterInput, $limit: Int, $nextToken: String) {\n  listVocabularys(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -93049,6 +94798,7 @@ public final class ListVocabularysQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -93064,8 +94814,8 @@ public final class ListVocabularysQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -93092,6 +94842,15 @@ public final class ListVocabularysQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -93282,9 +95041,338 @@ public final class ListVocabularysQuery: GraphQLQuery {
   }
 }
 
+public final class GetTrendingPhraseQuery: GraphQLQuery {
+  public static let operationString =
+    "query GetTrendingPhrase($id: ID!) {\n  getTrendingPhrase(id: $id) {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+
+  public var id: GraphQLID
+
+  public init(id: GraphQLID) {
+    self.id = id
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("getTrendingPhrase", arguments: ["id": GraphQLVariable("id")], type: .object(GetTrendingPhrase.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(getTrendingPhrase: GetTrendingPhrase? = nil) {
+      self.init(snapshot: ["__typename": "Query", "getTrendingPhrase": getTrendingPhrase.flatMap { $0.snapshot }])
+    }
+
+    public var getTrendingPhrase: GetTrendingPhrase? {
+      get {
+        return (snapshot["getTrendingPhrase"] as? Snapshot).flatMap { GetTrendingPhrase(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "getTrendingPhrase")
+      }
+    }
+
+    public struct GetTrendingPhrase: GraphQLSelectionSet {
+      public static let possibleTypes = ["TrendingPhrase"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("contentPinyin", type: .scalar(String.self)),
+        GraphQLField("audioKey", type: .scalar(String.self)),
+        GraphQLField("description", type: .scalar(String.self)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var contentZh: String {
+        get {
+          return snapshot["contentZh"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentZh")
+        }
+      }
+
+      public var contentPinyin: String? {
+        get {
+          return snapshot["contentPinyin"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentPinyin")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audioKey"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audioKey")
+        }
+      }
+
+      public var description: String? {
+        get {
+          return snapshot["description"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "description")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+    }
+  }
+}
+
+public final class ListTrendingPhrasesQuery: GraphQLQuery {
+  public static let operationString =
+    "query ListTrendingPhrases($filter: ModelTrendingPhraseFilterInput, $limit: Int, $nextToken: String) {\n  listTrendingPhrases(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      contentZh\n      contentPinyin\n      audioKey\n      description\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+
+  public var filter: ModelTrendingPhraseFilterInput?
+  public var limit: Int?
+  public var nextToken: String?
+
+  public init(filter: ModelTrendingPhraseFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
+    self.filter = filter
+    self.limit = limit
+    self.nextToken = nextToken
+  }
+
+  public var variables: GraphQLMap? {
+    return ["filter": filter, "limit": limit, "nextToken": nextToken]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("listTrendingPhrases", arguments: ["filter": GraphQLVariable("filter"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .object(ListTrendingPhrase.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(listTrendingPhrases: ListTrendingPhrase? = nil) {
+      self.init(snapshot: ["__typename": "Query", "listTrendingPhrases": listTrendingPhrases.flatMap { $0.snapshot }])
+    }
+
+    public var listTrendingPhrases: ListTrendingPhrase? {
+      get {
+        return (snapshot["listTrendingPhrases"] as? Snapshot).flatMap { ListTrendingPhrase(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "listTrendingPhrases")
+      }
+    }
+
+    public struct ListTrendingPhrase: GraphQLSelectionSet {
+      public static let possibleTypes = ["ModelTrendingPhraseConnection"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("items", type: .list(.object(Item.selections))),
+        GraphQLField("nextToken", type: .scalar(String.self)),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(items: [Item?]? = nil, nextToken: String? = nil) {
+        self.init(snapshot: ["__typename": "ModelTrendingPhraseConnection", "items": items.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, "nextToken": nextToken])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var items: [Item?]? {
+        get {
+          return (snapshot["items"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Item(snapshot: $0) } } }
+        }
+        set {
+          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "items")
+        }
+      }
+
+      public var nextToken: String? {
+        get {
+          return snapshot["nextToken"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "nextToken")
+        }
+      }
+
+      public struct Item: GraphQLSelectionSet {
+        public static let possibleTypes = ["TrendingPhrase"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+          GraphQLField("contentPinyin", type: .scalar(String.self)),
+          GraphQLField("audioKey", type: .scalar(String.self)),
+          GraphQLField("description", type: .scalar(String.self)),
+          GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+          GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
+        ]
+
+        public var snapshot: Snapshot
+
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+        }
+
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: GraphQLID {
+          get {
+            return snapshot["id"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var contentZh: String {
+          get {
+            return snapshot["contentZh"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "contentZh")
+          }
+        }
+
+        public var contentPinyin: String? {
+          get {
+            return snapshot["contentPinyin"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "contentPinyin")
+          }
+        }
+
+        public var audioKey: String? {
+          get {
+            return snapshot["audioKey"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "audioKey")
+          }
+        }
+
+        public var description: String? {
+          get {
+            return snapshot["description"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "description")
+          }
+        }
+
+        public var createdAt: String {
+          get {
+            return snapshot["createdAt"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "createdAt")
+          }
+        }
+
+        public var updatedAt: String {
+          get {
+            return snapshot["updatedAt"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "updatedAt")
+          }
+        }
+      }
+    }
+  }
+}
+
 public final class GetVocabularyArticleQuery: GraphQLQuery {
   public static let operationString =
-    "query GetVocabularyArticle($id: ID!) {\n  getVocabularyArticle(id: $id) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetVocabularyArticle($id: ID!) {\n  getVocabularyArticle(id: $id) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -93428,6 +95516,7 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -93446,8 +95535,8 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -93483,6 +95572,15 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -93785,6 +95883,7 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -93800,8 +95899,8 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -93828,6 +95927,15 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -94153,6 +96261,7 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -94168,8 +96277,8 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -94196,6 +96305,15 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -94440,6 +96558,7 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -94452,8 +96571,8 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -94528,6 +96647,15 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -94571,6 +96699,7 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -94586,8 +96715,8 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -94614,6 +96743,15 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -95129,6 +97267,7 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -95144,8 +97283,8 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -95172,6 +97311,15 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -95364,7 +97512,7 @@ public final class GetVocabularyArticleQuery: GraphQLQuery {
 
 public final class ListVocabularyArticlesQuery: GraphQLQuery {
   public static let operationString =
-    "query ListVocabularyArticles($filter: ModelVocabularyArticleFilterInput, $limit: Int, $nextToken: String) {\n  listVocabularyArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      vocabulary {\n        __typename\n        id\n        contentZh\n        contentEn\n        contentPinyin\n        label\n        audio {\n          __typename\n          ...S3Object\n        }\n        audio_key\n        optionContent\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      paragraphId\n      startIndex\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListVocabularyArticles($filter: ModelVocabularyArticleFilterInput, $limit: Int, $nextToken: String) {\n  listVocabularyArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        coverImageAlt\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            contentImageAlt\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      vocabulary {\n        __typename\n        id\n        contentZh\n        contentEn\n        contentPinyin\n        label\n        audio {\n          __typename\n          ...S3Object\n        }\n        audio_key\n        optionContent\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      paragraphId\n      startIndex\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -95558,6 +97706,7 @@ public final class ListVocabularyArticlesQuery: GraphQLQuery {
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("coverImage", type: .object(CoverImage.selections)),
             GraphQLField("coverImage_key", type: .scalar(String.self)),
+            GraphQLField("coverImageAlt", type: .scalar(String.self)),
             GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
             GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
             GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -95576,8 +97725,8 @@ public final class ListVocabularyArticlesQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+          public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -95613,6 +97762,15 @@ public final class ListVocabularyArticlesQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue, forKey: "coverImage_key")
+            }
+          }
+
+          public var coverImageAlt: String? {
+            get {
+              return snapshot["coverImageAlt"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "coverImageAlt")
             }
           }
 
@@ -96070,6 +98228,7 @@ public final class ListVocabularyArticlesQuery: GraphQLQuery {
                 GraphQLField("contentType", type: .nonNull(.scalar(String.self))),
                 GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
                 GraphQLField("contentImage_key", type: .scalar(String.self)),
+                GraphQLField("contentImageAlt", type: .scalar(String.self)),
                 GraphQLField("audio_key", type: .scalar(String.self)),
                 GraphQLField("videoURL", type: .scalar(String.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -96082,8 +98241,8 @@ public final class ListVocabularyArticlesQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -96137,6 +98296,15 @@ public final class ListVocabularyArticlesQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "contentImage_key")
+                }
+              }
+
+              public var contentImageAlt: String? {
+                get {
+                  return snapshot["contentImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "contentImageAlt")
                 }
               }
 
@@ -96526,7 +98694,7 @@ public final class ListVocabularyArticlesQuery: GraphQLQuery {
 
 public final class GetTagQuery: GraphQLQuery {
   public static let operationString =
-    "query GetTag($id: ID!) {\n  getTag(id: $id) {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetTag($id: ID!) {\n  getTag(id: $id) {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -96842,6 +99010,7 @@ public final class GetTagQuery: GraphQLQuery {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -96860,8 +99029,8 @@ public final class GetTagQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -96897,6 +99066,15 @@ public final class GetTagQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -98546,7 +100724,7 @@ public final class GetTagQuery: GraphQLQuery {
 
 public final class ListTagsQuery: GraphQLQuery {
   public static let operationString =
-    "query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {\n  listTags(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {\n  listTags(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -98911,6 +101089,7 @@ public final class ListTagsQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -98926,8 +101105,8 @@ public final class ListTagsQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -98954,6 +101133,15 @@ public final class ListTagsQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -99654,7 +101842,7 @@ public final class ListTagsQuery: GraphQLQuery {
 
 public final class GetTagArticleQuery: GraphQLQuery {
   public static let operationString =
-    "query GetTagArticle($id: ID!) {\n  getTagArticle(id: $id) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetTagArticle($id: ID!) {\n  getTagArticle(id: $id) {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -99778,6 +101966,7 @@ public final class GetTagArticleQuery: GraphQLQuery {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -99796,8 +101985,8 @@ public final class GetTagArticleQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -99833,6 +102022,15 @@ public final class GetTagArticleQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -100135,6 +102333,7 @@ public final class GetTagArticleQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -100150,8 +102349,8 @@ public final class GetTagArticleQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -100178,6 +102377,15 @@ public final class GetTagArticleQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -100503,6 +102711,7 @@ public final class GetTagArticleQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -100518,8 +102727,8 @@ public final class GetTagArticleQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -100546,6 +102755,15 @@ public final class GetTagArticleQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -100790,6 +103008,7 @@ public final class GetTagArticleQuery: GraphQLQuery {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -100802,8 +103021,8 @@ public final class GetTagArticleQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -100878,6 +103097,15 @@ public final class GetTagArticleQuery: GraphQLQuery {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -100921,6 +103149,7 @@ public final class GetTagArticleQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -100936,8 +103165,8 @@ public final class GetTagArticleQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -100964,6 +103193,15 @@ public final class GetTagArticleQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -101389,6 +103627,7 @@ public final class GetTagArticleQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -101404,8 +103643,8 @@ public final class GetTagArticleQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -101432,6 +103671,15 @@ public final class GetTagArticleQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -102132,7 +104380,7 @@ public final class GetTagArticleQuery: GraphQLQuery {
 
 public final class ListTagArticlesQuery: GraphQLQuery {
   public static let operationString =
-    "query ListTagArticles($filter: ModelTagArticleFilterInput, $limit: Int, $nextToken: String) {\n  listTagArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      tag {\n        __typename\n        id\n        content\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        dialogues {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        image {\n          __typename\n          ...S3Object\n        }\n        image_key\n        isFeatured\n        featuredSlogan\n        featuredImage {\n          __typename\n          ...S3Object\n        }\n        featuredImage_key\n        createdAt\n        updatedAt\n      }\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListTagArticles($filter: ModelTagArticleFilterInput, $limit: Int, $nextToken: String) {\n  listTagArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        coverImageAlt\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            contentImageAlt\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      tag {\n        __typename\n        id\n        content\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        dialogues {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        image {\n          __typename\n          ...S3Object\n        }\n        image_key\n        isFeatured\n        featuredSlogan\n        featuredImage {\n          __typename\n          ...S3Object\n        }\n        featuredImage_key\n        createdAt\n        updatedAt\n      }\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -102306,6 +104554,7 @@ public final class ListTagArticlesQuery: GraphQLQuery {
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("coverImage", type: .object(CoverImage.selections)),
             GraphQLField("coverImage_key", type: .scalar(String.self)),
+            GraphQLField("coverImageAlt", type: .scalar(String.self)),
             GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
             GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
             GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -102324,8 +104573,8 @@ public final class ListTagArticlesQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+          public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -102361,6 +104610,15 @@ public final class ListTagArticlesQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue, forKey: "coverImage_key")
+            }
+          }
+
+          public var coverImageAlt: String? {
+            get {
+              return snapshot["coverImageAlt"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "coverImageAlt")
             }
           }
 
@@ -102818,6 +105076,7 @@ public final class ListTagArticlesQuery: GraphQLQuery {
                 GraphQLField("contentType", type: .nonNull(.scalar(String.self))),
                 GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
                 GraphQLField("contentImage_key", type: .scalar(String.self)),
+                GraphQLField("contentImageAlt", type: .scalar(String.self)),
                 GraphQLField("audio_key", type: .scalar(String.self)),
                 GraphQLField("videoURL", type: .scalar(String.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -102830,8 +105089,8 @@ public final class ListTagArticlesQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -102885,6 +105144,15 @@ public final class ListTagArticlesQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "contentImage_key")
+                }
+              }
+
+              public var contentImageAlt: String? {
+                get {
+                  return snapshot["contentImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "contentImageAlt")
                 }
               }
 
@@ -109697,7 +111965,7 @@ public final class ListUserExpressionRecordingsQuery: GraphQLQuery {
 
 public final class GetTagDialogueQuery: GraphQLQuery {
   public static let operationString =
-    "query GetTagDialogue($id: ID!) {\n  getTagDialogue(id: $id) {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetTagDialogue($id: ID!) {\n  getTagDialogue(id: $id) {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -111184,6 +113452,7 @@ public final class GetTagDialogueQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -111199,8 +113468,8 @@ public final class GetTagDialogueQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -111227,6 +113496,15 @@ public final class GetTagDialogueQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -126769,7 +129047,7 @@ public final class GetExpressionsByLabelQuery: GraphQLQuery {
 
 public final class GetArticlesByStatusQuery: GraphQLQuery {
   public static let operationString =
-    "query GetArticlesByStatus($status: String, $createdAt: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelArticleFilterInput, $limit: Int, $nextToken: String) {\n  getArticlesByStatus(status: $status, createdAt: $createdAt, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query GetArticlesByStatus($status: String, $createdAt: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelArticleFilterInput, $limit: Int, $nextToken: String) {\n  getArticlesByStatus(status: $status, createdAt: $createdAt, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -126873,6 +129151,7 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -126891,8 +129170,8 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -126928,6 +129207,15 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -127230,6 +129518,7 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -127245,8 +129534,8 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -127273,6 +129562,15 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -127598,6 +129896,7 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -127613,8 +129912,8 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -127641,6 +129940,15 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -127885,6 +130193,7 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -127897,8 +130206,8 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -127973,6 +130282,15 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -128016,6 +130334,7 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -128031,8 +130350,8 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -128059,6 +130378,15 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -128214,7 +130542,7 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
 
 public final class GetVocabularyArticlesByParagraphIdQuery: GraphQLQuery {
   public static let operationString =
-    "query GetVocabularyArticlesByParagraphId($paragraphId: ID, $sortDirection: ModelSortDirection, $filter: ModelVocabularyArticleFilterInput, $limit: Int, $nextToken: String) {\n  getVocabularyArticlesByParagraphId(paragraphId: $paragraphId, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      vocabulary {\n        __typename\n        id\n        contentZh\n        contentEn\n        contentPinyin\n        label\n        audio {\n          __typename\n          ...S3Object\n        }\n        audio_key\n        optionContent\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      paragraphId\n      startIndex\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query GetVocabularyArticlesByParagraphId($paragraphId: ID, $sortDirection: ModelSortDirection, $filter: ModelVocabularyArticleFilterInput, $limit: Int, $nextToken: String) {\n  getVocabularyArticlesByParagraphId(paragraphId: $paragraphId, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        coverImageAlt\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            contentImageAlt\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        status\n        updatedAt\n      }\n      vocabulary {\n        __typename\n        id\n        contentZh\n        contentEn\n        contentPinyin\n        label\n        audio {\n          __typename\n          ...S3Object\n        }\n        audio_key\n        optionContent\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      paragraphId\n      startIndex\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -128412,6 +130740,7 @@ public final class GetVocabularyArticlesByParagraphIdQuery: GraphQLQuery {
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("coverImage", type: .object(CoverImage.selections)),
             GraphQLField("coverImage_key", type: .scalar(String.self)),
+            GraphQLField("coverImageAlt", type: .scalar(String.self)),
             GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
             GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
             GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -128430,8 +130759,8 @@ public final class GetVocabularyArticlesByParagraphIdQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+          public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -128467,6 +130796,15 @@ public final class GetVocabularyArticlesByParagraphIdQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue, forKey: "coverImage_key")
+            }
+          }
+
+          public var coverImageAlt: String? {
+            get {
+              return snapshot["coverImageAlt"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "coverImageAlt")
             }
           }
 
@@ -128924,6 +131262,7 @@ public final class GetVocabularyArticlesByParagraphIdQuery: GraphQLQuery {
                 GraphQLField("contentType", type: .nonNull(.scalar(String.self))),
                 GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
                 GraphQLField("contentImage_key", type: .scalar(String.self)),
+                GraphQLField("contentImageAlt", type: .scalar(String.self)),
                 GraphQLField("audio_key", type: .scalar(String.self)),
                 GraphQLField("videoURL", type: .scalar(String.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -128936,8 +131275,8 @@ public final class GetVocabularyArticlesByParagraphIdQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, content: String, contentType: String, seqNumber: Int, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Paragraph", "id": id, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -128991,6 +131330,15 @@ public final class GetVocabularyArticlesByParagraphIdQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "contentImage_key")
+                }
+              }
+
+              public var contentImageAlt: String? {
+                get {
+                  return snapshot["contentImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "contentImageAlt")
                 }
               }
 
@@ -131071,7 +133419,7 @@ public final class GetExpressionRecordingByUserAndExpressionQuery: GraphQLQuery 
 
 public final class OnCreateParagraphSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateParagraph {\n  onCreateParagraph {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateParagraph {\n  onCreateParagraph {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    contentImageAlt\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -131116,6 +133464,7 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("contentImageAlt", type: .scalar(String.self)),
         GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -131128,8 +133477,8 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -131204,6 +133553,15 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
         }
       }
 
+      public var contentImageAlt: String? {
+        get {
+          return snapshot["contentImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentImageAlt")
+        }
+      }
+
       public var audioKey: String? {
         get {
           return snapshot["audio_key"] as? String
@@ -131248,6 +133606,7 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -131266,8 +133625,8 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -131303,6 +133662,15 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -131605,6 +133973,7 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -131620,8 +133989,8 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -131648,6 +134017,15 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -131973,6 +134351,7 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -131988,8 +134367,8 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -132016,6 +134395,15 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -132260,6 +134648,7 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -132272,8 +134661,8 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -132348,6 +134737,15 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -132391,6 +134789,7 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -132406,8 +134805,8 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -132434,6 +134833,15 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -132669,7 +135077,7 @@ public final class OnCreateParagraphSubscription: GraphQLSubscription {
 
 public final class OnUpdateParagraphSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateParagraph {\n  onUpdateParagraph {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateParagraph {\n  onUpdateParagraph {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    contentImageAlt\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -132714,6 +135122,7 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("contentImageAlt", type: .scalar(String.self)),
         GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -132726,8 +135135,8 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -132802,6 +135211,15 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
         }
       }
 
+      public var contentImageAlt: String? {
+        get {
+          return snapshot["contentImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentImageAlt")
+        }
+      }
+
       public var audioKey: String? {
         get {
           return snapshot["audio_key"] as? String
@@ -132846,6 +135264,7 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -132864,8 +135283,8 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -132901,6 +135320,15 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -133203,6 +135631,7 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -133218,8 +135647,8 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -133246,6 +135675,15 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -133571,6 +136009,7 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -133586,8 +136025,8 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -133614,6 +136053,15 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -133858,6 +136306,7 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -133870,8 +136319,8 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -133946,6 +136395,15 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -133989,6 +136447,7 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -134004,8 +136463,8 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -134032,6 +136491,15 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -134267,7 +136735,7 @@ public final class OnUpdateParagraphSubscription: GraphQLSubscription {
 
 public final class OnDeleteParagraphSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteParagraph {\n  onDeleteParagraph {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteParagraph {\n  onDeleteParagraph {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    content\n    contentType\n    seqNumber\n    contentImage {\n      __typename\n      ...S3Object\n    }\n    contentImage_key\n    contentImageAlt\n    audio_key\n    videoURL\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -134312,6 +136780,7 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
         GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
         GraphQLField("contentImage", type: .object(ContentImage.selections)),
         GraphQLField("contentImage_key", type: .scalar(String.self)),
+        GraphQLField("contentImageAlt", type: .scalar(String.self)),
         GraphQLField("audio_key", type: .scalar(String.self)),
         GraphQLField("videoURL", type: .scalar(String.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -134324,8 +136793,8 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -134400,6 +136869,15 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
         }
       }
 
+      public var contentImageAlt: String? {
+        get {
+          return snapshot["contentImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentImageAlt")
+        }
+      }
+
       public var audioKey: String? {
         get {
           return snapshot["audio_key"] as? String
@@ -134444,6 +136922,7 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -134462,8 +136941,8 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -134499,6 +136978,15 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -134801,6 +137289,7 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -134816,8 +137305,8 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -134844,6 +137333,15 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -135169,6 +137667,7 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -135184,8 +137683,8 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -135212,6 +137711,15 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -135456,6 +137964,7 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -135468,8 +137977,8 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -135544,6 +138053,15 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -135587,6 +138105,7 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -135602,8 +138121,8 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -135630,6 +138149,15 @@ public final class OnDeleteParagraphSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -136567,7 +139095,7 @@ public final class OnDeleteExpressionSubscription: GraphQLSubscription {
 
 public final class OnCreateArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateArticle {\n  onCreateArticle {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "subscription OnCreateArticle {\n  onCreateArticle {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    coverImageAlt\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        contentImageAlt\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -136608,6 +139136,7 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("coverImage", type: .object(CoverImage.selections)),
         GraphQLField("coverImage_key", type: .scalar(String.self)),
+        GraphQLField("coverImageAlt", type: .scalar(String.self)),
         GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
         GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
         GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -136626,8 +139155,8 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -136663,6 +139192,15 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "coverImage_key")
+        }
+      }
+
+      public var coverImageAlt: String? {
+        get {
+          return snapshot["coverImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "coverImageAlt")
         }
       }
 
@@ -136966,6 +139504,7 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -136984,8 +139523,8 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -137021,6 +139560,15 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -137839,6 +140387,7 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -137857,8 +140406,8 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -137894,6 +140443,15 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -138493,6 +141051,7 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("contentImageAlt", type: .scalar(String.self)),
             GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -138505,8 +141064,8 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -138581,6 +141140,15 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
             }
           }
 
+          public var contentImageAlt: String? {
+            get {
+              return snapshot["contentImageAlt"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "contentImageAlt")
+            }
+          }
+
           public var audioKey: String? {
             get {
               return snapshot["audio_key"] as? String
@@ -138625,6 +141193,7 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -138643,8 +141212,8 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -138680,6 +141249,15 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -139052,7 +141630,7 @@ public final class OnCreateArticleSubscription: GraphQLSubscription {
 
 public final class OnUpdateArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateArticle {\n  onUpdateArticle {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "subscription OnUpdateArticle {\n  onUpdateArticle {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    coverImageAlt\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        contentImageAlt\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -139093,6 +141671,7 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("coverImage", type: .object(CoverImage.selections)),
         GraphQLField("coverImage_key", type: .scalar(String.self)),
+        GraphQLField("coverImageAlt", type: .scalar(String.self)),
         GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
         GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
         GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -139111,8 +141690,8 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -139148,6 +141727,15 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "coverImage_key")
+        }
+      }
+
+      public var coverImageAlt: String? {
+        get {
+          return snapshot["coverImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "coverImageAlt")
         }
       }
 
@@ -139451,6 +142039,7 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -139469,8 +142058,8 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -139506,6 +142095,15 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -140324,6 +142922,7 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -140342,8 +142941,8 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -140379,6 +142978,15 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -140978,6 +143586,7 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("contentImageAlt", type: .scalar(String.self)),
             GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -140990,8 +143599,8 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -141066,6 +143675,15 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
             }
           }
 
+          public var contentImageAlt: String? {
+            get {
+              return snapshot["contentImageAlt"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "contentImageAlt")
+            }
+          }
+
           public var audioKey: String? {
             get {
               return snapshot["audio_key"] as? String
@@ -141110,6 +143728,7 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -141128,8 +143747,8 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -141165,6 +143784,15 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -141537,7 +144165,7 @@ public final class OnUpdateArticleSubscription: GraphQLSubscription {
 
 public final class OnDeleteArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteArticle {\n  onDeleteArticle {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
+    "subscription OnDeleteArticle {\n  onDeleteArticle {\n    __typename\n    id\n    coverImage {\n      __typename\n      ...S3Object\n    }\n    coverImage_key\n    coverImageAlt\n    titleEn\n    titleZh\n    whyYouShouldReadThisArticle\n    createdAt\n    tags {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    vocabularies {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    sourcer\n    paragraphs {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        content\n        contentType\n        seqNumber\n        contentImage {\n          __typename\n          ...S3Object\n        }\n        contentImage_key\n        contentImageAlt\n        audio_key\n        videoURL\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    status\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -141578,6 +144206,7 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("coverImage", type: .object(CoverImage.selections)),
         GraphQLField("coverImage_key", type: .scalar(String.self)),
+        GraphQLField("coverImageAlt", type: .scalar(String.self)),
         GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
         GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
         GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -141596,8 +144225,8 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+      public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -141633,6 +144262,15 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "coverImage_key")
+        }
+      }
+
+      public var coverImageAlt: String? {
+        get {
+          return snapshot["coverImageAlt"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "coverImageAlt")
         }
       }
 
@@ -141936,6 +144574,7 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -141954,8 +144593,8 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -141991,6 +144630,15 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -142809,6 +145457,7 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -142827,8 +145476,8 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -142864,6 +145513,15 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -143463,6 +146121,7 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
             GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
             GraphQLField("contentImage", type: .object(ContentImage.selections)),
             GraphQLField("contentImage_key", type: .scalar(String.self)),
+            GraphQLField("contentImageAlt", type: .scalar(String.self)),
             GraphQLField("audio_key", type: .scalar(String.self)),
             GraphQLField("videoURL", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -143475,8 +146134,8 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -143551,6 +146210,15 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
             }
           }
 
+          public var contentImageAlt: String? {
+            get {
+              return snapshot["contentImageAlt"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "contentImageAlt")
+            }
+          }
+
           public var audioKey: String? {
             get {
               return snapshot["audio_key"] as? String
@@ -143595,6 +146263,7 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -143613,8 +146282,8 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -143650,6 +146319,15 @@ public final class OnDeleteArticleSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -144328,7 +147006,7 @@ public final class OnDeleteArticleSourceSubscription: GraphQLSubscription {
 
 public final class OnCreateVocabularySubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateVocabulary {\n  onCreateVocabulary {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateVocabulary {\n  onCreateVocabulary {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -144727,6 +147405,7 @@ public final class OnCreateVocabularySubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -144745,8 +147424,8 @@ public final class OnCreateVocabularySubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -144782,6 +147461,15 @@ public final class OnCreateVocabularySubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -145328,7 +148016,7 @@ public final class OnCreateVocabularySubscription: GraphQLSubscription {
 
 public final class OnUpdateVocabularySubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateVocabulary {\n  onUpdateVocabulary {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateVocabulary {\n  onUpdateVocabulary {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -145727,6 +148415,7 @@ public final class OnUpdateVocabularySubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -145745,8 +148434,8 @@ public final class OnUpdateVocabularySubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -145782,6 +148471,15 @@ public final class OnUpdateVocabularySubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -146328,7 +149026,7 @@ public final class OnUpdateVocabularySubscription: GraphQLSubscription {
 
 public final class OnDeleteVocabularySubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteVocabulary {\n  onDeleteVocabulary {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteVocabulary {\n  onDeleteVocabulary {\n    __typename\n    id\n    contentZh\n    contentEn\n    contentPinyin\n    label\n    audio {\n      __typename\n      ...S3Object\n    }\n    audio_key\n    optionContent\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        vocabulary {\n          __typename\n          id\n          contentZh\n          contentEn\n          contentPinyin\n          label\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          optionContent\n          articles {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        paragraphId\n        startIndex\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -146727,6 +149425,7 @@ public final class OnDeleteVocabularySubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -146745,8 +149444,8 @@ public final class OnDeleteVocabularySubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -146782,6 +149481,15 @@ public final class OnDeleteVocabularySubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -147326,9 +150034,405 @@ public final class OnDeleteVocabularySubscription: GraphQLSubscription {
   }
 }
 
+public final class OnCreateTrendingPhraseSubscription: GraphQLSubscription {
+  public static let operationString =
+    "subscription OnCreateTrendingPhrase {\n  onCreateTrendingPhrase {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+
+  public init() {
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Subscription"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("onCreateTrendingPhrase", type: .object(OnCreateTrendingPhrase.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(onCreateTrendingPhrase: OnCreateTrendingPhrase? = nil) {
+      self.init(snapshot: ["__typename": "Subscription", "onCreateTrendingPhrase": onCreateTrendingPhrase.flatMap { $0.snapshot }])
+    }
+
+    public var onCreateTrendingPhrase: OnCreateTrendingPhrase? {
+      get {
+        return (snapshot["onCreateTrendingPhrase"] as? Snapshot).flatMap { OnCreateTrendingPhrase(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "onCreateTrendingPhrase")
+      }
+    }
+
+    public struct OnCreateTrendingPhrase: GraphQLSelectionSet {
+      public static let possibleTypes = ["TrendingPhrase"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("contentPinyin", type: .scalar(String.self)),
+        GraphQLField("audioKey", type: .scalar(String.self)),
+        GraphQLField("description", type: .scalar(String.self)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var contentZh: String {
+        get {
+          return snapshot["contentZh"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentZh")
+        }
+      }
+
+      public var contentPinyin: String? {
+        get {
+          return snapshot["contentPinyin"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentPinyin")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audioKey"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audioKey")
+        }
+      }
+
+      public var description: String? {
+        get {
+          return snapshot["description"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "description")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+    }
+  }
+}
+
+public final class OnUpdateTrendingPhraseSubscription: GraphQLSubscription {
+  public static let operationString =
+    "subscription OnUpdateTrendingPhrase {\n  onUpdateTrendingPhrase {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+
+  public init() {
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Subscription"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("onUpdateTrendingPhrase", type: .object(OnUpdateTrendingPhrase.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(onUpdateTrendingPhrase: OnUpdateTrendingPhrase? = nil) {
+      self.init(snapshot: ["__typename": "Subscription", "onUpdateTrendingPhrase": onUpdateTrendingPhrase.flatMap { $0.snapshot }])
+    }
+
+    public var onUpdateTrendingPhrase: OnUpdateTrendingPhrase? {
+      get {
+        return (snapshot["onUpdateTrendingPhrase"] as? Snapshot).flatMap { OnUpdateTrendingPhrase(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "onUpdateTrendingPhrase")
+      }
+    }
+
+    public struct OnUpdateTrendingPhrase: GraphQLSelectionSet {
+      public static let possibleTypes = ["TrendingPhrase"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("contentPinyin", type: .scalar(String.self)),
+        GraphQLField("audioKey", type: .scalar(String.self)),
+        GraphQLField("description", type: .scalar(String.self)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var contentZh: String {
+        get {
+          return snapshot["contentZh"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentZh")
+        }
+      }
+
+      public var contentPinyin: String? {
+        get {
+          return snapshot["contentPinyin"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentPinyin")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audioKey"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audioKey")
+        }
+      }
+
+      public var description: String? {
+        get {
+          return snapshot["description"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "description")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+    }
+  }
+}
+
+public final class OnDeleteTrendingPhraseSubscription: GraphQLSubscription {
+  public static let operationString =
+    "subscription OnDeleteTrendingPhrase {\n  onDeleteTrendingPhrase {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+
+  public init() {
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Subscription"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("onDeleteTrendingPhrase", type: .object(OnDeleteTrendingPhrase.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(onDeleteTrendingPhrase: OnDeleteTrendingPhrase? = nil) {
+      self.init(snapshot: ["__typename": "Subscription", "onDeleteTrendingPhrase": onDeleteTrendingPhrase.flatMap { $0.snapshot }])
+    }
+
+    public var onDeleteTrendingPhrase: OnDeleteTrendingPhrase? {
+      get {
+        return (snapshot["onDeleteTrendingPhrase"] as? Snapshot).flatMap { OnDeleteTrendingPhrase(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "onDeleteTrendingPhrase")
+      }
+    }
+
+    public struct OnDeleteTrendingPhrase: GraphQLSelectionSet {
+      public static let possibleTypes = ["TrendingPhrase"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("contentPinyin", type: .scalar(String.self)),
+        GraphQLField("audioKey", type: .scalar(String.self)),
+        GraphQLField("description", type: .scalar(String.self)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var contentZh: String {
+        get {
+          return snapshot["contentZh"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentZh")
+        }
+      }
+
+      public var contentPinyin: String? {
+        get {
+          return snapshot["contentPinyin"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "contentPinyin")
+        }
+      }
+
+      public var audioKey: String? {
+        get {
+          return snapshot["audioKey"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "audioKey")
+        }
+      }
+
+      public var description: String? {
+        get {
+          return snapshot["description"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "description")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+    }
+  }
+}
+
 public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateVocabularyArticle {\n  onCreateVocabularyArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateVocabularyArticle {\n  onCreateVocabularyArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -147465,6 +150569,7 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -147483,8 +150588,8 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -147520,6 +150625,15 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -147822,6 +150936,7 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -147837,8 +150952,8 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -147865,6 +150980,15 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -148190,6 +151314,7 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -148205,8 +151330,8 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -148233,6 +151358,15 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -148477,6 +151611,7 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -148489,8 +151624,8 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -148565,6 +151700,15 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -148608,6 +151752,7 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -148623,8 +151768,8 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -148651,6 +151796,15 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -149166,6 +152320,7 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -149181,8 +152336,8 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -149209,6 +152364,15 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -149401,7 +152565,7 @@ public final class OnCreateVocabularyArticleSubscription: GraphQLSubscription {
 
 public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateVocabularyArticle {\n  onUpdateVocabularyArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateVocabularyArticle {\n  onUpdateVocabularyArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -149538,6 +152702,7 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -149556,8 +152721,8 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -149593,6 +152758,15 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -149895,6 +153069,7 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -149910,8 +153085,8 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -149938,6 +153113,15 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -150263,6 +153447,7 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -150278,8 +153463,8 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -150306,6 +153491,15 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -150550,6 +153744,7 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -150562,8 +153757,8 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -150638,6 +153833,15 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -150681,6 +153885,7 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -150696,8 +153901,8 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -150724,6 +153929,15 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -151239,6 +154453,7 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -151254,8 +154469,8 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -151282,6 +154497,15 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -151474,7 +154698,7 @@ public final class OnUpdateVocabularyArticleSubscription: GraphQLSubscription {
 
 public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteVocabularyArticle {\n  onDeleteVocabularyArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteVocabularyArticle {\n  onDeleteVocabularyArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    vocabulary {\n      __typename\n      id\n      contentZh\n      contentEn\n      contentPinyin\n      label\n      audio {\n        __typename\n        ...S3Object\n      }\n      audio_key\n      optionContent\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    paragraphId\n    startIndex\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -151611,6 +154835,7 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -151629,8 +154854,8 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -151666,6 +154891,15 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -151968,6 +155202,7 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -151983,8 +155218,8 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -152011,6 +155246,15 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -152336,6 +155580,7 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -152351,8 +155596,8 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -152379,6 +155624,15 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -152623,6 +155877,7 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -152635,8 +155890,8 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -152711,6 +155966,15 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -152754,6 +156018,7 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -152769,8 +156034,8 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -152797,6 +156062,15 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -153312,6 +156586,7 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -153327,8 +156602,8 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -153355,6 +156630,15 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -153547,7 +156831,7 @@ public final class OnDeleteVocabularyArticleSubscription: GraphQLSubscription {
 
 public final class OnCreateTagSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateTag {\n  onCreateTag {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateTag {\n  onCreateTag {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -153856,6 +157140,7 @@ public final class OnCreateTagSubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -153874,8 +157159,8 @@ public final class OnCreateTagSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -153911,6 +157196,15 @@ public final class OnCreateTagSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -155560,7 +158854,7 @@ public final class OnCreateTagSubscription: GraphQLSubscription {
 
 public final class OnUpdateTagSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateTag {\n  onUpdateTag {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateTag {\n  onUpdateTag {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -155869,6 +159163,7 @@ public final class OnUpdateTagSubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -155887,8 +159182,8 @@ public final class OnUpdateTagSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -155924,6 +159219,15 @@ public final class OnUpdateTagSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -157573,7 +160877,7 @@ public final class OnUpdateTagSubscription: GraphQLSubscription {
 
 public final class OnDeleteTagSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteTag {\n  onDeleteTag {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteTag {\n  onDeleteTag {\n    __typename\n    id\n    content\n    articles {\n      __typename\n      items {\n        __typename\n        id\n        article {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          coverImageAlt\n          titleEn\n          titleZh\n          whyYouShouldReadThisArticle\n          createdAt\n          tags {\n            __typename\n            nextToken\n          }\n          vocabularies {\n            __typename\n            nextToken\n          }\n          sourcer\n          paragraphs {\n            __typename\n            nextToken\n          }\n          status\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    dialogues {\n      __typename\n      items {\n        __typename\n        id\n        dialogue {\n          __typename\n          id\n          coverImage {\n            __typename\n            ...S3Object\n          }\n          coverImage_key\n          titleZh\n          titleEn\n          whyYouShouldLearnThisDialogue\n          difficultyLevel\n          tags {\n            __typename\n            nextToken\n          }\n          chapters {\n            __typename\n            nextToken\n          }\n          status\n          createdAt\n          markAsMostPopular\n          updatedAt\n        }\n        tag {\n          __typename\n          id\n          content\n          articles {\n            __typename\n            nextToken\n          }\n          dialogues {\n            __typename\n            nextToken\n          }\n          image {\n            __typename\n            ...S3Object\n          }\n          image_key\n          isFeatured\n          featuredSlogan\n          featuredImage {\n            __typename\n            ...S3Object\n          }\n          featuredImage_key\n          createdAt\n          updatedAt\n        }\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    image {\n      __typename\n      ...S3Object\n    }\n    image_key\n    isFeatured\n    featuredSlogan\n    featuredImage {\n      __typename\n      ...S3Object\n    }\n    featuredImage_key\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -157882,6 +161186,7 @@ public final class OnDeleteTagSubscription: GraphQLSubscription {
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("coverImage", type: .object(CoverImage.selections)),
               GraphQLField("coverImage_key", type: .scalar(String.self)),
+              GraphQLField("coverImageAlt", type: .scalar(String.self)),
               GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
               GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
               GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -157900,8 +161205,8 @@ public final class OnDeleteTagSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+            public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -157937,6 +161242,15 @@ public final class OnDeleteTagSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "coverImage_key")
+              }
+            }
+
+            public var coverImageAlt: String? {
+              get {
+                return snapshot["coverImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "coverImageAlt")
               }
             }
 
@@ -159586,7 +162900,7 @@ public final class OnDeleteTagSubscription: GraphQLSubscription {
 
 public final class OnCreateTagArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateTagArticle {\n  onCreateTagArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateTagArticle {\n  onCreateTagArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -159703,6 +163017,7 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -159721,8 +163036,8 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -159758,6 +163073,15 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -160060,6 +163384,7 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -160075,8 +163400,8 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -160103,6 +163428,15 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -160428,6 +163762,7 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -160443,8 +163778,8 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -160471,6 +163806,15 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -160715,6 +164059,7 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -160727,8 +164072,8 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -160803,6 +164148,15 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -160846,6 +164200,7 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -160861,8 +164216,8 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -160889,6 +164244,15 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -161314,6 +164678,7 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -161329,8 +164694,8 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -161357,6 +164722,15 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -162057,7 +165431,7 @@ public final class OnCreateTagArticleSubscription: GraphQLSubscription {
 
 public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateTagArticle {\n  onUpdateTagArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateTagArticle {\n  onUpdateTagArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -162174,6 +165548,7 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -162192,8 +165567,8 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -162229,6 +165604,15 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -162531,6 +165915,7 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -162546,8 +165931,8 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -162574,6 +165959,15 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -162899,6 +166293,7 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -162914,8 +166309,8 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -162942,6 +166337,15 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -163186,6 +166590,7 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -163198,8 +166603,8 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -163274,6 +166679,15 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -163317,6 +166731,7 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -163332,8 +166747,8 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -163360,6 +166775,15 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -163785,6 +167209,7 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -163800,8 +167225,8 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -163828,6 +167253,15 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -164528,7 +167962,7 @@ public final class OnUpdateTagArticleSubscription: GraphQLSubscription {
 
 public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteTagArticle {\n  onDeleteTagArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteTagArticle {\n  onDeleteTagArticle {\n    __typename\n    id\n    article {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      coverImageAlt\n      titleEn\n      titleZh\n      whyYouShouldReadThisArticle\n      createdAt\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      vocabularies {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          vocabulary {\n            __typename\n            id\n            contentZh\n            contentEn\n            contentPinyin\n            label\n            audio_key\n            optionContent\n            createdAt\n            updatedAt\n          }\n          paragraphId\n          startIndex\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      sourcer\n      paragraphs {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          content\n          contentType\n          seqNumber\n          contentImage {\n            __typename\n            ...S3Object\n          }\n          contentImage_key\n          contentImageAlt\n          audio_key\n          videoURL\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -164645,6 +168079,7 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("coverImage", type: .object(CoverImage.selections)),
           GraphQLField("coverImage_key", type: .scalar(String.self)),
+          GraphQLField("coverImageAlt", type: .scalar(String.self)),
           GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
           GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
           GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -164663,8 +168098,8 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
+        public init(id: GraphQLID, coverImage: CoverImage? = nil, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, tags: Tag? = nil, vocabularies: Vocabulary? = nil, sourcer: String? = nil, paragraphs: Paragraph? = nil, status: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "Article", "id": id, "coverImage": coverImage.flatMap { $0.snapshot }, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "tags": tags.flatMap { $0.snapshot }, "vocabularies": vocabularies.flatMap { $0.snapshot }, "sourcer": sourcer, "paragraphs": paragraphs.flatMap { $0.snapshot }, "status": status, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -164700,6 +168135,15 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "coverImage_key")
+          }
+        }
+
+        public var coverImageAlt: String? {
+          get {
+            return snapshot["coverImageAlt"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "coverImageAlt")
           }
         }
 
@@ -165002,6 +168446,7 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -165017,8 +168462,8 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -165045,6 +168490,15 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -165370,6 +168824,7 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -165385,8 +168840,8 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -165413,6 +168868,15 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -165657,6 +169121,7 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
               GraphQLField("seqNumber", type: .nonNull(.scalar(Int.self))),
               GraphQLField("contentImage", type: .object(ContentImage.selections)),
               GraphQLField("contentImage_key", type: .scalar(String.self)),
+              GraphQLField("contentImageAlt", type: .scalar(String.self)),
               GraphQLField("audio_key", type: .scalar(String.self)),
               GraphQLField("videoURL", type: .scalar(String.self)),
               GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
@@ -165669,8 +169134,8 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, article: Article? = nil, content: String, contentType: String, seqNumber: Int, contentImage: ContentImage? = nil, contentImageKey: String? = nil, contentImageAlt: String? = nil, audioKey: String? = nil, videoUrl: String? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "Paragraph", "id": id, "article": article.flatMap { $0.snapshot }, "content": content, "contentType": contentType, "seqNumber": seqNumber, "contentImage": contentImage.flatMap { $0.snapshot }, "contentImage_key": contentImageKey, "contentImageAlt": contentImageAlt, "audio_key": audioKey, "videoURL": videoUrl, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -165745,6 +169210,15 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
               }
             }
 
+            public var contentImageAlt: String? {
+              get {
+                return snapshot["contentImageAlt"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "contentImageAlt")
+              }
+            }
+
             public var audioKey: String? {
               get {
                 return snapshot["audio_key"] as? String
@@ -165788,6 +169262,7 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -165803,8 +169278,8 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -165831,6 +169306,15 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -166256,6 +169740,7 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -166271,8 +169756,8 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -166299,6 +169784,15 @@ public final class OnDeleteTagArticleSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -177802,7 +181296,7 @@ public final class OnDeleteUserExpressionRecordingSubscription: GraphQLSubscript
 
 public final class OnCreateTagDialogueSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateTagDialogue {\n  onCreateTagDialogue {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateTagDialogue {\n  onCreateTagDialogue {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -179282,6 +182776,7 @@ public final class OnCreateTagDialogueSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -179297,8 +182792,8 @@ public final class OnCreateTagDialogueSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -179325,6 +182820,15 @@ public final class OnCreateTagDialogueSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -180025,7 +183529,7 @@ public final class OnCreateTagDialogueSubscription: GraphQLSubscription {
 
 public final class OnUpdateTagDialogueSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateTagDialogue {\n  onUpdateTagDialogue {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateTagDialogue {\n  onUpdateTagDialogue {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -181505,6 +185009,7 @@ public final class OnUpdateTagDialogueSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -181520,8 +185025,8 @@ public final class OnUpdateTagDialogueSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -181548,6 +185053,15 @@ public final class OnUpdateTagDialogueSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
@@ -182248,7 +185762,7 @@ public final class OnUpdateTagDialogueSubscription: GraphQLSubscription {
 
 public final class OnDeleteTagDialogueSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteTagDialogue {\n  onDeleteTagDialogue {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteTagDialogue {\n  onDeleteTagDialogue {\n    __typename\n    id\n    dialogue {\n      __typename\n      id\n      coverImage {\n        __typename\n        ...S3Object\n      }\n      coverImage_key\n      titleZh\n      titleEn\n      whyYouShouldLearnThisDialogue\n      difficultyLevel\n      tags {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      chapters {\n        __typename\n        items {\n          __typename\n          id\n          contentZh\n          contentPinyin\n          contentEn\n          audio {\n            __typename\n            ...S3Object\n          }\n          audio_key\n          seqNumber\n          npcName\n          npcAvatar {\n            __typename\n            ...S3Object\n          }\n          npcAvatar_key\n          npcRole\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      status\n      createdAt\n      markAsMostPopular\n      updatedAt\n    }\n    tag {\n      __typename\n      id\n      content\n      articles {\n        __typename\n        items {\n          __typename\n          id\n          article {\n            __typename\n            id\n            coverImage_key\n            coverImageAlt\n            titleEn\n            titleZh\n            whyYouShouldReadThisArticle\n            createdAt\n            sourcer\n            status\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      dialogues {\n        __typename\n        items {\n          __typename\n          id\n          dialogue {\n            __typename\n            id\n            coverImage_key\n            titleZh\n            titleEn\n            whyYouShouldLearnThisDialogue\n            difficultyLevel\n            status\n            createdAt\n            markAsMostPopular\n            updatedAt\n          }\n          tag {\n            __typename\n            id\n            content\n            image_key\n            isFeatured\n            featuredSlogan\n            featuredImage_key\n            createdAt\n            updatedAt\n          }\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      image {\n        __typename\n        ...S3Object\n      }\n      image_key\n      isFeatured\n      featuredSlogan\n      featuredImage {\n        __typename\n        ...S3Object\n      }\n      featuredImage_key\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -183728,6 +187242,7 @@ public final class OnDeleteTagDialogueSubscription: GraphQLSubscription {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                 GraphQLField("coverImage_key", type: .scalar(String.self)),
+                GraphQLField("coverImageAlt", type: .scalar(String.self)),
                 GraphQLField("titleEn", type: .nonNull(.scalar(String.self))),
                 GraphQLField("titleZh", type: .nonNull(.scalar(String.self))),
                 GraphQLField("whyYouShouldReadThisArticle", type: .nonNull(.scalar(String.self))),
@@ -183743,8 +187258,8 @@ public final class OnDeleteTagDialogueSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, coverImageKey: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
+              public init(id: GraphQLID, coverImageKey: String? = nil, coverImageAlt: String? = nil, titleEn: String, titleZh: String, whyYouShouldReadThisArticle: String, createdAt: String, sourcer: String? = nil, status: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "Article", "id": id, "coverImage_key": coverImageKey, "coverImageAlt": coverImageAlt, "titleEn": titleEn, "titleZh": titleZh, "whyYouShouldReadThisArticle": whyYouShouldReadThisArticle, "createdAt": createdAt, "sourcer": sourcer, "status": status, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -183771,6 +187286,15 @@ public final class OnDeleteTagDialogueSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "coverImage_key")
+                }
+              }
+
+              public var coverImageAlt: String? {
+                get {
+                  return snapshot["coverImageAlt"] as? String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "coverImageAlt")
                 }
               }
 
