@@ -20,9 +20,9 @@ extension UIImageView {
         }
     }
 
-    public func loadGifFromUrl(url: String) {
+    public func loadGifFromURL(_ url: URL) {
         DispatchQueue.global().async {
-            let image = UIImage.loadGifFromUrl(url: url)
+            let image = UIImage.loadGifFromURL(url)
             DispatchQueue.main.async {
                 self.image = image
             }
@@ -32,13 +32,8 @@ extension UIImageView {
 
 extension UIImage {
 
-    public class func loadGifFromUrl(url: String) -> UIImage? {
-        guard let bundleUrl = URL(string: url) else {
-            print("Url: \"\(url)\" does not exist")
-            return nil
-        }
-
-        guard let imageData = try? Data(contentsOf: bundleUrl) else {
+    public class func loadGifFromURL(_ url: URL) -> UIImage? {
+        guard let imageData = try? Data(contentsOf: url) else {
             print("Cannot turn image url \"\(url)\" into byte buffer Data")
             return nil
         }

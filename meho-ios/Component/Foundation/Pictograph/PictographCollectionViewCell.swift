@@ -111,6 +111,8 @@ class PictographCollectionViewCell: UICollectionViewCell {
         let cardBackgroundImage = UIImage.init(named: selectedCardBackgroundImageName)
         cardBackgroundImageView.image = cardBackgroundImage
 
-        gifImageView.loadGifFromUrl(url: pictograph.gifImageURL)
+        if let gifImageURL = pictograph.gifImageURL {
+            gifImageView.loadGifFromURL(gifImageURL)
+        }
     }
 }

@@ -18,59 +18,64 @@ class FoundationDataFetcher: NSObject {
 
     private let session = URLSession(configuration: .default)
 
-    public func fetchPictrographList(completionHandler: @escaping ( Array<Pictograph>?, Error?) -> Void) {
-           if let newsListUrl = URL.init(string: fetchPictographListURLString) {
-               let dataPictographsTask = session.dataTask(with: newsListUrl, completionHandler: { (data, URLResponse, error) in
-                   if error != nil {
-                       print("There is an error getting the response of pictography list")
-                       completionHandler(nil, error)
-                       return
-                   }
-                   if data == nil {
-                       print("The response of pictography list is empty")
-                       completionHandler(nil, nil)
-                       return
-                   }
-                   do {
-                       if let pictographListJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                           let pictographList = self.parsePictographListJSON(pictographListJson: pictographListJson)
-                           completionHandler(pictographList, nil)
-                       }
-                   } catch let JSONError as NSError {
-                       print("Failed to parse pictography list JSON: \(JSONError.localizedDescription)")
-                       completionHandler(nil, JSONError)
-                   }
-               })
-               dataPictographsTask.resume()
-           } else {
-               completionHandler(nil, nil)
-           }
-       }
-
-       private func parsePictographListJSON(pictographListJson: [String: Any]) -> Array<Pictograph> {
-
-           var pictographList:[Pictograph] = []
-           if let pictographsJson = pictographListJson["results"] as? [Dictionary<String, Any>] {
-               for pictographJson in pictographsJson {
-                   var pictograph = Pictograph.init()
-                   if let content = pictographJson["content"] as? String {
-                       pictograph.content_zh = content
-                   }
-                   if let local_language_content = pictographJson["local_language_content"] as? String {
-                       pictograph.content_en = local_language_content
-                   }
-                   if let identifier = pictographJson["id"] as? Int {
-                       pictograph.identifier = identifier
-                   }
-                   if let gifURLString = pictographJson["gif"] as? String {
-                       pictograph.gifImageURL = gifURLString
-                   }
-                   pictographList.append(pictograph)
-               }
-           }
-
-           return pictographList
-       }
+    public func fetchPictrographList(completionHandler: @escaping ( Result<[Pictograph], Error>) -> Void) {
+        var bird = Pictograph.init()
+        bird.content_en = "fire"
+        bird.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/bird.gif")
+        var cloud = Pictograph.init()
+        cloud.content_en = "cloud"
+        cloud.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/cloud.gif")
+        var door = Pictograph.init()
+        door.content_en = "door"
+        door.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/door.gif")
+        var earth = Pictograph.init()
+        earth.content_en = "earth"
+        earth.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/earth.gif")
+        var eye = Pictograph.init()
+        eye.content_en = "eye"
+        eye.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/eye.gif")
+        var field = Pictograph.init()
+        field.content_en = "field"
+        field.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/field.gif")
+        var fire = Pictograph.init()
+        fire.content_en = "fire"
+        fire.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/fire.gif")
+        var fish = Pictograph.init()
+        fish.content_en = "fish"
+        fish.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/fish.gif")
+        var goat = Pictograph.init()
+        goat.content_en = "goat"
+        goat.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/goat.gif")
+        var hand = Pictograph.init()
+        hand.content_en = "hand"
+        hand.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/hand.gif")
+        var human = Pictograph.init()
+        human.content_en = "human"
+        human.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/human.gif")
+        var moon = Pictograph.init()
+        moon.content_en = "moon"
+        moon.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/moon.gif")
+        var mountain = Pictograph.init()
+        mountain.content_en = "mountain"
+        mountain.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/mountain.gif")
+        var mouth = Pictograph.init()
+        mouth.content_en = "mouth"
+        mouth.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/mouth.gif")
+        var rain = Pictograph.init()
+        rain.content_en = "rain"
+        rain.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/rain.gif")
+        var sun = Pictograph.init()
+        sun.content_en = "sun"
+        sun.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/sun.gif")
+        var water = Pictograph.init()
+        water.content_en = "water"
+        water.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/water.gif")
+        var wood = Pictograph.init()
+        wood.content_en = "wood"
+        wood.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/wood.gif")
+        let pictrographList = [ bird, cloud, door, earth, eye, field, fire, fish, goat, hand, human, moon, mountain, mouth, rain, sun, water, wood ]
+        completionHandler(.success(pictrographList))
+    }
 
     public func fetchDetailedPinyin(pinyin: String, completionHandler: @escaping ( Pinyin?, Error?) -> Void) {
         if var fetchPinyinDetailURLComponent = URLComponents.init(string: fetchPinyinDetailURLString) {

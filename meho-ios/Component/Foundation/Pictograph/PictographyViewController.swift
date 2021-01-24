@@ -61,14 +61,18 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
         setUpNavigationBar()
         setupPictographCollectionView()
 
-        dataFecther.fetchPictrographList(completionHandler: { (pictographList, error) in
-            if (error == nil && pictographList != nil) {
+        dataFecther.fetchPictrographList { (result) in
+            switch result {
+            case .success(let pictographList):
                 DispatchQueue.main.async {
-                    self.pictographList = pictographList!
+                    self.pictographList = pictographList
                     self.pictographCollectionView.reloadData()
                 }
+                break
+            case .failure(_):
+                break
             }
-        })
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

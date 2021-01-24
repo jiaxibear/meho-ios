@@ -20,5 +20,5 @@ struct Pictograph: MehoContentAnalytics {
     var identifier = 0
     var content_en = ""
     var content_zh = ""
-    var gifImageURL = ""
+    var gifImageURL: URL?
 }
