@@ -125,17 +125,21 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         setupTitleViewConstraint()
         setupExpressionCollectionView()
 
-        dataFecther.fetchTrendingPhrases(completionHandler:  { (phrases, error) in
-            if (error == nil && phrases != nil) {
+        dataFecther.fetchTrendingPhrases { (result) in
+            switch result {
+            case .success(let trendingPhrases):
                 DispatchQueue.main.async {
-                    self.trendingPhrases = phrases!.map({ (trendingPhrase) -> TrendingPhraseWrapper in
+                    self.trendingPhrases = trendingPhrases.map({ (trendingPhrase) -> TrendingPhraseWrapper in
                         return TrendingPhraseWrapper.init(trendingPhrase: trendingPhrase)
                     })
                     self.sections.append(.trendingPhrases)
                     self.expressionCollectionView.reloadData()
                 }
+                break
+            case .failure(_):
+                break
             }
-        })
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -195,7 +199,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         case .trendingPhrases:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: trendingPhraseCellReuseIdentifier, for: indexPath) as! TrendingPhraseCollectionViewCell
             let phrase = trendingPhrases[indexPath.item]
-            cell.setPhrase(phrase)
+            cell.trendingPhraseWrapper = phrase
             return cell
         case .survivalPhrases:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: survivalPhraseCellReuseIdentifier, for: indexPath) as! SurvivalPhraseCollectionViewCell

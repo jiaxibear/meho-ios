@@ -13,6 +13,6 @@ struct TrendingPhrase {
     var content_pinyin = ""
     var content_zh = ""
     var content_explanation = ""
-    var audioURL:URL?
+    var audioKey: S3ResourceKey?
 }
 

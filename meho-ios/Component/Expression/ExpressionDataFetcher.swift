@@ -64,127 +64,42 @@ class ExpressionDataFetcher: NSObject {
     }
 
     // MARK: - Internal
-    func fetchTrendingPhrases(count: String = "5", completionHandler: @escaping ( Array<TrendingPhrase>?, Error?) -> Void) {
-        if var fetchTrendingPhraseURLComponent = URLComponents.init(string: fetchTrendingPhraseURLString) {
-            let quertItem = URLQueryItem.init(name: "limit", value: count)
-            fetchTrendingPhraseURLComponent.queryItems = [quertItem]
-            if let trendingPhraseURLString = fetchTrendingPhraseURLComponent.url {
-                let dataCategoriesTask = session.dataTask(with: trendingPhraseURLString, completionHandler: { (data, URLResponse, error) in
-                    if error != nil {
-                        print("There is an error getting the response of tranding phrases")
-                        completionHandler(nil, error)
-                        return
-                    }
-                    if data == nil {
-                        print("The response of trending phrases is empty")
-                        completionHandler(nil, nil)
-                        return
-                    }
-                    do {
-                        if let phrasesJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                            let phrases = self.parseTrendingPhrasesJSON(phrasesJson: phrasesJson)
-                            completionHandler(phrases, nil)
-                        }
-                    } catch let JSONError as NSError {
-                        print("Failed to parse trending phrase list JSON: \(JSONError.localizedDescription)")
-                        completionHandler(nil, JSONError)
-                    }
-                })
-                dataCategoriesTask.resume()
-            } else {
-                completionHandler(nil, nil)
+    func fetchTrendingPhrases(count: Int = 5, completionHandler: @escaping ( Swift.Result<Array<TrendingPhrase>, Error>) -> Void) {
+        let query = ListTrendingPhrasesQuery()
+        query.limit = count
+        appSyncClient?.fetch(query: query, resultHandler: { (result, error) in
+            if let error = error {
+                print("There is an error getting the response of survival phrases")
+                completionHandler(.failure(error))
+                return
             }
-        } else {
-            completionHandler(nil, nil)
-        }
-    }
 
-    func fetchSurvivalPhrasesRest(category: String, completionHandler: @escaping (Swift.Result<Array<Chapter>, Error>) -> Void) {
-        if var fetchTrendingPhraseURLComponent = URLComponents.init(string: fetchSurvivalPhraseByCategoryURLString) {
-            let quertItem = URLQueryItem.init(name: "category", value: category)
-            let limitQuertItem = URLQueryItem.init(name: "limit", value: "100")
-            fetchTrendingPhraseURLComponent.queryItems = [quertItem, limitQuertItem]
-            if let trendingPhraseURLString = fetchTrendingPhraseURLComponent.url {
-                let dataCategoriesTask = session.dataTask(with: trendingPhraseURLString, completionHandler: { (data, URLResponse, error) in
-                    if error != nil {
-                        print("There is an error getting the response of survival phrases")
-                        completionHandler(.failure(error!))
-                        return
-                    }
-                    if data == nil {
-                        print("The response of survival phrase is empty")
-                        completionHandler(.success([]))
-                        return
-                    }
-                    do {
-                        if let phrasesJson = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                            let phrases = self.parseSurvivalPhrasesJSON(phrasesJson: phrasesJson)
-                            completionHandler(.success(phrases))
-                        }
-                    } catch let JSONError as NSError {
-                        print("Failed to parse survival phrase list JSON: \(JSONError.localizedDescription)")
-                        completionHandler(.failure(JSONError))
-                    }
-                })
-                dataCategoriesTask.resume()
-            } else {
+            guard let items = result?.data?.listTrendingPhrases?.items else {
                 completionHandler(.success([]))
+                return
             }
-        } else {
-            completionHandler(.success([]))
-        }
-    }
 
-    // MARK: - Private
-    private func parseTrendingPhrasesJSON(phrasesJson: [String: Any]) -> Array<TrendingPhrase> {
-        var trendingPhrases:[TrendingPhrase] = []
-        if let phraseListJson = phrasesJson["results"] as? [Dictionary<String, Any>] {
-            for phraseJson in phraseListJson {
-                var phrase = TrendingPhrase.init()
-                if let content = phraseJson["content"] as? String {
-                    phrase.content_zh = content
+            var trendingPhrases = [TrendingPhrase].init()
+            for item in items {
+                guard let item = item else {
+                    continue
                 }
-                if let content_pinyin = phraseJson["content_pinyin"] as? String {
-                    phrase.content_pinyin = content_pinyin
+
+                var trendingPhrase = TrendingPhrase.init()
+                trendingPhrase.content_zh = item.contentZh
+                if let contentPinyin = item.contentPinyin {
+                    trendingPhrase.content_pinyin = contentPinyin
                 }
-                if let content_explanation = phraseJson["content_explanation"] as? String {
-                    phrase.content_explanation = content_explanation
+                if let contentExplanation = item.description {
+                    trendingPhrase.content_explanation = contentExplanation
                 }
-                if let identifier = phraseJson["id"] as? String {
-                    phrase.identifier = identifier
+                if let audioKey = item.audioKey {
+                    trendingPhrase.audioKey = S3ResourceKey.init(bucket: "", key: audioKey)
                 }
-                if let audioURLString = phraseJson["content_audio"] as? String {
-                    let audioUrl = URL.init(string: audioURLString)
-                    phrase.audioURL = audioUrl
-                }
-                trendingPhrases.append(phrase)
+                trendingPhrase.identifier = item.id
+                trendingPhrases.append(trendingPhrase)
             }
-        }
-
-        return trendingPhrases
-    }
-
-    private func parseSurvivalPhrasesJSON(phrasesJson: [String: Any]) -> Array<Chapter> {
-        var survivalPhrases:[Chapter] = []
-        if let phraseListJson = phrasesJson["results"] as? [Dictionary<String, Any>] {
-            for phraseJson in phraseListJson {
-                var phrase = Chapter.init()
-                if let content = phraseJson["content"] as? String {
-                    phrase.content = content
-                }
-                if let contentPinyin = phraseJson["pinyin_content"] as? String {
-                    phrase.contentPinyin = contentPinyin
-                }
-                if let contentInLocalLanguage = phraseJson["local_language_content"] as? String {
-                    phrase.contentInLocalLanguage = contentInLocalLanguage
-                }
-                if let contentAudioURLString = phraseJson["audio_media"] as? String, let contentAudioURL = URL.init(string: contentAudioURLString) {
-                    phrase.contentAudioURL = contentAudioURL
-                }
-                survivalPhrases.append(phrase)
-            }
-        }
-
-        return survivalPhrases
+            completionHandler(.success(trendingPhrases))
+        })
     }
 }

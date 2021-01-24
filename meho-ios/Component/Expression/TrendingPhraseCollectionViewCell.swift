@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Amplify
 
 class TrendingPhraseCollectionViewCell: UICollectionViewCell {
 
@@ -78,7 +79,26 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Data
     private var player: AVPlayer?
-    private var maybePronounceAudioUrl: URL?
+    var trendingPhraseWrapper: TrendingPhraseWrapper? {
+        didSet {
+            guard let trendingPhraseWrapper = trendingPhraseWrapper else {
+                return
+            }
+            let trendingPhrase = trendingPhraseWrapper.trendingPhrase
+            phraseLabel.text = " # " + trendingPhrase.content_zh + " "
+            pinyinLabel.text = "/" + trendingPhrase.content_pinyin + "/  "
+            explanationLabel.text = trendingPhrase.content_explanation
+            if trendingPhraseWrapper.isExpanded {
+                explanationLabel.numberOfLines = 0
+                let expandImage = UIImage.init(systemName: TrendingPhraseCollectionViewCell.collapseIconImageName)
+                expandImageView.image = expandImage
+            } else {
+                explanationLabel.numberOfLines = 1
+                let expandImage = UIImage.init(systemName: TrendingPhraseCollectionViewCell.expandIconImageName)
+                expandImageView.image = expandImage
+            }
+        }
+    }
 
     // MARK: - Init
     @available(*, unavailable)
@@ -154,29 +174,19 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
     }
 
     @objc func didTapPronounceButton() {
-        if let pronounceURL = maybePronounceAudioUrl {
-            let playerItem = AVPlayerItem.init(url: pronounceURL)
-            player = AVPlayer.init(playerItem: playerItem)
-            player?.rate = AudioPlaySpeed.normal.rawValue
-            player?.play()
+        guard let audioKey = trendingPhraseWrapper?.trendingPhrase.audioKey?.key else {
+            return
         }
-    }
-
-    // MARK: - Internal
-    func setPhrase(_ trendingPhraseWrapper: TrendingPhraseWrapper) {
-        let trendingPhrase = trendingPhraseWrapper.trendingPhrase
-        phraseLabel.text = " # " + trendingPhrase.content_zh + " "
-        pinyinLabel.text = "/" + trendingPhrase.content_pinyin + "/  "
-        explanationLabel.text = trendingPhrase.content_explanation
-        maybePronounceAudioUrl = trendingPhrase.audioURL
-        if trendingPhraseWrapper.isExpanded {
-            explanationLabel.numberOfLines = 0
-            let expandImage = UIImage.init(systemName: TrendingPhraseCollectionViewCell.collapseIconImageName)
-            expandImageView.image = expandImage
-        } else {
-            explanationLabel.numberOfLines = 1
-            let expandImage = UIImage.init(systemName: TrendingPhraseCollectionViewCell.expandIconImageName)
-            expandImageView.image = expandImage
+        Amplify.Storage.getURL(key: audioKey) { event in
+            switch event {
+            case let .success(url):
+                let playerItem = AVPlayerItem.init(url: url)
+                self.player = AVPlayer.init(playerItem: playerItem)
+                self.player?.rate = AudioPlaySpeed.normal.rawValue
+                self.player?.play()
+            case let .failure(storageError):
+                print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+            }
         }
     }
 }
