@@ -11,9 +11,10 @@ import UIKit
 class FoundationDataFetcher: NSObject {
 
     private let fetchPictographListURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/foundation/pictograph/?limit=30"
-    private let fetchPinyinDetailURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/foundation/pinyins/"
+    private let fetchPinyinDetailURLString = "https://9c76f3msu7.execute-api.us-west-2.amazonaws.com/dev/content/get_pinyin"
+    private let pronouceBaseURLString = "https://meho-news.s3-us-west-2.amazonaws.com"
 
-    private let pinyinQueryName = "identifier"
+    private let pinyinQueryName = "slug"
     // MARK: - Properties
 
     private let session = URLSession(configuration: .default)
@@ -119,7 +120,7 @@ class FoundationDataFetcher: NSObject {
         if let pinyinJsonResults = pinyinJson["results"] as? [Dictionary<String, Any>] {
             if !pinyinJsonResults.isEmpty {
                 let pinyinJsonResult = pinyinJsonResults[0]
-                if let identifier = pinyinJsonResult["id"] as? Int {
+                if let identifier = pinyinJsonResult["id"] as? String {
                     pinyin.identifier = identifier
                 }
                 if let pinyinroot = pinyinJsonResult["pinyin"] as? String {
@@ -131,9 +132,9 @@ class FoundationDataFetcher: NSObject {
                 if let one_character = pinyinJsonResult["one_character"] as? String {
                     pinyin.toneOneCharacter = one_character
                 }
-                if let one_pronounce = pinyinJsonResult["one_pronounce"] as? String {
-                    if let pronounceAudioURL = URL.init(string: one_pronounce) {
-                        pinyin.toneOnePronounceUrl = pronounceAudioURL
+                if let one_pronounce = pinyinJsonResult["one_pronounce_id"] as? String {
+                    if let pronounceAudioURL = URL.init(string: pronouceBaseURLString) {
+                        pinyin.toneOnePronounceUrl = pronounceAudioURL.appendingPathComponent(one_pronounce)
                     }
                 }
                 if let two_symbol = pinyinJsonResult["two_symbol"] as? String {
@@ -142,9 +143,9 @@ class FoundationDataFetcher: NSObject {
                 if let two_character = pinyinJsonResult["two_character"] as? String {
                     pinyin.toneTwoCharacter = two_character
                 }
-                if let two_pronounce = pinyinJsonResult["two_pronounce"] as? String {
-                    if let pronounceAudioURL = URL.init(string: two_pronounce) {
-                        pinyin.toneTwoPronounceUrl = pronounceAudioURL
+                if let two_pronounce = pinyinJsonResult["two_pronounce_id"] as? String {
+                    if let pronounceAudioURL = URL.init(string: pronouceBaseURLString) {
+                        pinyin.toneTwoPronounceUrl = pronounceAudioURL.appendingPathComponent(two_pronounce)
                     }
                 }
                 if let three_symbol = pinyinJsonResult["three_symbol"] as? String {
@@ -153,9 +154,9 @@ class FoundationDataFetcher: NSObject {
                 if let three_character = pinyinJsonResult["three_character"] as? String {
                     pinyin.toneThreeCharacter = three_character
                 }
-                if let three_pronounce = pinyinJsonResult["three_pronounce"] as? String {
-                    if let pronounceAudioURL = URL.init(string: three_pronounce) {
-                        pinyin.toneThreePronounceUrl = pronounceAudioURL
+                if let three_pronounce = pinyinJsonResult["three_pronounce_id"] as? String {
+                    if let pronounceAudioURL = URL.init(string: pronouceBaseURLString) {
+                        pinyin.toneThreePronounceUrl = pronounceAudioURL.appendingPathComponent(three_pronounce)
                     }
                 }
                 if let four_symbol = pinyinJsonResult["four_symbol"] as? String {
@@ -164,9 +165,9 @@ class FoundationDataFetcher: NSObject {
                 if let four_character = pinyinJsonResult["four_character"] as? String {
                     pinyin.toneFourCharacter = four_character
                 }
-                if let four_pronounce = pinyinJsonResult["four_pronounce"] as? String {
-                    if let pronounceAudioURL = URL.init(string: four_pronounce) {
-                        pinyin.toneFourPronounceUrl = pronounceAudioURL
+                if let four_pronounce = pinyinJsonResult["four_pronounce_id"] as? String {
+                    if let pronounceAudioURL = URL.init(string: pronouceBaseURLString) {
+                        pinyin.toneFourPronounceUrl = pronounceAudioURL.appendingPathComponent(four_pronounce)
                     }
                 }
             }

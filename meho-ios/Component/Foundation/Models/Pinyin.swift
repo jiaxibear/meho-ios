@@ -9,7 +9,7 @@
 import Foundation
 
 struct Pinyin {
-    var identifier = -1
+    var identifier = ""
     var pinyin = ""
     var toneOneSymbol = ""
     var toneOneCharacter = ""

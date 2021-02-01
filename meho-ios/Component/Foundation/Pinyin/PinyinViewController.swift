@@ -329,9 +329,12 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
                 ? final : initials[selectedInitialIdx] + final
             dataFetcher.fetchDetailedPinyin(pinyin: pinyinToSearch, completionHandler: { (detailedPinyin, error) in
                 DispatchQueue.main.async {
-                    if (error == nil && detailedPinyin != nil && detailedPinyin!.identifier != -1) {
+                    guard let detailedPinyin = detailedPinyin else {
+                        return
+                    }
+                    if (detailedPinyin.identifier.count > 0) {
                         // found a pinyin, show it
-                        self.pinyinDetailView.setFoundDetail(pinyin: detailedPinyin!)
+                        self.pinyinDetailView.setFoundDetail(pinyin: detailedPinyin)
                     } else { // cannot found a pinyin
                         if (self.selectedInitialIdx == self.noneSelectedIdx) {
                             // if initial is not selected, suggest user to select one more
