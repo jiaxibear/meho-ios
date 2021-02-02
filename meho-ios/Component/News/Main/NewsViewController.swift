@@ -172,7 +172,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
             return cell
         case "L":
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeLCellReuseIdentifier, for: indexPath) as! NewsItemSizeLCollectionViewCell
-            cell.setNews(newsItem)
+            cell.news = newsItem
             return cell
         case "S":
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeSCellReuseIdentifier, for: indexPath) as! NewsItemSizeSCollectionViewCell
