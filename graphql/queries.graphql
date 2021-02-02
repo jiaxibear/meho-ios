@@ -25,6 +25,8 @@ query GetParagraph($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -55,6 +57,8 @@ query GetParagraph($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -89,6 +93,8 @@ query GetParagraph($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -107,6 +113,8 @@ query GetParagraph($id: ID!) {
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -177,6 +185,8 @@ query ListParagraphs(
           }
           nextToken
         }
+        audioEnKey
+        audioZhKey
         status
         updatedAt
       }
@@ -269,6 +279,8 @@ query GetArticle($id: ID!) {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -323,6 +335,8 @@ query GetArticle($id: ID!) {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -375,6 +389,8 @@ query GetArticle($id: ID!) {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -393,6 +409,8 @@ query GetArticle($id: ID!) {
       }
       nextToken
     }
+    audioEnKey
+    audioZhKey
     status
     updatedAt
   }
@@ -426,6 +444,8 @@ query ListArticles(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -456,6 +476,8 @@ query ListArticles(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -490,6 +512,8 @@ query ListArticles(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -508,6 +532,8 @@ query ListArticles(
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -573,6 +599,8 @@ query GetVocabulary($id: ID!) {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -633,6 +661,8 @@ query ListVocabularys(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -715,6 +745,8 @@ query GetVocabularyArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -745,6 +777,8 @@ query GetVocabularyArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -779,6 +813,8 @@ query GetVocabularyArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -797,6 +833,8 @@ query GetVocabularyArticle($id: ID!) {
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -823,6 +861,8 @@ query GetVocabularyArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -910,6 +950,8 @@ query ListVocabularyArticles(
           }
           nextToken
         }
+        audioEnKey
+        audioZhKey
         status
         updatedAt
       }
@@ -973,6 +1015,8 @@ query GetTag($id: ID!) {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -1085,6 +1129,8 @@ query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1175,6 +1221,8 @@ query GetTagArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1205,6 +1253,8 @@ query GetTagArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1239,6 +1289,8 @@ query GetTagArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1257,6 +1309,8 @@ query GetTagArticle($id: ID!) {
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -1275,6 +1329,8 @@ query GetTagArticle($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1393,6 +1449,8 @@ query ListTagArticles(
           }
           nextToken
         }
+        audioEnKey
+        audioZhKey
         status
         updatedAt
       }
@@ -1807,7 +1865,7 @@ query GetUserChapterRecording($id: ID!) {
     chapter_id
     mode
     score
-    score_detail
+    score_extra
     createdAt
     updatedAt
   }
@@ -1828,7 +1886,7 @@ query ListUserChapterRecordings(
       chapter_id
       mode
       score
-      score_detail
+      score_extra
       createdAt
       updatedAt
     }
@@ -1841,10 +1899,7 @@ query GetUserExpressionRecording($id: ID!) {
     user_id
     expression_id
     score
-    score_detail
-    user_record {
-      ...S3Object
-    }
+    score_extra
     createdAt
     updatedAt
   }
@@ -1864,10 +1919,7 @@ query ListUserExpressionRecordings(
       user_id
       expression_id
       score
-      score_detail
-      user_record {
-        ...S3Object
-      }
+      score_extra
       createdAt
       updatedAt
     }
@@ -1971,6 +2023,8 @@ query GetTagDialogue($id: ID!) {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -3192,6 +3246,8 @@ query GetArticlesByStatus(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -3222,6 +3278,8 @@ query GetArticlesByStatus(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -3256,6 +3314,8 @@ query GetArticlesByStatus(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -3274,6 +3334,8 @@ query GetArticlesByStatus(
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -3341,6 +3403,8 @@ query GetVocabularyArticlesByParagraphId(
           }
           nextToken
         }
+        audioEnKey
+        audioZhKey
         status
         updatedAt
       }
@@ -3496,7 +3560,7 @@ query GetChapterRecordingByUserAndChapter(
       chapter_id
       mode
       score
-      score_detail
+      score_extra
       createdAt
       updatedAt
     }
@@ -3524,10 +3588,7 @@ query GetExpressionRecordingByUserAndExpression(
       user_id
       expression_id
       score
-      score_detail
-      user_record {
-        ...S3Object
-      }
+      score_extra
       createdAt
       updatedAt
     }

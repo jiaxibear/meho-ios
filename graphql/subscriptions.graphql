@@ -25,6 +25,8 @@ subscription OnCreateParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -55,6 +57,8 @@ subscription OnCreateParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -89,6 +93,8 @@ subscription OnCreateParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -107,6 +113,8 @@ subscription OnCreateParagraph {
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -150,6 +158,8 @@ subscription OnUpdateParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -180,6 +190,8 @@ subscription OnUpdateParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -214,6 +226,8 @@ subscription OnUpdateParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -232,6 +246,8 @@ subscription OnUpdateParagraph {
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -275,6 +291,8 @@ subscription OnDeleteParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -305,6 +323,8 @@ subscription OnDeleteParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -339,6 +359,8 @@ subscription OnDeleteParagraph {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -357,6 +379,8 @@ subscription OnDeleteParagraph {
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -455,6 +479,8 @@ subscription OnCreateArticle {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -509,6 +535,8 @@ subscription OnCreateArticle {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -561,6 +589,8 @@ subscription OnCreateArticle {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -579,6 +609,8 @@ subscription OnCreateArticle {
       }
       nextToken
     }
+    audioEnKey
+    audioZhKey
     status
     updatedAt
   }
@@ -619,6 +651,8 @@ subscription OnUpdateArticle {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -673,6 +707,8 @@ subscription OnUpdateArticle {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -725,6 +761,8 @@ subscription OnUpdateArticle {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -743,6 +781,8 @@ subscription OnUpdateArticle {
       }
       nextToken
     }
+    audioEnKey
+    audioZhKey
     status
     updatedAt
   }
@@ -783,6 +823,8 @@ subscription OnDeleteArticle {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -837,6 +879,8 @@ subscription OnDeleteArticle {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -889,6 +933,8 @@ subscription OnDeleteArticle {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -907,6 +953,8 @@ subscription OnDeleteArticle {
       }
       nextToken
     }
+    audioEnKey
+    audioZhKey
     status
     updatedAt
   }
@@ -971,6 +1019,8 @@ subscription OnCreateVocabulary {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -1038,6 +1088,8 @@ subscription OnUpdateVocabulary {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -1105,6 +1157,8 @@ subscription OnDeleteVocabulary {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -1195,6 +1249,8 @@ subscription OnCreateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1225,6 +1281,8 @@ subscription OnCreateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1259,6 +1317,8 @@ subscription OnCreateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1277,6 +1337,8 @@ subscription OnCreateVocabularyArticle {
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -1303,6 +1365,8 @@ subscription OnCreateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1359,6 +1423,8 @@ subscription OnUpdateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1389,6 +1455,8 @@ subscription OnUpdateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1423,6 +1491,8 @@ subscription OnUpdateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1441,6 +1511,8 @@ subscription OnUpdateVocabularyArticle {
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -1467,6 +1539,8 @@ subscription OnUpdateVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1523,6 +1597,8 @@ subscription OnDeleteVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1553,6 +1629,8 @@ subscription OnDeleteVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1587,6 +1665,8 @@ subscription OnDeleteVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1605,6 +1685,8 @@ subscription OnDeleteVocabularyArticle {
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -1631,6 +1713,8 @@ subscription OnDeleteVocabularyArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1689,6 +1773,8 @@ subscription OnCreateTag {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -1812,6 +1898,8 @@ subscription OnUpdateTag {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -1935,6 +2023,8 @@ subscription OnDeleteTag {
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -2056,6 +2146,8 @@ subscription OnCreateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2086,6 +2178,8 @@ subscription OnCreateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2120,6 +2214,8 @@ subscription OnCreateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2138,6 +2234,8 @@ subscription OnCreateTagArticle {
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -2156,6 +2254,8 @@ subscription OnCreateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2247,6 +2347,8 @@ subscription OnUpdateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2277,6 +2379,8 @@ subscription OnUpdateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2311,6 +2415,8 @@ subscription OnUpdateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2329,6 +2435,8 @@ subscription OnUpdateTagArticle {
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -2347,6 +2455,8 @@ subscription OnUpdateTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2438,6 +2548,8 @@ subscription OnDeleteTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2468,6 +2580,8 @@ subscription OnDeleteTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2502,6 +2616,8 @@ subscription OnDeleteTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2520,6 +2636,8 @@ subscription OnDeleteTagArticle {
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -2538,6 +2656,8 @@ subscription OnDeleteTagArticle {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -3243,7 +3363,7 @@ subscription OnCreateUserChapterRecording {
     chapter_id
     mode
     score
-    score_detail
+    score_extra
     createdAt
     updatedAt
   }
@@ -3255,7 +3375,7 @@ subscription OnUpdateUserChapterRecording {
     chapter_id
     mode
     score
-    score_detail
+    score_extra
     createdAt
     updatedAt
   }
@@ -3267,7 +3387,7 @@ subscription OnDeleteUserChapterRecording {
     chapter_id
     mode
     score
-    score_detail
+    score_extra
     createdAt
     updatedAt
   }
@@ -3278,10 +3398,7 @@ subscription OnCreateUserExpressionRecording {
     user_id
     expression_id
     score
-    score_detail
-    user_record {
-      ...S3Object
-    }
+    score_extra
     createdAt
     updatedAt
   }
@@ -3292,10 +3409,7 @@ subscription OnUpdateUserExpressionRecording {
     user_id
     expression_id
     score
-    score_detail
-    user_record {
-      ...S3Object
-    }
+    score_extra
     createdAt
     updatedAt
   }
@@ -3306,10 +3420,7 @@ subscription OnDeleteUserExpressionRecording {
     user_id
     expression_id
     score
-    score_detail
-    user_record {
-      ...S3Object
-    }
+    score_extra
     createdAt
     updatedAt
   }
@@ -3411,6 +3522,8 @@ subscription OnCreateTagDialogue {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -3573,6 +3686,8 @@ subscription OnUpdateTagDialogue {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -3735,6 +3850,8 @@ subscription OnDeleteTagDialogue {
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }

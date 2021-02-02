@@ -28,6 +28,8 @@ mutation CreateParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -58,6 +60,8 @@ mutation CreateParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -92,6 +96,8 @@ mutation CreateParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -110,6 +116,8 @@ mutation CreateParagraph(
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -156,6 +164,8 @@ mutation UpdateParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -186,6 +196,8 @@ mutation UpdateParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -220,6 +232,8 @@ mutation UpdateParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -238,6 +252,8 @@ mutation UpdateParagraph(
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -284,6 +300,8 @@ mutation DeleteParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -314,6 +332,8 @@ mutation DeleteParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -348,6 +368,8 @@ mutation DeleteParagraph(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -366,6 +388,8 @@ mutation DeleteParagraph(
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -476,6 +500,8 @@ mutation CreateArticle(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -530,6 +556,8 @@ mutation CreateArticle(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -582,6 +610,8 @@ mutation CreateArticle(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -600,6 +630,8 @@ mutation CreateArticle(
       }
       nextToken
     }
+    audioEnKey
+    audioZhKey
     status
     updatedAt
   }
@@ -643,6 +675,8 @@ mutation UpdateArticle(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -697,6 +731,8 @@ mutation UpdateArticle(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -749,6 +785,8 @@ mutation UpdateArticle(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -767,6 +805,8 @@ mutation UpdateArticle(
       }
       nextToken
     }
+    audioEnKey
+    audioZhKey
     status
     updatedAt
   }
@@ -810,6 +850,8 @@ mutation DeleteArticle(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -864,6 +906,8 @@ mutation DeleteArticle(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -916,6 +960,8 @@ mutation DeleteArticle(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -934,6 +980,8 @@ mutation DeleteArticle(
       }
       nextToken
     }
+    audioEnKey
+    audioZhKey
     status
     updatedAt
   }
@@ -1010,6 +1058,8 @@ mutation CreateVocabulary(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -1080,6 +1130,8 @@ mutation UpdateVocabulary(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -1150,6 +1202,8 @@ mutation DeleteVocabulary(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -1252,6 +1306,8 @@ mutation CreateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1282,6 +1338,8 @@ mutation CreateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1316,6 +1374,8 @@ mutation CreateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1334,6 +1394,8 @@ mutation CreateVocabularyArticle(
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -1360,6 +1422,8 @@ mutation CreateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1419,6 +1483,8 @@ mutation UpdateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1449,6 +1515,8 @@ mutation UpdateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1483,6 +1551,8 @@ mutation UpdateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1501,6 +1571,8 @@ mutation UpdateVocabularyArticle(
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -1527,6 +1599,8 @@ mutation UpdateVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1586,6 +1660,8 @@ mutation DeleteVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1616,6 +1692,8 @@ mutation DeleteVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1650,6 +1728,8 @@ mutation DeleteVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1668,6 +1748,8 @@ mutation DeleteVocabularyArticle(
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -1694,6 +1776,8 @@ mutation DeleteVocabularyArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -1755,6 +1839,8 @@ mutation CreateTag(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -1881,6 +1967,8 @@ mutation UpdateTag(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -2007,6 +2095,8 @@ mutation DeleteTag(
           paragraphs {
             nextToken
           }
+          audioEnKey
+          audioZhKey
           status
           updatedAt
         }
@@ -2131,6 +2221,8 @@ mutation CreateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2161,6 +2253,8 @@ mutation CreateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2195,6 +2289,8 @@ mutation CreateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2213,6 +2309,8 @@ mutation CreateTagArticle(
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -2231,6 +2329,8 @@ mutation CreateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2325,6 +2425,8 @@ mutation UpdateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2355,6 +2457,8 @@ mutation UpdateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2389,6 +2493,8 @@ mutation UpdateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2407,6 +2513,8 @@ mutation UpdateTagArticle(
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -2425,6 +2533,8 @@ mutation UpdateTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2519,6 +2629,8 @@ mutation DeleteTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2549,6 +2661,8 @@ mutation DeleteTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2583,6 +2697,8 @@ mutation DeleteTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -2601,6 +2717,8 @@ mutation DeleteTagArticle(
         }
         nextToken
       }
+      audioEnKey
+      audioZhKey
       status
       updatedAt
     }
@@ -2619,6 +2737,8 @@ mutation DeleteTagArticle(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -3345,7 +3465,7 @@ mutation CreateUserChapterRecording(
     chapter_id
     mode
     score
-    score_detail
+    score_extra
     createdAt
     updatedAt
   }
@@ -3360,7 +3480,7 @@ mutation UpdateUserChapterRecording(
     chapter_id
     mode
     score
-    score_detail
+    score_extra
     createdAt
     updatedAt
   }
@@ -3375,7 +3495,7 @@ mutation DeleteUserChapterRecording(
     chapter_id
     mode
     score
-    score_detail
+    score_extra
     createdAt
     updatedAt
   }
@@ -3389,10 +3509,7 @@ mutation CreateUserExpressionRecording(
     user_id
     expression_id
     score
-    score_detail
-    user_record {
-      ...S3Object
-    }
+    score_extra
     createdAt
     updatedAt
   }
@@ -3406,10 +3523,7 @@ mutation UpdateUserExpressionRecording(
     user_id
     expression_id
     score
-    score_detail
-    user_record {
-      ...S3Object
-    }
+    score_extra
     createdAt
     updatedAt
   }
@@ -3423,10 +3537,7 @@ mutation DeleteUserExpressionRecording(
     user_id
     expression_id
     score
-    score_detail
-    user_record {
-      ...S3Object
-    }
+    score_extra
     createdAt
     updatedAt
   }
@@ -3531,6 +3642,8 @@ mutation CreateTagDialogue(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -3696,6 +3809,8 @@ mutation UpdateTagDialogue(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
@@ -3861,6 +3976,8 @@ mutation DeleteTagDialogue(
             whyYouShouldReadThisArticle
             createdAt
             sourcer
+            audioEnKey
+            audioZhKey
             status
             updatedAt
           }
