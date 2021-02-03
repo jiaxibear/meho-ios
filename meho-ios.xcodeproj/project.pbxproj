@@ -147,6 +147,7 @@
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
 		EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CD23F12080003C8548 /* WebImageView.swift */; };
 		EAB7C4D023F8C8E2003C8548 /* DialogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */; };
+		EABDBF3225CA7B8000BE6617 /* NewsAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABDBF3125CA7B8000BE6617 /* NewsAudioPlayer.swift */; };
 		EAD20B9E24F1CFB300C1ED89 /* IdiomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20B9C24F1CFB300C1ED89 /* IdiomViewController.swift */; };
 		EAD20B9F24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20B9D24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift */; };
 		EAD20BA124F1F4E400C1ED89 /* Idiom.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20BA024F1F4E400C1ED89 /* Idiom.swift */; };
@@ -335,6 +336,7 @@
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
 		EAB7C4CD23F12080003C8548 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogCollectionViewCell.swift; sourceTree = "<group>"; };
+		EABDBF3125CA7B8000BE6617 /* NewsAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAudioPlayer.swift; sourceTree = "<group>"; };
 		EAD20B9C24F1CFB300C1ED89 /* IdiomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdiomViewController.swift; sourceTree = "<group>"; };
 		EAD20B9D24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdiomCollectionViewCell.swift; sourceTree = "<group>"; };
 		EAD20BA024F1F4E400C1ED89 /* Idiom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Idiom.swift; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 		EA52FDAD23EF8103008EB37B /* News */ = {
 			isa = PBXGroup;
 			children = (
+				EABDBF3025CA7B1C00BE6617 /* AudioPlayer */,
 				92FE6CF8246288AA000E69BC /* Details */,
 				92FE6CF72462887F000E69BC /* Models */,
 				92FE6CF62462881B000E69BC /* Main */,
@@ -894,6 +897,14 @@
 				EADFAA2A25AEB86000C6344A /* ImageTopAndTitleDownButton.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		EABDBF3025CA7B1C00BE6617 /* AudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				EABDBF3125CA7B8000BE6617 /* NewsAudioPlayer.swift */,
+			);
+			path = AudioPlayer;
 			sourceTree = "<group>";
 		};
 		EAD20B9B24F1CF6100C1ED89 /* Idiom */ = {
@@ -1176,6 +1187,7 @@
 				9204700024F337A200DE1A2D /* CompleteProfileViewStep4Controller.swift in Sources */,
 				92818AB725626FE6003D9A6E /* ListedFeaturedCategoryCollectionViewCell.swift in Sources */,
 				EA9B5DD524A97A6C00D6CFBD /* BulletPointView.swift in Sources */,
+				EABDBF3225CA7B8000BE6617 /* NewsAudioPlayer.swift in Sources */,
 				EA3E0037252A967100B95A30 /* ProfileHeader.swift in Sources */,
 				EA6381EB2455140900481B8B /* DuoDetailedDialogViewController.swift in Sources */,
 				EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */,

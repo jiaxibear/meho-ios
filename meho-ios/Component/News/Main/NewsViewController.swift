@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAnalytics
+import Amplify
 
 class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsItemSizeLCollectionViewCellDelegate  {
 
@@ -212,13 +213,29 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         let alertController = UIAlertController.init(title: NSLocalizedString("PlayNewsAudioTitile", comment: ""), message: "", preferredStyle: .actionSheet)
         if let audioEnKey = news.audioEnKey {
             let playEnglishAction = UIAlertAction.init(title: NSLocalizedString("PlayEnglishButtonTitle", comment: ""), style: .default) { (action) in
-
+                Amplify.Storage.getURL(key: audioEnKey.key) { (result) in
+                    switch result {
+                    case let .success(audioURL):
+                        NewsAudioPlayer.shared.playAudio(audioURL: audioURL)
+                        break
+                    case .failure(_):
+                        break
+                    }
+                }
             }
             alertController.addAction(playEnglishAction)
         }
         if let audioZhKey = news.audioZhKey {
             let playChineseAction = UIAlertAction.init(title: NSLocalizedString("PlayChineseButtonTitle", comment: ""), style: .default) { (action) in
-
+                Amplify.Storage.getURL(key: audioZhKey.key) { (result) in
+                    switch result {
+                    case let .success(audioURL):
+                        NewsAudioPlayer.shared.playAudio(audioURL: audioURL)
+                        break
+                    case .failure(_):
+                        break
+                    }
+                }
             }
             alertController.addAction(playChineseAction)
         }

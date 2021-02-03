@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let navigationBarTitleFontSize = CGFloat(18)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Sets appearance of the navigation bar.
+        // Sets the AV audio session.
         try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: .defaultToSpeaker)
         try? AVAudioSession.sharedInstance().setActive(true)
         // Sets appearance of the navigation bar.
