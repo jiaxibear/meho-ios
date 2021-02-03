@@ -412,7 +412,7 @@ class UserDataFetcher: NSObject {
     }
 
     public func createUserChapterRecording(userId: String, chapterId: String, mode: String, score:Double? = nil, scoreDetail:String? = nil, completionHandler: @escaping ( String?, Error?) -> Void) {
-        let createUserChapterRecordingInput = CreateUserChapterRecordingInput(userId: userId, chapterId: chapterId, mode: mode, score: score, scoreDetail: scoreDetail)
+        let createUserChapterRecordingInput = CreateUserChapterRecordingInput(userId: userId, chapterId: chapterId, mode: mode, score: score, scoreExtra: scoreDetail)
 
         let m = CreateUserChapterRecordingMutation(input: createUserChapterRecordingInput)
         appSyncClient?.perform(mutation: m, resultHandler:  { (result, error) in
@@ -431,7 +431,7 @@ class UserDataFetcher: NSObject {
     }
 
     public func createUserExpressionRecording(userId: String, expressionId: String, score:Double? = nil, scoreDetail:String? = nil, completionHandler: @escaping ( String?, Error?) -> Void) {
-        let createUserExpressionRecordingInput = CreateUserExpressionRecordingInput(userId: userId, expressionId: expressionId, score: score, scoreDetail: scoreDetail)
+        let createUserExpressionRecordingInput = CreateUserExpressionRecordingInput(userId: userId, expressionId: expressionId, score: score, scoreExtra: scoreDetail)
 
 
         let m = CreateUserExpressionRecordingMutation(input: createUserExpressionRecordingInput)
