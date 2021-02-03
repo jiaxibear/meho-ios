@@ -36,4 +36,6 @@ struct News: MehoContentAnalytics, ProfileCard {
     var coverImageURL: URL?
     var imageKey: S3ResourceKey?
     var date = ""
+    var audioEnKey: S3ResourceKey?
+    var audioZhKey: S3ResourceKey?
 }

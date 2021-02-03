@@ -7,6 +7,10 @@
 //
 import UIKit
 
+protocol NewsItemSizeLCollectionViewCellDelegate: AnyObject {
+    func didTapPlayAudioButton(news: News)
+}
+
 class NewsItemSizeLCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
     private let titleLabelFontSize = CGFloat(20)
@@ -35,6 +39,14 @@ class NewsItemSizeLCollectionViewCell: UICollectionViewCell {
                 } else if let imageKey = news.imageKey {
                     coverImageView.imageKey = imageKey
                 }
+
+                if news.audioEnKey != nil || news.audioZhKey != nil {
+                    playAudioButton.isHidden = false
+                } else {
+                    playAudioButton.isHidden = true
+                }
+                reasonStackViewHeightConstraint.constant = reasonStackViewHeight()
+                setNeedsUpdateConstraints()
             }
         }
     }
@@ -72,6 +84,7 @@ class NewsItemSizeLCollectionViewCell: UICollectionViewCell {
         let playAudioButtonImage = UIImage.init(named: "stories_purple_headphone_play")
         playAudioButton.setImage(playAudioButtonImage, for: .normal)
         playAudioButton.isHidden = true
+        playAudioButton.addTarget(self, action: #selector(didTapPlayAudioButton), for: .touchUpInside)
         return playAudioButton
     } ()
 
@@ -92,6 +105,12 @@ class NewsItemSizeLCollectionViewCell: UICollectionViewCell {
         contentStackView.distribution = .equalSpacing
         return contentStackView
     } ()
+
+    private lazy var reasonStackViewHeightConstraint: NSLayoutConstraint = {
+        return reasonStackView.heightAnchor.constraint(equalToConstant: 0)
+    } ()
+
+    weak var delegate: NewsItemSizeLCollectionViewCellDelegate?
 
     private static var sizingCell = NewsItemSizeLCollectionViewCell.init(frame: .zero);
 
@@ -123,8 +142,7 @@ class NewsItemSizeLCollectionViewCell: UICollectionViewCell {
 
             playAudioButton.widthAnchor.constraint(equalToConstant: playAudioButtonWidth),
             playAudioButton.heightAnchor.constraint(equalToConstant: playAudioButtonHeight),
-
-            reasonStackView.heightAnchor.constraint(equalToConstant: reasonStackViewHeight())
+            reasonStackViewHeightConstraint
         ])
     }
 
@@ -140,6 +158,13 @@ class NewsItemSizeLCollectionViewCell: UICollectionViewCell {
             return reasonLabelHeight
         } else {
             return max(reasonLabelHeight, playAudioButtonHeight)
+        }
+    }
+
+    @objc
+    private func didTapPlayAudioButton() {
+        if let news = news {
+            delegate?.didTapPlayAudioButton(news: news)
         }
     }
 

@@ -395,3 +395,15 @@
 
 /* Title for the profile photo screen. */
 "ProfilePhotoTitle" = "Profile Photo";
+
+/* Title for the play English button in the action sheet. */
+"PlayEnglishButtonTitle" = "Play English";
+
+/* Title for the play Chinese button in the action sheet. */
+"PlayChineseButtonTitle" = "Play Chinese";
+
+/* Title for the action sheet to let the user choose to play English or Chinese audio for the news. */
+"PlayNewsAudioTitile" = "Choose to play in English or Chinese";
+
+/* Title for the cancel button. */
+"CancelButtonTitle" = "Cancel";

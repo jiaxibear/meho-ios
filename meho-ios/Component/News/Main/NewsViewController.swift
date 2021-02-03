@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAnalytics
 
-class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics  {
+class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsItemSizeLCollectionViewCellDelegate  {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
@@ -173,6 +173,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         case "L":
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeLCellReuseIdentifier, for: indexPath) as! NewsItemSizeLCollectionViewCell
             cell.news = newsItem
+            cell.delegate = self
             return cell
         case "S":
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeSCellReuseIdentifier, for: indexPath) as! NewsItemSizeSCollectionViewCell
@@ -204,6 +205,28 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let news = newsList[indexPath.item]
         Analytics.logContentImpression(content: news, screenName: screenName)
+    }
+
+    // MARK: NewsItemSizeLCollectionViewCellDelegate
+    func didTapPlayAudioButton(news: News) {
+        let alertController = UIAlertController.init(title: NSLocalizedString("PlayNewsAudioTitile", comment: ""), message: "", preferredStyle: .actionSheet)
+        if let audioEnKey = news.audioEnKey {
+            let playEnglishAction = UIAlertAction.init(title: NSLocalizedString("PlayEnglishButtonTitle", comment: ""), style: .default) { (action) in
+
+            }
+            alertController.addAction(playEnglishAction)
+        }
+        if let audioZhKey = news.audioZhKey {
+            let playChineseAction = UIAlertAction.init(title: NSLocalizedString("PlayChineseButtonTitle", comment: ""), style: .default) { (action) in
+
+            }
+            alertController.addAction(playChineseAction)
+        }
+        let cancelAction = UIAlertAction.init(title: NSLocalizedString("CancelButtonTitle", comment: ""), style: .cancel) { (action) in
+
+        }
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
 
     // rendertype is returned as one of [XS, S, L, XL], usually we respect it. S, L, XL all come with images while XS don't.  If one news is not marked XS but still does not come with image, we should still degrade to XS

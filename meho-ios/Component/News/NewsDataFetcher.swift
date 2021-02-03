@@ -143,6 +143,12 @@ class NewsDataFetcher: NSObject {
                 if let key = article.coverImage?.key, let bucket = article.coverImage?.bucket {
                     news.imageKey = S3ResourceKey.init(bucket: bucket, key: key)
                 }
+                if let audioEnKey = article.audioEnKey {
+                    news.audioEnKey = S3ResourceKey.init(bucket: "", key: audioEnKey)
+                }
+                if let audioZhKey = article.audioZhKey {
+                    news.audioZhKey = S3ResourceKey.init(bucket: "", key: audioZhKey)
+                }
                 news.renderType = "S"
                 newsList.append(news)
             }
