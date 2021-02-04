@@ -216,7 +216,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
                 Amplify.Storage.getURL(key: audioEnKey.key) { (result) in
                     switch result {
                     case let .success(audioURL):
-                        NewsAudioPlayer.shared.playAudio(audioURL: audioURL)
+                        NewsAudioPlayer.shared.playAudio(audioURL: audioURL, title: news.title_en)
                         break
                     case .failure(_):
                         break
@@ -230,7 +230,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
                 Amplify.Storage.getURL(key: audioZhKey.key) { (result) in
                     switch result {
                     case let .success(audioURL):
-                        NewsAudioPlayer.shared.playAudio(audioURL: audioURL)
+                        NewsAudioPlayer.shared.playAudio(audioURL: audioURL, title: news.title_zh)
                         break
                     case .failure(_):
                         break

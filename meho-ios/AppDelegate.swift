@@ -63,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         FirebaseApp.configure()
+
         return true
     }
 
