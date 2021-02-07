@@ -143,6 +143,8 @@
 		EA9B5DD524A97A6C00D6CFBD /* BulletPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9B5DD424A97A6C00D6CFBD /* BulletPointView.swift */; };
 		EAA31790250DBAA5007A4017 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA3178F250DBAA5007A4017 /* ProfileSettingViewController.swift */; };
 		EAA31792250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA31791250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift */; };
+		EAB6B7F825CD117D00235ACB /* NewsPlayingNowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6B7F725CD117D00235ACB /* NewsPlayingNowView.swift */; };
+		EAB6B80025CFB9E000235ACB /* NewsPlayingNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6B7FF25CFB9E000235ACB /* NewsPlayingNow.swift */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
 		EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CD23F12080003C8548 /* WebImageView.swift */; };
@@ -332,6 +334,8 @@
 		EA9B5DD424A97A6C00D6CFBD /* BulletPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletPointView.swift; sourceTree = "<group>"; };
 		EAA3178F250DBAA5007A4017 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		EAA31791250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingCollectionViewCell.swift; sourceTree = "<group>"; };
+		EAB6B7F725CD117D00235ACB /* NewsPlayingNowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPlayingNowView.swift; sourceTree = "<group>"; };
+		EAB6B7FF25CFB9E000235ACB /* NewsPlayingNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPlayingNow.swift; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
 		EAB7C4CD23F12080003C8548 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
@@ -903,6 +907,8 @@
 			isa = PBXGroup;
 			children = (
 				EABDBF3125CA7B8000BE6617 /* NewsAudioPlayer.swift */,
+				EAB6B7F725CD117D00235ACB /* NewsPlayingNowView.swift */,
+				EAB6B7FF25CFB9E000235ACB /* NewsPlayingNow.swift */,
 			);
 			path = AudioPlayer;
 			sourceTree = "<group>";
@@ -1235,6 +1241,7 @@
 				9204700A24F337A200DE1A2D /* MehoCoverViewController.swift in Sources */,
 				EA5448B92414B5B400C07D0A /* ConversationHeaderCollectionReusableView.swift in Sources */,
 				92C5FE35244D9223004A3322 /* VocabularyViewController.swift in Sources */,
+				EAB6B80025CFB9E000235ACB /* NewsPlayingNow.swift in Sources */,
 				92F90BC824F1CD2200BEF7B7 /* UserDataFetcher.swift in Sources */,
 				92C5FE33244D4DB6004A3322 /* PinyinDetailView.swift in Sources */,
 				92C5FE3F24541FB7004A3322 /* TwoLineTitleHeaderCollectionReusableView.swift in Sources */,
@@ -1269,6 +1276,7 @@
 				EA6381E72449913B00481B8B /* AudioVisualizerView.swift in Sources */,
 				EA1693672558DEA30074EE0D /* CompletedNewsCollectionViewCell.swift in Sources */,
 				EAA31792250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift in Sources */,
+				EAB6B7F825CD117D00235ACB /* NewsPlayingNowView.swift in Sources */,
 				EA0F9BC4257C684600980267 /* Expression.swift in Sources */,
 				9204700324F337A200DE1A2D /* QuestionHeaderReusableView.swift in Sources */,
 				EA01E6AF23FBC25F00C0B0AE /* Difficulty.swift in Sources */,

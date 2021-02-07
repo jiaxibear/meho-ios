@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAnalytics
 import Amplify
 
-class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsItemSizeLCollectionViewCellDelegate  {
+class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsItemSizeLCollectionViewCellDelegate, NewsPlayingNow  {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
@@ -208,6 +208,20 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         Analytics.logContentImpression(content: news, screenName: screenName)
     }
 
+    // MARK: - NewsPlayingNow
+    func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
+        if newsPlayingNowView.superview != nil {
+            newsPlayingNowView.removeFromSuperview()
+        }
+
+        view.addSubview(newsPlayingNowView)
+        NSLayoutConstraint.activate([
+            newsPlayingNowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsPlayingNowView.bottomAnchor.constraint(equalTo: newsCollectionView.bottomAnchor)
+        ])
+    }
+
     // MARK: NewsItemSizeLCollectionViewCellDelegate
     func didTapPlayAudioButton(news: News) {
         let alertController = UIAlertController.init(title: NSLocalizedString("PlayNewsAudioTitile", comment: ""), message: "", preferredStyle: .actionSheet)
@@ -216,7 +230,12 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
                 Amplify.Storage.getURL(key: audioEnKey.key) { (result) in
                     switch result {
                     case let .success(audioURL):
-                        NewsAudioPlayer.shared.playAudio(audioURL: audioURL, title: news.title_en)
+                        DispatchQueue.main.async {
+                            NewsAudioPlayer.shared.playAudio(audioURL: audioURL, title: news.title_en, coverImageKey: news.imageKey)
+                            if let newsPlayNowView = NewsAudioPlayer.shared.newsPlayingNowView {
+                                self.displayNewsPlayingNowView(newsPlayNowView)
+                            }
+                        }
                         break
                     case .failure(_):
                         break
@@ -230,7 +249,12 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
                 Amplify.Storage.getURL(key: audioZhKey.key) { (result) in
                     switch result {
                     case let .success(audioURL):
-                        NewsAudioPlayer.shared.playAudio(audioURL: audioURL, title: news.title_zh)
+                        DispatchQueue.main.async {
+                            NewsAudioPlayer.shared.playAudio(audioURL: audioURL, title: news.title_zh, coverImageKey: news.imageKey)
+                            if let newsPlayNowView = NewsAudioPlayer.shared.newsPlayingNowView {
+                                self.displayNewsPlayingNowView(newsPlayNowView)
+                            }
+                        }
                         break
                     case .failure(_):
                         break

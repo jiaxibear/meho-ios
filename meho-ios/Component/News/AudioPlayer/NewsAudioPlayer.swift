@@ -19,6 +19,7 @@ class NewsAudioPlayer: NSObject {
     private var player: AVPlayer?
     private var observation: NSKeyValueObservation?
 
+    var newsPlayingNowView: NewsPlayingNowView?
     var isPlaying = false
 
     // MARK: - Init
@@ -27,7 +28,7 @@ class NewsAudioPlayer: NSObject {
     }
 
     // MARK: - Internal
-    func playAudio(audioURL: URL, title: String) {
+    func playAudio(audioURL: URL, title: String, coverImageKey: S3ResourceKey?) {
         isPlaying = true
         if let player = player {
             player.pause()
@@ -132,6 +133,15 @@ class NewsAudioPlayer: NSObject {
                 MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
             }
             return .success
+        }
+
+        var newsPlayingNowView: NewsPlayingNowView
+        if let currentNewsPlayingNowView = self.newsPlayingNowView {
+            newsPlayingNowView = currentNewsPlayingNowView
+        } else {
+            newsPlayingNowView = NewsPlayingNowView.init(title: title, coverImageKey: coverImageKey)
+            newsPlayingNowView.translatesAutoresizingMaskIntoConstraints = false
+            self.newsPlayingNowView = newsPlayingNowView
         }
     }
 }
