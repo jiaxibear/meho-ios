@@ -173,38 +173,32 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
     }
 
     func otherSignInViewDidTapFacebookButton() {
-        Amplify.Auth.signInWithWebUI(for: .facebook, presentationAnchor: self.view.window!) { result in
-            switch result {
-            case .success:
-                print("Sign in succeeded")
-                let userId = AWSMobileClient.default().userSub!
-                self.completeProfileOrNavigateToApp(userId: userId, username: userId)
-            case .failure(let error):
-                print("Sign in failed \(error)")
-            }
-        }
+        otherSignIn(for: .facebook)
     }
 
     func otherSignInViewDidTapGoogleButton() {
-        Amplify.Auth.signInWithWebUI(for: .google, presentationAnchor: self.view.window!) { result in
-            switch result {
-            case .success:
-                print("Sign in succeeded")
-                let userId = AWSMobileClient.default().userSub!
-                self.completeProfileOrNavigateToApp(userId: userId, username: userId)
-            case .failure(let error):
-                print("Sign in failed \(error)")
-            }
-        }
+        otherSignIn(for: .google)
     }
 
     func otherSignInViewDidTapAppleButton() {
-        Amplify.Auth.signInWithWebUI(for: .apple, presentationAnchor: self.view.window!) { result in
+        otherSignIn(for: .apple)
+    }
+
+    private func otherSignIn(for authProvider: AuthProvider) {
+        Amplify.Auth.signInWithWebUI(for: authProvider, presentationAnchor: self.view.window!) { result in
             switch result {
             case .success:
                 print("Sign in succeeded")
                 let userId = AWSMobileClient.default().userSub!
-                self.completeProfileOrNavigateToApp(userId: userId, username: userId)
+                AWSMobileClient.default().getUserAttributes { (maybeAttributes, maybeError) in
+                    if maybeError == nil, let attributes = maybeAttributes {
+                        if let userEmail = attributes["email"] {
+                            self.completeProfileOrNavigateToApp(userId: userId, username: userId, userEmail: userEmail)
+                        }
+                    } else {
+                        self.completeProfileOrNavigateToApp(userId: userId, username: userId, userEmail: userId)
+                    }
+                }
             case .failure(let error):
                 print("Sign in failed \(error)")
             }
@@ -294,7 +288,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
                 switch state {
                     case .signedIn:
                         let userId = AWSMobileClient.default().userSub!
-                        self.completeProfileOrNavigateToApp(userId: userId, username: un!)
+                        self.completeProfileOrNavigateToApp(userId: userId, username: un!, userEmail: un!)
                     default:
                         print ("default")
                 }
@@ -302,12 +296,12 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
         }
     }
 
-    private func completeProfileOrNavigateToApp(userId:String, username: String) {
+    private func completeProfileOrNavigateToApp(userId:String, username: String, userEmail: String) {
 
         self.userDataFecther.getUser(userId: userId) { (maybeUser, error) in
             if (maybeUser == nil) {
                 // no user found case, this is new user login, we should create a new user and pop onboarding steps
-                self.userDataFecther.createUser(userId: userId, username: username, userEmail: username) { (userCreated, error) in
+                self.userDataFecther.createUser(userId: userId, username: username, userEmail: userEmail) { (userCreated, error) in
                     if (error == nil && userCreated != nil && userCreated!.identifier == userId) {
                         self.navigationController?.setViewControllers([CompleteProfileViewStep1Controller.init()], animated: false)
                     }

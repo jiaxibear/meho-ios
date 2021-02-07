@@ -28,6 +28,10 @@ class UserDataFetcher: NSObject {
         appSyncClient = (UIApplication.shared.delegate as! AppDelegate).appSyncClient
     }
 
+    public func deactivateCurrentUser() {
+        currentUser = nil
+    }
+
     // MARK: - User table related
     public func createUser(userId: String, username: String, userEmail: String, completionHandler: @escaping ( BasicUser?, Error?) -> Void) {
         let createUserInput = CreateUserInput(id: userId, username: username, email: userEmail)
