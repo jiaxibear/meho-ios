@@ -85,8 +85,8 @@ class NewsDataFetcher: NSObject {
                 if let contentOptional = remoteVocab.optionContent {
                     vocab.content_optional = contentOptional
                 }
-                if let key = remoteVocab.audio?.key, let bucket = remoteVocab.audio?.bucket {
-                    vocab.audioKey = S3ResourceKey.init(bucket: bucket, key: key)
+                if let key = remoteVocab.audioKey {
+                    vocab.audioKey = S3ResourceKey.init(bucket: "fakebucket", key: key)
                 }
 
                 if let startIndex = articleVocab.startIndex {
