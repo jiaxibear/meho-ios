@@ -173,15 +173,42 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
     }
 
     func otherSignInViewDidTapFacebookButton() {
-
+        Amplify.Auth.signInWithWebUI(for: .facebook, presentationAnchor: self.view.window!) { result in
+            switch result {
+            case .success:
+                print("Sign in succeeded")
+                let userId = AWSMobileClient.default().userSub!
+                self.completeProfileOrNavigateToApp(userId: userId, username: userId)
+            case .failure(let error):
+                print("Sign in failed \(error)")
+            }
+        }
     }
 
     func otherSignInViewDidTapGoogleButton() {
-
+        Amplify.Auth.signInWithWebUI(for: .google, presentationAnchor: self.view.window!) { result in
+            switch result {
+            case .success:
+                print("Sign in succeeded")
+                let userId = AWSMobileClient.default().userSub!
+                self.completeProfileOrNavigateToApp(userId: userId, username: userId)
+            case .failure(let error):
+                print("Sign in failed \(error)")
+            }
+        }
     }
 
     func otherSignInViewDidTapAppleButton() {
-
+        Amplify.Auth.signInWithWebUI(for: .apple, presentationAnchor: self.view.window!) { result in
+            switch result {
+            case .success:
+                print("Sign in succeeded")
+                let userId = AWSMobileClient.default().userSub!
+                self.completeProfileOrNavigateToApp(userId: userId, username: userId)
+            case .failure(let error):
+                print("Sign in failed \(error)")
+            }
+        }
     }
 
     // MARK: - Private Methods
@@ -211,19 +238,6 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
         navigationController?.pushViewController(resetPasswordViewController, animated: true)
     }
 
-    @objc
-    private func didTapSignInWithFacebook() {
-        Amplify.Auth.signInWithWebUI(for: .facebook, presentationAnchor: self.view.window!) { result in
-            switch result {
-            case .success:
-                print("Sign in succeeded")
-                let userId = AWSMobileClient.default().userSub!
-                self.completeProfileOrNavigateToApp(userId: userId, username: userId)
-            case .failure(let error):
-                print("Sign in failed \(error)")
-            }
-        }
-    }
 
     @objc
     private func didTapSignInButton() {
@@ -300,7 +314,9 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
                 }
             } else {
                 // user exist case, recurring user, we should pop main screen
-                self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
+                DispatchQueue.main.async {
+                    self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
+                }
             }
         }
     }

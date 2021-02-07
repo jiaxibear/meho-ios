@@ -78,6 +78,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         let otherSignInView = OtherSignInView.init(frame: .zero)
         otherSignInView.translatesAutoresizingMaskIntoConstraints = false
         otherSignInView.delegate = self
+        otherSignInView.isHidden = true
         return otherSignInView
     } ()
 

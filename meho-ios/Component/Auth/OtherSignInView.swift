@@ -41,7 +41,7 @@ class OtherSignInView: UIView, UITextViewDelegate {
         let leftBar = UIView.init(frame: .zero)
         leftBar.translatesAutoresizingMaskIntoConstraints = false
         leftBar.backgroundColor = .lightBlueGreyTwo
-        leftBar.isHidden = true
+        leftBar.isHidden = false
         return leftBar
     } ()
 
@@ -49,7 +49,7 @@ class OtherSignInView: UIView, UITextViewDelegate {
         let rightBar = UIView.init(frame: .zero)
         rightBar.translatesAutoresizingMaskIntoConstraints = false
         rightBar.backgroundColor = .lightBlueGreyTwo
-        rightBar.isHidden = true
+        rightBar.isHidden = false
         return rightBar
     } ()
 
@@ -60,7 +60,7 @@ class OtherSignInView: UIView, UITextViewDelegate {
         let orLabelfontDescriptor = UIFont.systemFont(ofSize: orLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
         orLabel.font = UIFont.init(descriptor: orLabelfontDescriptor!, size: orLabelFontSize)
         orLabel.text = NSLocalizedString("OrText", comment: "").uppercased()
-        orLabel.isHidden = true
+        orLabel.isHidden = false
         return orLabel
     } ()
 
@@ -109,7 +109,7 @@ class OtherSignInView: UIView, UITextViewDelegate {
         buttonsStackView.axis = .horizontal
         buttonsStackView.distribution = .fillEqually
         buttonsStackView.spacing = buttonsStackViewSpacing
-        buttonsStackView.isHidden = true
+        buttonsStackView.isHidden = false
         return buttonsStackView
     } ()
 
