@@ -334,17 +334,17 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         }
     }
 
-    func expandedChapterCollectionViewCellDidTapAudioVisulizerInside(audioFileURL: URL, scoredChapter: ScoredChapter) {
+    func expandedChapterCollectionViewCellDidTapAudioVisulizerInside(audioFileURL: URL, scoredChapter: ScoredChapter, scoreDetail: String) {
         guard let userId = AWSMobileClient.default().userSub else { return }
         let scoreD = Double(scoredChapter.score).rounded(.towardZero)
         if (scoredChapter.isExpressionChapter) {
-            userDataFetcher.createUserExpressionRecording(userId: userId, expressionId: scoredChapter.chapter.identifier, score: scoreD) { (maybeRecordingId, maybeError) in
+            userDataFetcher.createUserExpressionRecording(userId: userId, expressionId: scoredChapter.chapter.identifier, score: scoreD, scoreDetail: scoreDetail) { (maybeRecordingId, maybeError) in
                 if let recordingId = maybeRecordingId, maybeError == nil {
                     self.uploadRecordingToS3(audioFileURL: audioFileURL, recordingId: recordingId)
                 }
             }
         } else {
-            userDataFetcher.createUserChapterRecording(userId: userId, chapterId: scoredChapter.chapter.identifier, mode: "SOLO", score: scoreD) { (maybeRecordingId, maybeError) in
+            userDataFetcher.createUserChapterRecording(userId: userId, chapterId: scoredChapter.chapter.identifier, mode: "SOLO", score: scoreD, scoreDetail: scoreDetail) { (maybeRecordingId, maybeError) in
                 if let recordingId = maybeRecordingId, maybeError == nil {
                     self.uploadRecordingToS3(audioFileURL: audioFileURL, recordingId: recordingId)
                 }

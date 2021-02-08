@@ -76,8 +76,16 @@ class ContentEvaluator: NSObject, TAIOralEvaluationDelegate {
     func oralEvaluation(_ oralEvaluation: TAIOralEvaluation!, onEvaluateData data: TAIOralEvaluationData!, result: TAIOralEvaluationRet!, error: TAIError!) {
         if result != nil {
             let suggestScore = result.suggestedScore
+            var scoreDetailJsonString = "{}"
+            do {
+                let scoreDetailDict = ["pronAccuracy":Int(round(result.pronCompletion*100)), "pronCompletion":Int(round(result.pronCompletion*100)), "pronFluency":Int(round(result.pronFluency*100))]
+                let scoreDetailJsonData = try JSONSerialization.data(withJSONObject: scoreDetailDict, options: .prettyPrinted)
+                scoreDetailJsonString = NSString(data: scoreDetailJsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+            } catch {}
+            
             let scoredContent = self.scoredContent(result: result)
-            let contentEvaluationResult = ContentEvaluationResult.init(score: suggestScore, scoredContent: scoredContent)
+            let contentEvaluationResult = ContentEvaluationResult.init(score: suggestScore, scoredContent: scoredContent, scoreDetail: scoreDetailJsonString)
+            
             completion(.success(contentEvaluationResult))
         }
         content = nil

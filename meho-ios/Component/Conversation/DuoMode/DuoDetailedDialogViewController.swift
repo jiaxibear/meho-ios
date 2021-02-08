@@ -325,7 +325,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                             self.chaptersCollectionView.reloadItems(at: [currentIndexPath])
                             self.refreshButtonStates()
 
-                            self.storeRecording(audioFileURL: self.audioFileURL!, chapterId: scoredChapter.chapter.identifier, score: contentEvaluationResult.score, scoreDetail: "something")
+                            self.storeRecording(audioFileURL: self.audioFileURL!, chapterId: scoredChapter.chapter.identifier, score: contentEvaluationResult.score, scoreDetail: contentEvaluationResult.scoreDetail)
                         }
                         break
                     case .failure(let error):
@@ -339,11 +339,11 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         }
     }
 
-    func storeRecording(audioFileURL: URL, chapterId: String, score: Float? = nil, scoreDetail: String? = nil) {
+    func storeRecording(audioFileURL: URL, chapterId: String, score: Float? = nil, scoreDetail: String) {
 
         guard let userId = AWSMobileClient.default().userSub else { return }
         let scoreD = score == nil ? nil : Double(score!).rounded(.towardZero)
-        userDataFetcher.createUserChapterRecording(userId: userId, chapterId: chapterId, mode: "DUO", score: scoreD) { (maybeRecordingId, maybeError) in
+        userDataFetcher.createUserChapterRecording(userId: userId, chapterId: chapterId, mode: "DUO", score: scoreD, scoreDetail: scoreDetail) { (maybeRecordingId, maybeError) in
             if let recordingId = maybeRecordingId, maybeError == nil {
                 let options = StorageUploadFileRequest.Options(accessLevel: .private)
                 Amplify.Storage.uploadFile(

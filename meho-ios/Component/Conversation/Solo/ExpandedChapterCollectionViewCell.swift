@@ -37,7 +37,7 @@ protocol ExpandedChapterCollectionViewCellDelegate : AnyObject {
     func expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: ScoredChapter)
     func expandedChapterCollectionViewCellDidTapReplayButton(scoredChapter: ScoredChapter)
     func expandedChapterCollectionViewCellDidTapRecordButton(scoredChapter: ScoredChapter)
-    func expandedChapterCollectionViewCellDidTapAudioVisulizerInside(audioFileURL: URL, scoredChapter: ScoredChapter)
+    func expandedChapterCollectionViewCellDidTapAudioVisulizerInside(audioFileURL: URL, scoredChapter: ScoredChapter, scoreDetail: String)
     func expandedChapterCollectionViewCellDidTapSpeedButton(scoredChapter: ScoredChapter)
     func expandedChapterCollectionViewCellDidTapSaveButton(scoredChapter: ScoredChapter, currentIsSaved: Bool)
 }
@@ -437,7 +437,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
                     } else {
                         self.actionLabel.text = NSLocalizedString("ReplayWithoutScorePromptActionText", comment: "")
                     }
-                    self.delegate?.expandedChapterCollectionViewCellDidTapAudioVisulizerInside(audioFileURL: self.audioFileURL!, scoredChapter: self.scoredChapter)
+                    self.delegate?.expandedChapterCollectionViewCellDidTapAudioVisulizerInside(audioFileURL: self.audioFileURL!, scoredChapter: self.scoredChapter, scoreDetail: contentEvaluationResult.scoreDetail)
                     break
                 case .failure(let error):
                     self.recordButton.isSelected = false

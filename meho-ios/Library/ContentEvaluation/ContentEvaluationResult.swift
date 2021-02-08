@@ -11,5 +11,6 @@ import Foundation
 struct ContentEvaluationResult {
     let score: Float
     let scoredContent: NSAttributedString
+    let scoreDetail: String
 }
 
