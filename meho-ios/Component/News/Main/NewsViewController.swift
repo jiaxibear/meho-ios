@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAnalytics
 import Amplify
 
-class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsItemSizeLCollectionViewCellDelegate, NewsPlayingNow  {
+class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsItemSizeLCollectionViewCellDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
@@ -82,6 +82,14 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         setupNewsCollectionView()
 
         didRefresh()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        if newsAudioPlayer.status != .notStarted, let newsPlayingNowView = newsAudioPlayer.newsPlayingNowView {
+            displayNewsPlayingNowView(newsPlayingNowView)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -208,20 +216,6 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         Analytics.logContentImpression(content: news, screenName: screenName)
     }
 
-    // MARK: - NewsPlayingNow
-    func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
-        if newsPlayingNowView.superview != nil {
-            newsPlayingNowView.removeFromSuperview()
-        }
-
-        view.addSubview(newsPlayingNowView)
-        NSLayoutConstraint.activate([
-            newsPlayingNowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            newsPlayingNowView.bottomAnchor.constraint(equalTo: newsCollectionView.bottomAnchor)
-        ])
-    }
-
     // MARK: NewsItemSizeLCollectionViewCellDelegate
     func didTapPlayAudioButton(news: News) {
         let alertController = UIAlertController.init(title: NSLocalizedString("PlayNewsAudioTitile", comment: ""), message: "", preferredStyle: .actionSheet)
@@ -268,6 +262,31 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
+    }
+
+    // MARK: - NewsPlayingNow
+    func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
+        if newsPlayingNowView.superview != nil {
+            newsPlayingNowView.removeFromSuperview()
+        }
+        newsPlayingNowView.delegate = self
+
+        view.addSubview(newsPlayingNowView)
+        var contentInset = newsCollectionView.contentInset
+        contentInset.bottom = newsPlayingNowView.intrinsicContentSize.height
+        newsCollectionView.contentInset = contentInset
+        NSLayoutConstraint.activate([
+            newsPlayingNowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsPlayingNowView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        ])
+    }
+
+    // MARK: - NewsPlayingNowViewDelegate
+    func didTapCancelButton() {
+        var contentInset = newsCollectionView.contentInset
+        contentInset.bottom = 0
+        newsCollectionView.contentInset = contentInset
     }
 
     // rendertype is returned as one of [XS, S, L, XL], usually we respect it. S, L, XL all come with images while XS don't.  If one news is not marked XS but still does not come with image, we should still degrade to XS

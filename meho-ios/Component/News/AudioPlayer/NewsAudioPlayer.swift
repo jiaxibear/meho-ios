@@ -10,7 +10,13 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 
-class NewsAudioPlayer: NSObject, NewsPlayingNowViewDelegate {
+enum NewsAudioPlayerStatus {
+    case playing
+    case paused
+    case notStarted
+}
+
+class NewsAudioPlayer: NSObject {
 
     private let moveDuration = Double(5)
 
@@ -20,14 +26,21 @@ class NewsAudioPlayer: NSObject, NewsPlayingNowViewDelegate {
     private var observation: NSKeyValueObservation?
 
     var newsPlayingNowView: NewsPlayingNowView?
-    var isPlaying = false {
+    var status = NewsAudioPlayerStatus.notStarted {
         didSet {
-            if isPlaying {
+            switch status {
+            case .notStarted:
+                newsPlayingNowView?.removeFromSuperview()
+                player = nil
+                break
+            case .playing:
                 player?.play()
                 newsPlayingNowView?.isPlaying = true
-            } else {
+                break
+            case .paused:
                 player?.pause()
                 newsPlayingNowView?.isPlaying = false
+                break
             }
         }
     }
@@ -46,7 +59,7 @@ class NewsAudioPlayer: NSObject, NewsPlayingNowViewDelegate {
         let playerItem = AVPlayerItem.init(url: audioURL)
         let currentPlayer = AVPlayer.init(playerItem: playerItem)
         player = currentPlayer
-        isPlaying = true
+        status = .playing
         var nowPlayingInfo: [String: Any] = [
             MPMediaItemPropertyTitle : title,
             MPNowPlayingInfoPropertyPlaybackRate : currentPlayer.rate,
@@ -86,7 +99,7 @@ class NewsAudioPlayer: NSObject, NewsPlayingNowViewDelegate {
             guard self.player != nil else {
                 return .noSuchContent
             }
-            self.isPlaying = true
+            self.status = .playing
             return .success
         }
 
@@ -96,7 +109,7 @@ class NewsAudioPlayer: NSObject, NewsPlayingNowViewDelegate {
             guard self.player != nil else {
                 return .noSuchContent
             }
-            self.isPlaying = false
+            self.status = .playing
             return .success
         }
 
@@ -153,22 +166,7 @@ class NewsAudioPlayer: NSObject, NewsPlayingNowViewDelegate {
         } else {
             newsPlayingNowView = NewsPlayingNowView.init(title: title, coverImageKey: coverImageKey)
             newsPlayingNowView.translatesAutoresizingMaskIntoConstraints = false
-            newsPlayingNowView.delegate = self
             self.newsPlayingNowView = newsPlayingNowView
         }
-    }
-
-    // MARK: - NewsPlayingNowViewDelegate
-    func didTapCancelButton() {
-        player = nil
-        newsPlayingNowView?.removeFromSuperview()
-    }
-
-    func didTogglePlayButton() {
-        guard player != nil else {
-            return
-        }
- 
-        isPlaying = !isPlaying
     }
 }

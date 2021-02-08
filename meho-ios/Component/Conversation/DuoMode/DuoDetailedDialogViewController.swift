@@ -339,8 +339,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         }
     }
 
-    func storeRecording(audioFileURL: URL, chapterId: String, score: Float? = nil, scoreDetail: String) {
-
+    func storeRecording(audioFileURL: URL, chapterId: String, score: Float? = nil, scoreDetail: String? = nil) {
         guard let userId = AWSMobileClient.default().userSub else { return }
         let scoreD = score == nil ? nil : Double(score!).rounded(.towardZero)
         userDataFetcher.createUserChapterRecording(userId: userId, chapterId: chapterId, mode: "DUO", score: scoreD, scoreDetail: scoreDetail) { (maybeRecordingId, maybeError) in

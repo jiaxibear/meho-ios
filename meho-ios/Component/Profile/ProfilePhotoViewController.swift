@@ -179,7 +179,8 @@ class ProfilePhotoViewController: UIViewController, UIImagePickerControllerDeleg
             return
         }
         let newProfilePhotoKey = userID + "_profilePhoto" + String(Date.init().timeIntervalSince1970)
-        Amplify.Storage.uploadData(key: newProfilePhotoKey, data: userPhotoData) { (result) in
+        let options = StorageUploadDataRequest.Options(accessLevel: .protected)
+        Amplify.Storage.uploadData(key: newProfilePhotoKey, data: userPhotoData, options: options) { (result) in
             switch result {
             case .success(_):
                 UserDataFetcher.shared.updateUser(id: userID, avatarKey: newProfilePhotoKey) { (basicUser, error) in 

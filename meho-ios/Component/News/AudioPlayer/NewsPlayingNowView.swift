@@ -10,7 +10,6 @@ import UIKit
 
 protocol NewsPlayingNowViewDelegate: AnyObject {
     func didTapCancelButton()
-    func didTogglePlayButton()
 }
 
 class NewsPlayingNowView: UIView {
@@ -148,12 +147,22 @@ class NewsPlayingNowView: UIView {
     // MARK: - Private
     @objc
     private func didTapCancelButton() {
+        NewsAudioPlayer.shared.status = .notStarted
         delegate?.didTapCancelButton()
     }
 
     @objc
     private func didTapPlayButton() {
-        isPlaying = !isPlaying
-        delegate?.didTogglePlayButton()
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        switch newsAudioPlayer.status {
+        case .playing:
+            newsAudioPlayer.status = .paused
+            break
+        case .paused:
+            newsAudioPlayer.status = .playing
+            break
+        case .notStarted:
+            break
+        }
     }
 }

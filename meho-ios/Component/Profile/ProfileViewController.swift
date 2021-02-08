@@ -17,7 +17,7 @@ enum ProfileSection: Int {
     case savedVocabularies
 }
 
-class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProfileHeaderCollectionReusableViewDelegate, DialogModeSelectionViewControllerDelegate {
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProfileHeaderCollectionReusableViewDelegate, DialogModeSelectionViewControllerDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate {
     
     // MARK: - Constants
     private let profileTabBarItemImageName = "tabbar_profile_25pt"
@@ -66,7 +66,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = profileImageViewSize / 2
-        let profileImage = UIImage.init(named:defaultProfileImageName)
+        let profileImage = UIImage.init(named: defaultProfileImageName)
         profileImageView.image = profileImage
         return profileImageView
     } ()
@@ -238,6 +238,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             navigationController?.setNavigationBarHidden(false, animated: false)
         } else {
             navigationController?.setNavigationBarHidden(true, animated: false)
+        }
+
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        if newsAudioPlayer.status != .notStarted, let newsPlayingNowView = newsAudioPlayer.newsPlayingNowView {
+            displayNewsPlayingNowView(newsPlayingNowView)
         }
     }
 
@@ -415,6 +420,31 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         navigationController?.pushViewController(completedItemsViewController, animated: true)
     }
 
+    // MARK: - NewsPlayingNow
+    func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
+        if newsPlayingNowView.superview != nil {
+            newsPlayingNowView.removeFromSuperview()
+        }
+        newsPlayingNowView.delegate = self
+
+        view.addSubview(newsPlayingNowView)
+        var contentInset = collectionView.contentInset
+        contentInset.bottom = newsPlayingNowView.intrinsicContentSize.height
+        collectionView.contentInset = contentInset
+        NSLayoutConstraint.activate([
+            newsPlayingNowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsPlayingNowView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        ])
+    }
+
+    // MARK: - NewsPlayingNowViewDelegate
+    func didTapCancelButton() {
+        var contentInset = collectionView.contentInset
+        contentInset.bottom = 0
+        collectionView.contentInset = contentInset
+    }
+
     // MARK: - Private
     private func completedItemsLayoutSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
@@ -522,21 +552,17 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private func updateProfile(basicUser: BasicUser) {
         DispatchQueue.main.async {
             let currentUserName = basicUser.username
-            let hasUserSetNickname = currentUserName != basicUser.email
-            if hasUserSetNickname {
+            if currentUserName != basicUser.email {
                 self.usernameLabel.text = currentUserName
             }
-            if let avatarImageKey = basicUser.avatarImageKey {
-                self.profileImageView.imageKey = avatarImageKey
-            } else if hasUserSetNickname {
-                var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
-                if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
-                    textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: self.profileImageViewFontSize)
-                } else {
-                    textAttributes[.font] = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold)
-                }
-                self.profileImageView.setImageForName(currentUserName, backgroundColor: .greenBlue, circular: true, textAttributes: textAttributes, gradient: false)
+
+            var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
+            if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+                textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: self.profileImageViewFontSize)
+            } else {
+                textAttributes[.font] = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold)
             }
+            self.profileImageView.loadProfilePhoto(basicUser: basicUser, textAttributes: textAttributes)
         }
     }
 }

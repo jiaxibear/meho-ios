@@ -55,7 +55,8 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         return [account, nickname, password, profiles, goals, interests, professions, appVersion, contact, privacyPolicy, userAgreement, signOut]
     } ()
 
-    var userNickname: String?
+    var basicUser: BasicUser?
+    let userDataFetcher = UserDataFetcher.shared
 
     // MARK: - Init
     init() {
@@ -91,26 +92,27 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
             return
         }
         UserDataFetcher.shared.getUser(userId: userID) { (basicUser, error) in
-            if basicUser != nil && error == nil {
-                DispatchQueue.main.async {
-                    for (index, _) in self.profileSettings.enumerated() {
-                        switch self.profileSettings[index].type {
-                        case .goal:
-                            self.profileSettings[index].subtitle = basicUser?.goals.joined(separator: ", ")
-                            break
-                        case .interests:
-                            self.profileSettings[index].subtitle = basicUser?.interests.joined(separator: ", ")
-                            break
-                        case .professions:
-                            self.profileSettings[index].subtitle = basicUser?.profession
-                            break
-                        default:
-                            break
-                        }
+            guard let basicUser = basicUser else {
+                return
+            }
+            DispatchQueue.main.async {
+                for (index, _) in self.profileSettings.enumerated() {
+                    switch self.profileSettings[index].type {
+                    case .goal:
+                        self.profileSettings[index].subtitle = basicUser.goals.joined(separator: ", ")
+                        break
+                    case .interests:
+                        self.profileSettings[index].subtitle = basicUser.interests.joined(separator: ", ")
+                        break
+                    case .professions:
+                        self.profileSettings[index].subtitle = basicUser.profession
+                        break
+                    default:
+                        break
                     }
-                    self.userNickname = basicUser?.username
-                    self.collectionView.reloadData()
                 }
+                self.basicUser = basicUser
+                self.collectionView.reloadData()
             }
         }
     }
@@ -133,9 +135,7 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
             return UICollectionReusableView.init(frame: .zero)
         }
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: collectionHeaderCellReuseIdentifier, for: indexPath) as! ProfileSettingHeaderCollectionReusableView
-        if userNickname != nil {
-            header.userNickName = userNickname!
-        }
+        header.basicUser = basicUser
         return header
     }
 

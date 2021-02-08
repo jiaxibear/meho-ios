@@ -14,11 +14,12 @@ class ProfileSettingHeaderCollectionReusableView: UICollectionReusableView {
     private let avatarImageViewHeight = CGFloat(80)
     private let nameLabelFontSize = CGFloat(26)
     private let customSpacing = CGFloat(12)
+    private let avatarImageViewFontSize = CGFloat(32)
     private static var sizingView = ProfileSettingHeaderCollectionReusableView.init(frame: .zero)
 
     // MARK: - Properties
-    private lazy var avatarImageView: UIImageView = {
-        let avatarImageView = UIImageView.init()
+    private lazy var avatarImageView: WebImageView = {
+        let avatarImageView = WebImageView.init()
         avatarImageView.layer.cornerRadius = avatarImageViewWidth / 2
         avatarImageView.clipsToBounds = true
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -29,12 +30,11 @@ class ProfileSettingHeaderCollectionReusableView: UICollectionReusableView {
     private lazy var nameLabel: UILabel = {
         let nameLabel = UILabel.init(frame: .zero)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        // TODO: Use the real nick name
-        nameLabel.text = userNickName
         nameLabel.textColor = .wisteriaPurple
         let nameLabelFontDescriptor = UIFont.systemFont(ofSize: nameLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)!
         nameLabel.font = UIFont.init(descriptor: nameLabelFontDescriptor, size: nameLabelFontSize)
         nameLabel.textAlignment = .center
+        nameLabel.text = NSLocalizedString("UserDefaultNickname", comment: "")
         return nameLabel
     } ()
 
@@ -48,9 +48,22 @@ class ProfileSettingHeaderCollectionReusableView: UICollectionReusableView {
         return contentStackView
     } ()
 
-    var userNickName: String {
+    var basicUser: BasicUser? {
         didSet {
-            nameLabel.text = userNickName
+            if let basicUser = basicUser {
+                let currentUserName = basicUser.username
+                if currentUserName != basicUser.email {
+                    nameLabel.text = currentUserName
+                }
+
+                var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
+                if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: avatarImageViewFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+                    textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: avatarImageViewFontSize)
+                } else {
+                    textAttributes[.font] = UIFont.systemFont(ofSize: avatarImageViewFontSize, weight: .semibold)
+                }
+                avatarImageView.loadProfilePhoto(basicUser: basicUser, textAttributes: textAttributes)
+            }
         }
     }
 
@@ -66,7 +79,6 @@ class ProfileSettingHeaderCollectionReusableView: UICollectionReusableView {
     }
 
     override init(frame: CGRect) {
-        self.userNickName = NSLocalizedString("UserDefaultNickname", comment: "")
         super.init(frame: frame)
         addSubview(contentStackView)
         contentStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true

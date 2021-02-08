@@ -107,21 +107,14 @@ class MainTabTitleView: UIView {
     }
 
     private func updateProfilePhoto(basicUser: BasicUser) {
-        if let avatarImageKey = basicUser.avatarImageKey {
-            self.profilePhotoImageView.imageKey = avatarImageKey
-        } else {
-            let currentUserName = basicUser.username
-            if currentUserName != basicUser.email {
-                DispatchQueue.main.async {
-                    var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
-                    if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: self.profileButtonFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
-                        textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: self.profileButtonFontSize)
-                    } else {
-                        textAttributes[.font] = UIFont.systemFont(ofSize: self.profileButtonFontSize, weight: .semibold)
-                    }
-                    self.profilePhotoImageView.setImageForName(currentUserName, backgroundColor: .greenBlue, circular: true, textAttributes: textAttributes, gradient: false)
-                }
+        DispatchQueue.main.async {
+            var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
+            if let profileImageViewFontDescriptor = UIFont.systemFont(ofSize: self.profileButtonFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded) {
+                textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: self.profileButtonFontSize)
+            } else {
+                textAttributes[.font] = UIFont.systemFont(ofSize: self.profileButtonFontSize, weight: .semibold)
             }
+            self.profilePhotoImageView.loadProfilePhoto(basicUser: basicUser, textAttributes: textAttributes)
         }
     }
 }

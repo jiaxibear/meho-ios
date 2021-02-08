@@ -12,6 +12,7 @@ import AWSS3
 import Amplify
 import AmplifyPlugins
 import Kingfisher
+import InitialsImageView
 
 protocol WebImageViewDelegate : AnyObject {
     func webImageViewDidSetImage(webImageView: WebImageView)
@@ -24,7 +25,10 @@ struct S3ResourceKey {
 
 class WebImageView: UIImageView {
 
+    private let defaultProfileImageName = "no_profile_pic"
+
     weak var delegate: WebImageViewDelegate?
+
     var imageURL: URL? {
         didSet {
             if self.imageURL != nil {
@@ -55,40 +59,57 @@ class WebImageView: UIImageView {
                 return
             }
 
-            let imageCache = ImageCache.default
-            if imageCache.isCached(forKey: key) {
-                imageCache.retrieveImage(forKey: key) { result in
-                    switch result {
-                    case .success(let value):
-                        self.image = value.image
-                    case .failure(let error):
-                        print("There is an error getting the image: \(error)")
-                    }
+            setImageForKey(key)
+        }
+    }
+
+    func loadProfilePhoto(basicUser: BasicUser, textAttributes: [NSAttributedString.Key : AnyObject]) {
+        let currentUserName = basicUser.username
+        if let key = basicUser.avatarImageKey?.key {
+            let options = StorageGetURLRequest.Options.init(accessLevel: .protected)
+            setImageForKey(key, options: options)
+        } else if currentUserName != basicUser.email {
+            setImageForName(currentUserName, backgroundColor: .greenBlue, circular: true, textAttributes: textAttributes, gradient: false)
+        } else {
+            let profileImage = UIImage.init(named: self.defaultProfileImageName)
+            image = profileImage
+        }
+    }
+
+    private func setImageForKey(_ key: String, options: StorageGetURLRequest.Options? = nil) {
+        let imageCache = ImageCache.default
+        if imageCache.isCached(forKey: key) {
+            imageCache.retrieveImage(forKey: key) { result in
+                switch result {
+                case .success(let value):
+                    self.image = value.image
+                case .failure(let error):
+                    print("There is an error getting the image: \(error)")
                 }
-            } else {
-                Amplify.Storage.getURL(key: key) { event in
-                    switch event {
-                    case let .success(imageURL):
-                        let imageResource = ImageResource.init(downloadURL: imageURL, cacheKey: key)
-                        DispatchQueue.main.async {
-                            self.kf.setImage(with: imageResource, placeholder: nil, options: nil, progressBlock: nil) { result in
-                                switch result {
-                                case .success(_):
-                                    break
-                                case .failure(let error):
-                                    print("There is an error getting the image: \(error)")
-                                }
+            }
+        } else {
+            Amplify.Storage.getURL(key: key, options: options) { event in
+                switch event {
+                case let .success(imageURL):
+                    let imageResource = ImageResource.init(downloadURL: imageURL, cacheKey: key)
+                    DispatchQueue.main.async {
+                        self.kf.setImage(with: imageResource, placeholder: nil, options: nil, progressBlock: nil) { result in
+                            switch result {
+                            case .success(_):
+                                break
+                            case .failure(let error):
+                                print("There is an error getting the image: \(error)")
                             }
                         }
-                    case let .failure(storageError):
-                        print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
                     }
+                case let .failure(storageError):
+                    print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
                 }
             }
         }
     }
 
-    func notifyDelegate() {
+    private func notifyDelegate() {
         DispatchQueue.main.async {
             self.delegate?.webImageViewDidSetImage(webImageView: self)
         }
