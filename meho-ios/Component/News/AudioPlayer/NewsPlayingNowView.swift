@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol NewsPlayingNowViewDelegate: AnyObject {
+    func didTapCancelButton()
+    func didTogglePlayButton()
+}
+
 class NewsPlayingNowView: UIView {
 
     private let coverImageViewWidth = CGFloat(44)
@@ -21,6 +26,8 @@ class NewsPlayingNowView: UIView {
     private let cancelButtonHeight = CGFloat(20)
     private let intrinsicContentHeight = CGFloat(60)
     private let coverImageViewAlpha = CGFloat(0.52)
+
+    var delegate: NewsPlayingNowViewDelegate?
 
     var title: String {
         didSet {
@@ -60,6 +67,7 @@ class NewsPlayingNowView: UIView {
         playButton.translatesAutoresizingMaskIntoConstraints = false
         let playButtonImage = UIImage.init(systemName: "pause.fill")?.withTintColor(.skyBlue)
         playButton.setImage(playButtonImage, for: .normal)
+        playButton.addTarget(self, action: #selector(didTapPlayButton), for: .touchUpInside)
         return playButton
     } ()
 
@@ -68,6 +76,7 @@ class NewsPlayingNowView: UIView {
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         let cancelButtonImage = UIImage.init(systemName: "xmark")?.withTintColor(.textBlueGray)
         cancelButton.setImage(cancelButtonImage, for: .normal)
+        cancelButton.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
         return cancelButton
     } ()
 
@@ -134,5 +143,17 @@ class NewsPlayingNowView: UIView {
     // MARK: - UIView
     override var intrinsicContentSize: CGSize {
         return CGSize.init(width: UIView.noIntrinsicMetric, height: intrinsicContentHeight)
+    }
+
+    // MARK: - Private
+    @objc
+    private func didTapCancelButton() {
+        delegate?.didTapCancelButton()
+    }
+
+    @objc
+    private func didTapPlayButton() {
+        isPlaying = !isPlaying
+        delegate?.didTogglePlayButton()
     }
 }

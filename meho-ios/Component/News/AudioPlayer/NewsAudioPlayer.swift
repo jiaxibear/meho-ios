@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 
-class NewsAudioPlayer: NSObject {
+class NewsAudioPlayer: NSObject, NewsPlayingNowViewDelegate {
 
     private let moveDuration = Double(5)
 
@@ -20,7 +20,17 @@ class NewsAudioPlayer: NSObject {
     private var observation: NSKeyValueObservation?
 
     var newsPlayingNowView: NewsPlayingNowView?
-    var isPlaying = false
+    var isPlaying = false {
+        didSet {
+            if isPlaying {
+                player?.play()
+                newsPlayingNowView?.isPlaying = true
+            } else {
+                player?.pause()
+                newsPlayingNowView?.isPlaying = false
+            }
+        }
+    }
 
     // MARK: - Init
     private override init() {
@@ -29,15 +39,14 @@ class NewsAudioPlayer: NSObject {
 
     // MARK: - Internal
     func playAudio(audioURL: URL, title: String, coverImageKey: S3ResourceKey?) {
-        isPlaying = true
-        if let player = player {
-            player.pause()
+        if player != nil {
+            player = nil
         }
 
         let playerItem = AVPlayerItem.init(url: audioURL)
         let currentPlayer = AVPlayer.init(playerItem: playerItem)
         player = currentPlayer
-        currentPlayer.play()
+        isPlaying = true
         var nowPlayingInfo: [String: Any] = [
             MPMediaItemPropertyTitle : title,
             MPNowPlayingInfoPropertyPlaybackRate : currentPlayer.rate,
@@ -74,20 +83,20 @@ class NewsAudioPlayer: NSObject {
         let playCommand = remoteCommandCenter.playCommand
         playCommand.isEnabled = true
         playCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
-            guard let player = self.player else {
+            guard self.player != nil else {
                 return .noSuchContent
             }
-            player.play()
+            self.isPlaying = true
             return .success
         }
 
         let pauseCommand = remoteCommandCenter.pauseCommand
         pauseCommand.isEnabled = true
         pauseCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
-            guard let player = self.player else {
+            guard self.player != nil else {
                 return .noSuchContent
             }
-            player.pause()
+            self.isPlaying = false
             return .success
         }
 
@@ -138,10 +147,28 @@ class NewsAudioPlayer: NSObject {
         var newsPlayingNowView: NewsPlayingNowView
         if let currentNewsPlayingNowView = self.newsPlayingNowView {
             newsPlayingNowView = currentNewsPlayingNowView
+            newsPlayingNowView.title = title
+            newsPlayingNowView.coverImageKey = coverImageKey
+            newsPlayingNowView.isPlaying = true
         } else {
             newsPlayingNowView = NewsPlayingNowView.init(title: title, coverImageKey: coverImageKey)
             newsPlayingNowView.translatesAutoresizingMaskIntoConstraints = false
+            newsPlayingNowView.delegate = self
             self.newsPlayingNowView = newsPlayingNowView
         }
+    }
+
+    // MARK: - NewsPlayingNowViewDelegate
+    func didTapCancelButton() {
+        player = nil
+        newsPlayingNowView?.removeFromSuperview()
+    }
+
+    func didTogglePlayButton() {
+        guard player != nil else {
+            return
+        }
+ 
+        isPlaying = !isPlaying
     }
 }
