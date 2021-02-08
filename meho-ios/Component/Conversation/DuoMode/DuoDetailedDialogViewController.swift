@@ -352,7 +352,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                     options: options,
                     resultListener: { event in
                         switch event {
-                        case let .success(data):
+                        case .success(_):
                             break
                         case let .failure(storageError):
                             print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")

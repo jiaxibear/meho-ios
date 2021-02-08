@@ -85,6 +85,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         navigationController?.setNavigationBarHidden(false, animated: false)
         fetchDialogs()
 
@@ -101,7 +102,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
 
         dialogsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         dialogsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        dialogsCollectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        dialogsCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         dialogsCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 

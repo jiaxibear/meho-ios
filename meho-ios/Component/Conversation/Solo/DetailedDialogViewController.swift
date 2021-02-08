@@ -108,6 +108,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
+        view.backgroundColor = .white
         if title == nil {
             navigationController?.navigationBar.topItem?.title = ""
         }
@@ -161,7 +162,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         // Sets up layout constraints
         chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        chaptersCollectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        chaptersCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         chaptersCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
