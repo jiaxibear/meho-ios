@@ -172,9 +172,10 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     // implement for the delegate of TitleView when tapping on profile image, navigate to profile view
-    func MainTitleViewDidTapProfileImage() {
-        let profileController = ProfileViewController.init()
-        navigationController?.pushViewController(profileController, animated: true)
+    func mainTitleViewDidTapProfileImage() {
+        if let mainViewController = parent as? MainViewController {
+            mainViewController.selectProfileTab()
+        }
     }
 
     // MARK: - NewsPlayingNow

@@ -71,4 +71,9 @@ class MainViewController: UITabBarController {
         navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: nil, action: nil)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
+
+    // MARK: - Internal
+    func selectProfileTab() {
+        selectedIndex = 4
+    }
 }

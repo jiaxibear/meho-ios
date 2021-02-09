@@ -103,7 +103,7 @@ class MainTabTitleView: UIView {
 
     @objc
     private func didTapProfilePhotoImageView() {
-        delegate?.MainTitleViewDidTapProfileImage()
+        delegate?.mainTitleViewDidTapProfileImage()
     }
 
     private func updateProfilePhoto(basicUser: BasicUser) {
@@ -120,5 +120,5 @@ class MainTabTitleView: UIView {
 }
 
 protocol TriggerProfileViewDelegate : AnyObject {
-    func MainTitleViewDidTapProfileImage()
+    func mainTitleViewDidTapProfileImage()
 }
