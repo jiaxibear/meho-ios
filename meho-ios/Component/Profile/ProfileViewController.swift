@@ -123,7 +123,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.register(ProfileCardCollectionViewCell.self, forCellWithReuseIdentifier: profileCardCollectionViewCellReusableIdentifier)
         collectionView.register(ProfileDummyCardCollectionViewCell.self, forCellWithReuseIdentifier: profileDummyCardCollectionViewCellReusableIdentifier)
         collectionView.register(ProfileHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionHeaderReusableIdentifier)
+        collectionView.refreshControl = refreshControl
         return collectionView
+    } ()
+
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl.init(frame: .zero)
+        refreshControl.addTarget(self, action: #selector(updateProfileDetail), for: .valueChanged)
+        return refreshControl
     } ()
 
     // MARK: - Datamodels
@@ -194,41 +201,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             settingButton.widthAnchor.constraint(equalToConstant: settingButtonSize)
         ])
 
-        guard let userID = AWSMobileClient.default().userSub else {
-            return
-        }
-
         userDataFetcher.userSignal.subscribe(with: self) { (basicUser) in
             self.updateProfile(basicUser: basicUser)
         }
 
-        profileDataFetcher.fetchProfileDetail(userID: userID) { (profileDetails, error) in
-            guard error == nil && profileDetails != nil else {
-                return
-            }
-
-            self.completedItems = profileDetails!.completedItems
-            self.inProgressItems = profileDetails!.inProgressItems
-            self.savedItems = profileDetails!.savedItems
-            self.saveVocabularies = profileDetails!.savedVocabularies
-            var completedStoriesItem = ProfileCompletedItem.init(title: "stories", count: 0, color: UIColor.skyBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
-            for completedItem in self.completedItems {
-                switch completedItem.profileCardType {
-                case .story:
-                    completedStoriesItem.count += 1
-                    completedStoriesItem.items.append(completedItem)
-                    break
-                default:
-                    break
-                }
-            }
-            let completedExpressionsItem = ProfileCompletedItem.init(title: "expressions", count: 0, color: UIColor.periwinkleBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedExpressions)
-            let completedTalksItem = ProfileCompletedItem.init(title: "talks", count: 0, color: UIColor.periwinkle.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
-            self.completedGroupedItems = [completedStoriesItem, completedExpressionsItem, completedTalksItem]
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
+        updateProfileDetail()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -563,6 +540,42 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 textAttributes[.font] = UIFont.systemFont(ofSize: self.profileImageViewFontSize, weight: .semibold)
             }
             self.profileImageView.loadProfilePhoto(basicUser: basicUser, textAttributes: textAttributes)
+        }
+    }
+
+    @objc
+    private func updateProfileDetail() {
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+
+        profileDataFetcher.fetchProfileDetail(userID: userID) { (profileDetails, error) in
+            guard error == nil && profileDetails != nil else {
+                return
+            }
+
+            self.completedItems = profileDetails!.completedItems
+            self.inProgressItems = profileDetails!.inProgressItems
+            self.savedItems = profileDetails!.savedItems
+            self.saveVocabularies = profileDetails!.savedVocabularies
+            var completedStoriesItem = ProfileCompletedItem.init(title: "stories", count: 0, color: UIColor.skyBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
+            for completedItem in self.completedItems {
+                switch completedItem.profileCardType {
+                case .story:
+                    completedStoriesItem.count += 1
+                    completedStoriesItem.items.append(completedItem)
+                    break
+                default:
+                    break
+                }
+            }
+            let completedExpressionsItem = ProfileCompletedItem.init(title: "expressions", count: 0, color: UIColor.periwinkleBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedExpressions)
+            let completedTalksItem = ProfileCompletedItem.init(title: "talks", count: 0, color: UIColor.periwinkle.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
+            self.completedGroupedItems = [completedStoriesItem, completedExpressionsItem, completedTalksItem]
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+                self.collectionView.reloadData()
+            }
         }
     }
 }
