@@ -45,9 +45,8 @@ class WebViewController: UIViewController {
 
         view.backgroundColor = .white
         view.addSubview(webView)
-        let layoutMarginsGuide = view.layoutMarginsGuide
-        webView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
-        webView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor).isActive = true
+        webView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        webView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         webView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         webView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }

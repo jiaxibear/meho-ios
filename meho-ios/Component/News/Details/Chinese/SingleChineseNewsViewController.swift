@@ -31,7 +31,7 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
 
     // MARK: - UI
     private var chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-    private lazy var chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:chaptersCollectionViewFlowLayout)
+    lazy var chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:chaptersCollectionViewFlowLayout)
 
     private let newsTitleHeaderCellReuseIdentifier = "zhNewsTitleHeader"
     private let newsChapterCellReuseIdentifier = "zhNewsChapterCell"
@@ -42,10 +42,10 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
     // MARK: - Datamodels
     private let userDataFetcher = UserDataFetcher.shared
     private let dataFetcher = NewsDataFetcher.init()
-    private var newsChapters:[NewsChapter] = []
-    private var recapVocabularyList:[Vocabulary] = []
-    private var allVocabDict:Dictionary<String, Vocabulary> = [:]
-    private var sections:[ChineseNewsSection] = []
+    private var newsChapters: [NewsChapter] = []
+    private var recapVocabularyList: [Vocabulary] = []
+    private var allVocabDict: Dictionary<String, Vocabulary> = [:]
+    private var sections: [ChineseNewsSection] = []
 
     // MARK: MehoAnalytics
     let screenName = "p_meho_stories_chinese"

@@ -9,8 +9,9 @@
 import UIKit
 import AWSMobileClient
 import FirebaseAnalytics
+import Amplify
 
-class DetailedNewsViewController: UIViewController {
+class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingNowViewDelegate {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(22)
@@ -23,6 +24,8 @@ class DetailedNewsViewController: UIViewController {
     private let bottomBarHeight = CGFloat(66)
     private let likeHeartMargin = CGFloat(10)
     private let likeHeartSideLength = CGFloat(50)
+    private let playButtonWidth = CGFloat(44)
+    private let playButtonHeight = CGFloat(44)
     private let newsTabBarItemImageName = "tabbar_news_25pt"
     private let newsSaveUnfilledImageName = "purple_saved_unfilled"
     private let newsSaveFilledImageName = "purple_saved_filled"
@@ -38,8 +41,6 @@ class DetailedNewsViewController: UIViewController {
 
     // MARK: - Properties
     private let news: News
-    private var isInProgress:Bool?
-    private var isCompleted:Bool?
 
     // MARK: - UI
     // navigation bar
@@ -49,13 +50,69 @@ class DetailedNewsViewController: UIViewController {
 
     // main news view
     private var singleNewsView: UIView!
-    // bottom bar
-    private let likeButton = UIButton.init(frame: .zero)
-    private let languageToggleButton = UISwitch.init(frame: .zero)
-    private let languageToggleEnLabel = UILabel.init(frame: .zero)
-    private let languageToggleZhLabel = UILabel.init(frame: .zero)
-    private let bottomBarView = UIView.init(frame: .zero)
 
+    // bottom bar
+    private lazy var likeButton: UIButton = {
+        let likeButton = UIButton.init(frame: .zero)
+        let newsLikeHeartUnfilledImage = UIImage.init(named: newsSaveUnfilledImageName)
+        let newsLikeHeartFilledImag = UIImage.init(named: newsSaveFilledImageName)
+        likeButton.translatesAutoresizingMaskIntoConstraints = false
+        likeButton.setImage(newsLikeHeartUnfilledImage, for: UIControl.State.normal)
+        likeButton.setImage(newsLikeHeartFilledImag, for: UIControl.State.selected)
+        likeButton.addTarget(self, action: #selector(didTapLikeButton), for: .touchUpInside)
+        return likeButton
+    } ()
+
+    private lazy var languageToggleButton: UISwitch = {
+        let languageToggleButton = UISwitch.init(frame: .zero)
+        languageToggleButton.translatesAutoresizingMaskIntoConstraints = false
+        languageToggleButton.isOn = false
+        languageToggleButton.onTintColor = .wisteriaPurple
+        languageToggleButton.tintColor = .wisteriaPurple
+        languageToggleButton.thumbTintColor = .white
+        languageToggleButton.backgroundColor = .wisteriaPurple
+        languageToggleButton.layer.cornerRadius = 16
+        languageToggleButton.addTarget(self, action: #selector(didTapLanguageToggleButton), for: .touchUpInside)
+        return languageToggleButton
+    } ()
+
+    private lazy var languageToggleEnLabel: UILabel = {
+        let languageToggleEnLabel = UILabel.init(frame: .zero)
+        languageToggleEnLabel.translatesAutoresizingMaskIntoConstraints = false
+        languageToggleEnLabel.text = languageToggleEnText
+        languageToggleEnLabel.textColor = .wisteriaPurple
+        let languageToggleEnfontDescriptor = UIFont.systemFont(ofSize: languageToggleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
+        languageToggleEnLabel.font = UIFont.init(descriptor: languageToggleEnfontDescriptor!, size: 0)
+        return languageToggleEnLabel
+    }()
+
+    private lazy var languageToggleZhLabel: UILabel = {
+        let languageToggleZhLabel = UILabel.init(frame: .zero)
+        languageToggleZhLabel.translatesAutoresizingMaskIntoConstraints = false
+        languageToggleZhLabel.text = languageToggleZhText
+        languageToggleZhLabel.textColor = .wisteriaPurple
+        languageToggleZhLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: languageToggleLabelFontSize)
+        return languageToggleZhLabel
+    } ()
+
+    private lazy var bottomBarView: UIView = {
+        let bottomBarView = UIView.init(frame: .zero)
+        bottomBarView.translatesAutoresizingMaskIntoConstraints = false
+        bottomBarView.layer.applySketchShadow(color: UIColor.barShadow, alpha: 0.3, x: 0, y: 4, blur: 14, spread: 0)
+        bottomBarView.backgroundColor = .white
+        return bottomBarView
+    } ()
+
+    private lazy var playButton: UIButton = {
+        let playButton = UIButton.init(frame: .zero)
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        let playButtonDisabledImage = UIImage.init(named: "stories_audio_in_play")
+        playButton.setImage(playButtonDisabledImage, for: .disabled)
+        let playButtonNormalImage = UIImage.init(named: "stories_purple_headphone_play")
+        playButton.setImage(playButtonNormalImage, for: .normal)
+        playButton.addTarget(self, action: #selector(didTapPlayAudioButton), for: .touchUpInside)
+        return playButton
+    } ()
 
     // MARK: - Child Controllers
     private let singleEnNewsViewController:SingleEnglishNewsViewController
@@ -83,12 +140,30 @@ class DetailedNewsViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    // MARK: - UIViewController
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        if newsAudioPlayer.status != .notStarted, let newsPlayingNowView = newsAudioPlayer.newsPlayingNowView {
+            displayNewsPlayingNowView(newsPlayingNowView)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        /* Navigation bar: custom News source label, news share button on right */
+        // Navigation bar: custom News source label, news share button on right
         setUpNavigationBar()
-        setupBottomBarView() // this has to come before newsdetailview as newsdetailview has bottom constrain on barview's topanchor
+        setupBottomBarView()
+        // this has to come before newsdetailview as newsdetailview has bottom constrain on barview's topanchor
         setUpInitialNewsDetailView()
+        bottomBarView.addSubview(playButton)
+        NSLayoutConstraint.activate([
+            playButton.widthAnchor.constraint(equalToConstant: playButtonWidth),
+            playButton.heightAnchor.constraint(equalToConstant: playButtonHeight),
+            playButton.centerXAnchor.constraint(equalTo: bottomBarView.centerXAnchor),
+            playButton.centerYAnchor.constraint(equalTo: bottomBarView.centerYAnchor)
+        ])
+        updatePlayButton()
 
         guard let userId = AWSMobileClient.default().userSub else { return }
         userDataFetcher.getUserItemSave (userId: userId, itemId: self.news.identifier, completionHandler: { (isSaved, error) in
@@ -100,6 +175,13 @@ class DetailedNewsViewController: UIViewController {
         })
 
         userDataFetcher.startItemProgressIfNeeded(userId: userId, itemId: self.news.identifier, itemType: "ARTICLE")
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        var bottomBarViewBounds = bottomBarView.bounds
+        bottomBarViewBounds.size.height = 10
+        bottomBarView.layer.shadowPath = UIBezierPath.init(rect: bottomBarViewBounds).cgPath
     }
 
     func setUpNavigationBar() {
@@ -151,68 +233,60 @@ class DetailedNewsViewController: UIViewController {
 
     // setup the bar view for news detail page at the bottom, including like button and language toggle switch
     func setupBottomBarView() {
-        // Sets up the bottom bar
-        bottomBarView.translatesAutoresizingMaskIntoConstraints = false
-        bottomBarView.layer.shadowColor = UIColor.barShadow.cgColor
-        bottomBarView.layer.shadowOpacity = 1
-        bottomBarView.layer.shadowOffset = .zero
-        bottomBarView.layer.shadowRadius = 4
-        bottomBarView.layer.masksToBounds = false
-        bottomBarView.backgroundColor = .white
         view.addSubview(bottomBarView)
-
-        // Set up the heart
-        let newsLikeHeartUnfilledImage = UIImage.init(named: newsSaveUnfilledImageName)
-        let newsLikeHeartFilledImag = UIImage.init(named: newsSaveFilledImageName)
-        likeButton.translatesAutoresizingMaskIntoConstraints = false
-        likeButton.setImage(newsLikeHeartUnfilledImage, for: UIControl.State.normal)
-        likeButton.setImage(newsLikeHeartFilledImag, for: UIControl.State.selected)
-        likeButton.addTarget(self, action: #selector(didTapLikeButton), for: .touchUpInside)
         bottomBarView.addSubview(likeButton)
-
-        // Set up the lanuguage switch
-        languageToggleButton.translatesAutoresizingMaskIntoConstraints = false
-        languageToggleButton.isOn = false
-        languageToggleButton.onTintColor = .wisteriaPurple
-        languageToggleButton.tintColor = .wisteriaPurple
-        languageToggleButton.thumbTintColor = .white
-        languageToggleButton.backgroundColor = .wisteriaPurple
-        languageToggleButton.layer.cornerRadius = 16
-        languageToggleButton.addTarget(self, action: #selector(didTapLanguageToggleButton), for: .touchUpInside)
         bottomBarView.addSubview(languageToggleButton)
-
-        // Set up the language toggle text
-        languageToggleEnLabel.translatesAutoresizingMaskIntoConstraints = false
-        languageToggleEnLabel.text = languageToggleEnText
-        languageToggleEnLabel.textColor = .wisteriaPurple
-        let languageToggleEnfontDescriptor = UIFont.systemFont(ofSize: languageToggleLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
-        languageToggleEnLabel.font = UIFont.init(descriptor: languageToggleEnfontDescriptor!, size: 0)
-        bottomBarView.addSubview(languageToggleEnLabel)
-        languageToggleZhLabel.translatesAutoresizingMaskIntoConstraints = false
-        languageToggleZhLabel.text = languageToggleZhText
-        languageToggleZhLabel.textColor = .wisteriaPurple
-        languageToggleZhLabel.font = UIFont.init(name: "PingFangSC-Semibold", size: languageToggleLabelFontSize)
         bottomBarView.addSubview(languageToggleZhLabel)
+        bottomBarView.addSubview(languageToggleEnLabel)
 
-        bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        bottomBarView.heightAnchor.constraint(equalToConstant: bottomBarHeight).isActive = true
+        NSLayoutConstraint.activate([
+            bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomBarView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            bottomBarView.heightAnchor.constraint(equalToConstant: bottomBarHeight),
 
-        likeButton.leadingAnchor.constraint(equalTo: bottomBarView.leadingAnchor, constant: likeHeartMargin).isActive = true
-        likeButton.bottomAnchor.constraint(equalTo: bottomBarView.bottomAnchor, constant: -likeHeartMargin).isActive = true
-        likeButton.heightAnchor.constraint(equalToConstant: likeHeartSideLength).isActive = true
-        likeButton.widthAnchor.constraint(equalToConstant: likeHeartSideLength).isActive = true
+            likeButton.leadingAnchor.constraint(equalTo: bottomBarView.leadingAnchor, constant: likeHeartMargin),
+            likeButton.bottomAnchor.constraint(equalTo: bottomBarView.bottomAnchor, constant: -likeHeartMargin),
+            likeButton.heightAnchor.constraint(equalToConstant: likeHeartSideLength),
+            likeButton.widthAnchor.constraint(equalToConstant: likeHeartSideLength),
 
+            languageToggleZhLabel.trailingAnchor.constraint(equalTo: bottomBarView.trailingAnchor, constant: -CGFloat(23)),
+            languageToggleZhLabel.centerYAnchor.constraint(equalTo: bottomBarView.centerYAnchor, constant: -CGFloat(2)),
 
-        languageToggleZhLabel.trailingAnchor.constraint(equalTo: bottomBarView.trailingAnchor, constant: -CGFloat(23)).isActive = true
-        languageToggleZhLabel.centerYAnchor.constraint(equalTo: bottomBarView.centerYAnchor, constant: -CGFloat(2)).isActive = true
+            languageToggleButton.trailingAnchor.constraint(equalTo: languageToggleZhLabel.leadingAnchor, constant: -CGFloat(3)),
+            languageToggleButton.centerYAnchor.constraint(equalTo: likeButton.centerYAnchor),
 
-        languageToggleButton.trailingAnchor.constraint(equalTo: languageToggleZhLabel.leadingAnchor, constant: -CGFloat(3)).isActive = true
-        languageToggleButton.centerYAnchor.constraint(equalTo: likeButton.centerYAnchor).isActive = true
+            languageToggleEnLabel.trailingAnchor.constraint(equalTo: languageToggleButton.leadingAnchor, constant: -CGFloat(3)),
+            languageToggleEnLabel.centerYAnchor.constraint(equalTo: likeButton.centerYAnchor)
+        ])
+    }
 
-        languageToggleEnLabel.trailingAnchor.constraint(equalTo: languageToggleButton.leadingAnchor, constant: -CGFloat(3)).isActive = true
-        languageToggleEnLabel.centerYAnchor.constraint(equalTo: likeButton.centerYAnchor).isActive = true
+    // MARK: - NewsPlayingNow
+    func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
+        if newsPlayingNowView.superview != nil {
+            newsPlayingNowView.removeFromSuperview()
+        }
+        newsPlayingNowView.delegate = self
+
+        view.addSubview(newsPlayingNowView)
+        let collectionView = languageToggleButton.isOn ? singleZhNewsViewController.chaptersCollectionView : singleEnNewsViewController.chaptersCollectionView
+        var contentInset = collectionView.contentInset
+        contentInset.bottom = newsPlayingNowView.intrinsicContentSize.height
+        collectionView.contentInset = contentInset
+        NSLayoutConstraint.activate([
+            newsPlayingNowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsPlayingNowView.bottomAnchor.constraint(equalTo: bottomBarView.topAnchor)
+        ])
+    }
+
+    // MARK: - NewsPlayingNowViewDelegate
+    func didTapCancelButton() {
+        let collectionView = languageToggleButton.isOn ? singleZhNewsViewController.chaptersCollectionView : singleEnNewsViewController.chaptersCollectionView
+        var contentInset = collectionView.contentInset
+        contentInset.bottom = 0
+        collectionView.contentInset = contentInset
+        updatePlayButton()
     }
 
     // MARK: - Private buttom actions
@@ -310,5 +384,45 @@ class DetailedNewsViewController: UIViewController {
         singleNewsView.removeFromSuperview()
         controllerToRemove.removeFromParent()
         controllerToRemove.didMove(toParent: nil)
+    }
+
+    private func updatePlayButton() {
+        let audioKey = languageToggleButton.isOn ? news.audioZhKey : news.audioEnKey
+        if audioKey == nil {
+            playButton.isHidden = true
+        } else {
+            playButton.isHidden = false
+            let title = self.languageToggleButton.isOn ? self.news.title_zh : self.news.title_en
+            if NewsAudioPlayer.shared.isCurrentlyPlayingAudio(with: title) {
+                playButton.isEnabled = false
+            } else {
+                playButton.isEnabled = true
+            }
+        }
+    }
+
+    @objc
+    func didTapPlayAudioButton() {
+        let audioKeyOptional = languageToggleButton.isOn ? news.audioZhKey : news.audioEnKey
+        guard let audioKey = audioKeyOptional else {
+            return
+        }
+
+        Amplify.Storage.getURL(key: audioKey.key) { (result) in
+            switch result {
+            case let .success(audioURL):
+                DispatchQueue.main.async {
+                    let title = self.languageToggleButton.isOn ? self.news.title_zh : self.news.title_en
+                    NewsAudioPlayer.shared.playAudio(audioURL: audioURL, title: title, coverImageKey: self.news.imageKey)
+                    if let newsPlayNowView = NewsAudioPlayer.shared.newsPlayingNowView {
+                        self.displayNewsPlayingNowView(newsPlayNowView)
+                    }
+                    self.updatePlayButton()
+                }
+                break
+            case .failure(_):
+                break
+            }
+        }
     }
 }

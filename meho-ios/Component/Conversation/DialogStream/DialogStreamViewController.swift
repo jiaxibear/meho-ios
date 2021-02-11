@@ -16,7 +16,7 @@ enum DialogStreamType {
     case featured
 }
 
-class DialogStreamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DialogStreamHeaderCollectionReusableViewDelegate, DifficultyViewControllerDelegate, DialogModeSelectionViewControllerDelegate, MehoAnalytics {
+class DialogStreamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DialogStreamHeaderCollectionReusableViewDelegate, DifficultyViewControllerDelegate, DialogModeSelectionViewControllerDelegate, MehoAnalytics, NewsPlayingNow, NewsPlayingNowViewDelegate {
 
     // MARK: - Constants
     private let dialogCellReuseIdentifier = "dialogCellReuseIdentifier"
@@ -104,6 +104,14 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         dialogsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         dialogsCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         dialogsCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        if newsAudioPlayer.status != .notStarted, let newsPlayingNowView = newsAudioPlayer.newsPlayingNowView {
+            displayNewsPlayingNowView(newsPlayingNowView)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -249,6 +257,31 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         } else {
             view.makeToast(NSLocalizedString("removeSuccessfullyMessage", comment: ""))
         }
+    }
+
+    // MARK: - NewsPlayingNow
+    func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
+        if newsPlayingNowView.superview != nil {
+            newsPlayingNowView.removeFromSuperview()
+        }
+        newsPlayingNowView.delegate = self
+
+        view.addSubview(newsPlayingNowView)
+        var contentInset = dialogsCollectionView.contentInset
+        contentInset.bottom = newsPlayingNowView.intrinsicContentSize.height
+        dialogsCollectionView.contentInset = contentInset
+        NSLayoutConstraint.activate([
+            newsPlayingNowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsPlayingNowView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        ])
+    }
+
+    // MARK: - NewsPlayingNowViewDelegate
+    func didTapCancelButton() {
+        var contentInset = dialogsCollectionView.contentInset
+        contentInset.bottom = 0
+        dialogsCollectionView.contentInset = contentInset
     }
 
     // MARK: - Private

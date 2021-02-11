@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAnalytics
 
-class PictographyViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MehoAnalytics {
+class PictographyViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MehoAnalytics, NewsPlayingNow, NewsPlayingNowViewDelegate {
 
     // MARK: - Constant
     private let navigationHeaderText = "Pictography"
@@ -53,7 +53,7 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
         super.init(nibName: nil, bundle: nil)
     }
 
-
+    // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -72,6 +72,14 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
             case .failure(_):
                 break
             }
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        if newsAudioPlayer.status != .notStarted, let newsPlayingNowView = newsAudioPlayer.newsPlayingNowView {
+            displayNewsPlayingNowView(newsPlayingNowView)
         }
     }
 
@@ -159,5 +167,30 @@ class PictographyViewController: UIViewController, UICollectionViewDataSource, U
         }
         let indexPath = IndexPath.init(item: index, section: 0)
         pictographCollectionView.scrollToItem(at: indexPath, at: .left, animated: true )
+    }
+
+    // MARK: - NewsPlayingNow
+    func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
+        if newsPlayingNowView.superview != nil {
+            newsPlayingNowView.removeFromSuperview()
+        }
+        newsPlayingNowView.delegate = self
+
+        view.addSubview(newsPlayingNowView)
+        var contentInset = pictographCollectionView.contentInset
+        contentInset.bottom = newsPlayingNowView.intrinsicContentSize.height
+        pictographCollectionView.contentInset = contentInset
+        NSLayoutConstraint.activate([
+            newsPlayingNowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsPlayingNowView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        ])
+    }
+
+    // MARK: - NewsPlayingNowViewDelegate
+    func didTapCancelButton() {
+        var contentInset = pictographCollectionView.contentInset
+        contentInset.bottom = 0
+        pictographCollectionView.contentInset = contentInset
     }
 }

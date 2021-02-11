@@ -14,7 +14,7 @@ enum PinyinSection: Int {
     case finals
 }
 
-class PinyinViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MehoAnalytics {
+class PinyinViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MehoAnalytics, NewsPlayingNow, NewsPlayingNowViewDelegate {
 
     // MARK: - Constants
     private let navigationHeaderText = "拼音基础 Pinyin"
@@ -93,7 +93,7 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         super.init(nibName: nil, bundle: nil)
     }
 
-
+    // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -102,6 +102,14 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         setupTopSection()
         setupDetailedPinyinView()
         setupPinyinCollectionView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        if newsAudioPlayer.status != .notStarted, let newsPlayingNowView = newsAudioPlayer.newsPlayingNowView {
+            displayNewsPlayingNowView(newsPlayingNowView)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -320,7 +328,33 @@ class PinyinViewController: UIViewController, UICollectionViewDataSource, UIColl
         checkPinyinResult()
     }
 
-    func checkPinyinResult() {
+    // MARK: - NewsPlayingNow
+    func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
+        if newsPlayingNowView.superview != nil {
+            newsPlayingNowView.removeFromSuperview()
+        }
+        newsPlayingNowView.delegate = self
+
+        view.addSubview(newsPlayingNowView)
+        var contentInset = pinyinCollectionView.contentInset
+        contentInset.bottom = newsPlayingNowView.intrinsicContentSize.height
+        pinyinCollectionView.contentInset = contentInset
+        NSLayoutConstraint.activate([
+            newsPlayingNowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsPlayingNowView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        ])
+    }
+
+    // MARK: - NewsPlayingNowViewDelegate
+    func didTapCancelButton() {
+        var contentInset = pinyinCollectionView.contentInset
+        contentInset.bottom = 0
+        pinyinCollectionView.contentInset = contentInset
+    }
+
+    // MARK: - Private
+    private func checkPinyinResult() {
         if (selectedFinalIdx == noneSelectedIdx) { // if user does not even select final, no need to call to search
             self.pinyinDetailView.setNotFound(message: self.pinyinDetailReminderOneMore)
         } else { // user select a initial, can call to search

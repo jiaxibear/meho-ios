@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAnalytics
 
-class IdiomViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MehoAnalytics, IdiomCollectionViewCellDelegate {
+class IdiomViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MehoAnalytics, IdiomCollectionViewCellDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate {
 
     // MARK: - Constant
     private let cardHorizontalInsets = CGFloat(30)
@@ -91,6 +91,7 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
         return [qqsh, sjjr, csml, rsrh, byjr, jfdd, bxjj, ksxf, xxxy, yyrl, hthn, ymgg]
     } ()
 
+    // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -103,6 +104,14 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
         idiomCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         idiomCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         idiomCollectionView.heightAnchor.constraint(equalToConstant: cellHeight + 1).isActive = true
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        if newsAudioPlayer.status != .notStarted, let newsPlayingNowView = newsAudioPlayer.newsPlayingNowView {
+            displayNewsPlayingNowView(newsPlayingNowView)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -144,5 +153,30 @@ class IdiomViewController: UIViewController, UICollectionViewDataSource, UIColle
     // MARK: - IdiomCollectionViewCellDelegate
     func idiomCollectionViewCellDidTapPlayButton(idiom: Idiom) {
         Analytics.logContentAction(content: idiom, screenName: screenName, action: .play)
+    }
+
+    // MARK: - NewsPlayingNow
+    func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
+        if newsPlayingNowView.superview != nil {
+            newsPlayingNowView.removeFromSuperview()
+        }
+        newsPlayingNowView.delegate = self
+
+        view.addSubview(newsPlayingNowView)
+        var contentInset = idiomCollectionView.contentInset
+        contentInset.bottom = newsPlayingNowView.intrinsicContentSize.height
+        idiomCollectionView.contentInset = contentInset
+        NSLayoutConstraint.activate([
+            newsPlayingNowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsPlayingNowView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        ])
+    }
+
+    // MARK: - NewsPlayingNowViewDelegate
+    func didTapCancelButton() {
+        var contentInset = idiomCollectionView.contentInset
+        contentInset.bottom = 0
+        idiomCollectionView.contentInset = contentInset
     }
 }

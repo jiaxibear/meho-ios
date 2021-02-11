@@ -169,4 +169,16 @@ class NewsAudioPlayer: NSObject {
             self.newsPlayingNowView = newsPlayingNowView
         }
     }
+
+    func isCurrentlyPlayingAudio(with title: String) -> Bool {
+        if status != .playing {
+            return false
+        }
+
+        guard let newsPlayingNowView = newsPlayingNowView else {
+            return false
+        }
+
+        return newsPlayingNowView.title == title
+    }
 }

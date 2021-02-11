@@ -13,7 +13,7 @@ import AWSMobileClient
 import Amplify
 import AmplifyPlugins
 
-class DetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DuoModeFooterCollectionResuableViewDelegate, MehoAnalytics, ExpandedChapterCollectionViewCellDelegate {
+class DetailedDialogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DuoModeFooterCollectionResuableViewDelegate, MehoAnalytics, ExpandedChapterCollectionViewCellDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate {
     // MARK: - Constants
     private let collapsedChapterCollectionViewCellReuseIdentifier = "collapsedChapterCollectionViewCellReuseIdentifier"
     private let expandedChapterCollectionViewCellReuseIdentifier = "expandedChapterCollectionViewCellReuseIdentifier"
@@ -164,6 +164,14 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         chaptersCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         chaptersCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        if newsAudioPlayer.status != .notStarted, let newsPlayingNowView = newsAudioPlayer.newsPlayingNowView {
+            displayNewsPlayingNowView(newsPlayingNowView)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -368,6 +376,31 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
                 }
             }
         )
+    }
+
+    // MARK: - NewsPlayingNow
+    func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
+        if newsPlayingNowView.superview != nil {
+            newsPlayingNowView.removeFromSuperview()
+        }
+        newsPlayingNowView.delegate = self
+
+        view.addSubview(newsPlayingNowView)
+        var contentInset = chaptersCollectionView.contentInset
+        contentInset.bottom = newsPlayingNowView.intrinsicContentSize.height
+        chaptersCollectionView.contentInset = contentInset
+        NSLayoutConstraint.activate([
+            newsPlayingNowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsPlayingNowView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        ])
+    }
+
+    // MARK: - NewsPlayingNowViewDelegate
+    func didTapCancelButton() {
+        var contentInset = chaptersCollectionView.contentInset
+        contentInset.bottom = 0
+        chaptersCollectionView.contentInset = contentInset
     }
 
     // MARK: - Private

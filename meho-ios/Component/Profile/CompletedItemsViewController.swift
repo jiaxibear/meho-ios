@@ -18,7 +18,7 @@ enum CompletedItemsType: Int {
     case savedVocabularies
 }
 
-class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DialogModeSelectionViewControllerDelegate, CompletedEmptyCollectionViewCellDelegate {
+class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DialogModeSelectionViewControllerDelegate, CompletedEmptyCollectionViewCellDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate {
 
     private let contentCategoryCollectionViewCellWidth = CGFloat(40)
     private let contentCategoryCollectionViewCellHeight = CGFloat(30)
@@ -309,6 +309,10 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        if newsAudioPlayer.status != .notStarted, let newsPlayingNowView = newsAudioPlayer.newsPlayingNowView {
+            displayNewsPlayingNowView(newsPlayingNowView)
+        }
     }
 
     // MARK: - UICollectionViewDelegate
@@ -498,6 +502,31 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             }
             break
         }
+    }
+
+    // MARK: - NewsPlayingNow
+    func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
+        if newsPlayingNowView.superview != nil {
+            newsPlayingNowView.removeFromSuperview()
+        }
+        newsPlayingNowView.delegate = self
+
+        view.addSubview(newsPlayingNowView)
+        var contentInset = collectionView.contentInset
+        contentInset.bottom = newsPlayingNowView.intrinsicContentSize.height
+        collectionView.contentInset = contentInset
+        NSLayoutConstraint.activate([
+            newsPlayingNowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsPlayingNowView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        ])
+    }
+
+    // MARK: - NewsPlayingNowViewDelegate
+    func didTapCancelButton() {
+        var contentInset = collectionView.contentInset
+        contentInset.bottom = 0
+        collectionView.contentInset = contentInset
     }
 
     // MARK: - Private

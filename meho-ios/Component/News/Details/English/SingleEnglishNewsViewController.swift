@@ -32,7 +32,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
     // MARK: - UI
     private let titleLabel = UILabel.init(frame: .zero)
     private var chaptersCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-    private lazy var chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:chaptersCollectionViewFlowLayout)
+    lazy var chaptersCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:chaptersCollectionViewFlowLayout)
 
     private let newsChapterCellReuseIdentifier = "enNewsChapterCell"
     private let newsTitleHeaderCellReuseIdentifier = "enNewsTitleHeader"

@@ -8,13 +8,30 @@
 
 import UIKit
 
-class ListedCategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ListedCategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NewsPlayingNow, NewsPlayingNowViewDelegate {
 
     private let normalCategoryListCardHeight = CGFloat(64)
     private let featuredCategoryListCardHeight = CGFloat(178)
 
     private var listedCategoriesCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-    private lazy var listedCategoriesCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:listedCategoriesCollectionViewFlowLayout)
+
+    private lazy var listedCategoriesCollectionView: UICollectionView = {
+        let listedCategoriesCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:listedCategoriesCollectionViewFlowLayout)
+        listedCategoriesCollectionView.dataSource = self
+        listedCategoriesCollectionView.delegate = self
+        listedCategoriesCollectionView.backgroundColor = .white
+        listedCategoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        listedCategoriesCollectionView.showsVerticalScrollIndicator = false
+        listedCategoriesCollectionView.contentInset = .zero
+
+        // collection layout
+        listedCategoriesCollectionViewFlowLayout.scrollDirection = .vertical
+        listedCategoriesCollectionViewFlowLayout.minimumLineSpacing = 0
+
+        listedCategoriesCollectionView.register(ListedNormalCategoryCollectionViewCell.self, forCellWithReuseIdentifier:listedCategoryCellIdentifier)
+        listedCategoriesCollectionView.register(ListedFeaturedCategoryCollectionViewCell.self, forCellWithReuseIdentifier:featuredCategoryCellIdentifier)
+        return listedCategoriesCollectionView
+    } ()
 
     private let listedCategoryCellIdentifier = "listedCategory"
     private let featuredCategoryCellIdentifier = "featuredCategory"
@@ -23,6 +40,7 @@ class ListedCategoryViewController: UIViewController, UICollectionViewDataSource
     private let dataFecther = ConversationDataFetcher.init()
     private var categories:[Category] = []
 
+    // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
@@ -38,31 +56,25 @@ class ListedCategoryViewController: UIViewController, UICollectionViewDataSource
                 }
             }
         })
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        if newsAudioPlayer.status != .notStarted, let newsPlayingNowView = newsAudioPlayer.newsPlayingNowView {
+            displayNewsPlayingNowView(newsPlayingNowView)
+        }
     }
 
     func setuplistedCategoryCollectionView() {
-        // Sets up news collection.
-        listedCategoriesCollectionView.dataSource = self
-        listedCategoriesCollectionView.delegate = self
-        listedCategoriesCollectionView.backgroundColor = .white
-        listedCategoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        listedCategoriesCollectionView.showsVerticalScrollIndicator = false
-        listedCategoriesCollectionView.contentInset = .zero
-
-        // collection layout
-        listedCategoriesCollectionViewFlowLayout.scrollDirection = .vertical
-        listedCategoriesCollectionViewFlowLayout.minimumLineSpacing = 0
-
-        listedCategoriesCollectionView.register(ListedNormalCategoryCollectionViewCell.self, forCellWithReuseIdentifier:listedCategoryCellIdentifier)
-        listedCategoriesCollectionView.register(ListedFeaturedCategoryCollectionViewCell.self, forCellWithReuseIdentifier:featuredCategoryCellIdentifier)
         view.addSubview(listedCategoriesCollectionView)
 
-        // view constraints
-        listedCategoriesCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        listedCategoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        listedCategoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        listedCategoriesCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            listedCategoriesCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            listedCategoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            listedCategoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            listedCategoriesCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        ])
     }
 
     // MARK: - UICollectionViewDataSource
@@ -99,4 +111,28 @@ class ListedCategoryViewController: UIViewController, UICollectionViewDataSource
         navigationController?.pushViewController(dialogStreamViewController, animated: true)
     }
 
+    // MARK: - NewsPlayingNow
+    func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
+        if newsPlayingNowView.superview != nil {
+            newsPlayingNowView.removeFromSuperview()
+        }
+        newsPlayingNowView.delegate = self
+
+        view.addSubview(newsPlayingNowView)
+        var contentInset = listedCategoriesCollectionView.contentInset
+        contentInset.bottom = newsPlayingNowView.intrinsicContentSize.height
+        listedCategoriesCollectionView.contentInset = contentInset
+        NSLayoutConstraint.activate([
+            newsPlayingNowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsPlayingNowView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        ])
+    }
+
+    // MARK: - NewsPlayingNowViewDelegate
+    func didTapCancelButton() {
+        var contentInset = listedCategoriesCollectionView.contentInset
+        contentInset.bottom = 0
+        listedCategoriesCollectionView.contentInset = contentInset
+    }
 }
