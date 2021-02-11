@@ -456,6 +456,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
             listenButton.isSelected = true
             replayButton.isSelected = false
             recordButton.isSelected = false
+            NewsAudioPlayer.shared.pauseAudio()
             let playerItem = AVPlayerItem.init(url: audioURL)
             playerItem.audioTimePitchAlgorithm = .spectral
             player = AVPlayer.init(playerItem: playerItem)
@@ -470,6 +471,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
             Amplify.Storage.getURL(key: audioKey) { event in
                 switch event {
                 case let .success(url):
+                    NewsAudioPlayer.shared.pauseAudio()
                     let playerItem = AVPlayerItem.init(url: url)
                     self.player = AVPlayer.init(playerItem: playerItem)
                     self.player?.rate = self.currentAudioPlaySpeed.rawValue
@@ -490,6 +492,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
             listenButton.isSelected = false
             replayButton.isSelected = true
             recordButton.isSelected = false
+            NewsAudioPlayer.shared.pauseAudio()
             let playerItem = AVPlayerItem.init(url: audioFileURL!)
             player = AVPlayer.init(playerItem: playerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)

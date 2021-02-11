@@ -155,6 +155,7 @@ class CompletedExpressionCollectionViewCell: UICollectionViewCell {
     @objc
     private func didTapListenButton() {
         if let audioKey = expression.audioKey {
+            NewsAudioPlayer.shared.pauseAudio()
             let playerItem = AVPlayerItem.init(url: audioKey)
             player = AVPlayer.init(playerItem: playerItem)
             player?.rate = AudioPlaySpeed.normal.rawValue

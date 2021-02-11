@@ -141,6 +141,7 @@ class NewsRecapVocabularyCollectionViewCell: UICollectionViewCell {
             Amplify.Storage.getURL(key: audioKey) { event in
                 switch event {
                 case let .success(url):
+                    NewsAudioPlayer.shared.pauseAudio()
                     let playerItem = AVPlayerItem.init(url: url)
                     self.player = AVPlayer.init(playerItem: playerItem)
                     self.player?.rate = AudioPlaySpeed.normal.rawValue

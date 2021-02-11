@@ -28,19 +28,21 @@ class NewsAudioPlayer: NSObject {
     var newsPlayingNowView: NewsPlayingNowView?
     var status = NewsAudioPlayerStatus.notStarted {
         didSet {
-            switch status {
-            case .notStarted:
-                newsPlayingNowView?.removeFromSuperview()
-                player = nil
-                break
-            case .playing:
-                player?.play()
-                newsPlayingNowView?.isPlaying = true
-                break
-            case .paused:
-                player?.pause()
-                newsPlayingNowView?.isPlaying = false
-                break
+            DispatchQueue.main.async {
+                switch self.status {
+                case .notStarted:
+                    self.newsPlayingNowView?.removeFromSuperview()
+                    self.player = nil
+                    break
+                case .playing:
+                    self.player?.play()
+                    self.newsPlayingNowView?.isPlaying = true
+                    break
+                case .paused:
+                    self.player?.pause()
+                    self.newsPlayingNowView?.isPlaying = false
+                    break
+                }
             }
         }
     }
@@ -51,6 +53,12 @@ class NewsAudioPlayer: NSObject {
     }
 
     // MARK: - Internal
+    func pauseAudio() {
+        if status == .playing {
+            status = .paused
+        }
+    }
+
     func playAudio(audioURL: URL, title: String, coverImageKey: S3ResourceKey?) {
         if player != nil {
             player = nil

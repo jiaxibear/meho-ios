@@ -195,6 +195,7 @@ class IdiomCollectionViewCell: UICollectionViewCell {
     @objc
     func didTapPlayAudioButton() {
         if audioURL != nil {
+            NewsAudioPlayer.shared.pauseAudio()
             let playerItem = AVPlayerItem.init(url: audioURL!)
             player = AVPlayer.init(playerItem: playerItem)
             player!.rate = AudioPlaySpeed.normal.rawValue

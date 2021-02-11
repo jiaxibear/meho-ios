@@ -420,6 +420,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             let playerItem = AVPlayerItem.init(url: audioFileURL!)
             player = AVPlayer.init(playerItem: playerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+            NewsAudioPlayer.shared.pauseAudio()
             player?.play()
             actionLabel.isHidden = false
             actionLabel.text = NSLocalizedString("ReplayActionText", comment: "")
@@ -434,6 +435,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
                 DispatchQueue.main.async {
                     self.replayButton.isSelected = true
                     self.recordButton.isSelected = false
+                    NewsAudioPlayer.shared.pauseAudio()
                     let playerItem = AVPlayerItem.init(url: url)
                     self.player = AVPlayer.init(playerItem: playerItem)
                     NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
@@ -532,6 +534,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
 
     func playCurrentChapter() {
         if let currentChapter = currentScoredChapters.last, let contentAudioURL = currentChapter.chapter.contentAudioURL {
+            NewsAudioPlayer.shared.pauseAudio()
             let playerItem = AVPlayerItem.init(url: contentAudioURL)
             playerItem.audioTimePitchAlgorithm = .spectral
             player = AVPlayer.init(playerItem: playerItem)
@@ -542,6 +545,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             Amplify.Storage.getURL(key: contentAudioKey) { event in
                 switch event {
                 case let .success(url):
+                    NewsAudioPlayer.shared.pauseAudio()
                     let playerItem = AVPlayerItem.init(url: url)
                     self.player = AVPlayer.init(playerItem: playerItem)
                     NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)

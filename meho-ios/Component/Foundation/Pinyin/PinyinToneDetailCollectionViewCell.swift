@@ -108,6 +108,7 @@ class PinyinToneDetailCollectionViewCell: UICollectionViewCell {
     // MARK: - Private
     @objc func didTapPronounceButton() {
         if let audioURL = maybeToneAudioUrl {
+            NewsAudioPlayer.shared.pauseAudio()
             let playerItem = AVPlayerItem.init(url: audioURL)
             player = AVPlayer.init(playerItem: playerItem)
             player?.rate = AudioPlaySpeed.normal.rawValue
