@@ -371,7 +371,16 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
         controllerToAdd.didMove(toParent: self)
         singleNewsView = controllerToAdd.view
         singleNewsView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(singleNewsView)
+        if let newsPlayingNowView = NewsAudioPlayer.shared.newsPlayingNowView, newsPlayingNowView.superview == view {
+            view.insertSubview(singleNewsView, belowSubview: newsPlayingNowView)
+            let collectionView = languageToggleButton.isOn ? singleZhNewsViewController.chaptersCollectionView : singleEnNewsViewController.chaptersCollectionView
+            var contentInset = collectionView.contentInset
+            contentInset.bottom = newsPlayingNowView.intrinsicContentSize.height
+            collectionView.contentInset = contentInset
+            updatePlayButton()
+        } else {
+            view.addSubview(singleNewsView)
+        }
 
         // Sets up layout constrainsts.
         singleNewsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
