@@ -471,15 +471,16 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
             Amplify.Storage.getURL(key: audioKey) { event in
                 switch event {
                 case let .success(url):
-                    NewsAudioPlayer.shared.pauseAudio()
-                    let playerItem = AVPlayerItem.init(url: url)
-                    self.player = AVPlayer.init(playerItem: playerItem)
-                    self.player?.rate = self.currentAudioPlaySpeed.rawValue
-                    self.player?.play()
-                    self.player?.rate = self.currentAudioPlaySpeed.rawValue
-                    self.actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
-                    self.actionLabel.isHidden = false
-                    self.delegate?.expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: self.scoredChapter)
+                    DispatchQueue.main.async {
+                        NewsAudioPlayer.shared.pauseAudio()
+                        let playerItem = AVPlayerItem.init(url: url)
+                        self.player = AVPlayer.init(playerItem: playerItem)
+                        self.player?.rate = self.currentAudioPlaySpeed.rawValue
+                        self.player?.play()
+                        self.actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
+                        self.actionLabel.isHidden = false
+                        self.delegate?.expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: self.scoredChapter)
+                    }
                 case let .failure(storageError):
                     print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
                 }
