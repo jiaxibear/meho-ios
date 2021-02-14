@@ -20,7 +20,6 @@ class NewsItemSizeXLCollectionViewCell: UICollectionViewCell, WebImageViewDelega
     private let coverImageViewHeight = CGFloat(320)
     private let coverImageViewCornerRadius = CGFloat(8)
 
-
     // MARK: - Properties
     private let titleLabel = UILabel.init(frame: .zero)
     private let reasonView = NewsReasonView.init(frame: .zero, yellowBar: false, darkMode: true)

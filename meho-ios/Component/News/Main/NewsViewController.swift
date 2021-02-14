@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAnalytics
 import Amplify
 
-class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsItemSizeLCollectionViewCellDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate {
+class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsItemSizeLCollectionViewCellDelegate, NewsItemSizeSCollectionViewCellDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
@@ -109,6 +109,9 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         newsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         newsCollectionView.showsVerticalScrollIndicator = false
         newsCollectionView.contentInset = .zero
+        var contentInset = newsCollectionView.contentInset
+        contentInset.bottom = newsCollectionViewCellGroupSpacing
+        newsCollectionView.contentInset = contentInset
 
         // collection layout
         newsCollectionViewFlowLayout.scrollDirection = .vertical
@@ -186,7 +189,8 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
             return cell
         case "S":
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeSCellReuseIdentifier, for: indexPath) as! NewsItemSizeSCollectionViewCell
-            cell.setNews(newsItem)
+            cell.news = newsItem
+            cell.delegate = self
             return cell
         case "XS":
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeXSCellReuseIdentifier, for: indexPath) as! NewsItemSizeXSCollectionViewCell
@@ -214,6 +218,10 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let news = newsList[indexPath.item]
         Analytics.logContentImpression(content: news, screenName: screenName)
+    }
+
+    func newsItemSizeSCollectionViewCellDidTapPlayAudioButton(news: News) {
+        didTapPlayAudioButton(news: news)
     }
 
     // MARK: NewsItemSizeLCollectionViewCellDelegate
@@ -285,7 +293,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     // MARK: - NewsPlayingNowViewDelegate
     func didTapCancelButton() {
         var contentInset = newsCollectionView.contentInset
-        contentInset.bottom = 0
+        contentInset.bottom = newsCollectionViewCellGroupSpacing
         newsCollectionView.contentInset = contentInset
     }
 

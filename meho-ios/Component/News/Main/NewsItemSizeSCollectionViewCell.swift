@@ -8,26 +8,117 @@
 
 import UIKit
 
-class NewsItemSizeSCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
+protocol NewsItemSizeSCollectionViewCellDelegate: AnyObject {
+    func newsItemSizeSCollectionViewCellDidTapPlayAudioButton(news: News)
+}
+
+class NewsItemSizeSCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
     private let titleLabelFontSize = CGFloat(18)
-    private let titleLabelLeadingTrailingMargin = CGFloat(12)
-    private let titleLabelToBottomMargin = CGFloat(6)
-
     private let reasonLabelFontSize = CGFloat(16)
-    static let reasonLabelLeadingTrailingMargin = CGFloat(13)
-
-    private let reasonLabelAndTitleLabelMargin = CGFloat(10)
-    private let titleLabelAndThumbnailViewMargin = CGFloat(9)
-
+    private let labelsStackViewAndThumbnailViewMargin = CGFloat(14)
     private let thumbnailImageSideLength = CGFloat(120)
     private let thumbnailImageViewCornerRadius = CGFloat(8)
+    private let playAudioButtonWidth = CGFloat(30)
+    private let playAudioButtonHeight = CGFloat(30)
+    private let dateLabelFontSize = CGFloat(12)
+    private let thirdLineStackViewSpacing = CGFloat(16)
+    private let labelsStackViewSpacing = CGFloat(10)
 
     // MARK: - Properties
-    private let titleLabel = UILabel.init(frame: .zero)
-    private let reasonView = NewsReasonView.init(frame: .zero, yellowBar: false, darkMode: false)
-    private let thumbnailImageView = WebImageView.init(frame: .zero)
+    var delegate: NewsItemSizeSCollectionViewCellDelegate?
+
+    private lazy var playAudioButton: UIButton = {
+        let playAudioButton = UIButton.init(frame: .zero)
+        playAudioButton.translatesAutoresizingMaskIntoConstraints = false
+        let playAudioButtonImage = UIImage.init(named: "stories_purple_headphone_play")
+        playAudioButton.setImage(playAudioButtonImage, for: .normal)
+        playAudioButton.addTarget(self, action: #selector(didTapPlayAudioButton), for: .touchUpInside)
+        return playAudioButton
+    } ()
+
+    private lazy var dateLabel: UILabel = {
+        let dateLabel = UILabel.init(frame: .zero)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        var dateLabelFont = UIFont.systemFont(ofSize: dateLabelFontSize)
+        if let dateLabelFontDescriptor = dateLabelFont.fontDescriptor.withDesign(.rounded) {
+            dateLabelFont = UIFont.init(descriptor: dateLabelFontDescriptor, size: dateLabelFontSize)
+        }
+        dateLabel.font = dateLabelFont
+        return dateLabel
+    } ()
+
+    private lazy var thirdLineStackView: UIStackView = {
+        let thirdLineStackView = UIStackView.init(arrangedSubviews: [playAudioButton, dateLabel])
+        thirdLineStackView.translatesAutoresizingMaskIntoConstraints = false
+        thirdLineStackView.axis = .horizontal
+        thirdLineStackView.spacing = thirdLineStackViewSpacing
+        return thirdLineStackView
+    } ()
+
+    private lazy var labelsStackView: UIStackView = {
+        let labelsStackView = UIStackView.init(arrangedSubviews: [titleLabel, reasonView, thirdLineStackView])
+        labelsStackView.translatesAutoresizingMaskIntoConstraints = false
+        labelsStackView.axis = .vertical
+        labelsStackView.spacing = labelsStackViewSpacing
+        return labelsStackView
+    } ()
+
+    private lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel.init(frame: .zero)
+        titleLabel.numberOfLines = 3
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textColor = .darkGrayTwo
+        let labelfontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
+        titleLabel.font = UIFont.init(descriptor: labelfontDescriptor!, size: 0)
+        titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        return titleLabel
+    } ()
+
+    private lazy var reasonView: NewsReasonView = {
+        let reasonView = NewsReasonView.init(frame: .zero, yellowBar: false, darkMode: false)
+        reasonView.translatesAutoresizingMaskIntoConstraints = false
+        return reasonView
+    } ()
+
+    private lazy var thumbnailImageView: WebImageView = {
+        let thumbnailImageView = WebImageView.init(frame: .zero)
+        thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
+        thumbnailImageView.layer.cornerRadius = thumbnailImageViewCornerRadius
+        thumbnailImageView.contentMode = .scaleAspectFill
+        thumbnailImageView.clipsToBounds = true
+        return thumbnailImageView
+    } ()
+
+    private lazy var thirdLineStackViewHeightAnchor: NSLayoutConstraint = {
+        return thirdLineStackView.heightAnchor.constraint(equalToConstant: 0)
+    } ()
+
     private static var sizingCell = NewsItemSizeSCollectionViewCell.init(frame: .zero);
+
+    var news: News? {
+        didSet {
+            if let news = news {
+                titleLabel.text = news.title_en
+
+                // Sets the reason text
+                reasonView.setReasonText(text: news.reason)
+
+                // Downloads the image.
+                if let coverImageURL = news.coverImageURL {
+                    thumbnailImageView.imageURL = coverImageURL
+                } else if let imageKey = news.imageKey {
+                    thumbnailImageView.imageKey = imageKey
+                }
+
+                dateLabel.text = news.date
+                thirdLineStackViewHeightAnchor.constant = thirdLineStackViewHeight(width: contentView.bounds.width)
+                if news.audioEnKey == nil {
+                    playAudioButton.isHidden = true
+                }
+            }
+        }
+    }
 
     // MARK: - Init
     @available(*, unavailable)
@@ -44,70 +135,47 @@ class NewsItemSizeSCollectionViewCell: UICollectionViewCell, WebImageViewDelegat
         super.init(frame: frame)
         backgroundColor = .white
 
-        // Sets up cover image view.
-        thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
-        thumbnailImageView.layer.cornerRadius = thumbnailImageViewCornerRadius
-        thumbnailImageView.contentMode = .scaleAspectFill
-        thumbnailImageView.clipsToBounds = true
-        thumbnailImageView.delegate = self
         contentView.addSubview(thumbnailImageView)
+        contentView.addSubview(labelsStackView)
 
-        // Sets up title label.
-        titleLabel.numberOfLines = 3
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = .darkGrayTwo
-        let labelfontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        titleLabel.font = UIFont.init(descriptor: labelfontDescriptor!, size: 0)
-        contentView.addSubview(titleLabel)
-
-        // Sets up reason label.
-        reasonView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(reasonView)
-
-        // Sets up constraints
-
-        thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        thumbnailImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        thumbnailImageView.heightAnchor.constraint(equalToConstant: thumbnailImageSideLength).isActive = true
-        thumbnailImageView.widthAnchor.constraint(equalToConstant: thumbnailImageSideLength).isActive = true
-
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: -titleLabelAndThumbnailViewMargin).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-
-        reasonView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        reasonView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: reasonLabelAndTitleLabelMargin).isActive = true
-        reasonView.trailingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: -titleLabelAndThumbnailViewMargin).isActive = true
-    }
-
-    // MARK - WebImageViewDelegate
-    func webImageViewDidSetImage(webImageView: WebImageView) {
-        self.contentView.isHidden = false
-    }
-
-    // MARK: - Public
-    public func setNews(_ news: News) {
-        // Sets the text for the title label.
-        titleLabel.text = news.title_en
-
-        // Sets the reason text
-        reasonView.setReasonText(text: news.reason)
-
-        // Downloads the image.
-        if let coverImageURL = news.coverImageURL {
-            thumbnailImageView.imageURL = coverImageURL
-        }
-        if let imageKey = news.imageKey {
-            thumbnailImageView.imageKey = imageKey
-        }
+        NSLayoutConstraint.activate([
+            thumbnailImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            thumbnailImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            thumbnailImageView.heightAnchor.constraint(equalToConstant: thumbnailImageSideLength),
+            thumbnailImageView.widthAnchor.constraint(equalToConstant: thumbnailImageSideLength),
+            playAudioButton.widthAnchor.constraint(equalToConstant: playAudioButtonWidth),
+            playAudioButton.heightAnchor.constraint(equalToConstant: playAudioButtonHeight),
+            labelsStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            labelsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            labelsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            labelsStackView.trailingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: -labelsStackViewAndThumbnailViewMargin),
+        ])
     }
 
     public class func cellHeight(with width: CGFloat, news: News) -> CGFloat {
-        sizingCell.titleLabel.text = news.title_en
-        sizingCell.reasonView.setReasonText(text: news.reason)
-        let titleAndReasonHeight = sizingCell.reasonView.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height
-            + sizingCell.reasonLabelAndTitleLabelMargin
-            + sizingCell.titleLabel.sizeThatFits(CGSize.init(width: width, height: .greatestFiniteMagnitude)).height
-        return max(titleAndReasonHeight, sizingCell.thumbnailImageSideLength)
+        sizingCell.news = news
+        let labelMaxWidth = width - sizingCell.thumbnailImageSideLength - sizingCell.labelsStackViewAndThumbnailViewMargin
+        let labelFittingSize = CGSize.init(width: labelMaxWidth, height: .greatestFiniteMagnitude)
+        var height = sizingCell.titleLabel.sizeThatFits(labelFittingSize).height + sizingCell.reasonView.sizeThatFits(labelFittingSize).height + sizingCell.labelsStackViewSpacing
+        if news.audioEnKey != nil {
+            height += sizingCell.thirdLineStackViewHeight(width: width) + 2 * sizingCell.labelsStackViewSpacing
+        }
+        return max(height, sizingCell.thumbnailImageSideLength)
+    }
+
+    private func thirdLineStackViewHeight(width: CGFloat) -> CGFloat {
+        var dateLabelMaxtWidth = width - thumbnailImageSideLength - labelsStackViewAndThumbnailViewMargin
+        if news?.audioEnKey != nil {
+            dateLabelMaxtWidth -= playAudioButtonWidth + thirdLineStackViewSpacing
+        }
+        let dateLabelHeight = dateLabel.sizeThatFits(CGSize.init(width: dateLabelMaxtWidth, height: .greatestFiniteMagnitude)).height
+        return max(dateLabelHeight, playAudioButtonHeight)
+    }
+
+    @objc
+    private func didTapPlayAudioButton() {
+        if let news = news {
+            delegate?.newsItemSizeSCollectionViewCellDidTapPlayAudioButton(news: news)
+        }
     }
 }
