@@ -28,20 +28,11 @@ class NewsAudioPlayer: NSObject {
     var newsPlayingNowView: NewsPlayingNowView?
     var status = NewsAudioPlayerStatus.notStarted {
         didSet {
-            DispatchQueue.main.async {
-                switch self.status {
-                case .notStarted:
-                    self.newsPlayingNowView?.removeFromSuperview()
-                    self.player = nil
-                    break
-                case .playing:
-                    self.player?.play()
-                    self.newsPlayingNowView?.isPlaying = true
-                    break
-                case .paused:
-                    self.player?.pause()
-                    self.newsPlayingNowView?.isPlaying = false
-                    break
+            if Thread.isMainThread {
+                didUpdateStatus()
+            } else {
+                DispatchQueue.main.async {
+                    self.didUpdateStatus()
                 }
             }
         }
@@ -117,7 +108,7 @@ class NewsAudioPlayer: NSObject {
             guard self.player != nil else {
                 return .noSuchContent
             }
-            self.status = .playing
+            self.status = .paused
             return .success
         }
 
@@ -177,6 +168,7 @@ class NewsAudioPlayer: NSObject {
             self.newsPlayingNowView = newsPlayingNowView
         }
     }
+    
 
     func isCurrentlyPlayingAudio(with title: String) -> Bool {
         if status != .playing {
@@ -188,5 +180,22 @@ class NewsAudioPlayer: NSObject {
         }
 
         return newsPlayingNowView.title == title
+    }
+
+    private func didUpdateStatus() {
+        switch self.status {
+        case .notStarted:
+            self.newsPlayingNowView?.removeFromSuperview()
+            self.player = nil
+            break
+        case .playing:
+            self.player?.play()
+            self.newsPlayingNowView?.isPlaying = true
+            break
+        case .paused:
+            self.player?.pause()
+            self.newsPlayingNowView?.isPlaying = false
+            break
+        }
     }
 }
