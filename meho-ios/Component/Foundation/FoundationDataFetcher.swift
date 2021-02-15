@@ -21,7 +21,7 @@ class FoundationDataFetcher: NSObject {
 
     public func fetchPictrographList(completionHandler: @escaping ( Result<[Pictograph], Error>) -> Void) {
         var bird = Pictograph.init()
-        bird.content_en = "fire"
+        bird.content_en = "bird"
         bird.gifImageURL = URL.init(string: "https://meho-assets.s3-us-west-2.amazonaws.com/bird.gif")
         var cloud = Pictograph.init()
         cloud.content_en = "cloud"

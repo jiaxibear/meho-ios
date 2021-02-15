@@ -490,20 +490,17 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             return
         }
         userDataFetcher.getUserItemSave (userId: userID, itemId: dialog.identifier, completionHandler: { (isSaved, error) in
-            if (error == nil && isSaved) {
-                var maybeIsSaved: Bool?
-                if (error == nil) {
-                    maybeIsSaved = isSaved
-                }
-                let dialogModeSelectionViewController = DialogModeSelectionViewController.init(dialog: dialog, maybeIsSaved: maybeIsSaved)
-                dialogModeSelectionViewController.delegate = self
-                let dialogViewController = DialogViewController.init(contentViewController: dialogModeSelectionViewController)
-                dialogViewController.modalPresentationStyle = .overFullScreen
-                dialogViewController.modalTransitionStyle = .crossDissolve
+            guard error == nil else {
+                return
+            }
+            let dialogModeSelectionViewController = DialogModeSelectionViewController.init(dialog: dialog, maybeIsSaved: isSaved)
+            dialogModeSelectionViewController.delegate = self
+            let dialogViewController = DialogViewController.init(contentViewController: dialogModeSelectionViewController)
+            dialogViewController.modalPresentationStyle = .overFullScreen
+            dialogViewController.modalTransitionStyle = .crossDissolve
 
-                DispatchQueue.main.async {
-                    self.navigationController?.present(dialogViewController, animated: true, completion: nil)
-                }
+            DispatchQueue.main.async {
+                self.navigationController?.present(dialogViewController, animated: true, completion: nil)
             }
         })
     }

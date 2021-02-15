@@ -234,9 +234,8 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         let scoredChapter = scoredChapters[currentChapterIndex]
         if scoredChapter.isExpressionChapter, let userId = AWSMobileClient.default().userSub {
             userDataFetcher.getUserItemSave (userId: userId, itemId: scoredChapter.chapter.identifier, completionHandler: { (isSaved, error) in
-                var maybeIsSaved: Bool?
-                if (error == nil) {
-                    maybeIsSaved = isSaved
+                guard error == nil else {
+                    return
                 }
 
                 DispatchQueue.main.async {
@@ -245,7 +244,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
                     }
                     collectionView.scrollToItem(at: IndexPath.init(item: self.currentChapterIndex, section: 0), at: .top, animated: true)
                     if let expandedChapterCollectionViewCell = collectionView.cellForItem(at: indexPath) as? ExpandedChapterCollectionViewCell {
-                        expandedChapterCollectionViewCell.setInitialSaveButton(maybeIsSaved: maybeIsSaved)
+                        expandedChapterCollectionViewCell.setInitialSaveButton(maybeIsSaved: isSaved)
                         expandedChapterCollectionViewCell.playAudio()
                     }
                 }
