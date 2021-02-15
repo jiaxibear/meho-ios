@@ -108,11 +108,11 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(roleImageView)
-        addSubview(roleLabel)
-        addSubview(contentBackgroundView)
-        addSubview(speakerButton)
-        addSubview(scoreView)
+        contentView.addSubview(roleImageView)
+        contentView.addSubview(roleLabel)
+        contentView.addSubview(contentBackgroundView)
+        contentView.addSubview(speakerButton)
+        contentView.addSubview(scoreView)
         contentBackgroundView.addSubview(contentLabel)
         contentBackgroundView.addSubview(contentPinyinLabel)
 

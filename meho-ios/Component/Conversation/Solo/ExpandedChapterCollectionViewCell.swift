@@ -511,6 +511,10 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         if player?.timeControlStatus == .playing {
             player?.pause()
         }
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        if newsAudioPlayer.status == .playing {
+            newsAudioPlayer.status = .paused
+        }
         actionLabel.isHidden = false
         actionLabel.text = NSLocalizedString("RecordActionText", comment: "")
         startRecording()

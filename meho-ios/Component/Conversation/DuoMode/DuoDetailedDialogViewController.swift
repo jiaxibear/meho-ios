@@ -569,6 +569,10 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     }
 
     private func startRecording() {
+        let newsAudioPlayer = NewsAudioPlayer.shared
+        if newsAudioPlayer.status == .playing {
+            newsAudioPlayer.status = .paused
+        }
         let settings = [
             AVFormatIDKey: Int(kAudioFormatLinearPCM),
             AVSampleRateKey: 16000,
