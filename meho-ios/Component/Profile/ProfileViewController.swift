@@ -474,12 +474,16 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 let detailedNewsViewController = DetailedNewsViewController.init(news: news)
                 navigationController?.pushViewController(detailedNewsViewController, animated: true)
             }
-            break
         case .talk:
             if let dialog = profileCard as? Dialog {
                 presentDialogModeSelectionViewController(dialog: dialog)
             }
-            break
+        case .expression:
+            if let expression = profileCard as? Expression {
+                let categoty = expression.category.rawValue
+                let detailedDialogViewController = DetailedDialogViewController.init(survivalPhraseCategoryIdentifier: categoty, title: categoty, initialChapter: expression.contentZh)
+                navigationController?.pushViewController(detailedDialogViewController, animated: true)
+            }
         default:
             break
         }

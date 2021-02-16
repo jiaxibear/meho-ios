@@ -30,6 +30,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     private var currentChapterIndex = 0
     private var hasAutoPlayedAudio = false
     private let displayScoreSwitch: DisplayScoreSwitch?
+    private var initialChapter: String?
 
     // MARK: MehoAnalytics
     var screenName: String {
@@ -95,8 +96,9 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         super.init(nibName: nil, bundle: nil)
     }
 
-    init(survivalPhraseCategoryIdentifier: String, title: String) {
+    init(survivalPhraseCategoryIdentifier: String, title: String, initialChapter: String? = nil) {
         self.survivalPhraseCategoryIdentifier = survivalPhraseCategoryIdentifier
+        self.initialChapter = initialChapter
         dialog = nil
         displayScoreSwitch = DisplayScoreSwitch.init(frame: .zero)
         super.init(nibName: nil, bundle: nil)
@@ -143,7 +145,22 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
                 })
                 DispatchQueue.main.async {
                     self.hasAutoPlayedAudio = true
-                    self.chaptersCollectionView.reloadData()
+                    if let initialChapter = self.initialChapter {
+                        var initialChapterIndex = -1
+                        for (index, element) in self.scoredChapters.enumerated() {
+                            if element.chapter.content == initialChapter {
+                                initialChapterIndex = index
+                                break
+                            }
+                        }
+                        if initialChapterIndex != -1 {
+                            self.currentChapterIndex = initialChapterIndex
+                            self.chaptersCollectionView.reloadData()
+                            self.chaptersCollectionView.scrollToItem(at: IndexPath.init(item: initialChapterIndex, section: 0), at: .top, animated: false)
+                        }
+                    } else {
+                        self.chaptersCollectionView.reloadData()
+                    }
                     let audioSession = AVAudioSession.sharedInstance()
                     audioSession.requestRecordPermission { (allowed) in
                         // TODO: Add UI if not allowed.

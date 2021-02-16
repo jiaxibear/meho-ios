@@ -174,44 +174,34 @@ class ProfileDataFetcher: NSObject {
             if let contentZh = profileCardJSONObject["contentZh"] as? String {
                 expression.contentZh = contentZh
             }
-            if let categoryString = profileCardJSONObject["type"] as? String {
+            if let categoryString = profileCardJSONObject["label"] as? String {
                 var category: SurvivalPhraseCategoryIdentifier?
                 switch categoryString {
                 case "Basic":
                     category = .basic
-                    break
                 case "Number":
                     category = .numbers
-                    break
                 case "Shopping":
                     category = .shopping
-                    break
                 case "Travel":
                     category = .travel
-                    break
                 case "Dining":
                     category = .dining
-                    break
                 case "Business":
                     category = .business
-                    break
                 case "Entertainment":
                     category = .entertainment
-                    break
                 case "Family":
                     category = .family
-                    break
                 case "Flirting":
                     category = .flirting
-                    break
                 case "Festivities":
                     category = .festivities
-                    break
                 default:
                     break
                 }
-                if category != nil {
-                    expression.category = category!
+                if let category = category {
+                    expression.category = category
                 }
             }
             return expression
