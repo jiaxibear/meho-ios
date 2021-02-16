@@ -21,16 +21,12 @@ class ScoredChapter: NSObject, MehoContentAnalytics {
     var score: Float
     var scoredContent: NSAttributedString?
     var shouldDisplayScore = false
-    var isExpressionChapter = false
+    var isSaved: Bool?
+    let canBeSaved: Bool
 
-    init(chapter: Chapter) {
+    init(chapter: Chapter, canBeSaved: Bool = false) {
         self.chapter = chapter
-        score = -1
-    }
-
-    init(chapter: Chapter, displaySaveButton: Bool) {
-        self.chapter = chapter
-        self.isExpressionChapter = displaySaveButton
+        self.canBeSaved = canBeSaved
         score = -1
     }
 }

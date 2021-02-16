@@ -349,7 +349,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
     }
 
     // MARK: - Internal
-    func setScoredChapter(_ scoredChapter: ScoredChapter, isSaveButtonHidden: Bool) {
+    func setScoredChapter(_ scoredChapter: ScoredChapter) {
         let chapter = scoredChapter.chapter
         if let scoredContent = scoredChapter.scoredContent {
             contentLabel.attributedText = scoredContent
@@ -379,8 +379,11 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         let audioFileName = "\(identifier).caf"
         audioFileURL = temporaryDirectoryURL.appendingPathComponent(audioFileName)
         replayButton.isEnabled = FileManager.default.fileExists(atPath: audioFileURL!.path)
+        saveButton.isHidden = !scoredChapter.canBeSaved
+        if !saveButton.isHidden, let isSaved = scoredChapter.isSaved {
+            saveButton.isSelected = isSaved
+        }
         self.scoredChapter = scoredChapter
-        saveButton.isHidden = isSaveButtonHidden
     }
 
     func playAudio() {
@@ -537,13 +540,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         // TODO: Implement
         delegate?.expandedChapterCollectionViewCellDidTapSaveButton(scoredChapter: scoredChapter, currentIsSaved: saveButton.isSelected)
         saveButton.isSelected = !saveButton.isSelected
-    }
-
-    func setInitialSaveButton(maybeIsSaved: Bool?) {
-        if let isSaved = maybeIsSaved {
-            saveButton.isHidden = false
-            saveButton.isSelected = isSaved
-        }
     }
 
     @objc func playerDidFinishPlaying() {
