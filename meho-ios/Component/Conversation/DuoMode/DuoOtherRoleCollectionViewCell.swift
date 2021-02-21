@@ -26,8 +26,8 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Properties
     // MARK: UI
-    private lazy var roleImageView: UIImageView = {
-        let avatarImageView = UIImageView.init(frame: .zero)
+    private lazy var roleImageView: WebImageView = {
+        let avatarImageView = WebImageView.init(frame: .zero)
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.clipsToBounds = true
         avatarImageView.layer.cornerRadius = DuoOtherRoleCollectionViewCell.roleImageViewSize / 2
@@ -117,8 +117,9 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Internal
     func setScoredChapter(_ scoredChapter: ScoredChapter, isActive: Bool, name: String) {
-        let role = scoredChapter.chapter.role
-        roleImageView.image = RoleUtils.avatarImage(with: role)
+        if let roleAvatar = scoredChapter.chapter.roleAvatar {
+            roleImageView.imageKey = roleAvatar
+        }
         roleLabel.text = name
         contentLabel.text = scoredChapter.chapter.content
         if isActive {

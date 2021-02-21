@@ -54,6 +54,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     private let dialog: Dialog
     private var scoreA: Int?
     private var scoreB: Int?
+    private var basicUser: BasicUser?
 
     // MARK: UI
     private lazy var progressView: UIProgressView = {
@@ -186,74 +187,74 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         actionButtonsContainerView.addSubview(nextButton)
         view.addSubview(chaptersCollectionView)
 
-        if scoredChapters.count == 0 {
-//            self.scoredChapters = dialog.chapters.map({ (chapter) -> ScoredChapter in
-//                return ScoredChapter.init(chapter: chapter)
-//            })
-//            self.chaptersCollectionView.reloadData()
-//            self.loadFirstChapter()
-//            let audioSession = AVAudioSession.sharedInstance()
-//            audioSession.requestRecordPermission { (allowed) in
-//                // TODO: Add UI if not allowed.
-//            }
+        NSLayoutConstraint.activate([
+            actionButtonsContainerView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -DuoDetailedDialogViewController.recordButtonBottomMargin),
+            actionButtonsContainerView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            actionButtonsContainerView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            actionButtonsContainerView.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.recordButtonSize),
 
+            audioVisualizerView.topAnchor.constraint(equalTo: actionButtonsContainerView.topAnchor),
+            audioVisualizerView.bottomAnchor.constraint(equalTo: actionButtonsContainerView.bottomAnchor),
+            audioVisualizerView.leadingAnchor.constraint(equalTo: actionButtonsContainerView.leadingAnchor),
+            audioVisualizerView.trailingAnchor.constraint(equalTo: actionButtonsContainerView.trailingAnchor),
 
-            conversationDataFetcher.fetchDetailedDialog(dialogID: dialog.identifier) { (dialog, error) in
-                if (dialog != nil && error == nil) {
-                    self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in
-                        return ScoredChapter.init(chapter: chapter)
-                    })
-                    DispatchQueue.main.async {
-                        self.chaptersCollectionView.reloadData()
-                        self.loadFirstChapter()
-                        let audioSession = AVAudioSession.sharedInstance()
-                        audioSession.requestRecordPermission { (allowed) in
-                            // TODO: Add UI if not allowed.
+            recordButton.widthAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.recordButtonSize),
+            recordButton.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.recordButtonSize),
+            recordButton.bottomAnchor.constraint(equalTo: actionButtonsContainerView.bottomAnchor),
+            recordButton.centerXAnchor.constraint(equalTo: actionButtonsContainerView.centerXAnchor),
+
+            replayButton.widthAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.replayButtonSize),
+            replayButton.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.replayButtonSize),
+            replayButton.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor),
+            replayButton.trailingAnchor.constraint(equalTo: recordButton.leadingAnchor, constant: -DuoDetailedDialogViewController.actionButtonsMargin),
+
+            nextButton.widthAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.nextButtonSize),
+            nextButton.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.nextButtonSize),
+            nextButton.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor),
+            nextButton.leadingAnchor.constraint(equalTo: recordButton.trailingAnchor, constant: DuoDetailedDialogViewController.actionButtonsMargin),
+
+            actionLabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
+            actionLabel.bottomAnchor.constraint(equalTo: actionButtonsContainerView.topAnchor, constant: -DuoDetailedDialogViewController.actionButtonsTopMargin),
+
+            chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            chaptersCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            chaptersCollectionView.bottomAnchor.constraint(equalTo: actionLabel.topAnchor, constant: -DuoDetailedDialogViewController.actionLabelAndChaptersCollectionViewMargin)
+        ])
+
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+
+        userDataFetcher.getUser(userId: userID) { (basicUser, error) in
+            DispatchQueue.main.async {
+                self.basicUser = basicUser
+                if self.scoredChapters.count == 0 {
+                    self.conversationDataFetcher.fetchDetailedDialog(dialogID: self.dialog.identifier) { (dialog, error) in
+                        if (dialog != nil && error == nil) {
+                            self.scoredChapters = dialog!.chapters.map({ (chapter) -> ScoredChapter in
+                                return ScoredChapter.init(chapter: chapter)
+                            })
+                            DispatchQueue.main.async {
+                                self.chaptersCollectionView.reloadData()
+                                self.loadFirstChapter()
+                                let audioSession = AVAudioSession.sharedInstance()
+                                audioSession.requestRecordPermission { (allowed) in
+                                    // TODO: Add UI if not allowed.
+                                }
+                            }
                         }
+                    }
+                    guard let userId = AWSMobileClient.default().userSub else { return }
+                    self.userDataFetcher.startItemProgressIfNeeded(userId: userId, itemId: self.dialog.identifier, itemType: "DIALOGUE")
+                } else {
+                    let audioSession = AVAudioSession.sharedInstance()
+                    audioSession.requestRecordPermission { (allowed) in
+                        // TODO: Add UI if not allowed.
                     }
                 }
             }
-            guard let userId = AWSMobileClient.default().userSub else { return }
-            userDataFetcher.startItemProgressIfNeeded(userId: userId, itemId: dialog.identifier, itemType: "DIALOGUE")
-        } else {
-            let audioSession = AVAudioSession.sharedInstance()
-            audioSession.requestRecordPermission { (allowed) in
-                // TODO: Add UI if not allowed.
-            }
         }
-
-        actionButtonsContainerView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -DuoDetailedDialogViewController.recordButtonBottomMargin).isActive = true
-        actionButtonsContainerView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-        actionButtonsContainerView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
-        actionButtonsContainerView.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.recordButtonSize).isActive = true
-
-        audioVisualizerView.topAnchor.constraint(equalTo: actionButtonsContainerView.topAnchor).isActive = true
-        audioVisualizerView.bottomAnchor.constraint(equalTo: actionButtonsContainerView.bottomAnchor).isActive = true
-        audioVisualizerView.leadingAnchor.constraint(equalTo: actionButtonsContainerView.leadingAnchor).isActive = true
-        audioVisualizerView.trailingAnchor.constraint(equalTo: actionButtonsContainerView.trailingAnchor).isActive = true
-
-        recordButton.widthAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.recordButtonSize).isActive = true
-        recordButton.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.recordButtonSize).isActive = true
-        recordButton.bottomAnchor.constraint(equalTo: actionButtonsContainerView.bottomAnchor).isActive = true
-        recordButton.centerXAnchor.constraint(equalTo: actionButtonsContainerView.centerXAnchor).isActive = true
-
-        replayButton.widthAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.replayButtonSize).isActive = true
-        replayButton.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.replayButtonSize).isActive = true
-        replayButton.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor).isActive = true
-        replayButton.trailingAnchor.constraint(equalTo: recordButton.leadingAnchor, constant: -DuoDetailedDialogViewController.actionButtonsMargin).isActive = true
-
-        nextButton.widthAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.nextButtonSize).isActive = true
-        nextButton.heightAnchor.constraint(equalToConstant: DuoDetailedDialogViewController.nextButtonSize).isActive = true
-        nextButton.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor).isActive = true
-        nextButton.leadingAnchor.constraint(equalTo: recordButton.trailingAnchor, constant: DuoDetailedDialogViewController.actionButtonsMargin).isActive = true
-
-        actionLabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor).isActive = true
-        actionLabel.bottomAnchor.constraint(equalTo: actionButtonsContainerView.topAnchor, constant: -DuoDetailedDialogViewController.actionButtonsTopMargin).isActive = true
-
-        chaptersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        chaptersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        chaptersCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        chaptersCollectionView.bottomAnchor.constraint(equalTo: actionLabel.topAnchor, constant: -DuoDetailedDialogViewController.actionLabelAndChaptersCollectionViewMargin).isActive = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -281,7 +282,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         if isChapterYourRole(index: item) {
             if let duoYourRoleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DuoDetailedDialogViewController.duoYourRoleCollectionViewCellReuseIdentifier, for: indexPath) as? DuoYourRoleCollectionViewCell {
                 duoYourRoleCollectionViewCell.delegate = self
-                duoYourRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item], isActive: isActive, name: name)
+                duoYourRoleCollectionViewCell.setScoredChapter(currentScoredChapters[item], isActive: isActive, name: name, basicUser: basicUser)
                 return duoYourRoleCollectionViewCell
             }
         } else {

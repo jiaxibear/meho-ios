@@ -29,11 +29,12 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
     private static let contentPinyinLabelAndContentLabelMargin = CGFloat(6)
     private static let speakerButtonSize = CGFloat(30)
     private static let speakerImageName = "conversation_speaker"
+    private static let roleImageViewFont = CGFloat(12)
 
     // MARK: - Properties
     // MARK: UI
-    private lazy var roleImageView: UIImageView = {
-        let avatarImageView = UIImageView.init(frame: .zero)
+    private lazy var roleImageView: WebImageView = {
+        let avatarImageView = WebImageView.init(frame: .zero)
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.clipsToBounds = true
         avatarImageView.layer.cornerRadius = DuoYourRoleCollectionViewCell.roleImageViewSize / 2
@@ -153,10 +154,8 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - Internal
-    func setScoredChapter(_ scoredChapter: ScoredChapter, isActive: Bool, name: String) {
+    func setScoredChapter(_ scoredChapter: ScoredChapter, isActive: Bool, name: String, basicUser: BasicUser?) {
         let chapter = scoredChapter.chapter
-        let role = chapter.role
-        roleImageView.image = RoleUtils.avatarImage(with: role)
         roleLabel.text = name
         contentLabel.text = chapter.content
         contentPinyinLabel.text = chapter.contentPinyin
@@ -183,6 +182,16 @@ class DuoYourRoleCollectionViewCell: UICollectionViewCell {
         } else {
             speakerButton.isHidden = false
             scoreView.isHidden = true
+        }
+        if let basicUser = basicUser {
+            var textAttributes: [NSAttributedString.Key : AnyObject] = [.foregroundColor: UIColor.white]
+            let roleImageViewFont = UIFont.systemFont(ofSize: DuoYourRoleCollectionViewCell.roleImageViewFont, weight: .semibold)
+            if let profileImageViewFontDescriptor = roleImageViewFont.fontDescriptor.withDesign(.rounded) {
+                textAttributes[.font] = UIFont.init(descriptor: profileImageViewFontDescriptor, size: DuoYourRoleCollectionViewCell.roleImageViewFont)
+            } else {
+                textAttributes[.font] = roleImageViewFont
+            }
+            self.roleImageView.loadProfilePhoto(basicUser: basicUser, textAttributes: textAttributes)
         }
     }
 

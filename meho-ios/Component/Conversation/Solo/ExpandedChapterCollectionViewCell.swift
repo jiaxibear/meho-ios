@@ -79,8 +79,8 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
 
     // MARK: - Properties
     // MARK: UI
-    private lazy var avatarView: UIImageView = {
-        let avatarView = UIImageView.init(frame: .zero)
+    private lazy var avatarView: WebImageView = {
+        let avatarView = WebImageView.init(frame: .zero)
         avatarView.clipsToBounds = true
         avatarView.layer.cornerRadius = avatarViewSize / 2
         avatarView.translatesAutoresizingMaskIntoConstraints = false
@@ -364,8 +364,8 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
         } else {
             scoreView.isHidden = true
         }
-        if chapter.role.count > 0 {
-            avatarView.image = RoleUtils.avatarImage(with: chapter.role)
+        if let roleAvatar = chapter.roleAvatar {
+            avatarView.imageKey = roleAvatar
             avatarViewHeightConstraint.constant = avatarViewSize
             avatarViewTopMarginConstraint.constant = avatarViewTopBottomMargin
         } else {

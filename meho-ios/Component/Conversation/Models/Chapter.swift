@@ -16,5 +16,6 @@ struct Chapter {
     var contentAudioKey:String?
     var sequence = -1
     var role = ""
+    var roleAvatar: S3ResourceKey?
     var identifier = ""
 }

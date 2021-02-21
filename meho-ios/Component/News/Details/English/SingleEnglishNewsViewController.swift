@@ -94,18 +94,6 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
                 }
             }
         })
-
-        // Fetch related news, preparing data for related news list in footer
-        // Hide for Beta launch. Will resume
-//        dataFecther.fetchNewsList (count: "3", completionHandler: { (newsList, error) in
-//            if (error == nil && newsList != nil) {
-//                DispatchQueue.main.async {
-//                    self.relatedNewsList = newsList!
-//                    self.hasFetchedNewsList = true
-//                    self.tryReloadCollectionView()
-//                }
-//            }
-//        })
     }
 
     override func viewDidAppear(_ animated: Bool) {
