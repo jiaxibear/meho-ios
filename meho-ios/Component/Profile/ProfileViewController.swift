@@ -559,19 +559,21 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.inProgressItems = profileDetails!.inProgressItems
             self.savedItems = profileDetails!.savedItems
             self.saveVocabularies = profileDetails!.savedVocabularies
-            var completedStoriesItem = ProfileCompletedItem.init(title: "stories", count: 0, color: UIColor.skyBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
+            var completedStoriesItem = ProfileCompletedItem.init(title: "stories completed", count: 0, color: UIColor.skyBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
+            var completedExpressionsItem = ProfileCompletedItem.init(title: "expressions practiced", count: 0, color: UIColor.periwinkleBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedExpressions)
             for completedItem in self.completedItems {
                 switch completedItem.profileCardType {
                 case .story:
                     completedStoriesItem.count += 1
                     completedStoriesItem.items.append(completedItem)
-                    break
+                case .expression:
+                    completedExpressionsItem.count += 1
+                    completedExpressionsItem.items.append(completedItem)
                 default:
                     break
                 }
             }
-            let completedExpressionsItem = ProfileCompletedItem.init(title: "expressions", count: 0, color: UIColor.periwinkleBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedExpressions)
-            let completedTalksItem = ProfileCompletedItem.init(title: "talks", count: 0, color: UIColor.periwinkle.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
+            let completedTalksItem = ProfileCompletedItem.init(title: "talks completed", count: 0, color: UIColor.periwinkle.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
             self.completedGroupedItems = [completedStoriesItem, completedExpressionsItem, completedTalksItem]
             DispatchQueue.main.async {
                 self.refreshControl.endRefreshing()

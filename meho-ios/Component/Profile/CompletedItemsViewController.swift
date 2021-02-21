@@ -78,29 +78,25 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
 
         switch completedItemsType {
         case .completedExpressions:
-            break
+            collectionView.register(CompletedExpressionCollectionViewCell.self, forCellWithReuseIdentifier: completedExpressionCollectionViewCellIdentifier)
         case .completedTalks:
             break
         case .completedStories:
             collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: completedNewsCollectionViewCellIdentifier)
-            break
         case .inProgressAll:
             collectionView.register(CompletedCategoryCollectionViewCell.self, forCellWithReuseIdentifier: completedCategoryCollectionViewCellIdentifier)
             collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: completedNewsCollectionViewCellIdentifier)
             collectionView.register(CompletedExpressionCollectionViewCell.self, forCellWithReuseIdentifier: completedExpressionCollectionViewCellIdentifier)
             collectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCollectionViewCellIdentifier)
             collectionView.register(CompletedEmptyCollectionViewCell.self, forCellWithReuseIdentifier: completedEmptyCollectionViewCellIdentifier)
-            break
         case .savedAll:
             collectionView.register(CompletedCategoryCollectionViewCell.self, forCellWithReuseIdentifier: completedCategoryCollectionViewCellIdentifier)
             collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: completedNewsCollectionViewCellIdentifier)
             collectionView.register(CompletedExpressionCollectionViewCell.self, forCellWithReuseIdentifier: completedExpressionCollectionViewCellIdentifier)
             collectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCollectionViewCellIdentifier)
             collectionView.register(CompletedEmptyCollectionViewCell.self, forCellWithReuseIdentifier: completedEmptyCollectionViewCellIdentifier)
-            break
         case .savedVocabularies:
             collectionView.register(CompletedVocabularyCollectionViewCell.self, forCellWithReuseIdentifier: completedVocabularyCollectionViewCellIdentifier)
-            break
         }
 
         return collectionView

@@ -14,7 +14,8 @@ class ProfileCompletedItemCollectionViewCell: UICollectionViewCell {
     private let contentHeight = CGFloat(100)
     private let contentWidth = CGFloat(100)
     private let titleLabelFontSize = CGFloat(14)
-    private let countLabelFontSize = CGFloat(20)
+    private let countLabelFontSize = CGFloat(24)
+    private let labelsStackViewLeadingTrailingMargin = CGFloat(4)
 
     // MARK: - Model
     var completedItem: ProfileCompletedItem! {
@@ -22,7 +23,11 @@ class ProfileCompletedItemCollectionViewCell: UICollectionViewCell {
             titleLabel.text = completedItem.title
             countLabel.text = String(completedItem.count)
             contentBackgroundView.backgroundColor = completedItem.color
-            setNeedsUpdateConstraints()
+            let labelFittingSize = CGSize.init(width: contentWidth - 2 * labelsStackViewLeadingTrailingMargin, height: .greatestFiniteMagnitude)
+            let titleLabelHeight = titleLabel.sizeThatFits(labelFittingSize).height
+            let countLabelHeight = countLabel.sizeThatFits(labelFittingSize).height
+            labelsStackViewHeightConstraint.constant = titleLabelHeight + countLabelHeight
+            labelsStackViewHeightConstraint.isActive = true
         }
     }
 
@@ -40,8 +45,13 @@ class ProfileCompletedItemCollectionViewCell: UICollectionViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = .textCharcoalGrey
         titleLabel.textAlignment = .center
-        let titleLabelFontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)!
-        titleLabel.font = UIFont.init(descriptor: titleLabelFontDescriptor, size: titleLabelFontSize)
+        titleLabel.numberOfLines = 0
+        let titleLabelFont = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .regular)
+        if let titleLabelFontDescriptor = titleLabelFont.fontDescriptor.withDesign(.rounded) {
+            titleLabel.font = UIFont.init(descriptor: titleLabelFontDescriptor, size: titleLabelFontSize)
+        } else {
+            titleLabel.font = titleLabelFont
+        }
         return titleLabel
     } ()
 
@@ -50,8 +60,12 @@ class ProfileCompletedItemCollectionViewCell: UICollectionViewCell {
         countLabel.textAlignment = .center
         countLabel.translatesAutoresizingMaskIntoConstraints = false
         countLabel.textColor = .textCharcoalGrey
-        let countLabelFontDescriptor = UIFont.systemFont(ofSize: countLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)!
-        countLabel.font = UIFont.init(descriptor: countLabelFontDescriptor, size: countLabelFontSize)
+        let countLabelFont = UIFont.systemFont(ofSize: countLabelFontSize, weight: .medium)
+        if let countLabelFontDescriptor = countLabelFont.fontDescriptor.withDesign(.rounded) {
+            countLabel.font = UIFont.init(descriptor: countLabelFontDescriptor, size: countLabelFontSize)
+        } else {
+            countLabel.font = countLabelFont
+        }
         return countLabel
     } ()
 
@@ -89,16 +103,6 @@ class ProfileCompletedItemCollectionViewCell: UICollectionViewCell {
 
         labelsStackView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor).isActive = true
         labelsStackView.centerXAnchor.constraint(equalTo: contentBackgroundView.centerXAnchor).isActive = true
-        labelsStackView.widthAnchor.constraint(equalTo: contentBackgroundView.widthAnchor).isActive = true
-    }
-
-    // MARK: - UIView
-    override func updateConstraints() {
-        super.updateConstraints()
-        let labelFittingSize = CGSize.init(width: contentWidth, height: .greatestFiniteMagnitude)
-        let titleLabelHeight = titleLabel.sizeThatFits(labelFittingSize).height
-        let countLabelHeight = countLabel.sizeThatFits(labelFittingSize).height
-        labelsStackViewHeightConstraint.constant = titleLabelHeight + countLabelHeight
-        labelsStackViewHeightConstraint.isActive = true
+        labelsStackView.widthAnchor.constraint(equalTo: contentBackgroundView.widthAnchor, constant: -2 * labelsStackViewLeadingTrailingMargin).isActive = true
     }
 }
