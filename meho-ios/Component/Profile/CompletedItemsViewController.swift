@@ -80,7 +80,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         case .completedExpressions:
             collectionView.register(CompletedExpressionCollectionViewCell.self, forCellWithReuseIdentifier: completedExpressionCollectionViewCellIdentifier)
         case .completedTalks:
-            break
+            collectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCollectionViewCellIdentifier)
         case .completedStories:
             collectionView.register(CompletedNewsCollectionViewCell.self, forCellWithReuseIdentifier: completedNewsCollectionViewCellIdentifier)
         case .inProgressAll:
@@ -256,7 +256,7 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         case .completedTalks:
             break
         case .completedStories:
-            title = NSLocalizedString("CompletedStoreisTitle", comment: "")
+            title = NSLocalizedString("CompletedStoriesTitle", comment: "")
             break
         case .inProgressAll:
             title = NSLocalizedString("InProgressItemsTitle", comment: "")

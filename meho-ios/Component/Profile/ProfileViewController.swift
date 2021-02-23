@@ -551,16 +551,17 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
 
         profileDataFetcher.fetchProfileDetail(userID: userID) { (profileDetails, error) in
-            guard error == nil && profileDetails != nil else {
+            guard let profileDetails = profileDetails else {
                 return
             }
 
-            self.completedItems = profileDetails!.completedItems
-            self.inProgressItems = profileDetails!.inProgressItems
-            self.savedItems = profileDetails!.savedItems
-            self.saveVocabularies = profileDetails!.savedVocabularies
+            self.completedItems = profileDetails.completedItems
+            self.inProgressItems = profileDetails.inProgressItems
+            self.savedItems = profileDetails.savedItems
+            self.saveVocabularies = profileDetails.savedVocabularies
             var completedStoriesItem = ProfileCompletedItem.init(title: "stories completed", count: 0, color: UIColor.skyBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
             var completedExpressionsItem = ProfileCompletedItem.init(title: "expressions practiced", count: 0, color: UIColor.periwinkleBlue.withAlphaComponent(self.completedItemColorAlpha), type: .completedExpressions)
+            var completedTalksItem = ProfileCompletedItem.init(title: "talks completed", count: 0, color: UIColor.periwinkle.withAlphaComponent(self.completedItemColorAlpha), type: .completedTalks)
             for completedItem in self.completedItems {
                 switch completedItem.profileCardType {
                 case .story:
@@ -569,11 +570,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 case .expression:
                     completedExpressionsItem.count += 1
                     completedExpressionsItem.items.append(completedItem)
+                case .talk:
+                    completedTalksItem.count += 1
+                    completedTalksItem.items.append(completedItem)
                 default:
                     break
                 }
             }
-            let completedTalksItem = ProfileCompletedItem.init(title: "talks completed", count: 0, color: UIColor.periwinkle.withAlphaComponent(self.completedItemColorAlpha), type: .completedStories)
             self.completedGroupedItems = [completedStoriesItem, completedExpressionsItem, completedTalksItem]
             DispatchQueue.main.async {
                 self.refreshControl.endRefreshing()

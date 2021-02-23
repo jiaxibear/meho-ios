@@ -340,7 +340,13 @@
 "contactMehoMessage" = "Please send email to team@wearemeho.com";
 
 /* Title displayed in the completed stories. */
-"CompletedStoreisTitle" = "Completed Stories";
+"CompletedStoriesTitle" = "Completed Stories";
+
+/* Title displayed in the completed talks. */
+"CompletedTalksTitle" = "Completed Talks";
+
+/* Title displayed in the practiced expressions. */
+"PracticedExpressionsTitle" = "Practiced Expressions";
 
 /* Title for the button to see all the items. */
 "SeeAllText" = "See All(%@)";
