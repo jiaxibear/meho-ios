@@ -278,6 +278,12 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         return UICollectionReusableView.init(frame: .zero)
     }
 
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if !hasAutoPlayedAudio && indexPath.item == 0, let expandedCell = cell as? ExpandedChapterCollectionViewCell{
+            expandedCell.playAudio()
+        }
+    }
+
     // MARK: - DuoModeFooterCollectionResuableViewDelegate
     func duoModeFooterCollectionResuableViewDidTapButton(_ view: DuoModeFooterCollectionResuableView) {
         let parameters = [
