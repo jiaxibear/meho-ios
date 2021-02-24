@@ -293,7 +293,10 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
             MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
-        let duoDetailerDialogViewController = DuoDetailedDialogViewController.init(scoredChapters: scoredChapters, dialog: dialog)
+        let emptyScoredChapters = scoredChapters.map { (scoredChapter) -> ScoredChapter in
+            return ScoredChapter.init(chapter: scoredChapter.chapter)
+        }
+        let duoDetailerDialogViewController = DuoDetailedDialogViewController.init(scoredChapters: emptyScoredChapters, dialog: dialog)
         navigationController?.pushViewController(duoDetailerDialogViewController, animated: true)
     }
 
