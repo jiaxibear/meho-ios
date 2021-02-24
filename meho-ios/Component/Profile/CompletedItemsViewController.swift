@@ -252,23 +252,19 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         }
         switch completedItemsType {
         case .completedExpressions:
-            break
+            title = NSLocalizedString("PracticedExpressionsTitle", comment: "")
         case .completedTalks:
-            break
+            title = NSLocalizedString("CompletedTalksTitle", comment: "")
         case .completedStories:
             title = NSLocalizedString("CompletedStoriesTitle", comment: "")
-            break
         case .inProgressAll:
             title = NSLocalizedString("InProgressItemsTitle", comment: "")
             sections.append(.contentCategories)
-            break
         case .savedAll:
             title = NSLocalizedString("SavedItemsTitle", comment: "")
             sections.append(.contentCategories)
-            break
         case .savedVocabularies:
             title = NSLocalizedString("SavedVocabulariesTitle", comment: "")
-            break
         }
         items = profileCards
         filteredItems = items

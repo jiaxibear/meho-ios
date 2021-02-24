@@ -455,31 +455,22 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
 
     // MARK: - Private
     @objc func didTapListenButton() {
-        if let audioURL = scoredChapter.chapter.contentAudioURL {
-            listenButton.isSelected = true
-            replayButton.isSelected = false
-            recordButton.isSelected = false
-            NewsAudioPlayer.shared.pauseAudio()
-            let playerItem = AVPlayerItem.init(url: audioURL)
-            playerItem.audioTimePitchAlgorithm = .spectral
-            player = AVPlayer.init(playerItem: playerItem)
-            NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
-            player?.play()
-            player?.rate = currentAudioPlaySpeed.rawValue
-            actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
-            actionLabel.isHidden = false
-            delegate?.expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: scoredChapter)
-        }
         if let audioKey = scoredChapter.chapter.contentAudioKey {
             Amplify.Storage.getURL(key: audioKey) { event in
                 switch event {
                 case let .success(url):
                     DispatchQueue.main.async {
+                        self.listenButton.isSelected = true
+                        self.replayButton.isSelected = false
+                        self.recordButton.isSelected = false
                         NewsAudioPlayer.shared.pauseAudio()
                         let playerItem = AVPlayerItem.init(url: url)
-                        self.player = AVPlayer.init(playerItem: playerItem)
-                        self.player?.rate = self.currentAudioPlaySpeed.rawValue
-                        self.player?.play()
+                        playerItem.audioTimePitchAlgorithm = .spectral
+                        let player = AVPlayer.init(playerItem: playerItem)
+                        player.rate = self.currentAudioPlaySpeed.rawValue
+                        player.play()
+                        NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+                        self.player = player
                         self.actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
                         self.actionLabel.isHidden = false
                         self.delegate?.expandedChapterCollectionViewCellDidTapListenButton(scoredChapter: self.scoredChapter)
