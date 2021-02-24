@@ -467,8 +467,7 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
                         let playerItem = AVPlayerItem.init(url: url)
                         playerItem.audioTimePitchAlgorithm = .spectral
                         let player = AVPlayer.init(playerItem: playerItem)
-                        player.rate = self.currentAudioPlaySpeed.rawValue
-                        player.play()
+                        player.playImmediately(atRate: self.currentAudioPlaySpeed.rawValue)
                         NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
                         self.player = player
                         self.actionLabel.text = NSLocalizedString("ListenActionText", comment: "")
