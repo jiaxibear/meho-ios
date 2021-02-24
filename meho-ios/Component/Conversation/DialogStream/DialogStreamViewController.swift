@@ -20,6 +20,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: - Constants
     private let dialogCellReuseIdentifier = "dialogCellReuseIdentifier"
+    private let dialogEmptyCellReuseIdentifier = "dialogEmptyCellReuseIdentifier"
     private let dialogStreamHeaderCellReuseIdentifier = "dialogStreamHeaderCellReuseIdentifier"
     private let dialogCollectionViewCellHeight = CGFloat(110)
     private let dialogCollectionViewCellLineSpacing = CGFloat(20)
@@ -97,6 +98,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         dialogsCollectionView.delegate = self
         dialogsCollectionView.dataSource = self
         dialogsCollectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCellReuseIdentifier)
+        dialogsCollectionView.register(DialogStreamEmptyCollectionViewCell.self, forCellWithReuseIdentifier: dialogEmptyCellReuseIdentifier)
         dialogsCollectionView.register(DialogStreamHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: dialogStreamHeaderCellReuseIdentifier)
         view.addSubview(dialogsCollectionView)
 
@@ -126,6 +128,9 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if dialogs.count == 0 {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: dialogEmptyCellReuseIdentifier, for: indexPath)
+        }
         let dialogCell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCellReuseIdentifier, for: indexPath) as! DialogCollectionViewCell
         let dialog = dialogs[indexPath.item]
         dialogCell.setDialog(dialog)
@@ -133,7 +138,12 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dialogs.count
+        let count = dialogs.count
+        if count > 0 {
+            return count
+        } else {
+            return 1
+        }
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -167,13 +177,21 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let dialog = dialogs[indexPath.item]
+        let item = indexPath.item
+        guard item < dialogs.count else {
+            return
+        }
+        let dialog = dialogs[item]
         Analytics.logContentImpression(content: dialog, screenName: screenName)
     }
 
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize.init(width: collectionView.bounds.width - 2 * trailingLeadingMargin, height: dialogCollectionViewCellHeight)
+        let width = collectionView.bounds.width - 2 * trailingLeadingMargin
+        if dialogs.count == 0 {
+            return CGSize.init(width: width, height: DialogStreamEmptyCollectionViewCell.cellHeight())
+        }
+        return CGSize.init(width: width, height: dialogCollectionViewCellHeight)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -199,6 +217,10 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = indexPath.item
+        guard item < dialogs.count else {
+            return
+        }
         let parameters = [
             MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_talks_category-view_talk",
             MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_talk",
@@ -206,7 +228,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
             MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
-        let dialog = dialogs[indexPath.item]
+        let dialog = dialogs[item]
 
         guard let userId = AWSMobileClient.default().userSub else { return }
         userDataFetcher.getUserItemSave (userId: userId, itemId: dialog.identifier, completionHandler: { (isSaved, error) in
@@ -296,16 +318,6 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
                     }
                 }
             }
-//            conversationDataFetcher.fetchDialogs(category: category!.identifier, difficulty: difficultyString) { (dialogs, error) in
-//                if error == nil && dialogs != nil {
-//                    self.dialogs = dialogs!.filter({ (dialog) -> Bool in
-//                        dialog.difficulty == self.difficulty
-//                    })
-//                    DispatchQueue.main.async {
-//                        self.dialogsCollectionView.reloadData()
-//                    }
-//                }
-//            }
         } else {
             switch streamType {
             case .mostPopular:

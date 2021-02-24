@@ -83,6 +83,7 @@
 		EA169376255908BA0074EE0D /* CompletedExpressionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA169375255908BA0074EE0D /* CompletedExpressionCollectionViewCell.swift */; };
 		EA16937E256215BB0074EE0D /* ProfileDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA16937D256215BB0074EE0D /* ProfileDetails.swift */; };
 		EA28377825D3BE2C00DE8263 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA28377725D3BE2B00DE8263 /* CALayerExtension.swift */; };
+		EA28378325E61CCF00DE8263 /* DialogStreamEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA28378225E61CCE00DE8263 /* DialogStreamEmptyCollectionViewCell.swift */; };
 		EA2FC5C023EF7AD400E258BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */; };
 		EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */; };
 		EA2FC5C623EF7AD600E258BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA2FC5C523EF7AD600E258BD /* Assets.xcassets */; };
@@ -267,6 +268,7 @@
 		EA169375255908BA0074EE0D /* CompletedExpressionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedExpressionCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA16937D256215BB0074EE0D /* ProfileDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetails.swift; sourceTree = "<group>"; };
 		EA28377725D3BE2B00DE8263 /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
+		EA28378225E61CCE00DE8263 /* DialogStreamEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogStreamEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA2FC5BC23EF7AD400E258BD /* Meho.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meho.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA2FC5BF23EF7AD400E258BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA2FC5C123EF7AD400E258BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -805,6 +807,7 @@
 				EA01E6B023FBD6F000C0B0AE /* DifficultyViewController.swift */,
 				EA5448BC2423324F00C07D0A /* DialogStreamViewController.swift */,
 				EA5448BE2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift */,
+				EA28378225E61CCE00DE8263 /* DialogStreamEmptyCollectionViewCell.swift */,
 			);
 			path = DialogStream;
 			sourceTree = "<group>";
@@ -1316,6 +1319,7 @@
 				92C5FE49245562BE004A3322 /* NewsRecapFooterCollectionReusableView.swift in Sources */,
 				EA4206A224A054E000DA3F2A /* TrendingPhraseWrapper.swift in Sources */,
 				EA5448BB2415D93500C07D0A /* SeeMoreFooterCollectionResuableView.swift in Sources */,
+				EA28378325E61CCF00DE8263 /* DialogStreamEmptyCollectionViewCell.swift in Sources */,
 				EA3E002D25295E1100B95A30 /* ProfileCompletedItemCollectionViewCell.swift in Sources */,
 				9267EA2324385FC2009CA25D /* NewsDataFetcher.swift in Sources */,
 				9267EA1D2431A5A2009CA25D /* NewsItemSizeSCollectionViewCell.swift in Sources */,

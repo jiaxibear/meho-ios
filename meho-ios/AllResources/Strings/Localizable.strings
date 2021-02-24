@@ -413,3 +413,9 @@
 
 /* Title for the cancel button. */
 "CancelButtonTitle" = "Cancel";
+
+/* Title displayed in the no content page. */
+"NoContentTitle" = "No Content";
+
+/* Subtitle displayed in the no content page. */
+"NoContentSubtitle" = "We are working on new contents, please check back later";

@@ -447,7 +447,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     }
 
     private func updateExpressionSaveStatus(at index: Int, at previousIndex: Int) {
-        guard let userID = AWSMobileClient.default().userSub else {
+        guard let userID = AWSMobileClient.default().userSub, index < scoredChapters.count else {
             return
         }
         let scoredChapter = scoredChapters[index]

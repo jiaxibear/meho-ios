@@ -75,8 +75,6 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         return expandImageView
     } ()
 
-    private static var sizingCell = TrendingPhraseCollectionViewCell.init(frame: .zero);
-
     // MARK: - Data
     private var player: AVPlayer?
     var trendingPhraseWrapper: TrendingPhraseWrapper? {
