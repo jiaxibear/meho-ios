@@ -50,6 +50,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let profilePhotoButtonBorderWidth = CGFloat(1)
 
     // MARK: - Properties
+    private lazy var loadingView: LoadingView = {
+        let loadingView = LoadingView.init(frame: .zero)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        return loadingView
+    } ()
+
     private lazy var usernameLabel: UILabel = {
         let label = UILabel.init(frame: .zero)
         label.text = NSLocalizedString("UserDefaultNickname", comment: "")
@@ -124,6 +130,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.register(ProfileDummyCardCollectionViewCell.self, forCellWithReuseIdentifier: profileDummyCardCollectionViewCellReusableIdentifier)
         collectionView.register(ProfileHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionHeaderReusableIdentifier)
         collectionView.refreshControl = refreshControl
+        collectionView.isHidden = true
         return collectionView
     } ()
 
@@ -174,6 +181,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         view.addSubview(profilePhotoButton)
         view.addSubview(usernameLabel)
         view.addSubview(settingButton)
+        view.addSubview(loadingView)
 
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -198,7 +206,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             settingButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
             settingButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -headerHorizontalMargin),
             settingButton.heightAnchor.constraint(equalToConstant: settingButtonSize),
-            settingButton.widthAnchor.constraint(equalToConstant: settingButtonSize)
+            settingButton.widthAnchor.constraint(equalToConstant: settingButtonSize),
+
+            loadingView.topAnchor.constraint(equalTo: collectionView.topAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
         ])
 
         userDataFetcher.userSignal.subscribe(with: self) { (basicUser) in
@@ -579,6 +592,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             self.completedGroupedItems = [completedStoriesItem, completedExpressionsItem, completedTalksItem]
             DispatchQueue.main.async {
+                self.collectionView.isHidden = false
+                self.loadingView.isHidden = true
                 self.refreshControl.endRefreshing()
                 self.collectionView.reloadData()
             }

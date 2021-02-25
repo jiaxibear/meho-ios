@@ -42,8 +42,40 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         return refreshControl
     } ()
 
-    private var newsCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-    private lazy var newsCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:newsCollectionViewFlowLayout)
+    private lazy var loadingView: LoadingView = {
+        let loadingView = LoadingView.init(frame: .zero)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        return loadingView
+    } ()
+
+    private lazy var newsCollectionViewFlowLayout: UICollectionViewFlowLayout  = {
+        let newsCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+        newsCollectionViewFlowLayout.scrollDirection = .vertical
+        newsCollectionViewFlowLayout.minimumLineSpacing = 30
+        return newsCollectionViewFlowLayout
+    } ()
+
+    private lazy var newsCollectionView: UICollectionView = {
+        let newsCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:newsCollectionViewFlowLayout)
+        newsCollectionView.refreshControl = refreshControl
+        newsCollectionView.dataSource = self
+        newsCollectionView.delegate = self
+        newsCollectionView.backgroundColor = .white
+        newsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        newsCollectionView.showsVerticalScrollIndicator = false
+        newsCollectionView.contentInset = .zero
+        var contentInset = newsCollectionView.contentInset
+        contentInset.bottom = newsCollectionViewCellGroupSpacing
+        newsCollectionView.contentInset = contentInset
+        newsCollectionView.isHidden = true
+
+        newsCollectionView.register(NewsItemSizeXLCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeXLCellReuseIdentifier)
+        newsCollectionView.register(NewsItemSizeLCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeLCellReuseIdentifier)
+        newsCollectionView.register(NewsItemSizeSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeSCellReuseIdentifier)
+        newsCollectionView.register(NewsItemSizeXSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeXSCellReuseIdentifier)
+        return newsCollectionView
+    } ()
+
     private var scrollDownTitleHiddenCollectionViewTopConstraint: NSLayoutConstraint!
     private var scrollUpTitleShownCollectionViewTopConstraint: NSLayoutConstraint!
 
@@ -80,7 +112,14 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         view.backgroundColor = .white
         setupTitleViewConstraint()
         setupNewsCollectionView()
+        view.addSubview(loadingView)
 
+        NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: newsCollectionView.topAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: newsCollectionView.bottomAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: newsCollectionView.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: newsCollectionView.trailingAnchor),
+        ])
         didRefresh()
     }
 
@@ -102,25 +141,6 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     func setupNewsCollectionView() {
         // Sets up news collection.
-        newsCollectionView.refreshControl = refreshControl
-        newsCollectionView.dataSource = self
-        newsCollectionView.delegate = self
-        newsCollectionView.backgroundColor = .white
-        newsCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        newsCollectionView.showsVerticalScrollIndicator = false
-        newsCollectionView.contentInset = .zero
-        var contentInset = newsCollectionView.contentInset
-        contentInset.bottom = newsCollectionViewCellGroupSpacing
-        newsCollectionView.contentInset = contentInset
-
-        // collection layout
-        newsCollectionViewFlowLayout.scrollDirection = .vertical
-        newsCollectionViewFlowLayout.minimumLineSpacing = 30
-
-        newsCollectionView.register(NewsItemSizeXLCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeXLCellReuseIdentifier)
-        newsCollectionView.register(NewsItemSizeLCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeLCellReuseIdentifier)
-        newsCollectionView.register(NewsItemSizeSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeSCellReuseIdentifier)
-        newsCollectionView.register(NewsItemSizeXSCollectionViewCell.self, forCellWithReuseIdentifier:newsItemSizeXSCellReuseIdentifier)
         view.addSubview(newsCollectionView)
 
         // view constraints
@@ -314,6 +334,8 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         dataFecther.fetchNewsList(count: "50", completionHandler:  { (newsList, error) in
             if (error == nil && newsList != nil) {
                 DispatchQueue.main.async {
+                    self.loadingView.isHidden = true
+                    self.newsCollectionView.isHidden = false
                     self.newsList = newsList!
                     self.newsCollectionView.reloadData()
                     self.refreshControl.endRefreshing()

@@ -36,6 +36,12 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     private let survivalPhraseCellReuseIdentifier = "survivalPhraseCellIdentifier"
 
     // MARK: - Properties
+    private lazy var loadingView: LoadingView = {
+        let loadingView = LoadingView.init(frame: .zero)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        return loadingView
+    } ()
+
     private lazy var titleView: MainTabTitleView = {
         let titleView = MainTabTitleView.init(frame: .zero)
         titleView.setTitleText(text: foundationCoverTitle)
@@ -69,6 +75,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         expressionCollectionView.register(SurvivalPhraseCollectionViewCell.self, forCellWithReuseIdentifier: survivalPhraseCellReuseIdentifier)
         expressionCollectionView.delegate = self
         expressionCollectionView.dataSource = self
+        expressionCollectionView.isHidden = true
         return expressionCollectionView
     } ()
 
@@ -129,21 +136,29 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        view.addSubview(loadingView)
 
         setupTitleViewConstraint()
         setupExpressionCollectionView()
+        NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: expressionCollectionView.topAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: expressionCollectionView.bottomAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: expressionCollectionView.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: expressionCollectionView.trailingAnchor),
+        ])
 
         dataFecther.fetchTrendingPhrases { (result) in
             switch result {
             case .success(let trendingPhrases):
                 DispatchQueue.main.async {
+                    self.expressionCollectionView.isHidden = false
+                    self.loadingView.isHidden = true
                     self.trendingPhrases = trendingPhrases.map({ (trendingPhrase) -> TrendingPhraseWrapper in
                         return TrendingPhraseWrapper.init(trendingPhrase: trendingPhrase)
                     })
                     self.sections.append(.trendingPhrases)
                     self.expressionCollectionView.reloadData()
                 }
-                break
             case .failure(_):
                 break
             }

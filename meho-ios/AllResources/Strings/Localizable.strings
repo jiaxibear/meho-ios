@@ -419,3 +419,6 @@
 
 /* Subtitle displayed in the no content page. */
 "NoContentSubtitle" = "We are working on new contents, please check back later";
+
+/* Text displayed in the loading screen. */
+"LoadingText" = "Loading…";

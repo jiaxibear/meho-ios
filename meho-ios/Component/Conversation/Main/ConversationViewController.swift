@@ -40,12 +40,54 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: - Properties
     // MARK: UI
-    private let titleView = MainTabTitleView.init(frame: .zero)
-    private var conversationCollectionViewCompositionalLayout: UICollectionViewCompositionalLayout?
-    private lazy var conversationCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:conversationCollectionViewCompositionalLayout!)
+    private lazy var titleView: MainTabTitleView = {
+        let titleView = MainTabTitleView.init(frame: .zero)
+        titleView.setTitleText(text: NSLocalizedString("ConversationTitle", comment: ""))
+        titleView.setDelegate(delegate: self)
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        return titleView
+    } ()
+
+    private lazy var conversationCollectionViewCompositionalLayout: UICollectionViewCompositionalLayout = {
+        let conversationCollectionViewCompositionalLayout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
+          layoutEnvironment: NSCollectionLayoutEnvironment)
+            -> NSCollectionLayoutSection? in
+            let conversationSection = self.sections[sectionIndex]
+            switch conversationSection {
+            case .categories:
+                return self.categoriesLayoutSection()
+            case .featuredDialogs:
+                return self.dialogsLayoutSection()
+            case .mostPopluarDialogs:
+                return self.dialogsLayoutSection()
+            }
+        }
+        return conversationCollectionViewCompositionalLayout
+    } ()
+
+    private lazy var conversationCollectionView: UICollectionView = {
+        let conversationCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:conversationCollectionViewCompositionalLayout)
+        conversationCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        conversationCollectionView.backgroundColor = .white
+        conversationCollectionView.dataSource = self
+        conversationCollectionView.delegate = self
+        conversationCollectionView.isHidden = true
+
+        conversationCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: categoryCellReuseIdentifier)
+        conversationCollectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCellReuseIdentifier)
+        conversationCollectionView.register(ConversationHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier)
+        conversationCollectionView.register(SeeMoreFooterCollectionResuableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerReuseIdentifier)
+        return conversationCollectionView
+    } ()
 
     private var scrollDownTitleHiddenCollectionViewTopConstraint: NSLayoutConstraint!
     private var scrollUpTitleShownCollectionViewTopConstraint: NSLayoutConstraint!
+
+    private lazy var loadingView: LoadingView = {
+        let loadingView = LoadingView.init(frame: .zero)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        return loadingView
+    } ()
 
     // MARK: Model
     private let userDataFetcher = UserDataFetcher.shared
@@ -65,20 +107,6 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         let conversationTabBarItemImage = UIImage.init(named: conversationTabBarItemImageName)
         let conversationTabBarItem = UITabBarItem.init(title: "", image: conversationTabBarItemImage, tag: 0)
         tabBarItem = conversationTabBarItem
-
-        conversationCollectionViewCompositionalLayout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
-          layoutEnvironment: NSCollectionLayoutEnvironment)
-            -> NSCollectionLayoutSection? in
-            let conversationSection = self.sections[sectionIndex]
-            switch conversationSection {
-            case .categories:
-                return self.categoriesLayoutSection()
-            case .featuredDialogs:
-                return self.dialogsLayoutSection()
-            case .mostPopluarDialogs:
-                return self.dialogsLayoutSection()
-            }
-        }
     }
 
     @available(*, unavailable)
@@ -106,35 +134,28 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         view.backgroundColor = .white
         let margins = view.layoutMarginsGuide
 
-        // Sets up the title.
-        titleView.setTitleText(text: NSLocalizedString("ConversationTitle", comment: ""))
-        titleView.setDelegate(delegate: self)
-        titleView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleView)
-
-        // Sets up the collection view.
-        conversationCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        conversationCollectionView.backgroundColor = .white
-        conversationCollectionView.dataSource = self
-        conversationCollectionView.delegate = self
-        
-        conversationCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: categoryCellReuseIdentifier)
-        conversationCollectionView.register(DialogCollectionViewCell.self, forCellWithReuseIdentifier: dialogCellReuseIdentifier)
-        conversationCollectionView.register(ConversationHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier)
-        conversationCollectionView.register(SeeMoreFooterCollectionResuableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerReuseIdentifier)
         view.addSubview(conversationCollectionView)
+        view.addSubview(loadingView)
 
-        // Sets up layout constrainsts.
-        titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin).isActive = true
-        titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin).isActive = true
-        titleView.topAnchor.constraint(equalTo: margins.topAnchor, constant: titleLabelTopMargin).isActive = true
+        NSLayoutConstraint.activate([
+            titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingLeadingMargin),
+            titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -trailingLeadingMargin),
+            titleView.topAnchor.constraint(equalTo: margins.topAnchor, constant: titleLabelTopMargin),
+
+            loadingView.topAnchor.constraint(equalTo: conversationCollectionView.topAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: conversationCollectionView.bottomAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: conversationCollectionView.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: conversationCollectionView.trailingAnchor),
+
+            conversationCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            conversationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            conversationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
 
         scrollDownTitleHiddenCollectionViewTopConstraint = conversationCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
         scrollUpTitleShownCollectionViewTopConstraint = conversationCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: titleLabelToConversationCollectionViewMargin)
         scrollUpTitleShownCollectionViewTopConstraint.isActive = true
-        conversationCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        conversationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        conversationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         dataFecther.fetchCategories(maybeLimit: 4, completionHandler:  { (categories, error) in
             if (error == nil && categories != nil) {
@@ -145,6 +166,8 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
                 localCategories.append(seeAllCategoryCard)
 
                 DispatchQueue.main.async {
+                    self.conversationCollectionView.isHidden = false
+                    self.loadingView.isHidden = true
                     self.categories = localCategories
                     self.sections.insert(.categories, at: 0)
                     self.conversationCollectionView.reloadData()
