@@ -160,7 +160,11 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
                     self.expressionCollectionView.reloadData()
                 }
             case .failure(_):
-                break
+                DispatchQueue.main.async {
+                    self.expressionCollectionView.isHidden = true
+                    self.loadingView.state = .empty
+                    self.loadingView.isHidden = false
+                }
             }
         }
     }
@@ -186,7 +190,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         scrollDownTitleHiddenCollectionViewTopConstraint = expressionCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
         scrollUpTitleShownCollectionViewTopConstraint = expressionCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: collectionViewTopMargin)
         scrollUpTitleShownCollectionViewTopConstraint.isActive = true
-        expressionCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        expressionCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

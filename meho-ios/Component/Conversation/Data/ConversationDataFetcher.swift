@@ -12,7 +12,6 @@ import AWSAppSync
 class ConversationDataFetcher: NSObject {
 
     // MARK: - Constants
-
     private let fetchDetailedDialogURLString = "https://150uu7wn8b.execute-api.us-west-2.amazonaws.com/dev/getDetailedDialogue"
     private let fetchDialogsURLString = "https://150uu7wn8b.execute-api.us-west-2.amazonaws.com/dev/getDialoguesByCategory"
     private let categoryQueryItemName = "category_id"

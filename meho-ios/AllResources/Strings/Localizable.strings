@@ -422,3 +422,18 @@
 
 /* Text displayed in the loading screen. */
 "LoadingText" = "Loading…";
+
+/* Title for the empty page. */
+"emptyTitle" = "Oops!";
+
+/* Subtitle for the empty page. */
+"emptySubtitle" = "Something went wrong, plese try again";
+
+/* Title for the no connection page. */
+"NoConnectionTitle" = "No internet connection";
+
+/* Subtitle for the no connection page. */
+"NoConnectionSubtitle" = "Please check your internet connection";
+
+/* Title for the retry button. */
+"RetryButtonTitle" = "Retry";

@@ -565,6 +565,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
         profileDataFetcher.fetchProfileDetail(userID: userID) { (profileDetails, error) in
             guard let profileDetails = profileDetails else {
+                DispatchQueue.main.async {
+                    self.collectionView.isHidden = true
+                    self.loadingView.state = .empty
+                    self.loadingView.isHidden = false
+                }
                 return
             }
 

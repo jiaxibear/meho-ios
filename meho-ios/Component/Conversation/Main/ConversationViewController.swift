@@ -158,20 +158,26 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         scrollUpTitleShownCollectionViewTopConstraint.isActive = true
 
         dataFecther.fetchCategories(maybeLimit: 4, completionHandler:  { (categories, error) in
-            if (error == nil && categories != nil) {
-                var seeAllCategoryCard = Category.init()
-                seeAllCategoryCard.title = "See All"
-                seeAllCategoryCard.identifier = "seeallcard"
-                var localCategories = categories!
-                localCategories.append(seeAllCategoryCard)
-
+            guard let categories = categories else {
                 DispatchQueue.main.async {
-                    self.conversationCollectionView.isHidden = false
-                    self.loadingView.isHidden = true
-                    self.categories = localCategories
-                    self.sections.insert(.categories, at: 0)
-                    self.conversationCollectionView.reloadData()
+                    self.conversationCollectionView.isHidden = true
+                    self.loadingView.state = .empty
+                    self.loadingView.isHidden = false
                 }
+                return
+            }
+            var seeAllCategoryCard = Category.init()
+            seeAllCategoryCard.title = "See All"
+            seeAllCategoryCard.identifier = "seeallcard"
+            var newCategories = categories
+            newCategories.append(seeAllCategoryCard)
+
+            DispatchQueue.main.async {
+                self.conversationCollectionView.isHidden = false
+                self.loadingView.isHidden = true
+                self.categories = newCategories
+                self.sections.insert(.categories, at: 0)
+                self.conversationCollectionView.reloadData()
             }
         })
 

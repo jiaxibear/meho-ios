@@ -340,6 +340,12 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
                     self.newsCollectionView.reloadData()
                     self.refreshControl.endRefreshing()
                 }
+            } else {
+                DispatchQueue.main.async {
+                    self.newsCollectionView.isHidden = true
+                    self.loadingView.state = .empty
+                    self.loadingView.isHidden = false
+                }
             }
         })
     }
