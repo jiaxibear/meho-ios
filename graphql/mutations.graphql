@@ -1242,10 +1242,11 @@ mutation CreateTrendingPhrase(
   createTrendingPhrase(input: $input, condition: $condition) {
     id
     contentZh
+    status
+    createdAt
     contentPinyin
     audioKey
     description
-    createdAt
     updatedAt
   }
 }
@@ -1256,10 +1257,11 @@ mutation UpdateTrendingPhrase(
   updateTrendingPhrase(input: $input, condition: $condition) {
     id
     contentZh
+    status
+    createdAt
     contentPinyin
     audioKey
     description
-    createdAt
     updatedAt
   }
 }
@@ -1270,10 +1272,11 @@ mutation DeleteTrendingPhrase(
   deleteTrendingPhrase(input: $input, condition: $condition) {
     id
     contentZh
+    status
+    createdAt
     contentPinyin
     audioKey
     description
-    createdAt
     updatedAt
   }
 }

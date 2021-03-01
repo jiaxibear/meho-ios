@@ -1194,10 +1194,11 @@ subscription OnCreateTrendingPhrase {
   onCreateTrendingPhrase {
     id
     contentZh
+    status
+    createdAt
     contentPinyin
     audioKey
     description
-    createdAt
     updatedAt
   }
 }
@@ -1205,10 +1206,11 @@ subscription OnUpdateTrendingPhrase {
   onUpdateTrendingPhrase {
     id
     contentZh
+    status
+    createdAt
     contentPinyin
     audioKey
     description
-    createdAt
     updatedAt
   }
 }
@@ -1216,10 +1218,11 @@ subscription OnDeleteTrendingPhrase {
   onDeleteTrendingPhrase {
     id
     contentZh
+    status
+    createdAt
     contentPinyin
     audioKey
     description
-    createdAt
     updatedAt
   }
 }

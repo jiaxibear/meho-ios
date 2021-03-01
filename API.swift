@@ -1711,8 +1711,8 @@ public struct DeleteVocabularyInput: GraphQLMapConvertible {
 public struct CreateTrendingPhraseInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID? = nil, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil) {
-    graphQLMap = ["id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description]
+  public init(id: GraphQLID? = nil, contentZh: String, status: String, createdAt: String? = nil, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil) {
+    graphQLMap = ["id": id, "contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description]
   }
 
   public var id: GraphQLID? {
@@ -1730,6 +1730,24 @@ public struct CreateTrendingPhraseInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contentZh")
+    }
+  }
+
+  public var status: String {
+    get {
+      return graphQLMap["status"] as! String
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "status")
+    }
+  }
+
+  public var createdAt: String? {
+    get {
+      return graphQLMap["createdAt"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "createdAt")
     }
   }
 
@@ -1764,8 +1782,8 @@ public struct CreateTrendingPhraseInput: GraphQLMapConvertible {
 public struct ModelTrendingPhraseConditionInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(contentZh: ModelStringInput? = nil, contentPinyin: ModelStringInput? = nil, audioKey: ModelStringInput? = nil, description: ModelStringInput? = nil, and: [ModelTrendingPhraseConditionInput?]? = nil, or: [ModelTrendingPhraseConditionInput?]? = nil, not: ModelTrendingPhraseConditionInput? = nil) {
-    graphQLMap = ["contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "and": and, "or": or, "not": not]
+  public init(contentZh: ModelStringInput? = nil, status: ModelStringInput? = nil, createdAt: ModelStringInput? = nil, contentPinyin: ModelStringInput? = nil, audioKey: ModelStringInput? = nil, description: ModelStringInput? = nil, and: [ModelTrendingPhraseConditionInput?]? = nil, or: [ModelTrendingPhraseConditionInput?]? = nil, not: ModelTrendingPhraseConditionInput? = nil) {
+    graphQLMap = ["contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "and": and, "or": or, "not": not]
   }
 
   public var contentZh: ModelStringInput? {
@@ -1774,6 +1792,24 @@ public struct ModelTrendingPhraseConditionInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contentZh")
+    }
+  }
+
+  public var status: ModelStringInput? {
+    get {
+      return graphQLMap["status"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "status")
+    }
+  }
+
+  public var createdAt: ModelStringInput? {
+    get {
+      return graphQLMap["createdAt"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "createdAt")
     }
   }
 
@@ -1835,8 +1871,8 @@ public struct ModelTrendingPhraseConditionInput: GraphQLMapConvertible {
 public struct UpdateTrendingPhraseInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID, contentZh: String? = nil, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil) {
-    graphQLMap = ["id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description]
+  public init(id: GraphQLID, contentZh: String? = nil, status: String? = nil, createdAt: String? = nil, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil) {
+    graphQLMap = ["id": id, "contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description]
   }
 
   public var id: GraphQLID {
@@ -1854,6 +1890,24 @@ public struct UpdateTrendingPhraseInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contentZh")
+    }
+  }
+
+  public var status: String? {
+    get {
+      return graphQLMap["status"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "status")
+    }
+  }
+
+  public var createdAt: String? {
+    get {
+      return graphQLMap["createdAt"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "createdAt")
     }
   }
 
@@ -5441,8 +5495,8 @@ public struct ModelVocabularyFilterInput: GraphQLMapConvertible {
 public struct ModelTrendingPhraseFilterInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: ModelIDInput? = nil, contentZh: ModelStringInput? = nil, contentPinyin: ModelStringInput? = nil, audioKey: ModelStringInput? = nil, description: ModelStringInput? = nil, and: [ModelTrendingPhraseFilterInput?]? = nil, or: [ModelTrendingPhraseFilterInput?]? = nil, not: ModelTrendingPhraseFilterInput? = nil) {
-    graphQLMap = ["id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "and": and, "or": or, "not": not]
+  public init(id: ModelIDInput? = nil, contentZh: ModelStringInput? = nil, status: ModelStringInput? = nil, createdAt: ModelStringInput? = nil, contentPinyin: ModelStringInput? = nil, audioKey: ModelStringInput? = nil, description: ModelStringInput? = nil, and: [ModelTrendingPhraseFilterInput?]? = nil, or: [ModelTrendingPhraseFilterInput?]? = nil, not: ModelTrendingPhraseFilterInput? = nil) {
+    graphQLMap = ["id": id, "contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "and": and, "or": or, "not": not]
   }
 
   public var id: ModelIDInput? {
@@ -5460,6 +5514,24 @@ public struct ModelTrendingPhraseFilterInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contentZh")
+    }
+  }
+
+  public var status: ModelStringInput? {
+    get {
+      return graphQLMap["status"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "status")
+    }
+  }
+
+  public var createdAt: ModelStringInput? {
+    get {
+      return graphQLMap["createdAt"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "createdAt")
     }
   }
 
@@ -23955,7 +24027,7 @@ public final class DeleteVocabularyMutation: GraphQLMutation {
 
 public final class CreateTrendingPhraseMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateTrendingPhrase($input: CreateTrendingPhraseInput!, $condition: ModelTrendingPhraseConditionInput) {\n  createTrendingPhrase(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateTrendingPhrase($input: CreateTrendingPhraseInput!, $condition: ModelTrendingPhraseConditionInput) {\n  createTrendingPhrase(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    status\n    createdAt\n    contentPinyin\n    audioKey\n    description\n    updatedAt\n  }\n}"
 
   public var input: CreateTrendingPhraseInput
   public var condition: ModelTrendingPhraseConditionInput?
@@ -24002,10 +24074,11 @@ public final class CreateTrendingPhraseMutation: GraphQLMutation {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("status", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("contentPinyin", type: .scalar(String.self)),
         GraphQLField("audioKey", type: .scalar(String.self)),
         GraphQLField("description", type: .scalar(String.self)),
-        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
@@ -24015,8 +24088,8 @@ public final class CreateTrendingPhraseMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, contentZh: String, status: String, createdAt: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -24043,6 +24116,24 @@ public final class CreateTrendingPhraseMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "contentZh")
+        }
+      }
+
+      public var status: String {
+        get {
+          return snapshot["status"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "status")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
         }
       }
 
@@ -24073,15 +24164,6 @@ public final class CreateTrendingPhraseMutation: GraphQLMutation {
         }
       }
 
-      public var createdAt: String {
-        get {
-          return snapshot["createdAt"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "createdAt")
-        }
-      }
-
       public var updatedAt: String {
         get {
           return snapshot["updatedAt"]! as! String
@@ -24096,7 +24178,7 @@ public final class CreateTrendingPhraseMutation: GraphQLMutation {
 
 public final class UpdateTrendingPhraseMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateTrendingPhrase($input: UpdateTrendingPhraseInput!, $condition: ModelTrendingPhraseConditionInput) {\n  updateTrendingPhrase(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateTrendingPhrase($input: UpdateTrendingPhraseInput!, $condition: ModelTrendingPhraseConditionInput) {\n  updateTrendingPhrase(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    status\n    createdAt\n    contentPinyin\n    audioKey\n    description\n    updatedAt\n  }\n}"
 
   public var input: UpdateTrendingPhraseInput
   public var condition: ModelTrendingPhraseConditionInput?
@@ -24143,10 +24225,11 @@ public final class UpdateTrendingPhraseMutation: GraphQLMutation {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("status", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("contentPinyin", type: .scalar(String.self)),
         GraphQLField("audioKey", type: .scalar(String.self)),
         GraphQLField("description", type: .scalar(String.self)),
-        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
@@ -24156,8 +24239,8 @@ public final class UpdateTrendingPhraseMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, contentZh: String, status: String, createdAt: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -24184,6 +24267,24 @@ public final class UpdateTrendingPhraseMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "contentZh")
+        }
+      }
+
+      public var status: String {
+        get {
+          return snapshot["status"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "status")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
         }
       }
 
@@ -24214,15 +24315,6 @@ public final class UpdateTrendingPhraseMutation: GraphQLMutation {
         }
       }
 
-      public var createdAt: String {
-        get {
-          return snapshot["createdAt"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "createdAt")
-        }
-      }
-
       public var updatedAt: String {
         get {
           return snapshot["updatedAt"]! as! String
@@ -24237,7 +24329,7 @@ public final class UpdateTrendingPhraseMutation: GraphQLMutation {
 
 public final class DeleteTrendingPhraseMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteTrendingPhrase($input: DeleteTrendingPhraseInput!, $condition: ModelTrendingPhraseConditionInput) {\n  deleteTrendingPhrase(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteTrendingPhrase($input: DeleteTrendingPhraseInput!, $condition: ModelTrendingPhraseConditionInput) {\n  deleteTrendingPhrase(input: $input, condition: $condition) {\n    __typename\n    id\n    contentZh\n    status\n    createdAt\n    contentPinyin\n    audioKey\n    description\n    updatedAt\n  }\n}"
 
   public var input: DeleteTrendingPhraseInput
   public var condition: ModelTrendingPhraseConditionInput?
@@ -24284,10 +24376,11 @@ public final class DeleteTrendingPhraseMutation: GraphQLMutation {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("status", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("contentPinyin", type: .scalar(String.self)),
         GraphQLField("audioKey", type: .scalar(String.self)),
         GraphQLField("description", type: .scalar(String.self)),
-        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
@@ -24297,8 +24390,8 @@ public final class DeleteTrendingPhraseMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, contentZh: String, status: String, createdAt: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -24328,6 +24421,24 @@ public final class DeleteTrendingPhraseMutation: GraphQLMutation {
         }
       }
 
+      public var status: String {
+        get {
+          return snapshot["status"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "status")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
       public var contentPinyin: String? {
         get {
           return snapshot["contentPinyin"] as? String
@@ -24352,15 +24463,6 @@ public final class DeleteTrendingPhraseMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "description")
-        }
-      }
-
-      public var createdAt: String {
-        get {
-          return snapshot["createdAt"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "createdAt")
         }
       }
 
@@ -96381,7 +96483,7 @@ public final class ListVocabularysQuery: GraphQLQuery {
 
 public final class GetTrendingPhraseQuery: GraphQLQuery {
   public static let operationString =
-    "query GetTrendingPhrase($id: ID!) {\n  getTrendingPhrase(id: $id) {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetTrendingPhrase($id: ID!) {\n  getTrendingPhrase(id: $id) {\n    __typename\n    id\n    contentZh\n    status\n    createdAt\n    contentPinyin\n    audioKey\n    description\n    updatedAt\n  }\n}"
 
   public var id: GraphQLID
 
@@ -96426,10 +96528,11 @@ public final class GetTrendingPhraseQuery: GraphQLQuery {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("status", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("contentPinyin", type: .scalar(String.self)),
         GraphQLField("audioKey", type: .scalar(String.self)),
         GraphQLField("description", type: .scalar(String.self)),
-        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
@@ -96439,8 +96542,8 @@ public final class GetTrendingPhraseQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, contentZh: String, status: String, createdAt: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -96467,6 +96570,24 @@ public final class GetTrendingPhraseQuery: GraphQLQuery {
         }
         set {
           snapshot.updateValue(newValue, forKey: "contentZh")
+        }
+      }
+
+      public var status: String {
+        get {
+          return snapshot["status"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "status")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
         }
       }
 
@@ -96497,15 +96618,6 @@ public final class GetTrendingPhraseQuery: GraphQLQuery {
         }
       }
 
-      public var createdAt: String {
-        get {
-          return snapshot["createdAt"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "createdAt")
-        }
-      }
-
       public var updatedAt: String {
         get {
           return snapshot["updatedAt"]! as! String
@@ -96520,7 +96632,7 @@ public final class GetTrendingPhraseQuery: GraphQLQuery {
 
 public final class ListTrendingPhrasesQuery: GraphQLQuery {
   public static let operationString =
-    "query ListTrendingPhrases($filter: ModelTrendingPhraseFilterInput, $limit: Int, $nextToken: String) {\n  listTrendingPhrases(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      contentZh\n      contentPinyin\n      audioKey\n      description\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListTrendingPhrases($filter: ModelTrendingPhraseFilterInput, $limit: Int, $nextToken: String) {\n  listTrendingPhrases(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      contentZh\n      status\n      createdAt\n      contentPinyin\n      audioKey\n      description\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public var filter: ModelTrendingPhraseFilterInput?
   public var limit: Int?
@@ -96615,10 +96727,11 @@ public final class ListTrendingPhrasesQuery: GraphQLQuery {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+          GraphQLField("status", type: .nonNull(.scalar(String.self))),
+          GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
           GraphQLField("contentPinyin", type: .scalar(String.self)),
           GraphQLField("audioKey", type: .scalar(String.self)),
           GraphQLField("description", type: .scalar(String.self)),
-          GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
           GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
         ]
 
@@ -96628,8 +96741,8 @@ public final class ListTrendingPhrasesQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, contentZh: String, status: String, createdAt: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, updatedAt: String) {
+          self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -96659,6 +96772,24 @@ public final class ListTrendingPhrasesQuery: GraphQLQuery {
           }
         }
 
+        public var status: String {
+          get {
+            return snapshot["status"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "status")
+          }
+        }
+
+        public var createdAt: String {
+          get {
+            return snapshot["createdAt"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "createdAt")
+          }
+        }
+
         public var contentPinyin: String? {
           get {
             return snapshot["contentPinyin"] as? String
@@ -96683,15 +96814,6 @@ public final class ListTrendingPhrasesQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "description")
-          }
-        }
-
-        public var createdAt: String {
-          get {
-            return snapshot["createdAt"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "createdAt")
           }
         }
 
@@ -132074,6 +132196,212 @@ public final class GetArticlesByStatusQuery: GraphQLQuery {
   }
 }
 
+public final class GetTrendingPhrasesByStatusQuery: GraphQLQuery {
+  public static let operationString =
+    "query GetTrendingPhrasesByStatus($status: String, $createdAt: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelTrendingPhraseFilterInput, $limit: Int, $nextToken: String) {\n  getTrendingPhrasesByStatus(status: $status, createdAt: $createdAt, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      contentZh\n      status\n      createdAt\n      contentPinyin\n      audioKey\n      description\n      updatedAt\n    }\n    nextToken\n  }\n}"
+
+  public var status: String?
+  public var createdAt: ModelStringKeyConditionInput?
+  public var sortDirection: ModelSortDirection?
+  public var filter: ModelTrendingPhraseFilterInput?
+  public var limit: Int?
+  public var nextToken: String?
+
+  public init(status: String? = nil, createdAt: ModelStringKeyConditionInput? = nil, sortDirection: ModelSortDirection? = nil, filter: ModelTrendingPhraseFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
+    self.status = status
+    self.createdAt = createdAt
+    self.sortDirection = sortDirection
+    self.filter = filter
+    self.limit = limit
+    self.nextToken = nextToken
+  }
+
+  public var variables: GraphQLMap? {
+    return ["status": status, "createdAt": createdAt, "sortDirection": sortDirection, "filter": filter, "limit": limit, "nextToken": nextToken]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("getTrendingPhrasesByStatus", arguments: ["status": GraphQLVariable("status"), "createdAt": GraphQLVariable("createdAt"), "sortDirection": GraphQLVariable("sortDirection"), "filter": GraphQLVariable("filter"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .object(GetTrendingPhrasesByStatus.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(getTrendingPhrasesByStatus: GetTrendingPhrasesByStatus? = nil) {
+      self.init(snapshot: ["__typename": "Query", "getTrendingPhrasesByStatus": getTrendingPhrasesByStatus.flatMap { $0.snapshot }])
+    }
+
+    public var getTrendingPhrasesByStatus: GetTrendingPhrasesByStatus? {
+      get {
+        return (snapshot["getTrendingPhrasesByStatus"] as? Snapshot).flatMap { GetTrendingPhrasesByStatus(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "getTrendingPhrasesByStatus")
+      }
+    }
+
+    public struct GetTrendingPhrasesByStatus: GraphQLSelectionSet {
+      public static let possibleTypes = ["ModelTrendingPhraseConnection"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("items", type: .list(.object(Item.selections))),
+        GraphQLField("nextToken", type: .scalar(String.self)),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(items: [Item?]? = nil, nextToken: String? = nil) {
+        self.init(snapshot: ["__typename": "ModelTrendingPhraseConnection", "items": items.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, "nextToken": nextToken])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var items: [Item?]? {
+        get {
+          return (snapshot["items"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Item(snapshot: $0) } } }
+        }
+        set {
+          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "items")
+        }
+      }
+
+      public var nextToken: String? {
+        get {
+          return snapshot["nextToken"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "nextToken")
+        }
+      }
+
+      public struct Item: GraphQLSelectionSet {
+        public static let possibleTypes = ["TrendingPhrase"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+          GraphQLField("status", type: .nonNull(.scalar(String.self))),
+          GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+          GraphQLField("contentPinyin", type: .scalar(String.self)),
+          GraphQLField("audioKey", type: .scalar(String.self)),
+          GraphQLField("description", type: .scalar(String.self)),
+          GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
+        ]
+
+        public var snapshot: Snapshot
+
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        public init(id: GraphQLID, contentZh: String, status: String, createdAt: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, updatedAt: String) {
+          self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "updatedAt": updatedAt])
+        }
+
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: GraphQLID {
+          get {
+            return snapshot["id"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var contentZh: String {
+          get {
+            return snapshot["contentZh"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "contentZh")
+          }
+        }
+
+        public var status: String {
+          get {
+            return snapshot["status"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "status")
+          }
+        }
+
+        public var createdAt: String {
+          get {
+            return snapshot["createdAt"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "createdAt")
+          }
+        }
+
+        public var contentPinyin: String? {
+          get {
+            return snapshot["contentPinyin"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "contentPinyin")
+          }
+        }
+
+        public var audioKey: String? {
+          get {
+            return snapshot["audioKey"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "audioKey")
+          }
+        }
+
+        public var description: String? {
+          get {
+            return snapshot["description"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "description")
+          }
+        }
+
+        public var updatedAt: String {
+          get {
+            return snapshot["updatedAt"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "updatedAt")
+          }
+        }
+      }
+    }
+  }
+}
+
 public final class GetVocabularyArticlesByParagraphIdQuery: GraphQLQuery {
   public static let operationString =
     "query GetVocabularyArticlesByParagraphId($paragraphId: ID, $sortDirection: ModelSortDirection, $filter: ModelVocabularyArticleFilterInput, $limit: Int, $nextToken: String) {\n  getVocabularyArticlesByParagraphId(paragraphId: $paragraphId, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      article {\n        __typename\n        id\n        coverImage {\n          __typename\n          ...S3Object\n        }\n        coverImage_key\n        coverImageAlt\n        titleEn\n        titleZh\n        whyYouShouldReadThisArticle\n        createdAt\n        tags {\n          __typename\n          items {\n            __typename\n            id\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        vocabularies {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        sourcer\n        paragraphs {\n          __typename\n          items {\n            __typename\n            id\n            content\n            contentType\n            seqNumber\n            contentImage_key\n            contentImageAlt\n            audio_key\n            videoURL\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        audioEnKey\n        audioZhKey\n        status\n        updatedAt\n      }\n      vocabulary {\n        __typename\n        id\n        contentZh\n        contentEn\n        contentPinyin\n        label\n        audio {\n          __typename\n          ...S3Object\n        }\n        audio_key\n        optionContent\n        articles {\n          __typename\n          items {\n            __typename\n            id\n            paragraphId\n            startIndex\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      paragraphId\n      startIndex\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
@@ -152038,7 +152366,7 @@ public final class OnDeleteVocabularySubscription: GraphQLSubscription {
 
 public final class OnCreateTrendingPhraseSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateTrendingPhrase {\n  onCreateTrendingPhrase {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateTrendingPhrase {\n  onCreateTrendingPhrase {\n    __typename\n    id\n    contentZh\n    status\n    createdAt\n    contentPinyin\n    audioKey\n    description\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -152076,10 +152404,11 @@ public final class OnCreateTrendingPhraseSubscription: GraphQLSubscription {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("status", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("contentPinyin", type: .scalar(String.self)),
         GraphQLField("audioKey", type: .scalar(String.self)),
         GraphQLField("description", type: .scalar(String.self)),
-        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
@@ -152089,8 +152418,8 @@ public final class OnCreateTrendingPhraseSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, contentZh: String, status: String, createdAt: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -152117,6 +152446,24 @@ public final class OnCreateTrendingPhraseSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "contentZh")
+        }
+      }
+
+      public var status: String {
+        get {
+          return snapshot["status"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "status")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
         }
       }
 
@@ -152147,15 +152494,6 @@ public final class OnCreateTrendingPhraseSubscription: GraphQLSubscription {
         }
       }
 
-      public var createdAt: String {
-        get {
-          return snapshot["createdAt"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "createdAt")
-        }
-      }
-
       public var updatedAt: String {
         get {
           return snapshot["updatedAt"]! as! String
@@ -152170,7 +152508,7 @@ public final class OnCreateTrendingPhraseSubscription: GraphQLSubscription {
 
 public final class OnUpdateTrendingPhraseSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateTrendingPhrase {\n  onUpdateTrendingPhrase {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateTrendingPhrase {\n  onUpdateTrendingPhrase {\n    __typename\n    id\n    contentZh\n    status\n    createdAt\n    contentPinyin\n    audioKey\n    description\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -152208,10 +152546,11 @@ public final class OnUpdateTrendingPhraseSubscription: GraphQLSubscription {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("status", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("contentPinyin", type: .scalar(String.self)),
         GraphQLField("audioKey", type: .scalar(String.self)),
         GraphQLField("description", type: .scalar(String.self)),
-        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
@@ -152221,8 +152560,8 @@ public final class OnUpdateTrendingPhraseSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, contentZh: String, status: String, createdAt: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -152249,6 +152588,24 @@ public final class OnUpdateTrendingPhraseSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "contentZh")
+        }
+      }
+
+      public var status: String {
+        get {
+          return snapshot["status"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "status")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
         }
       }
 
@@ -152279,15 +152636,6 @@ public final class OnUpdateTrendingPhraseSubscription: GraphQLSubscription {
         }
       }
 
-      public var createdAt: String {
-        get {
-          return snapshot["createdAt"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "createdAt")
-        }
-      }
-
       public var updatedAt: String {
         get {
           return snapshot["updatedAt"]! as! String
@@ -152302,7 +152650,7 @@ public final class OnUpdateTrendingPhraseSubscription: GraphQLSubscription {
 
 public final class OnDeleteTrendingPhraseSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteTrendingPhrase {\n  onDeleteTrendingPhrase {\n    __typename\n    id\n    contentZh\n    contentPinyin\n    audioKey\n    description\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteTrendingPhrase {\n  onDeleteTrendingPhrase {\n    __typename\n    id\n    contentZh\n    status\n    createdAt\n    contentPinyin\n    audioKey\n    description\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -152340,10 +152688,11 @@ public final class OnDeleteTrendingPhraseSubscription: GraphQLSubscription {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("contentZh", type: .nonNull(.scalar(String.self))),
+        GraphQLField("status", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("contentPinyin", type: .scalar(String.self)),
         GraphQLField("audioKey", type: .scalar(String.self)),
         GraphQLField("description", type: .scalar(String.self)),
-        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
@@ -152353,8 +152702,8 @@ public final class OnDeleteTrendingPhraseSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, contentZh: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, contentZh: String, status: String, createdAt: String, contentPinyin: String? = nil, audioKey: String? = nil, description: String? = nil, updatedAt: String) {
+        self.init(snapshot: ["__typename": "TrendingPhrase", "id": id, "contentZh": contentZh, "status": status, "createdAt": createdAt, "contentPinyin": contentPinyin, "audioKey": audioKey, "description": description, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -152384,6 +152733,24 @@ public final class OnDeleteTrendingPhraseSubscription: GraphQLSubscription {
         }
       }
 
+      public var status: String {
+        get {
+          return snapshot["status"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "status")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
       public var contentPinyin: String? {
         get {
           return snapshot["contentPinyin"] as? String
@@ -152408,15 +152775,6 @@ public final class OnDeleteTrendingPhraseSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "description")
-        }
-      }
-
-      public var createdAt: String {
-        get {
-          return snapshot["createdAt"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "createdAt")
         }
       }
 

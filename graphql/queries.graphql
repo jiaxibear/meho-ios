@@ -694,10 +694,11 @@ query GetTrendingPhrase($id: ID!) {
   getTrendingPhrase(id: $id) {
     id
     contentZh
+    status
+    createdAt
     contentPinyin
     audioKey
     description
-    createdAt
     updatedAt
   }
 }
@@ -710,10 +711,11 @@ query ListTrendingPhrases(
     items {
       id
       contentZh
+      status
+      createdAt
       contentPinyin
       audioKey
       description
-      createdAt
       updatedAt
     }
     nextToken
@@ -3337,6 +3339,35 @@ query GetArticlesByStatus(
       audioEnKey
       audioZhKey
       status
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetTrendingPhrasesByStatus(
+  $status: String
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelTrendingPhraseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getTrendingPhrasesByStatus(
+    status: $status
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      contentZh
+      status
+      createdAt
+      contentPinyin
+      audioKey
+      description
       updatedAt
     }
     nextToken
