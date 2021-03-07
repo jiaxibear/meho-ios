@@ -114,6 +114,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
                         self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
                     }
                 } else {
+                    mobileClient.signOut()
                     DispatchQueue.main.async {
                         self.activityIndicatorView.stopAnimating()
                     }

@@ -288,8 +288,14 @@
 /* An generic error message displayed when an error occurred while signing up the account. */
 "genericSignUpErrorMessage" = "An error occurred while signing up the account";
 
-/* Title for the sending verification error alert. */
+/* An generic error message displayed when an error occurred while signing in the account. */
+"genericSignInErrorMessage" = "An error occurred while signing in the account";
+
+/* Title for the sign up error alert. */
 "signUpErrorTitle" = "Error signing up";
+
+/* Title for the sign in error alert. */
+"signInErrorTitle" = "Error signing up";
 
 /* An generic error message displayed when an error occurred while sending a verification code. */
 "genericVerificationErrorMessage" = "An error occurred while sending a verification code";

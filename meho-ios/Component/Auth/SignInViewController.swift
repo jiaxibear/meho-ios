@@ -244,43 +244,29 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
                 guard error == nil else {
                     // TODO: show error message.
                     if let mobileClientError = error as? AWSMobileClientError {
+                        var alertTitle = ""
+                        var alertMessage = ""
                         switch mobileClientError {
                         case .userNotFound(_):
-                            let alertTitle = NSLocalizedString("InvalidEmailTitle", comment: "")
-                            let alertMessage = NSLocalizedString("InvalidEmailMessage", comment: "")
-                            let alertController = UIAlertController.init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-                            let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
-                            let okAction = UIAlertAction.init(title:okTitle, style:.default) { (action) in
-                                self.dismiss(animated: true, completion: nil)
-                            }
-                            alertController.addAction(okAction)
-                            self.present(alertController, animated: true, completion: nil)
-                            break
+                            alertTitle = NSLocalizedString("InvalidEmailTitle", comment: "")
+                            alertMessage = NSLocalizedString("InvalidEmailMessage", comment: "")
                         case .notAuthorized(_):
-                            let alertTitle = NSLocalizedString("IncorrectPasswordTitle", comment: "")
-                            let alertMessage = NSLocalizedString("IncorrectPasswordMessage", comment: "")
-                            let alertController = UIAlertController.init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-                            let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
-                            let okAction = UIAlertAction.init(title:okTitle, style:.default) { (action) in
-                                self.dismiss(animated: true, completion: nil)
-                            }
-                            alertController.addAction(okAction)
-                            self.present(alertController, animated: true, completion: nil)
-                            break
+                            alertTitle = NSLocalizedString("IncorrectPasswordTitle", comment: "")
+                            alertMessage = NSLocalizedString("IncorrectPasswordMessage", comment: "")
                         case .userNotConfirmed(_):
-                            let alertTitle = NSLocalizedString("EmailUnconfirmedTitle", comment: "")
-                            let alertMessage = NSLocalizedString("EmailUnconfirmedMessage", comment: "")
-                            let alertController = UIAlertController.init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-                            let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
-                            let okAction = UIAlertAction.init(title:okTitle, style:.default) { (action) in
-                                self.dismiss(animated: true, completion: nil)
-                            }
-                            alertController.addAction(okAction)
-                            self.present(alertController, animated: true, completion: nil)
-                            break
+                            alertTitle = NSLocalizedString("EmailUnconfirmedTitle", comment: "")
+                            alertMessage = NSLocalizedString("EmailUnconfirmedMessage", comment: "")
                         default:
-                            break
+                            alertTitle = NSLocalizedString("signInErrorTitle", comment: "")
+                            alertMessage = NSLocalizedString("genericSignInErrorMessage", comment: "")
                         }
+                        let alertController = UIAlertController.init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                        let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
+                        let okAction = UIAlertAction.init(title:okTitle, style:.default) { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                        alertController.addAction(okAction)
+                        self.present(alertController, animated: true, completion: nil)
                     }
                     return
                 }
