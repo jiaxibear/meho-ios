@@ -129,6 +129,7 @@ DEPENDENCIES:
   - Firebase/Analytics
   - InitialsImageView (~> 0.7.0)
   - Kingfisher (~> 5.15)
+  - ReachabilitySwift
   - Signals (~> 6.0)
   - Toast-Swift (~> 5.0.1)
 
@@ -197,6 +198,6 @@ SPEC CHECKSUMS:
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 57b1b8672dabb3f00cad368b8550a5cb59e4dcac
+PODFILE CHECKSUM: e73993cc367608e5b975cb77aca6675f206d751e
 
 COCOAPODS: 1.8.4

@@ -9,6 +9,7 @@
 import UIKit
 import AWSMobileClient
 import FirebaseAnalytics
+import Reachability
 
 enum ConversationSection: Int {
     case categories
@@ -450,7 +451,12 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         } else {
             DispatchQueue.main.async {
                 self.conversationCollectionView.isHidden = true
-                self.loadingView.state = .empty
+                let reachability = try! Reachability()
+                if reachability.connection == .unavailable {
+                    self.loadingView.state = .noConnection
+                } else {
+                    self.loadingView.state = .empty
+                }
                 self.loadingView.isHidden = false
             }
         }

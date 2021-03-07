@@ -22,6 +22,7 @@ target 'meho-ios' do
   pod 'Kingfisher', '~> 5.15'
   pod 'InitialsImageView', '~> 0.7.0'
   pod 'Signals', '~> 6.0'
+  pod 'ReachabilitySwift'
 
   # add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'

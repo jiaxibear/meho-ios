@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAnalytics
+import Reachability
 
 enum ExpressionSection: Int {
     case survivalPhrases
@@ -403,7 +404,12 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             case .failure(_):
                 DispatchQueue.main.async {
                     self.expressionCollectionView.isHidden = true
-                    self.loadingView.state = .empty
+                    let reachability = try! Reachability()
+                    if reachability.connection == .unavailable {
+                        self.loadingView.state = .noConnection
+                    } else {
+                        self.loadingView.state = .empty
+                    }
                     self.loadingView.isHidden = false
                 }
             }

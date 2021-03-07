@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAnalytics
 import Amplify
+import Reachability
 
 class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsItemSizeLCollectionViewCellDelegate, NewsItemSizeSCollectionViewCellDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate, LoadingViewDelegate {
 
@@ -351,7 +352,12 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
             } else {
                 DispatchQueue.main.async {
                     self.newsCollectionView.isHidden = true
-                    self.loadingView.state = .empty
+                    let reachability = try! Reachability()
+                    if reachability.connection == .unavailable {
+                        self.loadingView.state = .noConnection
+                    } else {
+                        self.loadingView.state = .empty
+                    }
                     self.loadingView.isHidden = false
                 }
             }

@@ -9,6 +9,7 @@
 import UIKit
 import AWSMobileClient
 import InitialsImageView
+import Reachability
 
 enum ProfileSection: Int {
     case completed
@@ -574,7 +575,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             guard let profileDetails = profileDetails else {
                 DispatchQueue.main.async {
                     self.collectionView.isHidden = true
-                    self.loadingView.state = .empty
+                    let reachability = try! Reachability()
+                    if reachability.connection == .unavailable {
+                        self.loadingView.state = .noConnection
+                    } else {
+                        self.loadingView.state = .empty
+                    }
                     self.loadingView.isHidden = false
                 }
                 return
