@@ -14,7 +14,7 @@ enum ExpressionSection: Int {
     case trendingPhrases
 }
 
-class ExpressionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsPlayingNow, NewsPlayingNowViewDelegate {
+class ExpressionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsPlayingNow, NewsPlayingNowViewDelegate, LoadingViewDelegate {
 
     // MARK: - Constants
     private let expressionTabBarItemImageName = "tabbar_expression_25pt"
@@ -39,6 +39,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     private lazy var loadingView: LoadingView = {
         let loadingView = LoadingView.init(frame: .zero)
         loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.delegate = self
         return loadingView
     } ()
 
@@ -147,26 +148,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             loadingView.trailingAnchor.constraint(equalTo: expressionCollectionView.trailingAnchor),
         ])
 
-        dataFecther.fetchTrendingPhrases { (result) in
-            switch result {
-            case .success(let trendingPhrases):
-                DispatchQueue.main.async {
-                    self.expressionCollectionView.isHidden = false
-                    self.loadingView.isHidden = true
-                    self.trendingPhrases = trendingPhrases.map({ (trendingPhrase) -> TrendingPhraseWrapper in
-                        return TrendingPhraseWrapper.init(trendingPhrase: trendingPhrase)
-                    })
-                    self.sections.append(.trendingPhrases)
-                    self.expressionCollectionView.reloadData()
-                }
-            case .failure(_):
-                DispatchQueue.main.async {
-                    self.expressionCollectionView.isHidden = true
-                    self.loadingView.state = .empty
-                    self.loadingView.isHidden = false
-                }
-            }
-        }
+        fetchTrendingPhrases()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -305,6 +287,11 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         ])
     }
 
+    // MARK: - LoadingViewDelegate
+    func didTapRetyButton() {
+        fetchTrendingPhrases()
+    }
+
     // MARK: - NewsPlayingNowViewDelegate
     func didTapCancelButton() {
         var contentInset = expressionCollectionView.contentInset
@@ -397,4 +384,30 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             mainViewController.selectProfileTab()
         }
     }
+
+    // MARK: - Private
+    private func fetchTrendingPhrases() {
+        loadingView.state = .loading
+        dataFecther.fetchTrendingPhrases { (result) in
+            switch result {
+            case .success(let trendingPhrases):
+                DispatchQueue.main.async {
+                    self.expressionCollectionView.isHidden = false
+                    self.loadingView.isHidden = true
+                    self.trendingPhrases = trendingPhrases.map({ (trendingPhrase) -> TrendingPhraseWrapper in
+                        return TrendingPhraseWrapper.init(trendingPhrase: trendingPhrase)
+                    })
+                    self.sections.append(.trendingPhrases)
+                    self.expressionCollectionView.reloadData()
+                }
+            case .failure(_):
+                DispatchQueue.main.async {
+                    self.expressionCollectionView.isHidden = true
+                    self.loadingView.state = .empty
+                    self.loadingView.isHidden = false
+                }
+            }
+        }
+    }
 }
+

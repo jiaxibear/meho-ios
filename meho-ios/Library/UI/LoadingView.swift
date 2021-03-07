@@ -14,6 +14,10 @@ enum LoadingViewState {
     case noConnection
 }
 
+protocol LoadingViewDelegate: AnyObject {
+    func didTapRetyButton()
+}
+
 class LoadingView: UIView {
 
     // MARK: - Constants
@@ -122,6 +126,7 @@ class LoadingView: UIView {
         } else {
             retryButton.titleLabel?.font = retryButtonFont
         }
+        retryButton.addTarget(self, action: #selector(didTapRetryButton), for: .touchUpInside)
         return retryButton
     } ()
 
@@ -148,6 +153,8 @@ class LoadingView: UIView {
             }
         }
     }
+
+    var delegate: LoadingViewDelegate?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -210,5 +217,10 @@ class LoadingView: UIView {
         let emptySubtitleLabelHeight = emptySubtitleLabel.sizeThatFits(labelFittingSize).height
         height = height + emptyTitleLabelHeight + emptySubtitleLabelHeight
         emptyStackViewHeightConstraint.constant = height
+    }
+
+    @objc
+    private func didTapRetryButton() {
+        delegate?.didTapRetyButton()
     }
 }

@@ -17,7 +17,7 @@ enum ProfileSection: Int {
     case savedVocabularies
 }
 
-class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProfileHeaderCollectionReusableViewDelegate, DialogModeSelectionViewControllerDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate {
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProfileHeaderCollectionReusableViewDelegate, DialogModeSelectionViewControllerDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate, LoadingViewDelegate {
     
     // MARK: - Constants
     private let profileTabBarItemImageName = "tabbar_profile_25pt"
@@ -53,6 +53,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private lazy var loadingView: LoadingView = {
         let loadingView = LoadingView.init(frame: .zero)
         loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.delegate = self
         return loadingView
     } ()
 
@@ -368,6 +369,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return sections.count
     }
 
+    // MARK: - LoadingViewDelegate
+    func didTapRetyButton() {
+        updateProfileDetail()
+    }
+
     // MARK: - DialogModeSelectionViewControllerDelegate
     func dialogModeSelectionViewControllerDidTapDuoRolePlayButton(dialog: Dialog) {
         dismiss(animated: true) {
@@ -559,6 +565,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     @objc
     private func updateProfileDetail() {
+        loadingView.state = .loading
         guard let userID = AWSMobileClient.default().userSub else {
             return
         }

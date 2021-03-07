@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAnalytics
 import Amplify
 
-class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsItemSizeLCollectionViewCellDelegate, NewsItemSizeSCollectionViewCellDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate {
+class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsItemSizeLCollectionViewCellDelegate, NewsItemSizeSCollectionViewCellDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate, LoadingViewDelegate {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
@@ -21,6 +21,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     private let horizontalMargin = CGFloat(15)
     private let verticalTopMargin = CGFloat(30)
+    private let collectionTopMargin = CGFloat(24)
     private let newsListTitle = NSLocalizedString("NewsTitle", comment: "")
 
     // MARK: MehoAnalytics
@@ -45,6 +46,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
     private lazy var loadingView: LoadingView = {
         let loadingView = LoadingView.init(frame: .zero)
         loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.delegate = self
         return loadingView
     } ()
 
@@ -145,7 +147,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
         // view constraints
         scrollDownTitleHiddenCollectionViewTopConstraint = newsCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
-        scrollUpTitleShownCollectionViewTopConstraint = newsCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: verticalTopMargin)
+        scrollUpTitleShownCollectionViewTopConstraint = newsCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: collectionTopMargin)
         scrollUpTitleShownCollectionViewTopConstraint.isActive = true
         newsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalMargin).isActive = true
         newsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -horizontalMargin).isActive = true
@@ -292,6 +294,11 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         present(alertController, animated: true, completion: nil)
     }
 
+    // MARK: - LoadingViewDelegate
+    func didTapRetyButton() {
+        didRefresh()
+    }
+
     // MARK: - NewsPlayingNow
     func displayNewsPlayingNowView(_ newsPlayingNowView: NewsPlayingNowView) {
         if newsPlayingNowView.superview != nil {
@@ -331,6 +338,7 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     @objc
     func didRefresh() {
+        loadingView.state = .loading
         dataFecther.fetchNewsList(count: "50", completionHandler:  { (newsList, error) in
             if (error == nil && newsList != nil) {
                 DispatchQueue.main.async {

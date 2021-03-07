@@ -16,7 +16,7 @@ enum ConversationSection: Int {
     case mostPopluarDialogs
 }
 
-class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, SeeMoreFooterCollectionResuableViewDelegate, TriggerProfileViewDelegate, DialogModeSelectionViewControllerDelegate, MehoAnalytics, NewsPlayingNow, NewsPlayingNowViewDelegate {
+class ConversationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, SeeMoreFooterCollectionResuableViewDelegate, TriggerProfileViewDelegate, DialogModeSelectionViewControllerDelegate, MehoAnalytics, NewsPlayingNow, NewsPlayingNowViewDelegate, LoadingViewDelegate {
 
     // MARK: - Constants
     private let trailingLeadingMargin = CGFloat(15)
@@ -86,6 +86,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private lazy var loadingView: LoadingView = {
         let loadingView = LoadingView.init(frame: .zero)
         loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.delegate = self
         return loadingView
     } ()
 
@@ -96,6 +97,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     private var mostPopularDialogs:[Dialog] = []
     private var sections:[ConversationSection] = []
     private let dataFecther = ConversationDataFetcher.init()
+    private var fetchedItems = 0
 
     // MARK: MehoAnalytics
     let screenName = "p_meho_talks_home"
@@ -150,62 +152,14 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
             conversationCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             conversationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            conversationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            conversationCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
         ])
 
         scrollDownTitleHiddenCollectionViewTopConstraint = conversationCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
         scrollUpTitleShownCollectionViewTopConstraint = conversationCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: titleLabelToConversationCollectionViewMargin)
         scrollUpTitleShownCollectionViewTopConstraint.isActive = true
 
-        dataFecther.fetchCategories(maybeLimit: 4, completionHandler:  { (categories, error) in
-            guard let categories = categories else {
-                DispatchQueue.main.async {
-                    self.conversationCollectionView.isHidden = true
-                    self.loadingView.state = .empty
-                    self.loadingView.isHidden = false
-                }
-                return
-            }
-            var seeAllCategoryCard = Category.init()
-            seeAllCategoryCard.title = "See All"
-            seeAllCategoryCard.identifier = "seeallcard"
-            var newCategories = categories
-            newCategories.append(seeAllCategoryCard)
-
-            DispatchQueue.main.async {
-                self.conversationCollectionView.isHidden = false
-                self.loadingView.isHidden = true
-                self.categories = newCategories
-                self.sections.insert(.categories, at: 0)
-                self.conversationCollectionView.reloadData()
-            }
-        })
-
-        dataFecther.fetchFeaturedDialogs(difficulty: nil, completionHandler: {
-            (dialogs, error) in
-            if (error == nil && dialogs != nil) {
-                DispatchQueue.main.async {
-                    self.featuredDialogs = dialogs!
-                    if self.sections.count == 0 {
-                        self.sections.append(.featuredDialogs)
-                    } else {
-                        self.sections.insert(.featuredDialogs, at: 1)
-                    }
-                    self.conversationCollectionView.reloadData()
-                }
-            }
-        })
-
-        dataFecther.fetchMostPopularDialogs(difficulty: nil, completionHandler: {
-            (dialogs, error) in
-            if (error == nil && dialogs != nil) {
-                DispatchQueue.main.async {
-                    self.mostPopularDialogs = Array(dialogs!.prefix(self.numberOfMostPopularDialogs))
-                    self.sections.append(.mostPopluarDialogs)
-                    self.conversationCollectionView.reloadData()
-                }
-            }
-        })
+        fetchConversations()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -404,6 +358,11 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         ])
     }
 
+    // MARK: - LoadingViewDelegate
+    func didTapRetyButton() {
+        fetchConversations()
+    }
+
     // MARK: - NewsPlayingNowViewDelegate
     func didTapCancelButton() {
         var contentInset = conversationCollectionView.contentInset
@@ -475,6 +434,82 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
 
             DispatchQueue.main.async {
                 self.navigationController?.present(dialogViewController, animated: true, completion: nil)
+            }
+        })
+    }
+
+    private func updateLoadingView() {
+        guard fetchedItems == 3 else {
+            return
+        }
+        if sections.count > 0 {
+            DispatchQueue.main.async {
+                self.conversationCollectionView.isHidden = false
+                self.loadingView.isHidden = true
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.conversationCollectionView.isHidden = true
+                self.loadingView.state = .empty
+                self.loadingView.isHidden = false
+            }
+        }
+    }
+
+    private func fetchConversations() {
+        loadingView.state = .loading
+        fetchedItems = 0
+        dataFecther.fetchCategories(maybeLimit: 4, completionHandler:  { (categories, error) in
+            self.fetchedItems += 1
+
+            if let categories = categories {
+                var seeAllCategoryCard = Category.init()
+                seeAllCategoryCard.title = "See All"
+                seeAllCategoryCard.identifier = "seeallcard"
+                var newCategories = categories
+                newCategories.append(seeAllCategoryCard)
+
+                DispatchQueue.main.async {
+                    self.categories = newCategories
+                    self.sections.insert(.categories, at: 0)
+                    self.conversationCollectionView.reloadData()
+                }
+            } else {
+                self.updateLoadingView()
+            }
+        })
+
+        dataFecther.fetchFeaturedDialogs(difficulty: nil, completionHandler: {
+            (dialogs, error) in
+            self.fetchedItems += 1
+            DispatchQueue.main.async {
+                if let dialogs = dialogs {
+                    self.featuredDialogs = dialogs
+                    if self.sections.count == 0 {
+                        self.sections.append(.featuredDialogs)
+                    } else {
+                        self.sections.insert(.featuredDialogs, at: 1)
+                    }
+                    self.updateLoadingView()
+                    self.conversationCollectionView.reloadData()
+                } else {
+                    self.updateLoadingView()
+                }
+            }
+        })
+
+        dataFecther.fetchMostPopularDialogs(difficulty: nil, completionHandler: {
+            (dialogs, error) in
+            self.fetchedItems += 1
+            if let dialogs = dialogs {
+                DispatchQueue.main.async {
+                    self.mostPopularDialogs = Array(dialogs.prefix(self.numberOfMostPopularDialogs))
+                    self.sections.append(.mostPopluarDialogs)
+                    self.updateLoadingView()
+                    self.conversationCollectionView.reloadData()
+                }
+            } else {
+                self.updateLoadingView()
             }
         })
     }
