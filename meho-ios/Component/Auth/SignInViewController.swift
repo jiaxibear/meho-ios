@@ -113,6 +113,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
         let otherSignInView = OtherSignInView.init(frame: .zero)
         otherSignInView.translatesAutoresizingMaskIntoConstraints = false
         otherSignInView.delegate = self
+        otherSignInView.isHidden = true
         return otherSignInView
     } ()
 
@@ -300,6 +301,5 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
             }
         }
     }
-
 }
 

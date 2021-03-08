@@ -9,24 +9,33 @@
 import UIKit
 import AWSMobileClient
 import FirebaseAnalytics
+import Amplify
 
-class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
 
     // MARK: - Constants
     private let buttonLabelFontSize = CGFloat(20)
     private let titleLabelText = "Meho Stories"
-    private let buttonCornerRadius = CGFloat(18)
 
     private let cardInsets = CGFloat(32)
-    private let pageControlToSignUpMargin = CGFloat(40)
-    private let buttonHorizontalMargin = CGFloat(58)
     private let verticalMarginScreenPct = CGFloat(1.0/40.0)
     private let collectionViewTopMargin = CGFloat(40)
-    private let buttonHeightScreenPct = CGFloat(1.0/20.0)
+
+    private let buttonHeight = CGFloat(44)
+    private let buttonHorizontalMargin = CGFloat(56)
+    private let buttonSpacing = CGFloat(16)
+    private let buttonCornerRadius = CGFloat(6)
+    private let buttonBorderWidth = CGFloat(1)
+    private let buttonFontSize = CGFloat(18)
+    private let buttonImageEdgeInsetLeft = CGFloat(14)
+    private let buttonTitleEdgeInsetLeft = CGFloat(26)
+    private let switchSignInSignupTextFontSize = CGFloat(16)
 
     private let introCellReuseIdentifier = "mehoIntroCellId"
 
     // MARK: - Data models
+    private let userDataFecther = UserDataFetcher.shared
+    
     private lazy var coverIntroList: [CoverIntro] = {
         let stories = CoverIntro.init(title: NSLocalizedString("coverStoriesTitle", comment: ""), image: UIImage.init(named: "login_preview_stories"))
         let expressions = CoverIntro.init(title: NSLocalizedString("coverExpressionsTitle", comment: ""), image: UIImage.init(named: "login_preview_expressions"))
@@ -65,34 +74,6 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         return pc
     }()
 
-    private lazy var signUpButton: UIButton = {
-        let button = UIButton.init(frame: .zero)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        let buttonTitle = NSLocalizedString("SignUpButtonTitle", comment: "")
-        button.setTitle(buttonTitle, for: .normal)
-        button.backgroundColor = .wisteriaPurple
-        let fontDescriptor = UIFont.systemFont(ofSize: buttonLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
-        button.titleLabel?.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = buttonCornerRadius
-        button.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
-        return button
-    } ()
-
-    private lazy var signInButton: UIButton = {
-        let button = UIButton.init(frame: .zero)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        let buttonTitle = NSLocalizedString("SignInButtonTitle", comment: "")
-        button.setTitle(buttonTitle, for: .normal)
-        button.backgroundColor = .skyBlue
-        let fontDescriptor = UIFont.systemFont(ofSize: buttonLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
-        button.titleLabel?.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = buttonCornerRadius
-        button.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
-        return button
-    } ()
-
     private lazy var activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView.init()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -100,10 +81,86 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         return activityIndicatorView
     } ()
 
+    private lazy var emailButton: UIButton = {
+        let title = NSLocalizedString("SignUpWithEmailButtonTitle", comment: "")
+        let image = UIImage.init(named: "login_email")
+        let emailButton = signUpButton(title: title, image: image)
+        emailButton.addTarget(self, action: #selector(didTapEmailButton), for: .touchUpInside)
+        return emailButton
+    } ()
+
+    private lazy var googleButton: UIButton = {
+        let title = NSLocalizedString("SignUpWithGoogleButtonTitle", comment: "")
+        let image = UIImage.init(named: "login_google")
+        let googleButton = signUpButton(title: title, image: image)
+        googleButton.addTarget(self, action: #selector(didTapGoogleButton), for: .touchUpInside)
+        return googleButton
+    } ()
+
+    private lazy var facebookButton: UIButton = {
+        let title = NSLocalizedString("SignUpWithFacebookButtonTitle", comment: "")
+        let image = UIImage.init(named: "login_facebook")
+        let facebookButton = signUpButton(title: title, image: image)
+        facebookButton.addTarget(self, action: #selector(didTapFacebookButton), for: .touchUpInside)
+        return facebookButton
+    } ()
+
+    private lazy var appleButton: UIButton = {
+        let title = NSLocalizedString("SignUpWithAppleButtonTitle", comment: "")
+        let image = UIImage.init(systemName: "applelogo")
+        let appleButton = signUpButton(title: title, image: image)
+        appleButton.addTarget(self, action: #selector(didTapAppleButton), for: .touchUpInside)
+        return appleButton
+    } ()
+
+    private lazy var switchSignInSignupTextView: UITextView = {
+        let switchSignInSignupTextView = UITextView.init(frame: .zero)
+        switchSignInSignupTextView.translatesAutoresizingMaskIntoConstraints = false
+        switchSignInSignupTextView.isScrollEnabled = false
+        switchSignInSignupTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.greenBlue]
+        switchSignInSignupTextView.delegate = self
+        return switchSignInSignupTextView
+    } ()
+
+    private lazy var buttonsStackView: UIStackView = {
+        let buttonsStackView = UIStackView.init(arrangedSubviews: [emailButton, googleButton, facebookButton, appleButton, switchSignInSignupTextView])
+        buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonsStackView.spacing = buttonSpacing
+        buttonsStackView.axis = .vertical
+        return buttonsStackView
+    } ()
+
+    private lazy var buttonsStackViewLayoutGuide: UILayoutGuide = {
+        let buttonsStackViewLayoutGuide = UILayoutGuide.init()
+        return buttonsStackViewLayoutGuide
+    } ()
+
     private lazy var storiesCollectionViewHeight: CGFloat = {
         let width = view.frame.width - 2 * cardInsets
         return MehoCoverIntroCollectionViewCell.cellHeight(width: width)
     } ()
+
+    private var isSignUp = true {
+        didSet {
+            if isSignUp {
+                let switchSignInSignupTextFormat = NSLocalizedString("SignInText", comment: "")
+                let signInText = NSLocalizedString("SignInButtonTitle", comment: "")
+                setUpTextView(switchSignInSignupTextFormat: switchSignInSignupTextFormat, linkTitle: signInText)
+                emailButton.setTitle(NSLocalizedString("SignUpWithEmailButtonTitle", comment: ""), for: .normal)
+                googleButton.setTitle(NSLocalizedString("SignUpWithGoogleButtonTitle", comment: ""), for: .normal)
+                facebookButton.setTitle(NSLocalizedString("SignUpWithFacebookButtonTitle", comment: ""), for: .normal)
+                appleButton.setTitle(NSLocalizedString("SignUpWithAppleButtonTitle", comment: ""), for: .normal)
+            } else {
+                let switchSignInSignupTextFormat = NSLocalizedString("SignUpText", comment: "")
+                let signUpText = NSLocalizedString("SignUpButtonTitle", comment: "")
+                setUpTextView(switchSignInSignupTextFormat: switchSignInSignupTextFormat, linkTitle: signUpText)
+                emailButton.setTitle(NSLocalizedString("SignInWithEmailButtonTitle", comment: ""), for: .normal)
+                googleButton.setTitle(NSLocalizedString("SignInWithGoogleButtonTitle", comment: ""), for: .normal)
+                facebookButton.setTitle(NSLocalizedString("SignInWithFacebookButtonTitle", comment: ""), for: .normal)
+                appleButton.setTitle(NSLocalizedString("SignInWithAppleButtonTitle", comment: ""), for: .normal)
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,10 +187,15 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         view.addSubview(activityIndicatorView)
         view.addSubview(storyCollectionView)
         view.addSubview(pageControl)
-        view.addSubview(signUpButton)
-        view.addSubview(signInButton)
+        view.addLayoutGuide(buttonsStackViewLayoutGuide)
+        view.addSubview(buttonsStackView)
+
+        adjustButtonTitleEdgeInsets()
+        isSignUp = true
 
         let screenHeight = view.bounds.height - collectionViewTopMargin
+        let buttonsStackViewWidth = view.bounds.width - 2 * buttonHorizontalMargin
+        let buttonsStackViewHeight = 4 * buttonHeight + 4 * buttonSpacing + switchSignInSignupTextView.sizeThatFits(CGSize.init(width: buttonsStackViewWidth, height: .greatestFiniteMagnitude)).height
         NSLayoutConstraint.activate([
             activityIndicatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             activityIndicatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -148,15 +210,20 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
             pageControl.topAnchor.constraint(equalTo: storyCollectionView.bottomAnchor, constant: screenHeight * verticalMarginScreenPct),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            signUpButton.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: screenHeight * verticalMarginScreenPct),
-            signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonHorizontalMargin),
-            signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonHorizontalMargin),
-            signUpButton.heightAnchor.constraint(equalToConstant: screenHeight * buttonHeightScreenPct),
+            buttonsStackViewLayoutGuide.topAnchor.constraint(equalTo: pageControl.bottomAnchor),
+            buttonsStackViewLayoutGuide.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            buttonsStackViewLayoutGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            buttonsStackViewLayoutGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-            signInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: screenHeight * verticalMarginScreenPct),
-            signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonHorizontalMargin),
-            signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonHorizontalMargin),
-            signInButton.heightAnchor.constraint(equalToConstant: screenHeight * buttonHeightScreenPct),
+            buttonsStackView.centerYAnchor.constraint(equalTo: buttonsStackViewLayoutGuide.centerYAnchor),
+            buttonsStackView.centerXAnchor.constraint(equalTo: buttonsStackViewLayoutGuide.centerXAnchor),
+            buttonsStackView.heightAnchor.constraint(equalToConstant: buttonsStackViewHeight),
+            buttonsStackView.widthAnchor.constraint(equalToConstant: buttonsStackViewWidth),
+
+            emailButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            googleButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            facebookButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            appleButton.heightAnchor.constraint(equalToConstant: buttonHeight),
         ])
     }
 
@@ -200,6 +267,12 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         pageControl.currentPage = Int(offSet + horizontalCenter) / Int(width)
     }
 
+    // MARK: - UITextViewDelegate
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        isSignUp = !isSignUp
+        return false
+    }
+
     @objc
     func didTapSignInButton() {
         let signInController = SignInViewController.init()
@@ -210,5 +283,120 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     func didTapSignUpButton() {
         let signUpController = SignUpViewController.init()
         navigationController?.pushViewController(signUpController, animated: true)
+    }
+
+    private func signUpButton(title: String, image: UIImage?) -> UIButton {
+        let signUpButton = UIButton.init(frame: .zero)
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        signUpButton.layer.cornerRadius = buttonCornerRadius
+        signUpButton.layer.masksToBounds = true
+        signUpButton.layer.borderColor = UIColor.black.cgColor
+        signUpButton.layer.borderWidth = buttonBorderWidth
+        signUpButton.setTitle(title, for: .normal)
+        signUpButton.setImage(image, for: .normal)
+        signUpButton.setTitleColor(.black, for: .normal)
+        signUpButton.tintColor = .black
+        signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: buttonFontSize, weight: .medium)
+        signUpButton.contentHorizontalAlignment = .leading
+        signUpButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: buttonImageEdgeInsetLeft, bottom: 0, right: 0)
+        signUpButton.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: buttonTitleEdgeInsetLeft, bottom: 0, right: 0)
+        signUpButton.imageView?.contentMode = .scaleAspectFit
+        return signUpButton
+    }
+
+    private func adjustButtonTitleEdgeInsets() {
+        guard let emailButtonImageWidth = emailButton.imageView?.image?.size.width, let googleButtonImageWidth = googleButton.imageView?.image?.size.width, let facebookButtonImageWidth = facebookButton.imageView?.image?.size.width, let appleButtonImageWidth = appleButton.imageView?.image?.size.width else {
+            return
+        }
+        let emailContentEdgeInsetsLeft = emailButton.contentEdgeInsets.left
+        let googleDiff = googleButtonImageWidth - emailButtonImageWidth
+        googleButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: emailContentEdgeInsetsLeft - googleDiff / 2, bottom: 0, right: 0)
+        googleButton.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: buttonTitleEdgeInsetLeft - googleDiff / 2, bottom: 0, right: 0)
+        let facebookDiff = facebookButtonImageWidth - emailButtonImageWidth
+        facebookButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: emailContentEdgeInsetsLeft - facebookDiff / 2, bottom: 0, right: 0)
+        facebookButton.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: buttonTitleEdgeInsetLeft - facebookDiff / 2, bottom: 0, right: 0)
+        let appleDiff = appleButtonImageWidth - emailButtonImageWidth
+        appleButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: emailContentEdgeInsetsLeft - appleDiff / 2, bottom: 0, right: 0)
+        appleButton.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: buttonTitleEdgeInsetLeft - appleDiff / 2, bottom: 0, right: 0)
+    }
+
+    private func setUpTextView(switchSignInSignupTextFormat: String, linkTitle: String) {
+        let switchSignInSignupText = String.init(format: switchSignInSignupTextFormat, linkTitle)
+        let switchSignInSignupAttributedText = NSMutableAttributedString.init(string: switchSignInSignupText)
+        switchSignInSignupAttributedText.addAttributes([.font : UIFont.systemFont(ofSize: switchSignInSignupTextFontSize)], range: NSRange.init(location: 0, length: switchSignInSignupText.count))
+        switchSignInSignupAttributedText.addAttributes([.foregroundColor : UIColor.black], range: NSRange.init(location: 0, length: switchSignInSignupText.count))
+        if let mehoURL = NSURL.init(string: "www.wearemeho.com") {
+            switchSignInSignupAttributedText.addAttributes([.link : mehoURL], range: switchSignInSignupAttributedText.mutableString.range(of: linkTitle))
+        }
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        switchSignInSignupAttributedText.addAttributes([.paragraphStyle : paragraphStyle], range: NSRange.init(location: 0, length: switchSignInSignupText.count))
+        switchSignInSignupTextView.attributedText = switchSignInSignupAttributedText
+    }
+
+    @objc
+    private func didTapEmailButton() {
+        if isSignUp {
+            let signUpController = SignUpViewController.init()
+            navigationController?.pushViewController(signUpController, animated: true)
+        } else {
+            let signInController = SignInViewController.init()
+            navigationController?.pushViewController(signInController, animated: true)
+        }
+    }
+
+    @objc
+    private func didTapGoogleButton() {
+        otherSignIn(for: .google)
+    }
+
+    @objc
+    private func didTapFacebookButton() {
+        otherSignIn(for: .facebook)
+    }
+
+    @objc
+    private func didTapAppleButton() {
+        otherSignIn(for: .apple)
+    }
+
+    private func otherSignIn(for authProvider: AuthProvider) {
+        Amplify.Auth.signInWithWebUI(for: authProvider, presentationAnchor: self.view.window!) { result in
+            switch result {
+            case .success:
+                print("Sign in succeeded")
+                let userId = AWSMobileClient.default().userSub!
+                AWSMobileClient.default().getUserAttributes { (maybeAttributes, maybeError) in
+                    if maybeError == nil, let attributes = maybeAttributes {
+                        if let userEmail = attributes["email"] {
+                            self.completeProfileOrNavigateToApp(userId: userId, username: userId, userEmail: userEmail)
+                        }
+                    } else {
+                        self.completeProfileOrNavigateToApp(userId: userId, username: userId, userEmail: userId)
+                    }
+                }
+            case .failure(let error):
+                print("Sign in failed \(error)")
+            }
+        }
+    }
+
+    private func completeProfileOrNavigateToApp(userId:String, username: String, userEmail: String) {
+
+        self.userDataFecther.getUser(userId: userId) { (maybeUser, error) in
+            if (maybeUser == nil) {
+                // no user found case, this is new user login, we should create a new user and pop onboarding steps
+                self.userDataFecther.createUser(userId: userId, username: username, userEmail: userEmail) { (userCreated, error) in
+                    if (error == nil && userCreated != nil && userCreated!.identifier == userId) {
+                        self.navigationController?.setViewControllers([CompleteProfileViewStep1Controller.init()], animated: false)
+                    }
+                }
+            } else {
+                // user exist case, recurring user, we should pop main screen
+                DispatchQueue.main.async {
+                    self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
+                }
+            }
+        }
     }
 }

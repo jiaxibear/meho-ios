@@ -108,6 +108,36 @@
 /* Title for the button that lets the user to sign up. */
 "SignUpButtonTitle" = "Sign Up";
 
+/* Text displayed to let the user to use sign in. */
+"SignInText" = "Already have an account? %@";
+
+/* Text displayed to let the user to use sign up. */
+"SignUpText" = "Don’t have an account? %@";
+
+/* Title for the button that lets the user to sign up with email. */
+"SignUpWithEmailButtonTitle" = "Sign Up with Email";
+
+/* Title for the button that lets the user to sign up with Google. */
+"SignUpWithGoogleButtonTitle" = "Sign Up with Google";
+
+/* Title for the button that lets the user to sign up with Facebook. */
+"SignUpWithFacebookButtonTitle" = "Sign Up with Facebook";
+
+/* Title for the button that lets the user to sign up with Apple. */
+"SignUpWithAppleButtonTitle" = "Sign Up with Apple";
+
+/* Title for the button that lets the user to sign up with email. */
+"SignInWithEmailButtonTitle" = "Sign In with Email";
+
+/* Title for the button that lets the user to sign up with Google. */
+"SignInWithGoogleButtonTitle" = "Sign In with Google";
+
+/* Title for the button that lets the user to sign up with Facebook. */
+"SignInWithFacebookButtonTitle" = "Sign In with Facebook";
+
+/* Title for the button that lets the user to sign up with Apple. */
+"SignInWithAppleButtonTitle" = "Sign In with Apple";
+
 /* Placeholder text for the email address text field. */
 "EmailAddressPlaceholder" = "Email Address";
 

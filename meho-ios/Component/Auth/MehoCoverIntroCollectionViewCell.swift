@@ -18,6 +18,7 @@ class MehoCoverIntroCollectionViewCell: UICollectionViewCell {
     private let titleLabelFontSize = CGFloat(22)
     private static let imageViewHeightWidthRatio = CGFloat(5) / CGFloat(6)
     private static let reservedTitleLabelHeight = CGFloat(90)
+    private static let imageViewHorizontalMargin = CGFloat(34)
 
     // MARK: - Properties
     private lazy var titleLabel: UILabel = {
@@ -73,7 +74,7 @@ class MehoCoverIntroCollectionViewCell: UICollectionViewCell {
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
 
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -2 * MehoCoverIntroCollectionViewCell.imageViewHorizontalMargin),
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: MehoCoverIntroCollectionViewCell.imageViewHeightWidthRatio)
         ])
@@ -81,6 +82,6 @@ class MehoCoverIntroCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Internal
     class func cellHeight(width: CGFloat) -> CGFloat {
-        return width * imageViewHeightWidthRatio + reservedTitleLabelHeight
+        return (width - 2 * imageViewHorizontalMargin) * imageViewHeightWidthRatio + reservedTitleLabelHeight
     }
 }
