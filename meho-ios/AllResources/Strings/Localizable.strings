@@ -199,7 +199,7 @@
 "AppleButtonTitle" = "Apple";
 
 /* Title displayed in the navigation bar in the sign up screen. */
-"SignUpScreenTitle" = "Register with Email";
+"SignUpScreenTitle" = "Sign Up with Email";
 
 /* Placeholder text for the nick name text field. */
 "NickNamePlaceholder" = "Nick Name";

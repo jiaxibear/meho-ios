@@ -54,7 +54,9 @@ class ExpressionDataFetcher: NSObject {
                 if let contentInLocalLanguage = remoteChapter.contentZh {
                     chapter.content = contentInLocalLanguage
                 }
-                if let audioKey = remoteChapter.audio?.key {
+                if let audioKey = remoteChapter.audioKey {
+                    chapter.contentAudioKey = audioKey
+                } else if let audioKey = remoteChapter.audio?.key {
                     chapter.contentAudioKey = audioKey
                 }
                 chapterList.append(chapter)

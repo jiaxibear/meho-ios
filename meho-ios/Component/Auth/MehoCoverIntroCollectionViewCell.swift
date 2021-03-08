@@ -15,7 +15,7 @@ struct CoverIntro {
 
 class MehoCoverIntroCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
-    private let titleLabelFontSize = CGFloat(22)
+    private let titleLabelFontSize = CGFloat(20)
     private static let imageViewHeightWidthRatio = CGFloat(5) / CGFloat(6)
     private static let reservedTitleLabelHeight = CGFloat(90)
     private static let imageViewHorizontalMargin = CGFloat(34)

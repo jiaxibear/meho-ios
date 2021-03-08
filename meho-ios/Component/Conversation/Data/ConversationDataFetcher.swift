@@ -194,7 +194,9 @@ class ConversationDataFetcher: NSObject {
                 if let roleAvatar = remoteChapter.npcAvatar {
                     chapter.roleAvatar = S3ResourceKey.init(bucket: roleAvatar.bucket, key: roleAvatar.key)
                 }
-                if let audioKey = remoteChapter.audio?.key {
+                if let audioKey = remoteChapter.audioKey {
+                    chapter.contentAudioKey = audioKey
+                } else if let audioKey = remoteChapter.audio?.key {
                     chapter.contentAudioKey = audioKey
                 }
                 chapterList.append(chapter)
