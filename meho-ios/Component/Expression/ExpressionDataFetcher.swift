@@ -71,7 +71,7 @@ class ExpressionDataFetcher: NSObject {
         query.limit = count
         appSyncClient?.fetch(query: query, resultHandler: { (result, error) in
             if let error = error {
-                print("There is an error getting the response of survival phrases")
+                print("There is an error getting the response of trending phrases")
                 completionHandler(.failure(error))
                 return
             }
