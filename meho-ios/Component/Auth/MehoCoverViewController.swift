@@ -22,16 +22,15 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     private let buttonHorizontalMargin = CGFloat(58)
     private let verticalMarginScreenPct = CGFloat(1.0/40.0)
     private let collectionViewTopMargin = CGFloat(40)
-    private let collectionViewHeightScreenPct = CGFloat(3.2 / 5.0)
     private let buttonHeightScreenPct = CGFloat(1.0/20.0)
 
     private let introCellReuseIdentifier = "mehoIntroCellId"
 
     // MARK: - Data models
     private lazy var coverIntroList: [CoverIntro] = {
-        let stories = CoverIntro.init(title: NSLocalizedString("coverStoriesTitle", comment: ""), subtitle: NSLocalizedString("coverStoriesSubtitle", comment: ""), backgroundColor: .lighterPurple)
-        let expressions = CoverIntro.init(title: NSLocalizedString("coverExpressionsTitle", comment: ""), subtitle: NSLocalizedString("coverExpressionsSubtitle", comment: ""), backgroundColor: .periwinkle)
-        let talk = CoverIntro.init(title: NSLocalizedString("coverTalkTitle", comment: ""), subtitle: NSLocalizedString("coverTalkSubtitle", comment: ""), backgroundColor: .periwinkleBlue)
+        let stories = CoverIntro.init(title: NSLocalizedString("coverStoriesTitle", comment: ""), image: UIImage.init(named: "login_preview_stories"))
+        let expressions = CoverIntro.init(title: NSLocalizedString("coverExpressionsTitle", comment: ""), image: UIImage.init(named: "login_preview_expressions"))
+        let talk = CoverIntro.init(title: NSLocalizedString("coverTalkTitle", comment: ""), image: UIImage.init(named: "login_preview_talk"))
         return [stories, expressions, talk]
     } ()
 
@@ -101,6 +100,11 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         return activityIndicatorView
     } ()
 
+    private lazy var storiesCollectionViewHeight: CGFloat = {
+        let width = view.frame.width - 2 * cardInsets
+        return MehoCoverIntroCollectionViewCell.cellHeight(width: width)
+    } ()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let mobileClient = AWSMobileClient.default()
@@ -123,56 +127,42 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         }
         title = ""
         view.backgroundColor = .white
-        setupStoryCollectionView()
-        setupPageControl()
-        setupSignUpButton()
-        setupSignInButton()
         view.addSubview(activityIndicatorView)
+        view.addSubview(storyCollectionView)
+        view.addSubview(pageControl)
+        view.addSubview(signUpButton)
+        view.addSubview(signInButton)
+
+        let screenHeight = view.bounds.height - collectionViewTopMargin
         NSLayoutConstraint.activate([
             activityIndicatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             activityIndicatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             activityIndicatorView.topAnchor.constraint(equalTo: view.topAnchor),
-            activityIndicatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            activityIndicatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            storyCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            storyCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            storyCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: collectionViewTopMargin),
+            storyCollectionView.heightAnchor.constraint(equalToConstant: storiesCollectionViewHeight),
+
+            pageControl.topAnchor.constraint(equalTo: storyCollectionView.bottomAnchor, constant: screenHeight * verticalMarginScreenPct),
+            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+            signUpButton.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: screenHeight * verticalMarginScreenPct),
+            signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonHorizontalMargin),
+            signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonHorizontalMargin),
+            signUpButton.heightAnchor.constraint(equalToConstant: screenHeight * buttonHeightScreenPct),
+
+            signInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: screenHeight * verticalMarginScreenPct),
+            signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonHorizontalMargin),
+            signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonHorizontalMargin),
+            signInButton.heightAnchor.constraint(equalToConstant: screenHeight * buttonHeightScreenPct),
         ])
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-
-    func setupStoryCollectionView() {
-        view.addSubview(storyCollectionView)
-        let screenHeight = view.bounds.height - collectionViewTopMargin
-        storyCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        storyCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        storyCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: collectionViewTopMargin).isActive = true
-        storyCollectionView.heightAnchor.constraint(equalToConstant: screenHeight * collectionViewHeightScreenPct).isActive = true
-    }
-
-    func setupPageControl() {
-        view.addSubview(pageControl)
-        let screenHeight = view.bounds.height - collectionViewTopMargin
-        pageControl.topAnchor.constraint(equalTo: storyCollectionView.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
-        pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    }
-
-    func setupSignUpButton() {
-        view.addSubview(signUpButton)
-        let screenHeight = view.bounds.height - collectionViewTopMargin
-        signUpButton.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
-        signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonHorizontalMargin).isActive = true
-        signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonHorizontalMargin).isActive = true
-        signUpButton.heightAnchor.constraint(equalToConstant: screenHeight * buttonHeightScreenPct).isActive = true
-    }
-
-    func setupSignInButton() {
-        view.addSubview(signInButton)
-        let screenHeight = view.bounds.height - collectionViewTopMargin
-        signInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: screenHeight * verticalMarginScreenPct).isActive = true
-        signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonHorizontalMargin).isActive = true
-        signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonHorizontalMargin).isActive = true
-        signInButton.heightAnchor.constraint(equalToConstant: screenHeight * buttonHeightScreenPct).isActive = true
     }
 
     // MARK: - UICollectionViewDataSource
@@ -183,7 +173,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: introCellReuseIdentifier, for: indexPath) as! MehoCoverIntroCollectionViewCell
         let coverIntro = coverIntroList[indexPath.item]
-        cell.setCoverIntro(coverIntro)
+        cell.coverIntro = coverIntro
         return cell
     }
 

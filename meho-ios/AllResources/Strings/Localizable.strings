@@ -220,22 +220,13 @@
 "termsOfUse" = "Terms of Use";
 
 /* Title for Meho stories in the onboarding screen. */
-"coverStoriesTitle" = "Meho Stories";
-
-/* Subtitle for Meho stories in the onboarding screen. */
-"coverStoriesSubtitle" = "Curated content about today’s China on topics relevant to you";
+"coverStoriesTitle" = "Curated content about today’s China on topics relevant to you";
 
 /* Title for Meho expressions in the onboarding screen. */
-"coverExpressionsTitle" = "Meho Expressions";
-
-/* Subtitle for Meho expressions in the onboarding screen. */
-"coverExpressionsSubtitle" = "Survival and fun trending phrases to sound like the locals";
+"coverExpressionsTitle" = "Survival and fun trending phrases to sound like the locals";
 
 /* Title for Meho talk in the onboarding screen. */
-"coverTalkTitle" = "Meho Talk";
-
-/* Subtitle for Meho talk in the onboarding screen. */
-"coverTalkSubtitle" = "Real-life conversations on various topics to practice speaking";
+"coverTalkTitle" = "Real-life conversations on various topics to practice speaking";
 
 /* Toast message disaplayed when the expression is saved successfully. */
 "saveSuccessfullyMessage" = "Added to Saved. View All in Profile";
