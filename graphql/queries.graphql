@@ -9,6 +9,7 @@ query GetParagraph($id: ID!) {
       }
       coverImage_key
       coverImageAlt
+      slug
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -20,6 +21,7 @@ query GetParagraph($id: ID!) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -52,6 +54,7 @@ query GetParagraph($id: ID!) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -88,6 +91,7 @@ query GetParagraph($id: ID!) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -147,6 +151,7 @@ query ListParagraphs(
         }
         coverImage_key
         coverImageAlt
+        slug
         titleEn
         titleZh
         whyYouShouldReadThisArticle
@@ -251,6 +256,7 @@ query GetArticle($id: ID!) {
     }
     coverImage_key
     coverImageAlt
+    slug
     titleEn
     titleZh
     whyYouShouldReadThisArticle
@@ -265,6 +271,7 @@ query GetArticle($id: ID!) {
           }
           coverImage_key
           coverImageAlt
+          slug
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -321,6 +328,7 @@ query GetArticle($id: ID!) {
           }
           coverImage_key
           coverImageAlt
+          slug
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -375,6 +383,7 @@ query GetArticle($id: ID!) {
           }
           coverImage_key
           coverImageAlt
+          slug
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -428,6 +437,7 @@ query ListArticles(
       }
       coverImage_key
       coverImageAlt
+      slug
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -439,6 +449,7 @@ query ListArticles(
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -471,6 +482,7 @@ query ListArticles(
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -507,6 +519,7 @@ query ListArticles(
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -585,6 +598,7 @@ query GetVocabulary($id: ID!) {
           }
           coverImage_key
           coverImageAlt
+          slug
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -656,6 +670,7 @@ query ListVocabularys(
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -731,6 +746,7 @@ query GetVocabularyArticle($id: ID!) {
       }
       coverImage_key
       coverImageAlt
+      slug
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -742,6 +758,7 @@ query GetVocabularyArticle($id: ID!) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -774,6 +791,7 @@ query GetVocabularyArticle($id: ID!) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -810,6 +828,7 @@ query GetVocabularyArticle($id: ID!) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -858,6 +877,7 @@ query GetVocabularyArticle($id: ID!) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -914,6 +934,7 @@ query ListVocabularyArticles(
         }
         coverImage_key
         coverImageAlt
+        slug
         titleEn
         titleZh
         whyYouShouldReadThisArticle
@@ -1003,6 +1024,7 @@ query GetTag($id: ID!) {
           }
           coverImage_key
           coverImageAlt
+          slug
           titleEn
           titleZh
           whyYouShouldReadThisArticle
@@ -1126,6 +1148,7 @@ query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1207,6 +1230,7 @@ query GetTagArticle($id: ID!) {
       }
       coverImage_key
       coverImageAlt
+      slug
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -1218,6 +1242,7 @@ query GetTagArticle($id: ID!) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1250,6 +1275,7 @@ query GetTagArticle($id: ID!) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1286,6 +1312,7 @@ query GetTagArticle($id: ID!) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1326,6 +1353,7 @@ query GetTagArticle($id: ID!) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -1413,6 +1441,7 @@ query ListTagArticles(
         }
         coverImage_key
         coverImageAlt
+        slug
         titleEn
         titleZh
         whyYouShouldReadThisArticle
@@ -2020,6 +2049,7 @@ query GetTagDialogue($id: ID!) {
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -3232,6 +3262,7 @@ query GetArticlesByStatus(
       }
       coverImage_key
       coverImageAlt
+      slug
       titleEn
       titleZh
       whyYouShouldReadThisArticle
@@ -3243,6 +3274,7 @@ query GetArticlesByStatus(
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -3275,6 +3307,7 @@ query GetArticlesByStatus(
             id
             coverImage_key
             coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -3311,6 +3344,144 @@ query GetArticlesByStatus(
             id
             coverImage_key
             coverImageAlt
+            slug
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            audioEnKey
+            audioZhKey
+            status
+            updatedAt
+          }
+          content
+          contentType
+          seqNumber
+          contentImage {
+            ...S3Object
+          }
+          contentImage_key
+          contentImageAlt
+          audio_key
+          videoURL
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      audioEnKey
+      audioZhKey
+      status
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetArticleBySlug(
+  $slug: String
+  $sortDirection: ModelSortDirection
+  $filter: ModelArticleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getArticleBySlug(
+    slug: $slug
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      coverImage {
+        ...S3Object
+      }
+      coverImage_key
+      coverImageAlt
+      slug
+      titleEn
+      titleZh
+      whyYouShouldReadThisArticle
+      createdAt
+      tags {
+        items {
+          id
+          article {
+            id
+            coverImage_key
+            coverImageAlt
+            slug
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            audioEnKey
+            audioZhKey
+            status
+            updatedAt
+          }
+          tag {
+            id
+            content
+            image_key
+            isFeatured
+            featuredSlogan
+            featuredImage_key
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      vocabularies {
+        items {
+          id
+          article {
+            id
+            coverImage_key
+            coverImageAlt
+            slug
+            titleEn
+            titleZh
+            whyYouShouldReadThisArticle
+            createdAt
+            sourcer
+            audioEnKey
+            audioZhKey
+            status
+            updatedAt
+          }
+          vocabulary {
+            id
+            contentZh
+            contentEn
+            contentPinyin
+            label
+            audio_key
+            optionContent
+            createdAt
+            updatedAt
+          }
+          paragraphId
+          startIndex
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      sourcer
+      paragraphs {
+        items {
+          id
+          article {
+            id
+            coverImage_key
+            coverImageAlt
+            slug
             titleEn
             titleZh
             whyYouShouldReadThisArticle
@@ -3396,6 +3567,7 @@ query GetVocabularyArticlesByParagraphId(
         }
         coverImage_key
         coverImageAlt
+        slug
         titleEn
         titleZh
         whyYouShouldReadThisArticle
