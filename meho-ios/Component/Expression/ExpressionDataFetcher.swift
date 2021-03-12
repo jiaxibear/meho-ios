@@ -66,9 +66,11 @@ class ExpressionDataFetcher: NSObject {
     }
 
     // MARK: - Internal
-    func fetchTrendingPhrases(count: Int = 5, completionHandler: @escaping ( Swift.Result<Array<TrendingPhrase>, Error>) -> Void) {
-        let query = ListTrendingPhrasesQuery()
+    func fetchTrendingPhrases(count: Int = 100, completionHandler: @escaping ( Swift.Result<Array<TrendingPhrase>, Error>) -> Void) {
+        let query = GetTrendingPhrasesByStatusQuery()
         query.limit = count
+        query.status = "published"
+        query.sortDirection = .desc
         appSyncClient?.fetch(query: query, resultHandler: { (result, error) in
             if let error = error {
                 print("There is an error getting the response of trending phrases")
@@ -76,7 +78,7 @@ class ExpressionDataFetcher: NSObject {
                 return
             }
 
-            guard let items = result?.data?.listTrendingPhrases?.items else {
+            guard let items = result?.data?.getTrendingPhrasesByStatus?.items else {
                 completionHandler(.success([]))
                 return
             }

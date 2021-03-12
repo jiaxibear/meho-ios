@@ -119,6 +119,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         switchSignInSignupTextView.isScrollEnabled = false
         switchSignInSignupTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.greenBlue]
         switchSignInSignupTextView.delegate = self
+        switchSignInSignupTextView.isEditable = false
         return switchSignInSignupTextView
     } ()
 
@@ -184,11 +185,11 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         }
         title = ""
         view.backgroundColor = .white
-        view.addSubview(activityIndicatorView)
         view.addSubview(storyCollectionView)
         view.addSubview(pageControl)
         view.addLayoutGuide(buttonsStackViewLayoutGuide)
         view.addSubview(buttonsStackView)
+        view.addSubview(activityIndicatorView)
 
         adjustButtonTitleEdgeInsets()
         isSignUp = true
@@ -271,6 +272,10 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         isSignUp = !isSignUp
         return false
+    }
+
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        textView.selectedTextRange = nil
     }
 
     @objc
