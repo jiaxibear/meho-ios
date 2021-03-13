@@ -18,18 +18,20 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     private let titleLabelText = "Meho Stories"
 
     private let cardInsets = CGFloat(32)
-    private let verticalMarginScreenPct = CGFloat(1.0/40.0)
     private let collectionViewTopMargin = CGFloat(40)
 
-    private let buttonHeight = CGFloat(44)
+    private let buttonDefaultHeight = CGFloat(44)
     private let buttonHorizontalMargin = CGFloat(56)
-    private let buttonSpacing = CGFloat(16)
+    private let buttonDefaultSpacing = CGFloat(16)
     private let buttonCornerRadius = CGFloat(6)
     private let buttonBorderWidth = CGFloat(1)
     private let buttonFontSize = CGFloat(18)
     private let buttonImageEdgeInsetLeft = CGFloat(14)
     private let buttonTitleEdgeInsetLeft = CGFloat(26)
     private let switchSignInSignupTextFontSize = CGFloat(16)
+    private let pageControlTopMargin = CGFloat(20)
+    private let compactRatio = CGFloat(0.85)
+    private let minBottomMargin = CGFloat(20)
 
     private let introCellReuseIdentifier = "mehoIntroCellId"
 
@@ -126,7 +128,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     private lazy var buttonsStackView: UIStackView = {
         let buttonsStackView = UIStackView.init(arrangedSubviews: [emailButton, googleButton, facebookButton, appleButton, switchSignInSignupTextView])
         buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
-        buttonsStackView.spacing = buttonSpacing
+        buttonsStackView.spacing = buttonDefaultSpacing
         buttonsStackView.axis = .vertical
         return buttonsStackView
     } ()
@@ -194,9 +196,20 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         adjustButtonTitleEdgeInsets()
         isSignUp = true
 
-        let screenHeight = view.bounds.height - collectionViewTopMargin
+        let availableHeight = view.layoutMarginsGuide.layoutFrame.height
         let buttonsStackViewWidth = view.bounds.width - 2 * buttonHorizontalMargin
-        let buttonsStackViewHeight = 4 * buttonHeight + 4 * buttonSpacing + switchSignInSignupTextView.sizeThatFits(CGSize.init(width: buttonsStackViewWidth, height: .greatestFiniteMagnitude)).height
+        let switchSignInSignupTextViewHeight = switchSignInSignupTextView.sizeThatFits(CGSize.init(width: buttonsStackViewWidth, height: .greatestFiniteMagnitude)).height
+        var buttonHeight = buttonDefaultHeight
+        var buttonSpacing = buttonDefaultSpacing
+        var buttonsStackViewHeight = 4 * buttonHeight + 4 * buttonSpacing + switchSignInSignupTextViewHeight
+        let buttonsStackViewMaxHeight = availableHeight - (collectionViewTopMargin + storiesCollectionViewHeight + pageControlTopMargin + pageControl.intrinsicContentSize.height)
+        if (buttonsStackViewHeight + minBottomMargin) > buttonsStackViewMaxHeight {
+            buttonHeight = buttonDefaultHeight * compactRatio
+            buttonSpacing = buttonDefaultSpacing * compactRatio
+            buttonsStackViewHeight = 4 * buttonHeight + 4 * buttonSpacing + switchSignInSignupTextViewHeight
+            buttonsStackView.spacing = buttonSpacing
+        }
+
         NSLayoutConstraint.activate([
             activityIndicatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             activityIndicatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -208,7 +221,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
             storyCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: collectionViewTopMargin),
             storyCollectionView.heightAnchor.constraint(equalToConstant: storiesCollectionViewHeight),
 
-            pageControl.topAnchor.constraint(equalTo: storyCollectionView.bottomAnchor, constant: screenHeight * verticalMarginScreenPct),
+            pageControl.topAnchor.constraint(equalTo: storyCollectionView.bottomAnchor, constant: pageControlTopMargin),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             buttonsStackViewLayoutGuide.topAnchor.constraint(equalTo: pageControl.bottomAnchor),
@@ -387,7 +400,6 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     }
 
     private func completeProfileOrNavigateToApp(userId:String, username: String, userEmail: String) {
-
         self.userDataFecther.getUser(userId: userId) { (maybeUser, error) in
             if (maybeUser == nil) {
                 // no user found case, this is new user login, we should create a new user and pop onboarding steps
