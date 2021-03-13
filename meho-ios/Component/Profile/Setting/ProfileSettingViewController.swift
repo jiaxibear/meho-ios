@@ -193,8 +193,13 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
                     return
                 }
                 if !AWSMobileClient.default().isSignedIn {
-                    UserDataFetcher.shared.deactivateCurrentUser()
-                    self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
+                    do {
+                        try (UIApplication.shared.delegate as! AppDelegate).appSyncClient?.clearCaches()
+                        UserDataFetcher.shared.deactivateCurrentUser()
+                        self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
                 }
             }
             break
