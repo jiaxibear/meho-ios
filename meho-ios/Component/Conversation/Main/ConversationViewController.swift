@@ -478,6 +478,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
                 DispatchQueue.main.async {
                     self.categories = newCategories
                     self.sections.insert(.categories, at: 0)
+                    self.updateLoadingView()
                     self.conversationCollectionView.reloadData()
                 }
             } else {

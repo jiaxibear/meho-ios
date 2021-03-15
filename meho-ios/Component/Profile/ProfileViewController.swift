@@ -550,7 +550,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private func updateProfile(basicUser: BasicUser) {
         DispatchQueue.main.async {
             let currentUserName = basicUser.username
-            if currentUserName != basicUser.email {
+            if currentUserName != basicUser.email && currentUserName != basicUser.identifier {
                 self.usernameLabel.text = currentUserName
             }
 
