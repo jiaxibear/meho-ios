@@ -115,8 +115,13 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
     } ()
 
     // MARK: - Child Controllers
-    private let singleEnNewsViewController:SingleEnglishNewsViewController
-    private let singleZhNewsViewController:SingleChineseNewsViewController
+    private lazy var singleEnNewsViewController: SingleEnglishNewsViewController = {
+        return SingleEnglishNewsViewController.init(news: self.news)
+    } ()
+    
+    private lazy var singleZhNewsViewController: SingleChineseNewsViewController = {
+        return SingleChineseNewsViewController.init(news: self.news)
+    } ()
 
     // MARK: - Init
     init() {
@@ -135,8 +140,6 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
 
     init(news: News) {
         self.news = news
-        singleEnNewsViewController = SingleEnglishNewsViewController.init(news: news)
-        singleZhNewsViewController = SingleChineseNewsViewController.init(news: news)
         super.init(nibName: nil, bundle: nil)
     }
 

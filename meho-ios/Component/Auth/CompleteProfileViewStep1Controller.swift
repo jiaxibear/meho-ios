@@ -9,7 +9,7 @@
 import UIKit
 import AWSMobileClient
 
-class CompleteProfileViewStep1Controller: UIViewController {
+class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate {
 
     // MARK: - Constants
     private let nextButtonWidth = CGFloat(200)
@@ -60,6 +60,7 @@ class CompleteProfileViewStep1Controller: UIViewController {
         nicknameTextField.translatesAutoresizingMaskIntoConstraints = false
         nicknameTextField.backgroundColor = .clear
         nicknameTextField.textAlignment = .center
+        nicknameTextField.delegate = self
         let centeredParagraphStyle = NSMutableParagraphStyle()
         centeredParagraphStyle.alignment = .center
         var nicknameTextFieldPlaceholderFont = UIFont.systemFont(ofSize: nicknameTextFieldFontSize, weight: .light)
@@ -123,6 +124,12 @@ class CompleteProfileViewStep1Controller: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = NSLocalizedString("completeProfileStep1Title", comment: "")
+    }
+
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
     }
 
     // MARK: - Private

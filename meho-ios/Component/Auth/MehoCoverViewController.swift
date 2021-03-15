@@ -109,7 +109,10 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
 
     private lazy var appleButton: UIButton = {
         let title = NSLocalizedString("SignUpWithAppleButtonTitle", comment: "")
-        let image = UIImage.init(systemName: "applelogo")
+        var image = UIImage.init(systemName: "applelogo")
+        if image == nil {
+            image = UIImage.init(named: "apple_icon")
+        }
         let appleButton = signUpButton(title: title, image: image)
         appleButton.addTarget(self, action: #selector(didTapAppleButton), for: .touchUpInside)
         return appleButton
