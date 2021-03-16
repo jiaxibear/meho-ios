@@ -61,7 +61,8 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     private let conversationDataFetcher = ConversationDataFetcher.init()
     private let userDataFetcher = UserDataFetcher.shared
     private var category: Category?
-    private var dialogs: [Dialog]
+    private var dialogs: [Dialog] = []
+    private var filteredDialogs: [Dialog] = []
     private var streamType: DialogStreamType?
     private var difficulty = Difficulty.all
     private let allDifficulties = [Difficulty.all, Difficulty.beginner, Difficulty.intermediate, Difficulty.advanced]
@@ -97,13 +98,11 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
 
     init(streamType: DialogStreamType) {
         self.streamType = streamType
-        self.dialogs = []
         super.init(nibName: nil, bundle: nil)
     }
 
     init(category: Category) {
         self.category = category
-        self.dialogs = []
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -143,24 +142,24 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         if screenName.count > 0 {
             Analytics.logScreenViewEvent(viewController: self)
         }
-        for index in dialogs.indices {
-            dialogs[index].contentTrackingID = UUID().uuidString
+        for index in filteredDialogs.indices {
+            filteredDialogs[index].contentTrackingID = UUID().uuidString
         }
     }
 
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if dialogs.count == 0 {
+        if filteredDialogs.count == 0 {
             return collectionView.dequeueReusableCell(withReuseIdentifier: dialogEmptyCellReuseIdentifier, for: indexPath)
         }
         let dialogCell = collectionView.dequeueReusableCell(withReuseIdentifier: dialogCellReuseIdentifier, for: indexPath) as! DialogCollectionViewCell
-        let dialog = dialogs[indexPath.item]
+        let dialog = filteredDialogs[indexPath.item]
         dialogCell.setDialog(dialog)
         return dialogCell
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = dialogs.count
+        let count = filteredDialogs.count
         if count > 0 {
             return count
         } else {
@@ -200,17 +199,17 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let item = indexPath.item
-        guard item < dialogs.count else {
+        guard item < filteredDialogs.count else {
             return
         }
-        let dialog = dialogs[item]
+        let dialog = filteredDialogs[item]
         Analytics.logContentImpression(content: dialog, screenName: screenName)
     }
 
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width - 2 * trailingLeadingMargin
-        if dialogs.count == 0 {
+        if filteredDialogs.count == 0 {
             return CGSize.init(width: width, height: DialogStreamEmptyCollectionViewCell.cellHeight())
         }
         return CGSize.init(width: width, height: dialogCollectionViewCellHeight)
@@ -240,7 +239,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = indexPath.item
-        guard item < dialogs.count else {
+        guard item < filteredDialogs.count else {
             return
         }
         let parameters = [
@@ -250,7 +249,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
             MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
-        let dialog = dialogs[item]
+        let dialog = filteredDialogs[item]
 
         guard let userId = AWSMobileClient.default().userSub else { return }
         userDataFetcher.getUserItemSave (userId: userId, itemId: dialog.identifier, completionHandler: { (isSaved, error) in
@@ -273,7 +272,14 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     func didSelectDifficulty(_ diffculty: Difficulty) {
         self.difficulty = diffculty
         dismiss(animated: true) {
-            self.fetchDialogs()
+            if diffculty == .all {
+                self.filteredDialogs = self.dialogs
+            } else {
+                self.filteredDialogs = self.dialogs.filter({ (dialog) -> Bool in
+                    dialog.difficulty == self.difficulty
+                })
+            }
+            self.dialogsCollectionView.reloadData()
         }
     }
 
@@ -329,7 +335,6 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
     func fetchDialogs() {
         dialogsCollectionView.isHidden = true
         loadingIndicator.startAnimating()
-        let difficultyString = difficulty == .all ? nil : difficulty.identifier.rawValue
         if let category = category {
             let categoryID = category.identifier
             conversationDataFetcher.fetchDialoguesOfCategory(categoryID: categoryID) { (dialogs, error) in
@@ -338,13 +343,8 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
                     self.loadingIndicator.stopAnimating()
                 }
                 if let dialogs = dialogs {
-                    if self.difficulty == .all {
-                        self.dialogs = dialogs
-                    } else {
-                        self.dialogs = dialogs.filter({ (dialog) -> Bool in
-                            dialog.difficulty == self.difficulty
-                        })
-                    }
+                    self.dialogs = dialogs
+                    self.filteredDialogs = dialogs
                     DispatchQueue.main.async {
                         self.dialogsCollectionView.reloadData()
                     }
@@ -353,45 +353,33 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
         } else {
             switch streamType {
             case .mostPopular:
-                conversationDataFetcher.fetchMostPopularDialogs(difficulty: difficultyString, completionHandler: { (dialogs, error) in
+                conversationDataFetcher.fetchMostPopularDialogs(difficulty: nil, completionHandler: { (dialogs, error) in
                     DispatchQueue.main.async {
                         self.dialogsCollectionView.isHidden = false
                         self.loadingIndicator.stopAnimating()
                     }
                     if let dialogs = dialogs {
-                        if difficultyString == nil {
-                            self.dialogs = dialogs
-                        } else {
-                            self.dialogs = dialogs.filter({ (dialog) -> Bool in
-                                dialog.difficulty == self.difficulty
-                            })
-                        }
+                        self.dialogs = dialogs
+                        self.filteredDialogs = dialogs
                         DispatchQueue.main.async {
                             self.dialogsCollectionView.reloadData()
                         }
                     }
                 })
-                break
             case .featured:
-                conversationDataFetcher.fetchFeaturedDialogs(difficulty: difficultyString, completionHandler: { (dialogs, error) in
+                conversationDataFetcher.fetchFeaturedDialogs(difficulty: nil, completionHandler: { (dialogs, error) in
                     DispatchQueue.main.async {
                         self.dialogsCollectionView.isHidden = false
                         self.loadingIndicator.stopAnimating()
                     }
                     if let dialogs = dialogs {
-                        if difficultyString == nil {
-                            self.dialogs = dialogs
-                        } else {
-                            self.dialogs = dialogs.filter({ (dialog) -> Bool in
-                                dialog.difficulty == self.difficulty
-                            })
-                        }
+                        self.dialogs = dialogs
+                        self.filteredDialogs = dialogs
                         DispatchQueue.main.async {
                             self.dialogsCollectionView.reloadData()
                         }
                     }
                 })
-                break
             case .none:
                 break
             }
