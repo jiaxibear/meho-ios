@@ -33,6 +33,7 @@ struct News: MehoContentAnalytics, ProfileCard {
     var reason = ""
     var source = ""
     var renderType = ""
+    var slug = ""
     var coverImageURL: URL?
     var imageKey: S3ResourceKey?
     var date = ""

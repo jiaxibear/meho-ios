@@ -323,10 +323,10 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
 
     @objc
     func didTapShareButton() {
-        let newsTitle = "Join me and sign up for Meho to explore great content on China and learn hands-on Chinese skills!"
+        let newsTitle = "Check out what others are reading about China"
         let logoImage = UIImage.init(named: "auth_logo")
-
-        if let myWebsite = URL(string: "https://www.wearemeho.com/") {//Enter link to your app here
+        let slug = news.slug
+        if let myWebsite = URL(string: "https://www.wearemeho.com/story/" + slug) {
             let objectsToShare = [newsTitle, logoImage!, myWebsite] as [Any]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
 
