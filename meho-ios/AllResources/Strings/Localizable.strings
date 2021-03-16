@@ -30,6 +30,9 @@
 /* Text that indictates the difficulty level is advanced. */
 "DifficultyAdvanced" = "Advanced";
 
+/* Text that indictates the difficulty level is all. */
+"DifficultyAll" = "All";
+
 /* Title for the pop-up that lets user to choose the difficulty level. */
 "DifficultyLevelTitle" = "Difficulty Level";
 

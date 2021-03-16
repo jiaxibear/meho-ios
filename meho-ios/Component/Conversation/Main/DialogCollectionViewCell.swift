@@ -162,12 +162,11 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         switch dialog.difficulty.identifier {
         case .advanced:
             difficultyLabel.backgroundColor = .skyBlue
-            break
         case .intermediate:
             difficultyLabel.backgroundColor = .greenBlue
-            break
         case .beginner:
             difficultyLabel.backgroundColor = .wisteriaPurple
+        case .all:
             break
         }
     }

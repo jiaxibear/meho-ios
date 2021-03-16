@@ -23,9 +23,14 @@ struct Difficulty : Equatable {
     static var advanced: Difficulty {
         return Difficulty.init(title: NSLocalizedString("DifficultyAdvanced", comment: ""), identifier: .advanced)
     }
+
+    static var all: Difficulty {
+        return Difficulty.init(title: NSLocalizedString("DifficultyAll", comment: ""), identifier: .all)
+    }
 }
 
 enum DifficultyIdentifier : String {
+    case all = "All"
     case beginner = "Beginner"
     case intermediate = "Medium"
     case advanced = "Advanced"
