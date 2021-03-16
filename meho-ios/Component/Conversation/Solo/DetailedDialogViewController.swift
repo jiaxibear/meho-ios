@@ -337,13 +337,22 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
         if currentIsSaved {
             userDataFetcher.deleteUserItemSave(userId: userId, itemId: scoredChapter.chapter.identifier) { (unsaveSuccess, error) in
                 if (error == nil && unsaveSuccess) {
+                    if let scoredChapterIndex = self.scoredChapters.firstIndex(where: { (scoredChapterInArray) -> Bool in
+                        return scoredChapter.chapter.content == scoredChapterInArray.chapter.content
+                    }) {
+                        self.scoredChapters[scoredChapterIndex].isSaved = false
+                    }
                     self.view.makeToast(NSLocalizedString("removeSuccessfullyMessage", comment: ""))
-
                 }
             }
         } else {
             userDataFetcher.createUserItemSave(userId: userId, itemId: scoredChapter.chapter.identifier, itemType: "EXPRESSION") { (saveSuccess, error) in
                 if (error == nil && saveSuccess) {
+                    if let scoredChapterIndex = self.scoredChapters.firstIndex(where: { (scoredChapterInArray) -> Bool in
+                        return scoredChapter.chapter.content == scoredChapterInArray.chapter.content
+                    }) {
+                        self.scoredChapters[scoredChapterIndex].isSaved = true
+                    }
                     self.view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
                 }
             }
