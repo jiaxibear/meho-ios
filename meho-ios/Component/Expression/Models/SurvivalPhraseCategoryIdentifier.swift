@@ -10,7 +10,7 @@ import Foundation
 
 enum SurvivalPhraseCategoryIdentifier: String, CaseIterable {
     case basic = "Basic"
-    case numbers = "Number"
+    case numbers = "Numbers"
     case shopping = "Shopping"
     case travel = "Travel"
     case dining = "Dining"

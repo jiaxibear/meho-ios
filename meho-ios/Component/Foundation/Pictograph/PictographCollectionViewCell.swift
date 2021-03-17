@@ -22,7 +22,7 @@ class PictographCollectionViewCell: UICollectionViewCell {
     private let contentPinyinLabel = UILabel.init(frame: .zero)
     private let cardBackgroundImageView = UIImageView.init(frame: .zero)
     private let gifImageView = UIImageView.init(frame: .zero)
-    private let enToPinyinDict:Dictionary<String, String> = ["fire":"huǒ", "wood":"mù", "mouth":"kǒu", "mountain":"shān", "human":"rén", "field":"tián", "cloud":"yún", "rain":"yǔ", "eye":"yǎn", "door":"mén", "fish":"yú", "earth":"tǔ", "hand":"shǒu", "goat":"yáng", "bird":"niǎo", "water":"shuǐ", "moon":"yuè", "sun":"rì"]
+    private let enToPinyinDict:Dictionary<String, String> = ["fire":"huǒ", "wood":"mù", "mouth":"kǒu", "mountain":"shān", "human":"rén", "field":"tián", "cloud":"yún", "rain":"yǔ", "eye":"mù", "door":"mén", "fish":"yú", "earth":"tǔ", "hand":"shǒu", "goat":"yáng", "bird":"niǎo", "water":"shuǐ", "moon":"yuè", "sun":"rì"]
 
     // MARK: - Init
     @available(*, unavailable)
