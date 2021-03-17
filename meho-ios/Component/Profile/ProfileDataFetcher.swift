@@ -125,6 +125,15 @@ class ProfileDataFetcher: NSObject {
             if let date = profileCardJSONObject["createdAt"] as? String {
                 news.date = date
             }
+            if let slug = profileCardJSONObject["slug"] as? String {
+                news.slug = slug
+            }
+            if let audioEnKey = profileCardJSONObject["audioEnKey"] as? String {
+                news.audioEnKey = S3ResourceKey.init(bucket: "", key: audioEnKey)
+            }
+            if let audioZhKey = profileCardJSONObject["audioZhKey"] as? String {
+                news.audioZhKey = S3ResourceKey.init(bucket: "", key: audioZhKey) 
+            }
             return news
         } else if typeName == "Dialogue" {
             var dialog = Dialog.init()
