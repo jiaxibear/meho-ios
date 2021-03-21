@@ -367,19 +367,7 @@ class DialogStreamViewController: UIViewController, UICollectionViewDataSource, 
                     }
                 })
             case .featured:
-                conversationDataFetcher.fetchFeaturedDialogs(difficulty: nil, completionHandler: { (dialogs, error) in
-                    DispatchQueue.main.async {
-                        self.dialogsCollectionView.isHidden = false
-                        self.loadingIndicator.stopAnimating()
-                    }
-                    if let dialogs = dialogs {
-                        self.dialogs = dialogs
-                        self.filteredDialogs = dialogs
-                        DispatchQueue.main.async {
-                            self.dialogsCollectionView.reloadData()
-                        }
-                    }
-                })
+                fallthrough
             case .none:
                 break
             }

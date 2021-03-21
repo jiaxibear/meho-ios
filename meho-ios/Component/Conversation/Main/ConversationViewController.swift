@@ -440,7 +440,7 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
     }
 
     private func updateLoadingView() {
-        guard fetchedItems == 3 else {
+        guard fetchedItems == 2 else {
             return
         }
         if sections.count > 0 {
@@ -483,25 +483,6 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
                 }
             } else {
                 self.updateLoadingView()
-            }
-        })
-
-        dataFecther.fetchFeaturedDialogs(difficulty: nil, completionHandler: {
-            (dialogs, error) in
-            self.fetchedItems += 1
-            DispatchQueue.main.async {
-                if let dialogs = dialogs {
-                    self.featuredDialogs = dialogs
-                    if self.sections.count == 0 {
-                        self.sections.append(.featuredDialogs)
-                    } else {
-                        self.sections.insert(.featuredDialogs, at: 1)
-                    }
-                    self.updateLoadingView()
-                    self.conversationCollectionView.reloadData()
-                } else {
-                    self.updateLoadingView()
-                }
             }
         })
 

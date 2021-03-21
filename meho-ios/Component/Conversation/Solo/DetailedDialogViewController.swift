@@ -333,27 +333,38 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     }
 
     func expandedChapterCollectionViewCellDidTapSaveButton(scoredChapter: ScoredChapter, currentIsSaved: Bool) {
-        guard let userId = AWSMobileClient.default().userSub else { return }
+        guard let userId = AWSMobileClient.default().userSub else {
+            return
+        }
+        let scoredChapterIndex = self.scoredChapters.firstIndex(where: { (scoredChapterInArray) -> Bool in
+            return scoredChapter.chapter.content == scoredChapterInArray.chapter.content
+        })
         if currentIsSaved {
+            if let scoredChapterIndex = scoredChapterIndex {
+                self.scoredChapters[scoredChapterIndex].isSaved = false
+            }
             userDataFetcher.deleteUserItemSave(userId: userId, itemId: scoredChapter.chapter.identifier) { (unsaveSuccess, error) in
                 if (error == nil && unsaveSuccess) {
-                    if let scoredChapterIndex = self.scoredChapters.firstIndex(where: { (scoredChapterInArray) -> Bool in
-                        return scoredChapter.chapter.content == scoredChapterInArray.chapter.content
-                    }) {
-                        self.scoredChapters[scoredChapterIndex].isSaved = false
-                    }
                     self.view.makeToast(NSLocalizedString("removeSuccessfullyMessage", comment: ""))
+                } else {
+                    if let scoredChapterIndex = scoredChapterIndex {
+                        self.scoredChapters[scoredChapterIndex].isSaved = true
+                        self.chaptersCollectionView.reloadItems(at: [IndexPath.init(item: scoredChapterIndex, section: 0)])
+                    }
                 }
             }
         } else {
+            if let scoredChapterIndex = scoredChapterIndex {
+                self.scoredChapters[scoredChapterIndex].isSaved = true
+            }
             userDataFetcher.createUserItemSave(userId: userId, itemId: scoredChapter.chapter.identifier, itemType: "EXPRESSION") { (saveSuccess, error) in
                 if (error == nil && saveSuccess) {
-                    if let scoredChapterIndex = self.scoredChapters.firstIndex(where: { (scoredChapterInArray) -> Bool in
-                        return scoredChapter.chapter.content == scoredChapterInArray.chapter.content
-                    }) {
-                        self.scoredChapters[scoredChapterIndex].isSaved = true
-                    }
                     self.view.makeToast(NSLocalizedString("saveSuccessfullyMessage", comment: ""))
+                } else {
+                    if let scoredChapterIndex = scoredChapterIndex {
+                        self.scoredChapters[scoredChapterIndex].isSaved = false
+                        self.chaptersCollectionView.reloadItems(at: [IndexPath.init(item: scoredChapterIndex, section: 0)])
+                    }
                 }
             }
         }

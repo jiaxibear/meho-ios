@@ -36,7 +36,7 @@ class UserDataFetcher: NSObject {
     public func createUser(userId: String, username: String, userEmail: String, completionHandler: @escaping ( BasicUser?, Error?) -> Void) {
         let createUserInput = CreateUserInput(id: userId, username: username, email: userEmail)
         let m = CreateUserMutation(input: createUserInput)
-        appSyncClient?.perform(mutation: m) { (result, error) in
+        appSyncClient?.perform(mutation: m, resultHandler: { (result, error) in
             print (error?.localizedDescription as Any)
             guard error == nil else {
                 completionHandler(nil, error)
@@ -51,7 +51,7 @@ class UserDataFetcher: NSObject {
             newUser.username = createdUser.username
             newUser.email = createdUser.email
             completionHandler(newUser, nil)
-        }
+        })
     }
 
     public func getUser(userId: String, completionHandler: @escaping ( BasicUser?, Error?) -> Void) {
@@ -102,7 +102,7 @@ class UserDataFetcher: NSObject {
     public func updateUser(id:String, username: String? = nil, email: String? = nil, avatar: S3ObjectInput? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completionHandler: @escaping ( BasicUser?, Error?) -> Void) {
         let updateUserInput = UpdateUserInput.init(id: id, username: username, email: email, avatar: avatar, avatarKey: avatarKey, goals: goals, interests: interests, profession: profession)
         let m = UpdateUserMutation(input: updateUserInput)
-        appSyncClient?.perform(mutation: m) { (result, error) in
+        appSyncClient?.perform(mutation: m, resultHandler: { (result, error) in
             print (error?.localizedDescription as Any)
             guard error == nil else {
                 completionHandler(nil, error)
@@ -137,14 +137,14 @@ class UserDataFetcher: NSObject {
             self.currentUser = updatedUser
             self.userSignal.fire(updatedUser)
             completionHandler(updatedUser, nil)
-        }
+        })
     }
 
     // MARK: - User Vocabulary save related
     public func getUserVocabularySave(userId: String, vocaularyId: String, completionHandler: @escaping ( Bool, Error?) -> Void) {
         let userVocabSaveId = userId + "+" + vocaularyId
         let q = GetUserVocabularySaveQuery(id: userVocabSaveId)
-        appSyncClient?.fetch(query: q) { (result, error) in
+        appSyncClient?.fetch(query: q, cachePolicy: .returnCacheDataAndFetch ) { (result, error) in
 
             print (error?.localizedDescription as Any)
             guard error == nil else {
@@ -164,7 +164,7 @@ class UserDataFetcher: NSObject {
         let userVocabSaveId = userId + "+" + vocabularyId
         let createUserVocabularySaveInput = CreateUserVocabularySaveInput(id: userVocabSaveId, vocabularyId: vocabularyId, userVocabularySaveUsersId: userId)
         let m = CreateUserVocabularySaveMutation(input: createUserVocabularySaveInput)
-        appSyncClient?.perform(mutation: m) { (result, error) in
+        appSyncClient?.perform(mutation: m, resultHandler: { (result, error) in
             print (error?.localizedDescription as Any)
             guard error == nil else {
                 completionHandler(false, error)
@@ -175,14 +175,14 @@ class UserDataFetcher: NSObject {
                 return
             }
             completionHandler(true, nil)
-        }
+        })
     }
 
     public func deleteUserVocabularySave(userId: String, vocabularyId: String, completionHandler: @escaping ( Bool, Error?) -> Void) {
-        let userVocabSaveId = userId + "+" + vocabularyId
-        let deleteUserVocabularySaveInput = DeleteUserVocabularySaveInput(id: userVocabSaveId)
+        let userVocabSaveID = userId + "+" + vocabularyId
+        let deleteUserVocabularySaveInput = DeleteUserVocabularySaveInput(id: userVocabSaveID)
         let m = DeleteUserVocabularySaveMutation(input: deleteUserVocabularySaveInput)
-        appSyncClient?.perform(mutation: m) { (result, error) in
+        appSyncClient?.perform(mutation: m, resultHandler: { (result, error) in
             print (error?.localizedDescription as Any)
             guard error == nil else {
                 completionHandler(false, error)
@@ -192,17 +192,22 @@ class UserDataFetcher: NSObject {
                 completionHandler(false, nil)
                 return
             }
+            _ = self.appSyncClient?.store?.withinReadWriteTransaction({ (transaction) in
+                let query = GetUserVocabularySaveQuery(id: userVocabSaveID)
+                try transaction.update(query: query, { (data: inout GetUserVocabularySaveQuery.Data) in
+                    data.getUserVocabularySave = nil
+                })
+            })
             completionHandler(true, nil)
-        }
+        })
     }
 
     // MARK: - User item save related
      public func getUserItemSave(userId: String, itemId: String, completionHandler: @escaping ( Bool, Error?) -> Void) {
-         let userItemSaveId = userId + "+" + itemId
-         let q = GetUserItemSaveQuery(id: userItemSaveId)
+         let userItemSaveID = userId + "+" + itemId
+         let q = GetUserItemSaveQuery(id: userItemSaveID)
         
-         appSyncClient?.fetch(query: q) { (result, error) in
-
+         appSyncClient?.fetch(query: q, cachePolicy: .returnCacheDataAndFetch) { (result, error) in
              print (error?.localizedDescription as Any)
              guard error == nil else {
                  completionHandler(false, error)
@@ -218,39 +223,45 @@ class UserDataFetcher: NSObject {
      }
 
     public func createUserItemSave(userId: String, itemId: String, itemType: String, completionHandler: @escaping ( Bool, Error?) -> Void) {
-        let userItemSaveId = userId + "+" + itemId
-        let createUserItemSaveInput = CreateUserItemSaveInput(id: userItemSaveId, itemType: itemType, itemId: itemId, userItemSaveUserId: userId)
-         let m = CreateUserItemSaveMutation(input: createUserItemSaveInput)
-         appSyncClient?.perform(mutation: m) { (result, error) in
-             print (error?.localizedDescription as Any)
-             guard error == nil else {
-                 completionHandler(false, error)
-                 return
-             }
-             guard (result?.data?.createUserItemSave) != nil else {
-                 completionHandler(false, nil)
-                 return
-             }
-             completionHandler(true, nil)
-         }
+        let userItemSaveID = userId + "+" + itemId
+        let createUserItemSaveInput = CreateUserItemSaveInput(id: userItemSaveID, itemType: itemType, itemId: itemId, userItemSaveUserId: userId)
+        let m = CreateUserItemSaveMutation(input: createUserItemSaveInput)
+        appSyncClient?.perform(mutation: m, resultHandler: { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {
+                completionHandler(false, error)
+                return
+            }
+            guard result?.data?.createUserItemSave != nil else {
+                completionHandler(false, nil)
+                return
+            }
+            completionHandler(true, nil)
+        })
      }
 
      public func deleteUserItemSave(userId: String, itemId: String, completionHandler: @escaping ( Bool, Error?) -> Void) {
-         let userItemSaveId = userId + "+" + itemId
-         let deleteUserItemSaveInput = DeleteUserItemSaveInput(id: userItemSaveId)
+         let userItemSaveID = userId + "+" + itemId
+         let deleteUserItemSaveInput = DeleteUserItemSaveInput(id: userItemSaveID)
          let m = DeleteUserItemSaveMutation(input: deleteUserItemSaveInput)
-         appSyncClient?.perform(mutation: m) { (result, error) in
-             print (error?.localizedDescription as Any)
-             guard error == nil else {
-                 completionHandler(false, error)
-                 return
-             }
-             guard (result?.data?.deleteUserItemSave) != nil else {
-                 completionHandler(false, nil)
-                 return
-             }
-             completionHandler(true, nil)
-         }
+         appSyncClient?.perform(mutation: m, resultHandler: { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {
+                completionHandler(false, error)
+                return
+            }
+            guard (result?.data?.deleteUserItemSave) != nil else {
+                completionHandler(false, nil)
+                return
+            }
+            _ = self.appSyncClient?.store?.withinReadWriteTransaction({ (transaction) in
+                let query = GetUserItemSaveQuery(id: userItemSaveID)
+                try transaction.update(query: query, { (data: inout GetUserItemSaveQuery.Data) in
+                    data.getUserItemSave = nil
+                })
+            })
+            completionHandler(true, nil)
+        })
      }
 
     // MARK: - User Item inProgress related
@@ -277,36 +288,36 @@ class UserDataFetcher: NSObject {
         let userItemInProgressId = userId + "+" + itemId
         let createUserItemInProgressInput = CreateUserItemInProgressInput(id: userItemInProgressId, itemType: itemType, itemId: itemId, userItemInProgressUserId: userId)
          let m = CreateUserItemInProgressMutation(input: createUserItemInProgressInput)
-         appSyncClient?.perform(mutation: m) { (result, error) in
-             print (error?.localizedDescription as Any)
-             guard error == nil else {
-                 completionHandler(false, error)
-                 return
-             }
-             guard (result?.data?.createUserItemInProgress) != nil else {
-                 completionHandler(false, nil)
-                 return
-             }
-             completionHandler(true, nil)
-         }
+        appSyncClient?.perform(mutation: m, resultHandler: { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {
+                completionHandler(false, error)
+                return
+            }
+            guard (result?.data?.createUserItemInProgress) != nil else {
+                completionHandler(false, nil)
+                return
+            }
+            completionHandler(true, nil)
+        })
      }
 
      public func deleteUserItemInProgress(userId: String, itemId: String, completionHandler: @escaping ( Bool, Error?) -> Void) {
          let userItemInProgressId = userId + "+" + itemId
          let deleteUserItemInProgressInput = DeleteUserItemInProgressInput(id: userItemInProgressId)
          let m = DeleteUserItemInProgressMutation(input: deleteUserItemInProgressInput)
-         appSyncClient?.perform(mutation: m) { (result, error) in
-             print (error?.localizedDescription as Any)
-             guard error == nil else {
-                 completionHandler(false, error)
-                 return
-             }
-             guard (result?.data?.deleteUserItemInProgress) != nil else {
-                 completionHandler(false, nil)
-                 return
-             }
-             completionHandler(true, nil)
-         }
+        appSyncClient?.perform(mutation: m, resultHandler: { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {
+                completionHandler(false, error)
+                return
+            }
+            guard (result?.data?.deleteUserItemInProgress) != nil else {
+                completionHandler(false, nil)
+                return
+            }
+            completionHandler(true, nil)
+        })
      }
 
 
@@ -334,39 +345,37 @@ class UserDataFetcher: NSObject {
         let userItemCompletedId = userId + "+" + itemId
         let createUserItemCompletedInput = CreateUserItemCompletedInput(id: userItemCompletedId, itemType: itemType, itemId: itemId, userItemCompletedUserId: userId)
          let m = CreateUserItemCompletedMutation(input: createUserItemCompletedInput)
-         appSyncClient?.perform(mutation: m) { (result, error) in
-             print (error?.localizedDescription as Any)
-             guard error == nil else {
-                 completionHandler(false, error)
-                 return
-             }
-             guard (result?.data?.createUserItemCompleted) != nil else {
-                 completionHandler(false, nil)
-                 return
-             }
-             completionHandler(true, nil)
-         }
+        appSyncClient?.perform(mutation: m, resultHandler: { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {
+                completionHandler(false, error)
+                return
+            }
+            guard (result?.data?.createUserItemCompleted) != nil else {
+                completionHandler(false, nil)
+                return
+            }
+            completionHandler(true, nil)
+        })
      }
 
      public func deleteUserItemCompleted(userId: String, itemId: String, completionHandler: @escaping ( Bool, Error?) -> Void) {
          let userItemCompletedId = userId + "+" + itemId
          let deleteUserItemCompletedInput = DeleteUserItemCompletedInput(id: userItemCompletedId)
          let m = DeleteUserItemCompletedMutation(input: deleteUserItemCompletedInput)
-         appSyncClient?.perform(mutation: m) { (result, error) in
-             print (error?.localizedDescription as Any)
-             guard error == nil else {
-                 completionHandler(false, error)
-                 return
-             }
-             guard (result?.data?.deleteUserItemCompleted) != nil else {
-                 completionHandler(false, nil)
-                 return
-             }
-             completionHandler(true, nil)
-         }
+        appSyncClient?.perform(mutation: m, resultHandler: { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {
+                completionHandler(false, error)
+                return
+            }
+            guard (result?.data?.deleteUserItemCompleted) != nil else {
+                completionHandler(false, nil)
+                return
+            }
+            completionHandler(true, nil)
+        })
      }
-
-
 
     func startItemProgressIfNeeded(userId: String, itemId: String, itemType: String) {
         var isInProgressFlag: Bool?

@@ -7,16 +7,16 @@ target 'meho-ios' do
 
   # Pods for meho-ios
 
-  pod 'AWSMobileClient', '~> 2.15.0'      # Required dependency
-  pod 'AWSAuthUI', '~> 2.15.0'            # Optional dependency required to use drop-in UI
-  pod 'AWSUserPoolsSignIn', '~> 2.15.0'   # Optional dependency required to use drop-in UI
-  pod 'AWSAppSync', '~>3.1.5'             # Required dependency for hooking up graphQL api on aws
-  pod 'AWSCore',  '~>2.15.0'
-  pod 'AWSS3', '~> 2.15.0'
-  pod 'Amplify', '~> 1.2.0'
-  pod 'AmplifyPlugins/AWSCognitoAuthPlugin', '~> 1.2.0'
-  pod 'AmplifyPlugins/AWSS3StoragePlugin', '~> 1.2.0'
-  pod 'AmplifyPlugins/AWSCognitoAuthPlugin', '~> 1.2.0'
+  pod 'AWSMobileClient', '~> 2.23.0'      # Required dependency
+  pod 'AWSAuthUI', '~> 2.23.0'            # Optional dependency required to use drop-in UI
+  pod 'AWSUserPoolsSignIn', '~> 2.23.0'   # Optional dependency required to use drop-in UI
+  pod 'AWSAppSync', '~>3.1.17'             # Required dependency for hooking up graphQL api on aws
+  pod 'AWSCore',  '~>2.23.0'
+  pod 'AWSS3', '~> 2.23.0'
+  pod 'Amplify', '~> 1.6.1'
+  pod 'AmplifyPlugins/AWSCognitoAuthPlugin', '~> 1.6.1'
+  pod 'AmplifyPlugins/AWSS3StoragePlugin', '~> 1.6.1'
+  pod 'AmplifyPlugins/AWSCognitoAuthPlugin', '~> 1.6.1'
 
   pod 'Toast-Swift', '~> 5.0.1'
   pod 'Kingfisher', '~> 5.15'

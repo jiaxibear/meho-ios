@@ -1501,7 +1501,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "meho-ios/Meho.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = LW56PXHU2T;
 				ENABLE_BITCODE = NO;
@@ -1526,7 +1526,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "meho-ios/meho-ios-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1538,7 +1538,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "meho-ios/Meho.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = LW56PXHU2T;
 				ENABLE_BITCODE = NO;
@@ -1562,7 +1562,7 @@
 				PRODUCT_NAME = Meho;
 				SWIFT_OBJC_BRIDGING_HEADER = "meho-ios/meho-ios-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
