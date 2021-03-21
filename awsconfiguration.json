@@ -32,7 +32,7 @@
     "Auth": {
         "Default": {
             "OAuth": {
-                "WebDomain": "mehoadmin178c4ba4-178c4ba4-mehoadmin.auth.us-west-2.amazoncognito.com",
+                "WebDomain": "auth.wearemeho.com",
                 "AppClientId": "12elqc1ncgclimgud5pjb6dav",
                 "AppClientSecret": "13spd53g21biadp592j10200g7ief4qp7t4b0dq38fqor7buitr2",
                 "SignInRedirectURI": "meho://",
