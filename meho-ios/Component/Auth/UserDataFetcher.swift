@@ -520,8 +520,6 @@ class UserDataFetcher: NSObject {
                    let scoreD = Double(scoreS) {
                     chapterIdToScores[chapterId] = scoreD
                 }
-
-                print("huh")
             }
         }
 

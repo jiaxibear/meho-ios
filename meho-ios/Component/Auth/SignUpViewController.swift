@@ -9,7 +9,7 @@
 import UIKit
 import AWSMobileClient
 
-class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInViewDelegate {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Constants
     private let textFieldsStackViewHeight = CGFloat(234)
@@ -19,7 +19,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
     private let errorMessageLabelFontSize = CGFloat(16)
     private let errorMessageLabelCompactFontSize = CGFloat(12)
     private let errorMessageLabelTopMargin = CGFloat(24)
-    private let otherSignInViewBottomMargin = CGFloat(8)
     private let nextButtonTitleFontSize = CGFloat(20)
     private let nextButtonCornerRadius = CGFloat(18)
     private let nextButtonHeight = CGFloat(50)
@@ -74,14 +73,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         return textFieldsStackView
     } ()
 
-    private lazy var otherSignInView: OtherSignInView = {
-        let otherSignInView = OtherSignInView.init(frame: .zero)
-        otherSignInView.translatesAutoresizingMaskIntoConstraints = false
-        otherSignInView.delegate = self
-        otherSignInView.isHidden = true
-        return otherSignInView
-    } ()
-
     private lazy var nextButton: UIButton = {
         let button = UIButton.init(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -104,7 +95,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         navigationController?.setNavigationBarHidden(false, animated: false)
         view.backgroundColor = .white
         view.addSubview(textFieldsStackView)
-        view.addSubview(otherSignInView)
         view.addSubview(errorMessageLabel)
         view.addSubview(nextButton)
 
@@ -114,10 +104,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         textFieldsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentViewLeadingTrailingMargin).isActive = true
         let textFieldsStackViewHeightConstraint = textFieldsStackView.heightAnchor.constraint(equalToConstant: textFieldsStackViewHeight)
         textFieldsStackViewHeightConstraint.isActive = true
-
-        otherSignInView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentViewLeadingTrailingMargin).isActive = true
-        otherSignInView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentViewLeadingTrailingMargin).isActive = true
-        otherSignInView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -otherSignInViewBottomMargin).isActive = true
 
         let errorMessageLabelTopConstraint = errorMessageLabel.topAnchor.constraint(equalTo: textFieldsStackView.bottomAnchor, constant: errorMessageLabelTopMargin)
         errorMessageLabelTopConstraint.isActive = true
@@ -133,18 +119,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: nextButtonLeadingTrailingMargin).isActive = true
         nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -nextButtonLeadingTrailingMargin).isActive = true
         nextButton.heightAnchor.constraint(equalToConstant: nextButtonHeight).isActive = true
-
-        if textFieldsStackViewTopMargin + textFieldsStackViewHeight + otherSignInViewBottomMargin + otherSignInView.intrinsicContentSize.height + errorMessageLabelTopMargin + nextButtonHeight + nextButtonTopMargin > view.bounds.height {
-            textFieldsStackViewTopConstraint.constant = textFieldsStackViewTopMargin / 2
-            emailAddressTextField.isCompact = true
-            createPasswordTextField.isCompact = true
-            repeatPasswordTextField.isCompact = true
-            textFieldsStackViewHeightConstraint.constant = emailAddressTextField.intrinsicContentSize.height * 3 + textFieldsStackViewSpacing
-            errorMessageLabelTopConstraint.constant = errorMessageLabelTopMargin / 4
-            nextButtonTopConstraint.constant = nextButtonTopMargin / 4
-            otherSignInView.isCompact = true
-            errorMessageLabel.font = errorMessageLabel.font.withSize(errorMessageLabelCompactFontSize)
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -212,26 +186,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         }
     }
 
-    // MARK: - OtherSignInViewDelegate
-    func otherSignInViewDidTapURL(_ URL: URL) {
-        let title = URL.absoluteString.contains("PrivacyPolicy") ? NSLocalizedString("privacyPolicy", comment: "") : NSLocalizedString("termsOfUse", comment: "")
-        let webViewController = WebViewController.init(title: title, contentURL: URL)
-        self.title = ""
-        navigationController?.pushViewController(webViewController, animated: true)
-    }
-
-    func otherSignInViewDidTapFacebookButton() {
-
-    }
-
-    func otherSignInViewDidTapGoogleButton() {
-
-    }
-
-    func otherSignInViewDidTapAppleButton() {
-        
-    }
-
     // MARK: - Private
     @objc
     func didTapNextButton() {
@@ -271,10 +225,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
                     DispatchQueue.main.async {
                         self.present(alertController, animated: true, completion: nil)
                     }
-                } else {
-                    errorMessage = NSLocalizedString("genericSignUpErrorMessage", comment: "")
-                }
-                if errorMessage != nil {
+                } else if errorMessage != nil {
                     DispatchQueue.main.async {
                         let alertController = UIAlertController.init(title: NSLocalizedString("signUpErrorTitle", comment: ""), message: errorMessage, preferredStyle: .alert)
                         alertController.addAction(UIAlertAction.init(title: NSLocalizedString("OKButtonTitle", comment: ""), style: .default, handler: nil))
@@ -285,7 +236,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, OtherSignInVi
         }
     }
 
-    func isValidEmail(_ email: String) -> Bool {
+    private func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)

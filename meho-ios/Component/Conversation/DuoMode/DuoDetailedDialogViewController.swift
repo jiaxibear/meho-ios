@@ -380,6 +380,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
     // MARK: - DuoFinalScoreViewControllerDelegate
     func duoFinalScoreViewControllerDidFinish() {
         dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 
     func duoFinalScoreViewControllerDidContinueWithRole(role: String) {
