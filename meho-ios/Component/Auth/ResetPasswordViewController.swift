@@ -8,8 +8,9 @@
 
 import UIKit
 import AWSMobileClient
+import FirebaseAnalytics
 
-class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherSignInViewDelegate {
+class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherSignInViewDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let textFieldsStackViewHeight = CGFloat(324)
@@ -169,6 +170,10 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
 
     private var hasEditedVerificationCode = false
 
+    // MARK: MehoAnalytics
+    let screenName = "p_meho_login_reset_passwoard"
+    let screenClass =  "p_meho_login_signin"
+
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -238,6 +243,11 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = NSLocalizedString("ResetPasswordScreenTitle", comment: "")
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - UITextFieldDelegate

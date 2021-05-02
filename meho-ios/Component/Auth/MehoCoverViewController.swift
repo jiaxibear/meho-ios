@@ -11,7 +11,7 @@ import AWSMobileClient
 import FirebaseAnalytics
 import Amplify
 
-class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
+class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextViewDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let buttonLabelFontSize = CGFloat(20)
@@ -44,6 +44,10 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         let talk = CoverIntro.init(title: NSLocalizedString("coverTalkTitle", comment: ""), image: UIImage.init(named: "login_preview_talk"))
         return [stories, expressions, talk]
     } ()
+
+    // MARK: MehoAnalytics
+    var screenName = "p_meho_login_signup_home"
+    var screenClass =  "p_meho_login_signup"
 
     // MARK: - Properties
     private lazy var storiesCollectionViewFlowLayout: UICollectionViewFlowLayout = {
@@ -156,6 +160,8 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
                 googleButton.setTitle(NSLocalizedString("SignUpWithGoogleButtonTitle", comment: ""), for: .normal)
                 facebookButton.setTitle(NSLocalizedString("SignUpWithFacebookButtonTitle", comment: ""), for: .normal)
                 appleButton.setTitle(NSLocalizedString("SignUpWithAppleButtonTitle", comment: ""), for: .normal)
+                screenName = "p_meho_login_signup_home"
+                screenClass = "p_meho_login_signup"
             } else {
                 let switchSignInSignupTextFormat = NSLocalizedString("SignUpText", comment: "")
                 let signUpText = NSLocalizedString("SignUpButtonTitle", comment: "")
@@ -164,7 +170,10 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
                 googleButton.setTitle(NSLocalizedString("SignInWithGoogleButtonTitle", comment: ""), for: .normal)
                 facebookButton.setTitle(NSLocalizedString("SignInWithFacebookButtonTitle", comment: ""), for: .normal)
                 appleButton.setTitle(NSLocalizedString("SignInWithAppleButtonTitle", comment: ""), for: .normal)
+                screenName = "p_meho_login_signin_home"
+                screenClass = "p_meho_login_signin"
             }
+            Analytics.logScreenViewEvent(viewController: self)
         }
     }
 

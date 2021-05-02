@@ -10,8 +10,9 @@ import UIKit
 import AWSMobileClient
 import Amplify
 import AmplifyPlugins
+import FirebaseAnalytics
 
-class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFieldDelegate {
+class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFieldDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let textFieldFontSize = CGFloat(16)
@@ -34,6 +35,10 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
 
     // MARK: - Datamodels
     private let userDataFecther = UserDataFetcher.shared
+
+    // MARK: MehoAnalytics
+    let screenName = "p_meho_login_signin_email"
+    let screenClass =  "p_meho_login_signin"
 
     // MARK: - Properties
     private lazy var emailAddressField: UITextFieldPadding = {
@@ -157,6 +162,11 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = NSLocalizedString("SignInScreenTitle", comment: "")
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - UITextFieldDelegate

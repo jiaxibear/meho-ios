@@ -8,8 +8,9 @@
 
 import UIKit
 import AWSMobileClient
+import FirebaseAnalytics
 
-class SignUpViewController: UIViewController, UITextFieldDelegate {
+class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let textFieldsStackViewHeight = CGFloat(234)
@@ -89,6 +90,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         return button
     } ()
 
+    // MARK: MehoAnalytics
+    let screenName = "p_meho_login_signup_email"
+    let screenClass =  "p_meho_login_signup"
+
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,6 +129,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = NSLocalizedString("SignUpScreenTitle", comment: "")
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - UITextFieldDelegate

@@ -8,8 +8,9 @@
 
 import UIKit
 import AWSMobileClient
+import FirebaseAnalytics
 
-class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MehoAnalytics {
 
     // MARK: - Constants
     private let nextButtonWidth = CGFloat(200)
@@ -98,6 +99,10 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         return questionsCollectionView
     } ()
 
+    // MARK: MehoAnalytics
+    let screenName = "p_meho_onboarding_follow"
+    let screenClass =  "p_meho_onboarding"
+
     // MARK: - Init
     init(interests: [String]? = nil, isSingleStep: Bool = false) {
         self.isSingleStep = isSingleStep
@@ -185,6 +190,11 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         } else {
             title = NSLocalizedString("completeProfileStep2Title", comment: "")
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - Private

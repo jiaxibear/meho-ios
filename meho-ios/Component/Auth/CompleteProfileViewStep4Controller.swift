@@ -8,8 +8,9 @@
 
 import UIKit
 import AWSMobileClient
+import FirebaseAnalytics
 
-class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let nextButtonWidth = CGFloat(200)
@@ -134,6 +135,10 @@ class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewData
     private lazy var questionsCollectionViewHeightConstraint: NSLayoutConstraint = {
         return questionsCollectionView.heightAnchor.constraint(equalToConstant: questionsCollectionViewHeight)
     } ()
+
+    // MARK: MehoAnalytics
+    let screenName = "p_meho_onboarding_profession"
+    let screenClass =  "p_meho_onboarding"
 
     // MARK: - Init
     init(profession: String? = nil, isSingleStep: Bool = false) {
@@ -275,6 +280,11 @@ class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewData
         } else {
             title = NSLocalizedString("completeProfileStep3Title", comment: "")
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - Private

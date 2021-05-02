@@ -8,8 +8,9 @@
 
 import UIKit
 import AWSMobileClient
+import FirebaseAnalytics
 
-class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MehoAnalytics {
 
     enum CompleteProfileViewStep1Section: Int {
         case communication = 0
@@ -101,6 +102,10 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
         questionsCollectionView.backgroundColor = .white
         return questionsCollectionView
     } ()
+
+    // MARK: MehoAnalytics
+    let screenName = "p_meho_onboarding_intent"
+    let screenClass =  "p_meho_onboarding"
 
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -245,6 +250,11 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
         } else {
             title = NSLocalizedString("completeProfileStep1Title", comment: "")
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - Private

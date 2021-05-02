@@ -8,8 +8,9 @@
 
 import UIKit
 import AWSMobileClient
+import FirebaseAnalytics
 
-class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate {
+class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let nextButtonWidth = CGFloat(200)
@@ -90,6 +91,10 @@ class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate 
         return nicknameTextFieldBottomLine
     } ()
 
+    // MARK: MehoAnalytics
+    let screenName = "p_meho_onboarding_nickname"
+    let screenClass =  "p_meho_onboarding"
+
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,6 +124,11 @@ class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate 
             nicknameTextFieldBottomLine.heightAnchor.constraint(equalToConstant: nicknameTextFieldBottomLineHeight),
             nicknameTextFieldBottomLine.topAnchor.constraint(equalTo: nicknameTextField.bottomAnchor, constant: nicknameTextFieldBottomLineTopMargin)
         ])
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
