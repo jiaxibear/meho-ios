@@ -8,8 +8,9 @@
 
 import UIKit
 import AWSMobileClient
+import FirebaseAnalytics
 
-class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MehoAnalytics {
 
     // MARK: - Constants
     private let collectionViewCellReuseIdentifier = "collectionViewCellReuseIdentifier"
@@ -57,6 +58,10 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
 
     var basicUser: BasicUser?
     let userDataFetcher = UserDataFetcher.shared
+
+    // MARK: MehoAnalytics
+    let screenName = "p_meho_profiles_setting"
+    let screenClass =  "p_meho_profiles_setting"
 
     // MARK: - Init
     init() {
@@ -117,6 +122,11 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.logScreenViewEvent(viewController: self)
+    }
+
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionViewCellReuseIdentifier, for: indexPath) as? ProfileSettingCollectionViewCell {
@@ -170,13 +180,13 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         case .userAgreement:
             let title = NSLocalizedString("termsOfUse", comment: "")
             let userAgreementURL = Bundle.main.url(forResource: "TermsOfUse", withExtension: "html")!
-            let webViewController = WebViewController.init(title: title, contentURL: userAgreementURL)
+            let webViewController = WebViewController.init(title: title, contentURL: userAgreementURL, screenName: "p_meho_profiles_setting_terms_of_use", screenClass: "p_meho_profiles_setting")
             navigationController?.pushViewController(webViewController, animated: true)
             break
         case .privacy:
             let title = NSLocalizedString("privacyPolicy", comment: "")
             let userAgreementURL = Bundle.main.url(forResource: "PrivacyPolicy", withExtension: "html")!
-            let webViewController = WebViewController.init(title: title, contentURL: userAgreementURL)
+            let webViewController = WebViewController.init(title: title, contentURL: userAgreementURL, screenName: "p_meho_profiles_setting_privacy_policy", screenClass: "p_meho_profiles_setting")
             navigationController?.pushViewController(webViewController, animated: true)
             break
         case .contact:

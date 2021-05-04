@@ -137,8 +137,22 @@ class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewData
     } ()
 
     // MARK: MehoAnalytics
-    let screenName = "p_meho_onboarding_profession"
-    let screenClass =  "p_meho_onboarding"
+    // MARK: MehoAnalytics
+    lazy var screenName: String = {
+        if isSingleStep {
+            return "p_meho_profiles_setting_update_profession"
+        } else {
+            return "p_meho_onboarding_profession"
+        }
+    } ()
+
+    lazy var screenClass: String = {
+        if isSingleStep {
+            return "p_meho_profiles_setting"
+        } else {
+            return "p_meho_onboarding"
+        }
+    } ()
 
     // MARK: - Init
     init(profession: String? = nil, isSingleStep: Bool = false) {

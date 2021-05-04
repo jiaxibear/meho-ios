@@ -100,8 +100,21 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     } ()
 
     // MARK: MehoAnalytics
-    let screenName = "p_meho_onboarding_follow"
-    let screenClass =  "p_meho_onboarding"
+    lazy var screenName: String = {
+        if isSingleStep {
+            return "p_meho_profiles_setting_update_interests"
+        } else {
+            return "p_meho_onboarding_follow"
+        }
+    } ()
+
+    lazy var screenClass: String = {
+        if isSingleStep {
+            return "p_meho_profiles_setting"
+        } else {
+            return "p_meho_onboarding"
+        }
+    } ()
 
     // MARK: - Init
     init(interests: [String]? = nil, isSingleStep: Bool = false) {

@@ -10,6 +10,7 @@ import UIKit
 import AWSMobileClient
 import InitialsImageView
 import Reachability
+import FirebaseAnalytics
 
 enum ProfileSection: Int {
     case completed
@@ -18,7 +19,7 @@ enum ProfileSection: Int {
     case savedVocabularies
 }
 
-class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProfileHeaderCollectionReusableViewDelegate, DialogModeSelectionViewControllerDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate, LoadingViewDelegate {
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProfileHeaderCollectionReusableViewDelegate, DialogModeSelectionViewControllerDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate, LoadingViewDelegate, MehoAnalytics {
     
     // MARK: - Constants
     private let profileTabBarItemImageName = "tabbar_profile_25pt"
@@ -152,6 +153,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private var inProgressItems: [ProfileCard] = []
     private var savedItems: [ProfileCard] = []
     private var saveVocabularies: [Vocabulary] = []
+
+    // MARK: MehoAnalytics
+    let screenName = "p_meho_profiles_home"
+    let screenClass =  "p_meho_profiles_home"
     
     // MARK: - Init
     init() {
@@ -251,9 +256,16 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.logScreenViewEvent(viewController: self)
+    }
+
     // MARK: - UICollectionViewDataDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let profileSection = sections[indexPath.section]
+        var controlName: String? = nil
+        var controlID: String? = nil
         switch profileSection {
         case .completed:
             let item = indexPath.item
@@ -263,8 +275,23 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 let completedItemsViewController = CompletedItemsViewController.init(completedItemsType: completedGroupItems.type, profileCards: completedGroupItems.items)
                 navigationController?.pushViewController(completedItemsViewController, animated: true)
             }
+            switch completedGroupItems.type {
+            case .completedExpressions:
+                controlName = "view_completed_expressions"
+                controlID = "p_meho_profiles_home-view_completed_expressions"
+            case .completedTalks:
+                controlName = "view_completed_talks"
+                controlID = "p_meho_profiles_home-view_completed_talks"
+            case .completedStories:
+                controlName = "view_completed_stories"
+                controlID = "p_meho_profiles_home-view_completed_stories"
+            default:
+                break
+            }
             break
         case .inProgress:
+            controlName = "view_in_progress"
+            controlID = "p_meho_profiles_home-view_in_progress"
             let item = indexPath.item
             if item >= inProgressItems.count {
                 return
@@ -273,6 +300,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             didSelectProfileCard(profileCard)
             break
         case .savedItems:
+            controlName = "view_saved"
+            controlID = "p_meho_profiles_home-view_saved"
             let item = indexPath.item
             if item >= savedItems.count {
                 return
@@ -282,6 +311,15 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             break
         case .savedVocabularies:
             break
+        }
+        if let controlID = controlID, let controlName = controlName {
+            let parameters = [
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlID: controlID,
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlName: controlName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+            ]
+            Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         }
     }
 
@@ -400,18 +438,32 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     // MARK: - ProfileHeaderCollectionReusableViewDelegate
     func didTapSeeAllButton(profileHeader: ProfileHeader) {
+        var controlName: String? = nil
+        var controlID: String? = nil
         var profileCards: [ProfileCard] = []
         let itemsType = profileHeader.itemsType
         switch itemsType {
         case .inProgressAll:
+            controlName = "view_all_in_progress"
+            controlID = "p_meho_profiles_home-view_all_in_progress"
             profileCards = inProgressItems
-            break
         case .savedAll:
+            controlName = "view_all_saved_items"
+            controlID = "p_meho_profiles_home-view_all_saved_items"
             profileCards = savedItems
-            break
         default:
+            controlName = "view_all_saved_vocabulary"
+            controlID = "p_meho_profiles_home-view_all_saved_vocabulary"
             profileCards = saveVocabularies
-            break
+        }
+        if let controlID = controlID, let controlName = controlName {
+            let parameters = [
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlID: controlID,
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlName: controlName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+            ]
+            Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         }
         let completedItemsViewController = CompletedItemsViewController.init(completedItemsType: itemsType, profileCards: profileCards)
         navigationController?.pushViewController(completedItemsViewController, animated: true)

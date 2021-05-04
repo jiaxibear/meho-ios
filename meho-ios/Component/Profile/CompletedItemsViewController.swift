@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSMobileClient
+import FirebaseAnalytics
 
 enum CompletedItemsType: Int {
     case completedStories
@@ -18,7 +19,7 @@ enum CompletedItemsType: Int {
     case savedVocabularies
 }
 
-class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DialogModeSelectionViewControllerDelegate, CompletedEmptyCollectionViewCellDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate {
+class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DialogModeSelectionViewControllerDelegate, CompletedEmptyCollectionViewCellDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate, MehoAnalytics {
 
     private let contentCategoryCollectionViewCellWidth = CGFloat(40)
     private let contentCategoryCollectionViewCellHeight = CGFloat(30)
@@ -228,6 +229,10 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
     private let userDataFetcher = UserDataFetcher.shared
     private let conversationDataFetcher = ConversationDataFetcher.init()
 
+    // MARK: MehoAnalytics
+    var screenName = "p_meho_profiles_completed_stories"
+    var screenClass =  "p_meho_profiles_completed"
+
     // MARK: - Init
     init() {
         fatalError("init(hasFilter: Boolean, profileItems:[ProfileItem])")
@@ -253,18 +258,30 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         switch completedItemsType {
         case .completedExpressions:
             title = NSLocalizedString("PracticedExpressionsTitle", comment: "")
+            screenName = "p_meho_profiles_completed_expressions"
+            screenClass = "p_meho_profiles_completed"
         case .completedTalks:
             title = NSLocalizedString("CompletedTalksTitle", comment: "")
+            screenName = "p_meho_profiles_completed_talks"
+            screenClass = "p_meho_profiles_completed"
         case .completedStories:
             title = NSLocalizedString("CompletedStoriesTitle", comment: "")
+            screenName = "p_meho_profiles_completed_stories"
+            screenClass = "p_meho_profiles_completed"
         case .inProgressAll:
             title = NSLocalizedString("InProgressItemsTitle", comment: "")
             sections.append(.contentCategories)
+            screenName = "p_meho_profiles_in_progress"
+            screenClass = "p_meho_profiles_in_progress"
         case .savedAll:
             title = NSLocalizedString("SavedItemsTitle", comment: "")
             sections.append(.contentCategories)
+            screenName = "p_meho_profiles_saved_items"
+            screenClass = "p_meho_profiles_saved"
         case .savedVocabularies:
             title = NSLocalizedString("SavedVocabulariesTitle", comment: "")
+            screenName = "p_meho_profiles_v_vocabularies"
+            screenClass = "p_meho_profiles_saved"
         }
         items = profileCards
         filteredItems = items
@@ -307,6 +324,11 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.logScreenViewEvent(viewController: self)
+    }
+
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
@@ -329,13 +351,19 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
             }
             break
         case .items:
+            var controlName: String? = nil
+            var controlID: String? = nil
             if let news = filteredItems[indexPath.item] as? News {
+                controlName = "view_story"
+                controlID = "p_meho_profiles_completed-view_story"
                 let detailedNewsViewController = DetailedNewsViewController.init(news: news)
                 navigationController?.pushViewController(detailedNewsViewController, animated: true)
             } else if let dialog = filteredItems[indexPath.item] as? Dialog {
                 guard let userID = AWSMobileClient.default().userSub else {
                     return
                 }
+                controlName = "view_talk"
+                controlID = "p_meho_profiles_completed-view_talk"
                 userDataFetcher.getUserItemSave (userId: userID, itemId: dialog.identifier, completionHandler: { (isSaved, error) in
                     guard error == nil else {
                         return
@@ -350,6 +378,15 @@ class CompletedItemsViewController: UIViewController, UICollectionViewDelegate, 
                         self.navigationController?.present(dialogViewController, animated: true, completion: nil)
                     }
                 })
+            }
+            if let controlID = controlID, let controlName = controlName {
+                let parameters = [
+                    MehoAnalyticsUtils.MehoAnalyticsParameterControlID: controlID,
+                    MehoAnalyticsUtils.MehoAnalyticsParameterControlName: controlName,
+                    MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+                    MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+                ]
+                Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
             }
             break
         case .empty:

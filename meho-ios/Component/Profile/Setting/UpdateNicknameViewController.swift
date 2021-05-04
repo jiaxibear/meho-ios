@@ -8,8 +8,9 @@
 
 import UIKit
 import AWSMobileClient
+import FirebaseAnalytics
 
-class UpdateNicknameViewController: UIViewController {
+class UpdateNicknameViewController: UIViewController, MehoAnalytics {
 
     // MARK: - Constants
     private let changeNicknameLabelFontSize = CGFloat(16)
@@ -72,6 +73,10 @@ class UpdateNicknameViewController: UIViewController {
 
     private let userDataFetcher = UserDataFetcher.shared
 
+    // MARK: MehoAnalytics
+    let screenName = "p_meho_profiles_setting_change_nickname"
+    let screenClass =  "p_meho_profiles_setting"
+
     // MARK: - Init
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -111,6 +116,11 @@ class UpdateNicknameViewController: UIViewController {
         userDataFetcher.getUser(userId: userID) { (basicUser, error) in
             self.changeNicknameTextField.text = basicUser?.username
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.logScreenViewEvent(viewController: self)
     }
 
     // MARK: - Private

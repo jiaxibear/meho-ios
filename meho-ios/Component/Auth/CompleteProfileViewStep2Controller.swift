@@ -104,8 +104,21 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
     } ()
 
     // MARK: MehoAnalytics
-    let screenName = "p_meho_onboarding_intent"
-    let screenClass =  "p_meho_onboarding"
+    lazy var screenName: String = {
+        if isSingleStep {
+            return "p_meho_profiles_setting_update_goal"
+        } else {
+            return "p_meho_onboarding_intent"
+        }
+    } ()
+
+    lazy var screenClass: String = {
+        if isSingleStep {
+            return "p_meho_profiles_setting"
+        } else {
+            return "p_meho_onboarding"
+        }
+    } ()
 
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

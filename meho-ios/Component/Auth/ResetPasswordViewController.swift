@@ -324,7 +324,7 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
     // MARK: - OtherSignInViewDelegate
     func otherSignInViewDidTapURL(_ URL: URL) {
         let title = URL.absoluteString.contains("PrivacyPolicy") ? NSLocalizedString("privacyPolicy", comment: "") : NSLocalizedString("termsOfUse", comment: "")
-        let webViewController = WebViewController.init(title: title, contentURL: URL)
+        let webViewController = WebViewController.init(title: title, contentURL: URL, screenName: "p_meho_profiles_setting_privacy_policy", screenClass: "p_meho_profiles_setting")
         self.title = ""
         navigationController?.pushViewController(webViewController, animated: true)
     }

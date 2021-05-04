@@ -8,8 +8,13 @@
 
 import UIKit
 import WebKit
+import FirebaseAnalytics
 
-class WebViewController: UIViewController {
+class WebViewController: UIViewController, MehoAnalytics {
+
+    // MARK: - MehoAnalytics
+    let screenName: String
+    let screenClass: String
 
     // MARK: - Property
     private lazy var webView: WKWebView = {
@@ -23,7 +28,9 @@ class WebViewController: UIViewController {
         fatalError("Use init(allDifficulties: [Difficulty], currentDifficulty: Difficulty)")
     }
 
-    init(title: String, contentURL: URL) {
+    init(title: String, contentURL: URL, screenName: String, screenClass: String) {
+        self.screenName = screenName
+        self.screenClass = screenClass
         super.init(nibName: nil, bundle: nil)
         webView.loadFileURL(contentURL, allowingReadAccessTo: contentURL)
         self.title = title
@@ -51,4 +58,8 @@ class WebViewController: UIViewController {
         webView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.logScreenViewEvent(viewController: self)
+    }
 }
