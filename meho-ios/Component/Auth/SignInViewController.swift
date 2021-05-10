@@ -257,19 +257,24 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
                     if let mobileClientError = error as? AWSMobileClientError {
                         var alertTitle = ""
                         var alertMessage = ""
+                        var alertScreenName = ""
                         switch mobileClientError {
                         case .userNotFound(_):
                             alertTitle = NSLocalizedString("InvalidEmailTitle", comment: "")
                             alertMessage = NSLocalizedString("InvalidEmailMessage", comment: "")
+                            alertScreenName = "p_meho_login_signin_isnvalid_email"
                         case .notAuthorized(_):
                             alertTitle = NSLocalizedString("IncorrectPasswordTitle", comment: "")
                             alertMessage = NSLocalizedString("IncorrectPasswordMessage", comment: "")
+                            alertScreenName = "p_meho_login_signin_incorrect_password"
                         case .userNotConfirmed(_):
                             alertTitle = NSLocalizedString("EmailUnconfirmedTitle", comment: "")
                             alertMessage = NSLocalizedString("EmailUnconfirmedMessage", comment: "")
+                            alertScreenName = "p_meho_login_signin_unconfirmed_email"
                         default:
                             alertTitle = NSLocalizedString("signInErrorTitle", comment: "")
                             alertMessage = NSLocalizedString("genericSignInErrorMessage", comment: "")
+                            alertScreenName = "p_meho_login_signin_general_error"
                         }
                         let alertController = UIAlertController.init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
                         let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
@@ -278,6 +283,11 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
                         }
                         alertController.addAction(okAction)
                         self.present(alertController, animated: true, completion: nil)
+                        let parameters = [
+                            AnalyticsParameterScreenName: alertScreenName,
+                            AnalyticsParameterScreenClass: self.screenClass
+                        ]
+                        Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
                     }
                     return
                 }
