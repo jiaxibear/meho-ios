@@ -113,6 +113,7 @@ PODS:
   - PromisesObjC (1.2.11)
   - ReachabilitySwift (5.0.0)
   - Signals (6.1.0)
+  - SkyFloatingLabelTextField (3.8.0)
   - SQLite.swift (0.12.2):
     - SQLite.swift/standard (= 0.12.2)
   - SQLite.swift/standard (0.12.2)
@@ -134,6 +135,7 @@ DEPENDENCIES:
   - Kingfisher (~> 5.15)
   - ReachabilitySwift
   - Signals (~> 6.0)
+  - SkyFloatingLabelTextField (~> 3.0)
   - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
@@ -165,6 +167,7 @@ SPEC REPOS:
     - PromisesObjC
     - ReachabilitySwift
     - Signals
+    - SkyFloatingLabelTextField
     - SQLite.swift
     - Starscream
     - Toast-Swift
@@ -197,10 +200,11 @@ SPEC CHECKSUMS:
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Signals: f8e5c979e93c35273f8dfe55ee7f47213d3e8fe8
+  SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 20a158bffa6cba394aa3cfa7bafd27146558bf93
+PODFILE CHECKSUM: 429a19821bd67cf977041768052d8b42a1583c94
 
 COCOAPODS: 1.8.4

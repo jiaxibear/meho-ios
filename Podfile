@@ -23,6 +23,7 @@ target 'meho-ios' do
   pod 'InitialsImageView', '~> 0.7.0'
   pod 'Signals', '~> 6.0'
   pod 'ReachabilitySwift'
+  pod 'SkyFloatingLabelTextField', '~> 3.0'
 
   # add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'

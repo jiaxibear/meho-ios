@@ -107,6 +107,7 @@
 		EA43D6C6256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43D6C5256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift */; };
 		EA43D6CE256B7E7F0090634C /* ProfileContentCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43D6CD256B7E7F0090634C /* ProfileContentCategory.swift */; };
 		EA45BD0525678A3100EF27E4 /* UpdateNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45BD0425678A3100EF27E4 /* UpdateNicknameViewController.swift */; };
+		EA4DA7822652171D00FCC4DA /* MehoFloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4DA7812652171D00FCC4DA /* MehoFloatingLabelTextField.swift */; };
 		EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA223EF7D4D008EB37B /* MainViewController.swift */; };
 		EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA723EF809D008EB37B /* ProfileViewController.swift */; };
 		EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */; };
@@ -300,6 +301,7 @@
 		EA43D6C5256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedVocabularyCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA43D6CD256B7E7F0090634C /* ProfileContentCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentCategory.swift; sourceTree = "<group>"; };
 		EA45BD0425678A3100EF27E4 /* UpdateNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNicknameViewController.swift; sourceTree = "<group>"; };
+		EA4DA7812652171D00FCC4DA /* MehoFloatingLabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MehoFloatingLabelTextField.swift; sourceTree = "<group>"; };
 		EA52FDA223EF7D4D008EB37B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA52FDA723EF809D008EB37B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
@@ -911,6 +913,7 @@
 				EAD7F76924CE4472008ADC1C /* WebViewController.swift */,
 				EADFAA2A25AEB86000C6344A /* ImageTopAndTitleDownButton.swift */,
 				EA283A7D25E6330300DE8263 /* LoadingView.swift */,
+				EA4DA7812652171D00FCC4DA /* MehoFloatingLabelTextField.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1248,6 +1251,7 @@
 				EADFAA2625AE955A00C6344A /* ProfilePhotoViewController.swift in Sources */,
 				EA52FDAF23EF8116008EB37B /* NewsViewController.swift in Sources */,
 				92C5FE37244D93BE004A3322 /* Vocabulary.swift in Sources */,
+				EA4DA7822652171D00FCC4DA /* MehoFloatingLabelTextField.swift in Sources */,
 				EA43D6C6256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift in Sources */,
 				92183A6023F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift in Sources */,
 				92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */,

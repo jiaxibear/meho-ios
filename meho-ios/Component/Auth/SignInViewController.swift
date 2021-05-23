@@ -11,12 +11,11 @@ import AWSMobileClient
 import Amplify
 import AmplifyPlugins
 import FirebaseAnalytics
+import SkyFloatingLabelTextField
 
 class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFieldDelegate, MehoAnalytics {
 
     // MARK: - Constants
-    private let textFieldFontSize = CGFloat(16)
-    private let textFieldCornerRadius = CGFloat(2)
     private let textFieldVerticalMargin = CGFloat(34)
     private let textFieldBackgroundColorAlpha = CGFloat(0.1)
     private let textFieldLeadingTrailingMargin = CGFloat(30)
@@ -41,40 +40,27 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
     let screenClass =  "p_meho_login_signin"
 
     // MARK: - Properties
-    private lazy var emailAddressField: UITextFieldPadding = {
-        let textField = UITextFieldPadding.init()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = NSLocalizedString("EmailAddressPlaceholder", comment: "")
-        let fontDescriptor = UIFont.systemFont(ofSize: textFieldFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
-        textField.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        textField.autocapitalizationType = .none
-        textField.textColor = .textCharcoalGrey
-        textField.layer.cornerRadius = textFieldCornerRadius
-        textField.tintColor = .wisteriaPurple
-        textField.backgroundColor = UIColor.skyBlue.withAlphaComponent(textFieldBackgroundColorAlpha)
-        textField.keyboardType = .emailAddress
-        textField.clipsToBounds = true
-        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        textField.delegate = self
-        return textField
+    private lazy var emailAddressField: SignUpTextField = {
+        let emailAddressField = SignUpTextField.init(frame:.zero, allowsErrorMessage: false)
+        emailAddressField.textField.placeholder = NSLocalizedString("EmailAddressPlaceholder", comment: "")
+        emailAddressField.textField.autocapitalizationType = .none
+        emailAddressField.textField.keyboardType = .emailAddress
+        emailAddressField.textField.title = NSLocalizedString("EmailAddressPlaceholder", comment: "")
+        emailAddressField.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        emailAddressField.textField.delegate = self
+        return emailAddressField
     } ()
 
-    private lazy var passwordField: UITextFieldPadding = {
-        let textField = UITextFieldPadding.init()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = NSLocalizedString("PasswordPlaceholder", comment: "")
-        let fontDescriptor = UIFont.systemFont(ofSize: textFieldFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
-        textField.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        textField.autocapitalizationType = .none
-        textField.textColor = .textCharcoalGrey
-        textField.layer.cornerRadius = textFieldCornerRadius
-        textField.isSecureTextEntry = true
-        textField.tintColor = .wisteriaPurple
-        textField.backgroundColor = UIColor.skyBlue.withAlphaComponent(textFieldBackgroundColorAlpha)
-        textField.clipsToBounds = true
-        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        textField.delegate = self
-        return textField
+    private lazy var passwordField: SignUpTextField = {
+        let passwordField = SignUpTextField.init(frame:.zero, allowsErrorMessage: false)
+        passwordField.textField.translatesAutoresizingMaskIntoConstraints = false
+        passwordField.textField.placeholder = NSLocalizedString("PasswordPlaceholder", comment: "")
+        passwordField.textField.autocapitalizationType = .none
+        passwordField.textField.isSecureTextEntry = true
+        passwordField.textField.title = NSLocalizedString("PasswordPlaceholder", comment: "")
+        passwordField.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        passwordField.textField.delegate = self
+        return passwordField
     } ()
 
     private lazy var textFieldsStackView: UIStackView = {
@@ -175,6 +161,20 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
         return false
     }
 
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.placeholder = ""
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.isDescendant(of: emailAddressField) {
+            emailAddressField.status = .valid
+            textField.placeholder = NSLocalizedString("EmailAddressPlaceholder", comment: "")
+        } else if textField.isDescendant(of: passwordField) {
+            passwordField.status = .valid
+            textField.placeholder = NSLocalizedString("PasswordPlaceholder", comment: "")
+        }
+    }
+
     // MARK: - OtherSignInViewDelegate
     func otherSignInViewDidTapURL(_ URL: URL) {
         let title = URL.absoluteString.contains("PrivacyPolicy") ? NSLocalizedString("privacyPolicy", comment: "") : NSLocalizedString("termsOfUse", comment: "")
@@ -227,7 +227,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
 
     @objc
     private func textFieldDidChange() {
-        if let password = passwordField.text, let emailAddress = emailAddressField.text, password.count > 0 && emailAddress.count > 0 {
+        if let password = passwordField.textField.text, let emailAddress = emailAddressField.textField.text, password.count > 0 && emailAddress.count > 0 {
             signInButton.isEnabled = true
             signInButton.backgroundColor = .skyBlue
         } else {
@@ -246,10 +246,10 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
 
     @objc
     private func didTapSignInButton() {
-        let un = emailAddressField.text
-        passwordField.isSecureTextEntry = false
-        let pw2 = passwordField.text
-        passwordField.isSecureTextEntry = true
+        let un = emailAddressField.textField.text
+        passwordField.textField.isSecureTextEntry = false
+        let pw2 = passwordField.textField.text
+        passwordField.textField.isSecureTextEntry = true
         AWSMobileClient.default().signIn(username: un!, password: pw2!) { (result, error) in
             DispatchQueue.main.async {
                 guard error == nil else {

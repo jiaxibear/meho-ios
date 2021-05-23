@@ -13,7 +13,6 @@ import FirebaseAnalytics
 class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics {
 
     // MARK: - Constants
-    private let textFieldsStackViewHeight = CGFloat(234)
     private let textFieldsStackViewSpacing = CGFloat(36)
     private let textFieldsStackViewTopMargin = CGFloat(32)
     private let contentViewLeadingTrailingMargin = CGFloat(20)
@@ -29,41 +28,33 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
 
     // MARK: - Properties
     private lazy var emailAddressTextField: SignUpTextField = {
-        let emailAddressTextField = SignUpTextField.init(frame: .zero)
+        let emailAddressTextField = SignUpTextField.init(frame: .zero, allowsErrorMessage: true)
         emailAddressTextField.translatesAutoresizingMaskIntoConstraints = false
         emailAddressTextField.textField.placeholder = NSLocalizedString("EmailAddressPlaceholder", comment: "")
         emailAddressTextField.textField.keyboardType = .emailAddress
         emailAddressTextField.textField.delegate = self
+        emailAddressTextField.textField.title = NSLocalizedString("EmailAddressPlaceholder", comment: "")
         return emailAddressTextField
     } ()
 
     private lazy var createPasswordTextField: SignUpTextField = {
-        let createPasswordTextField = SignUpTextField.init(frame: .zero)
+        let createPasswordTextField = SignUpTextField.init(frame: .zero, allowsErrorMessage: true)
         createPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
         createPasswordTextField.textField.placeholder = NSLocalizedString("CreatePasswordPlaceholder", comment: "")
         createPasswordTextField.textField.isSecureTextEntry = true
         createPasswordTextField.textField.delegate = self
+        createPasswordTextField.textField.title = NSLocalizedString("CreatePasswordPlaceholder", comment: "")
         return createPasswordTextField
     } ()
 
     private lazy var repeatPasswordTextField: SignUpTextField = {
-        let repeatPasswordTextField = SignUpTextField.init(frame: .zero)
+        let repeatPasswordTextField = SignUpTextField.init(frame: .zero, allowsErrorMessage: true)
         repeatPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
         repeatPasswordTextField.textField.placeholder = NSLocalizedString("RepeatPasswordPlaceholder", comment: "")
         repeatPasswordTextField.textField.isSecureTextEntry = true
         repeatPasswordTextField.textField.delegate = self
+        repeatPasswordTextField.textField.title = NSLocalizedString("RepeatPasswordPlaceholder", comment: "")
         return repeatPasswordTextField
-    } ()
-
-    private lazy var errorMessageLabel: UILabel = {
-        let errorMessageLabel = UILabel.init(frame: .zero)
-        errorMessageLabel.translatesAutoresizingMaskIntoConstraints = false
-        errorMessageLabel.textColor = .coral
-        let errorMessageLabelFontDescriptor = UIFont.systemFont(ofSize: errorMessageLabelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
-        errorMessageLabel.font = UIFont.init(descriptor: errorMessageLabelFontDescriptor!, size: errorMessageLabelFontSize)
-        errorMessageLabel.textAlignment = .center
-        errorMessageLabel.numberOfLines = 0
-        return errorMessageLabel
     } ()
 
     private lazy var textFieldsStackView: UIStackView = {
@@ -100,26 +91,17 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
         navigationController?.setNavigationBarHidden(false, animated: false)
         view.backgroundColor = .white
         view.addSubview(textFieldsStackView)
-        view.addSubview(errorMessageLabel)
         view.addSubview(nextButton)
 
         let textFieldsStackViewTopConstraint = textFieldsStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: textFieldsStackViewTopMargin)
         textFieldsStackViewTopConstraint.isActive = true
         textFieldsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentViewLeadingTrailingMargin).isActive = true
         textFieldsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentViewLeadingTrailingMargin).isActive = true
+        let textFieldsStackViewHeight = emailAddressTextField.intrinsicContentSize.height + createPasswordTextField.intrinsicContentSize.height + repeatPasswordTextField.intrinsicContentSize.height
         let textFieldsStackViewHeightConstraint = textFieldsStackView.heightAnchor.constraint(equalToConstant: textFieldsStackViewHeight)
         textFieldsStackViewHeightConstraint.isActive = true
 
-        let errorMessageLabelTopConstraint = errorMessageLabel.topAnchor.constraint(equalTo: textFieldsStackView.bottomAnchor, constant: errorMessageLabelTopMargin)
-        errorMessageLabelTopConstraint.isActive = true
-        errorMessageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentViewLeadingTrailingMargin).isActive = true
-        errorMessageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentViewLeadingTrailingMargin).isActive = true
-        errorMessageLabel.text = "a\na\na"
-        let errorMessageLabelHeight = errorMessageLabel.sizeThatFits(CGSize.init(width: view.bounds.width - 2 * contentViewLeadingTrailingMargin, height: .greatestFiniteMagnitude)).height
-        errorMessageLabel.heightAnchor.constraint(equalToConstant: errorMessageLabelHeight).isActive = true
-        errorMessageLabel.text = ""
-
-        let nextButtonTopConstraint = nextButton.topAnchor.constraint(equalTo: errorMessageLabel.bottomAnchor, constant: nextButtonTopMargin)
+        let nextButtonTopConstraint = nextButton.topAnchor.constraint(equalTo: textFieldsStackView.bottomAnchor, constant: nextButtonTopMargin)
         nextButtonTopConstraint.isActive = true
         nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: nextButtonLeadingTrailingMargin).isActive = true
         nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -nextButtonLeadingTrailingMargin).isActive = true
@@ -142,56 +124,54 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
         return false
     }
 
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.placeholder = ""
+    }
+
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let signUpTextField = textField.superview as? SignUpTextField {
-            if signUpTextField == emailAddressTextField  {
-                if let emailAddress = textField.text, isValidEmail(emailAddress) {
-                    signUpTextField.status = .valid
+        if textField.isDescendant(of: emailAddressTextField)  {
+            if let emailAddress = textField.text, isValidEmail(emailAddress) {
+                emailAddressTextField.status = .valid
+            } else {
+                emailAddressTextField.status = .invalid
+            }
+            textField.placeholder = NSLocalizedString("EmailAddressPlaceholder", comment: "")
+        } else if textField.isDescendant(of: repeatPasswordTextField) {
+            if let repeatedPassword = textField.text, let password = createPasswordTextField.textField.text, repeatedPassword == password {
+                repeatPasswordTextField.status = .valid
+            } else {
+                repeatPasswordTextField.status = .invalid
+            }
+            textField.placeholder = NSLocalizedString("RepeatPasswordPlaceholder", comment: "")
+        } else if textField.isDescendant(of: createPasswordTextField) {
+            if let repeatedPassword = repeatPasswordTextField.textField.text, repeatedPassword.count > 0 {
+                if let password = textField.text, repeatedPassword == password {
+                    repeatPasswordTextField.status = .valid
                 } else {
-                    signUpTextField.status = .invalid
-                }
-            } else if signUpTextField == repeatPasswordTextField {
-                if let repeatedPassword = textField.text, let password = createPasswordTextField.textField.text, repeatedPassword == password {
-                    signUpTextField.status = .valid
-                } else {
-                    signUpTextField.status = .invalid
-                }
-            } else if signUpTextField == createPasswordTextField {
-                if let repeatedPassword = repeatPasswordTextField.textField.text, repeatedPassword.count > 0 {
-                    if let password = textField.text, repeatedPassword == password {
-                        repeatPasswordTextField.status = .valid
-                    } else {
-                        repeatPasswordTextField.status = .invalid
-                    }
-                }
-                if let password = textField.text, password.count >= passwordMinLength  {
-                    signUpTextField.status = .valid
-                } else {
-                    signUpTextField.status = .invalid
+                    repeatPasswordTextField.status = .invalid
                 }
             }
+            if let password = textField.text, password.count >= passwordMinLength  {
+                createPasswordTextField.status = .valid
+            } else {
+                createPasswordTextField.status = .invalid
+            }
+            textField.placeholder = NSLocalizedString("CreatePasswordPlaceholder", comment: "")
         }
         if emailAddressTextField.status == .valid && repeatPasswordTextField.status == .valid && createPasswordTextField.status == .valid {
             nextButton.isEnabled = true
             nextButton.backgroundColor = .skyBlue
-            errorMessageLabel.text = ""
         } else {
             nextButton.isEnabled = false
             nextButton.backgroundColor = .lightBlueGrey
-            var errorMessages: [String] = []
             if emailAddressTextField.status == .invalid {
-                errorMessages.append(NSLocalizedString("InvalidEmailAddressErrorMessage", comment: ""))
+                emailAddressTextField.errorMessage = NSLocalizedString("InvalidEmailAddressErrorMessage", comment: "")
             }
             if createPasswordTextField.status == .invalid {
-                errorMessages.append(NSLocalizedString("passwordMinLengthMessage", comment: ""))
+                createPasswordTextField.errorMessage = NSLocalizedString("passwordMinLengthMessage", comment: "")
             }
             if repeatPasswordTextField.status == .invalid {
-                errorMessages.append(NSLocalizedString("passwordNotMatchMessage", comment: ""))
-            }
-            if errorMessages.count > 0 {
-                errorMessageLabel.text = errorMessages.joined(separator: "\n")
-            } else {
-                errorMessageLabel.text = ""
+                repeatPasswordTextField.errorMessage = NSLocalizedString("passwordNotMatchMessage", comment: "")
             }
         }
     }
