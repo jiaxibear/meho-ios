@@ -135,14 +135,6 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
         let forgetPasswordButtonTopConstraint = forgetPasswordButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: forgetPasswordButtonTopMargin)
         forgetPasswordButtonTopConstraint.isActive = true
         forgetPasswordButton.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor).isActive = true
-        if textFieldTopMargin + textFieldsStackViewHeight + signInButtonTopMargin + signInButtonHeight + forgetPasswordButtonTopMargin + otherSignInViewBottomMargin + otherSignInView.intrinsicContentSize.height > view.bounds.height {
-            textFieldsStackViewTopConstraint.constant = textFieldTopMargin / 2
-            textFieldsStackViewHeightConstraint.constant = 2 * textFieldCompactHeight + textFieldVerticalMargin / 2
-            textFieldsStackView.spacing = textFieldVerticalMargin / 2
-            signInButtonTopConstraint.constant = signInButtonTopMargin / 2
-            otherSignInView.isCompact = true
-            forgetPasswordButtonTopConstraint.constant = forgetPasswordButtonTopMargin / 2
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

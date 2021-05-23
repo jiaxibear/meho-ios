@@ -28,7 +28,6 @@ class SignUpTextField: UIView, UITextFieldDelegate {
     private let errorMessageFontSize = CGFloat(14)
 
     // MARK: - Properties
-    var isCompact = false
     var status: SignUpTextFieldStatus = .notStarted {
         didSet {
             switch status {
@@ -97,7 +96,7 @@ class SignUpTextField: UIView, UITextFieldDelegate {
     } ()
 
     private lazy var textFieldHeight = {
-        return isCompact ? compactViewHeight : viewHeight
+        return viewHeight
     } ()
 
     // MARK: - Init

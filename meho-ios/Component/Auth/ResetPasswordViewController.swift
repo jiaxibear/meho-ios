@@ -223,19 +223,6 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
         nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: nextButtonLeadingTrailingMargin).isActive = true
         nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -nextButtonLeadingTrailingMargin).isActive = true
         nextButton.heightAnchor.constraint(equalToConstant: nextButtonHeight).isActive = true
-
-        if textFieldsStackViewTopMargin + textFieldsStackViewHeight + otherSignInViewBottomMargin + otherSignInView.intrinsicContentSize.height + errorMessageLabelHeight + nextButtonHeight + nextButtonTopMargin > view.bounds.height {
-            textFieldsStackViewTopConstraint.constant = textFieldsStackViewTopMargin / 2
-            emailAddressTextField.isCompact = true
-            createPasswordTextField.isCompact = true
-            repeatPasswordTextField.isCompact = true
-            textFieldsStackViewHeightConstraint.constant = emailAddressTextField.intrinsicContentSize.height * 4 + textFieldsStackViewSpacing / 2 * 3
-            sendCodeBackgroundViewHeightConstraint.constant = sendCodeBackgroundViewCompactHeight
-            nextButtonTopConstraint.constant = nextButtonTopMargin / 4
-            otherSignInView.isCompact = true
-            errorMessageLabel.font = errorMessageLabel.font.withSize(errorMessageLabelCompactFontSize)
-            sendCodeBackgroundViewHeightConstraint.constant = sendCodeBackgroundViewCompactHeight
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

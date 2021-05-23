@@ -33,8 +33,6 @@ class OtherSignInView: UIView, UITextViewDelegate {
     private let compactViewHeight = CGFloat(160)
 
     // MARK: - Properties
-    var isCompact = false
-
     var delegate: OtherSignInViewDelegate?
 
     private lazy var leftBar: UIView = {
@@ -178,8 +176,7 @@ class OtherSignInView: UIView, UITextViewDelegate {
 
     // MARK: - UIView
     override var intrinsicContentSize: CGSize {
-        let height = isCompact ? compactViewHeight : viewHeight
-        return CGSize.init(width: 0, height: height)
+        return CGSize.init(width: 0, height: viewHeight)
     }
 
     // MARK: - UITextViewDelegate
