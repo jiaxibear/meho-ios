@@ -283,7 +283,7 @@
 "InterestReasonTitle" = "You are interested in learning Chinese and understanding China to (please choose all that apply):";
 
 /* Title to ask which of the following tags best describe the user's interests. */
-"InterestTagsTitle" = "Which of the following tags best describe your interests (select 3 or more):";
+"InterestTagsTitle" = "Select topics you are interested to learn about China (please choose all that apply):";
 
 /* Title to ask what industry the user is in. */
 "IndustryTitle" = "What best describes the industry you are in? This will help us tailor our content to your needs:";

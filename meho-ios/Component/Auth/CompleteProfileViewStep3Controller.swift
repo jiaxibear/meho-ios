@@ -15,10 +15,10 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     // MARK: - Constants
     private let nextButtonWidth = CGFloat(200)
     private let nextButtonHeight = CGFloat(40)
-    private let nextButtonCornerRadius = CGFloat(18)
+    private let nextButtonCornerRadius = CGFloat(6)
     private let nextButtonBottomMargin = CGFloat(80)
-    private let interestReasonLabelFontSize = CGFloat(18)
-    private let interestReasonLabelTopMargin = CGFloat(40)
+    private let interestReasonLabelFontSize = CGFloat(16)
+    private let interestReasonLabelTopMargin = CGFloat(24)
     private let contentLeadingTrailingMargin = CGFloat(20)
     private let questionCollectionViewCellReuseIdentifier = "questionCollectionViewCellReuseIdentifier"
     private let questionsCollectionViewTopBottomMargin = CGFloat(24)
@@ -35,22 +35,22 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     private let isSingleStep: Bool
 
     private lazy var questions: [ProfileQuestion] = {
-        let business = ProfileQuestion.init(title: "#Business", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let tech = ProfileQuestion.init(title: "#Tech", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let finance = ProfileQuestion.init(title: "#Finance", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let networking = ProfileQuestion.init(title: "#Networking", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let career = ProfileQuestion.init(title: "#Career", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let culture = ProfileQuestion.init(title: "#Culture", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let travel = ProfileQuestion.init(title: "#Travel", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let cuisine = ProfileQuestion.init(title: "#Cuisine", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let shopping = ProfileQuestion.init(title: "#Shopping", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let transportation = ProfileQuestion.init(title: "#Transportation", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let history = ProfileQuestion.init(title: "#History", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let hospitality = ProfileQuestion.init(title: "#Hospitality", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let movie = ProfileQuestion.init(title: "#Movie", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let reading = ProfileQuestion.init(title: "#Reading", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let sports = ProfileQuestion.init(title: "#Sports", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let society = ProfileQuestion.init(title: "#Society", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let business = ProfileQuestion.init(title: "Business", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let tech = ProfileQuestion.init(title: "Tech", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let finance = ProfileQuestion.init(title: "Finance", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let networking = ProfileQuestion.init(title: "Networking", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let career = ProfileQuestion.init(title: "Career", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let culture = ProfileQuestion.init(title: "Culture", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let travel = ProfileQuestion.init(title: "Travel", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let cuisine = ProfileQuestion.init(title: "Cuisine", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let shopping = ProfileQuestion.init(title: "Shopping", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let transportation = ProfileQuestion.init(title: "Transportation", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let history = ProfileQuestion.init(title: "History", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let hospitality = ProfileQuestion.init(title: "Hospitality", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let movie = ProfileQuestion.init(title: "Movie", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let reading = ProfileQuestion.init(title: "Reading", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let sports = ProfileQuestion.init(title: "Sports", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let society = ProfileQuestion.init(title: "Society", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         return [business, tech, finance, networking, career, culture, travel, cuisine, shopping, transportation, history, hospitality, movie, reading, sports, society]
     } ()
 
@@ -76,8 +76,11 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         let interestReasonLabel = UILabel.init(frame: .zero)
         interestReasonLabel.text = NSLocalizedString("InterestTagsTitle", comment: "")
         interestReasonLabel.textColor = .darkGrayTwo
-        let interestReasonLabelFontDescriptor = UIFont.systemFont(ofSize: interestReasonLabelFontSize).fontDescriptor.withDesign(.rounded)
-        interestReasonLabel.font = UIFont.init(descriptor: interestReasonLabelFontDescriptor!, size: interestReasonLabelFontSize)
+        var interestReasonLabelFont = UIFont.systemFont(ofSize: interestReasonLabelFontSize)
+        if let interestReasonLabelFontDescriptor = interestReasonLabelFont.fontDescriptor.withDesign(.rounded) {
+            interestReasonLabelFont = UIFont.init(descriptor: interestReasonLabelFontDescriptor, size: interestReasonLabelFontSize)
+        }
+        interestReasonLabel.font = interestReasonLabelFont
         interestReasonLabel.translatesAutoresizingMaskIntoConstraints = false
         interestReasonLabel.numberOfLines = 0
         return interestReasonLabel

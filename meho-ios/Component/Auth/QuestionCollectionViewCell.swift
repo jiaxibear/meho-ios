@@ -13,8 +13,10 @@ class QuestionCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
     private let contentViewCornerRadius = CGFloat(6)
     private let contentViewBorderWidth = CGFloat(2)
+    private let contentViewUnselectedBorderWidth = CGFloat(1)
     private let stackViewLeadingTrailingMargin = CGFloat(12)
     private let subtitleLabelFontSize = CGFloat(12)
+    private let unselectedOpacity = CGFloat(0.1)
 
     // MARK: - Properties
     private lazy var titleLabel: UILabel = {
@@ -59,10 +61,10 @@ class QuestionCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.layer.cornerRadius = contentViewCornerRadius
-        contentView.layer.borderWidth = contentViewBorderWidth
-        contentView.clipsToBounds = true
+        layer.cornerRadius = contentViewCornerRadius
+        layer.applySketchShadow(color: .slateGrey, alpha: Float(unselectedOpacity), x: 0, y: 2, blur: 4, spread: 1)
         contentView.addSubview(stackView)
+        backgroundColor = .white
         stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: stackViewLeadingTrailingMargin).isActive = true
         stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -stackViewLeadingTrailingMargin).isActive = true
         stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
@@ -73,15 +75,20 @@ class QuestionCollectionViewCell: UICollectionViewCell {
     func setQuestion(_ question: ProfileQuestion) {
         titleLabel.text = question.title
         subtitleLabel.text = question.subtitle
-        contentView.layer.borderColor = question.color.cgColor
         if question.isSelected {
-            contentView.backgroundColor = question.color
-            titleLabel.textColor = .white
-            subtitleLabel.textColor = .white
-        } else {
-            contentView.backgroundColor = .white
             titleLabel.textColor = .darkGrayTwo
             subtitleLabel.textColor = .darkGrayTwo
+            layer.borderColor = UIColor.darkGrayTwo.cgColor
+            alpha = 1
+            layer.borderWidth = contentViewBorderWidth
+            layer.shadowOpacity = 0
+        } else {
+            titleLabel.textColor = .textBlueGray
+            subtitleLabel.textColor = .textBlueGray
+            layer.borderColor = UIColor.slateGrey.cgColor
+            alpha = unselectedOpacity
+            layer.borderWidth = contentViewUnselectedBorderWidth
+            layer.shadowOpacity = Float(unselectedOpacity)
         }
         let titleLabelFontDescriptor = UIFont.systemFont(ofSize: question.titleFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
         titleLabel.font = UIFont.init(descriptor: titleLabelFontDescriptor!, size: question.titleFontSize)
