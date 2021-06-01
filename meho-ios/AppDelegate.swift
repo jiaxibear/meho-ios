@@ -84,6 +84,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+
         
     }
 
