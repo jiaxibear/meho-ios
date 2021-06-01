@@ -427,13 +427,13 @@ mutation CreateExpression(
     id
     label
     contentZh
+    createdAt
     contentPinyin
     contentEn
     audio {
       ...S3Object
     }
     audio_key
-    createdAt
     updatedAt
   }
 }
@@ -445,13 +445,13 @@ mutation UpdateExpression(
     id
     label
     contentZh
+    createdAt
     contentPinyin
     contentEn
     audio {
       ...S3Object
     }
     audio_key
-    createdAt
     updatedAt
   }
 }
@@ -463,13 +463,13 @@ mutation DeleteExpression(
     id
     label
     contentZh
+    createdAt
     contentPinyin
     contentEn
     audio {
       ...S3Object
     }
     audio_key
-    createdAt
     updatedAt
   }
 }
@@ -4636,6 +4636,48 @@ mutation DeleteUser(
       }
       nextToken
     }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateUserToken(
+  $input: CreateUserTokenInput!
+  $condition: ModelUserTokenConditionInput
+) {
+  createUserToken(input: $input, condition: $condition) {
+    id
+    userId
+    os
+    token
+    enable
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUserToken(
+  $input: UpdateUserTokenInput!
+  $condition: ModelUserTokenConditionInput
+) {
+  updateUserToken(input: $input, condition: $condition) {
+    id
+    userId
+    os
+    token
+    enable
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUserToken(
+  $input: DeleteUserTokenInput!
+  $condition: ModelUserTokenConditionInput
+) {
+  deleteUserToken(input: $input, condition: $condition) {
+    id
+    userId
+    os
+    token
+    enable
     createdAt
     updatedAt
   }

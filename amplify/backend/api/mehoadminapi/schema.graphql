@@ -14,13 +14,14 @@ type Paragraph @model {
 type Expression @model 
 @key(
     name: "byLabel"
-    fields: ["label"]
+    fields: ["label", "createdAt"]
     queryField: "getExpressionsByLabel"
 )
 {
     id: ID!
     label: String!
     contentZh: String
+    createdAt: String!
     contentPinyin: String
     contentEn: String
     audio: S3Object
@@ -33,11 +34,17 @@ type Article @model
   fields: ["status", "createdAt"]
   queryField: "getArticlesByStatus"
 )
+@key(
+  name: "bySlug"
+  fields: ["slug"]
+  queryField: "getArticleBySlug"
+)
 {
     id: ID!
     coverImage: S3Object
     coverImage_key: String
     coverImageAlt: String
+    slug: String!
     titleEn: String!
     titleZh: String!
     whyYouShouldReadThisArticle: String!
@@ -46,6 +53,8 @@ type Article @model
     vocabularies: [VocabularyArticle] @connection(name: "ArticleVocabulary")
     sourcer: String
     paragraphs: [Paragraph] @connection(name: "ArticleParagraphs")
+    audioEnKey: String
+    audioZhKey: String
     status: String!  
 } 
 
@@ -67,9 +76,15 @@ type Vocabulary @model {
     articles: [VocabularyArticle] @connection(name: "VocabularyArticle")
 }
 
-type TrendingPhrase @model {
+type TrendingPhrase @model @key(
+  name: "byStatus"
+  fields: ["status", "createdAt"]
+  queryField: "getTrendingPhrasesByStatus"
+){
     id: ID!
     contentZh: String!
+    status: String!
+    createdAt: String!
     contentPinyin: String
     audioKey: String
     description: String
@@ -161,7 +176,7 @@ type UserChapterRecording @model
     chapter_id: String!
     mode: String! # SOLO or DUO
     score: Float
-    score_detail: String
+    score_extra: AWSJSON
 }
 
 type UserExpressionRecording @model
@@ -175,8 +190,7 @@ type UserExpressionRecording @model
     user_id: String!
     expression_id: String!
     score: Float
-    score_detail: String
-    user_record: S3Object
+    score_extra: AWSJSON
 }
 
 
@@ -200,6 +214,7 @@ type User @model {
     id: ID!
     username: String!
     email: String!
+    deviceToken: String
     avatar: S3Object
     avatar_key: String
     goals: [String!]

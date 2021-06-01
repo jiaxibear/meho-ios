@@ -415,13 +415,13 @@ subscription OnCreateExpression {
     id
     label
     contentZh
+    createdAt
     contentPinyin
     contentEn
     audio {
       ...S3Object
     }
     audio_key
-    createdAt
     updatedAt
   }
 }
@@ -430,13 +430,13 @@ subscription OnUpdateExpression {
     id
     label
     contentZh
+    createdAt
     contentPinyin
     contentEn
     audio {
       ...S3Object
     }
     audio_key
-    createdAt
     updatedAt
   }
 }
@@ -445,13 +445,13 @@ subscription OnDeleteExpression {
     id
     label
     contentZh
+    createdAt
     contentPinyin
     contentEn
     audio {
       ...S3Object
     }
     audio_key
-    createdAt
     updatedAt
   }
 }
@@ -4492,6 +4492,39 @@ subscription OnDeleteUser {
       }
       nextToken
     }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateUserToken {
+  onCreateUserToken {
+    id
+    userId
+    os
+    token
+    enable
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUserToken {
+  onUpdateUserToken {
+    id
+    userId
+    os
+    token
+    enable
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUserToken {
+  onDeleteUserToken {
+    id
+    userId
+    os
+    token
+    enable
     createdAt
     updatedAt
   }

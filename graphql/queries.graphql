@@ -216,13 +216,13 @@ query GetExpression($id: ID!) {
     id
     label
     contentZh
+    createdAt
     contentPinyin
     contentEn
     audio {
       ...S3Object
     }
     audio_key
-    createdAt
     updatedAt
   }
 }
@@ -236,13 +236,13 @@ query ListExpressions(
       id
       label
       contentZh
+      createdAt
       contentPinyin
       contentEn
       audio {
         ...S3Object
       }
       audio_key
-      createdAt
       updatedAt
     }
     nextToken
@@ -2499,6 +2499,35 @@ query ListUsers(
     nextToken
   }
 }
+query GetUserToken($id: ID!) {
+  getUserToken(id: $id) {
+    id
+    userId
+    os
+    token
+    enable
+    createdAt
+    updatedAt
+  }
+}
+query ListUserTokens(
+  $filter: ModelUserTokenFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserTokens(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      userId
+      os
+      token
+      enable
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
 query GetUserItemCompleted($id: ID!) {
   getUserItemCompleted(id: $id) {
     id
@@ -3211,6 +3240,7 @@ query ListUserVocabularySaves(
 }
 query GetExpressionsByLabel(
   $label: String
+  $createdAt: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
   $filter: ModelExpressionFilterInput
   $limit: Int
@@ -3218,6 +3248,7 @@ query GetExpressionsByLabel(
 ) {
   getExpressionsByLabel(
     label: $label
+    createdAt: $createdAt
     sortDirection: $sortDirection
     filter: $filter
     limit: $limit
@@ -3227,13 +3258,13 @@ query GetExpressionsByLabel(
       id
       label
       contentZh
+      createdAt
       contentPinyin
       contentEn
       audio {
         ...S3Object
       }
       audio_key
-      createdAt
       updatedAt
     }
     nextToken
