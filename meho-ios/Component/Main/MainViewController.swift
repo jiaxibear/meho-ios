@@ -49,20 +49,6 @@ class MainViewController: UITabBarController {
         // Sets appearance of the tab bar.
         tabBar.barTintColor = .white
         tabBar.tintColor = .wisteriaPurple
-
-        // Disable Firebase Analytics for internal testing accounts.
-        let userDataFetcher = UserDataFetcher.shared
-        let userID = AWSMobileClient.default().userSub
-        guard userID != nil else {
-            return
-        }
-        userDataFetcher.getUser(userId: userID!) { (user, error) in
-            if let email = user?.email {
-                if self.internalTestingEmailList.contains(email) {
-                    Analytics.setAnalyticsCollectionEnabled(false)
-                }
-            }
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +56,33 @@ class MainViewController: UITabBarController {
         // Sets appearance of the navigation bar.
         navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: nil, action: nil)
         navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let userDataFetcher = UserDataFetcher.shared
+        let userID = AWSMobileClient.default().userSub
+        guard userID != nil else {
+            return
+        }
+        userDataFetcher.getUser(userId: userID!) { (user, error) in
+            if let email = user?.email {
+                // Disable Firebase Analytics and enable notification for internal testing accounts.
+                if self.internalTestingEmailList.contains(email) {
+                    Analytics.setAnalyticsCollectionEnabled(false)
+
+                    let center = UNUserNotificationCenter.current()
+                    center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+                        if granted {
+                            DispatchQueue.main.async {
+                                UIApplication.shared.registerForRemoteNotifications()
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - Internal

@@ -180,6 +180,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
     // MARK: - Private
     @objc
     func didTapNextButton() {
+        view.endEditing(true)
         if let emailAddress = emailAddressTextField.textField.text, let password = createPasswordTextField.textField.text {
             AWSMobileClient.default().signUp(username: emailAddress, password: password) { (signupResult, error) in
                 var errorMessage: String?

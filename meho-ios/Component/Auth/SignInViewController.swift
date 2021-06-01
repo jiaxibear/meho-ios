@@ -238,6 +238,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
 
     @objc
     private func didTapSignInButton() {
+        view.endEditing(true)
         let un = emailAddressField.textField.text
         passwordField.textField.isSecureTextEntry = false
         let pw2 = passwordField.textField.text
