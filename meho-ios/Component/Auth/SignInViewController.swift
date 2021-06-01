@@ -23,7 +23,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
     private let textFieldCompactHeight = CGFloat(40)
     private let signInButtonLeadingTrailingMargin = CGFloat(58)
     private let signInButtonTopMargin = CGFloat(54)
-    private let signInButtonCornerRadius = CGFloat(18)
+    private let signInButtonCornerRadius = CGFloat(8)
     private let signInButtonHeight = CGFloat(50)
     private let signInButtonFontSize = CGFloat(20)
     private let forgetPasswordButtonFontSize = CGFloat(16)
@@ -247,39 +247,29 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
                 guard error == nil else {
                     // TODO: show error message.
                     if let mobileClientError = error as? AWSMobileClientError {
-                        var alertTitle = ""
                         var alertMessage = ""
                         var alertScreenName = ""
                         switch mobileClientError {
                         case .userNotFound(_):
-                            alertTitle = NSLocalizedString("InvalidEmailTitle", comment: "")
                             alertMessage = NSLocalizedString("InvalidEmailMessage", comment: "")
                             alertScreenName = "p_meho_login_signin_isnvalid_email"
                         case .notAuthorized(_):
-                            alertTitle = NSLocalizedString("IncorrectPasswordTitle", comment: "")
                             alertMessage = NSLocalizedString("IncorrectPasswordMessage", comment: "")
                             alertScreenName = "p_meho_login_signin_incorrect_password"
                         case .userNotConfirmed(_):
-                            alertTitle = NSLocalizedString("EmailUnconfirmedTitle", comment: "")
                             alertMessage = NSLocalizedString("EmailUnconfirmedMessage", comment: "")
                             alertScreenName = "p_meho_login_signin_unconfirmed_email"
                         default:
-                            alertTitle = NSLocalizedString("signInErrorTitle", comment: "")
                             alertMessage = NSLocalizedString("genericSignInErrorMessage", comment: "")
                             alertScreenName = "p_meho_login_signin_general_error"
                         }
-                        let alertController = UIAlertController.init(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-                        let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
-                        let okAction = UIAlertAction.init(title:okTitle, style:.default) { (action) in
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                        alertController.addAction(okAction)
-                        self.present(alertController, animated: true, completion: nil)
                         let parameters = [
                             AnalyticsParameterScreenName: alertScreenName,
                             AnalyticsParameterScreenClass: self.screenClass
                         ]
                         Analytics.logEvent(AnalyticsEventScreenView, parameters: parameters)
+                        let errorMessageView = ErrorMessageView.init(frame: .zero, errorMessage: alertMessage)
+                        self.view.showErrorMessageView(errorMessageView: errorMessageView)
                     }
                     return
                 }

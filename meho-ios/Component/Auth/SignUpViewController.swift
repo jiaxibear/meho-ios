@@ -9,6 +9,7 @@
 import UIKit
 import AWSMobileClient
 import FirebaseAnalytics
+import Toast_Swift
 
 class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics {
 
@@ -20,7 +21,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
     private let errorMessageLabelCompactFontSize = CGFloat(12)
     private let errorMessageLabelTopMargin = CGFloat(24)
     private let nextButtonTitleFontSize = CGFloat(20)
-    private let nextButtonCornerRadius = CGFloat(18)
+    private let nextButtonCornerRadius = CGFloat(8)
     private let nextButtonHeight = CGFloat(50)
     private let nextButtonLeadingTrailingMargin = CGFloat(54)
     private let nextButtonTopMargin = CGFloat(24)
@@ -215,11 +216,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
                     DispatchQueue.main.async {
                         self.present(alertController, animated: true, completion: nil)
                     }
-                } else if errorMessage != nil {
+                } else if let errorMessage = errorMessage {
                     DispatchQueue.main.async {
-                        let alertController = UIAlertController.init(title: NSLocalizedString("signUpErrorTitle", comment: ""), message: errorMessage, preferredStyle: .alert)
-                        alertController.addAction(UIAlertAction.init(title: NSLocalizedString("OKButtonTitle", comment: ""), style: .default, handler: nil))
-                        self.present(alertController, animated: true, completion: nil)
+                        let errorMessageView = ErrorMessageView.init(frame:.zero, errorMessage: errorMessage)
+                        self.view.showErrorMessageView(errorMessageView: errorMessageView)
                     }
                 }
             }

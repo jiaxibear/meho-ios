@@ -35,11 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearance.configureWithTransparentBackground()
         let fontDescriptor = UIFont.systemFont(ofSize: navigationBarTitleFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
         let navigationBarTitleFont = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.wisteriaPurple, NSAttributedString.Key.font: navigationBarTitleFont]
+        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkGrayTwo, NSAttributedString.Key.font: navigationBarTitleFont]
         let appearance = UINavigationBar.appearance()
         appearance.standardAppearance = navigationBarAppearance
         appearance.scrollEdgeAppearance = navigationBarAppearance
-        appearance.tintColor = .wisteriaPurple
+        appearance.tintColor = .darkGrayTwo
         // Override point for customization after application launch.
         AWSMobileClient.default().initialize { (userState, error) in
             print(userState ?? "No user state from AWSMobileClient")

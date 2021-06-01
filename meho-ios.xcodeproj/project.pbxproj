@@ -108,6 +108,8 @@
 		EA43D6CE256B7E7F0090634C /* ProfileContentCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43D6CD256B7E7F0090634C /* ProfileContentCategory.swift */; };
 		EA45BD0525678A3100EF27E4 /* UpdateNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45BD0425678A3100EF27E4 /* UpdateNicknameViewController.swift */; };
 		EA4DA7822652171D00FCC4DA /* MehoFloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4DA7812652171D00FCC4DA /* MehoFloatingLabelTextField.swift */; };
+		EA4DA78A265A343700FCC4DA /* ErrorMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4DA789265A343600FCC4DA /* ErrorMessageView.swift */; };
+		EA4DA797265B5B1F00FCC4DA /* ToastExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4DA796265B5B1F00FCC4DA /* ToastExtension.swift */; };
 		EA52FDA323EF7D4D008EB37B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA223EF7D4D008EB37B /* MainViewController.swift */; };
 		EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA723EF809D008EB37B /* ProfileViewController.swift */; };
 		EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */; };
@@ -302,6 +304,8 @@
 		EA43D6CD256B7E7F0090634C /* ProfileContentCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentCategory.swift; sourceTree = "<group>"; };
 		EA45BD0425678A3100EF27E4 /* UpdateNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNicknameViewController.swift; sourceTree = "<group>"; };
 		EA4DA7812652171D00FCC4DA /* MehoFloatingLabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MehoFloatingLabelTextField.swift; sourceTree = "<group>"; };
+		EA4DA789265A343600FCC4DA /* ErrorMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageView.swift; sourceTree = "<group>"; };
+		EA4DA796265B5B1F00FCC4DA /* ToastExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastExtension.swift; sourceTree = "<group>"; };
 		EA52FDA223EF7D4D008EB37B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA52FDA723EF809D008EB37B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EA52FDA923EF80DA008EB37B /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
@@ -562,6 +566,7 @@
 				92FE6CED245FC959000E69BC /* UITextFieldPadding.swift */,
 				EA9AC7B525030E1300524231 /* AnalyticsExtension.swift */,
 				EA28377725D3BE2B00DE8263 /* CALayerExtension.swift */,
+				EA4DA796265B5B1F00FCC4DA /* ToastExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -914,6 +919,7 @@
 				EADFAA2A25AEB86000C6344A /* ImageTopAndTitleDownButton.swift */,
 				EA283A7D25E6330300DE8263 /* LoadingView.swift */,
 				EA4DA7812652171D00FCC4DA /* MehoFloatingLabelTextField.swift */,
+				EA4DA789265A343600FCC4DA /* ErrorMessageView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1220,6 +1226,7 @@
 				EAD20B9F24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift in Sources */,
 				925E3FF6250DDD290062606A /* ProfileCard.swift in Sources */,
 				9204700224F337A200DE1A2D /* CompleteProfileViewStep3Controller.swift in Sources */,
+				EA4DA797265B5B1F00FCC4DA /* ToastExtension.swift in Sources */,
 				EA5449152442B12500C07D0A /* RoleUtils.swift in Sources */,
 				92BAC71F243B12A100862571 /* SingleChineseNewsViewController.swift in Sources */,
 				EA6381F42458081400481B8B /* ContentEvaluationResult.swift in Sources */,
@@ -1260,6 +1267,7 @@
 				EA28377825D3BE2C00DE8263 /* CALayerExtension.swift in Sources */,
 				92C5FE35244D9223004A3322 /* VocabularyViewController.swift in Sources */,
 				EAB6B80025CFB9E000235ACB /* NewsPlayingNow.swift in Sources */,
+				EA4DA78A265A343700FCC4DA /* ErrorMessageView.swift in Sources */,
 				92F90BC824F1CD2200BEF7B7 /* UserDataFetcher.swift in Sources */,
 				EA283A7E25E6330300DE8263 /* LoadingView.swift in Sources */,
 				92C5FE33244D4DB6004A3322 /* PinyinDetailView.swift in Sources */,
