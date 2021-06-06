@@ -15,7 +15,7 @@ class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate,
     // MARK: - Constants
     private let nextButtonWidth = CGFloat(200)
     private let nextButtonHeight = CGFloat(40)
-    private let nextButtonCornerRadius = CGFloat(18)
+    private let nextButtonCornerRadius = CGFloat(6)
     private let nextButtonBottomMargin = CGFloat(80)
     private let welcomeLabelFontSize = CGFloat(30)
     private let welcomeLabelTopMargin = CGFloat(100)

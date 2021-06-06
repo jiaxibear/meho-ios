@@ -31,7 +31,8 @@ class MainViewController: UITabBarController {
         "themehoapp@gmail.com",
         "ppyzfb@gmail.com",
         "raydeyang@gmail.com",
-        "jiaxi.xiong.meho@gmail.com"
+        "jiaxi.xiong.meho@gmail.com",
+        "sjtudyyjk@gmail.com",
     ]
 
     // MARK: - UIViewController

@@ -23,10 +23,14 @@ extension UIView {
         return 100
     }
 
+    private var errorMessageViewDuration: TimeInterval {
+        return 6
+    }
+
     func showErrorMessageView(errorMessageView: ErrorMessageView) {
         let width = bounds.width
         let frame = CGRect.init(x: 0, y: 0, width: width - 2 * errorMessageViewLeadingTrailingMargin, height: errorMessageViewHeight)
         errorMessageView.frame = frame
-        showToast(errorMessageView, point: CGPoint.init(x: width / 2, y: bounds.height - errorMessageViewBottomMargin))
+        showToast(errorMessageView, duration: errorMessageViewDuration, point: CGPoint.init(x: width / 2, y: bounds.height - errorMessageViewBottomMargin))
     }
 }

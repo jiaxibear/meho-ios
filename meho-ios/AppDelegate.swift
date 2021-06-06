@@ -88,7 +88,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
 
-        
+        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        let getUserTokenQuery = GetUserTokenQuery.init(id: userID)
+        appSyncClient?.fetch(query: getUserTokenQuery, resultHandler: { (result, error) in
+            if result != nil {
+                let updateUserTokenInput = UpdateUserTokenInput.init(id: userID, userId: userID, os: "iOS", token: token, enable: true)
+                let updateUserTokenMutation = UpdateUserTokenMutation.init(input: updateUserTokenInput)
+                self.appSyncClient?.perform(mutation: updateUserTokenMutation)
+            } else {
+                let createUserTokenInput = CreateUserTokenInput.init(id: userID, userId: userID, os: "iOS", token: token, enable: true)
+                let createUserTokenMutation = CreateUserTokenMutation.init(input: createUserTokenInput)
+                self.appSyncClient?.perform(mutation: createUserTokenMutation)
+            }
+        })
     }
 
     func setupAppSyncClient() {

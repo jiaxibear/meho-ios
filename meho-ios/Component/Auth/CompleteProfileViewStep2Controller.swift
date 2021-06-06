@@ -20,7 +20,7 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
     // MARK: - Constants
     private let nextButtonWidth = CGFloat(200)
     private let nextButtonHeight = CGFloat(40)
-    private let nextButtonCornerRadius = CGFloat(18)
+    private let nextButtonCornerRadius = CGFloat(6)
     private let nextButtonBottomMargin = CGFloat(80)
     private let interestReasonLabelFontSize = CGFloat(18)
     private let interestReasonLabelTopMargin = CGFloat(40)
