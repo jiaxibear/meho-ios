@@ -191,7 +191,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
 
         nextButton.widthAnchor.constraint(equalToConstant: nextButtonWidth).isActive = true
         nextButton.heightAnchor.constraint(equalToConstant: nextButtonHeight).isActive = true
-        nextButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -nextButtonBottomMargin).isActive = true
+        nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -nextButtonBottomMargin).isActive = true
         nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
         questionsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentLeadingTrailingMargin).isActive = true

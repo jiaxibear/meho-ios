@@ -101,6 +101,12 @@ class ProfessionQuestionCollectionViewCell: UICollectionViewCell {
             titleLabel.attributedText = attributedProfession
         } else {
             titleLabel.text = question.title
+            var titleFont = UIFont.systemFont(ofSize: titleFontSize, weight: .medium)
+            if let titleFontDescriptor = titleFont.fontDescriptor.withDesign(.rounded) {
+                titleFont = UIFont.init(descriptor: titleFontDescriptor, size: titleFontSize)
+            }
+            titleLabel.font = titleFont
+            titleLabel.textColor = .slateGrey
         }
 
         if question.isSelected {
