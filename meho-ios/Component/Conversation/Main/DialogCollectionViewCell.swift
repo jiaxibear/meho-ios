@@ -20,8 +20,6 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     private let coverImageViewHeight = CGFloat(110)
     private let coverImageTrailingMargin = CGFloat(25)
     private let coverImageBorderWidth = CGFloat(1)
-    private let arrowImageViewWidth = CGFloat(45)
-    private let arrowImageViewHeight = CGFloat(45)
     private let arrowImageName = "conversation_arrow_in_circle"
     private let difficultyLabelCornerRadius = CGFloat(2)
     private let difficultyLabelWidth = CGFloat(66)
@@ -61,13 +59,6 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         return coverImageView
     } ()
 
-    private lazy var arrowImageView: UIImageView = {
-        let arrowImage = UIImage.init(named: arrowImageName)
-        let arrowImageView = UIImageView.init(image: arrowImage)
-        arrowImageView.translatesAutoresizingMaskIntoConstraints = false
-        return arrowImageView
-    } ()
-
     private lazy var difficultyLabel: UILabel = {
         let difficultyLabel = UILabel.init(frame: .zero)
         difficultyLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -93,7 +84,6 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         contentView.addSubview(coverImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(titleInLocalLanguageLabel)
-        contentView.addSubview(arrowImageView)
         contentView.addSubview(difficultyLabel)
 
         // Sets up constraints
@@ -112,16 +102,10 @@ class DialogCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
 
         titleLabel.leadingAnchor.constraint(equalTo: difficultyLabel.leadingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: difficultyLabel.bottomAnchor, constant: titleLabelTopMargin).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor, constant: -titleLabelLeadingTrailingMargin).isActive = true
 
         titleInLocalLanguageLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
         titleInLocalLanguageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: titleLabelTotitleInLocalLanguageLabelMargin).isActive = true
         titleInLocalLanguageLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor).isActive = true
-
-        arrowImageView.widthAnchor.constraint(equalToConstant: arrowImageViewWidth).isActive = true
-        arrowImageView.heightAnchor.constraint(equalToConstant: arrowImageViewHeight).isActive = true
-        arrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        arrowImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
 
         contentView.isHidden = true
     }
