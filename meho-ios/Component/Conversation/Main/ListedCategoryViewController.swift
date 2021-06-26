@@ -45,6 +45,7 @@ class ListedCategoryViewController: UIViewController, UICollectionViewDataSource
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
         view.backgroundColor = .white
+        title = ""
 
         setuplistedCategoryCollectionView()
 
