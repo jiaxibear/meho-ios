@@ -280,19 +280,16 @@
 "completeProfileStep4Title" = "Complete your profile (4/4)";
 
 /* Title to ask why the user is interested in learning Chinese. */
-"InterestReasonTitle" = "You are interested in learning Chinese and understanding China to (please choose all that apply):";
+"InterestReasonTitle" = "Why are you interested in trying out Meho (please choose all apply):";
 
 /* Title to ask which of the following tags best describe the user's interests. */
 "InterestTagsTitle" = "Select topics you are interested to learn about China (please choose all that apply):";
 
-/* Title to ask what industry the user is in. */
-"IndustryTitle" = "What best describes the industry you are in? This will help us tailor our content to your needs:";
+/* Title to ask what's the user's profession. */
+"IndustryTitle" = "What's your profession? This helps us tailor content for you:";
 
 /* Text displayed to the user to let them select who they are interested in communicating to. */
 "communicationSelectionsText" = "Communicate with:";
-
-/* Text displayed to the user to let them select what other actions they are interested in doing. */
-"otherSelectionsText" = "and/or to:";
 
 /* Title for the button that the user taps to start learning. */
 "StartLearningButtonTitle" = "Start Learning";
@@ -352,7 +349,7 @@
 "VerificationCodeSentMessage" = "Please check your email to obtain the code";
 
 /* Placeholder text for the industry text field. */
-"industryPlaceholder" = "Please tell us more about your industry";
+"industryPlaceholder" = "Please tell us more about your profession";
 
 /* Title displayed in the navigation bar in the update goal screen. */
 "UpdateGoalTitle" = "Update Goal";

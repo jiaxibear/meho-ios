@@ -23,8 +23,27 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     private let contentViewShadowSpread = CGFloat(3)
 
     // MARK: - Properties
-    private let titleLabel = UILabel.init(frame: .zero)
-    private let coverImageView = WebImageView.init(frame: .zero)
+    private lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel.init(frame: .zero)
+        titleLabel.numberOfLines = 1
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textColor = .mehoDarkGray
+        var font =  UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium)
+        if let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded) {
+            font = UIFont.init(descriptor: fontDescriptor, size: titleLabelFontSize)
+        }
+        titleLabel.font = font
+        return titleLabel
+    } ()
+
+    private lazy var coverImageView: WebImageView = {
+        let coverImageView = WebImageView.init(frame: .zero)
+        coverImageView.translatesAutoresizingMaskIntoConstraints = false
+        coverImageView.contentMode = .scaleAspectFit
+        coverImageView.delegate = self
+        return coverImageView
+    } ()
+
     private var shadowLayer:CAShapeLayer?
 
     // MARK: - Init
@@ -48,29 +67,20 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         contentView.layer.cornerRadius = contentViewCornerRadius
         contentView.backgroundColor = .white
 
-        // Sets up cover image view.
-        coverImageView.translatesAutoresizingMaskIntoConstraints = false
-        coverImageView.contentMode = .scaleAspectFit
-        coverImageView.delegate = self
         contentView.addSubview(coverImageView)
-
-        // Sets up title label.
-        titleLabel.numberOfLines = 1
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = .mehoDarkGray
-        let fontDescriptor = UIFont.systemFont(ofSize: titleLabelFontSize, weight: .medium).fontDescriptor.withDesign(.rounded)
-        titleLabel.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
         contentView.addSubview(titleLabel)
 
         // Sets up constraints
-        coverImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: coverImageViewVerticalMargin).isActive = true
-        coverImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        coverImageView.heightAnchor.constraint(equalToConstant: coverImageViewHeight).isActive = true
-        coverImageView.widthAnchor.constraint(equalToConstant: coverImageViewHeight).isActive = true
+        NSLayoutConstraint.activate([
+            coverImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: coverImageViewVerticalMargin),
+            coverImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            coverImageView.heightAnchor.constraint(equalToConstant: coverImageViewHeight),
+            coverImageView.widthAnchor.constraint(equalToConstant: coverImageViewHeight),
 
-        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: titleToImageMargin).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -titleBottomMargin).isActive = true
+            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: titleToImageMargin),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -titleBottomMargin)
+        ])
         self.contentView.isHidden = true
     }
 
@@ -89,8 +99,6 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
     public func setCategory(category: Category) {
         // Sets the text for the title label.
         titleLabel.text = category.title
-        titleLabel.sizeToFit()
-
         
         // Downloads the image.
         if let coverImageURL = category.coverImageURL {

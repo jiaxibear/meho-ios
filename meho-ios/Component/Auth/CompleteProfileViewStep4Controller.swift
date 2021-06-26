@@ -18,15 +18,15 @@ class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewData
     private let nextButtonCornerRadius = CGFloat(6)
     private let nextButtonBottomMargin = CGFloat(80)
     private let interestReasonLabelFontSize = CGFloat(18)
-    private let interestReasonLabelTopMargin = CGFloat(40)
+    private let interestReasonLabelTopMargin = CGFloat(24)
     private let contentLeadingTrailingMargin = CGFloat(20)
     private let questionCollectionViewCellReuseIdentifier = "questionCollectionViewCellReuseIdentifier"
     private let questionsCollectionViewTopBottomMargin = CGFloat(24)
     private let questionsCollectionViewCellSpacing = CGFloat(20)
-    private let questionsCollectionViewCellHeight = CGFloat(86)
+    private let questionsCollectionViewCellHeight = CGFloat(80)
     private let questionsCollectionViewSpecialCellHeight = CGFloat(40)
-    private let questionsCollectionNumberOfCellsInRow = 2
-    private let questionsCollectionViewMinimumLineSpacing = CGFloat(40)
+    private let questionsCollectionNumberOfCellsInRow = 1
+    private let questionsCollectionViewMinimumLineSpacing = CGFloat(16)
     private let questionsCollectionViewCellTitleFontSize = CGFloat(18)
     private let industryBottomLineHeight = CGFloat(3)
     private let industryStackViewTopMargin = CGFloat(30)
@@ -39,14 +39,13 @@ class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewData
     private let isSingleStep: Bool
 
     private lazy var questions: [ProfileQuestion] = {
-        let academic = ProfileQuestion.init(title: "Academic", subtitle: "(student, scholar, researcher, etc)", color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let finance = ProfileQuestion.init(title: "Finance", subtitle: "(investment, banking, consulting, etc)", color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let trade = ProfileQuestion.init(title: "Trade", subtitle: "(import, export, ecommerce, etc)", color: .periwinkleBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let service = ProfileQuestion.init(title: "Service", subtitle: "(hospitality, retail, media, travel, etc)", color: .periwinkleBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let tech = ProfileQuestion.init(title: "Tech", subtitle: "(software, telecom, hardware, etc)", color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let infrastructure = ProfileQuestion.init(title: "Infrastructure", subtitle: "(road, railway, energy, etc)", color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let others = ProfileQuestion.init(title: "Others", subtitle: nil, color: .periwinkle, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        return [academic, finance, trade, service, tech, infrastructure, others]
+        let academic = ProfileQuestion.init(title: "Academic", subtitle: "(student, scholar, researcher, etc)", isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize, imageName: "onboarding_academic")
+        let finance = ProfileQuestion.init(title: "Finance", subtitle: "(investment, banking, consulting, etc)", isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize, imageName: "onboarding_finance")
+        let trade = ProfileQuestion.init(title: "Trade", subtitle: "(import, export, ecommerce, etc)", isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize, imageName: "onboarding_trade")
+        let service = ProfileQuestion.init(title: "Service", subtitle: "(hospitality, retail, media, travel, etc)", isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize, imageName: "onboarding_chef")
+        let tech = ProfileQuestion.init(title: "Tech", subtitle: "(software, telecom, hardware, etc)", isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize, imageName: "onboarding_programmer")
+        let others = ProfileQuestion.init(title: "Others", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        return [academic, finance, trade, service, tech, others]
     } ()
 
     private var lastSelectedIndex = -1
@@ -92,8 +91,9 @@ class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewData
         questionsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         questionsCollectionView.delegate = self
         questionsCollectionView.dataSource = self
-        questionsCollectionView.register(QuestionCollectionViewCell.self, forCellWithReuseIdentifier: questionCollectionViewCellReuseIdentifier)
+        questionsCollectionView.register(ProfessionQuestionCollectionViewCell.self, forCellWithReuseIdentifier: questionCollectionViewCellReuseIdentifier)
         questionsCollectionView.backgroundColor = .white
+        questionsCollectionView.contentInset = UIEdgeInsets.init(top: 2, left: 2, bottom: 2, right: 2)
         return questionsCollectionView
     } ()
 
@@ -108,7 +108,7 @@ class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewData
         let industryPlaceholderFontDescriptor = UIFont.systemFont(ofSize: industryPlaceholderFontSize, weight: .light).fontDescriptor.withDesign(.rounded)
         let attributes = [
             NSAttributedString.Key.paragraphStyle: centeredParagraphStyle,
-            NSAttributedString.Key.foregroundColor : UIColor.textBlueGray,
+            NSAttributedString.Key.foregroundColor : UIColor.palePurple,
             NSAttributedString.Key.font : UIFont.init(descriptor: industryPlaceholderFontDescriptor!, size: industryPlaceholderFontSize)
         ]
         let attributedPlaceholder = NSAttributedString(string: NSLocalizedString("industryPlaceholder", comment: ""), attributes: attributes)
@@ -120,7 +120,7 @@ class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewData
     private lazy var industryBottomLine: UIView = {
         let industryBottomLine = UIView.init(frame: .zero)
         industryBottomLine.translatesAutoresizingMaskIntoConstraints = false
-        industryBottomLine.backgroundColor = .wisteriaPurple
+        industryBottomLine.backgroundColor = .lightBlueGrey
         return industryBottomLine
     } ()
 
@@ -224,7 +224,7 @@ class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewData
 
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: questionCollectionViewCellReuseIdentifier, for: indexPath) as? QuestionCollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: questionCollectionViewCellReuseIdentifier, for: indexPath) as? ProfessionQuestionCollectionViewCell {
             cell.setQuestion(questions[indexPath.item])
             return cell
         }

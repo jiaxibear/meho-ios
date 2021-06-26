@@ -157,6 +157,10 @@
 		EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CD23F12080003C8548 /* WebImageView.swift */; };
 		EAB7C4D023F8C8E2003C8548 /* DialogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */; };
 		EABDBF3225CA7B8000BE6617 /* NewsAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABDBF3125CA7B8000BE6617 /* NewsAudioPlayer.swift */; };
+		EAC74A13266C916100FBF027 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC74A12266C916100FBF027 /* NotificationService.swift */; };
+		EAC74A17266C916100FBF027 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EAC74A10266C916100FBF027 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		EAC74A362676A66E00FBF027 /* InterestQuestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC74A352676A66E00FBF027 /* InterestQuestionCollectionViewCell.swift */; };
+		EAC74A3C2676C12700FBF027 /* ProfessionQuestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC74A3B2676C12700FBF027 /* ProfessionQuestionCollectionViewCell.swift */; };
 		EAD20B9E24F1CFB300C1ED89 /* IdiomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20B9C24F1CFB300C1ED89 /* IdiomViewController.swift */; };
 		EAD20B9F24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20B9D24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift */; };
 		EAD20BA124F1F4E400C1ED89 /* Idiom.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20BA024F1F4E400C1ED89 /* Idiom.swift */; };
@@ -188,7 +192,28 @@
 			remoteGlobalIDString = EA2FC5BB23EF7AD400E258BD;
 			remoteInfo = "meho-ios";
 		};
+		EAC74A15266C916100FBF027 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA2FC5B423EF7AD400E258BD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAC74A0F266C916100FBF027;
+			remoteInfo = NotificationServiceExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EAC74A1B266C916100FBF027 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				EAC74A17266C916100FBF027 /* NotificationServiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		23D21C92C96C3B02E8C84C73 /* Pods-meho-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.debug.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.debug.xcconfig"; sourceTree = "<group>"; };
@@ -355,6 +380,12 @@
 		EAB7C4CD23F12080003C8548 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		EAB7C4CF23F8C8E2003C8548 /* DialogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogCollectionViewCell.swift; sourceTree = "<group>"; };
 		EABDBF3125CA7B8000BE6617 /* NewsAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAudioPlayer.swift; sourceTree = "<group>"; };
+		EAC74A10266C916100FBF027 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAC74A12266C916100FBF027 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		EAC74A14266C916100FBF027 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EAC74A20266CA9E800FBF027 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		EAC74A352676A66E00FBF027 /* InterestQuestionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestQuestionCollectionViewCell.swift; sourceTree = "<group>"; };
+		EAC74A3B2676C12700FBF027 /* ProfessionQuestionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionQuestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		EAD20B9C24F1CFB300C1ED89 /* IdiomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdiomViewController.swift; sourceTree = "<group>"; };
 		EAD20B9D24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdiomCollectionViewCell.swift; sourceTree = "<group>"; };
 		EAD20BA024F1F4E400C1ED89 /* Idiom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Idiom.swift; sourceTree = "<group>"; };
@@ -398,6 +429,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EAC74A0D266C916100FBF027 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -433,6 +471,8 @@
 				92046FF024F337A000DE1A2D /* SignUpViewController.swift */,
 				92F90BC724F1CD2200BEF7B7 /* UserDataFetcher.swift */,
 				EADFAAA825B7EE5F00C6344A /* CompleteProfileViewStep1Controller.swift */,
+				EAC74A352676A66E00FBF027 /* InterestQuestionCollectionViewCell.swift */,
+				EAC74A3B2676C12700FBF027 /* ProfessionQuestionCollectionViewCell.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -589,6 +629,7 @@
 				EA2FC5BE23EF7AD400E258BD /* meho-ios */,
 				EA2FC5D523EF7AD600E258BD /* meho-iosTests */,
 				EA2FC5E023EF7AD600E258BD /* meho-iosUITests */,
+				EAC74A11266C916100FBF027 /* NotificationServiceExtension */,
 				EA2FC5BD23EF7AD400E258BD /* Products */,
 				9D10556214FE534B87DDB421 /* Pods */,
 				6C252BD4F847344155504A04 /* Frameworks */,
@@ -601,6 +642,7 @@
 				EA2FC5BC23EF7AD400E258BD /* Meho.app */,
 				EA2FC5D223EF7AD600E258BD /* meho-iosTests.xctest */,
 				EA2FC5DD23EF7AD600E258BD /* meho-iosUITests.xctest */,
+				EAC74A10266C916100FBF027 /* NotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -934,6 +976,16 @@
 			path = AudioPlayer;
 			sourceTree = "<group>";
 		};
+		EAC74A11266C916100FBF027 /* NotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				EAC74A20266CA9E800FBF027 /* NotificationServiceExtension.entitlements */,
+				EAC74A12266C916100FBF027 /* NotificationService.swift */,
+				EAC74A14266C916100FBF027 /* Info.plist */,
+			);
+			path = NotificationServiceExtension;
+			sourceTree = "<group>";
+		};
 		EAD20B9B24F1CF6100C1ED89 /* Idiom */ = {
 			isa = PBXGroup;
 			children = (
@@ -964,10 +1016,12 @@
 				EA2FC5B923EF7AD400E258BD /* Frameworks */,
 				EA2FC5BA23EF7AD400E258BD /* Resources */,
 				AAC25F9AFC9F67E2AEDAFA5D /* [CP] Embed Pods Frameworks */,
+				EAC74A1B266C916100FBF027 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				EAC74A16266C916100FBF027 /* PBXTargetDependency */,
 			);
 			name = "meho-ios";
 			productName = "meho-ios";
@@ -1013,13 +1067,30 @@
 			productReference = EA2FC5DD23EF7AD600E258BD /* meho-iosUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		EAC74A0F266C916100FBF027 /* NotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EAC74A18266C916100FBF027 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
+			buildPhases = (
+				EAC74A0C266C916100FBF027 /* Sources */,
+				EAC74A0D266C916100FBF027 /* Frameworks */,
+				EAC74A0E266C916100FBF027 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationServiceExtension;
+			productName = NotificationServiceExtension;
+			productReference = EAC74A10266C916100FBF027 /* NotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		EA2FC5B423EF7AD400E258BD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = Meho;
 				TargetAttributes = {
@@ -1034,6 +1105,9 @@
 					EA2FC5DC23EF7AD600E258BD = {
 						CreatedOnToolsVersion = 11.3.1;
 						TestTargetID = EA2FC5BB23EF7AD400E258BD;
+					};
+					EAC74A0F266C916100FBF027 = {
+						CreatedOnToolsVersion = 12.4;
 					};
 				};
 			};
@@ -1053,6 +1127,7 @@
 				EA2FC5BB23EF7AD400E258BD /* meho-ios */,
 				EA2FC5D123EF7AD600E258BD /* meho-iosTests */,
 				EA2FC5DC23EF7AD600E258BD /* meho-iosUITests */,
+				EAC74A0F266C916100FBF027 /* NotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1090,6 +1165,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAD5222624F6375A002E0285 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EAC74A0E266C916100FBF027 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1233,6 +1315,7 @@
 				EA4206A424A05BD700DA3F2A /* DialogModeSelectionViewController.swift in Sources */,
 				EA01E6AD23FBA62900C0B0AE /* Chapter.swift in Sources */,
 				9204700424F337A200DE1A2D /* SignUpTextField.swift in Sources */,
+				EAC74A362676A66E00FBF027 /* InterestQuestionCollectionViewCell.swift in Sources */,
 				EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */,
 				EA5448BF2425EBA900C07D0A /* DialogStreamHeaderCollectionReusableView.swift in Sources */,
 				92C5FE3924502FAC004A3322 /* PinyinDelimiterView.swift in Sources */,
@@ -1278,6 +1361,7 @@
 				EA644D3D250D86BA005293EF /* ProfileSetting.swift in Sources */,
 				EA644D3F250D8FF4005293EF /* ProfileSettingHeaderCollectionReusableView.swift in Sources */,
 				EA169376255908BA0074EE0D /* CompletedExpressionCollectionViewCell.swift in Sources */,
+				EAC74A3C2676C12700FBF027 /* ProfessionQuestionCollectionViewCell.swift in Sources */,
 				92ADF89524495D22003D2D12 /* FoundationDataFetcher.swift in Sources */,
 				92046FFE24F337A200DE1A2D /* SignUpViewController.swift in Sources */,
 				92BAC71B2439B06B00862571 /* DetailedNewsViewController.swift in Sources */,
@@ -1364,6 +1448,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EAC74A0C266C916100FBF027 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAC74A13266C916100FBF027 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1376,6 +1468,11 @@
 			isa = PBXTargetDependency;
 			target = EA2FC5BB23EF7AD400E258BD /* meho-ios */;
 			targetProxy = EA2FC5DE23EF7AD600E258BD /* PBXContainerItemProxy */;
+		};
+		EAC74A16266C916100FBF027 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EAC74A0F266C916100FBF027 /* NotificationServiceExtension */;
+			targetProxy = EAC74A15266C916100FBF027 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1509,11 +1606,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 23D21C92C96C3B02E8C84C73 /* Pods-meho-ios.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "meho-ios/Meho.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = LW56PXHU2T;
 				ENABLE_BITCODE = NO;
@@ -1546,11 +1644,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "meho-ios/Meho.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"meho-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = LW56PXHU2T;
 				ENABLE_BITCODE = NO;
@@ -1662,6 +1761,54 @@
 			};
 			name = Release;
 		};
+		EAC74A19266C916100FBF027 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = LW56PXHU2T;
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meho.mehoapp.NotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EAC74A1A266C916100FBF027 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = LW56PXHU2T;
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meho.mehoapp.NotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1697,6 +1844,15 @@
 			buildConfigurations = (
 				EA2FC5ED23EF7AD600E258BD /* Debug */,
 				EA2FC5EE23EF7AD600E258BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EAC74A18266C916100FBF027 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EAC74A19266C916100FBF027 /* Debug */,
+				EAC74A1A266C916100FBF027 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

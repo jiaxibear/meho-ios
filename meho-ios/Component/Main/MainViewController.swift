@@ -10,6 +10,14 @@ import UIKit
 import AWSMobileClient
 import FirebaseAnalytics
 
+enum MainViewControllerTab: Int {
+    case stories
+    case expressions
+    case talks
+    case foundations
+    case profile
+}
+
 class MainViewController: UITabBarController {
 
     // MARK: - Constants
@@ -89,5 +97,9 @@ class MainViewController: UITabBarController {
     // MARK: - Internal
     func selectProfileTab() {
         selectedIndex = 4
+    }
+
+    func selectTab(at index: MainViewControllerTab) {
+        selectedIndex = index.rawValue
     }
 }

@@ -12,7 +12,7 @@ import UIKit
 struct ProfileQuestion {
     let title: String
     let subtitle: String?
-    let color: UIColor
     var isSelected: Bool
-    let titleFontSize: CGFloat
+    var titleFontSize: CGFloat
+    var imageName: String?
 }

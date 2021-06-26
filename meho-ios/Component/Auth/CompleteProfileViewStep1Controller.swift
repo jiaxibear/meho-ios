@@ -17,18 +17,29 @@ class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate,
     private let nextButtonHeight = CGFloat(40)
     private let nextButtonCornerRadius = CGFloat(6)
     private let nextButtonBottomMargin = CGFloat(80)
-    private let welcomeLabelFontSize = CGFloat(30)
-    private let welcomeLabelTopMargin = CGFloat(100)
+    private let welcomeLabelFontSize = CGFloat(26)
+    private let welcomeLabelTopMargin = CGFloat(68)
     private let nicknameTextFieldFontSize = CGFloat(24)
+    private let nicknameTextFieldTopMargin = CGFloat(84)
     private let nicknameTextFieldBottomLineLeadingTrailingMargin = CGFloat(32)
     private let nicknameTextFieldBottomLineHeight = CGFloat(1)
     private let nicknameTextFieldBottomLineTopMargin = CGFloat(4)
+    private let imageViewWidth = CGFloat(276)
+    private let imageViewHeight = CGFloat(232)
+    private let imageViewTopMargin = CGFloat(18)
 
     // MARK: - Properties
     // MARK: Model
     private let userDataFecther = UserDataFetcher.shared
 
     // MARK: UI
+    private lazy var imageView: UIImageView = {
+        let image = UIImage.init(named: "onboarding_welcome")
+        let imageView = UIImageView.init(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    } ()
+
     private lazy var nextButton: UIButton = {
         let nextButton = UIButton.init(frame: .zero)
         nextButton.isEnabled = false
@@ -45,13 +56,12 @@ class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate,
     private lazy var welcomeLabel: UILabel = {
         let welcomeLabel = UILabel.init(frame: .zero)
         welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
-        welcomeLabel.textColor = .skyBlue
-        let welcomeLabelFont = UIFont.systemFont(ofSize: welcomeLabelFontSize, weight: .semibold)
+        welcomeLabel.textColor = .darkGrayTwo
+        var welcomeLabelFont = UIFont.systemFont(ofSize: welcomeLabelFontSize, weight: .regular)
         if let welcomeLabelFontDescriptor = welcomeLabelFont.fontDescriptor.withDesign(.rounded) {
-            welcomeLabel.font = UIFont.init(descriptor: welcomeLabelFontDescriptor, size: welcomeLabelFontSize)
-        } else {
-            welcomeLabel.font = welcomeLabelFont
+            welcomeLabelFont = UIFont.init(descriptor: welcomeLabelFontDescriptor, size: welcomeLabelFontSize)
         }
+        welcomeLabel.font = welcomeLabelFont
         welcomeLabel.text = NSLocalizedString("UserDefaultNickname", comment: "")
         return welcomeLabel
     } ()
@@ -87,7 +97,7 @@ class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate,
     private lazy var nicknameTextFieldBottomLine: UIView = {
         let nicknameTextFieldBottomLine = UIView.init(frame: .zero)
         nicknameTextFieldBottomLine.translatesAutoresizingMaskIntoConstraints = false
-        nicknameTextFieldBottomLine.backgroundColor = .wisteriaPurple
+        nicknameTextFieldBottomLine.backgroundColor = .lightBlueGrey
         return nicknameTextFieldBottomLine
     } ()
 
@@ -104,6 +114,7 @@ class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate,
         view.addSubview(nextButton)
         view.addSubview(nicknameTextField)
         view.addSubview(nicknameTextFieldBottomLine)
+        view.addSubview(imageView)
 
         NSLayoutConstraint.activate([
             welcomeLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: welcomeLabelTopMargin),
@@ -114,10 +125,15 @@ class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate,
             nextButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -nextButtonBottomMargin),
             nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
+            imageView.heightAnchor.constraint(equalToConstant: imageViewHeight),
+            imageView.widthAnchor.constraint(equalToConstant: imageViewWidth),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: imageViewTopMargin),
+
             nicknameTextField.leadingAnchor.constraint(equalTo: nicknameTextFieldBottomLine.leadingAnchor),
             nicknameTextField.trailingAnchor.constraint(equalTo: nicknameTextFieldBottomLine.trailingAnchor),
             nicknameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nicknameTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            nicknameTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: nicknameTextFieldTopMargin),
 
             nicknameTextFieldBottomLine.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: nicknameTextFieldBottomLineLeadingTrailingMargin),
             nicknameTextFieldBottomLine.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -nicknameTextFieldBottomLineLeadingTrailingMargin),

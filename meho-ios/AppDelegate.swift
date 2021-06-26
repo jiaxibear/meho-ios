@@ -15,7 +15,7 @@ import AVFoundation
 import Firebase
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     // MARK: - Properties
     var appSyncClient: AWSAppSyncClient?
@@ -64,6 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         FirebaseApp.configure()
 
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
         UIApplication.shared.registerForRemoteNotifications()
 
         return true
@@ -110,6 +112,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print(error.localizedDescription)
         }
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        guard let userInfoData = userInfo["data"] as? [AnyHashable: Any], let pinpoint = userInfoData["pinpoint"] as? [AnyHashable: Any], let deepLink = pinpoint["deeplink"] as? String, let host = URL.init(string: deepLink)?.host, let navigationViewController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController, let mainViewController = navigationViewController.viewControllers.first as? MainViewController else {
+            completionHandler()
+            return
+        }
+        
+        switch host {
+        case "talks":
+            navigationViewController.popToRootViewController(animated: false)
+            mainViewController.selectTab(at: .talks)
+        case "expressions":
+            navigationViewController.popToRootViewController(animated: false)
+            mainViewController.selectTab(at: .expressions)
+        case "stories":
+            navigationViewController.popToRootViewController(animated: false)
+            mainViewController.selectTab(at: .stories)
+        default:
+            break
+        }
+        completionHandler()
     }
 }
 

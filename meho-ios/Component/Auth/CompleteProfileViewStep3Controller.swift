@@ -35,22 +35,22 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     private let isSingleStep: Bool
 
     private lazy var questions: [ProfileQuestion] = {
-        let business = ProfileQuestion.init(title: "Business", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let tech = ProfileQuestion.init(title: "Tech", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let finance = ProfileQuestion.init(title: "Finance", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let networking = ProfileQuestion.init(title: "Networking", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let career = ProfileQuestion.init(title: "Career", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let culture = ProfileQuestion.init(title: "Culture", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let travel = ProfileQuestion.init(title: "Travel", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let cuisine = ProfileQuestion.init(title: "Cuisine", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let shopping = ProfileQuestion.init(title: "Shopping", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let transportation = ProfileQuestion.init(title: "Transportation", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let history = ProfileQuestion.init(title: "History", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let hospitality = ProfileQuestion.init(title: "Hospitality", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let movie = ProfileQuestion.init(title: "Movie", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let reading = ProfileQuestion.init(title: "Reading", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let sports = ProfileQuestion.init(title: "Sports", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let society = ProfileQuestion.init(title: "Society", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let business = ProfileQuestion.init(title: "Business", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let tech = ProfileQuestion.init(title: "Tech", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let finance = ProfileQuestion.init(title: "Finance", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let networking = ProfileQuestion.init(title: "Networking", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let career = ProfileQuestion.init(title: "Career", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let culture = ProfileQuestion.init(title: "Culture", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let travel = ProfileQuestion.init(title: "Travel", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let cuisine = ProfileQuestion.init(title: "Cuisine", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let shopping = ProfileQuestion.init(title: "Shopping", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let transportation = ProfileQuestion.init(title: "Transportation", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let history = ProfileQuestion.init(title: "History", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let hospitality = ProfileQuestion.init(title: "Hospitality", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let movie = ProfileQuestion.init(title: "Movie", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let reading = ProfileQuestion.init(title: "Reading", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let sports = ProfileQuestion.init(title: "Sports", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
+        let society = ProfileQuestion.init(title: "Society", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
         return [business, tech, finance, networking, career, culture, travel, cuisine, shopping, transportation, history, hospitality, movie, reading, sports, society]
     } ()
 
@@ -99,6 +99,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
         questionsCollectionView.dataSource = self
         questionsCollectionView.register(QuestionCollectionViewCell.self, forCellWithReuseIdentifier: questionCollectionViewCellReuseIdentifier)
         questionsCollectionView.backgroundColor = .white
+        questionsCollectionView.contentInset = UIEdgeInsets.init(top: 2, left: 2, bottom: 2, right: 2)
         return questionsCollectionView
     } ()
 

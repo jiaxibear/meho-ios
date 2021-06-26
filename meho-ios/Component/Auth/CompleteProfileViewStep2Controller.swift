@@ -12,49 +12,36 @@ import FirebaseAnalytics
 
 class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MehoAnalytics {
 
-    enum CompleteProfileViewStep1Section: Int {
-        case communication = 0
-        case general = 1
-    }
-
     // MARK: - Constants
     private let nextButtonWidth = CGFloat(200)
     private let nextButtonHeight = CGFloat(40)
     private let nextButtonCornerRadius = CGFloat(6)
-    private let nextButtonBottomMargin = CGFloat(80)
+    private let nextButtonBottomMargin = CGFloat(60)
     private let interestReasonLabelFontSize = CGFloat(18)
-    private let interestReasonLabelTopMargin = CGFloat(40)
+    private let interestReasonLabelTopMargin = CGFloat(24)
     private let contentLeadingTrailingMargin = CGFloat(20)
     private let questionCollectionViewCellReuseIdentifier = "questionCollectionViewCellReuseIdentifier"
-    private let questionCollectionViewHeaderReuseIdentifier = "questionCollectionViewHeaderReuseIdentifier"
     private let questionsCollectionViewTopBottomMargin = CGFloat(24)
     private let questionsCollectionViewCellSpacing = CGFloat(20)
-    private let questionsCollectionViewCellHeight = CGFloat(80)
-    private let questionsCollectionViewCellTitleFontSize = CGFloat(16)
+    private let questionsCollectionViewCellHeight = CGFloat(150)
+    private let questionsCollectionViewCellTitleFontSize = CGFloat(15)
     private let questionsCollectionViewSpecialCellHeight = CGFloat(40)
-    private let questionsCollectionNumberOfCellsInRow = 3
-    private let questionsCollectionViewSectionTopBottomInset = CGFloat(30)
-    private let questionsCollectionViewMinimumLineSpacing = CGFloat(40)
+    private let questionsCollectionNumberOfCellsInRow = 2
+    private let questionsCollectionViewMinimumLineSpacing = CGFloat(20)
 
     // MARK: - Properties
     // MARK: Model
     private let isSingleStep: Bool
     private let userDataFecther = UserDataFetcher.shared
-    private let sections = [CompleteProfileViewStep1Section.communication, CompleteProfileViewStep1Section.general]
 
-    private lazy var communicationQuestions: [ProfileQuestion] = {
-        let friendsAndFamily = ProfileQuestion.init(title: "Friends & Family", subtitle: nil, color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let colleagues = ProfileQuestion.init(title: "Colleagues", subtitle: nil, color: .periwinkleBlueTwo, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let businessContacts = ProfileQuestion.init(title: "Business Contacts", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        return [friendsAndFamily, colleagues, businessContacts]
-    } ()
-
-    private lazy var generalQuestions: [ProfileQuestion] = {
-        let consumeContent = ProfileQuestion.init(title: "Consume Content", subtitle: nil, color: .skyBlue, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let travel = ProfileQuestion.init(title: "Travel", subtitle: nil, color: .periwinkleBlueTwo, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let work = ProfileQuestion.init(title: "Work for Chinese Companies", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        let checkItOut = ProfileQuestion.init(title: "Just to Check It Out", subtitle: nil, color: .wisteriaPurple, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize)
-        return [consumeContent, travel, work, checkItOut]
+    private lazy var questions: [ProfileQuestion] = {
+        let friendsAndFamily = ProfileQuestion.init(title: "Friends & Family", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize, imageName: "onboarding_family_and_friends")
+        let businessNeeds = ProfileQuestion.init(title: "Business Needs", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize, imageName: "onboarding_business_needs")
+        let stayInformed = ProfileQuestion.init(title: "Stay Informed", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize, imageName: "onboarding_stay_informed")
+        let travel = ProfileQuestion.init(title: "Travel & Leisure", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize, imageName: "onboarding_travel")
+        let language = ProfileQuestion.init(title: "Language & Culture", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize, imageName: "onboarding_language_culture")
+        let checkItOut = ProfileQuestion.init(title: "Just Check It Out", subtitle: nil, isSelected: false, titleFontSize: questionsCollectionViewCellTitleFontSize, imageName: "onboarding_just_check_it_out")
+        return [friendsAndFamily, businessNeeds, stayInformed, travel, language, checkItOut]
     } ()
 
     // MARK: UI
@@ -97,9 +84,9 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
         questionsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         questionsCollectionView.delegate = self
         questionsCollectionView.dataSource = self
-        questionsCollectionView.register(QuestionCollectionViewCell.self, forCellWithReuseIdentifier: questionCollectionViewCellReuseIdentifier)
-        questionsCollectionView.register(QuestionHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: questionCollectionViewHeaderReuseIdentifier)
+        questionsCollectionView.register(InterestQuestionCollectionViewCell.self, forCellWithReuseIdentifier: questionCollectionViewCellReuseIdentifier)
         questionsCollectionView.backgroundColor = .white
+        questionsCollectionView.contentInset = UIEdgeInsets.init(top: 2, left: 2, bottom: 2, right: 2)
         return questionsCollectionView
     } ()
 
@@ -123,43 +110,19 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
-        if sections[indexPath.section] == .general && indexPath.item == generalQuestions.count - 1 {
-            return CGSize.init(width: availableWidth, height: questionsCollectionViewSpecialCellHeight)
-        }
         let cellWidth = (availableWidth - CGFloat(questionsCollectionNumberOfCellsInRow - 1) * questionsCollectionViewCellSpacing) / CGFloat(questionsCollectionNumberOfCellsInRow)
         return CGSize.init(width: cellWidth, height: questionsCollectionViewCellHeight)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        var headerTitle: String
-        switch sections[section] {
-        case .communication:
-            headerTitle = NSLocalizedString("communicationSelectionsText", comment: "")
-        case .general:
-            headerTitle = NSLocalizedString("otherSelectionsText", comment: "")
-        }
-        let headerWidth = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
-        return CGSize.init(width: 0, height: QuestionHeaderReusableView.heightForTitle(with: headerWidth, title: headerTitle))
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets.init(top: questionsCollectionViewSectionTopBottomInset, left: 0, bottom: questionsCollectionViewSectionTopBottomInset, right: 0)
     }
 
     // MARK: - Init
     init(goals: [String]? = nil, isSingleStep: Bool = false) {
         self.isSingleStep = isSingleStep
         super.init(nibName: nil, bundle: nil)
-        if goals != nil {
-            for goal in goals! {
-                for (index, _) in communicationQuestions.enumerated() {
-                    if communicationQuestions[index].title == goal {
-                        communicationQuestions[index].isSelected = true
-                    }
-                }
-                for (index, _) in generalQuestions.enumerated() {
-                    if generalQuestions[index].title == goal {
-                        generalQuestions[index].isSelected = true
+        if let goals = goals {
+            for goal in goals {
+                for (index, _) in questions.enumerated() {
+                    if questions[index].title == goal {
+                        questions[index].isSelected = true
                     }
                 }
             }
@@ -178,41 +141,15 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
 
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch sections[indexPath.section] {
-        case .communication:
-            communicationQuestions[indexPath.item].isSelected = !communicationQuestions[indexPath.item].isSelected
-        case .general:
-            generalQuestions[indexPath.item].isSelected = !generalQuestions[indexPath.item].isSelected
-        }
+        questions[indexPath.item].isSelected = !questions[indexPath.item].isSelected
         collectionView.reloadItems(at: [indexPath])
         updateNextButton()
     }
 
     // MARK: - UICollectionViewDataSource
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader {
-            if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: questionCollectionViewHeaderReuseIdentifier, for: indexPath) as? QuestionHeaderReusableView{
-                switch sections[indexPath.section] {
-                case .communication:
-                    headerView.setTitle(title: NSLocalizedString("communicationSelectionsText", comment: ""))
-                case .general:
-                     headerView.setTitle(title: NSLocalizedString("otherSelectionsText", comment: ""))
-                }
-                return headerView
-            }
-        }
-        return UICollectionReusableView.init(frame: .zero)
-    }
-
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var question: ProfileQuestion
-        switch sections[indexPath.section] {
-        case .communication:
-            question = communicationQuestions[indexPath.item]
-        case .general:
-            question = generalQuestions[indexPath.item]
-        }
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: questionCollectionViewCellReuseIdentifier, for: indexPath) as? QuestionCollectionViewCell {
+        let question = questions[indexPath.item]
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: questionCollectionViewCellReuseIdentifier, for: indexPath) as? InterestQuestionCollectionViewCell {
             cell.setQuestion(question)
             return cell
         }
@@ -220,16 +157,11 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch sections[section] {
-        case .communication:
-            return communicationQuestions.count
-        case .general:
-            return generalQuestions.count
-        }
+        return questions.count
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sections.count
+        return 1
     }
 
     // MARK: - UIViewController
@@ -275,14 +207,9 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
     func didTapNextButton() {
         guard let userId = AWSMobileClient.default().userSub else { return }
         var goals: [String] = []
-        for communication in communicationQuestions {
+        for communication in questions {
             if communication.isSelected {
                 goals.append(communication.title)
-            }
-        }
-        for general in generalQuestions {
-            if general.isSelected {
-                goals.append(general.title)
             }
         }
 
@@ -300,18 +227,10 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
 
     func updateNextButton() {
         var hasSelected = false
-        for communication in communicationQuestions {
+        for communication in questions {
             if communication.isSelected {
                 hasSelected = true
                 break
-            }
-        }
-        if !hasSelected {
-            for general in generalQuestions {
-                if general.isSelected {
-                    hasSelected = true
-                    break
-                }
             }
         }
         nextButton.isEnabled = hasSelected

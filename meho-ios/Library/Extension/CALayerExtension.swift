@@ -24,4 +24,14 @@ extension CALayer {
             shadowPath = UIBezierPath(rect: rect).cgPath
         }
     }
+
+    func redrawShadowPath(bounds: CGRect) {
+        if let shadowPath = shadowPath {
+            let boundingBoxPath = shadowPath.boundingBoxOfPath
+            if boundingBoxPath.width != bounds.width || boundingBoxPath.height != bounds.height {
+                let newRect = bounds.insetBy(dx: boundingBoxPath.origin.x, dy: boundingBoxPath.origin.y)
+                self.shadowPath = UIBezierPath(rect: newRect).cgPath
+            }
+        }
+    }
 }
