@@ -116,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        guard let userInfoData = userInfo["data"] as? [AnyHashable: Any], let pinpoint = userInfoData["pinpoint"] as? [AnyHashable: Any], let deepLink = pinpoint["deeplink"] as? String, let host = URL.init(string: deepLink)?.host, let navigationViewController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController, let mainViewController = navigationViewController.viewControllers.first as? MainViewController else {
+        guard let userInfoData = userInfo["data"] as? [AnyHashable: Any], let pinpoint = userInfoData["pinpoint"] as? [AnyHashable: Any], let deepLink = pinpoint["deeplink"] as? String, let deepLinkURL = URL.init(string: deepLink), let host = deepLinkURL.host, let navigationViewController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController, let mainViewController = navigationViewController.viewControllers.first as? MainViewController else {
             completionHandler()
             return
         }
@@ -130,7 +130,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             mainViewController.selectTab(at: .expressions)
         case "stories":
             navigationViewController.popToRootViewController(animated: false)
-            mainViewController.selectTab(at: .stories)
+            let path = deepLinkURL.path
+            let index = path.index(after: path.startIndex)
+            let newsID = String(deepLinkURL.path.suffix(from: index))
+            if newsID.count > 0 {
+                mainViewController.displayDetailedNewsViewController(newsID: newsID)
+            } else {
+                mainViewController.selectTab(at: .stories)
+            }
         default:
             break
         }

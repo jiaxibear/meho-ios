@@ -39,8 +39,13 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
     // MARK: - Datamodels
     private let userDataFetcher = UserDataFetcher.shared
 
+    private lazy var newsDataFetcher: NewsDataFetcher = {
+        return NewsDataFetcher.init()
+    } ()
+
     // MARK: - Properties
-    private let news: News
+    private var news: News?
+    private let newsID: String?
 
     // MARK: - UI
     // navigation bar
@@ -114,13 +119,20 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
         return playButton
     } ()
 
+    private lazy var activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView.init(frame: .zero)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.backgroundColor = .white
+        return activityIndicatorView
+    } ()
+
     // MARK: - Child Controllers
     private lazy var singleEnNewsViewController: SingleEnglishNewsViewController = {
-        return SingleEnglishNewsViewController.init(news: self.news)
+        return SingleEnglishNewsViewController.init(news: self.news!)
     } ()
     
     private lazy var singleZhNewsViewController: SingleChineseNewsViewController = {
-        return SingleChineseNewsViewController.init(news: self.news)
+        return SingleChineseNewsViewController.init(news: self.news!)
     } ()
 
     // MARK: - Init
@@ -140,6 +152,12 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
 
     init(news: News) {
         self.news = news
+        self.newsID = nil
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    init(newsID: String) {
+        self.newsID = newsID
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -154,6 +172,52 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        view.addSubview(activityIndicatorView)
+        NSLayoutConstraint.activate([
+            activityIndicatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            activityIndicatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            activityIndicatorView.topAnchor.constraint(equalTo: view.topAnchor),
+            activityIndicatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        if let newsID = newsID {
+            activityIndicatorView.startAnimating()
+            newsDataFetcher.fetchNews(newsID: newsID) { news, error in
+                if let news = news {
+                    self.news = news
+                    self.activityIndicatorView.stopAnimating()
+                    self.setUpUI()
+                }
+            }
+        } else {
+            setUpUI()
+        }
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        var bottomBarViewBounds = bottomBarView.bounds
+        bottomBarViewBounds.size.height = 10
+        bottomBarView.layer.shadowPath = UIBezierPath.init(rect: bottomBarViewBounds).cgPath
+    }
+
+    func setUpNavigationBar() {
+        guard let news = news else {
+            return
+        }
+
+        navigationItem.titleView = newsSourceNavigationView
+        view.backgroundColor = .white
+        let newsShareButtonImage = UIImage.init(named: newsShareButtonImageName)
+        let newsShareButtonItem = UIBarButtonItem.init(image: newsShareButtonImage, style: .plain, target: self, action: #selector(didTapShareButton))
+        navigationItem.setRightBarButton(newsShareButtonItem, animated: true)
+        setUpNewsSourceView(newsSource: news.source)
+    }
+
+    // MARK: - UI elements setup
+    private func setUpUI() {
         // Navigation bar: custom News source label, news share button on right
         setUpNavigationBar()
         setupBottomBarView()
@@ -168,8 +232,10 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
         ])
         updatePlayButton()
 
-        guard let userId = AWSMobileClient.default().userSub else { return }
-        userDataFetcher.getUserItemSave (userId: userId, itemId: self.news.identifier, completionHandler: { (isSaved, error) in
+        guard let userId = AWSMobileClient.default().userSub, let news = news else {
+            return
+        }
+        userDataFetcher.getUserItemSave (userId: userId, itemId: news.identifier, completionHandler: { (isSaved, error) in
             if (error == nil && isSaved) {
                 DispatchQueue.main.async {
                     self.likeButton.isSelected = true
@@ -177,27 +243,9 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
             }
         })
 
-        userDataFetcher.startItemProgressIfNeeded(userId: userId, itemId: self.news.identifier, itemType: "ARTICLE")
+        userDataFetcher.startItemProgressIfNeeded(userId: userId, itemId: news.identifier, itemType: "ARTICLE")
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        var bottomBarViewBounds = bottomBarView.bounds
-        bottomBarViewBounds.size.height = 10
-        bottomBarView.layer.shadowPath = UIBezierPath.init(rect: bottomBarViewBounds).cgPath
-    }
-
-    func setUpNavigationBar() {
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationItem.titleView = newsSourceNavigationView
-        view.backgroundColor = .white
-        let newsShareButtonImage = UIImage.init(named: newsShareButtonImageName)
-        let newsShareButtonItem = UIBarButtonItem.init(image: newsShareButtonImage, style: .plain, target: self, action: #selector(didTapShareButton))
-        navigationItem.setRightBarButton(newsShareButtonItem, animated: true)
-        setUpNewsSourceView(newsSource: news.source)
-    }
-
-    // MARK: - UI elements setup
     func setUpNewsSourceView(newsSource: String) {
         let newsSourceRect:CGRect = CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: reservedNewsSourceWidth, height: reservedNewsSourceHeight))
 
@@ -295,11 +343,13 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
     // MARK: - Private buttom actions
     @objc
     func didTapLikeButton() {
-        guard let userId = AWSMobileClient.default().userSub else { return }
+        guard let userId = AWSMobileClient.default().userSub, let news = news else {
+            return
+        }
         let screenName = languageToggleButton.isOn ? "p_meho_stories_chinese": "p_meho_stories_english"
         if self.likeButton.isSelected {
             Analytics.logContentAction(content: news, screenName: screenName, action: .unBookmark)
-            userDataFetcher.deleteUserItemSave(userId: userId, itemId: self.news.identifier) { (unsaveSuccess, error) in
+            userDataFetcher.deleteUserItemSave(userId: userId, itemId: news.identifier) { (unsaveSuccess, error) in
                 if (error == nil && unsaveSuccess) {
                      DispatchQueue.main.async {
                          self.likeButton.isSelected = false
@@ -309,7 +359,7 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
             }
         } else {
             Analytics.logContentAction(content: news, screenName: screenName, action: .bookmark)
-            userDataFetcher.createUserItemSave(userId: userId, itemId: self.news.identifier, itemType: "ARTICLE") { (saveSuccess, error) in
+            userDataFetcher.createUserItemSave(userId: userId, itemId: news.identifier, itemType: "ARTICLE") { (saveSuccess, error) in
                 if (error == nil && saveSuccess) {
                      DispatchQueue.main.async {
                          self.likeButton.isSelected = true
@@ -323,6 +373,9 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
 
     @objc
     func didTapShareButton() {
+        guard let news = news else {
+            return
+        }
         let newsTitle = "Check out what others are reading about China"
         let logoImage = UIImage.init(named: "auth_logo")
         let slug = news.slug
@@ -399,12 +452,15 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
     }
 
     private func updatePlayButton() {
+        guard let news = news else {
+            return
+        }
         let audioKey = languageToggleButton.isOn ? news.audioZhKey : news.audioEnKey
         if audioKey == nil {
             playButton.isHidden = true
         } else {
             playButton.isHidden = false
-            let title = self.languageToggleButton.isOn ? self.news.title_zh : self.news.title_en
+            let title = languageToggleButton.isOn ? news.title_zh : news.title_en
             if NewsAudioPlayer.shared.isCurrentlyPlayingAudio(with: title) {
                 playButton.isEnabled = false
             } else {
@@ -415,6 +471,9 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
 
     @objc
     func didTapPlayAudioButton() {
+        guard let news = news else {
+            return
+        }
         let audioKeyOptional = languageToggleButton.isOn ? news.audioZhKey : news.audioEnKey
         guard let audioKey = audioKeyOptional else {
             return
@@ -424,8 +483,8 @@ class DetailedNewsViewController: UIViewController, NewsPlayingNow, NewsPlayingN
             switch result {
             case let .success(audioURL):
                 DispatchQueue.main.async {
-                    let title = self.languageToggleButton.isOn ? self.news.title_zh : self.news.title_en
-                    NewsAudioPlayer.shared.playAudio(audioURL: audioURL, title: title, coverImageKey: self.news.imageKey)
+                    let title = self.languageToggleButton.isOn ? news.title_zh : news.title_en
+                    NewsAudioPlayer.shared.playAudio(audioURL: audioURL, title: title, coverImageKey: news.imageKey)
                     if let newsPlayNowView = NewsAudioPlayer.shared.newsPlayingNowView {
                         self.displayNewsPlayingNowView(newsPlayNowView)
                     }

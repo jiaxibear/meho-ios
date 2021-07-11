@@ -89,6 +89,8 @@ class MainViewController: UITabBarController {
                             }
                         }
                     }
+                } else {
+                    Analytics.setUserID(userID)
                 }
             }
         }
@@ -101,5 +103,10 @@ class MainViewController: UITabBarController {
 
     func selectTab(at index: MainViewControllerTab) {
         selectedIndex = index.rawValue
+    }
+
+    func displayDetailedNewsViewController(newsID: String) {
+        let detailedNewsViewController = DetailedNewsViewController.init(newsID: newsID)
+        navigationController?.pushViewController(detailedNewsViewController, animated: true)
     }
 }

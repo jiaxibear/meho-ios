@@ -28,6 +28,44 @@ class NewsDataFetcher: NSObject {
     }
 
     // MARK: - GraphQL based queries
+    public func fetchNews(newsID: String, completionHandler: @escaping ( News?, Error?) -> Void) {
+        let q = GetArticleQuery(id: newsID)
+        appSyncClient?.fetch(query: q) { (result, error) in
+            print (error?.localizedDescription as Any)
+            guard error == nil else {
+                completionHandler(nil, error)
+                return
+            }
+            guard let article = result?.data?.getArticle else {
+                completionHandler(nil, nil)
+                return
+            }
+
+            var news = News.init()
+            news.identifier = article.id
+            news.title_en = article.titleEn
+            news.title_zh = article.titleZh
+            news.reason = article.whyYouShouldReadThisArticle
+            news.date = article.createdAt
+            news.slug = article.slug
+            if let sourcer = article.sourcer {
+                news.source = sourcer
+            }
+            if let key = article.coverImage?.key, let bucket = article.coverImage?.bucket {
+                news.imageKey = S3ResourceKey.init(bucket: bucket, key: key)
+            }
+            if let audioEnKey = article.audioEnKey {
+                news.audioEnKey = S3ResourceKey.init(bucket: "", key: audioEnKey)
+            }
+            if let audioZhKey = article.audioZhKey {
+                news.audioZhKey = S3ResourceKey.init(bucket: "", key: audioZhKey)
+            }
+            news.renderType = "S"
+
+            completionHandler(news, nil)
+        }
+    }
+
     public func fetchNewsDetail(newsID: String, completionHandler: @escaping ( Array<NewsChapter>?, Array<NewsChapter>?, Array<Vocabulary>?, Dictionary<String, Vocabulary>?, Error?) -> Void) {
         let q = GetArticleQuery(id: newsID)
         appSyncClient?.fetch(query: q) { (result, error) in
