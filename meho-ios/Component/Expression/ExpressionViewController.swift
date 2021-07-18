@@ -15,7 +15,7 @@ enum ExpressionSection: Int {
     case trendingPhrases
 }
 
-class ExpressionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsPlayingNow, NewsPlayingNowViewDelegate, LoadingViewDelegate {
+class ExpressionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsPlayingNow, NewsPlayingNowViewDelegate, LoadingViewDelegate, TrendingPhraseCollectionViewCellDelegate {
 
     // MARK: - Constants
     private let expressionTabBarItemImageName = "tabbar_expression_25pt"
@@ -268,6 +268,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
                 collectionView.reloadItems(at: [indexPath])
             }
         }
+        NotificationManager.displayNotificationSoftAsk(type: .trendingPhrases, from: self)
     }
 
     // MARK: - NewsPlayingNow
@@ -286,6 +287,11 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             newsPlayingNowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             newsPlayingNowView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
         ])
+    }
+
+    // MARK: - TrendingPhraseCollectionViewCellDelegate
+    func didStartPlayAudio() {
+        NotificationManager.displayNotificationSoftAsk(type: .trendingPhrases, from: self)
     }
 
     // MARK: - LoadingViewDelegate

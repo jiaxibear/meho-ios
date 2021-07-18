@@ -10,6 +10,10 @@ import UIKit
 import AVFoundation
 import Amplify
 
+protocol TrendingPhraseCollectionViewCellDelegate: AnyObject {
+    func didStartPlayAudio()
+}
+
 class TrendingPhraseCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Constants
@@ -98,6 +102,8 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    weak var delegate: TrendingPhraseCollectionViewCellDelegate?
+
     // MARK: - Init
     @available(*, unavailable)
     init() {
@@ -183,6 +189,7 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
                 self.player = AVPlayer.init(playerItem: playerItem)
                 self.player?.rate = AudioPlaySpeed.normal.rawValue
                 self.player?.play()
+                self.delegate?.didStartPlayAudio()
             case let .failure(storageError):
                 print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
             }

@@ -221,6 +221,12 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         }
     }
 
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.item == newsChapters.count - 1 {
+            NotificationManager.displayNotificationSoftAsk(type: .stories, from: self)
+        }
+    }
+
     // rendertype is returned as one of [XS, S], usually we respect it. S should come with images while XS don't.  If one news is not marked XS but still does not come with image, we should still degrade to XS
     func chooseRenterType(news: News) -> String {
         return news.coverImageURL == nil ? "XS" : "S"

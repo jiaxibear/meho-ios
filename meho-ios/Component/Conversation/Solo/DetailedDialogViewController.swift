@@ -32,6 +32,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
     private let displayScoreSwitch: DisplayScoreSwitch?
     private var initialChapter: String?
     private let isExpression: Bool
+    private var chaptersHavingRecordings: Set<String> = Set.init()
 
     // MARK: MehoAnalytics
     var screenName: String {
@@ -384,6 +385,10 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
                 if let recordingId = maybeRecordingId, maybeError == nil {
                     self.uploadRecordingToS3(audioFileURL: audioFileURL, recordingId: recordingId)
                 }
+            }
+            chaptersHavingRecordings.insert(scoredChapter.chapter.identifier)
+            if chaptersHavingRecordings.count >= 3 {
+                NotificationManager.displayNotificationSoftAsk(type: .talks, from: self)
             }
         }
 

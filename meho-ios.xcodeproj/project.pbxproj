@@ -175,6 +175,8 @@
 		EADFAA2625AE955A00C6344A /* ProfilePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADFAA2525AE955A00C6344A /* ProfilePhotoViewController.swift */; };
 		EADFAA2B25AEB86000C6344A /* ImageTopAndTitleDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADFAA2A25AEB86000C6344A /* ImageTopAndTitleDownButton.swift */; };
 		EADFAAA925B7EE5F00C6344A /* CompleteProfileViewStep1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADFAAA825B7EE5F00C6344A /* CompleteProfileViewStep1Controller.swift */; };
+		EAF9D2B9269BAAC000C57E64 /* NotificationSoftAskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9D2B8269BAAC000C57E64 /* NotificationSoftAskViewController.swift */; };
+		EAF9D2BC269BC8B500C57E64 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9D2BB269BC8B500C57E64 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -398,6 +400,8 @@
 		EADFAA2525AE955A00C6344A /* ProfilePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoViewController.swift; sourceTree = "<group>"; };
 		EADFAA2A25AEB86000C6344A /* ImageTopAndTitleDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTopAndTitleDownButton.swift; sourceTree = "<group>"; };
 		EADFAAA825B7EE5F00C6344A /* CompleteProfileViewStep1Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteProfileViewStep1Controller.swift; sourceTree = "<group>"; };
+		EAF9D2B8269BAAC000C57E64 /* NotificationSoftAskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSoftAskViewController.swift; sourceTree = "<group>"; };
+		EAF9D2BB269BC8B500C57E64 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.release.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -790,6 +794,7 @@
 		EA52FDB423EFAA5A008EB37B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				EAF9D2BA269BC89700C57E64 /* NotificationManager */,
 				EA6381F0245807C100481B8B /* ContentEvaluation */,
 				EA5449132442B0FE00C07D0A /* Utils */,
 				EA544902243AC69200C07D0A /* AudioConverter */,
@@ -962,6 +967,7 @@
 				EA283A7D25E6330300DE8263 /* LoadingView.swift */,
 				EA4DA7812652171D00FCC4DA /* MehoFloatingLabelTextField.swift */,
 				EA4DA789265A343600FCC4DA /* ErrorMessageView.swift */,
+				EAF9D2B8269BAAC000C57E64 /* NotificationSoftAskViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1002,6 +1008,14 @@
 				EAD7F77124D52659008ADC1C /* TermsOfUse.html */,
 			);
 			path = HTMLs;
+			sourceTree = "<group>";
+		};
+		EAF9D2BA269BC89700C57E64 /* NotificationManager */ = {
+			isa = PBXGroup;
+			children = (
+				EAF9D2BB269BC8B500C57E64 /* NotificationManager.swift */,
+			);
+			path = NotificationManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1285,6 +1299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAF9D2B9269BAAC000C57E64 /* NotificationSoftAskViewController.swift in Sources */,
 				EA01E6A823FA1A3600C0B0AE /* UIColorExtentsion.swift in Sources */,
 				EA9AD89E25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift in Sources */,
 				92C5FE2F244D1621004A3322 /* PinyinSectionHeaderCollectionReusableView.swift in Sources */,
@@ -1364,6 +1379,7 @@
 				EAC74A3C2676C12700FBF027 /* ProfessionQuestionCollectionViewCell.swift in Sources */,
 				92ADF89524495D22003D2D12 /* FoundationDataFetcher.swift in Sources */,
 				92046FFE24F337A200DE1A2D /* SignUpViewController.swift in Sources */,
+				EAF9D2BC269BC8B500C57E64 /* NotificationManager.swift in Sources */,
 				92BAC71B2439B06B00862571 /* DetailedNewsViewController.swift in Sources */,
 				92FE6CE6245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift in Sources */,
 				EA5448C724283D6900C07D0A /* ExpandedChapterCollectionViewCell.swift in Sources */,

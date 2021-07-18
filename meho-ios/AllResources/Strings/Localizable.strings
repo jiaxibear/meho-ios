@@ -464,3 +464,21 @@
 
 /* Title for the retry button. */
 "RetryButtonTitle" = "Retry";
+
+/* The name of the app. */
+"MehoTitle" = "Meho";
+
+/* Message displayed in the stories notification soft ask prompt. */
+"StoriesNotificationSoftAsk" = "Would you like to be notified when we have new stories and other updates on Meho?";
+
+/* Message displayed in the talks notification soft ask prompt. */
+"TalksNotificationSoftAsk" = "Would you like to be notified when we have new talks and other updates on Meho?";
+
+/* Message displayed in the trending phrases notification soft ask prompt. */
+"TrendingPhrasesNotificationSoftAsk" = "Would you like to be notified of the latest trending phrases & other updates on Meho?";
+
+/* Title for the button to enable the notification. */
+"YesButtonTitle" = "Yes, please";
+
+/* Title for the button to not enable the notification. */
+"NoButtonTitle" = "No, thanks";

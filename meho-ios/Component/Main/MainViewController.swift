@@ -80,15 +80,6 @@ class MainViewController: UITabBarController {
                 // Disable Firebase Analytics and enable notification for internal testing accounts.
                 if self.internalTestingEmailList.contains(email) {
                     Analytics.setAnalyticsCollectionEnabled(false)
-
-                    let center = UNUserNotificationCenter.current()
-                    center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-                        if granted {
-                            DispatchQueue.main.async {
-                                UIApplication.shared.registerForRemoteNotifications()
-                            }
-                        }
-                    }
                 } else {
                     Analytics.setUserID(userID)
                 }

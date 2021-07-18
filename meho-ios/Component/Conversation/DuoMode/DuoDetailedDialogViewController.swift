@@ -174,6 +174,11 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
         }
     }
 
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        NotificationManager.displayNotificationSoftAsk(type: .talks, from: self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
