@@ -4502,6 +4502,7 @@ subscription OnCreateUserToken {
     userId
     os
     token
+    deviceId
     enable
     createdAt
     updatedAt
@@ -4513,6 +4514,7 @@ subscription OnUpdateUserToken {
     userId
     os
     token
+    deviceId
     enable
     createdAt
     updatedAt
@@ -4524,6 +4526,7 @@ subscription OnDeleteUserToken {
     userId
     os
     token
+    deviceId
     enable
     createdAt
     updatedAt

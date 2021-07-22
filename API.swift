@@ -4463,8 +4463,8 @@ public struct DeleteUserInput: GraphQLMapConvertible {
 public struct CreateUserTokenInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID? = nil, userId: GraphQLID, os: String, token: String, enable: Bool? = nil) {
-    graphQLMap = ["id": id, "userId": userId, "os": os, "token": token, "enable": enable]
+  public init(id: GraphQLID? = nil, userId: GraphQLID, os: String, token: String, deviceId: String? = nil, enable: Bool? = nil) {
+    graphQLMap = ["id": id, "userId": userId, "os": os, "token": token, "deviceId": deviceId, "enable": enable]
   }
 
   public var id: GraphQLID? {
@@ -4503,6 +4503,15 @@ public struct CreateUserTokenInput: GraphQLMapConvertible {
     }
   }
 
+  public var deviceId: String? {
+    get {
+      return graphQLMap["deviceId"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "deviceId")
+    }
+  }
+
   public var enable: Bool? {
     get {
       return graphQLMap["enable"] as! Bool?
@@ -4516,8 +4525,8 @@ public struct CreateUserTokenInput: GraphQLMapConvertible {
 public struct ModelUserTokenConditionInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(userId: ModelIDInput? = nil, os: ModelStringInput? = nil, token: ModelStringInput? = nil, enable: ModelBooleanInput? = nil, and: [ModelUserTokenConditionInput?]? = nil, or: [ModelUserTokenConditionInput?]? = nil, not: ModelUserTokenConditionInput? = nil) {
-    graphQLMap = ["userId": userId, "os": os, "token": token, "enable": enable, "and": and, "or": or, "not": not]
+  public init(userId: ModelIDInput? = nil, os: ModelStringInput? = nil, token: ModelStringInput? = nil, deviceId: ModelStringInput? = nil, enable: ModelBooleanInput? = nil, and: [ModelUserTokenConditionInput?]? = nil, or: [ModelUserTokenConditionInput?]? = nil, not: ModelUserTokenConditionInput? = nil) {
+    graphQLMap = ["userId": userId, "os": os, "token": token, "deviceId": deviceId, "enable": enable, "and": and, "or": or, "not": not]
   }
 
   public var userId: ModelIDInput? {
@@ -4544,6 +4553,15 @@ public struct ModelUserTokenConditionInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "token")
+    }
+  }
+
+  public var deviceId: ModelStringInput? {
+    get {
+      return graphQLMap["deviceId"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "deviceId")
     }
   }
 
@@ -4587,8 +4605,8 @@ public struct ModelUserTokenConditionInput: GraphQLMapConvertible {
 public struct UpdateUserTokenInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID, userId: GraphQLID? = nil, os: String? = nil, token: String? = nil, enable: Bool? = nil) {
-    graphQLMap = ["id": id, "userId": userId, "os": os, "token": token, "enable": enable]
+  public init(id: GraphQLID, userId: GraphQLID? = nil, os: String? = nil, token: String? = nil, deviceId: String? = nil, enable: Bool? = nil) {
+    graphQLMap = ["id": id, "userId": userId, "os": os, "token": token, "deviceId": deviceId, "enable": enable]
   }
 
   public var id: GraphQLID {
@@ -4624,6 +4642,15 @@ public struct UpdateUserTokenInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "token")
+    }
+  }
+
+  public var deviceId: String? {
+    get {
+      return graphQLMap["deviceId"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "deviceId")
     }
   }
 
@@ -6659,8 +6686,8 @@ public struct ModelUserFilterInput: GraphQLMapConvertible {
 public struct ModelUserTokenFilterInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: ModelIDInput? = nil, userId: ModelIDInput? = nil, os: ModelStringInput? = nil, token: ModelStringInput? = nil, enable: ModelBooleanInput? = nil, and: [ModelUserTokenFilterInput?]? = nil, or: [ModelUserTokenFilterInput?]? = nil, not: ModelUserTokenFilterInput? = nil) {
-    graphQLMap = ["id": id, "userId": userId, "os": os, "token": token, "enable": enable, "and": and, "or": or, "not": not]
+  public init(id: ModelIDInput? = nil, userId: ModelIDInput? = nil, os: ModelStringInput? = nil, token: ModelStringInput? = nil, deviceId: ModelStringInput? = nil, enable: ModelBooleanInput? = nil, and: [ModelUserTokenFilterInput?]? = nil, or: [ModelUserTokenFilterInput?]? = nil, not: ModelUserTokenFilterInput? = nil) {
+    graphQLMap = ["id": id, "userId": userId, "os": os, "token": token, "deviceId": deviceId, "enable": enable, "and": and, "or": or, "not": not]
   }
 
   public var id: ModelIDInput? {
@@ -6696,6 +6723,15 @@ public struct ModelUserTokenFilterInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "token")
+    }
+  }
+
+  public var deviceId: ModelStringInput? {
+    get {
+      return graphQLMap["deviceId"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "deviceId")
     }
   }
 
@@ -71515,7 +71551,7 @@ public final class DeleteUserMutation: GraphQLMutation {
 
 public final class CreateUserTokenMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateUserToken($input: CreateUserTokenInput!, $condition: ModelUserTokenConditionInput) {\n  createUserToken(input: $input, condition: $condition) {\n    __typename\n    id\n    userId\n    os\n    token\n    enable\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateUserToken($input: CreateUserTokenInput!, $condition: ModelUserTokenConditionInput) {\n  createUserToken(input: $input, condition: $condition) {\n    __typename\n    id\n    userId\n    os\n    token\n    deviceId\n    enable\n    createdAt\n    updatedAt\n  }\n}"
 
   public var input: CreateUserTokenInput
   public var condition: ModelUserTokenConditionInput?
@@ -71564,6 +71600,7 @@ public final class CreateUserTokenMutation: GraphQLMutation {
         GraphQLField("userId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("os", type: .nonNull(.scalar(String.self))),
         GraphQLField("token", type: .nonNull(.scalar(String.self))),
+        GraphQLField("deviceId", type: .scalar(String.self)),
         GraphQLField("enable", type: .scalar(Bool.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -71575,8 +71612,8 @@ public final class CreateUserTokenMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, enable: Bool? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, deviceId: String? = nil, enable: Bool? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "deviceId": deviceId, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -71624,6 +71661,15 @@ public final class CreateUserTokenMutation: GraphQLMutation {
         }
       }
 
+      public var deviceId: String? {
+        get {
+          return snapshot["deviceId"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "deviceId")
+        }
+      }
+
       public var enable: Bool? {
         get {
           return snapshot["enable"] as? Bool
@@ -71656,7 +71702,7 @@ public final class CreateUserTokenMutation: GraphQLMutation {
 
 public final class UpdateUserTokenMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateUserToken($input: UpdateUserTokenInput!, $condition: ModelUserTokenConditionInput) {\n  updateUserToken(input: $input, condition: $condition) {\n    __typename\n    id\n    userId\n    os\n    token\n    enable\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateUserToken($input: UpdateUserTokenInput!, $condition: ModelUserTokenConditionInput) {\n  updateUserToken(input: $input, condition: $condition) {\n    __typename\n    id\n    userId\n    os\n    token\n    deviceId\n    enable\n    createdAt\n    updatedAt\n  }\n}"
 
   public var input: UpdateUserTokenInput
   public var condition: ModelUserTokenConditionInput?
@@ -71705,6 +71751,7 @@ public final class UpdateUserTokenMutation: GraphQLMutation {
         GraphQLField("userId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("os", type: .nonNull(.scalar(String.self))),
         GraphQLField("token", type: .nonNull(.scalar(String.self))),
+        GraphQLField("deviceId", type: .scalar(String.self)),
         GraphQLField("enable", type: .scalar(Bool.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -71716,8 +71763,8 @@ public final class UpdateUserTokenMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, enable: Bool? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, deviceId: String? = nil, enable: Bool? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "deviceId": deviceId, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -71765,6 +71812,15 @@ public final class UpdateUserTokenMutation: GraphQLMutation {
         }
       }
 
+      public var deviceId: String? {
+        get {
+          return snapshot["deviceId"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "deviceId")
+        }
+      }
+
       public var enable: Bool? {
         get {
           return snapshot["enable"] as? Bool
@@ -71797,7 +71853,7 @@ public final class UpdateUserTokenMutation: GraphQLMutation {
 
 public final class DeleteUserTokenMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteUserToken($input: DeleteUserTokenInput!, $condition: ModelUserTokenConditionInput) {\n  deleteUserToken(input: $input, condition: $condition) {\n    __typename\n    id\n    userId\n    os\n    token\n    enable\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteUserToken($input: DeleteUserTokenInput!, $condition: ModelUserTokenConditionInput) {\n  deleteUserToken(input: $input, condition: $condition) {\n    __typename\n    id\n    userId\n    os\n    token\n    deviceId\n    enable\n    createdAt\n    updatedAt\n  }\n}"
 
   public var input: DeleteUserTokenInput
   public var condition: ModelUserTokenConditionInput?
@@ -71846,6 +71902,7 @@ public final class DeleteUserTokenMutation: GraphQLMutation {
         GraphQLField("userId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("os", type: .nonNull(.scalar(String.self))),
         GraphQLField("token", type: .nonNull(.scalar(String.self))),
+        GraphQLField("deviceId", type: .scalar(String.self)),
         GraphQLField("enable", type: .scalar(Bool.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -71857,8 +71914,8 @@ public final class DeleteUserTokenMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, enable: Bool? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, deviceId: String? = nil, enable: Bool? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "deviceId": deviceId, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -71903,6 +71960,15 @@ public final class DeleteUserTokenMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "token")
+        }
+      }
+
+      public var deviceId: String? {
+        get {
+          return snapshot["deviceId"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "deviceId")
         }
       }
 
@@ -122898,7 +122964,7 @@ public final class ListUsersQuery: GraphQLQuery {
 
 public final class GetUserTokenQuery: GraphQLQuery {
   public static let operationString =
-    "query GetUserToken($id: ID!) {\n  getUserToken(id: $id) {\n    __typename\n    id\n    userId\n    os\n    token\n    enable\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetUserToken($id: ID!) {\n  getUserToken(id: $id) {\n    __typename\n    id\n    userId\n    os\n    token\n    deviceId\n    enable\n    createdAt\n    updatedAt\n  }\n}"
 
   public var id: GraphQLID
 
@@ -122945,6 +123011,7 @@ public final class GetUserTokenQuery: GraphQLQuery {
         GraphQLField("userId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("os", type: .nonNull(.scalar(String.self))),
         GraphQLField("token", type: .nonNull(.scalar(String.self))),
+        GraphQLField("deviceId", type: .scalar(String.self)),
         GraphQLField("enable", type: .scalar(Bool.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -122956,8 +123023,8 @@ public final class GetUserTokenQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, enable: Bool? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, deviceId: String? = nil, enable: Bool? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "deviceId": deviceId, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -123005,6 +123072,15 @@ public final class GetUserTokenQuery: GraphQLQuery {
         }
       }
 
+      public var deviceId: String? {
+        get {
+          return snapshot["deviceId"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "deviceId")
+        }
+      }
+
       public var enable: Bool? {
         get {
           return snapshot["enable"] as? Bool
@@ -123037,7 +123113,7 @@ public final class GetUserTokenQuery: GraphQLQuery {
 
 public final class ListUserTokensQuery: GraphQLQuery {
   public static let operationString =
-    "query ListUserTokens($filter: ModelUserTokenFilterInput, $limit: Int, $nextToken: String) {\n  listUserTokens(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      userId\n      os\n      token\n      enable\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListUserTokens($filter: ModelUserTokenFilterInput, $limit: Int, $nextToken: String) {\n  listUserTokens(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      userId\n      os\n      token\n      deviceId\n      enable\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public var filter: ModelUserTokenFilterInput?
   public var limit: Int?
@@ -123134,6 +123210,7 @@ public final class ListUserTokensQuery: GraphQLQuery {
           GraphQLField("userId", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("os", type: .nonNull(.scalar(String.self))),
           GraphQLField("token", type: .nonNull(.scalar(String.self))),
+          GraphQLField("deviceId", type: .scalar(String.self)),
           GraphQLField("enable", type: .scalar(Bool.self)),
           GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
           GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -123145,8 +123222,8 @@ public final class ListUserTokensQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, enable: Bool? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, deviceId: String? = nil, enable: Bool? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "deviceId": deviceId, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -123191,6 +123268,15 @@ public final class ListUserTokensQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "token")
+          }
+        }
+
+        public var deviceId: String? {
+          get {
+            return snapshot["deviceId"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "deviceId")
           }
         }
 
@@ -202904,7 +202990,7 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
 
 public final class OnCreateUserTokenSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateUserToken {\n  onCreateUserToken {\n    __typename\n    id\n    userId\n    os\n    token\n    enable\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateUserToken {\n  onCreateUserToken {\n    __typename\n    id\n    userId\n    os\n    token\n    deviceId\n    enable\n    createdAt\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -202944,6 +203030,7 @@ public final class OnCreateUserTokenSubscription: GraphQLSubscription {
         GraphQLField("userId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("os", type: .nonNull(.scalar(String.self))),
         GraphQLField("token", type: .nonNull(.scalar(String.self))),
+        GraphQLField("deviceId", type: .scalar(String.self)),
         GraphQLField("enable", type: .scalar(Bool.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -202955,8 +203042,8 @@ public final class OnCreateUserTokenSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, enable: Bool? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, deviceId: String? = nil, enable: Bool? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "deviceId": deviceId, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -203004,6 +203091,15 @@ public final class OnCreateUserTokenSubscription: GraphQLSubscription {
         }
       }
 
+      public var deviceId: String? {
+        get {
+          return snapshot["deviceId"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "deviceId")
+        }
+      }
+
       public var enable: Bool? {
         get {
           return snapshot["enable"] as? Bool
@@ -203036,7 +203132,7 @@ public final class OnCreateUserTokenSubscription: GraphQLSubscription {
 
 public final class OnUpdateUserTokenSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateUserToken {\n  onUpdateUserToken {\n    __typename\n    id\n    userId\n    os\n    token\n    enable\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateUserToken {\n  onUpdateUserToken {\n    __typename\n    id\n    userId\n    os\n    token\n    deviceId\n    enable\n    createdAt\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -203076,6 +203172,7 @@ public final class OnUpdateUserTokenSubscription: GraphQLSubscription {
         GraphQLField("userId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("os", type: .nonNull(.scalar(String.self))),
         GraphQLField("token", type: .nonNull(.scalar(String.self))),
+        GraphQLField("deviceId", type: .scalar(String.self)),
         GraphQLField("enable", type: .scalar(Bool.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -203087,8 +203184,8 @@ public final class OnUpdateUserTokenSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, enable: Bool? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, deviceId: String? = nil, enable: Bool? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "deviceId": deviceId, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -203136,6 +203233,15 @@ public final class OnUpdateUserTokenSubscription: GraphQLSubscription {
         }
       }
 
+      public var deviceId: String? {
+        get {
+          return snapshot["deviceId"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "deviceId")
+        }
+      }
+
       public var enable: Bool? {
         get {
           return snapshot["enable"] as? Bool
@@ -203168,7 +203274,7 @@ public final class OnUpdateUserTokenSubscription: GraphQLSubscription {
 
 public final class OnDeleteUserTokenSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteUserToken {\n  onDeleteUserToken {\n    __typename\n    id\n    userId\n    os\n    token\n    enable\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteUserToken {\n  onDeleteUserToken {\n    __typename\n    id\n    userId\n    os\n    token\n    deviceId\n    enable\n    createdAt\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -203208,6 +203314,7 @@ public final class OnDeleteUserTokenSubscription: GraphQLSubscription {
         GraphQLField("userId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("os", type: .nonNull(.scalar(String.self))),
         GraphQLField("token", type: .nonNull(.scalar(String.self))),
+        GraphQLField("deviceId", type: .scalar(String.self)),
         GraphQLField("enable", type: .scalar(Bool.self)),
         GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
         GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
@@ -203219,8 +203326,8 @@ public final class OnDeleteUserTokenSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, enable: Bool? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, userId: GraphQLID, os: String, token: String, deviceId: String? = nil, enable: Bool? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "UserToken", "id": id, "userId": userId, "os": os, "token": token, "deviceId": deviceId, "enable": enable, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -203265,6 +203372,15 @@ public final class OnDeleteUserTokenSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "token")
+        }
+      }
+
+      public var deviceId: String? {
+        get {
+          return snapshot["deviceId"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "deviceId")
         }
       }
 

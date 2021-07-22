@@ -2505,6 +2505,7 @@ query GetUserToken($id: ID!) {
     userId
     os
     token
+    deviceId
     enable
     createdAt
     updatedAt
@@ -2521,6 +2522,7 @@ query ListUserTokens(
       userId
       os
       token
+      deviceId
       enable
       createdAt
       updatedAt
