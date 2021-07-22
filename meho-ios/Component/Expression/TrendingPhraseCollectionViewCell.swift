@@ -11,7 +11,7 @@ import AVFoundation
 import Amplify
 
 protocol TrendingPhraseCollectionViewCellDelegate: AnyObject {
-    func didStartPlayAudio()
+    func didStartPlayAudio(with trendingPhraseWrapper: TrendingPhraseWrapper)
 }
 
 class TrendingPhraseCollectionViewCell: UICollectionViewCell {
@@ -189,7 +189,7 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
                 self.player = AVPlayer.init(playerItem: playerItem)
                 self.player?.rate = AudioPlaySpeed.normal.rawValue
                 self.player?.play()
-                self.delegate?.didStartPlayAudio()
+                self.delegate?.didStartPlayAudio(with: self.trendingPhraseWrapper!)
             case let .failure(storageError):
                 print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
             }

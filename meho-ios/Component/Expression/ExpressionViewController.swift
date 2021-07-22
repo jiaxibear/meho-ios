@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAnalytics
 import Reachability
+import AWSMobileClient
 
 enum ExpressionSection: Int {
     case survivalPhrases
@@ -80,6 +81,8 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
         expressionCollectionView.isHidden = true
         return expressionCollectionView
     } ()
+
+    private var trendingPhrasesSet: Set<String> = Set.init()
 
     private var scrollDownTitleHiddenCollectionViewTopConstraint: NSLayoutConstraint!
     private var scrollUpTitleShownCollectionViewTopConstraint: NSLayoutConstraint!
@@ -253,7 +256,8 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             let detailedNewsViewController = DetailedDialogViewController.init(survivalPhraseCategoryIdentifier: survivalPhraseCategoryIdentifier, title: survivalPhrase.title)
             navigationController?.pushViewController(detailedNewsViewController, animated: true)
         } else if expressionSection == .trendingPhrases {
-            let trendingPhraseWrapper = trendingPhrases[indexPath.item]
+            let item = indexPath.item
+            let trendingPhraseWrapper = trendingPhrases[item]
             let newExpandedState = !trendingPhraseWrapper.isExpanded
             trendingPhraseWrapper.isExpanded = newExpandedState
             let controlName = newExpandedState ? "expand_phrase" : "collapse_phrase"
@@ -267,8 +271,8 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             UIView.performWithoutAnimation {
                 collectionView.reloadItems(at: [indexPath])
             }
+            maybeDisplayNotificationSoftAsk(trendingPhrase: trendingPhraseWrapper.trendingPhrase)
         }
-        NotificationManager.displayNotificationSoftAsk(type: .trendingPhrases, from: self)
     }
 
     // MARK: - NewsPlayingNow
@@ -290,8 +294,8 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     // MARK: - TrendingPhraseCollectionViewCellDelegate
-    func didStartPlayAudio() {
-        NotificationManager.displayNotificationSoftAsk(type: .trendingPhrases, from: self)
+    func didStartPlayAudio(with trendingPhraseWrapper: TrendingPhraseWrapper) {
+        maybeDisplayNotificationSoftAsk(trendingPhrase: trendingPhraseWrapper.trendingPhrase)
     }
 
     // MARK: - LoadingViewDelegate
@@ -393,6 +397,14 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     // MARK: - Private
+
+    private func maybeDisplayNotificationSoftAsk(trendingPhrase: TrendingPhrase) {
+        trendingPhrasesSet.insert(trendingPhrase.identifier)
+        if trendingPhrasesSet.count >= 3 {
+            NotificationManager.displayNotificationSoftAsk(type: .trendingPhrases, from: self)
+        }
+    }
+
     private func fetchTrendingPhrases() {
         loadingView.state = .loading
         dataFecther.fetchTrendingPhrases { (result) in

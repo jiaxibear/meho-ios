@@ -41,6 +41,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
         coverImageView.contentMode = .scaleAspectFit
         coverImageView.delegate = self
+        coverImageView.tintColor = .darkGrayTwo
         return coverImageView
     } ()
 
@@ -107,7 +108,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
             let s3Key = S3ResourceKey.init(bucket: "mehoassets213338-mehoadmin", key: imageKey)
             coverImageView.imageKey = s3Key
         } else {
-            coverImageView.image = UIImage.init(named: "tag_see_all")
+            coverImageView.image = UIImage.init(named: "tag_see_all")?.withRenderingMode(.alwaysTemplate)
         }
     }
 }

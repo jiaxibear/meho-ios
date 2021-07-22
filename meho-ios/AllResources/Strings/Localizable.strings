@@ -280,7 +280,7 @@
 "completeProfileStep4Title" = "Complete your profile (4/4)";
 
 /* Title to ask why the user is interested in learning Chinese. */
-"InterestReasonTitle" = "Why are you interested in trying out Meho (please choose all apply):";
+"InterestReasonTitle" = "Why are you interested in trying out Meho (please choose all that apply):";
 
 /* Title to ask which of the following tags best describe the user's interests. */
 "InterestTagsTitle" = "Select topics you are interested to learn about China (please choose all that apply):";
@@ -324,11 +324,11 @@
 /* Title for the sign up error alert. */
 "verificationCodeErrorTitle" = "Error sending verification code";
 
-/* An generic error message displayed when an error occurred while forgetting password. */
-"genericForgetPasswordErrorMessage" = "An error occurred while forgetting password";
+/* An generic error message displayed when an error occurred while resetting password. */
+"genericForgetPasswordErrorMessage" = "An error occurred while resetting password";
 
-/* Title for the forget password error alert. */
-"forgetPasswordErrorTitle" = "Error forgetting password";
+/* Title for the reset password error alert. */
+"forgetPasswordErrorTitle" = "Error resetting password";
 
 /* Title for the send code button. */
 "sendCodeButtonTitle" = "Send Code";
@@ -482,3 +482,6 @@
 
 /* Title for the button to not enable the notification. */
 "NoButtonTitle" = "No, thanks";
+
+/* Title for the learn more button. */
+"LearnMoreButtonTitle" = "Learn More";

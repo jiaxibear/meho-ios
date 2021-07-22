@@ -10,10 +10,16 @@ import UIKit
 
 class ListedCategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NewsPlayingNow, NewsPlayingNowViewDelegate {
 
-    private let normalCategoryListCardHeight = CGFloat(64)
-    private let featuredCategoryListCardHeight = CGFloat(178)
+    private let normalCategoryListCardHeight = CGFloat(60)
+    private let featuredCategoryListCardHeight = CGFloat(124)
+    private let contentLeadingTrailingMargin = CGFloat(16)
 
-    private var listedCategoriesCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+    private lazy var listedCategoriesCollectionViewFlowLayout: UICollectionViewFlowLayout = {
+        let listedCategoriesCollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+        listedCategoriesCollectionViewFlowLayout.scrollDirection = .vertical
+        listedCategoriesCollectionViewFlowLayout.minimumLineSpacing = contentLeadingTrailingMargin
+        return listedCategoriesCollectionViewFlowLayout
+    } ()
 
     private lazy var listedCategoriesCollectionView: UICollectionView = {
         let listedCategoriesCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout:listedCategoriesCollectionViewFlowLayout)
@@ -22,12 +28,7 @@ class ListedCategoryViewController: UIViewController, UICollectionViewDataSource
         listedCategoriesCollectionView.backgroundColor = .white
         listedCategoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         listedCategoriesCollectionView.showsVerticalScrollIndicator = false
-        listedCategoriesCollectionView.contentInset = .zero
-
-        // collection layout
-        listedCategoriesCollectionViewFlowLayout.scrollDirection = .vertical
-        listedCategoriesCollectionViewFlowLayout.minimumLineSpacing = 0
-
+        listedCategoriesCollectionView.contentInset = UIEdgeInsets.init(top: 0, left: 2, bottom: 0, right: 2)
         listedCategoriesCollectionView.register(ListedNormalCategoryCollectionViewCell.self, forCellWithReuseIdentifier:listedCategoryCellIdentifier)
         listedCategoriesCollectionView.register(ListedFeaturedCategoryCollectionViewCell.self, forCellWithReuseIdentifier:featuredCategoryCellIdentifier)
         return listedCategoriesCollectionView
@@ -72,8 +73,8 @@ class ListedCategoryViewController: UIViewController, UICollectionViewDataSource
 
         NSLayoutConstraint.activate([
             listedCategoriesCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            listedCategoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            listedCategoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            listedCategoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: contentLeadingTrailingMargin),
+            listedCategoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentLeadingTrailingMargin),
             listedCategoriesCollectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
         ])
     }
@@ -84,12 +85,13 @@ class ListedCategoryViewController: UIViewController, UICollectionViewDataSource
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width
+        let width = collectionView.bounds.width - collectionView.contentInset.left + collectionView.contentInset.right
         let category = categories[indexPath.item]
         if category.isFeatured {
             return CGSize(width: width, height: featuredCategoryListCardHeight)
         } else {
-            return CGSize(width: width, height: normalCategoryListCardHeight)
+            let nonFeaturedWidth = (width - contentLeadingTrailingMargin) / 2
+            return CGSize(width: nonFeaturedWidth, height: normalCategoryListCardHeight)
         }
     }
 

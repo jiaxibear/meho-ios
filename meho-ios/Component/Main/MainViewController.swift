@@ -100,4 +100,10 @@ class MainViewController: UITabBarController {
         let detailedNewsViewController = DetailedNewsViewController.init(newsID: newsID)
         navigationController?.pushViewController(detailedNewsViewController, animated: true)
     }
+
+    func displayDialogModeSelectionViewController(dialogID: String) {
+        if let conversationViewController = viewControllers?[2] as? ConversationViewController {
+            conversationViewController.displayDialogModeSelectionViewController(dialogID: dialogID)
+        }
+    }
 }

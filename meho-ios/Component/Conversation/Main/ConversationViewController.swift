@@ -439,6 +439,14 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         })
     }
 
+    func displayDialogModeSelectionViewController(dialogID: String) {
+        dataFecther.fetchDetailedDialog(dialogID: dialogID) { dialog, error in
+            if let dialog = dialog {
+                self.displayDialogModeSelectionViewController(dialog: dialog)
+            }
+        }
+    }
+
     private func updateLoadingView() {
         guard fetchedItems == 2 else {
             return

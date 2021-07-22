@@ -11,20 +11,21 @@ import UIKit
 class ListedNormalCategoryCollectionViewCell: UICollectionViewCell, WebImageViewDelegate {
 
     // MARK: - Constants
-    private static let horizontalMargin = CGFloat(22)
-    private static let labelFontSize = CGFloat(20)
+    private static let horizontalMargin = CGFloat(14)
+    private static let labelFontSize = CGFloat(12)
     private static let labelTextHeight = CGFloat(24)
-    private static let categoryIconHeight = CGFloat(35)
+    private static let categoryIconHeight = CGFloat(38)
     private static let lineDelimiterHeight = CGFloat(1)
+    private static let cornerRadius = CGFloat(8)
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel.init(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-
-        label.textColor = .darkGray
-        let pinyinfontDescriptor = UIFont.systemFont(ofSize: ListedNormalCategoryCollectionViewCell.labelFontSize, weight: .semibold).fontDescriptor.withDesign(.rounded)
+        label.textColor = .mehoDarkGray
+        let pinyinfontDescriptor = UIFont.systemFont(ofSize: ListedNormalCategoryCollectionViewCell.labelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
         label.font = UIFont.init(descriptor: pinyinfontDescriptor!, size: 0)
         label.numberOfLines = 1
+        label.textAlignment = .center
         return label
     } ()
 
@@ -36,11 +37,12 @@ class ListedNormalCategoryCollectionViewCell: UICollectionViewCell, WebImageView
         return imageView
     } ()
 
-    private let lineDelimiterView: UIView = {
-        let lineView = UIView.init(frame: .zero)
-        lineView.translatesAutoresizingMaskIntoConstraints = false
-        lineView.backgroundColor = .textBlueGray
-        return lineView
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView.init(arrangedSubviews: [categoryImageView, titleLabel])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        return stackView
     } ()
 
     // MARK: - Init
@@ -58,25 +60,20 @@ class ListedNormalCategoryCollectionViewCell: UICollectionViewCell, WebImageView
         super.init(frame: frame)
         backgroundColor = .white
 
-        // Sets up title label.
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(lineDelimiterView)
-        contentView.addSubview(categoryImageView)
+        layer.applySketchShadow(color: .paleLilac, alpha: 1, x: 0, y: 0, blur: 6, spread: 0.5)
+        layer.cornerRadius = ListedNormalCategoryCollectionViewCell.cornerRadius
+        contentView.addSubview(stackView)
 
         // Sets up constraints
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: ListedNormalCategoryCollectionViewCell.horizontalMargin).isActive = true
-        titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: ListedNormalCategoryCollectionViewCell.labelTextHeight).isActive = true
+        NSLayoutConstraint.activate([
+            categoryImageView.heightAnchor.constraint(equalToConstant: ListedNormalCategoryCollectionViewCell.categoryIconHeight),
+            categoryImageView.widthAnchor.constraint(equalToConstant: ListedNormalCategoryCollectionViewCell.categoryIconHeight),
 
-        categoryImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -ListedNormalCategoryCollectionViewCell.horizontalMargin).isActive = true
-        categoryImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        categoryImageView.heightAnchor.constraint(equalToConstant: ListedNormalCategoryCollectionViewCell.categoryIconHeight).isActive = true
-        categoryImageView.widthAnchor.constraint(equalToConstant: ListedNormalCategoryCollectionViewCell.categoryIconHeight).isActive = true
-
-        lineDelimiterView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        lineDelimiterView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        lineDelimiterView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        lineDelimiterView.heightAnchor.constraint(equalToConstant: ListedNormalCategoryCollectionViewCell.lineDelimiterHeight).isActive = true
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: ListedNormalCategoryCollectionViewCell.horizontalMargin),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -ListedNormalCategoryCollectionViewCell.horizontalMargin),
+            stackView.heightAnchor.constraint(equalToConstant: ListedNormalCategoryCollectionViewCell.categoryIconHeight),
+            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+        ])
     }
 
     // MARK - WebImageViewDelegate

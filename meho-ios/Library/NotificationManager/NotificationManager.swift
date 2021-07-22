@@ -7,27 +7,32 @@
 //
 
 import UIKit
+import AWSMobileClient
 
 class NotificationManager: NSObject {
 
-    private static let hasEnabledNotificationKey = "hasEnabledNotificationKey"
-    private static let lastAskNotificationDateKeyFormat = "lastAskNotificationDateKey-%d"
-    private static let numberOfNotificationAsksKeyFormat = "numberOfNotificationAsksKey-%d"
+    private static let hasEnabledNotificationKeyFormat = "hasEnabledNotificationKey-%@"
+    private static let lastAskNotificationDateKeyFormat = "lastAskNotificationDateKey-%@-%d"
+    private static let numberOfNotificationAsksKeyFormat = "numberOfNotificationAsksKey-%@-%d"
     private static let maxNumberOfNotificationAsks = 3
 
     class func displayNotificationSoftAsk(type: NotificationSoftAskType, from viewController: UIViewController) {
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
         let userDefaults = UserDefaults.init()
+        let hasEnabledNotificationKey = String.init(format: hasEnabledNotificationKeyFormat, userID)
         if userDefaults.bool(forKey: hasEnabledNotificationKey) {
             return
         }
 
-        let numberOfNotificationAsksKey = String.init(format: lastAskNotificationDateKeyFormat, type.rawValue)
+        let numberOfNotificationAsksKey = String.init(format: lastAskNotificationDateKeyFormat, userID, type.rawValue)
         let numberOfNotificationAsks = userDefaults.integer(forKey: numberOfNotificationAsksKey)
         if numberOfNotificationAsks >= maxNumberOfNotificationAsks {
             return
         }
 
-        let lastAskNotificationDateKey = String.init(format: numberOfNotificationAsksKeyFormat, type.rawValue)
+        let lastAskNotificationDateKey = String.init(format: numberOfNotificationAsksKeyFormat, userID, type.rawValue)
         if let lastAskNotificationDate = userDefaults.object(forKey: lastAskNotificationDateKey) as? Date {
             var twoWeeks = DateComponents.init()
             twoWeeks.day = 14
@@ -45,7 +50,11 @@ class NotificationManager: NSObject {
     }
 
     class func recordUserEnablementState(enabled: Bool, type: NotificationSoftAskType) {
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
         let userDefaults = UserDefaults.init()
+        let hasEnabledNotificationKey = String.init(format: hasEnabledNotificationKeyFormat, userID)
         if enabled {
             userDefaults.set(true, forKey: hasEnabledNotificationKey)
         } else {
@@ -53,5 +62,27 @@ class NotificationManager: NSObject {
             let lastAskNotificationDateKey = String.init(format: numberOfNotificationAsksKeyFormat, type.rawValue)
             userDefaults.set(Date.init(), forKey: lastAskNotificationDateKey)
         }
+    }
+
+    class func removeUserStates(userID: String) {
+        let userDefaults = UserDefaults.init()
+        let hasEnabledNotificationKey = String.init(format: hasEnabledNotificationKeyFormat, userID)
+        userDefaults.removeObject(forKey: hasEnabledNotificationKey)
+        let types: [NotificationSoftAskType] = [.stories, .talks, .trendingPhrases]
+        for type in types {
+            let numberOfNotificationAsksKey = String.init(format: lastAskNotificationDateKeyFormat, userID, type.rawValue)
+            userDefaults.removeObject(forKey: numberOfNotificationAsksKey)
+            let lastAskNotificationDateKey = String.init(format: numberOfNotificationAsksKeyFormat, userID, type.rawValue)
+            userDefaults.removeObject(forKey: lastAskNotificationDateKey)
+        }
+    }
+
+    class func isNotificationEnabled(userID: String) -> Bool {
+        guard let userID = AWSMobileClient.default().userSub else {
+            return false
+        }
+        let userDefaults = UserDefaults.init()
+        let hasEnabledNotificationKey = String.init(format: hasEnabledNotificationKeyFormat, userID)
+        return userDefaults.bool(forKey: hasEnabledNotificationKey)
     }
 }

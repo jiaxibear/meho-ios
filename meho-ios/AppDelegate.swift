@@ -91,14 +91,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
 
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        let getUserTokenQuery = GetUserTokenQuery.init(id: userID)
+        let tokenID = userID + "_" + (UIDevice.current.identifierForVendor?.uuidString ?? "")
+        let getUserTokenQuery = GetUserTokenQuery.init(id: tokenID)
         appSyncClient?.fetch(query: getUserTokenQuery, resultHandler: { (result, error) in
-            if result != nil {
-                let updateUserTokenInput = UpdateUserTokenInput.init(id: userID, userId: userID, os: "iOS", token: token, enable: true)
+            let enabled = NotificationManager.isNotificationEnabled(userID: userID)
+            if result?.data?.getUserToken != nil {
+                let updateUserTokenInput = UpdateUserTokenInput.init(id: tokenID, userId: userID, os: "iOS", token: token, enable: enabled)
                 let updateUserTokenMutation = UpdateUserTokenMutation.init(input: updateUserTokenInput)
                 self.appSyncClient?.perform(mutation: updateUserTokenMutation)
             } else {
-                let createUserTokenInput = CreateUserTokenInput.init(id: userID, userId: userID, os: "iOS", token: token, enable: true)
+                let createUserTokenInput = CreateUserTokenInput.init(id: tokenID, userId: userID, os: "iOS", token: token, enable: enabled)
                 let createUserTokenMutation = CreateUserTokenMutation.init(input: createUserTokenInput)
                 self.appSyncClient?.perform(mutation: createUserTokenMutation)
             }
@@ -125,6 +127,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         case "talks":
             navigationViewController.popToRootViewController(animated: false)
             mainViewController.selectTab(at: .talks)
+            let path = deepLinkURL.path
+            let index = path.index(after: path.startIndex)
+            let dialogID = String(deepLinkURL.path.suffix(from: index))
+            mainViewController.displayDialogModeSelectionViewController(dialogID: dialogID)
         case "expressions":
             navigationViewController.popToRootViewController(animated: false)
             mainViewController.selectTab(at: .expressions)

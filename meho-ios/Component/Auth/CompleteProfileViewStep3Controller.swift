@@ -27,7 +27,7 @@ class CompleteProfileViewStep3Controller: UIViewController, UICollectionViewData
     private let questionsCollectionNumberOfCellsInRow = 3
     private let questionsCollectionViewMinimumLineSpacing = CGFloat(26)
     private let questionsCollectionViewCellTitleFontSize = CGFloat(14)
-    private let minNumberOfSelectedQuestion = 3
+    private let minNumberOfSelectedQuestion = 1
 
     // MARK: - Properties
     // MARK: Model

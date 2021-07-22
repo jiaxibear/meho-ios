@@ -168,27 +168,22 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         case .goal:
             let viewController = CompleteProfileViewStep2Controller.init(goals: profileSetting.subtitle?.components(separatedBy: ", "), isSingleStep: true)
             navigationController?.pushViewController(viewController, animated: true)
-            break
         case .interests:
             let viewController = CompleteProfileViewStep3Controller.init(interests: profileSetting.subtitle?.components(separatedBy: ", "), isSingleStep: true)
             navigationController?.pushViewController(viewController, animated: true)
-            break
         case .professions:
             let viewController = CompleteProfileViewStep4Controller.init(profession: profileSetting.subtitle, isSingleStep: true)
             navigationController?.pushViewController(viewController, animated: true)
-            break
         case .userAgreement:
             let title = NSLocalizedString("termsOfUse", comment: "")
             let userAgreementURL = Bundle.main.url(forResource: "TermsOfUse", withExtension: "html")!
             let webViewController = WebViewController.init(title: title, contentURL: userAgreementURL, screenName: "p_meho_profiles_setting_terms_of_use", screenClass: "p_meho_profiles_setting")
             navigationController?.pushViewController(webViewController, animated: true)
-            break
         case .privacy:
             let title = NSLocalizedString("privacyPolicy", comment: "")
             let userAgreementURL = Bundle.main.url(forResource: "PrivacyPolicy", withExtension: "html")!
             let webViewController = WebViewController.init(title: title, contentURL: userAgreementURL, screenName: "p_meho_profiles_setting_privacy_policy", screenClass: "p_meho_profiles_setting")
             navigationController?.pushViewController(webViewController, animated: true)
-            break
         case .contact:
             let title = NSLocalizedString("contactMehoTitle", comment: "")
             let message = NSLocalizedString("contactMehoMessage", comment: "")
@@ -196,8 +191,10 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
             let okTitle = NSLocalizedString("OKButtonTitle", comment: "")
             alertController.addAction(UIAlertAction.init(title: okTitle, style: .default, handler: nil))
             present(alertController, animated: true, completion: nil)
-            break
         case .signOut:
+            guard let userID = AWSMobileClient.default().userSub else {
+                return
+            }
             AWSMobileClient.default().signOut { (error) in
                 guard error == nil else {
                     return
@@ -207,16 +204,18 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
                         try (UIApplication.shared.delegate as! AppDelegate).appSyncClient?.clearCaches()
                         UserDataFetcher.shared.deactivateCurrentUser()
                         self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
+                        NotificationManager.removeUserStates(userID: userID)
                     } catch {
                         print(error.localizedDescription)
                     }
                 }
             }
-            break
         case .nickname:
             let updateNicknameViewController = UpdateNicknameViewController.init()
             navigationController?.pushViewController(updateNicknameViewController, animated: true)
-            break
+        case .password:
+            let resetPasswordViewController = ResetPasswordViewController.init()
+            navigationController?.pushViewController(resetPasswordViewController, animated: true)
         default:
             break
         }
