@@ -46,6 +46,7 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
         emailAddressTextField.textField.title = NSLocalizedString("EmailAddressPlaceholder", comment: "")
         emailAddressTextField.textField.keyboardType = .emailAddress
         emailAddressTextField.textField.delegate = self
+        emailAddressTextField.textField.autocapitalizationType = .none
         return emailAddressTextField
     } ()
 
@@ -350,7 +351,7 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
 
     @objc
     func didTapNextButton() {
-        if let emailAddress = emailAddressTextField.textField.text, let password = createPasswordTextField.textField.text, let verificationCode = sendCodeTextField.text {
+        if let emailAddress = emailAddressTextField.textField.text?.lowercased(), let password = createPasswordTextField.textField.text, let verificationCode = sendCodeTextField.text {
             AWSMobileClient.default().confirmForgotPassword(username: emailAddress, newPassword: password, confirmationCode: verificationCode) { (forgotPasswordResult, error) in
                 if forgotPasswordResult?.forgotPasswordState == .done {
                     DispatchQueue.main.async {

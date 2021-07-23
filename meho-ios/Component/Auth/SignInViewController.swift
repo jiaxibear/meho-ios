@@ -13,7 +13,7 @@ import AmplifyPlugins
 import FirebaseAnalytics
 import SkyFloatingLabelTextField
 
-class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFieldDelegate, MehoAnalytics {
+class SignInViewController: UIViewController, UITextFieldDelegate, MehoAnalytics {
 
     // MARK: - Constants
     private let textFieldVerticalMargin = CGFloat(34)
@@ -29,8 +29,6 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
     private let forgetPasswordButtonFontSize = CGFloat(16)
     private let forgetPasswordButtonTopMargin = CGFloat(46)
     private let textFieldTopMargin = CGFloat(32)
-    private let otherSignInViewLeadingTrailingMargin = CGFloat(20)
-    private let otherSignInViewBottomMargin = CGFloat(8)
 
     // MARK: - Datamodels
     private let userDataFecther = UserDataFetcher.shared
@@ -48,6 +46,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
         emailAddressField.textField.title = NSLocalizedString("EmailAddressPlaceholder", comment: "")
         emailAddressField.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         emailAddressField.textField.delegate = self
+        emailAddressField.textField.autocapitalizationType = .none
         return emailAddressField
     } ()
 
@@ -100,14 +99,6 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
         return forgetPasswordButton
     } ()
 
-    private lazy var otherSignInView: OtherSignInView = {
-        let otherSignInView = OtherSignInView.init(frame: .zero)
-        otherSignInView.translatesAutoresizingMaskIntoConstraints = false
-        otherSignInView.delegate = self
-        otherSignInView.isHidden = true
-        return otherSignInView
-    } ()
-
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,7 +120,6 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
         signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: signInButtonLeadingTrailingMargin).isActive = true
         signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -signInButtonLeadingTrailingMargin).isActive = true
         signInButton.heightAnchor.constraint(equalToConstant: signInButtonHeight).isActive = true
-        setUpOtherSignInView()
 
         view.addSubview(forgetPasswordButton)
         let forgetPasswordButtonTopConstraint = forgetPasswordButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: forgetPasswordButtonTopMargin)
@@ -166,57 +156,8 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
             textField.placeholder = NSLocalizedString("PasswordPlaceholder", comment: "")
         }
     }
-
-    // MARK: - OtherSignInViewDelegate
-    func otherSignInViewDidTapURL(_ URL: URL) {
-        let title = URL.absoluteString.contains("PrivacyPolicy") ? NSLocalizedString("privacyPolicy", comment: "") : NSLocalizedString("termsOfUse", comment: "")
-        let webViewController = WebViewController.init(title: title, contentURL: URL, screenName: "p_meho_profiles_setting_privacy_policy", screenClass: "p_meho_profiles_setting")
-        self.title = ""
-        navigationController?.pushViewController(webViewController, animated: true)
-    }
-
-    func otherSignInViewDidTapFacebookButton() {
-        otherSignIn(for: .facebook)
-    }
-
-    func otherSignInViewDidTapGoogleButton() {
-        otherSignIn(for: .google)
-    }
-
-    func otherSignInViewDidTapAppleButton() {
-        otherSignIn(for: .apple)
-    }
-
-    private func otherSignIn(for authProvider: AuthProvider) {
-        Amplify.Auth.signInWithWebUI(for: authProvider, presentationAnchor: self.view.window!) { result in
-            switch result {
-            case .success:
-                print("Sign in succeeded")
-                let userId = AWSMobileClient.default().userSub!
-                AWSMobileClient.default().getUserAttributes { (maybeAttributes, maybeError) in
-                    if maybeError == nil, let attributes = maybeAttributes {
-                        if let userEmail = attributes["email"] {
-                            self.completeProfileOrNavigateToApp(userId: userId, username: userId, userEmail: userEmail)
-                        }
-                    } else {
-                        self.completeProfileOrNavigateToApp(userId: userId, username: userId, userEmail: userId)
-                    }
-                }
-            case .failure(let error):
-                print("Sign in failed \(error)")
-            }
-        }
-    }
-
+    
     // MARK: - Private Methods
-    private func setUpOtherSignInView() {
-        view.addSubview(otherSignInView)
-
-        otherSignInView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -otherSignInViewLeadingTrailingMargin).isActive = true
-        otherSignInView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: otherSignInViewLeadingTrailingMargin).isActive = true
-        otherSignInView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -otherSignInViewBottomMargin).isActive = true
-    }
-
     @objc
     private func textFieldDidChange() {
         if let password = passwordField.textField.text, let emailAddress = emailAddressField.textField.text, password.count > 0 && emailAddress.count > 0 {
@@ -239,11 +180,15 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
     @objc
     private func didTapSignInButton() {
         view.endEditing(true)
-        let un = emailAddressField.textField.text
+        guard let userName = emailAddressField.textField.text?.lowercased() else {
+            return
+        }
         passwordField.textField.isSecureTextEntry = false
-        let pw2 = passwordField.textField.text
+        guard let password = passwordField.textField.text else {
+            return
+        }
         passwordField.textField.isSecureTextEntry = true
-        AWSMobileClient.default().signIn(username: un!, password: pw2!) { (result, error) in
+        AWSMobileClient.default().signIn(username: userName, password: password) { (result, error) in
             DispatchQueue.main.async {
                 guard error == nil else {
                     // TODO: show error message.
@@ -278,7 +223,7 @@ class SignInViewController: UIViewController, OtherSignInViewDelegate, UITextFie
                 switch state {
                     case .signedIn:
                         let userId = AWSMobileClient.default().userSub!
-                        self.completeProfileOrNavigateToApp(userId: userId, username: un!, userEmail: un!)
+                        self.completeProfileOrNavigateToApp(userId: userId, username: userName, userEmail: userName)
                     default:
                         print ("default")
                 }

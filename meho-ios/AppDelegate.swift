@@ -91,16 +91,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
 
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        let tokenID = userID + "_" + (UIDevice.current.identifierForVendor?.uuidString ?? "")
+        let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? ""
+        let tokenID = userID + "_" + deviceID
         let getUserTokenQuery = GetUserTokenQuery.init(id: tokenID)
         appSyncClient?.fetch(query: getUserTokenQuery, resultHandler: { (result, error) in
             let enabled = NotificationManager.isNotificationEnabled(userID: userID)
             if result?.data?.getUserToken != nil {
-                let updateUserTokenInput = UpdateUserTokenInput.init(id: tokenID, userId: userID, os: "iOS", token: token, enable: enabled)
+                let updateUserTokenInput = UpdateUserTokenInput.init(id: tokenID, userId: userID, os: "iOS", token: token, deviceId: deviceID, enable: enabled)
                 let updateUserTokenMutation = UpdateUserTokenMutation.init(input: updateUserTokenInput)
                 self.appSyncClient?.perform(mutation: updateUserTokenMutation)
             } else {
-                let createUserTokenInput = CreateUserTokenInput.init(id: tokenID, userId: userID, os: "iOS", token: token, enable: enabled)
+                let createUserTokenInput = CreateUserTokenInput.init(id: tokenID, userId: userID, os: "iOS", token: token, deviceId: deviceID, enable: enabled)
                 let createUserTokenMutation = CreateUserTokenMutation.init(input: createUserTokenInput)
                 self.appSyncClient?.perform(mutation: createUserTokenMutation)
             }

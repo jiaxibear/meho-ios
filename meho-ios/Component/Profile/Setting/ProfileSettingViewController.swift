@@ -34,6 +34,7 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.delegate = self
         collectionView.register(ProfileSettingCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellReuseIdentifier)
         collectionView.register(ProfileSettingHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: collectionHeaderCellReuseIdentifier)
+        collectionView.isHidden = true
         return collectionView
     } ()
 
@@ -117,7 +118,17 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
                     }
                 }
                 self.basicUser = basicUser
-                self.collectionView.reloadData()
+                AWSMobileClient.default().getUserAttributes { attributes, error in
+                    DispatchQueue.main.async {
+                        if let attributes = attributes, attributes["identities"] != nil {
+                            self.profileSettings = self.profileSettings.filter({ profileSetting in
+                                profileSetting.type != .password
+                            })
+                        }
+                        self.collectionView.reloadData()
+                        self.collectionView.isHidden = false
+                    }
+                }
             }
         }
     }
@@ -205,6 +216,7 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
                         UserDataFetcher.shared.deactivateCurrentUser()
                         self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
                         NotificationManager.removeUserStates(userID: userID)
+                        UIApplication.shared.registerForRemoteNotifications()
                     } catch {
                         print(error.localizedDescription)
                     }

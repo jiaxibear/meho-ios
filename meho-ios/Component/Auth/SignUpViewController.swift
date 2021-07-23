@@ -35,6 +35,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
         emailAddressTextField.textField.keyboardType = .emailAddress
         emailAddressTextField.textField.delegate = self
         emailAddressTextField.textField.title = NSLocalizedString("EmailAddressPlaceholder", comment: "")
+        emailAddressTextField.textField.autocapitalizationType = .none
         return emailAddressTextField
     } ()
 
@@ -181,7 +182,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
     @objc
     func didTapNextButton() {
         view.endEditing(true)
-        if let emailAddress = emailAddressTextField.textField.text, let password = createPasswordTextField.textField.text {
+        if let emailAddress = emailAddressTextField.textField.text?.lowercased(), let password = createPasswordTextField.textField.text {
             AWSMobileClient.default().signUp(username: emailAddress, password: password) { (signupResult, error) in
                 var errorMessage: String?
                 if error != nil {
