@@ -11,7 +11,7 @@ import FirebaseAnalytics
 
 enum EnglishNewsSection: Int {
     case newsChapters
-//    case relatedNewsList
+    case relatedNewsList
 }
 
 class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MehoAnalytics  {
@@ -85,12 +85,24 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         // Do any additional setup after loading the view.
         // Fetch news chapters
         dataFecther.fetchNewsDetail(newsID: news.identifier, completionHandler: {
-            (englishChapters, chineseChapters, recabVocabs, allVocabDict, error) in
+            (englishChapters, chineseChapters, recabVocabs, allVocabDict, maybeRelatedArticleIDs, error) in
+
             if (error == nil && chineseChapters != nil && englishChapters != nil) {
                 DispatchQueue.main.async {
                     self.newsChapters = englishChapters!
+                    self.tryReloadCollectionView(forSection: .newsChapters)
                     self.hasFetchedNewsDetail = true
-                    self.tryReloadCollectionView()
+                }
+            }
+            if (error == nil && maybeRelatedArticleIDs != nil) {
+                self.dataFecther.fetchRelatedArticleList(relatedArticleIDs: maybeRelatedArticleIDs!) { relatedNewsList, error in
+                    if (error == nil && relatedNewsList != nil) {
+                        DispatchQueue.main.async {
+                            self.relatedNewsList = relatedNewsList!
+                            self.tryReloadCollectionView(forSection: .relatedNewsList)
+                            self.hasFetchedNewsList = true
+                        }
+                    }
                 }
             }
         })
@@ -132,13 +144,15 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         if kind == UICollectionView.elementKindSectionHeader {
             let detailedNewsSections = sections[indexPath.section]
             var sectionTitle = ""
-            var sectionDate = ""
+            var sectionDate:String?
             switch detailedNewsSections {
             case .newsChapters:
                 sectionTitle = news.title_en
                 sectionDate = news.date
-//            case .relatedNewsList:
-//                sectionTitle = relatedNewsListTitle
+                break
+            case .relatedNewsList:
+                sectionTitle = relatedNewsListTitle
+                break
             }
             if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: newsTitleHeaderCellReuseIdentifier, for: indexPath) as? OneLineTitleHeaderCollectionReusableView {
                 headerView.setHeader(title: sectionTitle, maybeDate: sectionDate)
@@ -156,8 +170,8 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         case .newsChapters:
             sectionTitle = news.title_en
             sectionDate = news.date
-//        case .relatedNewsList:
-//            sectionTitle = relatedNewsListTitle
+        case .relatedNewsList:
+            sectionTitle = relatedNewsListTitle
         }
         return CGSize.init(width: 0, height: OneLineTitleHeaderCollectionReusableView.heightForHeader(with :collectionView.contentSize.width, title: sectionTitle, maybeDate: sectionDate))
     }
@@ -167,8 +181,29 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         switch detailedNewsSections {
         case .newsChapters:
             return newsChapters.count
-//        case .relatedNewsList:
-//            return relatedNewsList.count
+        case .relatedNewsList:
+            return relatedNewsList.count
+        }
+    }
+
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailedNewsSections = sections[indexPath.section]
+        switch detailedNewsSections {
+        case .newsChapters:
+            break
+        case .relatedNewsList:
+            let parameters = [
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "p_meho_stories_related_news-view_story",
+                MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_story",
+                MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+                MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+            ]
+            Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
+            
+            let relatedNewsItem = relatedNewsList[indexPath.item]
+            let detailedNewsViewController = DetailedNewsViewController.init(news: relatedNewsItem)
+            navigationController?.pushViewController(detailedNewsViewController, animated: true)
         }
     }
 
@@ -183,16 +218,16 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
         case .newsChapters:
             let chapter = newsChapters[indexPath.item]
             return CGSize(width: width, height: NewsChapterCollectionViewCell.cellHeight(with: width, newsChapter: chapter))
-//        case .relatedNewsList:
-//            let relatedNewsItem = relatedNewsList[indexPath.item]
-//            switch chooseRenterType(news:relatedNewsItem) {
-//                case "S":
-//                    return CGSize(width: width, height: NewsItemSizeSCollectionViewCell.cellHeight(with: width, news: relatedNewsItem))
-//                case "XS":
-//                    return CGSize(width: width, height: NewsItemSizeXSCollectionViewCell.cellHeight(with: width, news: relatedNewsItem))
-//                default:
-//                    return CGSize(width: width, height: 0)
-//            }
+        case .relatedNewsList:
+            let relatedNewsItem = relatedNewsList[indexPath.item]
+            switch chooseRenterType(news:relatedNewsItem) {
+                case "S":
+                    return CGSize(width: width, height: NewsItemSizeSCollectionViewCell.cellHeight(with: width, news: relatedNewsItem))
+                case "XS":
+                    return CGSize(width: width, height: NewsItemSizeXSCollectionViewCell.cellHeight(with: width, news: relatedNewsItem))
+                default:
+                    return CGSize(width: width, height: 0)
+            }
         }
     }
 
@@ -204,20 +239,20 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsChapterCellReuseIdentifier, for: indexPath) as! NewsChapterCollectionViewCell
             cell.newsChapter = chapter
             return cell
-//        case .relatedNewsList:
-//            let relatedNewsItem = relatedNewsList[indexPath.item]
-//            switch chooseRenterType(news:relatedNewsItem) {
-//                case "S":
-//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeSCellReuseIdentifier, for: indexPath) as! NewsItemSizeSCollectionViewCell
-//                    cell.setNews(relatedNewsItem)
-//                    return cell
-//                case "XS":
-//                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeXSCellReuseIdentifier, for: indexPath) as! NewsItemSizeXSCollectionViewCell
-//                    cell.setNews(relatedNewsItem)
-//                    return cell
-//                default:
-//                    return UICollectionViewCell.init()
-//            }
+        case .relatedNewsList:
+            let relatedNewsItem = relatedNewsList[indexPath.item]
+            switch chooseRenterType(news:relatedNewsItem) {
+                case "S":
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeSCellReuseIdentifier, for: indexPath) as! NewsItemSizeSCollectionViewCell
+                    cell.news = relatedNewsItem
+                    return cell
+                case "XS":
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeXSCellReuseIdentifier, for: indexPath) as! NewsItemSizeXSCollectionViewCell
+                    cell.setNews(relatedNewsItem)
+                    return cell
+                default:
+                    return UICollectionViewCell.init()
+            }
         }
     }
 
@@ -229,15 +264,22 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
 
     // rendertype is returned as one of [XS, S], usually we respect it. S should come with images while XS don't.  If one news is not marked XS but still does not come with image, we should still degrade to XS
     func chooseRenterType(news: News) -> String {
-        return news.coverImageURL == nil ? "XS" : "S"
+        return news.imageKey == nil ? "XS" : "S"
     }
 
-    func tryReloadCollectionView() {
-        if !(/* hasFetchedNewsList &&*/hasFetchedNewsDetail) {
-            return;
+    func tryReloadCollectionView(forSection: EnglishNewsSection) {
+        switch forSection {
+        case .newsChapters:
+            if (!hasFetchedNewsDetail) {
+                sections.insert(.newsChapters, at: 0)
+            }
+            break
+        case .relatedNewsList:
+            if (!hasFetchedNewsList) {
+                sections.append(.relatedNewsList)
+            }
+            break
         }
-        sections.insert(.newsChapters, at: 0)
-//        sections.insert(.relatedNewsList, at: 1)
         chaptersCollectionView.reloadData()
     }
 

@@ -30,6 +30,7 @@ subscription OnCreateParagraph {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -63,6 +64,7 @@ subscription OnCreateParagraph {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -100,6 +102,7 @@ subscription OnCreateParagraph {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -120,6 +123,7 @@ subscription OnCreateParagraph {
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     content
@@ -167,6 +171,7 @@ subscription OnUpdateParagraph {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -200,6 +205,7 @@ subscription OnUpdateParagraph {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -237,6 +243,7 @@ subscription OnUpdateParagraph {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -257,6 +264,7 @@ subscription OnUpdateParagraph {
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     content
@@ -304,6 +312,7 @@ subscription OnDeleteParagraph {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -337,6 +346,7 @@ subscription OnDeleteParagraph {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -374,6 +384,7 @@ subscription OnDeleteParagraph {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -394,6 +405,7 @@ subscription OnDeleteParagraph {
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     content
@@ -496,6 +508,7 @@ subscription OnCreateArticle {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -553,6 +566,7 @@ subscription OnCreateArticle {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -608,6 +622,7 @@ subscription OnCreateArticle {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         content
@@ -628,6 +643,7 @@ subscription OnCreateArticle {
     audioEnKey
     audioZhKey
     status
+    relatedArticlesId
     updatedAt
   }
 }
@@ -672,6 +688,7 @@ subscription OnUpdateArticle {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -729,6 +746,7 @@ subscription OnUpdateArticle {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -784,6 +802,7 @@ subscription OnUpdateArticle {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         content
@@ -804,6 +823,7 @@ subscription OnUpdateArticle {
     audioEnKey
     audioZhKey
     status
+    relatedArticlesId
     updatedAt
   }
 }
@@ -848,6 +868,7 @@ subscription OnDeleteArticle {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -905,6 +926,7 @@ subscription OnDeleteArticle {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -960,6 +982,7 @@ subscription OnDeleteArticle {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         content
@@ -980,6 +1003,7 @@ subscription OnDeleteArticle {
     audioEnKey
     audioZhKey
     status
+    relatedArticlesId
     updatedAt
   }
 }
@@ -1047,6 +1071,7 @@ subscription OnCreateVocabulary {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -1117,6 +1142,7 @@ subscription OnUpdateVocabulary {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -1187,6 +1213,7 @@ subscription OnDeleteVocabulary {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -1284,6 +1311,7 @@ subscription OnCreateVocabularyArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -1317,6 +1345,7 @@ subscription OnCreateVocabularyArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1354,6 +1383,7 @@ subscription OnCreateVocabularyArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -1374,6 +1404,7 @@ subscription OnCreateVocabularyArticle {
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     vocabulary {
@@ -1403,6 +1434,7 @@ subscription OnCreateVocabularyArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1463,6 +1495,7 @@ subscription OnUpdateVocabularyArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -1496,6 +1529,7 @@ subscription OnUpdateVocabularyArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1533,6 +1567,7 @@ subscription OnUpdateVocabularyArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -1553,6 +1588,7 @@ subscription OnUpdateVocabularyArticle {
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     vocabulary {
@@ -1582,6 +1618,7 @@ subscription OnUpdateVocabularyArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1642,6 +1679,7 @@ subscription OnDeleteVocabularyArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -1675,6 +1713,7 @@ subscription OnDeleteVocabularyArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1712,6 +1751,7 @@ subscription OnDeleteVocabularyArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -1732,6 +1772,7 @@ subscription OnDeleteVocabularyArticle {
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     vocabulary {
@@ -1761,6 +1802,7 @@ subscription OnDeleteVocabularyArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1822,6 +1864,7 @@ subscription OnCreateTag {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -1948,6 +1991,7 @@ subscription OnUpdateTag {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -2074,6 +2118,7 @@ subscription OnDeleteTag {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -2199,6 +2244,7 @@ subscription OnCreateTagArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -2232,6 +2278,7 @@ subscription OnCreateTagArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -2269,6 +2316,7 @@ subscription OnCreateTagArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -2289,6 +2337,7 @@ subscription OnCreateTagArticle {
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     tag {
@@ -2310,6 +2359,7 @@ subscription OnCreateTagArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -2405,6 +2455,7 @@ subscription OnUpdateTagArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -2438,6 +2489,7 @@ subscription OnUpdateTagArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -2475,6 +2527,7 @@ subscription OnUpdateTagArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -2495,6 +2548,7 @@ subscription OnUpdateTagArticle {
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     tag {
@@ -2516,6 +2570,7 @@ subscription OnUpdateTagArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -2611,6 +2666,7 @@ subscription OnDeleteTagArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -2644,6 +2700,7 @@ subscription OnDeleteTagArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -2681,6 +2738,7 @@ subscription OnDeleteTagArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -2701,6 +2759,7 @@ subscription OnDeleteTagArticle {
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     tag {
@@ -2722,6 +2781,7 @@ subscription OnDeleteTagArticle {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -3589,6 +3649,7 @@ subscription OnCreateTagDialogue {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -3754,6 +3815,7 @@ subscription OnUpdateTagDialogue {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -3919,6 +3981,7 @@ subscription OnDeleteTagDialogue {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {

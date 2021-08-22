@@ -33,6 +33,7 @@ mutation CreateParagraph(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -66,6 +67,7 @@ mutation CreateParagraph(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -103,6 +105,7 @@ mutation CreateParagraph(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -123,6 +126,7 @@ mutation CreateParagraph(
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     content
@@ -173,6 +177,7 @@ mutation UpdateParagraph(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -206,6 +211,7 @@ mutation UpdateParagraph(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -243,6 +249,7 @@ mutation UpdateParagraph(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -263,6 +270,7 @@ mutation UpdateParagraph(
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     content
@@ -313,6 +321,7 @@ mutation DeleteParagraph(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -346,6 +355,7 @@ mutation DeleteParagraph(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -383,6 +393,7 @@ mutation DeleteParagraph(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -403,6 +414,7 @@ mutation DeleteParagraph(
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     content
@@ -517,6 +529,7 @@ mutation CreateArticle(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -574,6 +587,7 @@ mutation CreateArticle(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -629,6 +643,7 @@ mutation CreateArticle(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         content
@@ -649,6 +664,7 @@ mutation CreateArticle(
     audioEnKey
     audioZhKey
     status
+    relatedArticlesId
     updatedAt
   }
 }
@@ -696,6 +712,7 @@ mutation UpdateArticle(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -753,6 +770,7 @@ mutation UpdateArticle(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -808,6 +826,7 @@ mutation UpdateArticle(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         content
@@ -828,6 +847,7 @@ mutation UpdateArticle(
     audioEnKey
     audioZhKey
     status
+    relatedArticlesId
     updatedAt
   }
 }
@@ -875,6 +895,7 @@ mutation DeleteArticle(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -932,6 +953,7 @@ mutation DeleteArticle(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -987,6 +1009,7 @@ mutation DeleteArticle(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         content
@@ -1007,6 +1030,7 @@ mutation DeleteArticle(
     audioEnKey
     audioZhKey
     status
+    relatedArticlesId
     updatedAt
   }
 }
@@ -1086,6 +1110,7 @@ mutation CreateVocabulary(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -1159,6 +1184,7 @@ mutation UpdateVocabulary(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -1232,6 +1258,7 @@ mutation DeleteVocabulary(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -1341,6 +1368,7 @@ mutation CreateVocabularyArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -1374,6 +1402,7 @@ mutation CreateVocabularyArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1411,6 +1440,7 @@ mutation CreateVocabularyArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -1431,6 +1461,7 @@ mutation CreateVocabularyArticle(
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     vocabulary {
@@ -1460,6 +1491,7 @@ mutation CreateVocabularyArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1523,6 +1555,7 @@ mutation UpdateVocabularyArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -1556,6 +1589,7 @@ mutation UpdateVocabularyArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1593,6 +1627,7 @@ mutation UpdateVocabularyArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -1613,6 +1648,7 @@ mutation UpdateVocabularyArticle(
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     vocabulary {
@@ -1642,6 +1678,7 @@ mutation UpdateVocabularyArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1705,6 +1742,7 @@ mutation DeleteVocabularyArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -1738,6 +1776,7 @@ mutation DeleteVocabularyArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1775,6 +1814,7 @@ mutation DeleteVocabularyArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -1795,6 +1835,7 @@ mutation DeleteVocabularyArticle(
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     vocabulary {
@@ -1824,6 +1865,7 @@ mutation DeleteVocabularyArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1888,6 +1930,7 @@ mutation CreateTag(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -2017,6 +2060,7 @@ mutation UpdateTag(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -2146,6 +2190,7 @@ mutation DeleteTag(
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -2274,6 +2319,7 @@ mutation CreateTagArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -2307,6 +2353,7 @@ mutation CreateTagArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -2344,6 +2391,7 @@ mutation CreateTagArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -2364,6 +2412,7 @@ mutation CreateTagArticle(
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     tag {
@@ -2385,6 +2434,7 @@ mutation CreateTagArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -2483,6 +2533,7 @@ mutation UpdateTagArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -2516,6 +2567,7 @@ mutation UpdateTagArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -2553,6 +2605,7 @@ mutation UpdateTagArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -2573,6 +2626,7 @@ mutation UpdateTagArticle(
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     tag {
@@ -2594,6 +2648,7 @@ mutation UpdateTagArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -2692,6 +2747,7 @@ mutation DeleteTagArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -2725,6 +2781,7 @@ mutation DeleteTagArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -2762,6 +2819,7 @@ mutation DeleteTagArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -2782,6 +2840,7 @@ mutation DeleteTagArticle(
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     tag {
@@ -2803,6 +2862,7 @@ mutation DeleteTagArticle(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -3709,6 +3769,7 @@ mutation CreateTagDialogue(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -3877,6 +3938,7 @@ mutation UpdateTagDialogue(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -4045,6 +4107,7 @@ mutation DeleteTagDialogue(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {

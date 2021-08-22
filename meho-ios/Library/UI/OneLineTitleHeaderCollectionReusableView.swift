@@ -77,11 +77,14 @@ class OneLineTitleHeaderCollectionReusableView: UICollectionReusableView {
         let dateFormatterTo = DateFormatter()
         dateFormatterTo.dateFormat = "MMM dd,yyyy"
         if let originalDate = maybeDate {
+            dateLabel.isHidden = false
             if let formattedDate = dateFormatterFrom.date(from: originalDate) {
                 dateLabel.text = dateFormatterTo.string(from: formattedDate)
             } else {
                print("There was an error decoding the string")
             }
+        } else {
+            dateLabel.isHidden = true
         }
     }
 

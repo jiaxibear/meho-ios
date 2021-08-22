@@ -115,6 +115,7 @@ class NewsItemSizeSCollectionViewCell: UICollectionViewCell {
                 thirdLineStackViewHeightAnchor.constant = thirdLineStackViewHeight(width: contentView.bounds.width)
                 if news.audioEnKey == nil {
                     playAudioButton.isHidden = true
+                    dateLabel.isHidden = true // otherwise date will collapse with reason view
                 }
             }
         }

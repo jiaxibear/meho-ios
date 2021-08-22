@@ -30,6 +30,7 @@ query GetParagraph($id: ID!) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -63,6 +64,7 @@ query GetParagraph($id: ID!) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -100,6 +102,7 @@ query GetParagraph($id: ID!) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -120,6 +123,7 @@ query GetParagraph($id: ID!) {
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     content
@@ -193,6 +197,7 @@ query ListParagraphs(
         audioEnKey
         audioZhKey
         status
+        relatedArticlesId
         updatedAt
       }
       content
@@ -289,6 +294,7 @@ query GetArticle($id: ID!) {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -346,6 +352,7 @@ query GetArticle($id: ID!) {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -401,6 +408,7 @@ query GetArticle($id: ID!) {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         content
@@ -421,6 +429,7 @@ query GetArticle($id: ID!) {
     audioEnKey
     audioZhKey
     status
+    relatedArticlesId
     updatedAt
   }
 }
@@ -458,6 +467,7 @@ query ListArticles(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -491,6 +501,7 @@ query ListArticles(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -528,6 +539,7 @@ query ListArticles(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -548,6 +560,7 @@ query ListArticles(
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     nextToken
@@ -616,6 +629,7 @@ query GetVocabulary($id: ID!) {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         vocabulary {
@@ -679,6 +693,7 @@ query ListVocabularys(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -767,6 +782,7 @@ query GetVocabularyArticle($id: ID!) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -800,6 +816,7 @@ query GetVocabularyArticle($id: ID!) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -837,6 +854,7 @@ query GetVocabularyArticle($id: ID!) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -857,6 +875,7 @@ query GetVocabularyArticle($id: ID!) {
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     vocabulary {
@@ -886,6 +905,7 @@ query GetVocabularyArticle($id: ID!) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -976,6 +996,7 @@ query ListVocabularyArticles(
         audioEnKey
         audioZhKey
         status
+        relatedArticlesId
         updatedAt
       }
       vocabulary {
@@ -1042,6 +1063,7 @@ query GetTag($id: ID!) {
           audioEnKey
           audioZhKey
           status
+          relatedArticlesId
           updatedAt
         }
         tag {
@@ -1157,6 +1179,7 @@ query ListTags($filter: ModelTagFilterInput, $limit: Int, $nextToken: String) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -1251,6 +1274,7 @@ query GetTagArticle($id: ID!) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -1284,6 +1308,7 @@ query GetTagArticle($id: ID!) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -1321,6 +1346,7 @@ query GetTagArticle($id: ID!) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -1341,6 +1367,7 @@ query GetTagArticle($id: ID!) {
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     tag {
@@ -1362,6 +1389,7 @@ query GetTagArticle($id: ID!) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -1483,6 +1511,7 @@ query ListTagArticles(
         audioEnKey
         audioZhKey
         status
+        relatedArticlesId
         updatedAt
       }
       tag {
@@ -2058,6 +2087,7 @@ query GetTagDialogue($id: ID!) {
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -3316,6 +3346,7 @@ query GetArticlesByStatus(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -3349,6 +3380,7 @@ query GetArticlesByStatus(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -3386,6 +3418,7 @@ query GetArticlesByStatus(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -3406,6 +3439,7 @@ query GetArticlesByStatus(
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     nextToken
@@ -3453,6 +3487,7 @@ query GetArticleBySlug(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           tag {
@@ -3486,6 +3521,7 @@ query GetArticleBySlug(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           vocabulary {
@@ -3523,6 +3559,7 @@ query GetArticleBySlug(
             audioEnKey
             audioZhKey
             status
+            relatedArticlesId
             updatedAt
           }
           content
@@ -3543,6 +3580,7 @@ query GetArticleBySlug(
       audioEnKey
       audioZhKey
       status
+      relatedArticlesId
       updatedAt
     }
     nextToken
@@ -3642,6 +3680,7 @@ query GetVocabularyArticlesByParagraphId(
         audioEnKey
         audioZhKey
         status
+        relatedArticlesId
         updatedAt
       }
       vocabulary {
