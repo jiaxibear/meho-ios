@@ -222,7 +222,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
             let relatedNewsItem = relatedNewsList[indexPath.item]
             switch chooseRenterType(news:relatedNewsItem) {
                 case "S":
-                    return CGSize(width: width, height: NewsItemSizeSCollectionViewCell.cellHeight(with: width, news: relatedNewsItem))
+                    return CGSize(width: width, height: NewsItemSizeSCollectionViewCell.cellHeight(with: width, news: relatedNewsItem, showAudio: false))
                 case "XS":
                     return CGSize(width: width, height: NewsItemSizeXSCollectionViewCell.cellHeight(with: width, news: relatedNewsItem))
                 default:
@@ -244,6 +244,7 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
             switch chooseRenterType(news:relatedNewsItem) {
                 case "S":
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: newsItemSizeSCellReuseIdentifier, for: indexPath) as! NewsItemSizeSCollectionViewCell
+                    cell.showAudio = false
                     cell.news = relatedNewsItem
                     return cell
                 case "XS":

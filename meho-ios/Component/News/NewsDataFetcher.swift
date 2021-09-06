@@ -86,12 +86,12 @@ class NewsDataFetcher: NSObject {
             if let slug = newsJSONObject["slug"] as? String {
                 news.slug = slug
             }
-//            if let audioEnKey = newsJSONObject["audioEnKey"] as? String {
-//                news.audioEnKey = S3ResourceKey.init(bucket: "", key: audioEnKey)
-//            }
-//            if let audioZhKey = newsJSONObject["audioZhKey"] as? String {
-//                news.audioZhKey = S3ResourceKey.init(bucket: "", key: audioZhKey)
-//            }
+            if let audioEnKey = newsJSONObject["audioEnKey"] as? String {
+                news.audioEnKey = S3ResourceKey.init(bucket: "", key: audioEnKey)
+            }
+            if let audioZhKey = newsJSONObject["audioZhKey"] as? String {
+                news.audioZhKey = S3ResourceKey.init(bucket: "", key: audioZhKey)
+            }
             news.renderType = "S"
             articleItems.append(news)
 

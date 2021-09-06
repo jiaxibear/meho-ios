@@ -27,6 +27,7 @@ class NewsItemSizeSCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Properties
     var delegate: NewsItemSizeSCollectionViewCellDelegate?
+    var showAudio = true // relatednews list view comes with audio data but product chose to hide it, thus introduing this field
 
     private lazy var playAudioButton: UIButton = {
         let playAudioButton = UIButton.init(frame: .zero)
@@ -113,7 +114,7 @@ class NewsItemSizeSCollectionViewCell: UICollectionViewCell {
 
                 dateLabel.text = news.date
                 thirdLineStackViewHeightAnchor.constant = thirdLineStackViewHeight(width: contentView.bounds.width)
-                if news.audioEnKey == nil {
+                if (news.audioEnKey == nil || !showAudio) {
                     playAudioButton.isHidden = true
                     dateLabel.isHidden = true // otherwise date will collapse with reason view
                 }
@@ -153,12 +154,12 @@ class NewsItemSizeSCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    public class func cellHeight(with width: CGFloat, news: News) -> CGFloat {
+    public class func cellHeight(with width: CGFloat, news: News, showAudio: Bool = true) -> CGFloat {
         sizingCell.news = news
         let labelMaxWidth = width - sizingCell.thumbnailImageSideLength - sizingCell.labelsStackViewAndThumbnailViewMargin
         let labelFittingSize = CGSize.init(width: labelMaxWidth, height: .greatestFiniteMagnitude)
         var height = sizingCell.titleLabel.sizeThatFits(labelFittingSize).height + sizingCell.reasonView.sizeThatFits(labelFittingSize).height + sizingCell.labelsStackViewSpacing
-        if news.audioEnKey != nil {
+        if (news.audioEnKey != nil && showAudio) {
             height += sizingCell.thirdLineStackViewHeight(width: width) + 2 * sizingCell.labelsStackViewSpacing
         }
         return max(height, sizingCell.thumbnailImageSideLength)
