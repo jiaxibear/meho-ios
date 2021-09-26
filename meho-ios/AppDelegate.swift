@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 let updateUserTokenInput = UpdateUserTokenInput.init(id: tokenID, userId: userID, os: "iOS", token: token, deviceId: deviceID, enable: enabled)
                 let updateUserTokenMutation = UpdateUserTokenMutation.init(input: updateUserTokenInput)
                 self.appSyncClient?.perform(mutation: updateUserTokenMutation)
-            } else {
+            } else if enabled {
                 let createUserTokenInput = CreateUserTokenInput.init(id: tokenID, userId: userID, os: "iOS", token: token, deviceId: deviceID, enable: enabled)
                 let createUserTokenMutation = CreateUserTokenMutation.init(input: createUserTokenInput)
                 self.appSyncClient?.perform(mutation: createUserTokenMutation)

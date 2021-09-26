@@ -231,9 +231,11 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
             MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "view_story",
             MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
             MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+            MehoAnalyticsUtils.MehoAnalyticsParameterContentActionCategory: MehoAnalyticsContentAction.view.rawValue,
         ]
         Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         let newsItem = newsList[indexPath.item]
+        Analytics.logContentAction(content: newsItem, screenName: screenName, action: .view)
         let detailedNewsViewController = DetailedNewsViewController.init(news: newsItem)
         navigationController?.pushViewController(detailedNewsViewController, animated: true)
     }

@@ -216,7 +216,7 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
                         UserDataFetcher.shared.deactivateCurrentUser()
                         self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
                         NotificationManager.removeUserStates(userID: userID)
-                        UIApplication.shared.registerForRemoteNotifications()
+                        self.removeUserNotificationToken(userID: userID)
                     } catch {
                         print(error.localizedDescription)
                     }
@@ -231,5 +231,23 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
         default:
             break
         }
+    }
+
+    private func removeUserNotificationToken(userID: String) {
+        guard let appSyncClient = (UIApplication.shared.delegate as! AppDelegate).appSyncClient else {
+            return
+        }
+
+        let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? ""
+        let tokenID = userID + "_" + deviceID
+        let getUserTokenQuery = GetUserTokenQuery.init(id: tokenID)
+
+        appSyncClient.fetch(query: getUserTokenQuery, resultHandler: { (result, error) in
+            if result?.data?.getUserToken != nil {
+                let updateUserTokenInput = UpdateUserTokenInput.init(id: tokenID, userId: userID, os: "iOS", token: "", deviceId: deviceID, enable: false)
+                let updateUserTokenMutation = UpdateUserTokenMutation.init(input: updateUserTokenInput)
+                appSyncClient.perform(mutation: updateUserTokenMutation)
+            }
+        })
     }
 }

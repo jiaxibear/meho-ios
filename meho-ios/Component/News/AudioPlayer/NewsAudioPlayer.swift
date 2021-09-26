@@ -18,7 +18,7 @@ enum NewsAudioPlayerStatus {
 
 class NewsAudioPlayer: NSObject {
 
-    private let moveDuration = Double(5)
+    private let moveDuration = Double(10)
 
     static let shared = NewsAudioPlayer.init()
 
@@ -44,6 +44,34 @@ class NewsAudioPlayer: NSObject {
     }
 
     // MARK: - Internal
+    func rewind() {
+        guard let player = player else {
+            return
+        }
+
+        let current = player.currentTime().seconds
+        let newTime = max(0, current - moveDuration)
+        player.seek(to: CMTimeMakeWithSeconds(newTime, preferredTimescale: player.currentTime().timescale), toleranceBefore: .zero, toleranceAfter: .zero)
+    }
+
+    func forward() {
+        guard let player = player, let duration = player.currentItem?.duration.seconds else {
+            return
+        }
+
+        let current = player.currentTime().seconds
+        let newTime = min(duration, current + moveDuration)
+        player.seek(to: CMTimeMakeWithSeconds(newTime, preferredTimescale: player.currentTime().timescale), toleranceBefore: .zero, toleranceAfter: .zero)
+    }
+
+    func changeRate(rate: Float) {
+        guard let player = player else {
+            return
+        }
+
+        player.rate = rate
+    }
+
     func pauseAudio() {
         if status == .playing {
             status = .paused

@@ -28,6 +28,7 @@ enum MehoAnalyticsContentAction: String {
     case adjustPlay = "ADJUSTPLAY"
     case record = "RECORD"
     case replay = "REPLAY"
+    case view = "VIEW"
 }
 
 class MehoAnalyticsUtils: NSObject {
