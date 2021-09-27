@@ -14,6 +14,7 @@ class NotificationManager: NSObject {
     private static let hasEnabledNotificationKeyFormat = "hasEnabledNotificationKey-%@"
     private static let lastAskNotificationDateKeyFormat = "lastAskNotificationDateKey-%@-%d"
     private static let numberOfNotificationAsksKeyFormat = "numberOfNotificationAsksKey-%@-%d"
+    private static let notificationBadgeCountKeyFormat = "notificationBadgeCountKey-%@-%d"
     private static let maxNumberOfNotificationAsks = 3
 
     class func displayNotificationSoftAsk(type: NotificationSoftAskType, from viewController: UIViewController) {
@@ -75,14 +76,46 @@ class NotificationManager: NSObject {
             let lastAskNotificationDateKey = String.init(format: numberOfNotificationAsksKeyFormat, userID, type.rawValue)
             userDefaults.removeObject(forKey: lastAskNotificationDateKey)
         }
+        let tabs: [MainViewControllerTab] = [.stories, .talks, .expressions, .foundations, .profile]
+        for tab in tabs {
+            let notificationBadgeCountKey = String.init(format: notificationBadgeCountKeyFormat, userID, tab.rawValue)
+            userDefaults.removeObject(forKey: notificationBadgeCountKey)
+        }
     }
 
     class func isNotificationEnabled(userID: String) -> Bool {
-        guard let userID = AWSMobileClient.default().userSub else {
-            return false
-        }
         let userDefaults = UserDefaults.init()
         let hasEnabledNotificationKey = String.init(format: hasEnabledNotificationKeyFormat, userID)
         return userDefaults.bool(forKey: hasEnabledNotificationKey)
+    }
+
+    class func notificationBadgeCount(userID: String, tab: MainViewControllerTab) -> Int {
+        let notificationBadgeCountKey = String.init(format: notificationBadgeCountKeyFormat, userID, tab.rawValue)
+        let userDefaults = UserDefaults.init()
+        return userDefaults.integer(forKey: notificationBadgeCountKey)
+    }
+
+    class func increaseNotificationBadgeCount(userID: String, tab: MainViewControllerTab) {
+        let notificationBadgeCountKey = String.init(format: notificationBadgeCountKeyFormat, userID, tab.rawValue)
+        let userDefaults = UserDefaults.init()
+        let notificationBadgeCount = userDefaults.integer(forKey: notificationBadgeCountKey) + 1
+        userDefaults.set(notificationBadgeCount, forKey: notificationBadgeCountKey)
+    }
+
+    class func removeNotificationBadgeCount(userID: String, tab: MainViewControllerTab) {
+        let notificationBadgeCountKey = String.init(format: notificationBadgeCountKeyFormat, userID, tab.rawValue)
+        let userDefaults = UserDefaults.init()
+        userDefaults.removeObject(forKey: notificationBadgeCountKey)
+    }
+
+    class func updateAppBadge(userID: String) {
+        var count = 0
+        let tabs: [MainViewControllerTab] = [.stories, .talks, .expressions, .foundations, .profile]
+        let userDefaults = UserDefaults.init()
+        for tab in tabs {
+            let notificationBadgeCountKey = String.init(format: notificationBadgeCountKeyFormat, userID, tab.rawValue)
+            count += userDefaults.integer(forKey: notificationBadgeCountKey)
+        }
+        UIApplication.shared.applicationIconBadgeNumber = count
     }
 }

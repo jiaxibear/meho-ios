@@ -198,7 +198,7 @@ class NotificationSoftAskViewController: UIViewController {
     private func didTapYesButton() {
         NotificationManager.recordUserEnablementState(enabled: true, type: type)
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
             if granted {
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()

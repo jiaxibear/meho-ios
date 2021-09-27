@@ -65,17 +65,36 @@ class MainViewController: UITabBarController {
         // Sets appearance of the navigation bar.
         navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: nil, action: nil)
         navigationController?.setNavigationBarHidden(true, animated: false)
+
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+
+        let tabs: [MainViewControllerTab] = [.stories, .expressions, .talks, .foundations, .profile]
+        for tab in tabs {
+            guard let tabBarItem = tabBar.items?[tab.rawValue] else {
+                continue
+            }
+
+            let notificationBadgeCount = NotificationManager.notificationBadgeCount(userID: userID, tab: tab)
+            if notificationBadgeCount > 0 {
+                tabBarItem.badgeValue = String(tab.rawValue)
+            } else {
+                tabBarItem.badgeValue = nil
+            }
+
+            NotificationManager.updateAppBadge(userID: userID)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         let userDataFetcher = UserDataFetcher.shared
-        let userID = AWSMobileClient.default().userSub
-        guard userID != nil else {
+        guard let userID = AWSMobileClient.default().userSub else {
             return
         }
-        userDataFetcher.getUser(userId: userID!) { (user, error) in
+        userDataFetcher.getUser(userId: userID) { (user, error) in
             if let email = user?.email {
                 // Disable Firebase Analytics and enable notification for internal testing accounts.
                 if self.internalTestingEmailList.contains(email) {
