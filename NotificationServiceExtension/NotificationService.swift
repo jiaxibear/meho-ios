@@ -48,6 +48,23 @@ class NotificationService: UNNotificationServiceExtension {
                 contentHandler(bestAttemptContent)
                 return
             }
+
+//            guard let userInfoData = userInfo["data"] as? [AnyHashable: Any], let pinpoint = userInfoData["pinpoint"] as? [AnyHashable: Any], let deepLink = pinpoint["deeplink"] as? String, let deepLinkURL = URL.init(string: deepLink), let host = deepLinkURL.host, let userID = SharedInfoManager.currentUser() else {
+//                contentHandler(bestAttemptContent)
+//                return
+//            }
+//
+//            switch host {
+//            case "talks":
+//                NotificationBadgeManager.increaseNotificationBadgeCount(userID: userID, tab: .talks)
+//            case "expressions":
+//                NotificationBadgeManager.increaseNotificationBadgeCount(userID: userID, tab: .expressions)
+//            case "stories":
+//                NotificationBadgeManager.increaseNotificationBadgeCount(userID: userID, tab: .stories)
+//            default:
+//                break
+//            }
+
             bestAttemptContent.attachments = [attachment]
             contentHandler(bestAttemptContent)
         }

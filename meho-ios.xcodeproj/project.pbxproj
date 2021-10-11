@@ -152,6 +152,12 @@
 		EAA31792250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA31791250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift */; };
 		EAB6B7F825CD117D00235ACB /* NewsPlayingNowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6B7F725CD117D00235ACB /* NewsPlayingNowView.swift */; };
 		EAB6B80025CFB9E000235ACB /* NewsPlayingNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6B7FF25CFB9E000235ACB /* NewsPlayingNow.swift */; };
+		EAB6D55A2701916800642515 /* NotificationBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D5592701916800642515 /* NotificationBadgeManager.swift */; };
+		EAB6D55E2701938800642515 /* SharedInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D55D2701938800642515 /* SharedInfoManager.swift */; };
+		EAB6D55F2701959100642515 /* SharedInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D55D2701938800642515 /* SharedInfoManager.swift */; };
+		EAB6D560270195BE00642515 /* NotificationBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D5592701916800642515 /* NotificationBadgeManager.swift */; };
+		EAB6D5622701963900642515 /* MainViewControllerTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D5612701963900642515 /* MainViewControllerTab.swift */; };
+		EAB6D5632701964400642515 /* MainViewControllerTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D5612701963900642515 /* MainViewControllerTab.swift */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
 		EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */; };
 		EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4CD23F12080003C8548 /* WebImageView.swift */; };
@@ -377,6 +383,9 @@
 		EAA31791250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingCollectionViewCell.swift; sourceTree = "<group>"; };
 		EAB6B7F725CD117D00235ACB /* NewsPlayingNowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPlayingNowView.swift; sourceTree = "<group>"; };
 		EAB6B7FF25CFB9E000235ACB /* NewsPlayingNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPlayingNow.swift; sourceTree = "<group>"; };
+		EAB6D5592701916800642515 /* NotificationBadgeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBadgeManager.swift; sourceTree = "<group>"; };
+		EAB6D55D2701938800642515 /* SharedInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedInfoManager.swift; sourceTree = "<group>"; };
+		EAB6D5612701963900642515 /* MainViewControllerTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTab.swift; sourceTree = "<group>"; };
 		EAB7C4C723F10236003C8548 /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		EAB7C4C923F11193003C8548 /* ConversationDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDataFetcher.swift; sourceTree = "<group>"; };
 		EAB7C4CD23F12080003C8548 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
@@ -726,6 +735,7 @@
 			isa = PBXGroup;
 			children = (
 				EA52FDA223EF7D4D008EB37B /* MainViewController.swift */,
+				EAB6D5612701963900642515 /* MainViewControllerTab.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -794,6 +804,7 @@
 		EA52FDB423EFAA5A008EB37B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				EAB6D55C2701933100642515 /* SharedInfoManager */,
 				EAF9D2BA269BC89700C57E64 /* NotificationManager */,
 				EA6381F0245807C100481B8B /* ContentEvaluation */,
 				EA5449132442B0FE00C07D0A /* Utils */,
@@ -953,6 +964,14 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		EAB6D55C2701933100642515 /* SharedInfoManager */ = {
+			isa = PBXGroup;
+			children = (
+				EAB6D55D2701938800642515 /* SharedInfoManager.swift */,
+			);
+			path = SharedInfoManager;
+			sourceTree = "<group>";
+		};
 		EAB7C4CC23F12056003C8548 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -1014,6 +1033,7 @@
 			isa = PBXGroup;
 			children = (
 				EAF9D2BB269BC8B500C57E64 /* NotificationManager.swift */,
+				EAB6D5592701916800642515 /* NotificationBadgeManager.swift */,
 			);
 			path = NotificationManager;
 			sourceTree = "<group>";
@@ -1314,6 +1334,7 @@
 				EA9B5DD524A97A6C00D6CFBD /* BulletPointView.swift in Sources */,
 				EABDBF3225CA7B8000BE6617 /* NewsAudioPlayer.swift in Sources */,
 				EA3E0037252A967100B95A30 /* ProfileHeader.swift in Sources */,
+				EAB6D55A2701916800642515 /* NotificationBadgeManager.swift in Sources */,
 				EA6381EB2455140900481B8B /* DuoDetailedDialogViewController.swift in Sources */,
 				EAB7C4CE23F12080003C8548 /* WebImageView.swift in Sources */,
 				925E3FF3250DDA700062606A /* ProfileDataFetcher.swift in Sources */,
@@ -1413,6 +1434,7 @@
 				92046FFF24F337A200DE1A2D /* BasicUser.swift in Sources */,
 				92577B2B2446E8910097A445 /* PictographyViewController.swift in Sources */,
 				EA4206912467BD8200DA3F2A /* SurvivalPhraseCategory.swift in Sources */,
+				EAB6D5622701963900642515 /* MainViewControllerTab.swift in Sources */,
 				9267EA1B243185E5009CA25D /* News.swift in Sources */,
 				9267EA1F2438521A009CA25D /* NewsItemSizeLCollectionViewCell.swift in Sources */,
 				92C5FE29244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift in Sources */,
@@ -1426,6 +1448,7 @@
 				EAD7F76A24CE4472008ADC1C /* WebViewController.swift in Sources */,
 				9267EA2124385929009CA25D /* NewsItemSizeXSCollectionViewCell.swift in Sources */,
 				EA5448C1242736CD00C07D0A /* DetailedDialogViewController.swift in Sources */,
+				EAB6D55E2701938800642515 /* SharedInfoManager.swift in Sources */,
 				EAB7C4D023F8C8E2003C8548 /* DialogCollectionViewCell.swift in Sources */,
 				EA01E6B324020CBF00C0B0AE /* DialogViewController.swift in Sources */,
 				92C5FE47245540FB004A3322 /* NewsRecapVocabularyCollectionViewCell.swift in Sources */,
@@ -1468,6 +1491,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAB6D560270195BE00642515 /* NotificationBadgeManager.swift in Sources */,
+				EAB6D5632701964400642515 /* MainViewControllerTab.swift in Sources */,
+				EAB6D55F2701959100642515 /* SharedInfoManager.swift in Sources */,
 				EAC74A13266C916100FBF027 /* NotificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

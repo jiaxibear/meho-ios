@@ -10,14 +10,6 @@ import UIKit
 import AWSMobileClient
 import FirebaseAnalytics
 
-enum MainViewControllerTab: Int {
-    case stories
-    case expressions
-    case talks
-    case foundations
-    case profile
-}
-
 class MainViewController: UITabBarController {
 
     // MARK: - Constants
@@ -47,6 +39,8 @@ class MainViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTabBadges), name: UIApplication.didBecomeActiveNotification, object: nil)
+
         // Sets view controllers.
         let newsViewController = NewsViewController.init()
         let expressionViewController = ExpressionViewController.init()
@@ -70,21 +64,8 @@ class MainViewController: UITabBarController {
             return
         }
 
-        let tabs: [MainViewControllerTab] = [.stories, .expressions, .talks, .foundations, .profile]
-        for tab in tabs {
-            guard let tabBarItem = tabBar.items?[tab.rawValue] else {
-                continue
-            }
-
-            let notificationBadgeCount = NotificationManager.notificationBadgeCount(userID: userID, tab: tab)
-            if notificationBadgeCount > 0 {
-                tabBarItem.badgeValue = String(tab.rawValue)
-            } else {
-                tabBarItem.badgeValue = nil
-            }
-
-            NotificationManager.updateAppBadge(userID: userID)
-        }
+        updateTabBadges()
+        SharedInfoManager.setCurrentUser(currentUser: userID)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -124,5 +105,29 @@ class MainViewController: UITabBarController {
         if let conversationViewController = viewControllers?[2] as? ConversationViewController {
             conversationViewController.displayDialogModeSelectionViewController(dialogID: dialogID)
         }
+    }
+
+    @objc
+    func updateTabBadges() {
+//        guard let userID = AWSMobileClient.default().userSub else {
+//            return
+//        }
+//
+//        let tabs: [MainViewControllerTab] = [.stories, .expressions, .talks, .foundations, .profile]
+//        for tab in tabs {
+//            guard let tabBarItem = tabBar.items?[tab.rawValue] else {
+//                continue
+//            }
+//
+//            let notificationBadgeCount = NotificationBadgeManager.notificationBadgeCount(userID: userID, tab: tab)
+//            if notificationBadgeCount > 0 {
+//                tabBarItem.badgeValue = String(notificationBadgeCount)
+//            } else {
+//                tabBarItem.badgeValue = nil
+//            }
+//        }
+//
+//        let badgeCount = NotificationBadgeManager.appBadgeCount(userID: userID)
+//        UIApplication.shared.applicationIconBadgeNumber = badgeCount
     }
 }

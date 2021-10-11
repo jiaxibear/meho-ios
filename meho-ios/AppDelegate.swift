@@ -117,25 +117,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
 
-//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-//        guard let userInfoData = userInfo["data"] as? [AnyHashable: Any], let pinpoint = userInfoData["pinpoint"] as? [AnyHashable: Any], let deepLink = pinpoint["deeplink"] as? String, let deepLinkURL = URL.init(string: deepLink), let host = deepLinkURL.host, let userID = AWSMobileClient.default().userSub else {
-//            completionHandler(.newData)
-//            return
-//        }
-//
-//        switch host {
-//        case "talks":
-//            NotificationManager.increaseNotificationBadgeCount(userID: userID, tab: .talks)
-//        case "expressions":
-//            NotificationManager.increaseNotificationBadgeCount(userID: userID, tab: .expressions)
-//        case "stories":
-//            NotificationManager.increaseNotificationBadgeCount(userID: userID, tab: .stories)
-//        default:
-//            break
-//        }
-//        completionHandler(.newData)
-//    }
-
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         guard let userInfoData = userInfo["data"] as? [AnyHashable: Any], let pinpoint = userInfoData["pinpoint"] as? [AnyHashable: Any], let deepLink = pinpoint["deeplink"] as? String, let deepLinkURL = URL.init(string: deepLink), let host = deepLinkURL.host, let navigationViewController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController, let mainViewController = navigationViewController.viewControllers.first as? MainViewController else {
