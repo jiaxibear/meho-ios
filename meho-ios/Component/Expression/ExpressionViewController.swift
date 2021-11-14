@@ -253,7 +253,8 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
                 MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
             ]
             Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
-            let detailedNewsViewController = DetailedDialogViewController.init(survivalPhraseCategoryIdentifier: survivalPhraseCategoryIdentifier, title: survivalPhrase.title)
+//            let detailedNewsViewController = DetailedDialogViewController.init(survivalPhraseCategoryIdentifier: survivalPhraseCategoryIdentifier, title: survivalPhrase.title)
+            let detailedNewsViewController = MustKnowPhraseViewController.init(survivalPhraseCategoryIdentifier: survivalPhraseCategoryIdentifier, title: survivalPhrase.title)
             navigationController?.pushViewController(detailedNewsViewController, animated: true)
         } else if expressionSection == .trendingPhrases {
             let item = indexPath.item

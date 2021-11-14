@@ -59,7 +59,7 @@ class NotificationManager: NSObject {
             userDefaults.set(true, forKey: hasEnabledNotificationKey)
         } else {
             userDefaults.set(false, forKey: hasEnabledNotificationKey)
-            let lastAskNotificationDateKey = String.init(format: numberOfNotificationAsksKeyFormat, type.rawValue)
+            let lastAskNotificationDateKey = String.init(format: numberOfNotificationAsksKeyFormat, userID, type.rawValue)
             userDefaults.set(Date.init(), forKey: lastAskNotificationDateKey)
         }
     }

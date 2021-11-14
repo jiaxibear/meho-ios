@@ -144,6 +144,8 @@
 		EA644D3D250D86BA005293EF /* ProfileSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA644D3C250D86BA005293EF /* ProfileSetting.swift */; };
 		EA644D3F250D8FF4005293EF /* ProfileSettingHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA644D3E250D8FF4005293EF /* ProfileSettingHeaderCollectionReusableView.swift */; };
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
+		EA820864273F7E25000D298F /* MustKnowPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA820863273F7E25000D298F /* MustKnowPhraseViewController.swift */; };
+		EA820866273F8A38000D298F /* MustKnowPhraseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA820865273F8A38000D298F /* MustKnowPhraseCollectionViewCell.swift */; };
 		EA9AC7B42502FE1D00524231 /* MehoAnalyticsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AC7B32502FE1D00524231 /* MehoAnalyticsUtils.swift */; };
 		EA9AC7B625030E1300524231 /* AnalyticsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AC7B525030E1300524231 /* AnalyticsExtension.swift */; };
 		EA9AD89E25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AD89D25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift */; };
@@ -155,7 +157,6 @@
 		EAB6D55A2701916800642515 /* NotificationBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D5592701916800642515 /* NotificationBadgeManager.swift */; };
 		EAB6D55E2701938800642515 /* SharedInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D55D2701938800642515 /* SharedInfoManager.swift */; };
 		EAB6D55F2701959100642515 /* SharedInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D55D2701938800642515 /* SharedInfoManager.swift */; };
-		EAB6D560270195BE00642515 /* NotificationBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D5592701916800642515 /* NotificationBadgeManager.swift */; };
 		EAB6D5622701963900642515 /* MainViewControllerTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D5612701963900642515 /* MainViewControllerTab.swift */; };
 		EAB6D5632701964400642515 /* MainViewControllerTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D5612701963900642515 /* MainViewControllerTab.swift */; };
 		EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7C4C723F10236003C8548 /* Dialog.swift */; };
@@ -375,6 +376,8 @@
 		EA644D3C250D86BA005293EF /* ProfileSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetting.swift; sourceTree = "<group>"; };
 		EA644D3E250D8FF4005293EF /* ProfileSettingHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EA820863273F7E25000D298F /* MustKnowPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustKnowPhraseViewController.swift; sourceTree = "<group>"; };
+		EA820865273F8A38000D298F /* MustKnowPhraseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustKnowPhraseCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA9AC7B32502FE1D00524231 /* MehoAnalyticsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MehoAnalyticsUtils.swift; sourceTree = "<group>"; };
 		EA9AC7B525030E1300524231 /* AnalyticsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsExtension.swift; sourceTree = "<group>"; };
 		EA9AD89D25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDummyCardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -833,6 +836,8 @@
 				92FE6CE5245667C3000E69BC /* TrendingPhraseCollectionViewCell.swift */,
 				EA4206922467C61600DA3F2A /* SurvivalPhraseCollectionViewCell.swift */,
 				EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */,
+				EA820863273F7E25000D298F /* MustKnowPhraseViewController.swift */,
+				EA820865273F8A38000D298F /* MustKnowPhraseCollectionViewCell.swift */,
 			);
 			path = Expression;
 			sourceTree = "<group>";
@@ -1387,6 +1392,7 @@
 				92C5FE35244D9223004A3322 /* VocabularyViewController.swift in Sources */,
 				EAB6B80025CFB9E000235ACB /* NewsPlayingNow.swift in Sources */,
 				EA4DA78A265A343700FCC4DA /* ErrorMessageView.swift in Sources */,
+				EA820866273F8A38000D298F /* MustKnowPhraseCollectionViewCell.swift in Sources */,
 				92F90BC824F1CD2200BEF7B7 /* UserDataFetcher.swift in Sources */,
 				EA283A7E25E6330300DE8263 /* LoadingView.swift in Sources */,
 				92C5FE33244D4DB6004A3322 /* PinyinDetailView.swift in Sources */,
@@ -1442,6 +1448,7 @@
 				EA5448C524273F0B00C07D0A /* CollapsedChapterCollectionViewCell.swift in Sources */,
 				EA5449122442A47200C07D0A /* ScoredChapter.swift in Sources */,
 				EA52FDB623EFE6B8008EB37B /* Category.swift in Sources */,
+				EA820864273F7E25000D298F /* MustKnowPhraseViewController.swift in Sources */,
 				92C5FE4F24565A40004A3322 /* ExpressionDataFetcher.swift in Sources */,
 				EA6381F2245807FD00481B8B /* ContentEvaluator.swift in Sources */,
 				EA5448BD2423324F00C07D0A /* DialogStreamViewController.swift in Sources */,
@@ -1491,7 +1498,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAB6D560270195BE00642515 /* NotificationBadgeManager.swift in Sources */,
 				EAB6D5632701964400642515 /* MainViewControllerTab.swift in Sources */,
 				EAB6D55F2701959100642515 /* SharedInfoManager.swift in Sources */,
 				EAC74A13266C916100FBF027 /* NotificationService.swift in Sources */,
@@ -1672,7 +1678,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/meho-ios/AllResources/Images/Downloads",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meho.mehoapp;
 				PRODUCT_NAME = Meho;
 				SWIFT_OBJC_BRIDGING_HEADER = "meho-ios/meho-ios-Bridging-Header.h";
@@ -1710,7 +1716,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/meho-ios/AllResources/Images/Downloads",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meho.mehoapp;
 				PRODUCT_NAME = Meho;
 				SWIFT_OBJC_BRIDGING_HEADER = "meho-ios/meho-ios-Bridging-Header.h";
@@ -1818,7 +1824,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meho.mehoapp.NotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1842,7 +1848,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meho.mehoapp.NotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

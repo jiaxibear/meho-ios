@@ -244,7 +244,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
             } else {
                 // user exist case, recurring user, we should pop main screen
                 DispatchQueue.main.async {
-                    self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
+                    self.navigationController?.setViewControllers([MainViewController.init(notificationURLString: nil)], animated: false)
                 }
             }
         }

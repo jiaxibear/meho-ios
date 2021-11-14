@@ -29,6 +29,8 @@ class NotificationBadgeManager: NSObject {
         let notificationBadgeCountKey = String.init(format: notificationBadgeCountKeyFormat, userID, tab.rawValue)
         let notificationBadgeCount = userDefaults.integer(forKey: notificationBadgeCountKey) + 1
         userDefaults.set(notificationBadgeCount, forKey: notificationBadgeCountKey)
+        let badgeCount = NotificationBadgeManager.appBadgeCount(userID: userID)
+        UIApplication.shared.applicationIconBadgeNumber = badgeCount
     }
 
     class func removeNotificationBadgeCount(userID: String, tab: MainViewControllerTab) {
@@ -38,6 +40,8 @@ class NotificationBadgeManager: NSObject {
 
         let notificationBadgeCountKey = String.init(format: notificationBadgeCountKeyFormat, userID, tab.rawValue)
         userDefaults.removeObject(forKey: notificationBadgeCountKey)
+        let badgeCount = NotificationBadgeManager.appBadgeCount(userID: userID)
+        UIApplication.shared.applicationIconBadgeNumber = badgeCount
     }
 
     class func appBadgeCount(userID: String) -> Int {
@@ -64,5 +68,7 @@ class NotificationBadgeManager: NSObject {
             let notificationBadgeCountKey = String.init(format: notificationBadgeCountKeyFormat, userID, tab.rawValue)
             userDefaults.removeObject(forKey: notificationBadgeCountKey)
         }
+        let badgeCount = NotificationBadgeManager.appBadgeCount(userID: userID)
+        UIApplication.shared.applicationIconBadgeNumber = badgeCount
     }
 }

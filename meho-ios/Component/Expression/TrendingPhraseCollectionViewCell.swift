@@ -18,28 +18,50 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Constants
     private static let elementHorizontalMargin = CGFloat(18)
+    private static let elementVeriticalMargin = CGFloat(8)
     private static let phraseLabelFontSize = CGFloat(20)
     private static let pinyinLabelFontSize = CGFloat(18)
-    private static let explanationLabelFontSize = CGFloat(16)
+    private static let explanationLabelFontSize = CGFloat(18)
     private static let labelToExplainMargin = CGFloat(10)
     private static let contentViewCornerRadius = CGFloat(8)
     private static let contentViewShadowRadius = CGFloat(6)
+    private static let pinyinStackViewSpacing = CGFloat(4)
+    private static let contentStackViewSpacing = CGFloat(4)
     private static let expandIconImageName = "chevron.down"
     private static let collapseIconImageName = "chevron.up"
 
     private static let pronounceSpeakerSize = CGFloat(25)
-    private static let cellVerticalMargin = CGFloat(7)
     private static let pronounceButtonImageName = "stories_speaker"
 
     // MARK: - Properties
+    private lazy var contentStackView: UIStackView = {
+        let contentStackView = UIStackView.init(arrangedSubviews: [phraseLabel, pinyinStackView, explanationLabel])
+        contentStackView.axis = .vertical
+        contentStackView.alignment = .center
+        contentStackView.distribution = .fill
+        contentStackView.spacing = TrendingPhraseCollectionViewCell.contentStackViewSpacing
+        contentStackView.translatesAutoresizingMaskIntoConstraints = false
+        return contentStackView
+    } ()
+
     private lazy var phraseLabel: UILabel = {
         let label = UILabel.init(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .wisteriaPurple
         label.font = UIFont.init(name: "PingFangSC-Semibold", size: TrendingPhraseCollectionViewCell.phraseLabelFontSize)
         label.numberOfLines = 1
-        label.backgroundColor = .paleLilac
+        label.textAlignment = .center
         return label
+    } ()
+
+    private lazy var pinyinStackView: UIStackView = {
+        let pinyinStackView = UIStackView.init(arrangedSubviews: [pinyinLabel, prounceButton])
+        pinyinStackView.axis = .horizontal
+        pinyinStackView.alignment = .center
+        pinyinStackView.distribution = .fill
+        pinyinStackView.spacing = TrendingPhraseCollectionViewCell.pinyinStackViewSpacing
+        pinyinStackView.translatesAutoresizingMaskIntoConstraints = false
+        return pinyinStackView
     } ()
 
     private lazy var pinyinLabel: UILabel = {
@@ -68,7 +90,7 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         label.textColor = .darkGray
         let fontDescriptor = UIFont.systemFont(ofSize: TrendingPhraseCollectionViewCell.explanationLabelFontSize, weight: .regular).fontDescriptor.withDesign(.rounded)
         label.font = UIFont.init(descriptor: fontDescriptor!, size: 0)
-        label.numberOfLines = 1
+        label.numberOfLines = 0
         return label
     } ()
 
@@ -79,6 +101,10 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         return expandImageView
     } ()
 
+    private lazy var pinyinStackViewWidthAnchor: NSLayoutConstraint = {
+        return pinyinStackView.widthAnchor.constraint(equalToConstant: 0)
+    } ()
+
     // MARK: - Data
     private var player: AVPlayer?
     var trendingPhraseWrapper: TrendingPhraseWrapper? {
@@ -87,18 +113,28 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
                 return
             }
             let trendingPhrase = trendingPhraseWrapper.trendingPhrase
-            phraseLabel.text = " # " + trendingPhrase.content_zh + " "
+            let attributedPhrase = NSMutableAttributedString.init(string: "#" + trendingPhrase.content_zh)
+            attributedPhrase.addAttributes([.foregroundColor : UIColor.wisteriaPurple], range: NSRange.init(location: 0, length: 1))
+            attributedPhrase.addAttributes([.foregroundColor : UIColor.darkGrayTwo], range: NSRange.init(location: 1, length: attributedPhrase.length - 1))
+            if let phraseLabelFont = UIFont.init(name: "PingFangSC-Medium", size: TrendingPhraseCollectionViewCell.phraseLabelFontSize) {
+                attributedPhrase.addAttributes([.font : phraseLabelFont], range: NSRange.init(location: 0, length: attributedPhrase.length - 1))
+            }
+            phraseLabel.attributedText = attributedPhrase
             pinyinLabel.text = "/" + trendingPhrase.content_pinyin + "/  "
             explanationLabel.text = trendingPhrase.content_explanation
             if trendingPhraseWrapper.isExpanded {
-                explanationLabel.numberOfLines = 0
+                explanationLabel.isHidden = false
                 let expandImage = UIImage.init(systemName: TrendingPhraseCollectionViewCell.collapseIconImageName)
                 expandImageView.image = expandImage
             } else {
-                explanationLabel.numberOfLines = 1
+                explanationLabel.isHidden = true
                 let expandImage = UIImage.init(systemName: TrendingPhraseCollectionViewCell.expandIconImageName)
                 expandImageView.image = expandImage
             }
+            let pinyinLabelMaxWidth = contentView.bounds.width - 2 * TrendingPhraseCollectionViewCell.elementHorizontalMargin - TrendingPhraseCollectionViewCell.pronounceSpeakerSize - TrendingPhraseCollectionViewCell.pinyinStackViewSpacing
+            let pinyinLabelSize = pinyinLabel.sizeThatFits(CGSize.init(width: pinyinLabelMaxWidth, height: 0))
+            pinyinStackViewWidthAnchor.constant = pinyinLabelSize.width + TrendingPhraseCollectionViewCell.pronounceSpeakerSize + TrendingPhraseCollectionViewCell.pinyinStackViewSpacing
+            setNeedsUpdateConstraints()
         }
     }
 
@@ -130,27 +166,26 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = TrendingPhraseCollectionViewCell.contentViewCornerRadius
         contentView.backgroundColor = .white
 
-        setupPhraseLabel()
-        setupPinyinLabel()
-        setupPronounceButton()
-        setupExplanationLabel()
-        setUpExpandImageView()
+        contentView.addSubview(contentStackView)
+        contentView.addSubview(expandImageView)
+
+        NSLayoutConstraint.activate([
+            contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: TrendingPhraseCollectionViewCell.elementHorizontalMargin),
+            contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -TrendingPhraseCollectionViewCell.elementHorizontalMargin),
+            contentStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: TrendingPhraseCollectionViewCell.elementVeriticalMargin),
+            contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -TrendingPhraseCollectionViewCell.elementVeriticalMargin),
+
+            pinyinStackViewWidthAnchor,
+
+            prounceButton.widthAnchor.constraint(equalToConstant: TrendingPhraseCollectionViewCell.pronounceSpeakerSize),
+            prounceButton.heightAnchor.constraint(equalToConstant: TrendingPhraseCollectionViewCell.pronounceSpeakerSize),
+
+            expandImageView.centerYAnchor.constraint(equalTo: phraseLabel.centerYAnchor),
+            expandImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -TrendingPhraseCollectionViewCell.elementHorizontalMargin),
+        ])
     }
 
     // MARK: - Private
-    private func setupPhraseLabel() {
-        contentView.addSubview(phraseLabel)
-
-        phraseLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: TrendingPhraseCollectionViewCell.elementHorizontalMargin).isActive = true
-        phraseLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: TrendingPhraseCollectionViewCell.cellVerticalMargin).isActive = true
-    }
-
-    private func setupPinyinLabel() {
-        contentView.addSubview(pinyinLabel)
-
-        pinyinLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: TrendingPhraseCollectionViewCell.elementHorizontalMargin).isActive = true
-        pinyinLabel.topAnchor.constraint(equalTo: phraseLabel.bottomAnchor, constant: TrendingPhraseCollectionViewCell.cellVerticalMargin).isActive = true
-    }
 
     private func setupPronounceButton() {
         contentView.addSubview(prounceButton)
@@ -161,21 +196,6 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         prounceButton.heightAnchor.constraint(equalToConstant: TrendingPhraseCollectionViewCell.pronounceSpeakerSize).isActive = true
     }
 
-    private func setupExplanationLabel() {
-        contentView.addSubview(explanationLabel)
-
-        explanationLabel.topAnchor.constraint(equalTo: pinyinLabel.bottomAnchor, constant: TrendingPhraseCollectionViewCell.cellVerticalMargin).isActive = true
-        explanationLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -TrendingPhraseCollectionViewCell.cellVerticalMargin).isActive = true
-        explanationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: TrendingPhraseCollectionViewCell.elementHorizontalMargin).isActive = true
-        explanationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -TrendingPhraseCollectionViewCell.elementHorizontalMargin).isActive = true
-    }
-
-    private func setUpExpandImageView() {
-        contentView.addSubview(expandImageView)
-
-        expandImageView.centerYAnchor.constraint(equalTo: phraseLabel.centerYAnchor).isActive = true
-        expandImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -TrendingPhraseCollectionViewCell.elementHorizontalMargin).isActive = true
-    }
 
     @objc func didTapPronounceButton() {
         guard let audioKey = trendingPhraseWrapper?.trendingPhrase.audioKey?.key else {

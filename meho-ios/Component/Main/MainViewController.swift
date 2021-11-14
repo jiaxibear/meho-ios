@@ -10,34 +10,35 @@ import UIKit
 import AWSMobileClient
 import FirebaseAnalytics
 
-class MainViewController: UITabBarController {
+class MainViewController: UITabBarController, UITabBarControllerDelegate {
 
     // MARK: - Constants
     private let backBarButtonItemImageName = "arrow.left"
 
-    private let internalTestingEmailList: Set = [
-        "ppyzfbtesting@gmail.com",
-        "ppyzdsdafb@gmail.com",
-        "charlielaw48@gmail.com",
-        "therealchuhan@gmail.com",
-        "hanyue.jackie.zhao@gmail.com",
-        "ericyoung505@gmail.com",
-        "charlie.chang.liu@gmail.com",
-        "cw3nm@virginia.edu",
-        "hz2ay@virginia.edu",
-        "jiaxi.xiong.us@gmail.com",
-        "pingpingya@gmail.com",
-        "smartpiggylab@gmail.com",
-        "themehoapp@gmail.com",
-        "ppyzfb@gmail.com",
-        "raydeyang@gmail.com",
-        "jiaxi.xiong.meho@gmail.com",
-        "sjtudyyjk@gmail.com",
-    ]
+    // MARK: - Data Models
+    private var notificationURLString: String?
+
+    // MARK: - Initializers
+    @available(*, unavailable)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        fatalError("Use init(type: NotificationSoftAskType)")
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("Use init(type: NotificationSoftAskType)")
+    }
+
+    init(notificationURLString: String? = nil) {
+        self.notificationURLString = notificationURLString
+        super.init(nibName: nil, bundle: nil)
+    }
 
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.delegate = self
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateTabBadges), name: UIApplication.didBecomeActiveNotification, object: nil)
 
@@ -71,20 +72,45 @@ class MainViewController: UITabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let userDataFetcher = UserDataFetcher.shared
+
+        guard let notificationURLString = self.notificationURLString, let notificationURL = URL.init(string: notificationURLString), let host = notificationURL.host else {
+            return
+        }
+        
+        Analytics.logEvent("notification_open", parameters: nil)
+        
+        switch host {
+        case "talks":
+            self.selectTab(at: .talks)
+            let path = notificationURL.path
+            let index = path.index(after: path.startIndex)
+            let dialogID = String(notificationURL.path.suffix(from: index))
+            self.displayDialogModeSelectionViewController(dialogID: dialogID)
+        case "expressions":
+            self.selectTab(at: .expressions)
+        case "stories":
+            let path = notificationURL.path
+            let index = path.index(after: path.startIndex)
+            let newsID = String(notificationURL.path.suffix(from: index))
+            if newsID.count > 0 {
+                self.displayDetailedNewsViewController(newsID: newsID)
+            } else {
+                self.selectTab(at: .stories)
+            }
+        default:
+            break
+        }
+    }
+
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         guard let userID = AWSMobileClient.default().userSub else {
             return
         }
-        userDataFetcher.getUser(userId: userID) { (user, error) in
-            if let email = user?.email {
-                // Disable Firebase Analytics and enable notification for internal testing accounts.
-                if self.internalTestingEmailList.contains(email) {
-                    Analytics.setAnalyticsCollectionEnabled(false)
-                } else {
-                    Analytics.setUserID(userID)
-                }
-            }
+        if let index = viewControllers?.firstIndex(of: viewController) {
+            NotificationBadgeManager.removeNotificationBadgeCount(userID: userID, tab: MainViewControllerTab.init(rawValue: index)!)
         }
+        NotificationBadgeManager.removeNotificationBadgeCount(userID: userID, tab: MainViewControllerTab.init(rawValue: selectedIndex)!)
+        updateTabBadges()
     }
 
     // MARK: - Internal
@@ -109,25 +135,22 @@ class MainViewController: UITabBarController {
 
     @objc
     func updateTabBadges() {
-//        guard let userID = AWSMobileClient.default().userSub else {
-//            return
-//        }
-//
-//        let tabs: [MainViewControllerTab] = [.stories, .expressions, .talks, .foundations, .profile]
-//        for tab in tabs {
-//            guard let tabBarItem = tabBar.items?[tab.rawValue] else {
-//                continue
-//            }
-//
-//            let notificationBadgeCount = NotificationBadgeManager.notificationBadgeCount(userID: userID, tab: tab)
-//            if notificationBadgeCount > 0 {
-//                tabBarItem.badgeValue = String(notificationBadgeCount)
-//            } else {
-//                tabBarItem.badgeValue = nil
-//            }
-//        }
-//
-//        let badgeCount = NotificationBadgeManager.appBadgeCount(userID: userID)
-//        UIApplication.shared.applicationIconBadgeNumber = badgeCount
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+
+        let tabs: [MainViewControllerTab] = [.stories, .expressions, .talks, .foundations, .profile]
+        for tab in tabs {
+            guard let tabBarItem = tabBar.items?[tab.rawValue] else {
+                continue
+            }
+
+            let notificationBadgeCount = NotificationBadgeManager.notificationBadgeCount(userID: userID, tab: tab)
+            if notificationBadgeCount > 0 {
+                tabBarItem.badgeValue = String(notificationBadgeCount)
+            } else {
+                tabBarItem.badgeValue = nil
+            }
+        }
     }
 }

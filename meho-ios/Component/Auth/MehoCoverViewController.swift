@@ -45,6 +45,8 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         return [stories, expressions, talk]
     } ()
 
+    private var notificationURLString: String?
+
     // MARK: MehoAnalytics
     var screenName = "p_meho_login_signup_home"
     var screenClass =  "p_meho_login_signup"
@@ -177,6 +179,22 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         }
     }
 
+    // MARK: - Initializers
+    @available(*, unavailable)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        fatalError("Use init(type: NotificationSoftAskType)")
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("Use init(type: NotificationSoftAskType)")
+    }
+
+    init(notificationURLString: String? = nil) {
+        self.notificationURLString = notificationURLString
+        super.init(nibName: nil, bundle: nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let mobileClient = AWSMobileClient.default()
@@ -187,7 +205,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
                 if tokens != nil && error == nil {
                     DispatchQueue.main.async {
                         self.activityIndicatorView.stopAnimating()
-                        self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
+                        self.navigationController?.setViewControllers([MainViewController.init(notificationURLString: self.notificationURLString)], animated: false)
                     }
                 } else {
                     mobileClient.signOut()
@@ -423,7 +441,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
             } else {
                 // user exist case, recurring user, we should pop main screen
                 DispatchQueue.main.async {
-                    self.navigationController?.setViewControllers([MainViewController.init()], animated: false)
+                    self.navigationController?.setViewControllers([MainViewController.init(notificationURLString: nil)], animated: false)
                 }
             }
         }

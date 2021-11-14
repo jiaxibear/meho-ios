@@ -13,6 +13,7 @@ import Amplify
 import AmplifyPlugins
 import AVFoundation
 import Firebase
+import FirebaseAnalytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -23,6 +24,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // MARK: - Constants
     private let backBarButtonItemImageName = "arrow.left"
     private let navigationBarTitleFontSize = CGFloat(18)
+
+    private let internalTestingEmailList: Set = [
+        "ppyzfbtesting@gmail.com",
+        "ppyzdsdafb@gmail.com",
+        "charlielaw48@gmail.com",
+        "therealchuhan@gmail.com",
+        "hanyue.jackie.zhao@gmail.com",
+        "ericyoung505@gmail.com",
+        "charlie.chang.liu@gmail.com",
+        "cw3nm@virginia.edu",
+        "hz2ay@virginia.edu",
+        "jiaxi.xiong.us@gmail.com",
+        "pingpingya@gmail.com",
+        "smartpiggylab@gmail.com",
+        "themehoapp@gmail.com",
+        "ppyzfb@gmail.com",
+        "raydeyang@gmail.com",
+        "jiaxi.xiong.meho@gmail.com",
+        "sjtudyyjk@gmail.com",
+    ]
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Sets the AV audio session.
@@ -62,7 +83,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
 
         AWSServiceManager.default().defaultServiceConfiguration = configuration
+
         FirebaseApp.configure()
+        let userDataFetcher = UserDataFetcher.shared
+        if let userID = AWSMobileClient.default().userSub {
+            userDataFetcher.getUser(userId: userID) { (user, error) in
+                if let email = user?.email {
+                    // Disable Firebase Analytics for internal testing accounts.
+                    if self.internalTestingEmailList.contains(email) {
+                        Analytics.setAnalyticsCollectionEnabled(false)
+                    } else {
+                        Analytics.setUserID(userID)
+                    }
+                }
+            }
+        }
 
         let center = UNUserNotificationCenter.current()
         center.delegate = self
@@ -123,6 +158,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             completionHandler()
             return
         }
+
+        Analytics.logEvent("notification_open", parameters: nil)
         
         switch host {
         case "talks":
@@ -149,6 +186,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             break
         }
         completionHandler()
+    }
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if let aps = userInfo["aps"] as? [AnyHashable : Any], let contentAvailable = aps["content-available"] as? Int, contentAvailable == 1, let data = userInfo["data"] as? [AnyHashable : Any], let jsonBody = data["jsonBody"] as? [AnyHashable : Any], let tab = jsonBody["tab"] as? String, let userID = AWSMobileClient.default().userSub {
+            switch tab {
+            case "talks":
+                NotificationBadgeManager.increaseNotificationBadgeCount(userID: userID, tab: .talks)
+            case "stories":
+                NotificationBadgeManager.increaseNotificationBadgeCount(userID: userID, tab: .stories)
+            case "expressions":
+                NotificationBadgeManager.increaseNotificationBadgeCount(userID: userID, tab: .expressions)
+            default:
+                break
+            }
+        }
+        completionHandler(.newData)
     }
 }
 

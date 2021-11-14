@@ -18,8 +18,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
+            var notificationURLString: String?
+            if let notificationResponse = connectionOptions.notificationResponse {
+                let userInfo = notificationResponse.notification.request.content.userInfo
+                if let userInfoData = userInfo["data"] as? [AnyHashable: Any], let pinpoint = userInfoData["pinpoint"] as? [AnyHashable: Any] {
+                    notificationURLString = pinpoint["deeplink"] as? String
+                }
+            }
+
             let window = UIWindow(windowScene: windowScene)
-            let navigationViewController = UINavigationController.init(rootViewController: MehoCoverViewController.init())
+            let navigationViewController = UINavigationController.init(rootViewController: MehoCoverViewController.init(notificationURLString: notificationURLString))
             window.rootViewController = navigationViewController
             self.window = window
             window.makeKeyAndVisible()
