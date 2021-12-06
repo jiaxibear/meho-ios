@@ -527,7 +527,6 @@ class ExpandedChapterCollectionViewCell: UICollectionViewCell, AVAudioRecorderDe
 
     @objc
     func didTapSaveButton() {
-        // TODO: Implement
         delegate?.expandedChapterCollectionViewCellDidTapSaveButton(scoredChapter: scoredChapter, currentIsSaved: saveButton.isSelected)
         saveButton.isSelected = !saveButton.isSelected
     }

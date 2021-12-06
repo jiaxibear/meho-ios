@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MustKnowPhraseCollectionViewCellDelegate : AnyObject {
+    func mustKnowPhraseCollectionViewCellDidTapSaveButton(scoredChapter: ScoredChapter, currentIsSaved: Bool)
+}
+
 class MustKnowPhraseCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
     private let quoteLabelFontSize = CGFloat(30)
@@ -22,6 +26,8 @@ class MustKnowPhraseCollectionViewCell: UICollectionViewCell {
     private let scoreViewTralingMargin = CGFloat(16)
     private let contentViewCornerRadius = CGFloat(8)
     private let contentViewShadowRadius = CGFloat(6)
+    private let saveButtonWidth = CGFloat(30)
+    private let saveButtonHeight = CGFloat(30)
 
     // MARK: - Properties
     private lazy var leftQuoteLabel: UILabel = {
@@ -85,6 +91,18 @@ class MustKnowPhraseCollectionViewCell: UICollectionViewCell {
         return scoreView
     } ()
 
+    private lazy var saveButton: UIButton = {
+        let saveButton = UIButton.init(frame: .zero)
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        let saveButtonUnsavedImage = UIImage.init(named: "purple_saved_unfilled")
+        let saveButtonSavedImage = UIImage.init(named: "purple_saved_filled")
+        saveButton.setImage(saveButtonUnsavedImage, for: .normal)
+        saveButton.setImage(saveButtonSavedImage, for: .selected)
+        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
+        saveButton.isHidden = true
+        return saveButton
+    } ()
+
     private lazy var contentStackView: UIStackView = {
         let contentStackView = UIStackView.init(arrangedSubviews: [leftQuoteLabel, contentLabel, rightQuoteLabel, contentPinyinLabel, contentInLocalLanguageLabel])
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -96,6 +114,9 @@ class MustKnowPhraseCollectionViewCell: UICollectionViewCell {
         contentStackView.setCustomSpacing(-contentsMargin, after: contentLabel)
         return contentStackView;
     } ()
+
+    weak var delegate: MustKnowPhraseCollectionViewCellDelegate?
+    private var scoredChapter: ScoredChapter!
 
     private static var sizingCell = MustKnowPhraseCollectionViewCell.init(frame: .zero);
 
@@ -123,6 +144,7 @@ class MustKnowPhraseCollectionViewCell: UICollectionViewCell {
 
         contentView.addSubview(contentStackView)
         contentView.addSubview(scoreView)
+        contentView.addSubview(saveButton)
 
         // Sets up layout constraints
         NSLayoutConstraint.activate([
@@ -133,8 +155,12 @@ class MustKnowPhraseCollectionViewCell: UICollectionViewCell {
             contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -contentBottomMargin),
             contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentLeadingTrailingMargin),
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -contentLeadingTrailingMargin),
-        ])
 
+            saveButton.widthAnchor.constraint(equalToConstant: saveButtonWidth),
+            saveButton.heightAnchor.constraint(equalToConstant: saveButtonHeight),
+            saveButton.centerXAnchor.constraint(equalTo: scoreView.centerXAnchor),
+            saveButton.centerYAnchor.constraint(equalTo: contentInLocalLanguageLabel.centerYAnchor)
+        ])
     }
 
     @available(*, unavailable)
@@ -143,14 +169,42 @@ class MustKnowPhraseCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - Internal
-    func setScoredChapter(_ scoredChapter: ScoredChapter) {
-        contentLabel.text = scoredChapter.chapter.content
+    func setScoredChapter(_ scoredChapter: ScoredChapter, isSelected: Bool) {
+        if let scoredContent = scoredChapter.scoredContent {
+            contentLabel.attributedText = scoredContent
+        } else {
+            contentLabel.text = scoredChapter.chapter.content
+        }
         contentPinyinLabel.text = scoredChapter.chapter.contentPinyin
         contentInLocalLanguageLabel.text = scoredChapter.chapter.contentInLocalLanguage
         if scoredChapter.shouldDisplayScore {
             scoreView.setScore(scoredChapter.score)
         } else {
             scoreView.isHidden = true
+        }
+
+        if isSelected {
+            contentView.backgroundColor = UIColor.skyBlue.withAlphaComponent(0.1)
+        } else {
+            contentView.backgroundColor = .white
+        }
+
+        saveButton.isHidden = !scoredChapter.canBeSaved
+        if !saveButton.isHidden, let isSaved = scoredChapter.isSaved {
+            saveButton.isSelected = isSaved
+        }
+        self.scoredChapter = scoredChapter
+    }
+
+    func updateSaveStatus(scoredChapter: ScoredChapter) {
+        if scoredChapter.contentID != self.scoredChapter.contentID {
+            return
+        }
+
+        self.scoredChapter = scoredChapter
+        saveButton.isHidden = !scoredChapter.canBeSaved
+        if !saveButton.isHidden, let isSaved = scoredChapter.isSaved {
+            saveButton.isSelected = isSaved
         }
     }
 
@@ -167,5 +221,11 @@ class MustKnowPhraseCollectionViewCell: UICollectionViewCell {
         height += sizingCell.contentPinyinLabel.sizeThatFits(fittingSize).height
         height += sizingCell.contentInLocalLanguageLabel.sizeThatFits(fittingSize).height
         return height
+    }
+
+    @objc
+    func didTapSaveButton() {
+        delegate?.mustKnowPhraseCollectionViewCellDidTapSaveButton(scoredChapter: scoredChapter, currentIsSaved: saveButton.isSelected)
+        saveButton.isSelected = !saveButton.isSelected
     }
 }
