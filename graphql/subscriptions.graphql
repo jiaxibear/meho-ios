@@ -430,6 +430,7 @@ subscription OnCreateExpression {
     createdAt
     contentPinyin
     contentEn
+    contentEmoji
     audio {
       ...S3Object
     }
@@ -445,6 +446,7 @@ subscription OnUpdateExpression {
     createdAt
     contentPinyin
     contentEn
+    contentEmoji
     audio {
       ...S3Object
     }
@@ -460,6 +462,7 @@ subscription OnDeleteExpression {
     createdAt
     contentPinyin
     contentEn
+    contentEmoji
     audio {
       ...S3Object
     }
@@ -1251,6 +1254,7 @@ subscription OnCreateTrendingPhrase {
     status
     createdAt
     contentPinyin
+    contentEmoji
     audioKey
     description
     updatedAt
@@ -1263,6 +1267,7 @@ subscription OnUpdateTrendingPhrase {
     status
     createdAt
     contentPinyin
+    contentEmoji
     audioKey
     description
     updatedAt
@@ -1275,6 +1280,7 @@ subscription OnDeleteTrendingPhrase {
     status
     createdAt
     contentPinyin
+    contentEmoji
     audioKey
     description
     updatedAt

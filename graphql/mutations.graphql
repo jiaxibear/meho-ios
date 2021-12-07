@@ -442,6 +442,7 @@ mutation CreateExpression(
     createdAt
     contentPinyin
     contentEn
+    contentEmoji
     audio {
       ...S3Object
     }
@@ -460,6 +461,7 @@ mutation UpdateExpression(
     createdAt
     contentPinyin
     contentEn
+    contentEmoji
     audio {
       ...S3Object
     }
@@ -478,6 +480,7 @@ mutation DeleteExpression(
     createdAt
     contentPinyin
     contentEn
+    contentEmoji
     audio {
       ...S3Object
     }
@@ -1299,6 +1302,7 @@ mutation CreateTrendingPhrase(
     status
     createdAt
     contentPinyin
+    contentEmoji
     audioKey
     description
     updatedAt
@@ -1314,6 +1318,7 @@ mutation UpdateTrendingPhrase(
     status
     createdAt
     contentPinyin
+    contentEmoji
     audioKey
     description
     updatedAt
@@ -1329,6 +1334,7 @@ mutation DeleteTrendingPhrase(
     status
     createdAt
     contentPinyin
+    contentEmoji
     audioKey
     description
     updatedAt

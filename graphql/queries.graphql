@@ -224,6 +224,7 @@ query GetExpression($id: ID!) {
     createdAt
     contentPinyin
     contentEn
+    contentEmoji
     audio {
       ...S3Object
     }
@@ -244,6 +245,7 @@ query ListExpressions(
       createdAt
       contentPinyin
       contentEn
+      contentEmoji
       audio {
         ...S3Object
       }
@@ -727,6 +729,7 @@ query GetTrendingPhrase($id: ID!) {
     status
     createdAt
     contentPinyin
+    contentEmoji
     audioKey
     description
     updatedAt
@@ -744,6 +747,7 @@ query ListTrendingPhrases(
       status
       createdAt
       contentPinyin
+      contentEmoji
       audioKey
       description
       updatedAt
@@ -3293,6 +3297,7 @@ query GetExpressionsByLabel(
       createdAt
       contentPinyin
       contentEn
+      contentEmoji
       audio {
         ...S3Object
       }
@@ -3608,6 +3613,7 @@ query GetTrendingPhrasesByStatus(
       status
       createdAt
       contentPinyin
+      contentEmoji
       audioKey
       description
       updatedAt
