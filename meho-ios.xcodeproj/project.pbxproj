@@ -146,6 +146,7 @@
 		EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7B730D23F0DBDA0031093B /* Images.xcassets */; };
 		EA820864273F7E25000D298F /* MustKnowPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA820863273F7E25000D298F /* MustKnowPhraseViewController.swift */; };
 		EA820866273F8A38000D298F /* MustKnowPhraseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA820865273F8A38000D298F /* MustKnowPhraseCollectionViewCell.swift */; };
+		EA820868275F23F8000D298F /* MustKnowPhraseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA820867275F23F8000D298F /* MustKnowPhraseCategory.swift */; };
 		EA9AC7B42502FE1D00524231 /* MehoAnalyticsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AC7B32502FE1D00524231 /* MehoAnalyticsUtils.swift */; };
 		EA9AC7B625030E1300524231 /* AnalyticsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AC7B525030E1300524231 /* AnalyticsExtension.swift */; };
 		EA9AD89E25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AD89D25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift */; };
@@ -378,6 +379,7 @@
 		EA7B730D23F0DBDA0031093B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EA820863273F7E25000D298F /* MustKnowPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustKnowPhraseViewController.swift; sourceTree = "<group>"; };
 		EA820865273F8A38000D298F /* MustKnowPhraseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustKnowPhraseCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA820867275F23F8000D298F /* MustKnowPhraseCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustKnowPhraseCategory.swift; sourceTree = "<group>"; };
 		EA9AC7B32502FE1D00524231 /* MehoAnalyticsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MehoAnalyticsUtils.swift; sourceTree = "<group>"; };
 		EA9AC7B525030E1300524231 /* AnalyticsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsExtension.swift; sourceTree = "<group>"; };
 		EA9AD89D25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDummyCardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -716,6 +718,7 @@
 				EA4206952468CFD400DA3F2A /* SurvivalPhraseCategoryIdentifier.swift */,
 				EA4206A124A054E000DA3F2A /* TrendingPhraseWrapper.swift */,
 				EA0F9BC3257C684600980267 /* Expression.swift */,
+				EA820867275F23F8000D298F /* MustKnowPhraseCategory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1444,6 +1447,7 @@
 				9267EA1B243185E5009CA25D /* News.swift in Sources */,
 				9267EA1F2438521A009CA25D /* NewsItemSizeLCollectionViewCell.swift in Sources */,
 				92C5FE29244C1DA2004A3322 /* PinyinInitialCollectionViewCell.swift in Sources */,
+				EA820868275F23F8000D298F /* MustKnowPhraseCategory.swift in Sources */,
 				EA6381EF245610D700481B8B /* DuoYourRoleCollectionViewCell.swift in Sources */,
 				EA5448C524273F0B00C07D0A /* CollapsedChapterCollectionViewCell.swift in Sources */,
 				EA5449122442A47200C07D0A /* ScoredChapter.swift in Sources */,

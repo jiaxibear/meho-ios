@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAnalytics
 import Reachability
 import AWSMobileClient
+import SwiftUI
 
 enum ExpressionSection: Int {
     case survivalPhrases
@@ -407,7 +408,13 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     private func fetchTrendingPhrases() {
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
         loadingView.state = .loading
+        dataFecther.fetchMustKnowPhrases(userID: userID) { result in
+
+        }
         dataFecther.fetchTrendingPhrases { (result) in
             switch result {
             case .success(let trendingPhrases):

@@ -10,9 +10,14 @@ import UIKit
 import AWSAppSync
 
 class ExpressionDataFetcher: NSObject {
+    enum ExpressionDataFetcherError: Error {
+        case invalidURL
+        case noData
+        case JSONParse
+    }
+
     // MARK: - URLs
-    private let fetchTrendingPhraseURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/v2/lightening/trendingPhrase/"
-    private let fetchSurvivalPhraseByCategoryURLString = "http://meho.us-west-2.elasticbeanstalk.com/api/foundation/survival/"
+    private let mustKnowPhrasesURLString = "https://np6vw6ipgk.execute-api.us-west-2.amazonaws.com/dev/profile/expression/"
 
     // MARK: - Properties
     private var appSyncClient: AWSAppSyncClient?
@@ -23,6 +28,7 @@ class ExpressionDataFetcher: NSObject {
         appSyncClient = (UIApplication.shared.delegate as! AppDelegate).appSyncClient
     }
 
+    // MARK: - Internal
     public func fetchSurvivalPhrases(category: String, completionHandler: @escaping (Swift.Result<Array<Chapter>, Error>) -> Void) {
         let q = GetExpressionsByLabelQuery()
         q.label = category
@@ -65,7 +71,6 @@ class ExpressionDataFetcher: NSObject {
         }
     }
 
-    // MARK: - Internal
     func fetchTrendingPhrases(count: Int = 100, completionHandler: @escaping ( Swift.Result<Array<TrendingPhrase>, Error>) -> Void) {
         let query = GetTrendingPhrasesByStatusQuery()
         query.limit = count
@@ -105,5 +110,56 @@ class ExpressionDataFetcher: NSObject {
             }
             completionHandler(.success(trendingPhrases))
         })
+    }
+
+    func fetchMustKnowPhrases(userID: String, completionHandler: @escaping ( Swift.Result<Array<MustKnowPhraseCategory>, Error>) -> Void) {
+        guard let mustKnowPhrasesURL = URL.init(string: mustKnowPhrasesURLString.appending(userID)) else {
+            completionHandler(.failure(ExpressionDataFetcherError.invalidURL))
+            return
+        }
+
+        let session = URLSession(configuration: .default)
+        let request = URLRequest.init(url: mustKnowPhrasesURL)
+        session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completionHandler(.failure(error))
+                return
+            }
+
+            guard let data = data else {
+                completionHandler(.failure(ExpressionDataFetcherError.noData))
+                return
+            }
+
+            do {
+                if let responseDict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                    completionHandler(.success(self.parseMustKnowPhrasesResult(responseDict: responseDict)))
+                } else {
+                    completionHandler(.failure(ExpressionDataFetcherError.JSONParse))
+                }
+            }
+            catch {
+                completionHandler(.failure(ExpressionDataFetcherError.JSONParse))
+            }
+
+        }.resume()
+    }
+
+    func parseMustKnowPhrasesResult(responseDict: [String: Any]) -> [MustKnowPhraseCategory] {
+        var mustKnowPhrasesCategories: [MustKnowPhraseCategory] = []
+        guard let detail = responseDict["detail"] as? [String: Any] else {
+            return mustKnowPhrasesCategories
+        }
+
+        for (title, category) in detail {
+            if let category = category as? [String: Any] {
+                let total = category["total"] as? Int ?? 0
+                let practiced = category["practiced"] as? Int ?? 0
+                let imageURLString = category["image"] as? String
+                let mustKnowPhraseCategory = MustKnowPhraseCategory.init(title: title, total: total, practiced: practiced, imageURLString: imageURLString)
+                mustKnowPhrasesCategories.append(mustKnowPhraseCategory)
+            }
+        }
+        return mustKnowPhrasesCategories
     }
 }

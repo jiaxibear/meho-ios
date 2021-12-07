@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+struct MustKnowPhraseCategory {
+    let title: String
+    let total: Int
+    let practiced: Int
+    let imageURLString: String?
+}

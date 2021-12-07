@@ -328,11 +328,20 @@ class MustKnowPhraseViewController: UIViewController, UICollectionViewDataSource
         let previousCurrentChapterIndex = currentChapterIndex
         currentChapterIndex = indexPath.item
         reloadChapters(at: currentChapterIndex, at: previousCurrentChapterIndex)
+        actionLabel.text = nil
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let item = indexPath.item
         updateExpressionSaveStatus(at: item)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if scoredChapters.count == 0 {
+            return CGSize.zero
+        }
+        let height = DuoModeFooterCollectionResuableView.viewHeight
+        return CGSize.init(width: 0, height: height)
     }
 
     // MARK: - AudioVisualizerViewDelegte
@@ -361,6 +370,7 @@ class MustKnowPhraseViewController: UIViewController, UICollectionViewDataSource
                     self.actionLabel.text = NSLocalizedString("ReplayWithoutScorePromptActionText", comment: "")
                 }
                 self.mustKnowPhraseCollectionView.reloadItems(at: [IndexPath.init(item: self.currentChapterIndex, section: 0)])
+                self.mustKnowPhraseCollectionView.isUserInteractionEnabled = true
                 guard let userID = AWSMobileClient.default().userSub else {
                     return
                 }
@@ -379,14 +389,6 @@ class MustKnowPhraseViewController: UIViewController, UICollectionViewDataSource
                 break
             }
         }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if scoredChapters.count == 0 {
-            return CGSize.zero
-        }
-        let height = DuoModeFooterCollectionResuableView.viewHeight
-        return CGSize.init(width: 0, height: height)
     }
 
     func uploadRecordingToS3(audioFileURL: URL, recordingId: String) {
@@ -526,6 +528,8 @@ class MustKnowPhraseViewController: UIViewController, UICollectionViewDataSource
         guard let audioKey = scoredChapter.chapter.contentAudioKey else {
             return
         }
+
+        mustKnowPhraseCollectionView.isUserInteractionEnabled = false
         Amplify.Storage.getURL(key: audioKey) { event in
             switch event {
             case let .success(url):
@@ -552,6 +556,7 @@ class MustKnowPhraseViewController: UIViewController, UICollectionViewDataSource
 
     @objc func didTapReplayButton() {
         if FileManager.default.fileExists(atPath: currentAudioFileURL.path) {
+            mustKnowPhraseCollectionView.isUserInteractionEnabled = false
             listenButton.isSelected = false
             replayButton.isSelected = true
             recordButton.isSelected = false
@@ -567,6 +572,7 @@ class MustKnowPhraseViewController: UIViewController, UICollectionViewDataSource
     }
 
     @objc func didTapRecordButton() {
+        mustKnowPhraseCollectionView.isUserInteractionEnabled = false
         listenButton.isSelected = false
         replayButton.isSelected = false
         recordButton.isSelected = true
@@ -602,6 +608,7 @@ class MustKnowPhraseViewController: UIViewController, UICollectionViewDataSource
         replayButton.isSelected = false
         actionLabel.isHidden = false
         actionLabel.text = NSLocalizedString("RecordPromptActionText", comment: "")
+        mustKnowPhraseCollectionView.isUserInteractionEnabled = true
     }
 
     func startRecording(scoredChapter: ScoredChapter) {
