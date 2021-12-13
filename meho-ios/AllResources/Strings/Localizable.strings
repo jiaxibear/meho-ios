@@ -73,7 +73,7 @@
 "CurrentRoleText" = "You are the %@ in this conversation";
 
 /* Title for the survival phrases section. */
-"SurvivalPhrasesTitle" = "Cracking the survival phrases";
+"SurvivalPhrasesTitle" = "Must-know phrases";
 
 /* Title for the trending phrases section. */
 "TrendingPhrasesTitle" = "What's Trending";
@@ -378,6 +378,9 @@
 /* Title for the button to see all the items. */
 "SeeAllText" = "See All(%@)";
 
+/* Title for the button to see all the items without the number. */
+"SeeAllWithoutNumberText" = "See All";
+
 /* Subtitle displayed in the saved contents section header when there is no saved contents. */
 "SavedContentsSubtitle" = "Save content you’re interested in so you always have a list of things to learn";
 
@@ -485,3 +488,6 @@
 
 /* Title for the learn more button. */
 "LearnMoreButtonTitle" = "Learn More";
+
+/* Text that indicates how many of the must know phrases the user has practiced. */
+"MustKnowPhraseProgressText" = "%@ / %@ phrases practiced";

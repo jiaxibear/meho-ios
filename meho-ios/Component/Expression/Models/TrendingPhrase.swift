@@ -14,5 +14,6 @@ struct TrendingPhrase {
     var content_zh = ""
     var content_explanation = ""
     var audioKey: S3ResourceKey?
+    var emoji = ""
 }
 

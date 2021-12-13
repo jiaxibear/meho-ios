@@ -147,6 +147,7 @@
 		EA820864273F7E25000D298F /* MustKnowPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA820863273F7E25000D298F /* MustKnowPhraseViewController.swift */; };
 		EA820866273F8A38000D298F /* MustKnowPhraseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA820865273F8A38000D298F /* MustKnowPhraseCollectionViewCell.swift */; };
 		EA820868275F23F8000D298F /* MustKnowPhraseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA820867275F23F8000D298F /* MustKnowPhraseCategory.swift */; };
+		EA82086A27608ECF000D298F /* MustKnowPhraseCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA82086927608ECF000D298F /* MustKnowPhraseCategoryCollectionViewCell.swift */; };
 		EA9AC7B42502FE1D00524231 /* MehoAnalyticsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AC7B32502FE1D00524231 /* MehoAnalyticsUtils.swift */; };
 		EA9AC7B625030E1300524231 /* AnalyticsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AC7B525030E1300524231 /* AnalyticsExtension.swift */; };
 		EA9AD89E25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9AD89D25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift */; };
@@ -169,6 +170,7 @@
 		EAC74A17266C916100FBF027 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EAC74A10266C916100FBF027 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		EAC74A362676A66E00FBF027 /* InterestQuestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC74A352676A66E00FBF027 /* InterestQuestionCollectionViewCell.swift */; };
 		EAC74A3C2676C12700FBF027 /* ProfessionQuestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC74A3B2676C12700FBF027 /* ProfessionQuestionCollectionViewCell.swift */; };
+		EAC7F2112767108F0083D8DF /* ExpressionCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC7F2102767108F0083D8DF /* ExpressionCollectionReusableView.swift */; };
 		EAD20B9E24F1CFB300C1ED89 /* IdiomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20B9C24F1CFB300C1ED89 /* IdiomViewController.swift */; };
 		EAD20B9F24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20B9D24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift */; };
 		EAD20BA124F1F4E400C1ED89 /* Idiom.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD20BA024F1F4E400C1ED89 /* Idiom.swift */; };
@@ -380,6 +382,7 @@
 		EA820863273F7E25000D298F /* MustKnowPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustKnowPhraseViewController.swift; sourceTree = "<group>"; };
 		EA820865273F8A38000D298F /* MustKnowPhraseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustKnowPhraseCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA820867275F23F8000D298F /* MustKnowPhraseCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustKnowPhraseCategory.swift; sourceTree = "<group>"; };
+		EA82086927608ECF000D298F /* MustKnowPhraseCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustKnowPhraseCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA9AC7B32502FE1D00524231 /* MehoAnalyticsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MehoAnalyticsUtils.swift; sourceTree = "<group>"; };
 		EA9AC7B525030E1300524231 /* AnalyticsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsExtension.swift; sourceTree = "<group>"; };
 		EA9AD89D25650E56002E0037 /* ProfileDummyCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDummyCardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -402,6 +405,7 @@
 		EAC74A20266CA9E800FBF027 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		EAC74A352676A66E00FBF027 /* InterestQuestionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestQuestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		EAC74A3B2676C12700FBF027 /* ProfessionQuestionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionQuestionCollectionViewCell.swift; sourceTree = "<group>"; };
+		EAC7F2102767108F0083D8DF /* ExpressionCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionCollectionReusableView.swift; sourceTree = "<group>"; };
 		EAD20B9C24F1CFB300C1ED89 /* IdiomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdiomViewController.swift; sourceTree = "<group>"; };
 		EAD20B9D24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdiomCollectionViewCell.swift; sourceTree = "<group>"; };
 		EAD20BA024F1F4E400C1ED89 /* Idiom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Idiom.swift; sourceTree = "<group>"; };
@@ -841,6 +845,8 @@
 				EAD7F76424BAA8B8008ADC1C /* DisplayScoreSwitch.swift */,
 				EA820863273F7E25000D298F /* MustKnowPhraseViewController.swift */,
 				EA820865273F8A38000D298F /* MustKnowPhraseCollectionViewCell.swift */,
+				EA82086927608ECF000D298F /* MustKnowPhraseCategoryCollectionViewCell.swift */,
+				EAC7F2102767108F0083D8DF /* ExpressionCollectionReusableView.swift */,
 			);
 			path = Expression;
 			sourceTree = "<group>";
@@ -1350,6 +1356,7 @@
 				9267EA1924316D86009CA25D /* NewsItemSizeXLCollectionViewCell.swift in Sources */,
 				92C5FE5124565A7E004A3322 /* TrendingPhrase.swift in Sources */,
 				EAD20B9F24F1CFB300C1ED89 /* IdiomCollectionViewCell.swift in Sources */,
+				EAC7F2112767108F0083D8DF /* ExpressionCollectionReusableView.swift in Sources */,
 				925E3FF6250DDD290062606A /* ProfileCard.swift in Sources */,
 				9204700224F337A200DE1A2D /* CompleteProfileViewStep3Controller.swift in Sources */,
 				EA4DA797265B5B1F00FCC4DA /* ToastExtension.swift in Sources */,
@@ -1358,6 +1365,7 @@
 				EA6381F42458081400481B8B /* ContentEvaluationResult.swift in Sources */,
 				EA4206A424A05BD700DA3F2A /* DialogModeSelectionViewController.swift in Sources */,
 				EA01E6AD23FBA62900C0B0AE /* Chapter.swift in Sources */,
+				EA82086A27608ECF000D298F /* MustKnowPhraseCategoryCollectionViewCell.swift in Sources */,
 				9204700424F337A200DE1A2D /* SignUpTextField.swift in Sources */,
 				EAC74A362676A66E00FBF027 /* InterestQuestionCollectionViewCell.swift in Sources */,
 				EAB7C4CA23F11193003C8548 /* ConversationDataFetcher.swift in Sources */,

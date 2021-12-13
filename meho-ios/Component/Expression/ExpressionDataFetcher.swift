@@ -105,6 +105,9 @@ class ExpressionDataFetcher: NSObject {
                 if let audioKey = item.audioKey {
                     trendingPhrase.audioKey = S3ResourceKey.init(bucket: "", key: audioKey)
                 }
+                if let emoji = item.contentEmoji {
+                    trendingPhrase.emoji = emoji
+                }
                 trendingPhrase.identifier = item.id
                 trendingPhrases.append(trendingPhrase)
             }
@@ -147,18 +150,17 @@ class ExpressionDataFetcher: NSObject {
 
     func parseMustKnowPhrasesResult(responseDict: [String: Any]) -> [MustKnowPhraseCategory] {
         var mustKnowPhrasesCategories: [MustKnowPhraseCategory] = []
-        guard let detail = responseDict["detail"] as? [String: Any] else {
+        guard let detail = responseDict["detail"] as? [[String: Any]] else {
             return mustKnowPhrasesCategories
         }
 
-        for (title, category) in detail {
-            if let category = category as? [String: Any] {
-                let total = category["total"] as? Int ?? 0
-                let practiced = category["practiced"] as? Int ?? 0
-                let imageURLString = category["image"] as? String
-                let mustKnowPhraseCategory = MustKnowPhraseCategory.init(title: title, total: total, practiced: practiced, imageURLString: imageURLString)
-                mustKnowPhrasesCategories.append(mustKnowPhraseCategory)
-            }
+        for category in detail {
+            let total = category["total"] as? Int ?? 0
+            let practiced = category["practiced"] as? Int ?? 0
+            let imageURLString = category["image"] as? String
+            let title = category["label"] as? String ?? ""
+            let mustKnowPhraseCategory = MustKnowPhraseCategory.init(title: title, total: total, practiced: practiced, imageURLString: imageURLString)
+            mustKnowPhrasesCategories.append(mustKnowPhraseCategory)
         }
         return mustKnowPhrasesCategories
     }

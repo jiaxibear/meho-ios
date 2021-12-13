@@ -18,7 +18,6 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Constants
     private static let elementHorizontalMargin = CGFloat(18)
-    private static let elementVeriticalMargin = CGFloat(8)
     private static let phraseLabelFontSize = CGFloat(20)
     private static let pinyinLabelFontSize = CGFloat(18)
     private static let explanationLabelFontSize = CGFloat(18)
@@ -113,11 +112,16 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
                 return
             }
             let trendingPhrase = trendingPhraseWrapper.trendingPhrase
-            let attributedPhrase = NSMutableAttributedString.init(string: "#" + trendingPhrase.content_zh)
+            let attributedPhrase = NSMutableAttributedString.init(string: "#" + trendingPhrase.content_zh + trendingPhrase.emoji)
             attributedPhrase.addAttributes([.foregroundColor : UIColor.wisteriaPurple], range: NSRange.init(location: 0, length: 1))
             attributedPhrase.addAttributes([.foregroundColor : UIColor.darkGrayTwo], range: NSRange.init(location: 1, length: attributedPhrase.length - 1))
+            let emojiLength = trendingPhrase.emoji.count
             if let phraseLabelFont = UIFont.init(name: "PingFangSC-Medium", size: TrendingPhraseCollectionViewCell.phraseLabelFontSize) {
-                attributedPhrase.addAttributes([.font : phraseLabelFont], range: NSRange.init(location: 0, length: attributedPhrase.length - 1))
+                attributedPhrase.addAttributes([.font : phraseLabelFont], range: NSRange.init(location: 0, length: attributedPhrase.length - 1 - emojiLength))
+            }
+
+            if emojiLength > 0 {
+                attributedPhrase.addAttributes([ .font : UIFont.systemFont(ofSize: TrendingPhraseCollectionViewCell.phraseLabelFontSize)], range: NSRange.init(location: attributedPhrase.length - 1 - emojiLength, length: emojiLength))
             }
             phraseLabel.attributedText = attributedPhrase
             pinyinLabel.text = "/" + trendingPhrase.content_pinyin + "/  "
@@ -172,8 +176,7 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: TrendingPhraseCollectionViewCell.elementHorizontalMargin),
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -TrendingPhraseCollectionViewCell.elementHorizontalMargin),
-            contentStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: TrendingPhraseCollectionViewCell.elementVeriticalMargin),
-            contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -TrendingPhraseCollectionViewCell.elementVeriticalMargin),
+            contentStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
             pinyinStackViewWidthAnchor,
 
