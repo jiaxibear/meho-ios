@@ -118,7 +118,7 @@ class MustKnowPhraseCollectionViewCell: UICollectionViewCell {
     weak var delegate: MustKnowPhraseCollectionViewCellDelegate?
     private var scoredChapter: ScoredChapter!
 
-    private static var sizingCell = MustKnowPhraseCollectionViewCell.init(frame: .zero);
+    private static var sizingCell = MustKnowPhraseCollectionViewCell.init(frame: .zero)
 
     // MARK: - Init
     @available(*, unavailable)

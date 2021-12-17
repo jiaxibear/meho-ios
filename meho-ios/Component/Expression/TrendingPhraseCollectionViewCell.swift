@@ -26,6 +26,7 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
     private static let contentViewShadowRadius = CGFloat(6)
     private static let pinyinStackViewSpacing = CGFloat(4)
     private static let contentStackViewSpacing = CGFloat(4)
+    private static let contentStackViewTopBottomMargin = CGFloat(10)
     private static let expandIconImageName = "chevron.down"
     private static let collapseIconImageName = "chevron.up"
 
@@ -103,6 +104,8 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
     private lazy var pinyinStackViewWidthAnchor: NSLayoutConstraint = {
         return pinyinStackView.widthAnchor.constraint(equalToConstant: 0)
     } ()
+
+    private static var sizingCell = TrendingPhraseCollectionViewCell.init(frame: .zero)
 
     // MARK: - Data
     private var player: AVPlayer?
@@ -199,7 +202,6 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
         prounceButton.heightAnchor.constraint(equalToConstant: TrendingPhraseCollectionViewCell.pronounceSpeakerSize).isActive = true
     }
 
-
     @objc func didTapPronounceButton() {
         guard let audioKey = trendingPhraseWrapper?.trendingPhrase.audioKey?.key else {
             return
@@ -217,5 +219,21 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
                 print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
             }
         }
+    }
+
+    class func cellHeight(with width: CGFloat, trendingPhraseWrapper: TrendingPhraseWrapper) -> CGFloat {
+        sizingCell.trendingPhraseWrapper = trendingPhraseWrapper
+        var height = contentStackViewTopBottomMargin * 2
+        let maxWidth = width - 2 * elementHorizontalMargin
+        let fittingSize = CGSize.init(width: maxWidth, height: .greatestFiniteMagnitude)
+        height += sizingCell.pinyinLabel.sizeThatFits(fittingSize).height
+        height += sizingCell.phraseLabel.sizeThatFits(fittingSize).height
+        if sizingCell.explanationLabel.isHidden {
+            height += contentStackViewSpacing
+        } else {
+            height += contentStackViewSpacing * 2
+            height += sizingCell.explanationLabel.sizeThatFits(fittingSize).height
+        }
+        return height
     }
 }
