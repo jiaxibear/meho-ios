@@ -214,7 +214,7 @@ class ProfileSettingViewController: UIViewController, UICollectionViewDelegate, 
                     do {
                         try (UIApplication.shared.delegate as! AppDelegate).appSyncClient?.clearCaches()
                         UserDataFetcher.shared.deactivateCurrentUser()
-                        self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
+                        self.navigationController?.setViewControllers([MehoCoverViewController.init(notificationURLString: nil)], animated: false)
                         NotificationManager.removeUserStates(userID: userID)
                         self.removeUserNotificationToken(userID: userID)
                     } catch {

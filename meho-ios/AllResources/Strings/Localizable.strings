@@ -381,6 +381,9 @@
 /* Title for the button to see all the items without the number. */
 "SeeAllWithoutNumberText" = "See All";
 
+/* Title for the button to see fewer items. */
+"SeeFewerText" = "See Less";
+
 /* Subtitle displayed in the saved contents section header when there is no saved contents. */
 "SavedContentsSubtitle" = "Save content you’re interested in so you always have a list of things to learn";
 

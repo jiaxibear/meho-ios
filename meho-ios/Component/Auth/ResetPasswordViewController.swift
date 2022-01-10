@@ -355,7 +355,7 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
             AWSMobileClient.default().confirmForgotPassword(username: emailAddress, newPassword: password, confirmationCode: verificationCode) { (forgotPasswordResult, error) in
                 if forgotPasswordResult?.forgotPasswordState == .done {
                     DispatchQueue.main.async {
-                        self.navigationController?.setViewControllers([MehoCoverViewController.init(), SignInViewController.init()], animated: false)
+                        self.navigationController?.setViewControllers([MehoCoverViewController.init(notificationURLString: nil), SignInViewController.init()], animated: false)
                     }
                 } else {
                     var errorMessage = NSLocalizedString("genericForgetPasswordErrorMessage", comment: "")

@@ -232,6 +232,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
             }
             headerView.title = title
             headerView.isSeeAllButtonHidden = isSeeAllButtonHidden
+            headerView.isSeeAll = !showAllTrendingPhrases
             headerView.delegate = self
             return headerView
         }
@@ -334,7 +335,7 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
 
     // MARK: - ExpressionCollectionReusableViewDelegate
     func didTapSeeAllButton() {
-        showAllTrendingPhrases = true
+        showAllTrendingPhrases = !showAllTrendingPhrases
     }
 
     // MARK: - Private

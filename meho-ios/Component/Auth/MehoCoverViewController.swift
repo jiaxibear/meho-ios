@@ -190,7 +190,7 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
         fatalError("Use init(type: NotificationSoftAskType)")
     }
 
-    init(notificationURLString: String? = nil) {
+    init(notificationURLString: String?) {
         self.notificationURLString = notificationURLString
         super.init(nibName: nil, bundle: nil)
     }

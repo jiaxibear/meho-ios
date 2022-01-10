@@ -27,6 +27,16 @@ class ExpressionCollectionReusableView: UICollectionReusableView {
         }
     }
 
+    var isSeeAll = true {
+        didSet {
+            if isSeeAll {
+                seeAllButton.setTitle(NSLocalizedString("SeeAllWithoutNumberText", comment: ""), for: .normal)
+            } else {
+                seeAllButton.setTitle(NSLocalizedString("SeeFewerText", comment: ""), for: .normal)
+            }
+        }
+    }
+
     var isSeeAllButtonHidden = true {
         didSet {
             seeAllButton.isHidden = isSeeAllButtonHidden

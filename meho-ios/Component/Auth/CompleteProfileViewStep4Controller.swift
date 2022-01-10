@@ -255,7 +255,7 @@ class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewData
                 if self.isSingleStep {
                     self.navigationController?.popViewController(animated: true)
                 } else {
-                    self.navigationController?.setViewControllers([MehoCoverViewController.init()], animated: false)
+                    self.navigationController?.setViewControllers([MehoCoverViewController.init(notificationURLString: nil)], animated: false)
                 }
             }
         }
