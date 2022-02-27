@@ -101,6 +101,30 @@ class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate,
         return nicknameTextFieldBottomLine
     } ()
 
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView.init()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    } ()
+
+    private lazy var scrollContentView: UIView = {
+        let scrollContentView = UIView.init();
+        scrollContentView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollContentView
+    } ()
+
+    private lazy var nextButtonBottomConstraint: NSLayoutConstraint = {
+        return nextButton.bottomAnchor.constraint(equalTo:scrollContentView.bottomAnchor, constant: -nextButtonBottomMargin)
+    } ()
+
+    private lazy var heightConstraint: NSLayoutConstraint = {
+        let heightConstraint = scrollContentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+        heightConstraint.priority = .defaultLow
+        return heightConstraint
+    } ()
+
+    private var keyboardHeight: CGFloat?
+
     // MARK: MehoAnalytics
     let screenName = "p_meho_onboarding_nickname"
     let screenClass =  "p_meho_onboarding"
@@ -110,33 +134,50 @@ class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate,
         super.viewDidLoad()
         view.backgroundColor = .white
 
-        view.addSubview(welcomeLabel)
-        view.addSubview(nextButton)
-        view.addSubview(nicknameTextField)
-        view.addSubview(nicknameTextFieldBottomLine)
-        view.addSubview(imageView)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+        view.addSubview(scrollView)
+        scrollView.addSubview(scrollContentView)
+        scrollContentView.addSubview(welcomeLabel)
+        scrollContentView.addSubview(nextButton)
+        scrollContentView.addSubview(nicknameTextField)
+        scrollContentView.addSubview(nicknameTextFieldBottomLine)
+        scrollContentView.addSubview(imageView)
 
         NSLayoutConstraint.activate([
-            welcomeLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: welcomeLabelTopMargin),
-            welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+
+            scrollContentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scrollContentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            scrollContentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollContentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            scrollContentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            heightConstraint,
+
+            welcomeLabel.topAnchor.constraint(equalTo: scrollContentView.topAnchor, constant: welcomeLabelTopMargin),
+            welcomeLabel.centerXAnchor.constraint(equalTo: scrollContentView.centerXAnchor),
 
             nextButton.widthAnchor.constraint(equalToConstant: nextButtonWidth),
             nextButton.heightAnchor.constraint(equalToConstant: nextButtonHeight),
-            nextButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -nextButtonBottomMargin),
-            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            nextButton.centerXAnchor.constraint(equalTo: scrollContentView.centerXAnchor),
+            nextButtonBottomConstraint,
 
             imageView.heightAnchor.constraint(equalToConstant: imageViewHeight),
             imageView.widthAnchor.constraint(equalToConstant: imageViewWidth),
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.centerXAnchor.constraint(equalTo: scrollContentView.centerXAnchor),
             imageView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: imageViewTopMargin),
 
             nicknameTextField.leadingAnchor.constraint(equalTo: nicknameTextFieldBottomLine.leadingAnchor),
             nicknameTextField.trailingAnchor.constraint(equalTo: nicknameTextFieldBottomLine.trailingAnchor),
-            nicknameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            nicknameTextField.centerXAnchor.constraint(equalTo: scrollContentView.centerXAnchor),
             nicknameTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: nicknameTextFieldTopMargin),
 
-            nicknameTextFieldBottomLine.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: nicknameTextFieldBottomLineLeadingTrailingMargin),
-            nicknameTextFieldBottomLine.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -nicknameTextFieldBottomLineLeadingTrailingMargin),
+            nicknameTextFieldBottomLine.leadingAnchor.constraint(equalTo: scrollContentView.leadingAnchor, constant: nicknameTextFieldBottomLineLeadingTrailingMargin),
+            nicknameTextFieldBottomLine.trailingAnchor.constraint(equalTo: scrollContentView.trailingAnchor, constant: -nicknameTextFieldBottomLineLeadingTrailingMargin),
             nicknameTextFieldBottomLine.heightAnchor.constraint(equalToConstant: nicknameTextFieldBottomLineHeight),
             nicknameTextFieldBottomLine.topAnchor.constraint(equalTo: nicknameTextField.bottomAnchor, constant: nicknameTextFieldBottomLineTopMargin)
         ])
@@ -182,6 +223,30 @@ class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate,
             nextButton.isEnabled = false
             nextButton.backgroundColor = .lightBlueGrey
         }
+    }
+
+    @objc
+    func keyboardWillShow(_ notification: Notification) {
+        if keyboardHeight == nil {
+            if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                keyboardHeight = keyboardRectangle.height
+            }
+        }
+        guard let keyboardHeight = keyboardHeight else {
+            return
+        }
+
+        heightConstraint.constant = keyboardHeight
+        nextButtonBottomConstraint.constant -= keyboardHeight
+        scrollView.contentOffset = CGPoint.init(x: 0, y: keyboardHeight)
+    }
+
+    @objc
+    func keyboardWillHide(_ notification: Notification) {
+        heightConstraint.constant = 0
+        nextButtonBottomConstraint.constant = -nextButtonBottomMargin
+        scrollView.contentOffset = .zero
     }
 
 }
