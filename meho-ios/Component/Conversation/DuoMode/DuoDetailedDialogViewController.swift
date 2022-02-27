@@ -309,6 +309,7 @@ class DuoDetailedDialogViewController: UIViewController, UICollectionViewDataSou
             return CGSize.init(width: width, height: height)
         } else {
             let height = DuoOtherRoleCollectionViewCell.cellHeight(with: width, scoredChapter: currentScoredChapters[indexPath.item])
+            print("Other role cell height: %@, for chapter", height, currentScoredChapters[indexPath.item].chapter.content)
             return CGSize.init(width: width, height: height)
         }
     }

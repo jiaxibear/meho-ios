@@ -80,10 +80,10 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(roleImageView)
-        addSubview(roleLabel)
-        addSubview(contentBackgroundView)
-        addSubview(speakerImageView)
+        contentView.addSubview(roleImageView)
+        contentView.addSubview(roleLabel)
+        contentView.addSubview(contentBackgroundView)
+        contentView.addSubview(speakerImageView)
         contentBackgroundView.addSubview(contentLabel)
 
         roleImageView.widthAnchor.constraint(equalToConstant: DuoOtherRoleCollectionViewCell.roleImageViewSize).isActive = true
@@ -98,6 +98,7 @@ class DuoOtherRoleCollectionViewCell: UICollectionViewCell {
         contentBackgroundView.leadingAnchor.constraint(equalTo: roleLabel.leadingAnchor).isActive = true
         contentBackgroundView.trailingAnchor.constraint(equalTo: roleLabel.trailingAnchor).isActive = true
         contentBackgroundView.topAnchor.constraint(equalTo: roleImageView.bottomAnchor, constant: DuoOtherRoleCollectionViewCell.contentBackgroundViewAndRoleImageViewMargin).isActive = true
+        contentBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 
         contentLabel.leadingAnchor.constraint(equalTo: contentBackgroundView.leadingAnchor, constant: DuoOtherRoleCollectionViewCell.contentLabelMargin).isActive = true
         contentLabel.trailingAnchor.constraint(equalTo: contentBackgroundView.trailingAnchor, constant: -DuoOtherRoleCollectionViewCell.contentLabelMargin).isActive = true

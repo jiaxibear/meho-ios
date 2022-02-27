@@ -122,10 +122,6 @@ class TrendingPhraseCollectionViewCell: UICollectionViewCell {
             if let phraseLabelFont = UIFont.init(name: "PingFangSC-Medium", size: TrendingPhraseCollectionViewCell.phraseLabelFontSize) {
                 attributedPhrase.addAttributes([.font : phraseLabelFont], range: NSRange.init(location: 0, length: attributedPhrase.length - 1 - emojiLength))
             }
-
-            if emojiLength > 0 {
-                attributedPhrase.addAttributes([ .font : UIFont.systemFont(ofSize: TrendingPhraseCollectionViewCell.phraseLabelFontSize)], range: NSRange.init(location: attributedPhrase.length - 1 - emojiLength, length: emojiLength))
-            }
             phraseLabel.attributedText = attributedPhrase
             pinyinLabel.text = "/" + trendingPhrase.content_pinyin + "/  "
             explanationLabel.text = trendingPhrase.content_explanation

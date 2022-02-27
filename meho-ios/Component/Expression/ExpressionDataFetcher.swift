@@ -141,7 +141,7 @@ class ExpressionDataFetcher: NSObject {
                     completionHandler(.failure(ExpressionDataFetcherError.JSONParse))
                 }
             }
-            catch let {
+            catch {
                 completionHandler(.failure(ExpressionDataFetcherError.JSONParse))
             }
 
