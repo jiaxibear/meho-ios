@@ -49,18 +49,21 @@ class ProfileDummyCardCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .lightBlueGrey
-        addSubview(dotsStackView)
+        contentView.addSubview(dotsStackView)
 
-        dotView1.widthAnchor.constraint(equalToConstant: dotViewWidth).isActive = true
-        dotView1.heightAnchor.constraint(equalToConstant: dotViewHeight).isActive = true
-        dotView2.widthAnchor.constraint(equalToConstant: dotViewWidth).isActive = true
-        dotView2.heightAnchor.constraint(equalToConstant: dotViewHeight).isActive = true
-        dotView3.widthAnchor.constraint(equalToConstant: dotViewWidth).isActive = true
-        dotView3.heightAnchor.constraint(equalToConstant: dotViewHeight).isActive = true
+        NSLayoutConstraint.activate([
+            dotView1.widthAnchor.constraint(equalToConstant: dotViewWidth),
+            dotView1.heightAnchor.constraint(equalToConstant: dotViewHeight),
+            dotView2.widthAnchor.constraint(equalToConstant: dotViewWidth),
+            dotView2.heightAnchor.constraint(equalToConstant: dotViewHeight),
+            dotView3.widthAnchor.constraint(equalToConstant: dotViewWidth),
+            dotView3.heightAnchor.constraint(equalToConstant: dotViewHeight),
 
-        dotsStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        dotsStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        dotsStackView.heightAnchor.constraint(equalToConstant: dotViewHeight).isActive = true
+            dotsStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            dotsStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            dotsStackView.heightAnchor.constraint(equalToConstant: dotViewHeight),
+            dotsStackView.widthAnchor.constraint(equalToConstant: dotViewWidth * 3 + 2 * dotsStackViewSpacing)
+        ])
     }
 
     // MARK: - Private
