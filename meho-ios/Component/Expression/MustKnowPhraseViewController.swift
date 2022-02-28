@@ -228,6 +228,7 @@ class MustKnowPhraseViewController: UIViewController, UICollectionViewDataSource
                     audioSession.requestRecordPermission { (allowed) in
                         // TODO: Add UI if not allowed.
                     }
+                    self.replayButton.isEnabled = FileManager.default.fileExists(atPath: self.currentAudioFileURL.path)
                 }
                 break
             case .failure(let error):
@@ -329,6 +330,7 @@ class MustKnowPhraseViewController: UIViewController, UICollectionViewDataSource
         currentChapterIndex = indexPath.item
         reloadChapters(at: currentChapterIndex, at: previousCurrentChapterIndex)
         actionLabel.text = nil
+        replayButton.isEnabled = FileManager.default.fileExists(atPath: currentAudioFileURL.path)
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
