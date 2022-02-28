@@ -173,6 +173,7 @@ class MustKnowPhraseCollectionViewCell: UICollectionViewCell {
         if let scoredContent = scoredChapter.scoredContent {
             contentLabel.attributedText = scoredContent
         } else {
+            contentLabel.attributedText = nil
             contentLabel.text = scoredChapter.chapter.content
         }
         contentPinyinLabel.text = scoredChapter.chapter.contentPinyin
