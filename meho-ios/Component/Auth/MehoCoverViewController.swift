@@ -314,6 +314,17 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     // MARK: - UITextViewDelegate
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         isSignUp = !isSignUp
+        var parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        if isSignUp {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "switch_signup"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_signup_home-switch_signup"
+        } else {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "switch_signin"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_signup_home-switch_signin"
+        }
         return false
     }
 
@@ -384,13 +395,23 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
 
     @objc
     private func didTapEmailButton() {
+        var parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+
         if isSignUp {
             let signUpController = SignUpViewController.init()
             navigationController?.pushViewController(signUpController, animated: true)
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "signup_email"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_signup_home-signup_email"
         } else {
             let signInController = SignInViewController.init()
             navigationController?.pushViewController(signInController, animated: true)
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "signin_email"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_signin_home-signin_email"
         }
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
     }
 
     @objc
@@ -409,6 +430,53 @@ class MehoCoverViewController: UIViewController, UICollectionViewDataSource, UIC
     }
 
     private func otherSignIn(for authProvider: AuthProvider) {
+        var parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        var controlName: String?
+        var controlID: String?
+        switch authProvider {
+        case .amazon:
+            return
+        case .apple:
+            if isSignUp {
+                controlName = "signup_apple"
+                controlID = "p_meho_login_signup_home-signup_apple"
+            } else {
+                controlName = "signin_apple"
+                controlID = "p_meho_login_signin_home-signin_apple"
+            }
+        case .facebook:
+            if isSignUp {
+                controlName = "signup_facebook"
+                controlID = "p_meho_login_signup_home-signup_facebook"
+            } else {
+                controlName = "signin_facebook"
+                controlID = "p_meho_login_signin_home-signin_facebook"
+            }
+        case .google:
+            if isSignUp {
+                controlName = "signup_google"
+                controlID = "p_meho_login_signup_home-signup_google"
+            } else {
+                controlName = "signin_google"
+                controlID = "p_meho_login_signin_home-signin_google"
+            }
+        case .oidc:
+            return
+        case .saml:
+            return
+        case .custom(_):
+            return
+        }
+        if let controlName = controlName {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = controlName
+        }
+        if let controlID = controlID {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = controlID
+        }
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         Amplify.Auth.signInWithWebUI(for: authProvider, presentationAnchor: self.view.window!) { result in
             switch result {
             case .success:
