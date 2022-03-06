@@ -9,6 +9,8 @@
 import UIKit
 import AWSMobileClient
 import FirebaseAnalytics
+import AppTrackingTransparency
+import FBSDKCoreKit
 
 class MainViewController: UITabBarController, UITabBarControllerDelegate {
 
@@ -72,6 +74,18 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                switch status {
+                case .authorized:
+                    Settings.shared.isAdvertiserTrackingEnabled = true
+                    Settings.shared.isAutoLogAppEventsEnabled = true
+                default:
+                    Settings.shared.isAdvertiserTrackingEnabled = false
+                    Settings.shared.isAutoLogAppEventsEnabled = false
+                }
+            }
+        }
 
         guard let notificationURLString = self.notificationURLString, let notificationURL = URL.init(string: notificationURLString), let host = notificationURL.host else {
             return

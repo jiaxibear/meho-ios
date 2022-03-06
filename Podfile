@@ -25,6 +25,11 @@ target 'meho-ios' do
   pod 'ReachabilitySwift'
   pod 'SkyFloatingLabelTextField', '~> 3.0'
 
+  pod 'FBSDKCoreKit', '~> 13.0'
+  pod 'FBSDKLoginKit', '~> 13.0'
+  pod 'FBSDKShareKit', '~> 13.0'
+
+
   # add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'
   # add pods for any other desired Firebase products

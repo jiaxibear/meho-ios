@@ -40,6 +40,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
 	<string>2791276970964145</string>
+	<key>FacebookClientToken</key>
+	<string>a2592fa190d290e08933c52c9d3f941b</string>
 	<key>FacebookDisplayName</key>
 	<string>meho</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -62,6 +64,8 @@
 	<string>Need microphone access for recording audio.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Need photo library access for uploading photo.</string>
+    <key>NSUserTrackingUsageDescription</key>
+    <string>App would like to access IDFA for tracking purpose</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
