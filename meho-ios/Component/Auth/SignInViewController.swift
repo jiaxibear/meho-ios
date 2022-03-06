@@ -183,6 +183,13 @@ class SignInViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
 
     @objc
     private func didTapForgetPasswordButton() {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "forget_password",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "p_meho_login_signin_email-forget_password",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         let resetPasswordViewController = ResetPasswordViewController.init();
         title = ""
         navigationController?.pushViewController(resetPasswordViewController, animated: true)

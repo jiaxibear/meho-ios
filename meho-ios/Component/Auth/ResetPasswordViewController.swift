@@ -248,6 +248,22 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
         } else {
             textField.placeholder = ""
         }
+
+        var parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        if textField == emailAddressTextField.textField {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "enter_email"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_reset_passwoard-enter_email"
+        } else if textField == createPasswordTextField.textField {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "enter_password"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_reset_passwoard-enter_password"
+        } else if textField == repeatPasswordTextField.textField {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "repeat_password"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_reset_passwoard-repeat_password"
+        }
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -327,6 +343,19 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
     // MARK: - Private
     @objc
     func didTapSendCodeButton() {
+        var parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        if sendCodeButton.title(for: .normal) == NSLocalizedString("sendAgainButtonTitle", comment: "") {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "send_code"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_reset_passwoard-send_code"
+        } else {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "send_again"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_reset_passwoard-send_again"
+        }
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
+
         if let emailAddress = emailAddressTextField.textField.text {
             AWSMobileClient.default().forgotPassword(username: emailAddress) { (forgotPasswordResult, error) in
                 if forgotPasswordResult?.forgotPasswordState == .confirmationCodeSent {
@@ -351,6 +380,13 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate, OtherS
 
     @objc
     func didTapNextButton() {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "submit_next",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "p_meho_login_reset_passwoard-submit_next",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         if let emailAddress = emailAddressTextField.textField.text?.lowercased(), let password = createPasswordTextField.textField.text, let verificationCode = sendCodeTextField.text {
             AWSMobileClient.default().confirmForgotPassword(username: emailAddress, newPassword: password, confirmationCode: verificationCode) { (forgotPasswordResult, error) in
                 if forgotPasswordResult?.forgotPasswordState == .done {
