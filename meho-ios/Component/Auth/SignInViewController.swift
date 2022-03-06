@@ -145,6 +145,18 @@ class SignInViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.placeholder = ""
+        var parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        if textField == emailAddressField.textField {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "enter_email"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_signin_email-enter_email"
+        } else if textField == passwordField.textField {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "enter_password"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_signin_email-enter_password"
+        }
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -180,6 +192,13 @@ class SignInViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
     @objc
     private func didTapSignInButton() {
         view.endEditing(true)
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "submit_signin",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "p_meho_login_signin_email-submit_signin",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         guard let userName = emailAddressField.textField.text?.lowercased() else {
             return
         }

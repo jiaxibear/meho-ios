@@ -128,6 +128,21 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.placeholder = ""
+        var parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        if textField == emailAddressTextField.textField {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "enter_email"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_signup_email-enter_email"
+        } else if textField == createPasswordTextField.textField {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "enter_password"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_signup_email-enter_password"
+        } else if textField == repeatPasswordTextField.textField {
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlName] = "repeat_password"
+            parameters[MehoAnalyticsUtils.MehoAnalyticsParameterControlID] = "p_meho_login_signup_email-repeat_password"
+        }
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -182,6 +197,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, MehoAnalytics
     @objc
     func didTapNextButton() {
         view.endEditing(true)
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "submit_next",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "p_meho_login_signup_email-submit_next",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
         if let emailAddress = emailAddressTextField.textField.text?.lowercased(), let password = createPasswordTextField.textField.text {
             AWSMobileClient.default().signUp(username: emailAddress, password: password) { (signupResult, error) in
                 var errorMessage: String?
