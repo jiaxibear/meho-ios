@@ -13,6 +13,7 @@ import Reachability
 import FirebaseAnalytics
 
 enum ProfileSection: Int {
+    case panda
     case completed
     case inProgress
     case savedItems
@@ -43,6 +44,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let completedItemColorAlpha = CGFloat(0.3)
     private let profileSectionHeaderEstimatedHeight = CGFloat(60)
     private let profileSectionHeaderReusableIdentifier = "profileSectionHeaderReusableIdentifier"
+    private let profileSectionPandaHeaderReusableIdentifier = "profileSectionPandaHeaderReusableIdentifier"
     private let profileCardWidth = CGFloat(150)
     private let profileCardHeight = CGFloat(210)
     private let profileDummyCardWidth = CGFloat(150)
@@ -115,8 +117,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 return self.profileCardsLayoutSection(hasCards: self.inProgressItems.count > 0)
             case .savedItems:
                 return self.profileCardsLayoutSection(hasCards: self.savedItems.count > 0)
+            case .panda:
+                fallthrough
             case .savedVocabularies:
-                return self.profileCardsLayoutSection(cardWidth: 0, cardHeight: 0)
+                return self.profileCardsLayoutSection(cardWidth: 0, cardHeight: 0, bottomInset: 0)
             }
         }
         return collectionViewCompositionalLayout
@@ -132,6 +136,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.register(ProfileCardCollectionViewCell.self, forCellWithReuseIdentifier: profileCardCollectionViewCellReusableIdentifier)
         collectionView.register(ProfileDummyCardCollectionViewCell.self, forCellWithReuseIdentifier: profileDummyCardCollectionViewCellReusableIdentifier)
         collectionView.register(ProfileHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionHeaderReusableIdentifier)
+        collectionView.register(ProfilePandaHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionPandaHeaderReusableIdentifier)
         collectionView.refreshControl = refreshControl
         collectionView.isHidden = true
         return collectionView
@@ -146,7 +151,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     // MARK: - Datamodels
     private let userDataFetcher = UserDataFetcher.shared
     private let profileDataFetcher = ProfileDataFetcher.init()
-    private var sections: [ProfileSection] = [.completed, .inProgress, .savedItems, .savedVocabularies]
+    private var sections: [ProfileSection] = [.panda, .completed, .inProgress, .savedItems, .savedVocabularies]
     private var completedItems: [ProfileCard] = []
     private var completedGroupedItems: [ProfileCompletedItem] = []
 
@@ -309,6 +314,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             let profileCard = savedItems[item]
             didSelectProfileCard(profileCard)
             break
+        case .panda:
+            fallthrough
         case .savedVocabularies:
             break
         }
@@ -346,6 +353,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 profileCardCell.profileCard = savedItems[indexPath.item]
                 return profileCardCell
             }
+        case .panda:
+            fallthrough
         case .savedVocabularies:
             return UICollectionViewCell.init(frame: .zero)
         }
@@ -355,6 +364,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let profileSection = sections[section]
         switch profileSection {
+        case .panda:
+            return 0
         case .completed:
             return completedGroupedItems.count
         case .inProgress:
@@ -370,32 +381,35 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
+            let section = sections[indexPath.section]
+            if section == .panda {
+                return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionPandaHeaderReusableIdentifier, for: indexPath)
+            }
+
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionHeaderReusableIdentifier, for: indexPath) as! ProfileHeaderCollectionReusableView
             var title = ""
             var count = 0
             var subtitle: String?
             var itemsType = CompletedItemsType.completedExpressions
-            switch sections[indexPath.section] {
+            switch section {
+            case .panda:
+                break
             case .completed:
                 title = "Your Achivements"
-                break
             case .inProgress:
                 title = "In Progress Contents"
                 count = inProgressItems.count
                 subtitle = NSLocalizedString("InProgressContentsSubtitle", comment: "")
                 itemsType = .inProgressAll
-                break
             case .savedItems:
                 title = "Saved Contents"
                 count = savedItems.count
                 subtitle = NSLocalizedString("SavedContentsSubtitle", comment: "")
                 itemsType = .savedAll
-                break
             case .savedVocabularies:
                 title = "Saved Vocabulary"
                 count = saveVocabularies.count
                 itemsType = .savedVocabularies
-                break
             }
             headerView.profileHeader = ProfileHeader.init(title: title, subtitle: subtitle, count: count, itemsType: itemsType)
             headerView.deleagte = self
@@ -511,14 +525,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return section
     }
 
-    private func profileCardsLayoutSection(cardWidth: CGFloat, cardHeight: CGFloat) -> NSCollectionLayoutSection {
+    private func profileCardsLayoutSection(cardWidth: CGFloat, cardHeight: CGFloat, bottomInset: CGFloat) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize.init(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem.init(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize.init(widthDimension: .absolute(cardWidth), heightDimension: .absolute(cardHeight))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection.init(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: sectionLeadingTrailingMargin, bottom: sectionTopMargin, trailing: sectionLeadingTrailingMargin)
+        section.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: sectionLeadingTrailingMargin, bottom: bottomInset, trailing: sectionLeadingTrailingMargin)
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(profileSectionHeaderEstimatedHeight))
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         section.boundarySupplementaryItems = [headerElement]
@@ -530,7 +544,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private func profileCardsLayoutSection(hasCards: Bool) -> NSCollectionLayoutSection {
         let groupWidth = hasCards ? profileCardWidth : profileDummyCardWidth
         let groupHeight = hasCards ? profileCardHeight : profileDummyCardHeight
-        return profileCardsLayoutSection(cardWidth: groupWidth, cardHeight: groupHeight)
+        return profileCardsLayoutSection(cardWidth: groupWidth, cardHeight: groupHeight, bottomInset: sectionTopMargin)
     }
 
     @objc

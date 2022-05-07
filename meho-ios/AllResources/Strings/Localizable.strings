@@ -494,3 +494,9 @@
 
 /* Text that indicates how many of the must know phrases the user has practiced. */
 "MustKnowPhraseProgressText" = "%@ / %@ phrases practiced";
+
+/* Text displayed in the profile page to prompt the user to visit the panda. */
+"PandaText" = "🐼 Panda wants to say Hi!";
+
+/* Title for the visit panda button. */
+"VisitButtonTitle" = "Visit Panda";

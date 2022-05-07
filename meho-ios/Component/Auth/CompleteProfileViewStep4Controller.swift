@@ -247,7 +247,17 @@ class CompleteProfileViewStep4Controller: UIViewController, UICollectionViewData
     // MARK: - Private
     @objc
     func didTapNextButton() {
-        guard let userId = AWSMobileClient.default().userSub else { return }
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "start_learning",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "p_meho_onboarding-start_learning",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
+
+        guard let userId = AWSMobileClient.default().userSub else {
+            return
+        }
 
         let profession = questions[lastSelectedIndex].title
         userDataFecther.updateUser(id: userId, profession: profession) { (maybeUpdatedUser, error) in

@@ -199,9 +199,27 @@ class CompleteProfileViewStep1Controller: UIViewController, UITextFieldDelegate,
         return false
     }
 
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "enter_nickname",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "p_meho_onboarding-enter_nickname",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
+    }
+
     // MARK: - Private
     @objc
     func didTapNextButton() {
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "submit_next",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "p_meho_onboarding-submit_next",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
+
         guard let userID = AWSMobileClient.default().userSub, let nickName = nicknameTextField.text else {
             return
         }

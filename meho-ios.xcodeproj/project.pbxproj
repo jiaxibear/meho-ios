@@ -187,6 +187,7 @@
 		EADFAAA925B7EE5F00C6344A /* CompleteProfileViewStep1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADFAAA825B7EE5F00C6344A /* CompleteProfileViewStep1Controller.swift */; };
 		EAF9D2B9269BAAC000C57E64 /* NotificationSoftAskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9D2B8269BAAC000C57E64 /* NotificationSoftAskViewController.swift */; };
 		EAF9D2BC269BC8B500C57E64 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9D2BB269BC8B500C57E64 /* NotificationManager.swift */; };
+		EAFC1DDC2825F06C006BFF24 /* ProfilePandaHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC1DDB2825F06B006BFF24 /* ProfilePandaHeaderCollectionReusableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -420,6 +421,7 @@
 		EADFAAA825B7EE5F00C6344A /* CompleteProfileViewStep1Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteProfileViewStep1Controller.swift; sourceTree = "<group>"; };
 		EAF9D2B8269BAAC000C57E64 /* NotificationSoftAskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSoftAskViewController.swift; sourceTree = "<group>"; };
 		EAF9D2BB269BC8B500C57E64 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		EAFC1DDB2825F06B006BFF24 /* ProfilePandaHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePandaHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.release.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -768,6 +770,7 @@
 				EA43D6C5256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift */,
 				EADFAA20259940DD00C6344A /* CompletedEmptyCollectionViewCell.swift */,
 				EADFAA2525AE955A00C6344A /* ProfilePhotoViewController.swift */,
+				EAFC1DDB2825F06B006BFF24 /* ProfilePandaHeaderCollectionReusableView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1440,6 +1443,7 @@
 				EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */,
 				92577B2D2446F5B70097A445 /* PinyinViewController.swift in Sources */,
 				92F9015B25623890008A919E /* ListedCategoryViewController.swift in Sources */,
+				EAFC1DDC2825F06C006BFF24 /* ProfilePandaHeaderCollectionReusableView.swift in Sources */,
 				EAD20B9E24F1CFB300C1ED89 /* IdiomViewController.swift in Sources */,
 				EA2FC5C223EF7AD400E258BD /* SceneDelegate.swift in Sources */,
 				EA6381E72449913B00481B8B /* AudioVisualizerView.swift in Sources */,

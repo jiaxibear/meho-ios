@@ -205,7 +205,16 @@ class CompleteProfileViewStep2Controller: UIViewController, UICollectionViewData
     // MARK: - Private
     @objc
     func didTapNextButton() {
-        guard let userId = AWSMobileClient.default().userSub else { return }
+        let parameters = [
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlID: "submit_next",
+            MehoAnalyticsUtils.MehoAnalyticsParameterControlName: "p_meho_onboarding-submit_next",
+            MehoAnalyticsUtils.MehoAnalyticsParameterScreenName: screenName,
+            MehoAnalyticsUtils.MehoAnalyticsParameterInteractionType: MehoAnalyticsParameterInteraction.shortPress.rawValue,
+        ]
+        Analytics.logEvent(MehoAnalyticsUtils.MehoAnalyticsEventInteractions, parameters:parameters)
+        guard let userId = AWSMobileClient.default().userSub else {
+            return
+        }
         var goals: [String] = []
         for communication in questions {
             if communication.isSelected {

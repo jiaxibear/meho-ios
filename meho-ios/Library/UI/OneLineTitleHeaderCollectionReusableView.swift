@@ -43,7 +43,7 @@ class OneLineTitleHeaderCollectionReusableView: UICollectionReusableView {
 
     // MARK: - Init
     @available(*, unavailable)
-        init() {
+    init() {
         fatalError("Use init(frame: CGRect)")
     }
 
