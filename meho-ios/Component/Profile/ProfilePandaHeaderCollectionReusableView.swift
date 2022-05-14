@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ProfilePandaHeaderCollectionReusableViewDelegate: AnyObject {
+    func didTapVisitPandaButton()
+}
+
 class ProfilePandaHeaderCollectionReusableView: UICollectionReusableView {
 
     // MARK: - Constants
@@ -39,8 +43,11 @@ class ProfilePandaHeaderCollectionReusableView: UICollectionReusableView {
             visitPandaButtonFont = UIFont.init(descriptor: visitPandaButtonFontDescriptor, size: visitPandaButtonFontSize)
         }
         visitPandaButton.titleLabel?.font = visitPandaButtonFont
+        visitPandaButton.addTarget(self, action: #selector(didTapVisitPandaButton), for: .touchUpInside)
         return visitPandaButton
     } ()
+
+    weak var deleagte: ProfilePandaHeaderCollectionReusableViewDelegate?
 
     // MARK: - Init
     @available(*, unavailable)
@@ -66,5 +73,11 @@ class ProfilePandaHeaderCollectionReusableView: UICollectionReusableView {
             visitPandaButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             visitPandaButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -contentLeadingTrailingMargin)
         ])
+    }
+
+    // MARK: - Private
+    @objc
+    func didTapVisitPandaButton() {
+        deleagte?.didTapVisitPandaButton()
     }
 }

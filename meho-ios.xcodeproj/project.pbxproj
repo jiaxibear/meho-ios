@@ -188,6 +188,9 @@
 		EAF9D2B9269BAAC000C57E64 /* NotificationSoftAskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9D2B8269BAAC000C57E64 /* NotificationSoftAskViewController.swift */; };
 		EAF9D2BC269BC8B500C57E64 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9D2BB269BC8B500C57E64 /* NotificationManager.swift */; };
 		EAFC1DDC2825F06C006BFF24 /* ProfilePandaHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC1DDB2825F06B006BFF24 /* ProfilePandaHeaderCollectionReusableView.swift */; };
+		EAFC1DE128262DDF006BFF24 /* EarnBambooCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC1DE028262DDF006BFF24 /* EarnBambooCollectionViewCell.swift */; };
+		EAFC1DE3282F4FF8006BFF24 /* PandaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC1DE2282F4FF8006BFF24 /* PandaViewController.swift */; };
+		EAFC1DE528304AAB006BFF24 /* Meho Panda Hi.gif in Resources */ = {isa = PBXBuildFile; fileRef = EAFC1DE428304AAB006BFF24 /* Meho Panda Hi.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -422,6 +425,9 @@
 		EAF9D2B8269BAAC000C57E64 /* NotificationSoftAskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSoftAskViewController.swift; sourceTree = "<group>"; };
 		EAF9D2BB269BC8B500C57E64 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		EAFC1DDB2825F06B006BFF24 /* ProfilePandaHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePandaHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		EAFC1DE028262DDF006BFF24 /* EarnBambooCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnBambooCollectionViewCell.swift; sourceTree = "<group>"; };
+		EAFC1DE2282F4FF8006BFF24 /* PandaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PandaViewController.swift; sourceTree = "<group>"; };
+		EAFC1DE428304AAB006BFF24 /* Meho Panda Hi.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Meho Panda Hi.gif"; sourceTree = "<group>"; };
 		F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.release.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -755,6 +761,7 @@
 		EA52FDA423EF7FE5008EB37B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				EAFC1DDF28262DC2006BFF24 /* Panda */,
 				EA644D3B250D869B005293EF /* Setting */,
 				925E3FF4250DDCE70062606A /* Models */,
 				EA52FDA723EF809D008EB37B /* ProfileViewController.swift */,
@@ -975,6 +982,7 @@
 		EA7B730C23F0DBC40031093B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EAFC1DE428304AAB006BFF24 /* Meho Panda Hi.gif */,
 				EA283A7825E632DF00DE8263 /* Loading@3x.gif */,
 				EA7B730D23F0DBDA0031093B /* Images.xcassets */,
 			);
@@ -1053,6 +1061,15 @@
 				EAB6D5592701916800642515 /* NotificationBadgeManager.swift */,
 			);
 			path = NotificationManager;
+			sourceTree = "<group>";
+		};
+		EAFC1DDF28262DC2006BFF24 /* Panda */ = {
+			isa = PBXGroup;
+			children = (
+				EAFC1DE028262DDF006BFF24 /* EarnBambooCollectionViewCell.swift */,
+				EAFC1DE2282F4FF8006BFF24 /* PandaViewController.swift */,
+			);
+			path = Panda;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1193,6 +1210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA2FC5CC23EF7AD600E258BD /* LaunchScreen.storyboard in Resources */,
+				EAFC1DE528304AAB006BFF24 /* Meho Panda Hi.gif in Resources */,
 				EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */,
 				924C53E523FA14C300B59D95 /* awsconfiguration.json in Resources */,
 				924C53E323FA14B300B59D95 /* amplifyconfiguration.json in Resources */,
@@ -1372,6 +1390,7 @@
 				EA6381F42458081400481B8B /* ContentEvaluationResult.swift in Sources */,
 				EA4206A424A05BD700DA3F2A /* DialogModeSelectionViewController.swift in Sources */,
 				EA01E6AD23FBA62900C0B0AE /* Chapter.swift in Sources */,
+				EAFC1DE3282F4FF8006BFF24 /* PandaViewController.swift in Sources */,
 				EA82086A27608ECF000D298F /* MustKnowPhraseCategoryCollectionViewCell.swift in Sources */,
 				9204700424F337A200DE1A2D /* SignUpTextField.swift in Sources */,
 				EAC74A362676A66E00FBF027 /* InterestQuestionCollectionViewCell.swift in Sources */,
@@ -1402,6 +1421,7 @@
 				92C5FE37244D93BE004A3322 /* Vocabulary.swift in Sources */,
 				EA4DA7822652171D00FCC4DA /* MehoFloatingLabelTextField.swift in Sources */,
 				EA43D6C6256B193D0090634C /* CompletedVocabularyCollectionViewCell.swift in Sources */,
+				EAFC1DE128262DDF006BFF24 /* EarnBambooCollectionViewCell.swift in Sources */,
 				92183A6023F0D39B00428F66 /* FoundationFeatureCollectionViewCell.swift in Sources */,
 				92DEE30F23F8FF60004D91D7 /* Feature.swift in Sources */,
 				9204700A24F337A200DE1A2D /* MehoCoverViewController.swift in Sources */,

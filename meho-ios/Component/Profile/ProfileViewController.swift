@@ -20,7 +20,7 @@ enum ProfileSection: Int {
     case savedVocabularies
 }
 
-class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProfileHeaderCollectionReusableViewDelegate, DialogModeSelectionViewControllerDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate, LoadingViewDelegate, MehoAnalytics {
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProfileHeaderCollectionReusableViewDelegate, ProfilePandaHeaderCollectionReusableViewDelegate, DialogModeSelectionViewControllerDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate, LoadingViewDelegate, MehoAnalytics {
     
     // MARK: - Constants
     private let profileTabBarItemImageName = "tabbar_profile_25pt"
@@ -383,7 +383,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         if kind == UICollectionView.elementKindSectionHeader {
             let section = sections[indexPath.section]
             if section == .panda {
-                return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionPandaHeaderReusableIdentifier, for: indexPath)
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionPandaHeaderReusableIdentifier, for: indexPath) as! ProfilePandaHeaderCollectionReusableView
+                headerView.deleagte = self
+                return headerView
             }
 
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileSectionHeaderReusableIdentifier, for: indexPath) as! ProfileHeaderCollectionReusableView
@@ -481,6 +483,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         let completedItemsViewController = CompletedItemsViewController.init(completedItemsType: itemsType, profileCards: profileCards)
         navigationController?.pushViewController(completedItemsViewController, animated: true)
+    }
+
+    // MARK: - ProfilePandaHeaderCollectionReusableViewDelegate
+    func didTapVisitPandaButton() {
+        let pandaViewController = PandaViewController.init()
+        navigationController?.pushViewController(pandaViewController, animated: true)
     }
 
     // MARK: - NewsPlayingNow
