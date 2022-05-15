@@ -192,6 +192,8 @@
 		EAFC1DE3282F4FF8006BFF24 /* PandaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC1DE2282F4FF8006BFF24 /* PandaViewController.swift */; };
 		EAFC1DE528304AAB006BFF24 /* Meho Panda Hi.gif in Resources */ = {isa = PBXBuildFile; fileRef = EAFC1DE428304AAB006BFF24 /* Meho Panda Hi.gif */; };
 		EAFC1DE72830B25F006BFF24 /* Panda Playing Skating V2.gif in Resources */ = {isa = PBXBuildFile; fileRef = EAFC1DE62830B25E006BFF24 /* Panda Playing Skating V2.gif */; };
+		EAFC1DEA2830EEB5006BFF24 /* Panda Sleeping.gif in Resources */ = {isa = PBXBuildFile; fileRef = EAFC1DE82830EEB5006BFF24 /* Panda Sleeping.gif */; };
+		EAFC1DEB2830EEB5006BFF24 /* Panda Hungry V2.gif in Resources */ = {isa = PBXBuildFile; fileRef = EAFC1DE92830EEB5006BFF24 /* Panda Hungry V2.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -430,6 +432,8 @@
 		EAFC1DE2282F4FF8006BFF24 /* PandaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PandaViewController.swift; sourceTree = "<group>"; };
 		EAFC1DE428304AAB006BFF24 /* Meho Panda Hi.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Meho Panda Hi.gif"; sourceTree = "<group>"; };
 		EAFC1DE62830B25E006BFF24 /* Panda Playing Skating V2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Panda Playing Skating V2.gif"; sourceTree = "<group>"; };
+		EAFC1DE82830EEB5006BFF24 /* Panda Sleeping.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Panda Sleeping.gif"; sourceTree = "<group>"; };
+		EAFC1DE92830EEB5006BFF24 /* Panda Hungry V2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Panda Hungry V2.gif"; sourceTree = "<group>"; };
 		F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.release.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -984,6 +988,8 @@
 		EA7B730C23F0DBC40031093B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EAFC1DE92830EEB5006BFF24 /* Panda Hungry V2.gif */,
+				EAFC1DE82830EEB5006BFF24 /* Panda Sleeping.gif */,
 				EAFC1DE62830B25E006BFF24 /* Panda Playing Skating V2.gif */,
 				EAFC1DE428304AAB006BFF24 /* Meho Panda Hi.gif */,
 				EA283A7825E632DF00DE8263 /* Loading@3x.gif */,
@@ -1212,11 +1218,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAFC1DEB2830EEB5006BFF24 /* Panda Hungry V2.gif in Resources */,
 				EA2FC5CC23EF7AD600E258BD /* LaunchScreen.storyboard in Resources */,
 				EAFC1DE528304AAB006BFF24 /* Meho Panda Hi.gif in Resources */,
 				EA7B730E23F0DBDA0031093B /* Images.xcassets in Resources */,
 				924C53E523FA14C300B59D95 /* awsconfiguration.json in Resources */,
 				924C53E323FA14B300B59D95 /* amplifyconfiguration.json in Resources */,
+				EAFC1DEA2830EEB5006BFF24 /* Panda Sleeping.gif in Resources */,
 				EAFC1DE72830B25F006BFF24 /* Panda Playing Skating V2.gif in Resources */,
 				EAD7F77424D5265A008ADC1C /* PrivacyPolicy.html in Resources */,
 				EA01E6AB23FA356900C0B0AE /* Localizable.strings in Resources */,

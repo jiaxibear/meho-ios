@@ -23,6 +23,7 @@ class PandaViewController: UIViewController {
     private let titleLabelFontSize = CGFloat(20)
     private let titleLabelLeadingTrailingMargin = CGFloat(40)
     private let titleLabelTopMargin = CGFloat(40)
+    private let pandaImageViewHeight = CGFloat(350)
 
     private lazy var bambooButton: UIButton = {
         let bambooButton = UIButton.init(frame: .zero)
@@ -81,7 +82,7 @@ class PandaViewController: UIViewController {
         return String.init(format: "hasSeenPandaKey-%@", userID)
     } ()
 
-    private var numberOfBamboos = 0
+    private var numberOfBamboos = -9
 
     // MARK: - UIViewController
     override func viewDidLoad() {
@@ -109,9 +110,9 @@ class PandaViewController: UIViewController {
             pandaCircleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             pandaCircleView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: pandaCircleViewTopMargin),
 
-            pandaImageView.leadingAnchor.constraint(equalTo: pandaCircleView.leadingAnchor),
-            pandaImageView.trailingAnchor.constraint(equalTo: pandaCircleView.trailingAnchor),
+            pandaImageView.centerXAnchor.constraint(equalTo: pandaCircleView.centerXAnchor),
             pandaImageView.bottomAnchor.constraint(equalTo: pandaCircleView.bottomAnchor),
+            pandaImageView.heightAnchor.constraint(equalToConstant: pandaImageViewHeight),
             pandaImageView.widthAnchor.constraint(equalTo: pandaImageView.heightAnchor),
 
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: titleLabelLeadingTrailingMargin),
@@ -161,9 +162,15 @@ class PandaViewController: UIViewController {
         var text = "Practice on Meho\nand get bamboos to feed me plz!"
         let userDefaults = UserDefaults.standard
         if userDefaults.bool(forKey: hasSeenPandaKey) {
-            if numberOfBamboos >= 0 {
+            if numberOfBamboos > 0 {
                 pandaImageName = "Panda Playing Skating V2"
                 text = "Having Fun now!\nThanks for keeping learning and feeding me with the yummy bamboo!"
+            } else if numberOfBamboos <= 0 && numberOfBamboos >= -5 {
+                pandaImageName = "Panda Hungry V2"
+                text = "I am so hungry…\nPlease keep learning and getting some bamboo for me… "
+            } else {
+                pandaImageName = "Panda Sleeping"
+                text = "Nothing to eat for so long…\nPlease keep learning and getting some bamboo for me… "
             }
         }
         pandaImageView.loadGifFromLocal(name: pandaImageName)
