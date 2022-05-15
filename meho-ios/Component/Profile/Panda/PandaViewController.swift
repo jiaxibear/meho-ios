@@ -24,6 +24,8 @@ class PandaViewController: UIViewController {
     private let titleLabelLeadingTrailingMargin = CGFloat(40)
     private let titleLabelTopMargin = CGFloat(40)
     private let pandaImageViewHeight = CGFloat(350)
+    private let plusButtonSize = CGFloat(24)
+    private let plusButtonBorderWidth = CGFloat(1)
 
     private lazy var bambooButton: UIButton = {
         let bambooButton = UIButton.init(frame: .zero)
@@ -82,6 +84,20 @@ class PandaViewController: UIViewController {
         return String.init(format: "hasSeenPandaKey-%@", userID)
     } ()
 
+    private lazy var plusButton: UIButton = {
+        let plusButton = UIButton.init(frame: .zero)
+        plusButton.translatesAutoresizingMaskIntoConstraints = false
+        plusButton.layer.cornerRadius = plusButtonSize / 2
+        plusButton.layer.borderColor = UIColor.paleLilac.cgColor
+        plusButton.layer.borderWidth = plusButtonBorderWidth
+        plusButton.layer.masksToBounds = true
+        let plusImage = UIImage.init(systemName: "plus")
+        plusButton.tintColor = .skyBlue
+        plusButton.setImage(plusImage, for: .normal)
+        plusButton.backgroundColor = .white
+        return plusButton
+    } ()
+
     private var numberOfBamboos = -9
 
     // MARK: - UIViewController
@@ -90,6 +106,7 @@ class PandaViewController: UIViewController {
 
         view.addSubview(bambooButton)
         view.addSubview(contentView)
+        view.addSubview(plusButton)
         contentView.addSubview(pandaCircleView)
         contentView.addSubview(titleLabel)
         pandaCircleView.addSubview(pandaImageView)
@@ -99,6 +116,11 @@ class PandaViewController: UIViewController {
             bambooButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentLeadingTrailingMargin),
             bambooButton.widthAnchor.constraint(equalToConstant: bambooButtonWidth),
             bambooButton.heightAnchor.constraint(equalToConstant: bambooButtonHeight),
+
+            plusButton.widthAnchor.constraint(equalToConstant: plusButtonSize),
+            plusButton.heightAnchor.constraint(equalToConstant: plusButtonSize),
+            plusButton.centerXAnchor.constraint(equalTo: bambooButton.trailingAnchor),
+            plusButton.centerYAnchor.constraint(equalTo: bambooButton.bottomAnchor),
 
             contentView.topAnchor.constraint(equalTo: bambooButton.bottomAnchor, constant: contentViewTopMargin),
             contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -20),
