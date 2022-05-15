@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSMobileClient
 
 class PandaViewController: UIViewController {
 
@@ -58,7 +59,6 @@ class PandaViewController: UIViewController {
     private lazy var pandaImageView: UIImageView = {
         let pandaImageView = UIImageView.init(frame: .zero)
         pandaImageView.translatesAutoresizingMaskIntoConstraints = false
-        pandaImageView.loadGifFromLocal(name: "Meho Panda Hi")
         return pandaImageView
     } ()
 
@@ -70,11 +70,20 @@ class PandaViewController: UIViewController {
         if let titleLabelFontDescriptor = titleLabelFont.fontDescriptor.withDesign(.rounded) {
             titleLabelFont = UIFont.init(descriptor: titleLabelFontDescriptor, size: titleLabelFontSize)
         }
-        titleLabel.text = "Practice on Meho\nand get bamboos to feed me plz!"
         titleLabel.textAlignment = .center
         return titleLabel
     } ()
 
+    private lazy var hasSeenPandaKey: String? = {
+        guard let userID = AWSMobileClient.default().userSub else {
+            return nil
+        }
+        return String.init(format: "hasSeenPandaKey-%@", userID)
+    } ()
+
+    private var numberOfBamboos = 0
+
+    // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -109,6 +118,14 @@ class PandaViewController: UIViewController {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -titleLabelLeadingTrailingMargin),
             titleLabel.topAnchor.constraint(equalTo: pandaCircleView.bottomAnchor, constant: titleLabelTopMargin),
         ])
+
+        updatePandaImageViewAndText()
+        guard let hasSeenPandaKey = hasSeenPandaKey else {
+            return
+        }
+
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(true, forKey: hasSeenPandaKey)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -133,4 +150,25 @@ class PandaViewController: UIViewController {
             newsPlayingNowView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
         ])
     }
+
+    // MARK: - Private
+    func updatePandaImageViewAndText() {
+        guard let hasSeenPandaKey = hasSeenPandaKey else {
+            return
+        }
+
+        var pandaImageName = "Meho Panda Hi"
+        var text = "Practice on Meho\nand get bamboos to feed me plz!"
+        let userDefaults = UserDefaults.standard
+        if userDefaults.bool(forKey: hasSeenPandaKey) {
+            if numberOfBamboos >= 0 {
+                pandaImageName = "Panda Playing Skating V2"
+                text = "Having Fun now!\nThanks for keeping learning and feeding me with the yummy bamboo!"
+            }
+        }
+        pandaImageView.loadGifFromLocal(name: pandaImageName)
+        titleLabel.text = text
+    }
+
+
 }
