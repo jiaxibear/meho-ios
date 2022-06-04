@@ -500,3 +500,9 @@
 
 /* Title for the visit panda button. */
 "VisitButtonTitle" = "Visit Panda";
+
+/* Title for the earn bamboo screen. */
+"EarnBambooTitle" = "How to earn bamboo?";
+
+/* Subtitle for the earn bamboo screen. */
+"EarnBambooSubtitle" = "Your panda eats 1 bamboo per day";

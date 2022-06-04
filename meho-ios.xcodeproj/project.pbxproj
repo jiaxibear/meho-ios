@@ -194,6 +194,8 @@
 		EAFC1DE72830B25F006BFF24 /* Panda Playing Skating V2.gif in Resources */ = {isa = PBXBuildFile; fileRef = EAFC1DE62830B25E006BFF24 /* Panda Playing Skating V2.gif */; };
 		EAFC1DEA2830EEB5006BFF24 /* Panda Sleeping.gif in Resources */ = {isa = PBXBuildFile; fileRef = EAFC1DE82830EEB5006BFF24 /* Panda Sleeping.gif */; };
 		EAFC1DEB2830EEB5006BFF24 /* Panda Hungry V2.gif in Resources */ = {isa = PBXBuildFile; fileRef = EAFC1DE92830EEB5006BFF24 /* Panda Hungry V2.gif */; };
+		EAFC1DED2841CD72006BFF24 /* EarnBamboo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC1DEC2841CD72006BFF24 /* EarnBamboo.swift */; };
+		EAFC1DEF2841D099006BFF24 /* EarnBambooViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC1DEE2841D099006BFF24 /* EarnBambooViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -434,6 +436,8 @@
 		EAFC1DE62830B25E006BFF24 /* Panda Playing Skating V2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Panda Playing Skating V2.gif"; sourceTree = "<group>"; };
 		EAFC1DE82830EEB5006BFF24 /* Panda Sleeping.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Panda Sleeping.gif"; sourceTree = "<group>"; };
 		EAFC1DE92830EEB5006BFF24 /* Panda Hungry V2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Panda Hungry V2.gif"; sourceTree = "<group>"; };
+		EAFC1DEC2841CD72006BFF24 /* EarnBamboo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnBamboo.swift; sourceTree = "<group>"; };
+		EAFC1DEE2841D099006BFF24 /* EarnBambooViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnBambooViewController.swift; sourceTree = "<group>"; };
 		F716BB1255CF205B861C58F6 /* Pods-meho-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meho-ios.release.xcconfig"; path = "Target Support Files/Pods-meho-ios/Pods-meho-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1077,6 +1081,8 @@
 			children = (
 				EAFC1DE028262DDF006BFF24 /* EarnBambooCollectionViewCell.swift */,
 				EAFC1DE2282F4FF8006BFF24 /* PandaViewController.swift */,
+				EAFC1DEC2841CD72006BFF24 /* EarnBamboo.swift */,
+				EAFC1DEE2841D099006BFF24 /* EarnBambooViewController.swift */,
 			);
 			path = Panda;
 			sourceTree = "<group>";
@@ -1421,6 +1427,7 @@
 				EADFAA2B25AEB86000C6344A /* ImageTopAndTitleDownButton.swift in Sources */,
 				EAD7F76524BAA8B8008ADC1C /* DisplayScoreSwitch.swift in Sources */,
 				9204700124F337A200DE1A2D /* ProfileQuestion.swift in Sources */,
+				EAFC1DED2841CD72006BFF24 /* EarnBamboo.swift in Sources */,
 				EAD20BA124F1F4E400C1ED89 /* Idiom.swift in Sources */,
 				92046FFD24F337A200DE1A2D /* OtherSignInView.swift in Sources */,
 				EA1693712558F83D0074EE0D /* CompletedItemsViewController.swift in Sources */,
@@ -1484,6 +1491,7 @@
 				EAB6B7F825CD117D00235ACB /* NewsPlayingNowView.swift in Sources */,
 				EA0F9BC4257C684600980267 /* Expression.swift in Sources */,
 				9204700324F337A200DE1A2D /* QuestionHeaderReusableView.swift in Sources */,
+				EAFC1DEF2841D099006BFF24 /* EarnBambooViewController.swift in Sources */,
 				EA01E6AF23FBC25F00C0B0AE /* Difficulty.swift in Sources */,
 				92BAC7192439691200862571 /* NewsReasonView.swift in Sources */,
 				92C5FE2B244C3E0F004A3322 /* PinyinFinalCollectionViewCell.swift in Sources */,

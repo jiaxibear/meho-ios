@@ -95,6 +95,7 @@ class PandaViewController: UIViewController {
         plusButton.tintColor = .skyBlue
         plusButton.setImage(plusImage, for: .normal)
         plusButton.backgroundColor = .white
+        plusButton.addTarget(self, action: #selector(didTapPlusButton), for: .touchUpInside)
         return plusButton
     } ()
 
@@ -199,5 +200,12 @@ class PandaViewController: UIViewController {
         titleLabel.text = text
     }
 
-
+    @objc
+    func didTapPlusButton() {
+        let earnBambooViewController = EarnBambooViewController.init(nibName: nil, bundle: nil)
+        let dialogViewController = DialogViewController.init(contentViewController: earnBambooViewController)
+        dialogViewController.modalPresentationStyle = .overFullScreen
+        dialogViewController.modalTransitionStyle = .crossDissolve
+        present(dialogViewController, animated: true, completion: nil)
+    }
 }

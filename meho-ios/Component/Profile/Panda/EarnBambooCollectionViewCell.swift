@@ -11,15 +11,16 @@ import UIKit
 class EarnBambooCollectionViewCell: UICollectionViewCell {
 
     private let bambooLabelFontSize = CGFloat(32)
-    private let bambooLabelTrailingMargin = CGFloat(12)
+    private let bambooLabelTrailingMargin = CGFloat(6)
     private let bambooNumberLabelFontSize = CGFloat(18)
     private let actionLabelFontSize = CGFloat(14)
-    private let actionLabelLeadingTrailingMargin = CGFloat(24)
+    private let actionLabelLeadingTrailingMargin = CGFloat(16)
     private let contentViewCornerRadius = CGFloat(5)
     private let contentStackViewLeadingTrailingMargin = CGFloat(12)
     private let imageViewWidth = CGFloat(24)
     private let imageViewHeight = CGFloat(24)
     private let bambooNumberLabelWidth = CGFloat(44)
+    private let bambooLabelWidth = CGFloat(24)
 
     private lazy var bambooLabel: UILabel = {
         let bambooLabel = UILabel.init(frame: .zero)
@@ -100,6 +101,14 @@ class EarnBambooCollectionViewCell: UICollectionViewCell {
             imageView.heightAnchor.constraint(equalToConstant: imageViewHeight),
 
             bambooNumberLabel.widthAnchor.constraint(equalToConstant: bambooNumberLabelWidth),
+
+            bambooLabel.widthAnchor.constraint(equalToConstant: bambooLabelWidth),
         ])
+    }
+
+    // MARK: - Internal
+    func setEarnBamboo(_ earnBamboo: EarnBamboo) {
+        bambooNumberLabel.text = earnBamboo.numberOfBamboo
+        actionLabel.text = earnBamboo.action
     }
 }
