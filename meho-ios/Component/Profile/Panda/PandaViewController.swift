@@ -16,7 +16,7 @@ class PandaViewController: UIViewController {
     private let bambooButtonTitleFontSize = CGFloat(18)
     private let bambooButtonCornerRadius = CGFloat(8)
     private let contentLeadingTrailingMargin = CGFloat(32)
-    private let bambooButtonTopMargin = CGFloat(26)
+    private let bambooButtonTopMargin = CGFloat(20)
     private let contentViewTopMargin = CGFloat(26)
     private let pandaCircleViewTopMargin = CGFloat(70)
     private let pandaCircleViewHeight = CGFloat(492)
@@ -26,6 +26,35 @@ class PandaViewController: UIViewController {
     private let pandaImageViewHeight = CGFloat(350)
     private let plusButtonSize = CGFloat(24)
     private let plusButtonBorderWidth = CGFloat(1)
+    private let editNameButtonWidth = CGFloat(36)
+    private let editNameButtonHeight = CGFloat(36)
+    private let editNameButtonLeadingMargin = CGFloat(24)
+    private let pandaNameLabelLeadingMargin = CGFloat(12)
+    private let pandaNameLabelFontSize = CGFloat(18)
+
+    private lazy var editNameButton: UIButton = {
+        let editNameButton = UIButton.init(frame: .zero)
+        editNameButton.translatesAutoresizingMaskIntoConstraints = false
+        editNameButton.backgroundColor = .skyBlue
+        let editNameButtonImage = UIImage.init(named: "profile_edit_penceil")?.withTintColor(.white)
+        editNameButton.setImage(editNameButtonImage, for: .normal)
+        editNameButton.tintColor = .white
+        editNameButton.layer.cornerRadius = editNameButtonWidth / 2
+        editNameButton.layer.masksToBounds = true
+        return editNameButton
+    } ()
+
+    private lazy var pandaNameLabel: UILabel = {
+        let pandaNameLabel = UILabel.init(frame: .zero)
+        pandaNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        pandaNameLabel.text = NSLocalizedString("NameYourPandaText", comment: "")
+        pandaNameLabel.textColor = .darkGrayTwo
+        var pandaNameLabelFont = UIFont.systemFont(ofSize: pandaNameLabelFontSize, weight: .regular)
+        if let pandaNameLabelFontDescriptor = pandaNameLabelFont.fontDescriptor.withDesign(.rounded) {
+            pandaNameLabelFont = UIFont.init(descriptor: pandaNameLabelFontDescriptor, size: pandaNameLabelFontSize)
+        }
+        return pandaNameLabel
+    } ()
 
     private lazy var bambooButton: UIButton = {
         let bambooButton = UIButton.init(frame: .zero)
@@ -105,14 +134,21 @@ class PandaViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubview(bambooButton)
         view.addSubview(contentView)
-        view.addSubview(plusButton)
+        contentView.addSubview(bambooButton)
+        contentView.addSubview(pandaNameLabel)
+        contentView.addSubview(plusButton)
+        contentView.addSubview(editNameButton)
         contentView.addSubview(pandaCircleView)
         contentView.addSubview(titleLabel)
         pandaCircleView.addSubview(pandaImageView)
         view.backgroundColor = .white
         NSLayoutConstraint.activate([
+            editNameButton.widthAnchor.constraint(equalToConstant: editNameButtonWidth),
+            editNameButton.heightAnchor.constraint(equalToConstant: editNameButtonHeight),
+            editNameButton.topAnchor.constraint(equalTo: bambooButton.topAnchor),
+            editNameButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: editNameButtonLeadingMargin),
+
             bambooButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: bambooButtonTopMargin),
             bambooButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -contentLeadingTrailingMargin),
             bambooButton.widthAnchor.constraint(equalToConstant: bambooButtonWidth),
@@ -123,7 +159,7 @@ class PandaViewController: UIViewController {
             plusButton.centerXAnchor.constraint(equalTo: bambooButton.trailingAnchor),
             plusButton.centerYAnchor.constraint(equalTo: bambooButton.bottomAnchor),
 
-            contentView.topAnchor.constraint(equalTo: bambooButton.bottomAnchor, constant: contentViewTopMargin),
+            contentView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -20),
             contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20),
             contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -141,6 +177,9 @@ class PandaViewController: UIViewController {
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: titleLabelLeadingTrailingMargin),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -titleLabelLeadingTrailingMargin),
             titleLabel.topAnchor.constraint(equalTo: pandaCircleView.bottomAnchor, constant: titleLabelTopMargin),
+
+            pandaNameLabel.centerYAnchor.constraint(equalTo: editNameButton.centerYAnchor),
+            pandaNameLabel.leadingAnchor.constraint(equalTo: editNameButton.trailingAnchor, constant: pandaNameLabelLeadingMargin),
         ])
 
         updatePandaImageViewAndText()

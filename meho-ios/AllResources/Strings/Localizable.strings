@@ -506,3 +506,6 @@
 
 /* Subtitle for the earn bamboo screen. */
 "EarnBambooSubtitle" = "Your panda eats 1 bamboo per day";
+
+/* Defaulr panda name. */
+"NameYourPandaText" = "Name You Panda";
