@@ -2280,6 +2280,7 @@ query GetUser($id: ID!) {
     goals
     interests
     profession
+    credit
     completedItems {
       items {
         id
@@ -2294,6 +2295,7 @@ query GetUser($id: ID!) {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -2330,6 +2332,7 @@ query GetUser($id: ID!) {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -2366,6 +2369,7 @@ query GetUser($id: ID!) {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -2402,6 +2406,7 @@ query GetUser($id: ID!) {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -2444,6 +2449,7 @@ query ListUsers(
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -2455,6 +2461,7 @@ query ListUsers(
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2476,6 +2483,7 @@ query ListUsers(
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2497,6 +2505,7 @@ query ListUsers(
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2518,6 +2527,7 @@ query ListUsers(
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2578,6 +2588,7 @@ query GetUserItemCompleted($id: ID!) {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -2589,6 +2600,7 @@ query GetUserItemCompleted($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2610,6 +2622,7 @@ query GetUserItemCompleted($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2631,6 +2644,7 @@ query GetUserItemCompleted($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2652,6 +2666,7 @@ query GetUserItemCompleted($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2693,6 +2708,7 @@ query ListUserItemCompleteds(
         goals
         interests
         profession
+        credit
         completedItems {
           items {
             id
@@ -2757,6 +2773,7 @@ query GetUserItemInProgress($id: ID!) {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -2768,6 +2785,7 @@ query GetUserItemInProgress($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2789,6 +2807,7 @@ query GetUserItemInProgress($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2810,6 +2829,7 @@ query GetUserItemInProgress($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2831,6 +2851,7 @@ query GetUserItemInProgress($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2872,6 +2893,7 @@ query ListUserItemInProgresss(
         goals
         interests
         profession
+        credit
         completedItems {
           items {
             id
@@ -2936,6 +2958,7 @@ query GetUserItemSave($id: ID!) {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -2947,6 +2970,7 @@ query GetUserItemSave($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2968,6 +2992,7 @@ query GetUserItemSave($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -2989,6 +3014,7 @@ query GetUserItemSave($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -3010,6 +3036,7 @@ query GetUserItemSave($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -3047,6 +3074,7 @@ query ListUserItemSaves(
         goals
         interests
         profession
+        credit
         completedItems {
           items {
             id
@@ -3111,6 +3139,7 @@ query GetUserVocabularySave($id: ID!) {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -3122,6 +3151,7 @@ query GetUserVocabularySave($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -3143,6 +3173,7 @@ query GetUserVocabularySave($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -3164,6 +3195,7 @@ query GetUserVocabularySave($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -3185,6 +3217,7 @@ query GetUserVocabularySave($id: ID!) {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -3225,6 +3258,7 @@ query ListUserVocabularySaves(
         goals
         interests
         profession
+        credit
         completedItems {
           items {
             id

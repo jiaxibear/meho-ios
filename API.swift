@@ -4278,8 +4278,8 @@ public struct DeleteNpcInput: GraphQLMapConvertible {
 public struct CreateUserInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID? = nil, username: String, email: String, avatar: S3ObjectInput? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil) {
-    graphQLMap = ["id": id, "username": username, "email": email, "avatar": avatar, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession]
+  public init(id: GraphQLID? = nil, username: String, email: String, avatar: S3ObjectInput? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil) {
+    graphQLMap = ["id": id, "username": username, "email": email, "avatar": avatar, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit]
   }
 
   public var id: GraphQLID? {
@@ -4353,13 +4353,22 @@ public struct CreateUserInput: GraphQLMapConvertible {
       graphQLMap.updateValue(newValue, forKey: "profession")
     }
   }
+
+  public var credit: Int? {
+    get {
+      return graphQLMap["credit"] as! Int?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "credit")
+    }
+  }
 }
 
 public struct ModelUserConditionInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(username: ModelStringInput? = nil, email: ModelStringInput? = nil, avatarKey: ModelStringInput? = nil, goals: ModelStringInput? = nil, interests: ModelStringInput? = nil, profession: ModelStringInput? = nil, and: [ModelUserConditionInput?]? = nil, or: [ModelUserConditionInput?]? = nil, not: ModelUserConditionInput? = nil) {
-    graphQLMap = ["username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "and": and, "or": or, "not": not]
+  public init(username: ModelStringInput? = nil, email: ModelStringInput? = nil, avatarKey: ModelStringInput? = nil, goals: ModelStringInput? = nil, interests: ModelStringInput? = nil, profession: ModelStringInput? = nil, credit: ModelIntInput? = nil, and: [ModelUserConditionInput?]? = nil, or: [ModelUserConditionInput?]? = nil, not: ModelUserConditionInput? = nil) {
+    graphQLMap = ["username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "and": and, "or": or, "not": not]
   }
 
   public var username: ModelStringInput? {
@@ -4416,6 +4425,15 @@ public struct ModelUserConditionInput: GraphQLMapConvertible {
     }
   }
 
+  public var credit: ModelIntInput? {
+    get {
+      return graphQLMap["credit"] as! ModelIntInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "credit")
+    }
+  }
+
   public var and: [ModelUserConditionInput?]? {
     get {
       return graphQLMap["and"] as! [ModelUserConditionInput?]?
@@ -4447,8 +4465,8 @@ public struct ModelUserConditionInput: GraphQLMapConvertible {
 public struct UpdateUserInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID, username: String? = nil, email: String? = nil, avatar: S3ObjectInput? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil) {
-    graphQLMap = ["id": id, "username": username, "email": email, "avatar": avatar, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession]
+  public init(id: GraphQLID, username: String? = nil, email: String? = nil, avatar: S3ObjectInput? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil) {
+    graphQLMap = ["id": id, "username": username, "email": email, "avatar": avatar, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit]
   }
 
   public var id: GraphQLID {
@@ -4520,6 +4538,15 @@ public struct UpdateUserInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "profession")
+    }
+  }
+
+  public var credit: Int? {
+    get {
+      return graphQLMap["credit"] as! Int?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "credit")
     }
   }
 }
@@ -6696,8 +6723,8 @@ public struct ModelNpcFilterInput: GraphQLMapConvertible {
 public struct ModelUserFilterInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: ModelIDInput? = nil, username: ModelStringInput? = nil, email: ModelStringInput? = nil, avatarKey: ModelStringInput? = nil, goals: ModelStringInput? = nil, interests: ModelStringInput? = nil, profession: ModelStringInput? = nil, and: [ModelUserFilterInput?]? = nil, or: [ModelUserFilterInput?]? = nil, not: ModelUserFilterInput? = nil) {
-    graphQLMap = ["id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "and": and, "or": or, "not": not]
+  public init(id: ModelIDInput? = nil, username: ModelStringInput? = nil, email: ModelStringInput? = nil, avatarKey: ModelStringInput? = nil, goals: ModelStringInput? = nil, interests: ModelStringInput? = nil, profession: ModelStringInput? = nil, credit: ModelIntInput? = nil, and: [ModelUserFilterInput?]? = nil, or: [ModelUserFilterInput?]? = nil, not: ModelUserFilterInput? = nil) {
+    graphQLMap = ["id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "and": and, "or": or, "not": not]
   }
 
   public var id: ModelIDInput? {
@@ -6760,6 +6787,15 @@ public struct ModelUserFilterInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "profession")
+    }
+  }
+
+  public var credit: ModelIntInput? {
+    get {
+      return graphQLMap["credit"] as! ModelIntInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "credit")
     }
   }
 
@@ -65152,7 +65188,7 @@ public final class DeleteNpcMutation: GraphQLMutation {
 
 public final class CreateUserMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateUser($input: CreateUserInput!, $condition: ModelUserConditionInput) {\n  createUser(input: $input, condition: $condition) {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateUser($input: CreateUserInput!, $condition: ModelUserConditionInput) {\n  createUser(input: $input, condition: $condition) {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    credit\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -65207,6 +65243,7 @@ public final class CreateUserMutation: GraphQLMutation {
         GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("profession", type: .scalar(String.self)),
+        GraphQLField("credit", type: .scalar(Int.self)),
         GraphQLField("completedItems", type: .object(CompletedItem.selections)),
         GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
         GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -65221,8 +65258,8 @@ public final class CreateUserMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -65303,6 +65340,15 @@ public final class CreateUserMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "profession")
+        }
+      }
+
+      public var credit: Int? {
+        get {
+          return snapshot["credit"] as? Int
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "credit")
         }
       }
 
@@ -65585,6 +65631,7 @@ public final class CreateUserMutation: GraphQLMutation {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -65599,8 +65646,8 @@ public final class CreateUserMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -65681,6 +65728,15 @@ public final class CreateUserMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -66114,6 +66170,7 @@ public final class CreateUserMutation: GraphQLMutation {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -66128,8 +66185,8 @@ public final class CreateUserMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -66210,6 +66267,15 @@ public final class CreateUserMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -66643,6 +66709,7 @@ public final class CreateUserMutation: GraphQLMutation {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -66657,8 +66724,8 @@ public final class CreateUserMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -66739,6 +66806,15 @@ public final class CreateUserMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -67162,6 +67238,7 @@ public final class CreateUserMutation: GraphQLMutation {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -67176,8 +67253,8 @@ public final class CreateUserMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -67258,6 +67335,15 @@ public final class CreateUserMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -67551,7 +67637,7 @@ public final class CreateUserMutation: GraphQLMutation {
 
 public final class UpdateUserMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateUser($input: UpdateUserInput!, $condition: ModelUserConditionInput) {\n  updateUser(input: $input, condition: $condition) {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateUser($input: UpdateUserInput!, $condition: ModelUserConditionInput) {\n  updateUser(input: $input, condition: $condition) {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    credit\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -67606,6 +67692,7 @@ public final class UpdateUserMutation: GraphQLMutation {
         GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("profession", type: .scalar(String.self)),
+        GraphQLField("credit", type: .scalar(Int.self)),
         GraphQLField("completedItems", type: .object(CompletedItem.selections)),
         GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
         GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -67620,8 +67707,8 @@ public final class UpdateUserMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -67702,6 +67789,15 @@ public final class UpdateUserMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "profession")
+        }
+      }
+
+      public var credit: Int? {
+        get {
+          return snapshot["credit"] as? Int
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "credit")
         }
       }
 
@@ -67984,6 +68080,7 @@ public final class UpdateUserMutation: GraphQLMutation {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -67998,8 +68095,8 @@ public final class UpdateUserMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -68080,6 +68177,15 @@ public final class UpdateUserMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -68513,6 +68619,7 @@ public final class UpdateUserMutation: GraphQLMutation {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -68527,8 +68634,8 @@ public final class UpdateUserMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -68609,6 +68716,15 @@ public final class UpdateUserMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -69042,6 +69158,7 @@ public final class UpdateUserMutation: GraphQLMutation {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -69056,8 +69173,8 @@ public final class UpdateUserMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -69138,6 +69255,15 @@ public final class UpdateUserMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -69561,6 +69687,7 @@ public final class UpdateUserMutation: GraphQLMutation {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -69575,8 +69702,8 @@ public final class UpdateUserMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -69657,6 +69784,15 @@ public final class UpdateUserMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -69950,7 +70086,7 @@ public final class UpdateUserMutation: GraphQLMutation {
 
 public final class DeleteUserMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteUser($input: DeleteUserInput!, $condition: ModelUserConditionInput) {\n  deleteUser(input: $input, condition: $condition) {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteUser($input: DeleteUserInput!, $condition: ModelUserConditionInput) {\n  deleteUser(input: $input, condition: $condition) {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    credit\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -70005,6 +70141,7 @@ public final class DeleteUserMutation: GraphQLMutation {
         GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("profession", type: .scalar(String.self)),
+        GraphQLField("credit", type: .scalar(Int.self)),
         GraphQLField("completedItems", type: .object(CompletedItem.selections)),
         GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
         GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -70019,8 +70156,8 @@ public final class DeleteUserMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -70101,6 +70238,15 @@ public final class DeleteUserMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "profession")
+        }
+      }
+
+      public var credit: Int? {
+        get {
+          return snapshot["credit"] as? Int
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "credit")
         }
       }
 
@@ -70383,6 +70529,7 @@ public final class DeleteUserMutation: GraphQLMutation {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -70397,8 +70544,8 @@ public final class DeleteUserMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -70479,6 +70626,15 @@ public final class DeleteUserMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -70912,6 +71068,7 @@ public final class DeleteUserMutation: GraphQLMutation {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -70926,8 +71083,8 @@ public final class DeleteUserMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -71008,6 +71165,15 @@ public final class DeleteUserMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -71441,6 +71607,7 @@ public final class DeleteUserMutation: GraphQLMutation {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -71455,8 +71622,8 @@ public final class DeleteUserMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -71537,6 +71704,15 @@ public final class DeleteUserMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -71960,6 +72136,7 @@ public final class DeleteUserMutation: GraphQLMutation {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -71974,8 +72151,8 @@ public final class DeleteUserMutation: GraphQLMutation {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -72056,6 +72233,15 @@ public final class DeleteUserMutation: GraphQLMutation {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -72802,7 +72988,7 @@ public final class DeleteUserTokenMutation: GraphQLMutation {
 
 public final class CreateUserItemCompletedMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateUserItemCompleted($input: CreateUserItemCompletedInput!, $condition: ModelUserItemCompletedConditionInput) {\n  createUserItemCompleted(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateUserItemCompleted($input: CreateUserItemCompletedInput!, $condition: ModelUserItemCompletedConditionInput) {\n  createUserItemCompleted(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -72943,6 +73129,7 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -72957,8 +73144,8 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -73039,6 +73226,15 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -73320,6 +73516,7 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -73330,8 +73527,8 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -73403,6 +73600,15 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -73571,6 +73777,7 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -73581,8 +73788,8 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -73654,6 +73861,15 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -73822,6 +74038,7 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -73832,8 +74049,8 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -73905,6 +74122,15 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -74063,6 +74289,7 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -74073,8 +74300,8 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -74149,6 +74376,15 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -74176,7 +74412,7 @@ public final class CreateUserItemCompletedMutation: GraphQLMutation {
 
 public final class UpdateUserItemCompletedMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateUserItemCompleted($input: UpdateUserItemCompletedInput!, $condition: ModelUserItemCompletedConditionInput) {\n  updateUserItemCompleted(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateUserItemCompleted($input: UpdateUserItemCompletedInput!, $condition: ModelUserItemCompletedConditionInput) {\n  updateUserItemCompleted(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -74317,6 +74553,7 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -74331,8 +74568,8 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -74413,6 +74650,15 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -74694,6 +74940,7 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -74704,8 +74951,8 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -74777,6 +75024,15 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -74945,6 +75201,7 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -74955,8 +75212,8 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -75028,6 +75285,15 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -75196,6 +75462,7 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -75206,8 +75473,8 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -75279,6 +75546,15 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -75437,6 +75713,7 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -75447,8 +75724,8 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -75523,6 +75800,15 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -75550,7 +75836,7 @@ public final class UpdateUserItemCompletedMutation: GraphQLMutation {
 
 public final class DeleteUserItemCompletedMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteUserItemCompleted($input: DeleteUserItemCompletedInput!, $condition: ModelUserItemCompletedConditionInput) {\n  deleteUserItemCompleted(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteUserItemCompleted($input: DeleteUserItemCompletedInput!, $condition: ModelUserItemCompletedConditionInput) {\n  deleteUserItemCompleted(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -75691,6 +75977,7 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -75705,8 +75992,8 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -75787,6 +76074,15 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -76068,6 +76364,7 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -76078,8 +76375,8 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -76151,6 +76448,15 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -76319,6 +76625,7 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -76329,8 +76636,8 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -76402,6 +76709,15 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -76570,6 +76886,7 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -76580,8 +76897,8 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -76653,6 +76970,15 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -76811,6 +77137,7 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -76821,8 +77148,8 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -76897,6 +77224,15 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -76924,7 +77260,7 @@ public final class DeleteUserItemCompletedMutation: GraphQLMutation {
 
 public final class CreateUserItemInProgressMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateUserItemInProgress($input: CreateUserItemInProgressInput!, $condition: ModelUserItemInProgressConditionInput) {\n  createUserItemInProgress(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateUserItemInProgress($input: CreateUserItemInProgressInput!, $condition: ModelUserItemInProgressConditionInput) {\n  createUserItemInProgress(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -77065,6 +77401,7 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -77079,8 +77416,8 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -77161,6 +77498,15 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -77442,6 +77788,7 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -77452,8 +77799,8 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -77525,6 +77872,15 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -77693,6 +78049,7 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -77703,8 +78060,8 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -77776,6 +78133,15 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -77944,6 +78310,7 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -77954,8 +78321,8 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -78027,6 +78394,15 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -78185,6 +78561,7 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -78195,8 +78572,8 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -78271,6 +78648,15 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -78298,7 +78684,7 @@ public final class CreateUserItemInProgressMutation: GraphQLMutation {
 
 public final class UpdateUserItemInProgressMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateUserItemInProgress($input: UpdateUserItemInProgressInput!, $condition: ModelUserItemInProgressConditionInput) {\n  updateUserItemInProgress(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateUserItemInProgress($input: UpdateUserItemInProgressInput!, $condition: ModelUserItemInProgressConditionInput) {\n  updateUserItemInProgress(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -78439,6 +78825,7 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -78453,8 +78840,8 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -78535,6 +78922,15 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -78816,6 +79212,7 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -78826,8 +79223,8 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -78899,6 +79296,15 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -79067,6 +79473,7 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -79077,8 +79484,8 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -79150,6 +79557,15 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -79318,6 +79734,7 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -79328,8 +79745,8 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -79401,6 +79818,15 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -79559,6 +79985,7 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -79569,8 +79996,8 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -79645,6 +80072,15 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -79672,7 +80108,7 @@ public final class UpdateUserItemInProgressMutation: GraphQLMutation {
 
 public final class DeleteUserItemInProgressMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteUserItemInProgress($input: DeleteUserItemInProgressInput!, $condition: ModelUserItemInProgressConditionInput) {\n  deleteUserItemInProgress(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteUserItemInProgress($input: DeleteUserItemInProgressInput!, $condition: ModelUserItemInProgressConditionInput) {\n  deleteUserItemInProgress(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -79813,6 +80249,7 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -79827,8 +80264,8 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -79909,6 +80346,15 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -80190,6 +80636,7 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -80200,8 +80647,8 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -80273,6 +80720,15 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -80441,6 +80897,7 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -80451,8 +80908,8 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -80524,6 +80981,15 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -80692,6 +81158,7 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -80702,8 +81169,8 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -80775,6 +81242,15 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -80933,6 +81409,7 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -80943,8 +81420,8 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -81019,6 +81496,15 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -81046,7 +81532,7 @@ public final class DeleteUserItemInProgressMutation: GraphQLMutation {
 
 public final class CreateUserItemSaveMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateUserItemSave($input: CreateUserItemSaveInput!, $condition: ModelUserItemSaveConditionInput) {\n  createUserItemSave(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateUserItemSave($input: CreateUserItemSaveInput!, $condition: ModelUserItemSaveConditionInput) {\n  createUserItemSave(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -81187,6 +81673,7 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -81201,8 +81688,8 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -81283,6 +81770,15 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -81564,6 +82060,7 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -81574,8 +82071,8 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -81647,6 +82144,15 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -81815,6 +82321,7 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -81825,8 +82332,8 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -81898,6 +82405,15 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -82066,6 +82582,7 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -82076,8 +82593,8 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -82149,6 +82666,15 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -82307,6 +82833,7 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -82317,8 +82844,8 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -82393,6 +82920,15 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -82420,7 +82956,7 @@ public final class CreateUserItemSaveMutation: GraphQLMutation {
 
 public final class UpdateUserItemSaveMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateUserItemSave($input: UpdateUserItemSaveInput!, $condition: ModelUserItemSaveConditionInput) {\n  updateUserItemSave(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateUserItemSave($input: UpdateUserItemSaveInput!, $condition: ModelUserItemSaveConditionInput) {\n  updateUserItemSave(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -82561,6 +83097,7 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -82575,8 +83112,8 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -82657,6 +83194,15 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -82938,6 +83484,7 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -82948,8 +83495,8 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -83021,6 +83568,15 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -83189,6 +83745,7 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -83199,8 +83756,8 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -83272,6 +83829,15 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -83440,6 +84006,7 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -83450,8 +84017,8 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -83523,6 +84090,15 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -83681,6 +84257,7 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -83691,8 +84268,8 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -83767,6 +84344,15 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -83794,7 +84380,7 @@ public final class UpdateUserItemSaveMutation: GraphQLMutation {
 
 public final class DeleteUserItemSaveMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteUserItemSave($input: DeleteUserItemSaveInput!, $condition: ModelUserItemSaveConditionInput) {\n  deleteUserItemSave(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteUserItemSave($input: DeleteUserItemSaveInput!, $condition: ModelUserItemSaveConditionInput) {\n  deleteUserItemSave(input: $input, condition: $condition) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -83935,6 +84521,7 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -83949,8 +84536,8 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -84031,6 +84618,15 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -84312,6 +84908,7 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -84322,8 +84919,8 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -84395,6 +84992,15 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -84563,6 +85169,7 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -84573,8 +85180,8 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -84646,6 +85253,15 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -84814,6 +85430,7 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -84824,8 +85441,8 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -84897,6 +85514,15 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -85055,6 +85681,7 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -85065,8 +85692,8 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -85141,6 +85768,15 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -85168,7 +85804,7 @@ public final class DeleteUserItemSaveMutation: GraphQLMutation {
 
 public final class CreateUserVocabularySaveMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateUserVocabularySave($input: CreateUserVocabularySaveInput!, $condition: ModelUserVocabularySaveConditionInput) {\n  createUserVocabularySave(input: $input, condition: $condition) {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation CreateUserVocabularySave($input: CreateUserVocabularySaveInput!, $condition: ModelUserVocabularySaveConditionInput) {\n  createUserVocabularySave(input: $input, condition: $condition) {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -85299,6 +85935,7 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -85313,8 +85950,8 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -85395,6 +86032,15 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -85676,6 +86322,7 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -85686,8 +86333,8 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -85759,6 +86406,15 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -85927,6 +86583,7 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -85937,8 +86594,8 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -86010,6 +86667,15 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -86178,6 +86844,7 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -86188,8 +86855,8 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -86261,6 +86928,15 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -86419,6 +87095,7 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -86429,8 +87106,8 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -86505,6 +87182,15 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -86532,7 +87218,7 @@ public final class CreateUserVocabularySaveMutation: GraphQLMutation {
 
 public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateUserVocabularySave($input: UpdateUserVocabularySaveInput!, $condition: ModelUserVocabularySaveConditionInput) {\n  updateUserVocabularySave(input: $input, condition: $condition) {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation UpdateUserVocabularySave($input: UpdateUserVocabularySaveInput!, $condition: ModelUserVocabularySaveConditionInput) {\n  updateUserVocabularySave(input: $input, condition: $condition) {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -86663,6 +87349,7 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -86677,8 +87364,8 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -86759,6 +87446,15 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -87040,6 +87736,7 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -87050,8 +87747,8 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -87123,6 +87820,15 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -87291,6 +87997,7 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -87301,8 +88008,8 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -87374,6 +88081,15 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -87542,6 +88258,7 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -87552,8 +88269,8 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -87625,6 +88342,15 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -87783,6 +88509,7 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -87793,8 +88520,8 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -87869,6 +88596,15 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -87896,7 +88632,7 @@ public final class UpdateUserVocabularySaveMutation: GraphQLMutation {
 
 public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteUserVocabularySave($input: DeleteUserVocabularySaveInput!, $condition: ModelUserVocabularySaveConditionInput) {\n  deleteUserVocabularySave(input: $input, condition: $condition) {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
+    "mutation DeleteUserVocabularySave($input: DeleteUserVocabularySaveInput!, $condition: ModelUserVocabularySaveConditionInput) {\n  deleteUserVocabularySave(input: $input, condition: $condition) {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -88027,6 +88763,7 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -88041,8 +88778,8 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -88123,6 +88860,15 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -88404,6 +89150,7 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -88414,8 +89161,8 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -88487,6 +89234,15 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -88655,6 +89411,7 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -88665,8 +89422,8 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -88738,6 +89495,15 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -88906,6 +89672,7 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -88916,8 +89683,8 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -88989,6 +89756,15 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -89147,6 +89923,7 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -89157,8 +89934,8 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -89230,6 +90007,15 @@ public final class DeleteUserVocabularySaveMutation: GraphQLMutation {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -120369,7 +121155,7 @@ public final class ListNpcsQuery: GraphQLQuery {
 
 public final class GetUserQuery: GraphQLQuery {
   public static let operationString =
-    "query GetUser($id: ID!) {\n  getUser(id: $id) {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetUser($id: ID!) {\n  getUser(id: $id) {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    credit\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -120422,6 +121208,7 @@ public final class GetUserQuery: GraphQLQuery {
         GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("profession", type: .scalar(String.self)),
+        GraphQLField("credit", type: .scalar(Int.self)),
         GraphQLField("completedItems", type: .object(CompletedItem.selections)),
         GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
         GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -120436,8 +121223,8 @@ public final class GetUserQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -120518,6 +121305,15 @@ public final class GetUserQuery: GraphQLQuery {
         }
         set {
           snapshot.updateValue(newValue, forKey: "profession")
+        }
+      }
+
+      public var credit: Int? {
+        get {
+          return snapshot["credit"] as? Int
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "credit")
         }
       }
 
@@ -120800,6 +121596,7 @@ public final class GetUserQuery: GraphQLQuery {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -120814,8 +121611,8 @@ public final class GetUserQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -120896,6 +121693,15 @@ public final class GetUserQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -121329,6 +122135,7 @@ public final class GetUserQuery: GraphQLQuery {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -121343,8 +122150,8 @@ public final class GetUserQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -121425,6 +122232,15 @@ public final class GetUserQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -121858,6 +122674,7 @@ public final class GetUserQuery: GraphQLQuery {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -121872,8 +122689,8 @@ public final class GetUserQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -121954,6 +122771,15 @@ public final class GetUserQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -122377,6 +123203,7 @@ public final class GetUserQuery: GraphQLQuery {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -122391,8 +123218,8 @@ public final class GetUserQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -122473,6 +123300,15 @@ public final class GetUserQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -122766,7 +123602,7 @@ public final class GetUserQuery: GraphQLQuery {
 
 public final class ListUsersQuery: GraphQLQuery {
   public static let operationString =
-    "query ListUsers($filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {\n  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListUsers($filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {\n  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -122869,6 +123705,7 @@ public final class ListUsersQuery: GraphQLQuery {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -122883,8 +123720,8 @@ public final class ListUsersQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -122965,6 +123802,15 @@ public final class ListUsersQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -123246,6 +124092,7 @@ public final class ListUsersQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -123256,8 +124103,8 @@ public final class ListUsersQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -123329,6 +124176,15 @@ public final class ListUsersQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -123497,6 +124353,7 @@ public final class ListUsersQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -123507,8 +124364,8 @@ public final class ListUsersQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -123580,6 +124437,15 @@ public final class ListUsersQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -123748,6 +124614,7 @@ public final class ListUsersQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -123758,8 +124625,8 @@ public final class ListUsersQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -123831,6 +124698,15 @@ public final class ListUsersQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -123989,6 +124865,7 @@ public final class ListUsersQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -123999,8 +124876,8 @@ public final class ListUsersQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -124072,6 +124949,15 @@ public final class ListUsersQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -124451,7 +125337,7 @@ public final class ListUserTokensQuery: GraphQLQuery {
 
 public final class GetUserItemCompletedQuery: GraphQLQuery {
   public static let operationString =
-    "query GetUserItemCompleted($id: ID!) {\n  getUserItemCompleted(id: $id) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetUserItemCompleted($id: ID!) {\n  getUserItemCompleted(id: $id) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -124590,6 +125476,7 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -124604,8 +125491,8 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -124686,6 +125573,15 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -124967,6 +125863,7 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -124977,8 +125874,8 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -125050,6 +125947,15 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -125218,6 +126124,7 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -125228,8 +126135,8 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -125301,6 +126208,15 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -125469,6 +126385,7 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -125479,8 +126396,8 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -125552,6 +126469,15 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -125710,6 +126636,7 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -125720,8 +126647,8 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -125796,6 +126723,15 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -125823,7 +126759,7 @@ public final class GetUserItemCompletedQuery: GraphQLQuery {
 
 public final class ListUserItemCompletedsQuery: GraphQLQuery {
   public static let operationString =
-    "query ListUserItemCompleteds($filter: ModelUserItemCompletedFilterInput, $limit: Int, $nextToken: String) {\n  listUserItemCompleteds(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      user {\n        __typename\n        id\n        username\n        email\n        avatar {\n          __typename\n          ...S3Object\n        }\n        avatar_key\n        goals\n        interests\n        profession\n        completedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        inProgressItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedVocabularies {\n          __typename\n          items {\n            __typename\n            id\n            vocabularyID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      itemType\n      itemID\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListUserItemCompleteds($filter: ModelUserItemCompletedFilterInput, $limit: Int, $nextToken: String) {\n  listUserItemCompleteds(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      user {\n        __typename\n        id\n        username\n        email\n        avatar {\n          __typename\n          ...S3Object\n        }\n        avatar_key\n        goals\n        interests\n        profession\n        credit\n        completedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        inProgressItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedVocabularies {\n          __typename\n          items {\n            __typename\n            id\n            vocabularyID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      itemType\n      itemID\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -126012,6 +126948,7 @@ public final class ListUserItemCompletedsQuery: GraphQLQuery {
             GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
             GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
             GraphQLField("profession", type: .scalar(String.self)),
+            GraphQLField("credit", type: .scalar(Int.self)),
             GraphQLField("completedItems", type: .object(CompletedItem.selections)),
             GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
             GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -126026,8 +126963,8 @@ public final class ListUserItemCompletedsQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -126108,6 +127045,15 @@ public final class ListUserItemCompletedsQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue, forKey: "profession")
+            }
+          }
+
+          public var credit: Int? {
+            get {
+              return snapshot["credit"] as? Int
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "credit")
             }
           }
 
@@ -126738,7 +127684,7 @@ public final class ListUserItemCompletedsQuery: GraphQLQuery {
 
 public final class GetUserItemInProgressQuery: GraphQLQuery {
   public static let operationString =
-    "query GetUserItemInProgress($id: ID!) {\n  getUserItemInProgress(id: $id) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetUserItemInProgress($id: ID!) {\n  getUserItemInProgress(id: $id) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -126877,6 +127823,7 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -126891,8 +127838,8 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -126973,6 +127920,15 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -127254,6 +128210,7 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -127264,8 +128221,8 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -127337,6 +128294,15 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -127505,6 +128471,7 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -127515,8 +128482,8 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -127588,6 +128555,15 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -127756,6 +128732,7 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -127766,8 +128743,8 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -127839,6 +128816,15 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -127997,6 +128983,7 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -128007,8 +128994,8 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -128083,6 +129070,15 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -128110,7 +129106,7 @@ public final class GetUserItemInProgressQuery: GraphQLQuery {
 
 public final class ListUserItemInProgresssQuery: GraphQLQuery {
   public static let operationString =
-    "query ListUserItemInProgresss($filter: ModelUserItemInProgressFilterInput, $limit: Int, $nextToken: String) {\n  listUserItemInProgresss(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      user {\n        __typename\n        id\n        username\n        email\n        avatar {\n          __typename\n          ...S3Object\n        }\n        avatar_key\n        goals\n        interests\n        profession\n        completedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        inProgressItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedVocabularies {\n          __typename\n          items {\n            __typename\n            id\n            vocabularyID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      itemType\n      itemID\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListUserItemInProgresss($filter: ModelUserItemInProgressFilterInput, $limit: Int, $nextToken: String) {\n  listUserItemInProgresss(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      user {\n        __typename\n        id\n        username\n        email\n        avatar {\n          __typename\n          ...S3Object\n        }\n        avatar_key\n        goals\n        interests\n        profession\n        credit\n        completedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        inProgressItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedVocabularies {\n          __typename\n          items {\n            __typename\n            id\n            vocabularyID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      itemType\n      itemID\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -128299,6 +129295,7 @@ public final class ListUserItemInProgresssQuery: GraphQLQuery {
             GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
             GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
             GraphQLField("profession", type: .scalar(String.self)),
+            GraphQLField("credit", type: .scalar(Int.self)),
             GraphQLField("completedItems", type: .object(CompletedItem.selections)),
             GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
             GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -128313,8 +129310,8 @@ public final class ListUserItemInProgresssQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -128395,6 +129392,15 @@ public final class ListUserItemInProgresssQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue, forKey: "profession")
+            }
+          }
+
+          public var credit: Int? {
+            get {
+              return snapshot["credit"] as? Int
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "credit")
             }
           }
 
@@ -129025,7 +130031,7 @@ public final class ListUserItemInProgresssQuery: GraphQLQuery {
 
 public final class GetUserItemSaveQuery: GraphQLQuery {
   public static let operationString =
-    "query GetUserItemSave($id: ID!) {\n  getUserItemSave(id: $id) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetUserItemSave($id: ID!) {\n  getUserItemSave(id: $id) {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -129164,6 +130170,7 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -129178,8 +130185,8 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -129260,6 +130267,15 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -129541,6 +130557,7 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -129551,8 +130568,8 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -129624,6 +130641,15 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -129792,6 +130818,7 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -129802,8 +130829,8 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -129875,6 +130902,15 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -130043,6 +131079,7 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -130053,8 +131090,8 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -130126,6 +131163,15 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -130284,6 +131330,7 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -130294,8 +131341,8 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -130370,6 +131417,15 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -130397,7 +131453,7 @@ public final class GetUserItemSaveQuery: GraphQLQuery {
 
 public final class ListUserItemSavesQuery: GraphQLQuery {
   public static let operationString =
-    "query ListUserItemSaves($filter: ModelUserItemSaveFilterInput, $limit: Int, $nextToken: String) {\n  listUserItemSaves(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      user {\n        __typename\n        id\n        username\n        email\n        avatar {\n          __typename\n          ...S3Object\n        }\n        avatar_key\n        goals\n        interests\n        profession\n        completedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        inProgressItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedVocabularies {\n          __typename\n          items {\n            __typename\n            id\n            vocabularyID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      itemType\n      itemID\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListUserItemSaves($filter: ModelUserItemSaveFilterInput, $limit: Int, $nextToken: String) {\n  listUserItemSaves(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      user {\n        __typename\n        id\n        username\n        email\n        avatar {\n          __typename\n          ...S3Object\n        }\n        avatar_key\n        goals\n        interests\n        profession\n        credit\n        completedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        inProgressItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedVocabularies {\n          __typename\n          items {\n            __typename\n            id\n            vocabularyID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      itemType\n      itemID\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -130586,6 +131642,7 @@ public final class ListUserItemSavesQuery: GraphQLQuery {
             GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
             GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
             GraphQLField("profession", type: .scalar(String.self)),
+            GraphQLField("credit", type: .scalar(Int.self)),
             GraphQLField("completedItems", type: .object(CompletedItem.selections)),
             GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
             GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -130600,8 +131657,8 @@ public final class ListUserItemSavesQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -130682,6 +131739,15 @@ public final class ListUserItemSavesQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue, forKey: "profession")
+            }
+          }
+
+          public var credit: Int? {
+            get {
+              return snapshot["credit"] as? Int
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "credit")
             }
           }
 
@@ -131312,7 +132378,7 @@ public final class ListUserItemSavesQuery: GraphQLQuery {
 
 public final class GetUserVocabularySaveQuery: GraphQLQuery {
   public static let operationString =
-    "query GetUserVocabularySave($id: ID!) {\n  getUserVocabularySave(id: $id) {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
+    "query GetUserVocabularySave($id: ID!) {\n  getUserVocabularySave(id: $id) {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -131441,6 +132507,7 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -131455,8 +132522,8 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -131537,6 +132604,15 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -131818,6 +132894,7 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -131828,8 +132905,8 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -131901,6 +132978,15 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -132069,6 +133155,7 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -132079,8 +133166,8 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -132152,6 +133239,15 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -132320,6 +133416,7 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -132330,8 +133427,8 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -132403,6 +133500,15 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -132561,6 +133667,7 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -132571,8 +133678,8 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -132647,6 +133754,15 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -132674,7 +133790,7 @@ public final class GetUserVocabularySaveQuery: GraphQLQuery {
 
 public final class ListUserVocabularySavesQuery: GraphQLQuery {
   public static let operationString =
-    "query ListUserVocabularySaves($filter: ModelUserVocabularySaveFilterInput, $limit: Int, $nextToken: String) {\n  listUserVocabularySaves(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      users {\n        __typename\n        id\n        username\n        email\n        avatar {\n          __typename\n          ...S3Object\n        }\n        avatar_key\n        goals\n        interests\n        profession\n        completedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        inProgressItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedVocabularies {\n          __typename\n          items {\n            __typename\n            id\n            vocabularyID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      vocabularyID\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query ListUserVocabularySaves($filter: ModelUserVocabularySaveFilterInput, $limit: Int, $nextToken: String) {\n  listUserVocabularySaves(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      users {\n        __typename\n        id\n        username\n        email\n        avatar {\n          __typename\n          ...S3Object\n        }\n        avatar_key\n        goals\n        interests\n        profession\n        credit\n        completedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        inProgressItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedItems {\n          __typename\n          items {\n            __typename\n            id\n            itemType\n            itemID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        savedVocabularies {\n          __typename\n          items {\n            __typename\n            id\n            vocabularyID\n            createdAt\n            updatedAt\n          }\n          nextToken\n        }\n        createdAt\n        updatedAt\n      }\n      vocabularyID\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -132853,6 +133969,7 @@ public final class ListUserVocabularySavesQuery: GraphQLQuery {
             GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
             GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
             GraphQLField("profession", type: .scalar(String.self)),
+            GraphQLField("credit", type: .scalar(Int.self)),
             GraphQLField("completedItems", type: .object(CompletedItem.selections)),
             GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
             GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -132867,8 +133984,8 @@ public final class ListUserVocabularySavesQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-            self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+          public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+            self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
           }
 
           public var __typename: String {
@@ -132949,6 +134066,15 @@ public final class ListUserVocabularySavesQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue, forKey: "profession")
+            }
+          }
+
+          public var credit: Int? {
+            get {
+              return snapshot["credit"] as? Int
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "credit")
             }
           }
 
@@ -197758,7 +198884,7 @@ public final class OnDeleteNpcSubscription: GraphQLSubscription {
 
 public final class OnCreateUserSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateUser {\n  onCreateUser {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateUser {\n  onCreateUser {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    credit\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -197804,6 +198930,7 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
         GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("profession", type: .scalar(String.self)),
+        GraphQLField("credit", type: .scalar(Int.self)),
         GraphQLField("completedItems", type: .object(CompletedItem.selections)),
         GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
         GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -197818,8 +198945,8 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -197900,6 +199027,15 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "profession")
+        }
+      }
+
+      public var credit: Int? {
+        get {
+          return snapshot["credit"] as? Int
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "credit")
         }
       }
 
@@ -198182,6 +199318,7 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -198196,8 +199333,8 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -198278,6 +199415,15 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -198711,6 +199857,7 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -198725,8 +199872,8 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -198807,6 +199954,15 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -199240,6 +200396,7 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -199254,8 +200411,8 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -199336,6 +200493,15 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -199759,6 +200925,7 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -199773,8 +200940,8 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -199855,6 +201022,15 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -200148,7 +201324,7 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
 
 public final class OnUpdateUserSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateUser {\n  onUpdateUser {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateUser {\n  onUpdateUser {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    credit\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -200194,6 +201370,7 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
         GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("profession", type: .scalar(String.self)),
+        GraphQLField("credit", type: .scalar(Int.self)),
         GraphQLField("completedItems", type: .object(CompletedItem.selections)),
         GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
         GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -200208,8 +201385,8 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -200290,6 +201467,15 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "profession")
+        }
+      }
+
+      public var credit: Int? {
+        get {
+          return snapshot["credit"] as? Int
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "credit")
         }
       }
 
@@ -200572,6 +201758,7 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -200586,8 +201773,8 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -200668,6 +201855,15 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -201101,6 +202297,7 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -201115,8 +202312,8 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -201197,6 +202394,15 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -201630,6 +202836,7 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -201644,8 +202851,8 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -201726,6 +202933,15 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -202149,6 +203365,7 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -202163,8 +203380,8 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -202245,6 +203462,15 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -202538,7 +203764,7 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
 
 public final class OnDeleteUserSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteUser {\n  onDeleteUser {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteUser {\n  onDeleteUser {\n    __typename\n    id\n    username\n    email\n    avatar {\n      __typename\n      ...S3Object\n    }\n    avatar_key\n    goals\n    interests\n    profession\n    credit\n    completedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    inProgressItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedItems {\n      __typename\n      items {\n        __typename\n        id\n        user {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        itemType\n        itemID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    savedVocabularies {\n      __typename\n      items {\n        __typename\n        id\n        users {\n          __typename\n          id\n          username\n          email\n          avatar {\n            __typename\n            ...S3Object\n          }\n          avatar_key\n          goals\n          interests\n          profession\n          credit\n          completedItems {\n            __typename\n            nextToken\n          }\n          inProgressItems {\n            __typename\n            nextToken\n          }\n          savedItems {\n            __typename\n            nextToken\n          }\n          savedVocabularies {\n            __typename\n            nextToken\n          }\n          createdAt\n          updatedAt\n        }\n        vocabularyID\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -202584,6 +203810,7 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
         GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("profession", type: .scalar(String.self)),
+        GraphQLField("credit", type: .scalar(Int.self)),
         GraphQLField("completedItems", type: .object(CompletedItem.selections)),
         GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
         GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -202598,8 +203825,8 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -202680,6 +203907,15 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "profession")
+        }
+      }
+
+      public var credit: Int? {
+        get {
+          return snapshot["credit"] as? Int
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "credit")
         }
       }
 
@@ -202962,6 +204198,7 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -202976,8 +204213,8 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -203058,6 +204295,15 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -203491,6 +204737,7 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -203505,8 +204752,8 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -203587,6 +204834,15 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -204020,6 +205276,7 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -204034,8 +205291,8 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -204116,6 +205373,15 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -204539,6 +205805,7 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
               GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
               GraphQLField("profession", type: .scalar(String.self)),
+              GraphQLField("credit", type: .scalar(Int.self)),
               GraphQLField("completedItems", type: .object(CompletedItem.selections)),
               GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
               GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -204553,8 +205820,8 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
               self.snapshot = snapshot
             }
 
-            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+            public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+              self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
             }
 
             public var __typename: String {
@@ -204635,6 +205902,15 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
               }
               set {
                 snapshot.updateValue(newValue, forKey: "profession")
+              }
+            }
+
+            public var credit: Int? {
+              get {
+                return snapshot["credit"] as? Int
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "credit")
               }
             }
 
@@ -205354,7 +206630,7 @@ public final class OnDeleteUserTokenSubscription: GraphQLSubscription {
 
 public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateUserItemCompleted {\n  onCreateUserItemCompleted {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateUserItemCompleted {\n  onCreateUserItemCompleted {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -205486,6 +206762,7 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -205500,8 +206777,8 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -205582,6 +206859,15 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -205863,6 +207149,7 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -205873,8 +207160,8 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -205946,6 +207233,15 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -206114,6 +207410,7 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -206124,8 +207421,8 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -206197,6 +207494,15 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -206365,6 +207671,7 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -206375,8 +207682,8 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -206448,6 +207755,15 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -206606,6 +207922,7 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -206616,8 +207933,8 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -206692,6 +208009,15 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -206719,7 +208045,7 @@ public final class OnCreateUserItemCompletedSubscription: GraphQLSubscription {
 
 public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateUserItemCompleted {\n  onUpdateUserItemCompleted {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateUserItemCompleted {\n  onUpdateUserItemCompleted {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -206851,6 +208177,7 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -206865,8 +208192,8 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -206947,6 +208274,15 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -207228,6 +208564,7 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -207238,8 +208575,8 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -207311,6 +208648,15 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -207479,6 +208825,7 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -207489,8 +208836,8 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -207562,6 +208909,15 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -207730,6 +209086,7 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -207740,8 +209097,8 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -207813,6 +209170,15 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -207971,6 +209337,7 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -207981,8 +209348,8 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -208057,6 +209424,15 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -208084,7 +209460,7 @@ public final class OnUpdateUserItemCompletedSubscription: GraphQLSubscription {
 
 public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteUserItemCompleted {\n  onDeleteUserItemCompleted {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteUserItemCompleted {\n  onDeleteUserItemCompleted {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -208216,6 +209592,7 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -208230,8 +209607,8 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -208312,6 +209689,15 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -208593,6 +209979,7 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -208603,8 +209990,8 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -208676,6 +210063,15 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -208844,6 +210240,7 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -208854,8 +210251,8 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -208927,6 +210324,15 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -209095,6 +210501,7 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -209105,8 +210512,8 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -209178,6 +210585,15 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -209336,6 +210752,7 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -209346,8 +210763,8 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -209422,6 +210839,15 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -209449,7 +210875,7 @@ public final class OnDeleteUserItemCompletedSubscription: GraphQLSubscription {
 
 public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateUserItemInProgress {\n  onCreateUserItemInProgress {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateUserItemInProgress {\n  onCreateUserItemInProgress {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -209581,6 +211007,7 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -209595,8 +211022,8 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -209677,6 +211104,15 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -209958,6 +211394,7 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -209968,8 +211405,8 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -210041,6 +211478,15 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -210209,6 +211655,7 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -210219,8 +211666,8 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -210292,6 +211739,15 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -210460,6 +211916,7 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -210470,8 +211927,8 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -210543,6 +212000,15 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -210701,6 +212167,7 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -210711,8 +212178,8 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -210787,6 +212254,15 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -210814,7 +212290,7 @@ public final class OnCreateUserItemInProgressSubscription: GraphQLSubscription {
 
 public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateUserItemInProgress {\n  onUpdateUserItemInProgress {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateUserItemInProgress {\n  onUpdateUserItemInProgress {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -210946,6 +212422,7 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -210960,8 +212437,8 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -211042,6 +212519,15 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -211323,6 +212809,7 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -211333,8 +212820,8 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -211406,6 +212893,15 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -211574,6 +213070,7 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -211584,8 +213081,8 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -211657,6 +213154,15 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -211825,6 +213331,7 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -211835,8 +213342,8 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -211908,6 +213415,15 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -212066,6 +213582,7 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -212076,8 +213593,8 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -212152,6 +213669,15 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -212179,7 +213705,7 @@ public final class OnUpdateUserItemInProgressSubscription: GraphQLSubscription {
 
 public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteUserItemInProgress {\n  onDeleteUserItemInProgress {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteUserItemInProgress {\n  onDeleteUserItemInProgress {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -212311,6 +213837,7 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -212325,8 +213852,8 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -212407,6 +213934,15 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -212688,6 +214224,7 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -212698,8 +214235,8 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -212771,6 +214308,15 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -212939,6 +214485,7 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -212949,8 +214496,8 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -213022,6 +214569,15 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -213190,6 +214746,7 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -213200,8 +214757,8 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -213273,6 +214830,15 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -213431,6 +214997,7 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -213441,8 +215008,8 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -213517,6 +215084,15 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -213544,7 +215120,7 @@ public final class OnDeleteUserItemInProgressSubscription: GraphQLSubscription {
 
 public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateUserItemSave {\n  onCreateUserItemSave {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateUserItemSave {\n  onCreateUserItemSave {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -213676,6 +215252,7 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -213690,8 +215267,8 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -213772,6 +215349,15 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -214053,6 +215639,7 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -214063,8 +215650,8 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -214136,6 +215723,15 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -214304,6 +215900,7 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -214314,8 +215911,8 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -214387,6 +215984,15 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -214555,6 +216161,7 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -214565,8 +216172,8 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -214638,6 +216245,15 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -214796,6 +216412,7 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -214806,8 +216423,8 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -214882,6 +216499,15 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -214909,7 +216535,7 @@ public final class OnCreateUserItemSaveSubscription: GraphQLSubscription {
 
 public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateUserItemSave {\n  onUpdateUserItemSave {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateUserItemSave {\n  onUpdateUserItemSave {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -215041,6 +216667,7 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -215055,8 +216682,8 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -215137,6 +216764,15 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -215418,6 +217054,7 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -215428,8 +217065,8 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -215501,6 +217138,15 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -215669,6 +217315,7 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -215679,8 +217326,8 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -215752,6 +217399,15 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -215920,6 +217576,7 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -215930,8 +217587,8 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -216003,6 +217660,15 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -216161,6 +217827,7 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -216171,8 +217838,8 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -216247,6 +217914,15 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -216274,7 +217950,7 @@ public final class OnUpdateUserItemSaveSubscription: GraphQLSubscription {
 
 public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteUserItemSave {\n  onDeleteUserItemSave {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteUserItemSave {\n  onDeleteUserItemSave {\n    __typename\n    id\n    user {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    itemType\n    itemID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -216406,6 +218082,7 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -216420,8 +218097,8 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -216502,6 +218179,15 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -216783,6 +218469,7 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -216793,8 +218480,8 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -216866,6 +218553,15 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -217034,6 +218730,7 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -217044,8 +218741,8 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -217117,6 +218814,15 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -217285,6 +218991,7 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -217295,8 +219002,8 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -217368,6 +219075,15 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -217526,6 +219242,7 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -217536,8 +219253,8 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -217612,6 +219329,15 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -217639,7 +219365,7 @@ public final class OnDeleteUserItemSaveSubscription: GraphQLSubscription {
 
 public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateUserVocabularySave {\n  onCreateUserVocabularySave {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnCreateUserVocabularySave {\n  onCreateUserVocabularySave {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -217761,6 +219487,7 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -217775,8 +219502,8 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -217857,6 +219584,15 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -218138,6 +219874,7 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -218148,8 +219885,8 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -218221,6 +219958,15 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -218389,6 +220135,7 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -218399,8 +220146,8 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -218472,6 +220219,15 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -218640,6 +220396,7 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -218650,8 +220407,8 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -218723,6 +220480,15 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -218881,6 +220647,7 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -218891,8 +220658,8 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -218967,6 +220734,15 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -218994,7 +220770,7 @@ public final class OnCreateUserVocabularySaveSubscription: GraphQLSubscription {
 
 public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateUserVocabularySave {\n  onUpdateUserVocabularySave {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnUpdateUserVocabularySave {\n  onUpdateUserVocabularySave {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -219116,6 +220892,7 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -219130,8 +220907,8 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -219212,6 +220989,15 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -219493,6 +221279,7 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -219503,8 +221290,8 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -219576,6 +221363,15 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -219744,6 +221540,7 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -219754,8 +221551,8 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -219827,6 +221624,15 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -219995,6 +221801,7 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -220005,8 +221812,8 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -220078,6 +221885,15 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -220236,6 +222052,7 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -220246,8 +222063,8 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -220322,6 +222139,15 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
                 }
               }
 
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
+                }
+              }
+
               public var createdAt: String {
                 get {
                   return snapshot["createdAt"]! as! String
@@ -220349,7 +222175,7 @@ public final class OnUpdateUserVocabularySaveSubscription: GraphQLSubscription {
 
 public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteUserVocabularySave {\n  onDeleteUserVocabularySave {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
+    "subscription OnDeleteUserVocabularySave {\n  onDeleteUserVocabularySave {\n    __typename\n    id\n    users {\n      __typename\n      id\n      username\n      email\n      avatar {\n        __typename\n        ...S3Object\n      }\n      avatar_key\n      goals\n      interests\n      profession\n      credit\n      completedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      inProgressItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedItems {\n        __typename\n        items {\n          __typename\n          id\n          user {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          itemType\n          itemID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      savedVocabularies {\n        __typename\n        items {\n          __typename\n          id\n          users {\n            __typename\n            id\n            username\n            email\n            avatar_key\n            goals\n            interests\n            profession\n            credit\n            createdAt\n            updatedAt\n          }\n          vocabularyID\n          createdAt\n          updatedAt\n        }\n        nextToken\n      }\n      createdAt\n      updatedAt\n    }\n    vocabularyID\n    createdAt\n    updatedAt\n  }\n}"
 
   public static var requestString: String { return operationString.appending(S3Object.fragmentString) }
 
@@ -220471,6 +222297,7 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
           GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
           GraphQLField("profession", type: .scalar(String.self)),
+          GraphQLField("credit", type: .scalar(Int.self)),
           GraphQLField("completedItems", type: .object(CompletedItem.selections)),
           GraphQLField("inProgressItems", type: .object(InProgressItem.selections)),
           GraphQLField("savedItems", type: .object(SavedItem.selections)),
@@ -220485,8 +222312,8 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
+        public init(id: GraphQLID, username: String, email: String, avatar: Avatar? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completedItems: CompletedItem? = nil, inProgressItems: InProgressItem? = nil, savedItems: SavedItem? = nil, savedVocabularies: SavedVocabulary? = nil, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar": avatar.flatMap { $0.snapshot }, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "completedItems": completedItems.flatMap { $0.snapshot }, "inProgressItems": inProgressItems.flatMap { $0.snapshot }, "savedItems": savedItems.flatMap { $0.snapshot }, "savedVocabularies": savedVocabularies.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -220567,6 +222394,15 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "profession")
+          }
+        }
+
+        public var credit: Int? {
+          get {
+            return snapshot["credit"] as? Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "credit")
           }
         }
 
@@ -220848,6 +222684,7 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -220858,8 +222695,8 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -220931,6 +222768,15 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -221099,6 +222945,7 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -221109,8 +222956,8 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -221182,6 +223029,15 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -221350,6 +223206,7 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -221360,8 +223217,8 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -221433,6 +223290,15 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 
@@ -221591,6 +223457,7 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
                 GraphQLField("goals", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("interests", type: .list(.nonNull(.scalar(String.self)))),
                 GraphQLField("profession", type: .scalar(String.self)),
+                GraphQLField("credit", type: .scalar(Int.self)),
                 GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
                 GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
               ]
@@ -221601,8 +223468,8 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
                 self.snapshot = snapshot
               }
 
-              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, createdAt: String, updatedAt: String) {
-                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "createdAt": createdAt, "updatedAt": updatedAt])
+              public init(id: GraphQLID, username: String, email: String, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, createdAt: String, updatedAt: String) {
+                self.init(snapshot: ["__typename": "User", "id": id, "username": username, "email": email, "avatar_key": avatarKey, "goals": goals, "interests": interests, "profession": profession, "credit": credit, "createdAt": createdAt, "updatedAt": updatedAt])
               }
 
               public var __typename: String {
@@ -221674,6 +223541,15 @@ public final class OnDeleteUserVocabularySaveSubscription: GraphQLSubscription {
                 }
                 set {
                   snapshot.updateValue(newValue, forKey: "profession")
+                }
+              }
+
+              public var credit: Int? {
+                get {
+                  return snapshot["credit"] as? Int
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "credit")
                 }
               }
 

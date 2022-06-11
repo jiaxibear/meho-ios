@@ -4100,6 +4100,7 @@ subscription OnCreateUser {
     goals
     interests
     profession
+    credit
     completedItems {
       items {
         id
@@ -4114,6 +4115,7 @@ subscription OnCreateUser {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -4150,6 +4152,7 @@ subscription OnCreateUser {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -4186,6 +4189,7 @@ subscription OnCreateUser {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -4222,6 +4226,7 @@ subscription OnCreateUser {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -4259,6 +4264,7 @@ subscription OnUpdateUser {
     goals
     interests
     profession
+    credit
     completedItems {
       items {
         id
@@ -4273,6 +4279,7 @@ subscription OnUpdateUser {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -4309,6 +4316,7 @@ subscription OnUpdateUser {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -4345,6 +4353,7 @@ subscription OnUpdateUser {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -4381,6 +4390,7 @@ subscription OnUpdateUser {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -4418,6 +4428,7 @@ subscription OnDeleteUser {
     goals
     interests
     profession
+    credit
     completedItems {
       items {
         id
@@ -4432,6 +4443,7 @@ subscription OnDeleteUser {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -4468,6 +4480,7 @@ subscription OnDeleteUser {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -4504,6 +4517,7 @@ subscription OnDeleteUser {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -4540,6 +4554,7 @@ subscription OnDeleteUser {
           goals
           interests
           profession
+          credit
           completedItems {
             nextToken
           }
@@ -4615,6 +4630,7 @@ subscription OnCreateUserItemCompleted {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -4626,6 +4642,7 @@ subscription OnCreateUserItemCompleted {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4647,6 +4664,7 @@ subscription OnCreateUserItemCompleted {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4668,6 +4686,7 @@ subscription OnCreateUserItemCompleted {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4689,6 +4708,7 @@ subscription OnCreateUserItemCompleted {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4721,6 +4741,7 @@ subscription OnUpdateUserItemCompleted {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -4732,6 +4753,7 @@ subscription OnUpdateUserItemCompleted {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4753,6 +4775,7 @@ subscription OnUpdateUserItemCompleted {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4774,6 +4797,7 @@ subscription OnUpdateUserItemCompleted {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4795,6 +4819,7 @@ subscription OnUpdateUserItemCompleted {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4827,6 +4852,7 @@ subscription OnDeleteUserItemCompleted {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -4838,6 +4864,7 @@ subscription OnDeleteUserItemCompleted {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4859,6 +4886,7 @@ subscription OnDeleteUserItemCompleted {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4880,6 +4908,7 @@ subscription OnDeleteUserItemCompleted {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4901,6 +4930,7 @@ subscription OnDeleteUserItemCompleted {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4933,6 +4963,7 @@ subscription OnCreateUserItemInProgress {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -4944,6 +4975,7 @@ subscription OnCreateUserItemInProgress {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4965,6 +4997,7 @@ subscription OnCreateUserItemInProgress {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -4986,6 +5019,7 @@ subscription OnCreateUserItemInProgress {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5007,6 +5041,7 @@ subscription OnCreateUserItemInProgress {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5039,6 +5074,7 @@ subscription OnUpdateUserItemInProgress {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -5050,6 +5086,7 @@ subscription OnUpdateUserItemInProgress {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5071,6 +5108,7 @@ subscription OnUpdateUserItemInProgress {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5092,6 +5130,7 @@ subscription OnUpdateUserItemInProgress {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5113,6 +5152,7 @@ subscription OnUpdateUserItemInProgress {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5145,6 +5185,7 @@ subscription OnDeleteUserItemInProgress {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -5156,6 +5197,7 @@ subscription OnDeleteUserItemInProgress {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5177,6 +5219,7 @@ subscription OnDeleteUserItemInProgress {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5198,6 +5241,7 @@ subscription OnDeleteUserItemInProgress {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5219,6 +5263,7 @@ subscription OnDeleteUserItemInProgress {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5251,6 +5296,7 @@ subscription OnCreateUserItemSave {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -5262,6 +5308,7 @@ subscription OnCreateUserItemSave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5283,6 +5330,7 @@ subscription OnCreateUserItemSave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5304,6 +5352,7 @@ subscription OnCreateUserItemSave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5325,6 +5374,7 @@ subscription OnCreateUserItemSave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5357,6 +5407,7 @@ subscription OnUpdateUserItemSave {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -5368,6 +5419,7 @@ subscription OnUpdateUserItemSave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5389,6 +5441,7 @@ subscription OnUpdateUserItemSave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5410,6 +5463,7 @@ subscription OnUpdateUserItemSave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5431,6 +5485,7 @@ subscription OnUpdateUserItemSave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5463,6 +5518,7 @@ subscription OnDeleteUserItemSave {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -5474,6 +5530,7 @@ subscription OnDeleteUserItemSave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5495,6 +5552,7 @@ subscription OnDeleteUserItemSave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5516,6 +5574,7 @@ subscription OnDeleteUserItemSave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5537,6 +5596,7 @@ subscription OnDeleteUserItemSave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5569,6 +5629,7 @@ subscription OnCreateUserVocabularySave {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -5580,6 +5641,7 @@ subscription OnCreateUserVocabularySave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5601,6 +5663,7 @@ subscription OnCreateUserVocabularySave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5622,6 +5685,7 @@ subscription OnCreateUserVocabularySave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5643,6 +5707,7 @@ subscription OnCreateUserVocabularySave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5674,6 +5739,7 @@ subscription OnUpdateUserVocabularySave {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -5685,6 +5751,7 @@ subscription OnUpdateUserVocabularySave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5706,6 +5773,7 @@ subscription OnUpdateUserVocabularySave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5727,6 +5795,7 @@ subscription OnUpdateUserVocabularySave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5748,6 +5817,7 @@ subscription OnUpdateUserVocabularySave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5779,6 +5849,7 @@ subscription OnDeleteUserVocabularySave {
       goals
       interests
       profession
+      credit
       completedItems {
         items {
           id
@@ -5790,6 +5861,7 @@ subscription OnDeleteUserVocabularySave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5811,6 +5883,7 @@ subscription OnDeleteUserVocabularySave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5832,6 +5905,7 @@ subscription OnDeleteUserVocabularySave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
@@ -5853,6 +5927,7 @@ subscription OnDeleteUserVocabularySave {
             goals
             interests
             profession
+            credit
             createdAt
             updatedAt
           }
