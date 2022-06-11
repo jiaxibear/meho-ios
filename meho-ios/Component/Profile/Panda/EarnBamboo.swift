@@ -11,4 +11,5 @@ import Foundation
 struct EarnBamboo {
     let numberOfBamboo: String
     let action: String
+    var subActions: [String] = []
 }

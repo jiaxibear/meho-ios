@@ -19,13 +19,15 @@ class EarnBambooViewController: UIViewController, UICollectionViewDelegate, UICo
     private let earnBambooCollectionViewCellIdentifier = "earnBambooCollectionViewCellIdentifier"
     private let earnBambooCollectionViewCellHorizontalMargin = CGFloat(10)
     private let earnBambooCollectionViewCellHeight = CGFloat(50)
+    private let earnBambooCollectionViewCellWithSubActionsHeight = CGFloat(110)
     private let earnBambooCollectionViewTopMargin = CGFloat(20)
     private let viewWidth = CGFloat(330)
 
     private let earnBambooStoryEnglish = EarnBamboo.init(numberOfBamboo: "X3", action: "Complete 1 Story in EN")
     private let earnBambooStoryChinese = EarnBamboo.init(numberOfBamboo: "X3", action: "Complete 1 Story in CN")
     private let earnBambooExpression = EarnBamboo.init(numberOfBamboo: "X3", action: "Practice 1 Expression")
-    private let earnBambooTalk = EarnBamboo.init(numberOfBamboo: "X2-8", action: "Finish 1 Talk")
+    private let earnBambooTalk = EarnBamboo.init(numberOfBamboo: "X2-8", action: "Finish 1 Talk", subActions: ["Finish Single Mode: earn 4 - 8 bamboos based on the difficulty level",
+         "Finish Duo Mode: earn 2-4 bamboos each role based on the difficulty level"])
     private lazy var earnBamboos: [EarnBamboo] = {
         return [earnBambooStoryEnglish, earnBambooStoryChinese, earnBambooExpression, earnBambooTalk]
     } ()
@@ -101,7 +103,8 @@ class EarnBambooViewController: UIViewController, UICollectionViewDelegate, UICo
         viewHeight += subtitleLabel.sizeThatFits(CGSize.init(width: viewWidth, height: .greatestFiniteMagnitude)).height
         viewHeight += earnBambooCollectionViewTopMargin
         let count = earnBamboos.count
-        viewHeight += (CGFloat(count) * earnBambooCollectionViewCellHeight)
+        viewHeight += (CGFloat(count - 1) * earnBambooCollectionViewCellHeight)
+        viewHeight += earnBambooCollectionViewCellWithSubActionsHeight
         viewHeight += (CGFloat(count + 1) * earnBambooCollectionViewLayoutMinimumLineSpacing)
         viewHeight += earnBambooCollectionViewInset.top
         viewHeight += earnBambooCollectionViewInset.bottom
@@ -129,6 +132,7 @@ class EarnBambooViewController: UIViewController, UICollectionViewDelegate, UICo
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width - 2 * earnBambooCollectionViewCellHorizontalMargin
-        return CGSize.init(width: width, height: earnBambooCollectionViewCellHeight)
+        let height = earnBamboos[indexPath.item].subActions.count > 0 ? earnBambooCollectionViewCellWithSubActionsHeight : earnBambooCollectionViewCellHeight
+        return CGSize.init(width: width, height: height)
     }
 }

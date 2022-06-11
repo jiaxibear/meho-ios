@@ -21,6 +21,10 @@ class EarnBambooCollectionViewCell: UICollectionViewCell {
     private let imageViewHeight = CGFloat(24)
     private let bambooNumberLabelWidth = CGFloat(44)
     private let bambooLabelWidth = CGFloat(24)
+    private let subActionLabelFontSize = CGFloat(12)
+    private let subActionTopMargin = CGFloat(10)
+    private let dotViewTrailingMargin = CGFloat(6)
+    private let dotViewHeight = CGFloat(10)
 
     private lazy var bambooLabel: UILabel = {
         let bambooLabel = UILabel.init(frame: .zero)
@@ -73,6 +77,23 @@ class EarnBambooCollectionViewCell: UICollectionViewCell {
         return contentStackView
     } ()
 
+    private lazy var subActionsWrapperView: UIView = {
+        let subActionsView = UIView.init(frame: .zero)
+        subActionsView.translatesAutoresizingMaskIntoConstraints = false
+        return subActionsView
+    } ()
+
+    private lazy var allContentStackView: UIStackView = {
+        let allContentStackView = UIStackView.init(arrangedSubviews: [contentStackView, subActionsWrapperView])
+        allContentStackView.translatesAutoresizingMaskIntoConstraints = false
+        allContentStackView.axis = .vertical
+        allContentStackView.alignment = .fill
+        allContentStackView.distribution = .fill
+        return allContentStackView
+    } ()
+
+    private var subActionViews: [UIView] = []
+
     // MARK: - Init
     @available(*, unavailable)
     init() {
@@ -88,14 +109,16 @@ class EarnBambooCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = contentViewCornerRadius
-        contentView.addSubview(contentStackView)
+        contentView.addSubview(allContentStackView)
         contentView.backgroundColor = .paleGray
 
         NSLayoutConstraint.activate([
-            contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentStackViewLeadingTrailingMargin),
-            contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -contentStackViewLeadingTrailingMargin),
-            contentStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            allContentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentStackViewLeadingTrailingMargin),
+            allContentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -contentStackViewLeadingTrailingMargin),
+            allContentStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            allContentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+            contentStackView.heightAnchor.constraint(equalToConstant: 50),
 
             imageView.widthAnchor.constraint(equalToConstant: imageViewWidth),
             imageView.heightAnchor.constraint(equalToConstant: imageViewHeight),
@@ -110,5 +133,60 @@ class EarnBambooCollectionViewCell: UICollectionViewCell {
     func setEarnBamboo(_ earnBamboo: EarnBamboo) {
         bambooNumberLabel.text = earnBamboo.numberOfBamboo
         actionLabel.text = earnBamboo.action
+        for subActionView in subActionViews {
+            subActionView.removeFromSuperview()
+        }
+
+        if earnBamboo.subActions.count > 0 {
+            for subAction in earnBamboo.subActions {
+                let dotView = dotLabel()
+                subActionViews.append(dotView)
+                subActionsWrapperView.addSubview(dotView)
+                let subActionLabel = subActionLabel(subAction: subAction)
+                subActionViews.append(subActionLabel)
+                subActionsWrapperView.addSubview(subActionLabel)
+            }
+
+            for i in subActionViews.indices {
+                let subActionView = subActionViews[i]
+                if i % 2 == 1 {
+                    subActionView.topAnchor.constraint(equalTo: subActionViews[i - 1].topAnchor).isActive = true
+                    subActionView.leadingAnchor.constraint(equalTo: subActionViews[i - 1].trailingAnchor, constant: dotViewTrailingMargin).isActive = true
+                    subActionView.trailingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+                } else {
+                    subActionView.leadingAnchor.constraint(equalTo: bambooNumberLabel.leadingAnchor).isActive = true
+                    subActionView.heightAnchor.constraint(equalToConstant: dotViewHeight)
+                    if i != 0 {
+                        subActionView.topAnchor.constraint(equalTo: subActionViews[i - 1].bottomAnchor, constant: subActionTopMargin).isActive = true
+                    }
+                }
+            }
+            subActionsWrapperView.isHidden = false
+            contentView.setNeedsUpdateConstraints()
+        } else {
+            subActionsWrapperView.isHidden = true
+        }
+    }
+
+    func subActionLabel(subAction: String) -> UILabel {
+        let subActionLabel = UILabel.init(frame: .zero)
+        subActionLabel.translatesAutoresizingMaskIntoConstraints = false
+        subActionLabel.textColor = .textCharcoalGrey
+        var subActionLabelFont = UIFont.systemFont(ofSize: subActionLabelFontSize, weight: .regular)
+        if let subActionLabelFontDescriptor = subActionLabelFont.fontDescriptor.withDesign(.rounded) {
+            subActionLabelFont = UIFont.init(descriptor: subActionLabelFontDescriptor, size: subActionLabelFontSize)
+        }
+        subActionLabel.font = subActionLabelFont
+        subActionLabel.text = subAction
+        subActionLabel.numberOfLines = 0
+        return subActionLabel
+    }
+
+    func dotLabel() -> UILabel {
+        let dotLabel = UILabel.init(frame: .zero)
+        dotLabel.translatesAutoresizingMaskIntoConstraints = false
+        dotLabel.textColor = .wisteriaPurple
+        dotLabel.text = "•"
+        return dotLabel
     }
 }
