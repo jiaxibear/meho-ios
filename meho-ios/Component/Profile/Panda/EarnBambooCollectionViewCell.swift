@@ -155,7 +155,7 @@ class EarnBambooCollectionViewCell: UICollectionViewCell {
                     subActionView.trailingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
                 } else {
                     subActionView.leadingAnchor.constraint(equalTo: bambooNumberLabel.leadingAnchor).isActive = true
-                    subActionView.heightAnchor.constraint(equalToConstant: dotViewHeight)
+                    subActionView.heightAnchor.constraint(equalToConstant: dotViewHeight).isActive = true
                     if i != 0 {
                         subActionView.topAnchor.constraint(equalTo: subActionViews[i - 1].bottomAnchor, constant: subActionTopMargin).isActive = true
                     }

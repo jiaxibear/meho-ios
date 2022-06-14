@@ -32,6 +32,8 @@ class PandaViewController: UIViewController {
     private let pandaNameLabelLeadingMargin = CGFloat(12)
     private let pandaNameLabelFontSize = CGFloat(18)
 
+    private var credit: Int = 0
+
     private lazy var editNameButton: UIButton = {
         let editNameButton = UIButton.init(frame: .zero)
         editNameButton.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +62,6 @@ class PandaViewController: UIViewController {
         let bambooButton = UIButton.init(frame: .zero)
         bambooButton.translatesAutoresizingMaskIntoConstraints = false
         bambooButton.setTitleColor(.white, for: .normal)
-        bambooButton.setTitle("7 🎋", for: .normal)
         var bambooButtonFont = UIFont.systemFont(ofSize: bambooButtonTitleFontSize, weight: .medium)
         if let bambooButtonFontDescriptor = bambooButtonFont.fontDescriptor.withDesign(.rounded) {
             bambooButtonFont = UIFont.init(descriptor: bambooButtonFontDescriptor, size: bambooButtonTitleFontSize)
@@ -128,11 +129,24 @@ class PandaViewController: UIViewController {
         return plusButton
     } ()
 
-    private var numberOfBamboos = -9
-
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let userDataFetcher = UserDataFetcher.shared
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
+        userDataFetcher.getUser(userId: userID, completionHandler: { basicUser, error in
+            if let credit = basicUser?.credit {
+                DispatchQueue.main.async {
+                    let bambooButtonTitle = String.init(format: "%d 🎋", credit)
+                    self.credit = credit
+                    self.bambooButton.setTitle(bambooButtonTitle, for: .normal)
+                    self.updatePandaImageViewAndText()
+                }
+            }
+        })
 
         view.addSubview(contentView)
         contentView.addSubview(bambooButton)
@@ -182,7 +196,6 @@ class PandaViewController: UIViewController {
             pandaNameLabel.leadingAnchor.constraint(equalTo: editNameButton.trailingAnchor, constant: pandaNameLabelLeadingMargin),
         ])
 
-        updatePandaImageViewAndText()
         guard let hasSeenPandaKey = hasSeenPandaKey else {
             return
         }
@@ -224,10 +237,10 @@ class PandaViewController: UIViewController {
         var text = "Practice on Meho\nand get bamboos to feed me plz!"
         let userDefaults = UserDefaults.standard
         if userDefaults.bool(forKey: hasSeenPandaKey) {
-            if numberOfBamboos > 0 {
+            if credit > 0 {
                 pandaImageName = "Panda Playing Skating V2"
                 text = "Having Fun now!\nThanks for keeping learning and feeding me with the yummy bamboo!"
-            } else if numberOfBamboos <= 0 && numberOfBamboos >= -5 {
+            } else if credit <= 0 && credit >= -5 {
                 pandaImageName = "Panda Hungry V2"
                 text = "I am so hungry…\nPlease keep learning and getting some bamboo for me… "
             } else {

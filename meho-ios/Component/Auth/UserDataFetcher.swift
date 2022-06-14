@@ -94,6 +94,9 @@ class UserDataFetcher: NSObject {
             if let profession = remoteuser.profession {
                 basicUser.profession = profession
             }
+            if let credit = remoteuser.credit {
+                basicUser.credit = credit
+            }
             self.currentUser = basicUser
             completionHandler(basicUser, nil)
         }

@@ -16,4 +16,5 @@ struct BasicUser {
     var goals:[String] = []
     var interests:[String] = []
     var avatarImageKey: S3ResourceKey?
+    var credit = 0
 }

@@ -19,7 +19,7 @@ class EarnBambooViewController: UIViewController, UICollectionViewDelegate, UICo
     private let earnBambooCollectionViewCellIdentifier = "earnBambooCollectionViewCellIdentifier"
     private let earnBambooCollectionViewCellHorizontalMargin = CGFloat(10)
     private let earnBambooCollectionViewCellHeight = CGFloat(50)
-    private let earnBambooCollectionViewCellWithSubActionsHeight = CGFloat(110)
+    private let earnBambooCollectionViewCellWithSubActionsHeight = CGFloat(130)
     private let earnBambooCollectionViewTopMargin = CGFloat(20)
     private let viewWidth = CGFloat(330)
 
