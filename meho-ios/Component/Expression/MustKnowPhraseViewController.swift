@@ -593,12 +593,24 @@ class MustKnowPhraseViewController: UIViewController, UICollectionViewDataSource
         audioVisualizerView.isHidden = false
         if let userId = AWSMobileClient.default().userSub {
             let expressionId = scoredChapter.chapter.identifier
-            userDataFetcher.createUserItemCompleted(userId: userId, itemId: expressionId, itemType: "EXPRESSION") { (createCompletedSuccess, error) in
-                if (error == nil && createCompletedSuccess) {
-                    // do nothing
-                    print("user:" + userId + ",expression:" + expressionId + " - added completed successful")
-                } else {
-                    print("user:" + userId + ",article:" + expressionId + " - added completed failed")
+            userDataFetcher.getUserItemCompleted(userId: userId, itemId: expressionId) { itemCompleted, error in
+                if (error == nil && !itemCompleted) {
+                    self.userDataFetcher.createUserItemCompleted(userId: userId, itemId: expressionId, itemType: "EXPRESSION") { (createCompletedSuccess, error) in
+                        if (error == nil && createCompletedSuccess) {
+                            print("user:" + userId + ",expression:" + expressionId + " - added completed successful")
+                            self.userDataFetcher.increaseCurrentUserCredit(creditIncreased: 1) { user, error in
+                                if error != nil {
+                                    DispatchQueue.main.async {
+                                        let toastFormat = NSLocalizedString("EarnBambooMessage", comment: "");
+                                        let message = String.init(format: toastFormat, String(1), NSLocalizedString("EarnBambooReasonExpression", comment: ""))
+                                        self.view.makeToast(message)
+                                    }
+                                }
+                            }
+                        } else {
+                            print("user:" + userId + ",article:" + expressionId + " - added completed failed")
+                        }
+                    }
                 }
             }
         }

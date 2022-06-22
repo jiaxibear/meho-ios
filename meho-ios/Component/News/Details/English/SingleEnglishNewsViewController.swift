@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseAnalytics
+import Toast_Swift
+import AWSMobileClient
 
 enum EnglishNewsSection: Int {
     case newsChapters
@@ -260,6 +262,23 @@ class SingleEnglishNewsViewController: UIViewController, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.item == newsChapters.count - 1 {
             NotificationManager.displayNotificationSoftAsk(type: .stories, from: self)
+            guard let userID = AWSMobileClient.default().userSub else {
+                return
+            }
+            let userDataFetcher = UserDataFetcher.shared
+            userDataFetcher.getUserItemCompleted (userId: userID, itemId: self.news.identifier, completionHandler: { (isCompleted, error) in
+                if (error == nil && !isCompleted) {
+                    UserDataFetcher.shared.increaseCurrentUserCredit(creditIncreased: 3) { user, error in
+                        if error == nil {
+                            DispatchQueue.main.async {
+                                let toastFormat = NSLocalizedString("EarnBambooMessage", comment: "");
+                                let message = String.init(format: toastFormat, String(3), NSLocalizedString("EarnBambooReasonStory", comment: ""))
+                                self.view.makeToast(message)
+                            }
+                        }
+                    }
+                }
+            })
         }
     }
 

@@ -291,6 +291,15 @@ class SingleChineseNewsViewController: UIViewController, UICollectionViewDataSou
                     print("user:" + userId + ",article:" + self.news.identifier + " - added completed failed")
                 }
             }
+            self.userDataFetcher.increaseCurrentUserCredit(creditIncreased: 3) { user, error in
+                if error == nil {
+                    DispatchQueue.main.async {
+                        let toastFormat = NSLocalizedString("EarnBambooMessage", comment: "");
+                        let message = String.init(format: toastFormat, String(3), NSLocalizedString("EarnBambooReasonChineseStory", comment: ""))
+                        self.view.makeToast(message)
+                    }
+                }
+            }
         }
     }
 

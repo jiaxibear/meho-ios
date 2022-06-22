@@ -179,9 +179,9 @@ class DuoFinalScoreViewController: UIViewController, MehoAnalytics {
         if self.scoreA != nil && self.scoreB != nil {
             let averageScore = (self.scoreA! + self.scoreB!) / 2
             if averageScore >= 60 {
-                reviewLabel.text = NSLocalizedString("HighScoreText", comment: "")
+                reviewLabel.text =  NSLocalizedString("HighScoreText", comment: "")
             } else {
-                reviewLabel.text = NSLocalizedString("LowScoreText", comment: "")
+                reviewLabel.text =  NSLocalizedString("LowScoreText", comment: "")
             }
         } else {
             reviewLabel.text = NSLocalizedString("MoreToGoText", comment: "")
@@ -339,24 +339,33 @@ class DuoFinalScoreViewController: UIViewController, MehoAnalytics {
 
     // MARK: - Async Processing of dialog completion state
     func updateDialogCompletionIfNeeded() {
-        guard let userID = AWSMobileClient.default().userSub else { return }
+        guard let userID = AWSMobileClient.default().userSub else {
+            return
+        }
         let dialogID = dialog.identifier
-        userDataFetcher.fetchLatestDuoScoresOfDialogRest(dialogID: dialogID, userID: userID) { (maybeDuoScoresMap, maybeError) in
-            if maybeError == nil, let duoScoreMap = maybeDuoScoresMap, self.isDialogCompleted(duoScoreMap: duoScoreMap) {
-                self.userDataFetcher.deleteUserItemInProgress(userId: userID, itemId: self.dialog.identifier) { (removeInProgressSuccess, error) in
-                    if (error == nil && removeInProgressSuccess) {
-                        // do nothing
-                        print("user:" + userID + ", dialog:" + self.dialog.identifier + " - remove inprogress successful")
-                    } else {
-                        print("user:" + userID + ", dialog:" + self.dialog.identifier + " - remove inprogress failed")
-                    }
-                }
-                self.userDataFetcher.createUserItemCompleted(userId: userID, itemId: self.dialog.identifier, itemType: "DIALOGUE") { (createCompletedSuccess, error) in
-                    if (error == nil && createCompletedSuccess) {
-                        // do nothing
-                        print("user:" + userID + ", dialog:" + self.dialog.identifier + " - added completed successful")
-                    } else {
-                        print("user:" + userID + ", dialog:" + self.dialog.identifier + " - added completed failed")
+        userDataFetcher.getUserItemCompleted(userId: userID, itemId: dialogID) { isCompleted, error in
+            if (error == nil && !isCompleted) {
+                self.userDataFetcher.fetchLatestDuoScoresOfDialogRest(dialogID: dialogID, userID: userID) { (maybeDuoScoresMap, maybeError) in
+                    if maybeError == nil, let duoScoreMap = maybeDuoScoresMap, self.isDialogCompleted(duoScoreMap: duoScoreMap) {
+                        self.userDataFetcher.deleteUserItemInProgress(userId: userID, itemId: dialogID) { (removeInProgressSuccess, error) in
+                            if (error == nil && removeInProgressSuccess) {
+                                // do nothing
+                                print("user:" + userID + ", dialog:" + self.dialog.identifier + " - remove inprogress successful")
+                            } else {
+                                print("user:" + userID + ", dialog:" + self.dialog.identifier + " - remove inprogress failed")
+                            }
+                        }
+                        self.userDataFetcher.createUserItemCompleted(userId: userID, itemId: self.dialog.identifier, itemType: "DIALOGUE") { (createCompletedSuccess, error) in
+                            if (error == nil && createCompletedSuccess) {
+                                // do nothing
+                                print("user:" + userID + ", dialog:" + self.dialog.identifier + " - added completed successful")
+                            } else {
+                                print("user:" + userID + ", dialog:" + self.dialog.identifier + " - added completed failed")
+                            }
+                        }
+        //
+        //                let messageFormat = NSLocalizedString("EarnBambooMessage", comment: "");
+        //                let message = String.init(format: messageFormat, String(2), NSLocalizedString("EarnBambooReasonPracticing", comment: "")) + "\n"
                     }
                 }
             }

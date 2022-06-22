@@ -102,8 +102,17 @@ class UserDataFetcher: NSObject {
         }
     }
 
-    public func updateUser(id:String, username: String? = nil, email: String? = nil, avatar: S3ObjectInput? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, completionHandler: @escaping ( BasicUser?, Error?) -> Void) {
-        let updateUserInput = UpdateUserInput.init(id: id, username: username, email: email, avatar: avatar, avatarKey: avatarKey, goals: goals, interests: interests, profession: profession)
+    func increaseCurrentUserCredit(creditIncreased: Int, completionHandler: @escaping ( BasicUser?, Error?) -> Void) {
+        guard let currentUser = currentUser else {
+            return
+        }
+
+        let newCredit = currentUser.credit + creditIncreased
+        updateUser(id: currentUser.identifier, credit:newCredit, completionHandler: completionHandler)
+    }
+
+    public func updateUser(id: String, username: String? = nil, email: String? = nil, avatar: S3ObjectInput? = nil, avatarKey: String? = nil, goals: [String]? = nil, interests: [String]? = nil, profession: String? = nil, credit: Int? = nil, completionHandler: @escaping ( BasicUser?, Error?) -> Void) {
+        let updateUserInput = UpdateUserInput.init(id: id, username: username, email: email, avatar: avatar, avatarKey: avatarKey, goals: goals, interests: interests, profession: profession, credit: credit)
         let m = UpdateUserMutation(input: updateUserInput)
         appSyncClient?.perform(mutation: m, resultHandler: { (result, error) in
             print (error?.localizedDescription as Any)
@@ -136,6 +145,9 @@ class UserDataFetcher: NSObject {
 
             if let profession = remoteUser.profession {
                 updatedUser.profession = profession
+            }
+            if let credit = remoteUser.credit {
+                updatedUser.credit = credit
             }
             self.currentUser = updatedUser
             self.userSignal.fire(updatedUser)

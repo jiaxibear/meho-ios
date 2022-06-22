@@ -55,7 +55,7 @@
 "ReplayPromptActionText" = "Scored! Click to replay your recording...";
 
 /* Text displayed to prompt the user to tap the replay button in the dialog when there is no score. */
-"ReplayWithoutScorePromptActionText" = "Recorded! Click to replay your recording...";
+"ReplayWithoutScorePromptActionText" = "Click to replay your recording.";
 
 /* Text displayed when the user taps the replay button in the dialog. */
 "ReplayActionText" = "Replaying your recording...";
@@ -509,3 +509,21 @@
 
 /* Defaulr panda name. */
 "NameYourPandaText" = "Name You Panda";
+
+/* Toast message disaplayed when the user has earned a bamboo. */
+"EarnBambooMessage" = "🎉 You earned %@ 🎋 for 🐼 by %@!";
+
+/* Text displayed when the user has earned a bamboo by reading the story. */
+"EarnBambooReasonStory" = "reading the story";
+
+/* Text displayed when the user has earned a bamboo by reading in Chinese. */
+"EarnBambooReasonChineseStory" = "reading in Chinese";
+
+/* Text displayed when the user has earned a bamboo by practicing. */
+"EarnBambooReasonPracticing" = "practicing";
+
+/* Text displayed when the user has earned a bamboo by finishing solo practice. */
+"EarnBambooReasonSoloPractice" = "finishing solo practice";
+
+/* Text displayed when the user has earned a bamboo by finishing an expression. */
+"EarnBambooReasonExpression" = "finishing an expression";
