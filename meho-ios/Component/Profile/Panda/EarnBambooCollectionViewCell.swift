@@ -7,19 +7,20 @@
 //
 
 import UIKit
+import SwiftUI
 
 class EarnBambooCollectionViewCell: UICollectionViewCell {
 
     private let bambooLabelFontSize = CGFloat(32)
-    private let bambooLabelTrailingMargin = CGFloat(6)
-    private let bambooNumberLabelFontSize = CGFloat(18)
-    private let actionLabelFontSize = CGFloat(14)
-    private let actionLabelLeadingTrailingMargin = CGFloat(16)
+    private let bambooLabelTrailingMargin = CGFloat(4)
+    private let bambooNumberLabelFontSize = CGFloat(15)
+    private let actionLabelFontSize = CGFloat(13)
+    private let actionLabelLeadingTrailingMargin = CGFloat(12)
     private let contentViewCornerRadius = CGFloat(5)
     private let contentStackViewLeadingTrailingMargin = CGFloat(12)
     private let imageViewWidth = CGFloat(24)
     private let imageViewHeight = CGFloat(24)
-    private let bambooNumberLabelWidth = CGFloat(44)
+    private let bambooNumberLabelWidth = CGFloat(56)
     private let bambooLabelWidth = CGFloat(24)
     private let subActionLabelFontSize = CGFloat(12)
     private let subActionTopMargin = CGFloat(10)
@@ -133,6 +134,20 @@ class EarnBambooCollectionViewCell: UICollectionViewCell {
     func setEarnBamboo(_ earnBamboo: EarnBamboo) {
         bambooNumberLabel.text = earnBamboo.numberOfBamboo
         actionLabel.text = earnBamboo.action
+        if earnBamboo.isWakingUp {
+            bambooLabel.text = "🎍"
+            if earnBamboo.isActive {
+                actionLabel.textColor = .slateGrey
+            } else {
+                actionLabel.textColor = .lightBlueGreyTwo
+            }
+            imageView.isHidden = true
+            return
+        }
+
+        imageView.isHidden = false
+        actionLabel.textColor = .slateGrey
+        bambooLabel.text = "🎋"
         for subActionView in subActionViews {
             subActionView.removeFromSuperview()
         }
@@ -159,6 +174,7 @@ class EarnBambooCollectionViewCell: UICollectionViewCell {
                     if i != 0 {
                         subActionView.topAnchor.constraint(equalTo: subActionViews[i - 1].bottomAnchor, constant: subActionTopMargin).isActive = true
                     }
+                    subActionView.widthAnchor.constraint(equalToConstant: 12).isActive = true
                 }
             }
             subActionsWrapperView.isHidden = false

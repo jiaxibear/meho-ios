@@ -21,15 +21,16 @@ class EarnBambooViewController: UIViewController, UICollectionViewDelegate, UICo
     private let earnBambooCollectionViewCellHeight = CGFloat(50)
     private let earnBambooCollectionViewCellWithSubActionsHeight = CGFloat(130)
     private let earnBambooCollectionViewTopMargin = CGFloat(20)
-    private let viewWidth = CGFloat(330)
+    private let viewWidth = CGFloat(340)
 
     private let earnBambooStoryEnglish = EarnBamboo.init(numberOfBamboo: "X3", action: "Complete 1 Story in EN")
     private let earnBambooStoryChinese = EarnBamboo.init(numberOfBamboo: "X3", action: "Complete 1 Story in CN")
     private let earnBambooExpression = EarnBamboo.init(numberOfBamboo: "X3", action: "Practice 1 Expression")
     private let earnBambooTalk = EarnBamboo.init(numberOfBamboo: "X2-8", action: "Finish 1 Talk", subActions: ["Finish Single Mode: earn 4 - 8 bamboos based on the difficulty level",
          "Finish Duo Mode: earn 2-4 bamboos each role based on the difficulty level"])
+    private let wakeUpPanda = EarnBamboo.init(numberOfBamboo: "=30🎋", action: "Wake up your hibernating panda", subActions: [], isWakingUp: true)
     private lazy var earnBamboos: [EarnBamboo] = {
-        return [earnBambooStoryEnglish, earnBambooStoryChinese, earnBambooExpression, earnBambooTalk]
+        return [earnBambooStoryEnglish, earnBambooStoryChinese, earnBambooExpression, earnBambooTalk, wakeUpPanda]
     } ()
 
     private lazy var titleLabel: UILabel = {

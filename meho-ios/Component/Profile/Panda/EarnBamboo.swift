@@ -12,4 +12,6 @@ struct EarnBamboo {
     let numberOfBamboo: String
     let action: String
     var subActions: [String] = []
+    var isWakingUp = false
+    var isActive = false
 }
