@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSMobileClient
+import AudioToolbox
 
 class PandaViewController: UIViewController {
 
@@ -31,8 +32,80 @@ class PandaViewController: UIViewController {
     private let editNameButtonLeadingMargin = CGFloat(24)
     private let pandaNameLabelLeadingMargin = CGFloat(12)
     private let pandaNameLabelFontSize = CGFloat(18)
+    private let editNameTextFieldTopMargin = CGFloat(20)
+    private let editNameTextFieldHeight = CGFloat(40)
+    private let editNameTextFieldLeadingTrailingMargin = CGFloat(32)
+    private let editNameTextFieldFontSize = CGFloat(32)
+    private let editNameTextFieldBottomLineHeight = CGFloat(1)
+    private let saveButtonWidth = CGFloat(300)
+    private let saveButtonHeight = CGFloat(50)
+    private let saveButtonTopMargin = CGFloat(20)
+    private let saveButtonFontSize = CGFloat(20)
+    private let pandaNameKey = "pandaNameKey"
 
     private var credit: Int = 0
+    private var isEditingName = false {
+        didSet {
+            bambooButton.isHidden = isEditingName
+            editNameButton.isHidden = isEditingName
+            pandaNameLabel.isHidden = isEditingName
+            plusButton.isHidden = isEditingName
+            editNameStackView.isHidden = !isEditingName
+            titleLabel.isHidden = isEditingName
+            contentView.backgroundColor = isEditingName ? .darkGrayTwo : UIColor.skyBlue.withAlphaComponent(0.1)
+        }
+    }
+
+    private lazy var editNameTextField: UITextField = {
+        let editNameTextField = UITextField.init(frame: .zero)
+        editNameTextField.translatesAutoresizingMaskIntoConstraints = false
+        editNameTextField.textColor = .white
+        var editNameTextFieldFont = UIFont.systemFont(ofSize: editNameTextFieldFontSize, weight: .medium)
+        if let editNameTextFieldFontDescriptor = editNameTextFieldFont.fontDescriptor.withDesign(.rounded) {
+            editNameTextFieldFont = UIFont.init(descriptor: editNameTextFieldFontDescriptor, size: editNameTextFieldFontSize)
+        }
+        editNameTextField.font = editNameTextFieldFont
+        editNameTextField.textAlignment = .center
+        let userDefaults = UserDefaults.standard
+        if let pandaName = userDefaults.string(forKey: pandaNameKey) {
+            editNameTextField.text = pandaName
+        } else {
+            editNameTextField.text = NSLocalizedString("NameYourPandaText", comment: "")
+        }
+        return editNameTextField
+    } ()
+
+    private lazy var editNameTextFieldBottomLine: UIView = {
+        let editNameTextFieldBottomLine = UIView.init(frame: .zero)
+        editNameTextFieldBottomLine.translatesAutoresizingMaskIntoConstraints = false
+        editNameTextFieldBottomLine.backgroundColor = .wisteriaPurple
+        return editNameTextFieldBottomLine
+    } ()
+
+    private lazy var saveButton: UIButton = {
+        let saveButton = UIButton.init(frame: .zero)
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.backgroundColor = .wisteriaPurple
+        var saveButtonFont = UIFont.systemFont(ofSize: saveButtonFontSize, weight: .semibold)
+        if let saveButtonFontDescriptor = saveButtonFont.fontDescriptor.withDesign(.rounded) {
+            saveButtonFont = UIFont.init(descriptor: saveButtonFontDescriptor, size: saveButtonFontSize)
+        }
+        saveButton.titleLabel?.font = saveButtonFont
+        saveButton.setTitle(NSLocalizedString("SaveButtonTitle", comment: ""), for: .normal)
+        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
+        return saveButton
+    } ()
+
+    private lazy var editNameStackView: UIStackView = {
+        let editNameStackView = UIStackView.init(arrangedSubviews: [editNameTextField, editNameTextFieldBottomLine, saveButton])
+        editNameStackView.translatesAutoresizingMaskIntoConstraints = false
+        editNameStackView.setCustomSpacing(0, after: editNameTextField)
+        editNameStackView.setCustomSpacing(saveButtonTopMargin, after: editNameTextFieldBottomLine)
+        editNameStackView.axis = .vertical
+        editNameStackView.alignment = .center
+        editNameStackView.isHidden = true
+        return editNameStackView
+    } ()
 
     private lazy var editNameButton: UIButton = {
         let editNameButton = UIButton.init(frame: .zero)
@@ -43,13 +116,19 @@ class PandaViewController: UIViewController {
         editNameButton.tintColor = .white
         editNameButton.layer.cornerRadius = editNameButtonWidth / 2
         editNameButton.layer.masksToBounds = true
+        editNameButton.addTarget(self, action: #selector(didTapEditNameButton), for: .touchUpInside)
         return editNameButton
     } ()
 
     private lazy var pandaNameLabel: UILabel = {
         let pandaNameLabel = UILabel.init(frame: .zero)
         pandaNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        pandaNameLabel.text = NSLocalizedString("NameYourPandaText", comment: "")
+        let userDefaults = UserDefaults.standard
+        if let pandaName = userDefaults.string(forKey: pandaNameKey) {
+            pandaNameLabel.text = pandaName
+        } else {
+            pandaNameLabel.text = NSLocalizedString("NameYourPandaText", comment: "")
+        }
         pandaNameLabel.textColor = .darkGrayTwo
         var pandaNameLabelFont = UIFont.systemFont(ofSize: pandaNameLabelFontSize, weight: .regular)
         if let pandaNameLabelFontDescriptor = pandaNameLabelFont.fontDescriptor.withDesign(.rounded) {
@@ -155,6 +234,7 @@ class PandaViewController: UIViewController {
         contentView.addSubview(editNameButton)
         contentView.addSubview(pandaCircleView)
         contentView.addSubview(titleLabel)
+        contentView.addSubview(editNameStackView)
         pandaCircleView.addSubview(pandaImageView)
         view.backgroundColor = .white
         NSLayoutConstraint.activate([
@@ -194,6 +274,22 @@ class PandaViewController: UIViewController {
 
             pandaNameLabel.centerYAnchor.constraint(equalTo: editNameButton.centerYAnchor),
             pandaNameLabel.leadingAnchor.constraint(equalTo: editNameButton.trailingAnchor, constant: pandaNameLabelLeadingMargin),
+
+            saveButton.widthAnchor.constraint(equalToConstant: saveButtonWidth),
+            saveButton.heightAnchor.constraint(equalToConstant: saveButtonHeight),
+
+            editNameTextField.heightAnchor.constraint(equalToConstant: editNameTextFieldHeight),
+            editNameTextField.leadingAnchor.constraint(equalTo: editNameStackView.leadingAnchor),
+            editNameTextField.trailingAnchor.constraint(equalTo: editNameStackView.trailingAnchor),
+
+            editNameTextFieldBottomLine.heightAnchor.constraint(equalToConstant: editNameTextFieldBottomLineHeight),
+            editNameTextFieldBottomLine.leadingAnchor.constraint(equalTo: editNameStackView.leadingAnchor),
+            editNameTextFieldBottomLine.trailingAnchor.constraint(equalTo: editNameStackView.trailingAnchor),
+
+            editNameStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: editNameTextFieldLeadingTrailingMargin),
+            editNameStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -editNameTextFieldLeadingTrailingMargin),
+            editNameStackView.topAnchor.constraint(equalTo: pandaCircleView.bottomAnchor, constant: editNameTextFieldTopMargin),
+            editNameStackView.heightAnchor.constraint(equalToConstant: editNameTextFieldHeight + editNameTextFieldBottomLineHeight + saveButtonTopMargin + saveButtonHeight)
         ])
 
         guard let hasSeenPandaKey = hasSeenPandaKey else {
@@ -259,5 +355,20 @@ class PandaViewController: UIViewController {
         dialogViewController.modalPresentationStyle = .overFullScreen
         dialogViewController.modalTransitionStyle = .crossDissolve
         present(dialogViewController, animated: true, completion: nil)
+    }
+
+    @objc
+    func didTapEditNameButton() {
+        isEditingName = !isEditingName
+    }
+
+    @objc
+    func didTapSaveButton() {
+        editNameTextField.resignFirstResponder()
+        let userDefaults = UserDefaults.standard
+        let pandaName = editNameTextField.text
+        userDefaults.set(pandaName, forKey:pandaNameKey)
+        pandaNameLabel.text = pandaName
+        isEditingName = !isEditingName
     }
 }
