@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAnalytics
 import Amplify
 import Reachability
+import AWSMobileClient
 
 class NewsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsItemSizeLCollectionViewCellDelegate, NewsItemSizeSCollectionViewCellDelegate, NewsPlayingNow, NewsPlayingNowViewDelegate, LoadingViewDelegate {
 
@@ -139,6 +140,10 @@ class NewsViewController: UIViewController, UICollectionViewDataSource, UICollec
         Analytics.logScreenViewEvent(viewController: self)
         for index in newsList.indices {
             newsList[index].contentTrackingID = UUID().uuidString
+        }
+
+        if let userID = AWSMobileClient.default().userSub {
+            PandaOnboardingManager.hasSeenStoriesTab(userID: userID)
         }
     }
 

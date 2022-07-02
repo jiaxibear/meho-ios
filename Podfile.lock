@@ -44,6 +44,7 @@ PODS:
     - AWSAuthCore (= 2.23.5)
     - AWSCognitoIdentityProvider (= 2.23.5)
     - AWSCore (= 2.23.5)
+  - EasyTipView (2.1.0)
   - FBAEMKit (13.0.0):
     - FBSDKCoreKit_Basics (= 13.0.0)
   - FBSDKCoreKit (13.0.0):
@@ -137,6 +138,7 @@ PODS:
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
   - InitialsImageView (0.7.0)
+  - Instructions (2.2.0)
   - Kingfisher (5.15.8):
     - Kingfisher/Core (= 5.15.8)
   - Kingfisher/Core (5.15.8)
@@ -165,11 +167,13 @@ DEPENDENCIES:
   - AWSMobileClient (~> 2.23.0)
   - AWSS3 (~> 2.23.0)
   - AWSUserPoolsSignIn (~> 2.23.0)
+  - EasyTipView (~> 2.1)
   - FBSDKCoreKit (~> 13.0)
   - FBSDKLoginKit (~> 13.0)
   - FBSDKShareKit (~> 13.0)
   - Firebase/Analytics
   - InitialsImageView (~> 0.7.0)
+  - Instructions (~> 2.2.0)
   - Kingfisher (~> 5.15)
   - ReachabilitySwift
   - Signals (~> 6.0)
@@ -191,6 +195,7 @@ SPEC REPOS:
     - AWSPluginsCore
     - AWSS3
     - AWSUserPoolsSignIn
+    - EasyTipView
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
@@ -205,6 +210,7 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleUtilities
     - InitialsImageView
+    - Instructions
     - Kingfisher
     - nanopb
     - PromisesObjC
@@ -229,6 +235,7 @@ SPEC CHECKSUMS:
   AWSPluginsCore: f41f8a478fe3fd8839ec16278b86dededefb0628
   AWSS3: 2b76f7c59ee856f954a34aa5de73e8910166d3ba
   AWSUserPoolsSignIn: 79730ff143ab90d7ec0bba9c752500e1937b56b4
+  EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
   FBAEMKit: 11a0bcdc7a88e26ed764bcf56372afc6cbbbdcd9
   FBSDKCoreKit: 00e1e751257e1005304fa29cb683d2dfe008f41a
   FBSDKCoreKit_Basics: 96ec2ddb67a032e54f0754ea3d59db6f84f42389
@@ -243,6 +250,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   InitialsImageView: 7a416d36fc6df5434198664db28a3ffb0228426d
+  Instructions: 07052901a398b42eb1d83de9755b8a0bac3e2f7d
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
@@ -253,6 +261,6 @@ SPEC CHECKSUMS:
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 15b4ae4cb777506a5d1fb36401dc9fc949257c4c
+PODFILE CHECKSUM: 5b1e09f1c2d95da9c616a50dc71944e0ac0efd0a
 
 COCOAPODS: 1.11.2

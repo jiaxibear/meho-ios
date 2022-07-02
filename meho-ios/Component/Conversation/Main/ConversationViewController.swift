@@ -172,6 +172,10 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         for index in mostPopularDialogs.indices {
             mostPopularDialogs[index].contentTrackingID = UUID().uuidString
         }
+
+        if let userID = AWSMobileClient.default().userSub {
+            PandaOnboardingManager.hasSeenTalksTab(userID: userID)
+        }
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -263,7 +267,6 @@ class ConversationViewController: UIViewController, UICollectionViewDataSource, 
         } else {
             view.makeToast(NSLocalizedString("removeSuccessfullyMessage", comment: ""))
         }
-
     }
 
     // MARK: - SeeMoreFooterCollectionResuableViewDelegate

@@ -363,9 +363,10 @@ class DuoFinalScoreViewController: UIViewController, MehoAnalytics {
                                 print("user:" + userID + ", dialog:" + self.dialog.identifier + " - added completed failed")
                             }
                         }
-        //
-        //                let messageFormat = NSLocalizedString("EarnBambooMessage", comment: "");
-        //                let message = String.init(format: messageFormat, String(2), NSLocalizedString("EarnBambooReasonPracticing", comment: "")) + "\n"
+
+                        let messageFormat = NSLocalizedString("EarnBambooMessage", comment: "");
+                        let message = String.init(format: messageFormat, String(self.scoredChapters.count), NSLocalizedString("EarnBambooReasonPracticing", comment: "")) + "\n"
+                        self.presentingViewController?.view.makeToast(message)
                     }
                 }
             }

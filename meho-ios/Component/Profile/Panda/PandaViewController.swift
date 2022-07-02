@@ -10,7 +10,7 @@ import UIKit
 import AWSMobileClient
 import AudioToolbox
 
-class PandaViewController: UIViewController {
+class PandaViewController: UIViewController, EarnBambooViewControllerDelegate, NewsPlayingNow {
 
     private let bambooButtonWidth = CGFloat(90)
     private let bambooButtonHeight = CGFloat(36)
@@ -42,6 +42,7 @@ class PandaViewController: UIViewController {
     private let saveButtonTopMargin = CGFloat(20)
     private let saveButtonFontSize = CGFloat(20)
     private let pandaNameKey = "pandaNameKey"
+    private let isPandaAsleepKey = "isPandaAsleepKey"
 
     private var credit: Int = 0
     private var isEditingName = false {
@@ -323,6 +324,26 @@ class PandaViewController: UIViewController {
         ])
     }
 
+    // MARK: - EarnBambooViewControllerDelegate
+    func didAwakePanda() {
+        dismiss(animated: true) {
+            UserDataFetcher.shared.increaseCurrentUserCredit(creditIncreased: -30) { user, error in
+                guard let credit = user?.credit else {
+                    return
+                }
+
+                let userDefaults = UserDefaults.standard
+                userDefaults.removeObject(forKey: self.isPandaAsleepKey)
+                DispatchQueue.main.async {
+                    let bambooButtonTitle = String.init(format: "%d 🎋", credit)
+                    self.credit = credit
+                    self.bambooButton.setTitle(bambooButtonTitle, for: .normal)
+                    self.updatePandaImageViewAndText()
+                }
+            }
+        }
+    }
+
     // MARK: - Private
     func updatePandaImageViewAndText() {
         guard let hasSeenPandaKey = hasSeenPandaKey else {
@@ -333,15 +354,23 @@ class PandaViewController: UIViewController {
         var text = "Practice on Meho\nand get bamboos to feed me plz!"
         let userDefaults = UserDefaults.standard
         if userDefaults.bool(forKey: hasSeenPandaKey) {
-            if credit > 0 {
-                pandaImageName = "Panda Playing Skating V2"
-                text = "Having Fun now!\nThanks for keeping learning and feeding me with the yummy bamboo!"
-            } else if credit <= 0 && credit >= -5 {
-                pandaImageName = "Panda Hungry V2"
-                text = "I am so hungry…\nPlease keep learning and getting some bamboo for me… "
-            } else {
+            let userDefaults = UserDefaults.standard
+            let isPandaAsleep = userDefaults.bool(forKey: isPandaAsleepKey)
+            if isPandaAsleep {
                 pandaImageName = "Panda Sleeping"
                 text = "Nothing to eat for so long…\nPlease keep learning and getting some bamboo for me… "
+            } else {
+                if credit > 0 {
+                    pandaImageName = "Panda Playing Skating V2"
+                    text = "Having Fun now!\nThanks for keeping learning and feeding me with the yummy bamboo!"
+                } else if credit <= 0 && credit >= -5 {
+                    pandaImageName = "Panda Hungry V2"
+                    text = "I am so hungry…\nPlease keep learning and getting some bamboo for me… "
+                } else {
+                    pandaImageName = "Panda Sleeping"
+                    text = "Nothing to eat for so long…\nPlease keep learning and getting some bamboo for me… "
+                    userDefaults.set(true, forKey: isPandaAsleepKey)
+                }
             }
         }
         pandaImageView.loadGifFromLocal(name: pandaImageName)
@@ -350,7 +379,10 @@ class PandaViewController: UIViewController {
 
     @objc
     func didTapPlusButton() {
-        let earnBambooViewController = EarnBambooViewController.init(nibName: nil, bundle: nil)
+        let userDefaults = UserDefaults.standard
+        let isPandaAsleep = userDefaults.bool(forKey: isPandaAsleepKey)
+        let earnBambooViewController = EarnBambooViewController.init(isPandaAsleep: isPandaAsleep && credit >= 20)
+        earnBambooViewController.delegate = self
         let dialogViewController = DialogViewController.init(contentViewController: earnBambooViewController)
         dialogViewController.modalPresentationStyle = .overFullScreen
         dialogViewController.modalTransitionStyle = .crossDissolve

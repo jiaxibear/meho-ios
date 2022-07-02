@@ -154,6 +154,8 @@
 		EA9B5DD524A97A6C00D6CFBD /* BulletPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9B5DD424A97A6C00D6CFBD /* BulletPointView.swift */; };
 		EAA31790250DBAA5007A4017 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA3178F250DBAA5007A4017 /* ProfileSettingViewController.swift */; };
 		EAA31792250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA31791250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift */; };
+		EAB58611286923D4001DAA2E /* PandaOnboardingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB58610286923D4001DAA2E /* PandaOnboardingContentView.swift */; };
+		EAB58614287022FB001DAA2E /* PandaOnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB58613287022FB001DAA2E /* PandaOnboardingManager.swift */; };
 		EAB6B7F825CD117D00235ACB /* NewsPlayingNowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6B7F725CD117D00235ACB /* NewsPlayingNowView.swift */; };
 		EAB6B80025CFB9E000235ACB /* NewsPlayingNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6B7FF25CFB9E000235ACB /* NewsPlayingNow.swift */; };
 		EAB6D55A2701916800642515 /* NotificationBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6D5592701916800642515 /* NotificationBadgeManager.swift */; };
@@ -398,6 +400,8 @@
 		EA9B5DD424A97A6C00D6CFBD /* BulletPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletPointView.swift; sourceTree = "<group>"; };
 		EAA3178F250DBAA5007A4017 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		EAA31791250DBCA1007A4017 /* ProfileSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingCollectionViewCell.swift; sourceTree = "<group>"; };
+		EAB58610286923D4001DAA2E /* PandaOnboardingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PandaOnboardingContentView.swift; sourceTree = "<group>"; };
+		EAB58613287022FB001DAA2E /* PandaOnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PandaOnboardingManager.swift; sourceTree = "<group>"; };
 		EAB6B7F725CD117D00235ACB /* NewsPlayingNowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPlayingNowView.swift; sourceTree = "<group>"; };
 		EAB6B7FF25CFB9E000235ACB /* NewsPlayingNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPlayingNow.swift; sourceTree = "<group>"; };
 		EAB6D5592701916800642515 /* NotificationBadgeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBadgeManager.swift; sourceTree = "<group>"; };
@@ -764,6 +768,7 @@
 			children = (
 				EA52FDA223EF7D4D008EB37B /* MainViewController.swift */,
 				EAB6D5612701963900642515 /* MainViewControllerTab.swift */,
+				EAB58610286923D4001DAA2E /* PandaOnboardingContentView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -834,6 +839,7 @@
 		EA52FDB423EFAA5A008EB37B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				EAB58612287022DC001DAA2E /* PandaOnboardingManager */,
 				EAB6D55C2701933100642515 /* SharedInfoManager */,
 				EAF9D2BA269BC89700C57E64 /* NotificationManager */,
 				EA6381F0245807C100481B8B /* ContentEvaluation */,
@@ -1000,6 +1006,14 @@
 				EA7B730D23F0DBDA0031093B /* Images.xcassets */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		EAB58612287022DC001DAA2E /* PandaOnboardingManager */ = {
+			isa = PBXGroup;
+			children = (
+				EAB58613287022FB001DAA2E /* PandaOnboardingManager.swift */,
+			);
+			path = PandaOnboardingManager;
 			sourceTree = "<group>";
 		};
 		EAB6D55C2701933100642515 /* SharedInfoManager */ = {
@@ -1424,6 +1438,7 @@
 				92C5FE4B24557931004A3322 /* MainTabTitleView.swift in Sources */,
 				EAB7C4C823F10236003C8548 /* Dialog.swift in Sources */,
 				EA52FDAC23EF80E9008EB37B /* FoundationViewController.swift in Sources */,
+				EAB58611286923D4001DAA2E /* PandaOnboardingContentView.swift in Sources */,
 				EADFAA2B25AEB86000C6344A /* ImageTopAndTitleDownButton.swift in Sources */,
 				EAD7F76524BAA8B8008ADC1C /* DisplayScoreSwitch.swift in Sources */,
 				9204700124F337A200DE1A2D /* ProfileQuestion.swift in Sources */,
@@ -1480,6 +1495,7 @@
 				9204700724F337A200DE1A2D /* QuestionCollectionViewCell.swift in Sources */,
 				EA52FDAA23EF80DA008EB37B /* ConversationViewController.swift in Sources */,
 				EA52FDA823EF809D008EB37B /* ProfileViewController.swift in Sources */,
+				EAB58614287022FB001DAA2E /* PandaOnboardingManager.swift in Sources */,
 				92577B2D2446F5B70097A445 /* PinyinViewController.swift in Sources */,
 				92F9015B25623890008A919E /* ListedCategoryViewController.swift in Sources */,
 				EAFC1DDC2825F06C006BFF24 /* ProfilePandaHeaderCollectionReusableView.swift in Sources */,

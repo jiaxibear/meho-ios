@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import FirebaseAnalytics
+import AWSMobileClient
 
 class FoundationViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TriggerProfileViewDelegate, MehoAnalytics, NewsPlayingNow, NewsPlayingNowViewDelegate {
     
@@ -81,6 +82,10 @@ class FoundationViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Analytics.logScreenViewEvent(viewController: self)
+
+        if let userID = AWSMobileClient.default().userSub {
+            PandaOnboardingManager.hasSeenFoundationsTab(userID: userID)
+        }
     }
     
     func populateFeatureList() {

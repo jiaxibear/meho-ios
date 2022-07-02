@@ -24,6 +24,8 @@ target 'meho-ios' do
   pod 'Signals', '~> 6.0'
   pod 'ReachabilitySwift'
   pod 'SkyFloatingLabelTextField', '~> 3.0'
+  pod 'EasyTipView', '~> 2.1'
+  pod 'Instructions', '~> 2.2.0'
 
   pod 'FBSDKCoreKit', '~> 13.0'
   pod 'FBSDKLoginKit', '~> 13.0'

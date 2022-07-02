@@ -11,14 +11,32 @@ import AWSMobileClient
 import FirebaseAnalytics
 import AppTrackingTransparency
 import FBSDKCoreKit
+import EasyTipView
+import Instructions
 
-class MainViewController: UITabBarController, UITabBarControllerDelegate {
+class MainViewController: UITabBarController, UITabBarControllerDelegate, CoachMarksControllerDataSource, CoachMarksControllerDelegate {
 
     // MARK: - Constants
     private let backBarButtonItemImageName = "arrow.left"
+    private let pandaOnboardingContentViewLeadingTrailingMargin = CGFloat(42)
 
     // MARK: - Data Models
     private var notificationURLString: String?
+
+    private lazy var coachMarksController: CoachMarksController = {
+        let coachMarksController = CoachMarksController.init()
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
+        coachMarksController.overlay.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        coachMarksController.overlay.isUserInteractionEnabled = true
+        return coachMarksController
+    } ()
+
+    private lazy var pandaOnboardingContentView: PandaOnboardingContentView = {
+        let width = view.bounds.width - 2 * pandaOnboardingContentViewLeadingTrailingMargin
+        let pandaOnboardingContentView = PandaOnboardingContentView.init(title: "Welcome to Meho", subtitle: "I am your Meho Panda!", imageName: "Meho Panda Hi.gif", mainActionString: "🎋 X 4 Meho Onboarding", firstSubActionString: "Tour around each module: Stories, Expressions, Talks, Foundations!", secondSubActionString: "Earn 4 🎋 to feed and play with 🐼!", width: width)
+        return pandaOnboardingContentView
+    } ()
 
     // MARK: - Initializers
     @available(*, unavailable)
@@ -85,6 +103,10 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
                     Settings.shared.isAutoLogAppEventsEnabled = false
                 }
             }
+        }
+
+        if let userID = AWSMobileClient.default().userSub, !PandaOnboardingManager.hasFinishedOnboarding(userID: userID) {
+            coachMarksController.start(in: .window(over: self))
         }
 
         guard let notificationURLString = self.notificationURLString, let notificationURL = URL.init(string: notificationURLString), let host = notificationURL.host else {
@@ -166,5 +188,36 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
                 tabBarItem.badgeValue = nil
             }
         }
+    }
+
+    // MARK: - CoachMarksControllerDataSource
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return 1
+    }
+
+    func coachMarksController(_ coachMarksController: CoachMarksController,
+                              coachMarkAt index: Int) -> CoachMark {
+
+        return coachMarksController.helper.makeCoachMark(for: tabBar)
+    }
+
+    func coachMarksController(
+        _ coachMarksController: CoachMarksController,
+        coachMarkViewsAt index: Int,
+        madeFrom coachMark: CoachMark
+    ) -> (bodyView: UIView & CoachMarkBodyView, arrowView: (UIView & CoachMarkArrowView)?) {
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(
+            withArrow: true,
+            arrowOrientation: coachMark.arrowOrientation
+        )
+        let arrowView = coachViews.arrowView
+        arrowView?.background.innerColor = .wisteriaPurple
+        arrowView?.background.borderColor = .clear
+        return (bodyView: pandaOnboardingContentView, arrowView: arrowView)
+    }
+
+    // MARK: - CoachMarksControllerDelegate
+    func coachMarksController(_ coachMarksController: CoachMarksController, didTapCoachMarkAt index: Int) {
+        coachMarksController.stop()
     }
 }

@@ -149,6 +149,10 @@ class ExpressionViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Analytics.logScreenViewEvent(viewController: self)
+
+        if let userID = AWSMobileClient.default().userSub {
+            PandaOnboardingManager.hasSeenExpressionsTab(userID: userID)
+        }
     }
 
     private func setupTitleViewConstraint() {

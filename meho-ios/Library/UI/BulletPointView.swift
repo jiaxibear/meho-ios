@@ -16,16 +16,17 @@ class BulletPointView: UIView {
     private let pointLabelLeadingMargin = CGFloat(10)
 
     // MARK: - Properties
-    private lazy var pointLabel: UILabel = {
+    lazy var pointLabel: UILabel = {
         let pointLabel = UILabel.init(frame: .zero)
         pointLabel.translatesAutoresizingMaskIntoConstraints = false
         pointLabel.textColor = .textCharcoalGrey
         let pointLabelFontDescriptor = UIFont.systemFont(ofSize: pointLabelFontSize).fontDescriptor.withDesign(.rounded)
         pointLabel.font = UIFont.init(descriptor: pointLabelFontDescriptor!, size: pointLabelFontSize)
+        pointLabel.numberOfLines = 0
         return pointLabel
     } ()
 
-    private lazy var bulletView: UIView = {
+    lazy var bulletView: UIView = {
         let bulletView = UIView.init(frame: .zero)
         bulletView.translatesAutoresizingMaskIntoConstraints = false
         bulletView.layer.cornerRadius = bulletViewSideLength / 2
@@ -42,6 +43,12 @@ class BulletPointView: UIView {
     var pointText: String? {
         didSet {
             pointLabel.text = pointText
+        }
+    }
+
+    var pointColor: UIColor = .textCharcoalGrey {
+        didSet {
+            pointLabel.textColor = pointColor
         }
     }
 

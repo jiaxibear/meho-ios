@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol EarnBambooViewControllerDelegate: AnyObject {
+    func didAwakePanda()
+}
+
 class EarnBambooViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     private let titleFontSize = CGFloat(22)
@@ -28,7 +32,7 @@ class EarnBambooViewController: UIViewController, UICollectionViewDelegate, UICo
     private let earnBambooExpression = EarnBamboo.init(numberOfBamboo: "X3", action: "Practice 1 Expression")
     private let earnBambooTalk = EarnBamboo.init(numberOfBamboo: "X2-8", action: "Finish 1 Talk", subActions: ["Finish Single Mode: earn 4 - 8 bamboos based on the difficulty level",
          "Finish Duo Mode: earn 2-4 bamboos each role based on the difficulty level"])
-    private let wakeUpPanda = EarnBamboo.init(numberOfBamboo: "=30🎋", action: "Wake up your hibernating panda", subActions: [], isWakingUp: true)
+    private var wakeUpPanda = EarnBamboo.init(numberOfBamboo: "=30🎋", action: "Wake up your hibernating panda", subActions: [], isWakingUp: true)
     private lazy var earnBamboos: [EarnBamboo] = {
         return [earnBambooStoryEnglish, earnBambooStoryChinese, earnBambooExpression, earnBambooTalk, wakeUpPanda]
     } ()
@@ -75,6 +79,24 @@ class EarnBambooViewController: UIViewController, UICollectionViewDelegate, UICo
         earnBambooCollectionViewLayout.minimumLineSpacing = earnBambooCollectionViewLayoutMinimumLineSpacing
         return earnBambooCollectionViewLayout
     } ()
+
+    var delegate: EarnBambooViewControllerDelegate?
+
+    // MARK: - Init
+    @available(*, unavailable)
+        init() {
+        fatalError("Use init(isPandaAsleep: Bool)")
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("Use init(isPandaAsleep: Bool)")
+    }
+
+    init(isPandaAsleep: Bool) {
+        super.init(nibName: nil, bundle: nil)
+        wakeUpPanda.isActive = isPandaAsleep
+    }
 
     // MARK: - UIViewController
     override func viewDidLoad() {
@@ -135,5 +157,12 @@ class EarnBambooViewController: UIViewController, UICollectionViewDelegate, UICo
         let width = collectionView.bounds.width - 2 * earnBambooCollectionViewCellHorizontalMargin
         let height = earnBamboos[indexPath.item].subActions.count > 0 ? earnBambooCollectionViewCellWithSubActionsHeight : earnBambooCollectionViewCellHeight
         return CGSize.init(width: width, height: height)
+    }
+
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item == earnBamboos.endIndex - 1 {
+            delegate?.didAwakePanda()
+        }
     }
 }

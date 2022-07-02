@@ -390,9 +390,7 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
             if chaptersHavingRecordings.count >= 3 {
                 NotificationManager.displayNotificationSoftAsk(type: .talks, from: self)
             }
-            displayEarnBambooToastIfNeeded()
         }
-
     }
 
     func uploadRecordingToS3(audioFileURL: URL, recordingId: String) {
@@ -487,26 +485,5 @@ class DetailedDialogViewController: UIViewController, UICollectionViewDataSource
                 self.reloadChapters(at: index, at: previousIndex)
             }
         })
-    }
-
-    private func displayEarnBambooToastIfNeeded() {
-        guard let dialog = dialog, chaptersHavingRecordings.count == scoredChapters.count else {
-            return
-        }
-
-        var numberOfBamboos = 0
-        switch (dialog.difficulty) {
-        case .advanced:
-            numberOfBamboos = 8
-        case .beginner:
-            numberOfBamboos = 4
-        case .intermediate:
-            numberOfBamboos = 6
-        default:
-            numberOfBamboos = 0
-        }
-        let toastFormat = NSLocalizedString("EarnBambooMessage", comment: "");
-        let message = String.init(format: toastFormat, String(numberOfBamboos), NSLocalizedString("EarnBambooReasonSoloPractice", comment: ""))
-        view.makeToast(message)
     }
 }
